@@ -1,0 +1,6 @@
+#
+# https://help.github.com/articles/dealing-with-line-endings/
+#
+# These are explicitly Unix files and should use lf
+*.java           text eol=lf
+
