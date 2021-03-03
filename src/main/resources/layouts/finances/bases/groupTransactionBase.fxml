@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <HBox prefHeight="51.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="peopleButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="406.0" text="Persone" />
+            <Button fx:id="groupTransactionsButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="409.0" text="Transazioni" />
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="newPersonButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0" text="Crea persona" />
+            <Button fx:id="resolveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0" text="Risolvi crediti/debiti" />
+            <Button fx:id="newGroupTransactionButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0" text="Crea transazione" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <ScrollPane fx:id="group_movements_scroll" prefHeight="232.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

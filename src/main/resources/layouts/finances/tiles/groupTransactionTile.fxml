@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="112.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="personLabel" prefHeight="123.0" prefWidth="155.0" text="*Nome*" />
+      <Label fx:id="descriptionLabel" prefHeight="112.0" prefWidth="308.0" text="*Descrizione*" />
+      <Label fx:id="amountLabel" prefHeight="134.0" prefWidth="182.0" text="€ *13, 50*" />
+   </children>
+</HBox>
