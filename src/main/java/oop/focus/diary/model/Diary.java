@@ -1,5 +1,8 @@
 package oop.focus.diary.model;
-
+/**
+ * The interface Diary models a diary's page in witch is possible to set title and content of the note.
+ *
+ */
 public interface Diary {
     /**
      * @return  the content of a diary
@@ -7,7 +10,7 @@ public interface Diary {
     String getContent();
     /**
      * Sets the content of a diary's note.
-     * @param content
+     * @param content   the content of the diary's note
      */
     void setContent(String content);
     /**
