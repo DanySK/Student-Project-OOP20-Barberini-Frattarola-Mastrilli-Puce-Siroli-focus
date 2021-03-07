@@ -2,6 +2,7 @@ package oop.focus.diary.model;
 
 public class ToDoListImpl implements ToDoList {
     private String annotation;
+    private boolean done;
 
     public ToDoListImpl(final String annotation) {
         super();
@@ -16,5 +17,13 @@ public class ToDoListImpl implements ToDoList {
     @Override
     public final void setAnnotation(final String annotation) {
         this.annotation = annotation;
+    }
+    @Override
+    public final boolean isDone() {
+        return done;
+    }
+    @Override
+    public final void setDone(final boolean done) {
+        this.done = done;
     }
 }

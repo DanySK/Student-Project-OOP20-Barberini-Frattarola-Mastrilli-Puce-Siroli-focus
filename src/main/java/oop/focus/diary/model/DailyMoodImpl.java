@@ -3,20 +3,20 @@ package oop.focus.diary.model;
 import java.time.LocalDate;
 
 public class DailyMoodImpl implements DailyMood {
-    private int moodId;
+    private int value;
     private LocalDate date;
-    public DailyMoodImpl(final int moodId, final LocalDate date) {
+    public DailyMoodImpl(final int moodValue, final LocalDate date) {
         super();
-        this.moodId = moodId;
+        this.value = moodValue;
         this.date = date;
     }
     @Override
-    public final int getMoodId() {
-        return moodId;
+    public final int getMoodValue() {
+        return value;
     }
     @Override
-    public final void setMoodId(final int moodId) {
-        this.moodId = moodId;
+    public final void setMoodValue(final int moodValue) {
+        this.value = moodValue;
     }
     @Override
     public final LocalDate getDate() {

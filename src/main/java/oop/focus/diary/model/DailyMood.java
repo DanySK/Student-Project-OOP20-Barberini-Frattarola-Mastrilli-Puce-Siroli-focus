@@ -10,12 +10,12 @@ public interface DailyMood {
     /**
      * @return  the id relatives to the daily mood
      */
-    int getMoodId();
+    int getMoodValue();
     /**
      * Sets the id relatives to the daily mood.
-     * @param moodId    the id relatives to the daily mood
+     * @param moodValue    the value relatives to the daily mood
      */
-    void setMoodId(int moodId);
+    void setMoodValue(int moodValue);
     /**
      * @return the date of the registration of the mood 
      */
