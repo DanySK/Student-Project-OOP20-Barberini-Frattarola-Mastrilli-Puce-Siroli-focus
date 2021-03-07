@@ -1,18 +1,21 @@
 package oop.focus.diary.model;
 
-import java.util.Optional;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class TimeScrollingImpl implements TimeScrolling {
     private boolean stop;
     private int starterCounter;
-    private final boolean isDecreasingTime;
-    private final Optional<Integer> finalCounter;
-    public TimeScrollingImpl(final boolean isDecreasingTime, final Optional<Integer> finalCounter) {
+    private final Function<Integer, Integer> fun;
+    private final Predicate<Integer> pre;
+    public TimeScrollingImpl(final Function<Integer, Integer> function, final Predicate<Integer> predicate) {
         super();
-        this.isDecreasingTime = isDecreasingTime;
-        this.finalCounter = finalCounter;
+        this.pre = predicate;
+        this.stop = false;
+        this.fun = function;
     }
     @Override
     public final int getCounter() {
@@ -29,14 +32,11 @@ public class TimeScrollingImpl implements TimeScrolling {
         executor.execute(new Runnable() {
             @Override
             public void run() {
-                while (!stop && (!finalCounter.get().equals(starterCounter) || finalCounter.isEmpty())) {
+                while (!stop && pre.test(starterCounter)) {
+                    System.out.println(starterCounter);
+                    starterCounter = fun.apply(starterCounter);
                     try { 
-                        if (isDecreasingTime) {
-                            starterCounter--;
-                        } else {
-                            starterCounter++;
-                        }
-                        Thread.sleep(1000);
+                       Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -47,5 +47,10 @@ public class TimeScrollingImpl implements TimeScrolling {
     @Override
     public final void stopCounter() {
         this.stop = true;
+    }
+
+    @Override
+    public final boolean end() {
+        return this.stop || pre.test(starterCounter);
     }
 }

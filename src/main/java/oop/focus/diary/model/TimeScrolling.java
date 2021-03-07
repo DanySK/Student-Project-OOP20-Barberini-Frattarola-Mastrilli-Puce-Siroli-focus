@@ -21,4 +21,10 @@ public interface TimeScrolling {
      * @param starterCounter    the initial value to assign to the counter
      */
     void setStarterValue(int starterCounter);
+    /**
+     * Return a boolean that is true if counter is over, false otherwise.
+     * @return  if counter it's over
+     */
+    boolean end();
+
 }
