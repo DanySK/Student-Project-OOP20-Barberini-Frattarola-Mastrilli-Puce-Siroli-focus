@@ -5,4 +5,5 @@ package oop.focus.db.exceptions;
  * due to a specific exception of the Dao implementation.
  */
 public class DaoAccessException extends Exception {
+    private static final long serialVersionUID = 4778621727507034088L;
 }
