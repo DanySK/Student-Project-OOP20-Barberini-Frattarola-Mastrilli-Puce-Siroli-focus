@@ -24,15 +24,42 @@ public class FinanceTest {
                 manager.getCategories().get(0), new Date(1_614_970_953_008L),
                 manager.getAccounts().get(0), -250, Repetition.ONCE, true));
         manager.addTransaction(new TransactionImpl("Pizzeria la Marinella",
-                manager.getCategories().get(1),
-                new Date(1_414_970_953_008L), manager.getAccounts().get(1),
-                -1_200, Repetition.ONCE, true));
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -1_200, Repetition.ONCE, true));
     }
 
     @org.junit.Test
     public void testAccounts() {
         // controlli accounts
         assertEquals(2, manager.getAccounts().size());
+        // elimino un account
+        manager.removeAccount(manager.getAccounts().get(0));
+        // controllo che sia stato eliminato da account
+        assertEquals(1, manager.getAccounts().size());
+        // controllo che le transazioni relativi a quell'account siano state eliminate
+        assertEquals(1, manager.getTransactions().size());
+    }
+
+    @org.junit.Test
+    public void testCategories() {
+        // controlli categories
+        assertEquals(5, manager.getCategories().size());
+        // provo a rimuovere delle categorie di cui esistono transazioni
+        manager.removeCategory(manager.getCategories().get(0));
+        manager.removeCategory(manager.getCategories().get(1));
+        // controllo che non siano state rimosse categorie
+        assertEquals(5, manager.getCategories().size());
+        // provo a rimuovere le categorie di cui non esistono transazioni
+        manager.removeCategory(manager.getCategories().get(4));
+        manager.removeCategory(manager.getCategories().get(3));
+        // controllo che siano state rimosse due categorie
+        assertEquals(3, manager.getCategories().size());
+    }
+
+    @org.junit.Test
+    public void testTransactions() {
+        // controlli transactions
+        assertEquals(2, manager.getTransactions().size());
         // referenze ai due account
         final Account firstAccount = manager.getAccounts().get(0);
         final Account secondAccount = manager.getAccounts().get(1);
@@ -63,19 +90,6 @@ public class FinanceTest {
         // controllo importi
         assertEquals(142_250, firstAccount.getAmount());
         assertEquals(8_800, secondAccount.getAmount());
-    }
-
-
-    @org.junit.Test
-    public void testCategories() {
-        // controlli categories
-        assertEquals(5, manager.getCategories().size());
-    }
-
-    @org.junit.Test
-    public void testTransactions() {
-        // controlli transactions
-        assertEquals(2, manager.getTransactions().size());
     }
 
 }
