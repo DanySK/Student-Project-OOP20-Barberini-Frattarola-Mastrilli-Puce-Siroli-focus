@@ -2,6 +2,7 @@ package oop.focus.finance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FinanceManagerImpl implements FinanceManager {
 
@@ -15,8 +16,23 @@ public class FinanceManagerImpl implements FinanceManager {
     }
 
     @Override
+    public final void removeAccount(final Account account) {
+        transactions.removeAll(transactions.stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toList()));
+        accounts.remove(account);
+    }
+
+    @Override
     public final void addCategory(final Category category) {
         categories.add(category);
+    }
+
+    @Override
+    public final void removeCategory(final Category category) {
+        if (transactions.stream().map(t -> t.getCat()).anyMatch(c -> c.equals(category))) {
+            impossible();
+        } else {
+            categories.remove(category);
+        }
     }
 
     @Override
@@ -46,4 +62,7 @@ public class FinanceManagerImpl implements FinanceManager {
         return transactions;
     }
 
+    private void impossible() {
+        System.out.println("Impossibile eseguire l'operazione");
+    }
 }

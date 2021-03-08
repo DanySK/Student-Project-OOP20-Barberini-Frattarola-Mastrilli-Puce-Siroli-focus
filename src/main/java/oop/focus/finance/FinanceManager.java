@@ -12,11 +12,25 @@ public interface FinanceManager {
     void addAccount(Account account);
 
     /**
+     * Delete the account and all its transactions.
+     * 
+     * @param account
+     */
+    void removeAccount(Account account);
+
+    /**
      * Create a category and add it to categories.
      * 
      * @param category
      */
     void addCategory(Category category);
+
+    /**
+     * Only deletes the category if there are no transactions in that category.
+     * 
+     * @param category
+     */
+    void removeCategory(Category category);
 
     /**
      * Create a transaction, add it to transactions and edit account's amount.
@@ -26,7 +40,7 @@ public interface FinanceManager {
     void addTransaction(Transaction transaction);
 
     /**
-     * Remove transaction from transactions and edit account's amount.
+     * Delete transaction from transactions and edit account's amount.
      * 
      * @param transaction
      */
