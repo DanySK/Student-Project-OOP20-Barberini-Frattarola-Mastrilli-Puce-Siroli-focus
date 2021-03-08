@@ -1,6 +1,6 @@
 package oop.focus.diary.model;
 
-import java.time.LocalDate;
+import org.joda.time.LocalDate;
 
 public class DailyMoodImpl implements DailyMood {
     private int value;

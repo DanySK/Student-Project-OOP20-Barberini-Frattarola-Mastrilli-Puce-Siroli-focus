@@ -1,6 +1,7 @@
 package oop.focus.diary.model;
 
-import java.time.LocalDate;
+import org.joda.time.LocalDate;
+
 /**
  * The interface DailyMood can be used to register the daily mood.
  * It defines methods to set/get the date and the id representative of the mood.
