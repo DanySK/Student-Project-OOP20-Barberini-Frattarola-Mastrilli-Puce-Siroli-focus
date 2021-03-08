@@ -70,9 +70,9 @@ public class FinanceTest {
         manager.addTransaction(new TransactionImpl("Iper", manager.getCategories().get(3),
                 new Date(), firstAccount, -2_500, Repetition.ONCE, true));
         manager.addTransaction(new TransactionImpl("Conad", manager.getCategories().get(3),
-                new Date(), firstAccount, -5_000, Repetition.ONCE, true));
+                new Date(), firstAccount, 5_000, Repetition.ONCE, true));
         // controllo importi
-        assertEquals(142_250, firstAccount.getAmount());
+        assertEquals(152_250, firstAccount.getAmount());
         assertEquals(8_800, secondAccount.getAmount());
         // eseguo altre transazioni
         final Transaction a = new TransactionImpl("Coop", manager.getCategories().get(3),
@@ -82,15 +82,47 @@ public class FinanceTest {
         manager.addTransaction(a);
         manager.addTransaction(b);
         // controllo importi
-        assertEquals(132_250, firstAccount.getAmount());
+        assertEquals(142_250, firstAccount.getAmount());
         assertEquals(108_800, secondAccount.getAmount());
         // elimino le ultime due transazioni
         manager.removeTransaction(a);
         manager.removeTransaction(b);
         // controllo importi
-        assertEquals(142_250, firstAccount.getAmount());
+        assertEquals(152_250, firstAccount.getAmount());
         assertEquals(8_800, secondAccount.getAmount());
+        // controllo il numero di transazioni positive, negative e abbonamenti
+        assertEquals(1, manager.getIncomes().size());
+        assertEquals(3, manager.getOutings().size());
+        assertEquals(0, manager.getSubscriptions().size());
     }
 
+    @org.junit.Test
+    public void testSubscriptions() {
+        // creo diverse transazioni ripetute (abbonamenti)
+        manager.addTransaction(new TransactionImpl("Netflix",
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -1_699, Repetition.MONTHLY, false));
+        manager.addTransaction(new TransactionImpl("Acqua",
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -15_000, Repetition.QUARTERLY, false));
+        manager.addTransaction(new TransactionImpl("Enel",
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -12_500, Repetition.BIMONTHLY, false));
+        manager.addTransaction(new TransactionImpl("Abbonamento autobus",
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -39_900, Repetition.HALF_YEARLY, false));
+        manager.addTransaction(new TransactionImpl("Amazon",
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -2_400, Repetition.YEARLY, false));
+        manager.addTransaction(new TransactionImpl("Tariffa TIM",
+                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getAccounts().get(1), -699, Repetition.MONTHLY, false));
+        // controllo che siano state aggiunte con successo
+        assertEquals(8, manager.getTransactions().size());
+        assertEquals(6, manager.getSubscriptions().size());
+        // controllo spesa totale mensile e annuale
+        assertEquals(-20_498, manager.monthlyExpense());
+        assertEquals(-245_976, manager.yearlyExpense());
+    }
 }
 
