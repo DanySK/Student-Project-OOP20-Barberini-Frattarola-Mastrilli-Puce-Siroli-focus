@@ -61,4 +61,29 @@ public interface FinanceManager {
      */
     List<Transaction> getTransactions();
 
+    /**
+     * @return positive transactions' list
+     */
+    List<Transaction> getIncomes();
+
+    /**
+     * @return negative transactions' list
+     */
+    List<Transaction> getOutings();
+
+    /**
+     * @return subscriptions' list
+     */
+    List<Transaction> getSubscriptions();
+
+    /**
+     * @return the total monthly expenditure due to subscriptions
+     */
+    int monthlyExpense();
+
+    /**
+     * @return the total yearly expenditure due to subscriptions
+     */
+    int yearlyExpense();
+
 }

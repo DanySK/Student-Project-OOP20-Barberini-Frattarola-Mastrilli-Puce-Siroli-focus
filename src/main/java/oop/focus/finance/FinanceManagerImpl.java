@@ -2,6 +2,7 @@ package oop.focus.finance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class FinanceManagerImpl implements FinanceManager {
@@ -62,7 +63,44 @@ public class FinanceManagerImpl implements FinanceManager {
         return transactions;
     }
 
+    @Override
+    public final List<Transaction> getIncomes() {
+        return filteredTransactions(t -> t.getAmount() > 0);
+    }
+
+    @Override
+    public final List<Transaction> getOutings() {
+        return filteredTransactions(t -> t.getAmount() < 0);
+    }
+
+
+    @Override
+    public final List<Transaction> getSubscriptions() {
+        return filteredTransactions(t -> !t.isLast());
+    }
+
+    private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {
+        return transactions.stream().filter(predicate).collect(Collectors.toList());
+    }
+
+    @Override
+    public final int monthlyExpense() {
+        return transactions.stream()
+                           .filter(t -> !t.isLast())
+                           .map(t -> (int) (t.getAmount() / t.getRep().getPerMonth()))
+                           .reduce(0, (a, b) -> a + b);
+    }
+
+    @Override
+    public final int yearlyExpense() {
+        return transactions.stream()
+                           .filter(t -> !t.isLast())
+                           .map(t -> (int) (t.getAmount() * t.getRep().getPerYear()))
+                           .reduce(0, (a, b) -> a + b);
+    }
+
     private void impossible() {
         System.out.println("Impossibile eseguire l'operazione");
     }
+
 }
