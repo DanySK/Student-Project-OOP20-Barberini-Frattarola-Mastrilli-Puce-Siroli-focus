@@ -36,7 +36,6 @@ public class H2Connector implements Connector<Connection> {
             return;
         }
         if (db.listFiles() == null || Arrays.stream(Objects.requireNonNull(db.listFiles()))
-                .peek(System.out::println)
                 .noneMatch(f -> f.getName().contains(DB_NAME))) {
             try {
                 Class.forName(DRIVER);
