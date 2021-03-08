@@ -3,6 +3,7 @@ package oop.focus.diary.model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ToDoListManagerImpl implements ToDoListManager {
     private final List<ToDoList> list;
     public ToDoListManagerImpl() {
@@ -12,7 +13,9 @@ public class ToDoListManagerImpl implements ToDoListManager {
 
     @Override
     public final void addAnnotation(final ToDoList tdl) {
-        this.list.add(tdl);
+        if (!this.list.contains(tdl)) {
+            this.list.add(tdl);
+        }
     }
 
     @Override
@@ -22,7 +25,7 @@ public class ToDoListManagerImpl implements ToDoListManager {
 
     @Override
     public final void changeBoxStatus(final ToDoList tdl) {
-        list.stream().filter(l -> l.equals(tdl)).peek(s -> s.setDone(s.isDone() ? false : true));
+        list.stream().filter(l -> l.equals(tdl)).forEach(s ->  s.setDone(s.isDone() ? false : true));
     }
 
     @Override
