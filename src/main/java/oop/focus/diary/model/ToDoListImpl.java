@@ -7,6 +7,7 @@ public class ToDoListImpl implements ToDoList {
     public ToDoListImpl(final String annotation) {
         super();
         this.annotation = annotation;
+        this.done = false;
     }
 
     @Override
