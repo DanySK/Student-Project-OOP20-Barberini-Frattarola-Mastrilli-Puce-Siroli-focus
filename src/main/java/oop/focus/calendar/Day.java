@@ -1,6 +1,8 @@
 package oop.focus.calendar;
 
 import java.util.List;
+
+
 import oop.focus.homePage.model.Event;
 /**
  * The Days interface models the object day.
@@ -12,7 +14,7 @@ public interface Day {
      /**
      * Can be used to get the number of the day.
      *
-     * @return the number of the day 
+     * @return the number of the day of the month 
      *
      */
     int getNumber();
