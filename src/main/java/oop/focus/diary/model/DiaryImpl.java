@@ -10,7 +10,7 @@ public class DiaryImpl implements Diary {
     }
     @Override
     public final String getContent() {
-        return content;
+        return this.content;
     }
     @Override
     public final void setContent(final String content) {
@@ -18,7 +18,7 @@ public class DiaryImpl implements Diary {
     }
     @Override
     public final String getName() {
-        return name;
+        return this.name;
     }
     @Override
     public final void setName(final String name) {

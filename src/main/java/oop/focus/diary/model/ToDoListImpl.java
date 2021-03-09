@@ -12,7 +12,7 @@ public class ToDoListImpl implements ToDoList {
 
     @Override
     public final String getAnnotation() {
-        return annotation;
+        return this.annotation;
     }
 
     @Override
@@ -21,7 +21,7 @@ public class ToDoListImpl implements ToDoList {
     }
     @Override
     public final boolean isDone() {
-        return done;
+        return this.done;
     }
     @Override
     public final void setDone(final boolean done) {

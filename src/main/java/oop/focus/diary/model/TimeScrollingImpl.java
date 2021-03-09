@@ -29,18 +29,15 @@ public class TimeScrollingImpl implements TimeScrolling {
     public final void startCounter() {
         this.stop = false;
         final ExecutorService executor = Executors.newSingleThreadExecutor();
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                while (!stop && pre.test(starterCounter)) {
-                    System.out.println(starterCounter);
-                    starterCounter = fun.apply(starterCounter);
-                    try { 
-                       Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        executor.execute(() -> {
+            while (!end()) {
+                System.out.println(starterCounter);
+                starterCounter = fun.apply(starterCounter);
+                 try { 
+                     Thread.sleep(1000);
+                 } catch (InterruptedException e) {
+                     e.printStackTrace();
+                 }
             }
         });
     }

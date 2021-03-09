@@ -25,7 +25,7 @@ public class ToDoListManagerImpl implements ToDoListManager {
 
     @Override
     public final void changeBoxStatus(final ToDoList tdl) {
-        list.stream().filter(l -> l.equals(tdl)).forEach(s ->  s.setDone(s.isDone() ? false : true));
+        this.list.stream().filter(l -> l.equals(tdl)).forEach(s ->  s.setDone(!s.isDone()));
     }
 
     @Override
