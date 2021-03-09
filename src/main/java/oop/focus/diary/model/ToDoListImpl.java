@@ -5,7 +5,6 @@ public class ToDoListImpl implements ToDoList {
     private boolean done;
 
     public ToDoListImpl(final String annotation) {
-        super();
         this.annotation = annotation;
         this.done = false;
     }

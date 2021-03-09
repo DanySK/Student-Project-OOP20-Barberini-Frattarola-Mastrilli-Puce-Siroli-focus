@@ -4,7 +4,6 @@ public class DiaryImpl implements Diary {
     private String content;
     private String name;
     public DiaryImpl(final String content, final String name) {
-        super();
         this.content = content;
         this.name = name;
     }

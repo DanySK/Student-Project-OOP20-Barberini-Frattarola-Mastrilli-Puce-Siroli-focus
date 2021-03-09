@@ -7,7 +7,6 @@ import java.util.List;
 public class ToDoListManagerImpl implements ToDoListManager {
     private final List<ToDoList> list;
     public ToDoListManagerImpl() {
-        super();
         this.list = new ArrayList<>();
     }
 
