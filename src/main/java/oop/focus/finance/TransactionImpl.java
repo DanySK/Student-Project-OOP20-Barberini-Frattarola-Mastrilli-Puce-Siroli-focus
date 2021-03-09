@@ -2,6 +2,9 @@ package oop.focus.finance;
 
 import org.joda.time.LocalDate;
 
+/**
+ * Immutable implementation of a transaction.
+*/
 public class TransactionImpl implements Transaction {
 
     private final String description;

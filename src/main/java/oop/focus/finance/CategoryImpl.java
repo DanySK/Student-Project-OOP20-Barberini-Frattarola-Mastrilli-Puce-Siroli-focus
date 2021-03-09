@@ -1,5 +1,8 @@
 package oop.focus.finance;
 
+/**
+ * Immutable implementation of a category.
+ */
 public class CategoryImpl implements Category {
 
     private final String name;
