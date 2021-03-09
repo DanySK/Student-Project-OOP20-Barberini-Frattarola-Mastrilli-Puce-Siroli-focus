@@ -1,4 +1,4 @@
-package oop.focus.homePage.model;
+package oop.focus.homepage.model;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -42,10 +42,10 @@ public interface Event {
 
     /**
      * This method is used to know if an event repeats itself or not, and if it recurs, to know how often.
-     *  @return a member of the Ripetitions enum.
+     *  @return a member of the Repetition enumeration.
      *  @see Ripetitions enum.
      */
-    Ripetitions getRipetition();
+    Repetition getRipetition();
 
     /**
      * This method is used to add a new person who will attend the event.
