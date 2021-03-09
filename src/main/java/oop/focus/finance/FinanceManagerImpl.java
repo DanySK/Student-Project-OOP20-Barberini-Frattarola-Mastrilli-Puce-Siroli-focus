@@ -1,15 +1,13 @@
 package oop.focus.finance;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class FinanceManagerImpl implements FinanceManager {
 
-    private final List<Account> accounts = new ArrayList<>();
-    private final List<Category> categories = new ArrayList<>();
-    private final List<Transaction> transactions = new ArrayList<>();
+    private final AccountManager accounts = new AccountManagerImpl();
+    private final CategoryManager categories = new CategoryManagerImpl();
+    private final TransactionManager transactions = new TransactionManagerImpl();
 
     @Override
     public final void addAccount(final Account account) {
@@ -18,7 +16,10 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void removeAccount(final Account account) {
-        this.transactions.removeAll(this.transactions.stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toList()));
+        this.transactions.removeAll(this.transactions.getTransactions().stream()
+                                                                       .filter(t -> t.getAccount()
+                                                                       .equals(account))
+                                                                       .collect(Collectors.toList()));
         this.accounts.remove(account);
     }
 
@@ -29,7 +30,7 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void removeCategory(final Category category) {
-        if (this.transactions.stream().map(Transaction::getCat).anyMatch(c -> c.equals(category))) {
+        if (this.transactions.getTransactions().stream().map(Transaction::getCat).anyMatch(c -> c.equals(category))) {
             throw new IllegalStateException();
         } else {
             this.categories.remove(category);
@@ -50,52 +51,21 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final List<Account> getAccounts() {
-        return this.accounts;
+        return this.accounts.getAccounts();
     }
 
     @Override
     public final List<Category> getCategories() {
-        return this.categories;
+        return this.categories.getCategories();
     }
 
     @Override
     public final List<Transaction> getTransactions() {
+        return this.transactions.getTransactions();
+    }
+
+    @Override
+    public final TransactionManager getTransactionManager() {
         return this.transactions;
     }
-
-    @Override
-    public final List<Transaction> getIncomes() {
-        return this.filteredTransactions(t -> t.getAmount() > 0);
-    }
-
-    @Override
-    public final List<Transaction> getOutings() {
-        return this.filteredTransactions(t -> t.getAmount() < 0);
-    }
-
-    @Override
-    public final List<Transaction> getSubscriptions() {
-        return this.filteredTransactions(t -> !t.isLast());
-    }
-
-    @Override
-    public final int monthlyExpense() {
-        return this.transactions.stream()
-                                .filter(t -> !t.isLast())
-                                .map(t -> (int) (t.getAmount() / t.getRep().getPerMonth()))
-                                .reduce(0, Integer::sum);
-    }
-
-    @Override
-    public final int yearlyExpense() {
-        return this.transactions.stream()
-                                .filter(t -> !t.isLast())
-                                .map(t -> (int) (t.getAmount() * t.getRep().getPerYear()))
-                                .reduce(0, Integer::sum);
-    }
-
-    private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {
-        return this.transactions.stream().filter(predicate).collect(Collectors.toList());
-    }
-
 }

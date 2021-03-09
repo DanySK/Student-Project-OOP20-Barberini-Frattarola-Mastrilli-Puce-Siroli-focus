@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * Interface that models a finance manager,
- * using three lists for transactions, accounts and categories.
+ * coordinating the three managers of transactions, accounts and categories.
  */
 public interface FinanceManager {
 
@@ -66,28 +66,7 @@ public interface FinanceManager {
     List<Transaction> getTransactions();
 
     /**
-     * @return positive transactions' list
+     * @return transaction manager
      */
-    List<Transaction> getIncomes();
-
-    /**
-     * @return negative transactions' list
-     */
-    List<Transaction> getOutings();
-
-    /**
-     * @return subscriptions' list
-     */
-    List<Transaction> getSubscriptions();
-
-    /**
-     * @return the total monthly expenditure due to subscriptions
-     */
-    int monthlyExpense();
-
-    /**
-     * @return the total yearly expenditure due to subscriptions
-     */
-    int yearlyExpense();
-
+    TransactionManager getTransactionManager();
 }
