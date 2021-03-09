@@ -90,9 +90,9 @@ public class FinanceTest {
         assertEquals(152_250, firstAccount.getAmount());
         assertEquals(8_800, secondAccount.getAmount());
         // controllo il numero di transazioni positive, negative e abbonamenti
-        assertEquals(1, manager.getIncomes().size());
-        assertEquals(3, manager.getOutings().size());
-        assertEquals(0, manager.getSubscriptions().size());
+        assertEquals(1, manager.getTransactionManager().getIncomes().size());
+        assertEquals(3, manager.getTransactionManager().getOutings().size());
+        assertEquals(0, manager.getTransactionManager().getSubscriptions().size());
     }
 
     @org.junit.Test
@@ -118,10 +118,10 @@ public class FinanceTest {
                 manager.getAccounts().get(1), -699, Repetition.MONTHLY, false));
         // controllo che siano state aggiunte con successo
         assertEquals(8, manager.getTransactions().size());
-        assertEquals(6, manager.getSubscriptions().size());
+        assertEquals(6, manager.getTransactionManager().getSubscriptions().size());
         // controllo spesa totale mensile e annuale
-        assertEquals(-20_498, manager.monthlyExpense());
-        assertEquals(-245_976, manager.yearlyExpense());
+        assertEquals(-20_498, manager.getTransactionManager().monthlyExpense());
+        assertEquals(-245_976, manager.getTransactionManager().yearlyExpense());
     }
 }
 
