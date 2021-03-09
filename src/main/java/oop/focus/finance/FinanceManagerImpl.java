@@ -13,54 +13,54 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void addAccount(final Account account) {
-        accounts.add(account);
+        this.accounts.add(account);
     }
 
     @Override
     public final void removeAccount(final Account account) {
-        transactions.removeAll(transactions.stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toList()));
-        accounts.remove(account);
+        this.transactions.removeAll(this.transactions.stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toList()));
+        this.accounts.remove(account);
     }
 
     @Override
     public final void addCategory(final Category category) {
-        categories.add(category);
+        this.categories.add(category);
     }
 
     @Override
     public final void removeCategory(final Category category) {
-        if (transactions.stream().map(t -> t.getCat()).anyMatch(c -> c.equals(category))) {
-            impossible();
+        if (transactions.stream().map(Transaction::getCat).anyMatch(c -> c.equals(category))) {
+            throw new IllegalStateException();
         } else {
-            categories.remove(category);
+            this.categories.remove(category);
         }
     }
 
     @Override
     public final void addTransaction(final Transaction transaction) {
-        transactions.add(transaction);
+        this.transactions.add(transaction);
         transaction.getAccount().execute(transaction.getAmount());
     }
 
     @Override
     public final void removeTransaction(final Transaction transaction) {
-        transactions.remove(transaction);
+        this.transactions.remove(transaction);
         transaction.getAccount().execute(-transaction.getAmount());
     }
 
     @Override
     public final List<Account> getAccounts() {
-        return accounts;
+        return this.accounts;
     }
 
     @Override
     public final List<Category> getCategories() {
-        return categories;
+        return this.categories;
     }
 
     @Override
     public final List<Transaction> getTransactions() {
-        return transactions;
+        return this.transactions;
     }
 
     @Override
@@ -73,34 +73,28 @@ public class FinanceManagerImpl implements FinanceManager {
         return filteredTransactions(t -> t.getAmount() < 0);
     }
 
-
     @Override
     public final List<Transaction> getSubscriptions() {
         return filteredTransactions(t -> !t.isLast());
     }
 
     private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {
-        return transactions.stream().filter(predicate).collect(Collectors.toList());
+        return this.transactions.stream().filter(predicate).collect(Collectors.toList());
     }
 
     @Override
     public final int monthlyExpense() {
-        return transactions.stream()
-                           .filter(t -> !t.isLast())
-                           .map(t -> (int) (t.getAmount() / t.getRep().getPerMonth()))
-                           .reduce(0, (a, b) -> a + b);
+        return this.transactions.stream()
+                                .filter(t -> !t.isLast())
+                                .map(t -> (int) (t.getAmount() / t.getRep().getPerMonth()))
+                                .reduce(0, Integer::sum);
     }
 
     @Override
     public final int yearlyExpense() {
-        return transactions.stream()
-                           .filter(t -> !t.isLast())
-                           .map(t -> (int) (t.getAmount() * t.getRep().getPerYear()))
-                           .reduce(0, (a, b) -> a + b);
+        return this.transactions.stream()
+                                .filter(t -> !t.isLast())
+                                .map(t -> (int) (t.getAmount() * t.getRep().getPerYear()))
+                                .reduce(0, (a, b) -> a + b);
     }
-
-    private void impossible() {
-        System.out.println("Impossibile eseguire l'operazione");
-    }
-
 }

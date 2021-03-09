@@ -1,19 +1,19 @@
 package oop.focus.finance;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
 
 public class TransactionImpl implements Transaction {
 
     private final String description;
     private final Category category;
-    private final Date date;
+    private final LocalDate date;
     private final Account account;
     private final int amount;
     private final Repetition repetition;
     private final Boolean last;
 
     public TransactionImpl(final String description, final Category category,
-            final Date date, final Account account, final int amount,
+            final LocalDate date, final Account account, final int amount,
             final Repetition repetition, final Boolean last) {
         this.description = description;
         this.category = category;
