@@ -29,7 +29,7 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void removeCategory(final Category category) {
-        if (transactions.stream().map(Transaction::getCat).anyMatch(c -> c.equals(category))) {
+        if (this.transactions.stream().map(Transaction::getCat).anyMatch(c -> c.equals(category))) {
             throw new IllegalStateException();
         } else {
             this.categories.remove(category);
@@ -65,21 +65,17 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final List<Transaction> getIncomes() {
-        return filteredTransactions(t -> t.getAmount() > 0);
+        return this.filteredTransactions(t -> t.getAmount() > 0);
     }
 
     @Override
     public final List<Transaction> getOutings() {
-        return filteredTransactions(t -> t.getAmount() < 0);
+        return this.filteredTransactions(t -> t.getAmount() < 0);
     }
 
     @Override
     public final List<Transaction> getSubscriptions() {
-        return filteredTransactions(t -> !t.isLast());
-    }
-
-    private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {
-        return this.transactions.stream().filter(predicate).collect(Collectors.toList());
+        return this.filteredTransactions(t -> !t.isLast());
     }
 
     @Override
@@ -95,6 +91,11 @@ public class FinanceManagerImpl implements FinanceManager {
         return this.transactions.stream()
                                 .filter(t -> !t.isLast())
                                 .map(t -> (int) (t.getAmount() * t.getRep().getPerYear()))
-                                .reduce(0, (a, b) -> a + b);
+                                .reduce(0, Integer::sum);
     }
+
+    private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {
+        return this.transactions.stream().filter(predicate).collect(Collectors.toList());
+    }
+
 }

@@ -1,6 +1,6 @@
 package oop.focus.finance;
 
-import java.util.Date;
+import org.joda.time.LocalDate;
 
 /**
  * Interface that models a transaction.
@@ -13,7 +13,7 @@ public interface Transaction {
     /**
      * @return transaction's description
      */
-    String getDescr();
+    String getDesc();
 
     /**
      * @return transaction's category
@@ -38,7 +38,7 @@ public interface Transaction {
     /**
      * @return transaction's date
      */
-    Date getDate();
+    LocalDate getDate();
 
     /**
      * @return transaction's amount

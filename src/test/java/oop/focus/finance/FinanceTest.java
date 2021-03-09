@@ -1,8 +1,7 @@
 package oop.focus.finance;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Date;
+import org.joda.time.LocalDate;
 
 public class FinanceTest {
 
@@ -21,10 +20,10 @@ public class FinanceTest {
         manager.addCategory(new CategoryImpl("Affitto", "FF00FF"));
         // creo qualche transazione e la aggiungo a transactions
         manager.addTransaction(new TransactionImpl("Gelato",
-                manager.getCategories().get(0), new Date(1_614_970_953_008L),
+                manager.getCategories().get(0), new LocalDate(2020-12-96),
                 manager.getAccounts().get(0), -250, Repetition.ONCE, true));
         manager.addTransaction(new TransactionImpl("Pizzeria la Marinella",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -1_200, Repetition.ONCE, true));
     }
 
@@ -40,7 +39,7 @@ public class FinanceTest {
         assertEquals(1, manager.getTransactions().size());
     }
 
-    @org.junit.Test
+    @org.junit.Test(expected = IllegalStateException.class)
     public void testCategories() {
         // controlli categories
         assertEquals(5, manager.getCategories().size());
@@ -68,17 +67,17 @@ public class FinanceTest {
         assertEquals(8_800, secondAccount.getAmount());
         // eseguo altre transazioni
         manager.addTransaction(new TransactionImpl("Iper", manager.getCategories().get(3),
-                new Date(), firstAccount, -2_500, Repetition.ONCE, true));
+                new LocalDate(2020-12-96), firstAccount, -2_500, Repetition.ONCE, true));
         manager.addTransaction(new TransactionImpl("Conad", manager.getCategories().get(3),
-                new Date(), firstAccount, 5_000, Repetition.ONCE, true));
+                new LocalDate(2020-12-96), firstAccount, 5_000, Repetition.ONCE, true));
         // controllo importi
         assertEquals(152_250, firstAccount.getAmount());
         assertEquals(8_800, secondAccount.getAmount());
         // eseguo altre transazioni
         final Transaction a = new TransactionImpl("Coop", manager.getCategories().get(3),
-                new Date(), firstAccount, -10_000, Repetition.ONCE, true);
+                new LocalDate(2020-12-96), firstAccount, -10_000, Repetition.ONCE, true);
         final Transaction b = new TransactionImpl("Stipendio", manager.getCategories().get(2),
-                new Date(), secondAccount, 100_000, Repetition.ONCE, true);
+                new LocalDate(2020-12-96), secondAccount, 100_000, Repetition.ONCE, true);
         manager.addTransaction(a);
         manager.addTransaction(b);
         // controllo importi
@@ -100,22 +99,22 @@ public class FinanceTest {
     public void testSubscriptions() {
         // creo diverse transazioni ripetute (abbonamenti)
         manager.addTransaction(new TransactionImpl("Netflix",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -1_699, Repetition.MONTHLY, false));
         manager.addTransaction(new TransactionImpl("Acqua",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -15_000, Repetition.QUARTERLY, false));
         manager.addTransaction(new TransactionImpl("Enel",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -12_500, Repetition.BIMONTHLY, false));
         manager.addTransaction(new TransactionImpl("Abbonamento autobus",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -39_900, Repetition.HALF_YEARLY, false));
         manager.addTransaction(new TransactionImpl("Amazon",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -2_400, Repetition.YEARLY, false));
         manager.addTransaction(new TransactionImpl("Tariffa TIM",
-                manager.getCategories().get(1), new Date(1_414_970_953_008L),
+                manager.getCategories().get(1), new LocalDate(2020-12-96),
                 manager.getAccounts().get(1), -699, Repetition.MONTHLY, false));
         // controllo che siano state aggiunte con successo
         assertEquals(8, manager.getTransactions().size());

@@ -2,6 +2,10 @@ package oop.focus.finance;
 
 import java.util.List;
 
+/**
+ * Interface that models a finance manager,
+ * using three lists for transactions, accounts and categories.
+ */
 public interface FinanceManager {
 
     /**

@@ -10,14 +10,14 @@ public class TransactionImpl implements Transaction {
     private final Account account;
     private final int amount;
     private final Repetition repetition;
-    private final Boolean last;
+    private final boolean last;
 
     public TransactionImpl(final String description, final Category category,
-            final LocalDate date, final Account account, final int amount,
-            final Repetition repetition, final Boolean last) {
+            final LocalDate localDate, final Account account, final int amount,
+            final Repetition repetition, final boolean last) {
         this.description = description;
         this.category = category;
-        this.date = date;
+        this.date = localDate;
         this.account = account;
         this.amount = amount;
         this.repetition = repetition;
@@ -25,7 +25,7 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
-    public final String getDescr() {
+    public final String getDesc() {
         return this.description;
     }
 
@@ -50,7 +50,7 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
-    public final Date getDate() {
+    public final LocalDate getDate() {
         return this.date;
     }
 
