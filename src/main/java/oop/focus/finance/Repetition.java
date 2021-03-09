@@ -31,12 +31,12 @@ public enum Repetition {
      */
     YEARLY(4, 12, 1);
 
-    private final int ID;
+    private final int id;
     private final double perMonth;
     private final double perYear;
 
-    Repetition(final int ID, final double perMonth, final double perYear) {
-        this.ID = ID;
+    Repetition(final int id, final double perMonth, final double perYear) {
+        this.id = id;
         this.perMonth = perMonth;
         this.perYear = perYear;
     }
@@ -45,7 +45,7 @@ public enum Repetition {
      * @return the ID of the repetion
      */
     public int getID() {
-        return ID;
+        return id;
     }
 
     /**
@@ -61,5 +61,4 @@ public enum Repetition {
     public double getPerYear() {
         return this.perYear;
     }
-   
 }
