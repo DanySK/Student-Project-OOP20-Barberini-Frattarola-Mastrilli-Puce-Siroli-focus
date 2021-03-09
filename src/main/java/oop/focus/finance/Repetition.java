@@ -42,10 +42,10 @@ public enum Repetition {
     }
 
     /**
-     * @return the ID of the repetion
+     * @return the ID of the repetition
      */
     public int getID() {
-        return id;
+        return this.id;
     }
 
     /**

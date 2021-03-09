@@ -11,21 +11,21 @@ public interface TransactionManager {
     /**
      * Adds a transaction and saves it in the database.
      * 
-     * @param transaction
+     * @param transaction that is saved
      */
     void add(Transaction transaction);
 
     /**
      * Removes a transaction and deletes it from the database.
      * 
-     * @param transaction
+     * @param transaction being deleted
      */
     void remove(Transaction transaction);
 
     /**
      * Removes all transactions from a list and deletes them from the database.
      * 
-     * @param transactions
+     * @param transactions being deleted
      */
     void removeAll(List<Transaction> transactions);
 

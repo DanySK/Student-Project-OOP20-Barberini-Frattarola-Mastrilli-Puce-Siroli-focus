@@ -11,14 +11,14 @@ public interface CategoryManager {
     /**
      * Adds a category and saves it in the database.
      * 
-     * @param category
+     * @param category that is saved
      */
     void add(Category category);
 
     /**
      * Removes a category and deletes it from the database.
      * 
-     * @param category
+     * @param category being deleted
      */
     void remove(Category category);
 

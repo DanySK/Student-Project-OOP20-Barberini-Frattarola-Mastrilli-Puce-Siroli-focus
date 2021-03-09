@@ -11,14 +11,14 @@ public interface AccountManager {
     /**
      * Adds an account and saves it in the database.
      * 
-     * @param account
+     * @param account that is saved
      */
     void add(Account account);
 
     /**
      * Removes an account and deletes it from the database.
      * 
-     * @param account
+     * @param account being deleted
      */
     void remove(Account account);
 

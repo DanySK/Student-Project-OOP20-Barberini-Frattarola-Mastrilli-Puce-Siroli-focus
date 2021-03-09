@@ -27,7 +27,7 @@ public interface Account {
     /**
      * Changes the account amount based on the amount passed as a parameter.
      * 
-     * @param amount
+     * @param amount that must be applied to the account
      */
     void execute(int amount);
 
