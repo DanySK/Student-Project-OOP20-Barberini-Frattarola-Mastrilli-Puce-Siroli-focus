@@ -11,11 +11,8 @@ public interface ManagerHotKey {
      * This method is used to perform the "action" method on a specific hot key.
      * Obviously a hot key has a category and the action varies according to that.
      * @param hotKey is the hot key on which to perform the action.
-     * @param counterHotKeys is the class that tracks counter type hot keys.
-     * @param activityHotKeys is the class that tracks activity type hot keys.
-     * @param eventHotKeys is the class that tracks event type hot keys.
      */
-    void action(HotKey hotKey, ManagerCounter counterHotKeys, ManagerActivity activityHotKeys, ManagerEventHotKey eventHotKeys);
+    void action(HotKey hotKey);
 
     /**
      * This method is use to add a set of hot keys.
@@ -37,21 +34,9 @@ public interface ManagerHotKey {
     HotKeyType getCategory(HotKey hotKey);
 
     /**
-     * This method is use to move an hot key to the right category.
-     * @param hotKey is the hot key that must be placed in a specific category.
-     * @param counterHotKeys is the class that tracks counter type hot keys.
-     * @param activityHotKeys is the class that tracks activity type hot keys.
-     * @param eventHotKeys is the class that tracks event type hot keys.
-     */
-    void moveToCategory(HotKey hotKey, ManagerCounter counterHotKeys, ManagerActivity activityHotKeys, ManagerEventHotKey eventHotKeys);
-
-    /**
      * This method is use to remove an hot key from the right category.
      * @param hotKey is the hot key that must be placed in a specific category.
-     * @param counterHotKeys is the class that tracks counter type hot keys.
-     * @param activityHotKeys is the class that tracks activity type hot keys.
-     * @param eventHotKeys is the class that tracks event type hot keys.
      */
-    void removeFromCategory(HotKey hotKey, ManagerCounter counterHotKeys, ManagerActivity activityHotKeys, ManagerEventHotKey eventHotKeys);
+    void remove(HotKey hotKey);
 
 }

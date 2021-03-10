@@ -4,7 +4,7 @@ package oop.focus.homepage.model;
  * This class implements the HotKey interface that model a hotkey. 
  * An HotKey object is rappresented by a String ,that is the hotKey name, and a category that is rappresented by a member of the HotKeyType enum.
  */
-public class HotKeyImpl implements HotKey {
+public abstract class HotKeyImpl implements HotKey {
 
     private final String name;
     private final HotKeyType hotKeyType;
@@ -34,6 +34,12 @@ public class HotKeyImpl implements HotKey {
     public final HotKeyType getType() {
         return this.hotKeyType;
     }
+
+    /**
+     * This method is used to save the event generated when a hotkey is clicked.
+     * This method is implemented differently based on the category of the hotkey.
+     */
+    public abstract void createEvent();
 }
 
 

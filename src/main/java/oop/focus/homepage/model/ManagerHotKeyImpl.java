@@ -23,19 +23,9 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
      * This method is used to perform the "action" method on a specific hot key.
      * Obviously a hot key has a category and the action varies according to that.
      * @param hotKey is the hot key on which to perform the action.
-     * @param counterHotKeys is the class that tracks counter type hot keys.
-     * @param activityHotKeys is the class that tracks activity type hot keys.
-     * @param eventHotKeys is the class that tracks event type hot keys.
      */
-    public final void action(final HotKey hotKey, final ManagerCounter counterHotKeys, final ManagerActivity activityHotKeys, final ManagerEventHotKey eventHotKeys) {
-        final HotKeyType temporaryType = this.getCategory(hotKey);
-        if (temporaryType.equals(HotKeyType.ACTIVITY)) {
-            activityHotKeys.action(hotKey);
-        } else if (temporaryType.equals(HotKeyType.COUNTER)) {
-            counterHotKeys.action(hotKey);
-        } else {
-            eventHotKeys.action(hotKey);
-        }
+    public final void action(final HotKey hotKey) {
+        hotKey.createEvent();
     }
 
     /**
@@ -64,40 +54,11 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to move an hot key to the right category.
-     * @param hotKey is the hot key that must be placed in a specific category.
-     * @param counterHotKeys is the class that tracks counter type hot keys.
-     * @param activityHotKeys is the class that tracks activity type hot keys.
-     * @param eventHotKeys is the class that tracks event type hot keys.
-     */
-    public final void moveToCategory(final HotKey hotKey, final ManagerCounter counterHotKeys, final ManagerActivity activityHotKeys,
-            final ManagerEventHotKey eventHotKeys) {
-        if (hotKey.getType().equals(HotKeyType.EVENT)) {
-            eventHotKeys.addHotKey(hotKey);
-        } else if (hotKey.getType().equals(HotKeyType.COUNTER)) {
-            counterHotKeys.addHotKey(hotKey);
-        } else {
-            activityHotKeys.addHotKey(hotKey);
-        }
-    }
-
-    /**
      * This method is use to remove an hot key from the right category.
      * @param hotKey is the hot key that must be placed in a specific category.
-     * @param counterHotKeys is the class that tracks counter type hot keys.
-     * @param activityHotKeys is the class that tracks activity type hot keys.
-     * @param eventHotKeys is the class that tracks event type hot keys.
      */
-    public final void removeFromCategory(final HotKey hotKey, final ManagerCounter counterHotKeys, final ManagerActivity activityHotKeys,
-            final ManagerEventHotKey eventHotKeys) {
-        final HotKeyType temporaryType = this.getCategory(hotKey);
-        if (temporaryType.equals(HotKeyType.ACTIVITY)) {
-            activityHotKeys.removeHotKey(hotKey);
-        } else if (temporaryType.equals(HotKeyType.COUNTER)) {
-            counterHotKeys.removeHotKey(hotKey);
-        } else {
-            eventHotKeys.removeHotKey(hotKey);
-        }
+    public final void remove(final HotKey hotKey) {
+        this.hotKeyTracker.remove(hotKey);
     }
 
 }

@@ -13,7 +13,7 @@ public class EventImpl implements Event {
 
     private final String name;
     private final HotKeyType category;
-    private final LocalDateTime startDate; //allora cabia con datetime
+    private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final Repetition repetition;
     private final List<Person> persons;
@@ -35,6 +35,52 @@ public class EventImpl implements Event {
     }
 
     /**
+     * This is the hasCode related to the equals method.
+     * @return an int.
+     */
+    public final int hashCode() {
+    	final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+		return result;
+	}
+
+    /**
+     * This method is use to verify if an event is equals as another.
+     * Two events are the same if their name and start date are the same.
+     * @param obj is the event whose equality needs to be checked.
+     * @return a boolean which will be true if the two events are equal and false if the two events are different.
+     */
+	public final boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final EventImpl other = (EventImpl) obj;
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		if (startDate == null) {
+			if (other.startDate != null) {
+				return false;
+			}
+		} else if (!startDate.equals(other.startDate)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
      * This method is use for get the event name.
      * @return a string that rappresent the event name.
      */

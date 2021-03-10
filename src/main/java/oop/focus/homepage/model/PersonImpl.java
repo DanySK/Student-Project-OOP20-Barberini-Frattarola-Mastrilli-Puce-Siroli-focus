@@ -1,5 +1,4 @@
 package oop.focus.homepage.model;
-//import java.util.*;
 
 /**
  * 
@@ -9,18 +8,15 @@ package oop.focus.homepage.model;
 public class PersonImpl implements Person {
 
     private final String name;
-    private final String surname;
     private final String degreeOfKinship;
 
     /**
      * This is the class constructor.
      * @param name is the name of the person to be created.
-     * @param surname is the surname of the person to be created.
      * @param degree it is the degree of kinship of the person to be created.
      */
-    public PersonImpl(final String name, final String surname, final String degree) {
+    public PersonImpl(final String name, final String degree) {
         this.name = name;
-        this.surname = surname;
         this.degreeOfKinship = degree;
     }
 
@@ -30,14 +26,6 @@ public class PersonImpl implements Person {
      */
     public final String getName() {
         return this.name;
-    }
-
-    /**
-     * This method is use for get the surname of the person.
-     * @return a String that rappresent the person surname.
-     */
-    public final String getSurname() {
-        return this.surname;
     }
 
     /**

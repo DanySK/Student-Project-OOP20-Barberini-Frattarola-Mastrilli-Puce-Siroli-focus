@@ -1,6 +1,7 @@
 package oop.focus.homepage.model;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,8 +44,8 @@ public class ManagerEventImpl implements ManagerEvent {
      * @param date is the date on which to search for events.
      * @return a list of events with the date parameter as start date.
      */
-    public final Set<Event> findByDate(final LocalDate date) {
-        return this.events.stream().filter(e -> e.getStartDate().equals(date)).collect(Collectors.toSet());
+    public final List<Event> findByDate(final LocalDate date) {
+        return this.events.stream().filter(e -> e.getStartDate().equals(date)).collect(Collectors.toList());
     }
 
     /**
@@ -62,6 +63,11 @@ public class ManagerEventImpl implements ManagerEvent {
      */
     public final Set<Event> getEvents() {
         return this.events;
+    }
+
+    public final List<Event> orderList(final List<Event> eventsList) {
+        eventsList.sort((e1, e2) -> e1.getStartHour().getHourOfDay() - e2.getStartHour().getHourOfDay());
+        return eventsList;
     }
 
     /**

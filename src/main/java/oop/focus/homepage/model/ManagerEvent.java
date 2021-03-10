@@ -1,5 +1,6 @@
 package oop.focus.homepage.model;
 
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -24,7 +25,7 @@ public interface ManagerEvent {
      * @param date is the date on which to search for events.
      * @return a list of events with the date parameter as start date.
      */
-    Set<Event> findByDate(LocalDate date);
+    List<Event> findByDate(LocalDate date);
 
     /**
      * This method is use to find the events that have a specific start hour.
@@ -38,6 +39,13 @@ public interface ManagerEvent {
      * @return the list with all the scheduled events.
      */
     Set<Event> getEvents();
+
+    /**
+     * This method is used to sort a set of events by time.
+     * @param eventsSet is the set of events to order by time.
+     * @return a set consisting of events sorted by time.
+     */
+    List<Event> orderList(List<Event> eventsSet);
 
     /**
      * This method is use to remove a specific event from the events list.
