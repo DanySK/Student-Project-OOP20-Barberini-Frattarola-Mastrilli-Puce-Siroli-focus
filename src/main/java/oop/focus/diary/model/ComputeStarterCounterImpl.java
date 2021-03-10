@@ -1,6 +1,7 @@
 package oop.focus.diary.model;
 
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -13,21 +14,19 @@ import oop.focus.homepage.model.ManagerEvent;
 public class ComputeStarterCounterImpl implements ComputeStarterCounter {
     private static final int SEC_IN_A_DAY = 86_400;
     private final ManagerEvent me;
-    private final String labelName;
-    public ComputeStarterCounterImpl(final String labelName, final ManagerEvent me) {
-        this.labelName = labelName;
+    public ComputeStarterCounterImpl(final ManagerEvent me) {
         this.me = me;
     }
-    private Set<Event> findByName() {
-        return this.me.getEvents().stream().filter(s -> s.getName().equals(this.labelName)).collect(Collectors.toSet());
+    private Set<Event> findByName(final String labelName) {
+        return this.me.getEvents().stream().filter(s -> s.getName().equals(labelName)).collect(Collectors.toSet());
     }
-    private  void manageDifferentDays() {
-        this.findByName().stream().filter(s -> !s.getEndDate().equals(s.getStartDate())).forEach(s -> s.getEndHour().plusSeconds(SEC_IN_A_DAY));
+    private void manageDifferentDays(final String labelName) {
+        this.findByName(labelName).stream().filter(s -> !s.getEndDate().equals(s.getStartDate())).forEach(s -> s.getEndHour().plusSeconds(SEC_IN_A_DAY));
     }
     @Override
-    public final LocalTime countSeconds() {
-        manageDifferentDays();
-        return this.findByName().stream().map(s -> s.getEndHour().minusMillis(s.getStartHour().getMillisOfDay()))
-                .reduce((a, b) -> a.plusMillis(b.getMillisOfDay())).get();
+    public final Optional<LocalTime> countSeconds(final String nameLabel) {
+        manageDifferentDays(nameLabel);
+        return this.findByName(nameLabel).stream().map(s -> s.getEndHour().minusMillis(s.getStartHour().getMillisOfDay()))
+                .reduce((a, b) -> a.plusMillis(b.getMillisOfDay()));
         }
 }

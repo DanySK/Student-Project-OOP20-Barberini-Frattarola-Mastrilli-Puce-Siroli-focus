@@ -1,5 +1,7 @@
 package oop.focus.diary.model;
 
+import java.util.Optional;
+
 import org.joda.time.LocalTime;
 
 
@@ -12,8 +14,9 @@ import org.joda.time.LocalTime;
 public interface ComputeStarterCounter {
     /**
      * Compute the seconds spent to do an activity.
+     * @param labelName   activity's name
      * @return  the seconds spent to do an activity
      */
-    LocalTime countSeconds();
+    Optional<LocalTime> countSeconds(String labelName);
 
 }
