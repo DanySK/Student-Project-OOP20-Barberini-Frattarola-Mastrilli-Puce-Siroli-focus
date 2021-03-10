@@ -3,7 +3,7 @@ package oop.focus.calendar;
 import java.util.List;
 
 
-import oop.focus.homePage.model.Event;
+import oop.focus.homepage.model.Event;
 /**
  * The Days interface models the object day.
  * It defines the standard methods for manage the days of Calendar

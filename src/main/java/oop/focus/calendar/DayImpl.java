@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import org.joda.time.LocalDate;
-import oop.focus.homePage.model.Event;
-import oop.focus.homePage.model.ManagerEventImpl;
+import oop.focus.homepage.model.Event;
+import oop.focus.homepage.model.ManagerEventImpl;
 
 public class DayImpl implements Day {
 
@@ -68,7 +68,7 @@ public class DayImpl implements Day {
      *
      */
     public List<Event> getEvents() {
-        return  events;
+        return  this.events;
     }
 
     /**
