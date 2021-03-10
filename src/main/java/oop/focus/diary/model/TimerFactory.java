@@ -1,15 +1,17 @@
 package oop.focus.diary.model;
 
-public class TimerFactory {
-    private String eventName;
+import oop.focus.homepage.model.ManagerEvent;
 
-    public final void setName(final String eventName) {
-        this.eventName = eventName;
+public class TimerFactory {
+    private final ManagerEvent me;
+
+    public TimerFactory(final ManagerEvent me) {
+        this.me = me;
     }
-    public final TimeScrolling createTimer() {
-        return new TimeScrollingImpl(t -> t - 1, t -> !t.equals(0), this.eventName);
+    public final TimeScrolling createTimer(final String eventName) {
+        return new TimeScrollingImpl(t -> t - 1, t -> !t.equals(0), eventName, me);
     }
-    public final TimeScrolling createStopwatch() {
-        return new TimeScrollingImpl(t -> t + 1, t -> true, this.eventName);
+    public final TimeScrolling createStopwatch(final String eventName) {
+        return new TimeScrollingImpl(t -> t + 1, t -> true, eventName, me);
     }
 }
