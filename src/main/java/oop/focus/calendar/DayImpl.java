@@ -4,7 +4,6 @@ package oop.focus.calendar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 import org.joda.time.LocalDate;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.ManagerEventImpl;
@@ -17,7 +16,7 @@ public class DayImpl implements Day {
 
     public DayImpl(final LocalDate date) {
         this.date = date;
-        final Set<Event> temp = manager.findByDate(date);
+        final List<Event> temp = manager.findByDate(date);
         this.events.addAll(temp);
     }
  
