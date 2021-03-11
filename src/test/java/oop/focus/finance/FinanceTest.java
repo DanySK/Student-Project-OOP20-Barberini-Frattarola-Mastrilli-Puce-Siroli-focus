@@ -1,11 +1,17 @@
 package oop.focus.finance;
 
 import static org.junit.Assert.assertEquals;
+
+import oop.focus.homepage.model.Person;
+import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
+
+import java.util.List;
 
 public class FinanceTest {
 
     private final FinanceManager manager = new FinanceManagerImpl();
+    private final GroupManager groupManager = new GroupManagerImpl();
 
     @org.junit.Before
     public void initLists() {
@@ -25,6 +31,24 @@ public class FinanceTest {
         this.manager.addTransaction(new TransactionImpl("Pizzeria la Marinella",
                 this.manager.getCategories().get(1), new LocalDate(2020-12-96),
                 this.manager.getAccounts().get(1), -1_200, Repetition.ONCE, true));
+        // creo tre persone (nei due modi possibili)
+        final Person alex = new PersonImpl("Alex", "me");
+        final Person luca = new PersonImpl("Marco", "fratello");
+        final Person gaia = new PersonImpl("Chiara", "amica");
+        // aggiungo tre persone al manager delle transazioni di gruppo
+        this.groupManager.addPerson(alex);
+        this.groupManager.addPerson(luca);
+        this.groupManager.addPerson(gaia);
+        // aggiungo alcune transazioni di gruppo
+        this.groupManager.addTransaction(new GroupTransactionImpl(alex, List.of(alex, gaia), 500));
+        this.groupManager.addTransaction(new GroupTransactionImpl(luca, List.of(alex, luca), 1000));
+        this.groupManager.addTransaction(new GroupTransactionImpl(luca, List.of(alex, gaia), 300));
+        this.groupManager.addTransaction(new GroupTransactionImpl(alex, List.of(alex), 300));
+        this.groupManager.addTransaction(new GroupTransactionImpl(gaia, List.of(luca), 100));
+        this.groupManager.addTransaction(new GroupTransactionImpl(alex, List.of(alex, luca, gaia), 600));
+        this.groupManager.addTransaction(new GroupTransactionImpl(gaia, List.of(alex, luca), 200));
+        this.groupManager.addTransaction(new GroupTransactionImpl(luca, List.of(alex, luca), 400));
+        this.groupManager.addTransaction(new GroupTransactionImpl(gaia, List.of(alex, gaia), 500));
     }
 
     @org.junit.Test
@@ -122,6 +146,40 @@ public class FinanceTest {
         // controllo spesa totale mensile e annuale
         assertEquals(-20_498, this.manager.getTransactionManager().monthlyExpense());
         assertEquals(-245_976, this.manager.getTransactionManager().yearlyExpense());
+    }
+
+    @org.junit.Test(expected = IllegalStateException.class)
+    public void testGroupTransactions() {
+        // controllo che ci siano tutte le persone nel gruppo
+        assertEquals(3, this.groupManager.getGroup().size());
+        // controllo che ci siano tutte le transazioni di gruppo
+        assertEquals(9, this.groupManager.getTransactions().size());
+        // controllo che i crediti e i debiti siano tutti corretti
+        assertEquals(-550, this.groupManager.getCredit(this.groupManager.getGroup().get(0)));
+        assertEquals(600, this.groupManager.getCredit(this.groupManager.getGroup().get(1)));
+        assertEquals(-50, this.groupManager.getCredit(this.groupManager.getGroup().get(2)));
+        // provo a eliminare qualche transazione
+        this.groupManager.removeTransaction(this.groupManager.getTransactions().get(7));
+        this.groupManager.removeTransaction(this.groupManager.getTransactions().get(4));
+        this.groupManager.removeTransaction(this.groupManager.getTransactions().get(0));
+        // eseguo una transazione
+        this.groupManager.addTransaction(new GroupTransactionImpl(this.groupManager.getGroup().get(0),
+                List.of(this.groupManager.getGroup().get(0), this.groupManager.getGroup().get(2)), 200));
+        // controllo che siano state aggiornate
+        assertEquals(7, this.groupManager.getTransactions().size());
+        // controllo che i crediti siano cambiati e corretti
+        assertEquals(-500, this.groupManager.getCredit(this.groupManager.getGroup().get(0)));
+        assertEquals(500, this.groupManager.getCredit(this.groupManager.getGroup().get(1)));
+        assertEquals(0, this.groupManager.getCredit(this.groupManager.getGroup().get(2)));
+        // elimino una persona eliminabile
+        this.groupManager.removePerson(this.groupManager.getGroup().get(2));
+        // controllo quante persone ci sono nel gruppo
+        assertEquals(2, this.groupManager.getGroup().size());
+        // elimino una persona non eliminabile
+        this.groupManager.removePerson(this.groupManager.getGroup().get(0));
+        // controllo qquante persone ci sono nel gruppo
+        assertEquals(2, this.groupManager.getGroup().size());
+        //
     }
 }
 
