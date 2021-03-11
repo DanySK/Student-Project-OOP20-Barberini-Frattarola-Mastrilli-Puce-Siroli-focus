@@ -1,5 +1,7 @@
 package oop.focus.finance;
 
+import java.util.Objects;
+
 /**
  * Immutable implementation of a category.
  */
@@ -21,5 +23,22 @@ public class CategoryImpl implements Category {
     @Override
     public final String getColor() {
         return this.color;
+    }
+
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        var category = (CategoryImpl) o;
+        return Objects.equals(this.name, category.name);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.name);
     }
 }

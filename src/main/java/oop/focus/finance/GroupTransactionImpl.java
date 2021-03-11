@@ -4,6 +4,7 @@ import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDate;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GroupTransactionImpl implements GroupTransaction {
 
@@ -44,5 +45,24 @@ public class GroupTransactionImpl implements GroupTransaction {
     @Override
     public final LocalDate getDate() {
         return this.date;
+    }
+
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        var that = (GroupTransactionImpl) o;
+        return this.amount == that.amount && Objects.equals(this.description, that.description)
+               && Objects.equals(this.madeBy, that.madeBy) && Objects.equals(this.forList, that.forList)
+               && Objects.equals(this.date, that.date);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.description, this.madeBy, this.forList, this.amount, this.date);
     }
 }

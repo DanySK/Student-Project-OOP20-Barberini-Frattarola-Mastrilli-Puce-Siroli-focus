@@ -2,6 +2,8 @@ package oop.focus.finance;
 
 import org.joda.time.LocalDate;
 
+import java.util.Objects;
+
 /**
  * Immutable implementation of a transaction.
 */
@@ -62,4 +64,22 @@ public class TransactionImpl implements Transaction {
         return this.amount;
     }
 
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        TransactionImpl that = (TransactionImpl) o;
+        return this.amount == that.amount && Objects.equals(this.description, that.description)
+                && Objects.equals(this.category, that.category) && Objects.equals(this.date, that.date)
+                && Objects.equals(this.account, that.account) && this.repetition == that.repetition;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.description, this.category, this.date, this.account, this.amount, this.repetition);
+    }
 }

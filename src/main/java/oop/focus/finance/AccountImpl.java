@@ -1,5 +1,7 @@
 package oop.focus.finance;
 
+import java.util.Objects;
+
 public class AccountImpl implements Account {
 
     private final String name;
@@ -30,6 +32,23 @@ public class AccountImpl implements Account {
     @Override
     public final void execute(final int amount) {
         this.amount = this.amount + amount;
+    }
+
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        var account = (AccountImpl) o;
+        return Objects.equals(this.name, account.name);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.name);
     }
 
 }
