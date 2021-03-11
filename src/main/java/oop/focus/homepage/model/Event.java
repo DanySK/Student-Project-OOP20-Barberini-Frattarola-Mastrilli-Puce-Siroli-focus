@@ -1,5 +1,7 @@
 package oop.focus.homepage.model;
 
+import java.util.List;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -39,6 +41,12 @@ public interface Event {
      *  @return a LocalDate.
      */
     LocalDate getEndDate();
+
+    /**
+     * This method is used to know the list of people who will attend the event.
+     * @return the persons list, return an empty list if no other people will attend.
+     */
+    List<Person> getPersons();
 
     /**
      * This method is used to know if an event repeats itself or not, and if it recurs, to know how often.

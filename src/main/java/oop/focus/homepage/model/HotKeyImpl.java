@@ -20,6 +20,13 @@ public abstract class HotKeyImpl implements HotKey {
     }
 
     /**
+     * This method is used to save the event generated when a hotkey is clicked.
+     * This method is implemented differently based on the category of the hotkey.
+     * @return the event.
+     */
+    public abstract Event createEvent();
+
+    /**
      * This method is use for getting the name of the HotKey.
      * @return a String.
      */
@@ -34,12 +41,48 @@ public abstract class HotKeyImpl implements HotKey {
     public final HotKeyType getType() {
         return this.hotKeyType;
     }
+    /**
+     * This is the hasCode related to the equals method.
+     * @return an int.
+     */
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((hotKeyType == null) ? 0 : hotKeyType.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
+    }
 
     /**
-     * This method is used to save the event generated when a hotkey is clicked.
-     * This method is implemented differently based on the category of the hotkey.
+     * This method is use to verify if an event is equals as another.
+     * Two events are the same if their name and start date are the same.
+     * @param obj is the event whose equality needs to be checked.
+     * @return a boolean which will be true if the two events are equal and false if the two events are different.
      */
-    public abstract void createEvent();
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final HotKeyImpl other = (HotKeyImpl) obj;
+        if (hotKeyType != other.hotKeyType) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        return true;
+    }
+
 }
 
 

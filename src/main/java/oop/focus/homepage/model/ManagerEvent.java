@@ -45,7 +45,7 @@ public interface ManagerEvent {
      * @param eventsSet is the set of events to order by time.
      * @return a set consisting of events sorted by time.
      */
-    List<Event> orderList(List<Event> eventsSet);
+    List<Event> orderByHour(List<Event> eventsSet);
 
     /**
      * This method is use to remove a specific event from the events list.

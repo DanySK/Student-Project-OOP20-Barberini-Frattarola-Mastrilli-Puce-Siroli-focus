@@ -39,48 +39,47 @@ public class EventImpl implements Event {
      * @return an int.
      */
     public final int hashCode() {
-    	final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		return result;
-	}
-
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+        return result;
+    }
     /**
      * This method is use to verify if an event is equals as another.
      * Two events are the same if their name and start date are the same.
      * @param obj is the event whose equality needs to be checked.
      * @return a boolean which will be true if the two events are equal and false if the two events are different.
      */
-	public final boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final EventImpl other = (EventImpl) obj;
-		if (name == null) {
-			if (other.name != null) {
-				return false;
-			}
-		} else if (!name.equals(other.name)) {
-			return false;
-		}
-		if (startDate == null) {
-			if (other.startDate != null) {
-				return false;
-			}
-		} else if (!startDate.equals(other.startDate)) {
-			return false;
-		}
-		return true;
-	}
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EventImpl other = (EventImpl) obj;
+        if (name == null) {
+            if (other.name != null) {
+            return false;
+        }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (startDate == null) {
+            if (other.startDate != null) {
+                return false;
+            }
+        } else if (!startDate.equals(other.startDate)) {
+            return false;
+        }
+        return true;
+    }
 
-	/**
+    /**
      * This method is use for get the event name.
      * @return a string that rappresent the event name.
      */
@@ -127,6 +126,13 @@ public class EventImpl implements Event {
         return this.endDate.toLocalDate();
     }
 
+    /**
+     * This method is used to know the list of people who will attend the event.
+     * @return the persons list, return an empty list if no other people will attend.
+     */
+    public final List<Person> getPersons() {
+        return this.persons;
+    }
     /**
      * This method is used to know if an event repeats itself or not, and if it recurs, to know how often.
      * @return a member of the Repetition enumeration.

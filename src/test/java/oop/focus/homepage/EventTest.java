@@ -67,10 +67,7 @@ public class EventTest {
         eventi.addEventsSet(Set.of(first, second, third, four));
         assertEquals(eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(first, third, four));
         assertEquals(eventi.findByDate(new LocalDate(2021, 9, 25)), List.of(second));
+        eventi.removeEventsSet(Set.of(first, second, third, four));
     }
 
-    @Test
-    public void orderByDateTest() {
-    	
-    }
 }

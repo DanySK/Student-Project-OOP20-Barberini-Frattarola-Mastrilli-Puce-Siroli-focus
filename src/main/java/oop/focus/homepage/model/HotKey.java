@@ -20,6 +20,7 @@ public interface HotKey {
     /**
      * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
      * This method is implemented differently based on the category of the hotkey. 
+     * @return an event.
      */
-    void createEvent();
+    Event createEvent();
 }

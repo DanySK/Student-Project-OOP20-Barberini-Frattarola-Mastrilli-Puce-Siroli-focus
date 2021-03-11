@@ -65,7 +65,7 @@ public class ManagerEventImpl implements ManagerEvent {
         return this.events;
     }
 
-    public final List<Event> orderList(final List<Event> eventsList) {
+    public final List<Event> orderByHour(final List<Event> eventsList) {
         eventsList.sort((e1, e2) -> e1.getStartHour().getHourOfDay() - e2.getStartHour().getHourOfDay());
         return eventsList;
     }

@@ -6,25 +6,25 @@ package oop.focus.homepage.model;
  */
 public interface HotKeyFactory {
 
-	/**
-	 * This method is use for create a counter hotKey.
-	 * @param name is the name of the hot key to create.
-	 * @return an hot key of type counter.
-	 */
-	HotKey createCounterHotKey(String name);
-	
-	/**
-	 * This method is use for create an event hotKey.
-	 * @param name is the name of the hot key to create.
-	 * @return an hot key of type event.
-	 */
-	HotKey createEventHotKey(String name);
-	
-	/**
-	 * This method is use for create an activity hotKey.
-	 * @param name is the name of the hot key to create.
-	 * @return an hot key of type activity.
-	 */
-	HotKey createActivityHotKey(String name);
-	
+    /**
+     * This method is use for create a counter hotKey. 
+     * @param name is the name of the counter hot key to create.
+     * @return an hot key of type counter.
+     */
+     HotKey createCounterHotKey(String name);
+
+    /**
+     * This method is use for create an event hotKey.
+     * @param name is the name of the hot key to create.
+     * @return an hot key of type event.
+     */
+     HotKey createEventHotKey(String name);
+
+    /**
+     * This method is use for create an activity hotKey.
+     * @param name is the name of the hot key to create.
+     * @return an hot key of type activity.
+     */
+     HotKey createActivityHotKey(String name);
+
 }

@@ -28,12 +28,10 @@ public class EventMainTest {
 
         manager.addEventsSet(Set.of(first, second, third, fourth, fifth, sixth, seventh, eighth));
 
-        final List<Event> trovate = manager.findByDate(new LocalDate(2021, 9, 25));
+        final List<Event> ordinata = manager.orderByHour(manager.findByDate(new LocalDate(2021, 9, 25)));
 
-        final List<Event> ordinata = manager.orderList(trovate);
-
-        for(int i = 0; i < ordinata.size(); i++) {
-        	System.out.println(" " + ordinata.get(i).getName());
+        for(final Event e : ordinata) {
+        	System.out.println(" " + e.getName());
         }
 	}
 }

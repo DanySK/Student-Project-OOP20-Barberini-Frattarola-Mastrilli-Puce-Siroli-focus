@@ -11,21 +11,34 @@ import java.util.Set;
 public class ManagerHotKeyImpl implements ManagerHotKey {
 
     private final Set<HotKey> hotKeyTracker;
+    private final Set<Event> eventToSave; //saranno gli eventi da salvare nel database una volta che verrà cliccato un tasto rapido
 
     /**
      * This is the class constructor.
      */
     public ManagerHotKeyImpl() {
         this.hotKeyTracker = new HashSet<>();
+        this.eventToSave = new HashSet<>();
     }
 
     /**
      * This method is used to perform the "action" method on a specific hot key.
      * Obviously a hot key has a category and the action varies according to that.
      * @param hotKey is the hot key on which to perform the action.
+     * @return the event that is raised by an action.
      */
-    public final void action(final HotKey hotKey) {
-        hotKey.createEvent();
+    public final Event action(final HotKey hotKey) {
+        final Event event = hotKey.createEvent();
+        this.eventToSave.add(event); // sarà sostituito con il salvataggio nel database
+        return event;
+    }
+
+    /**
+     * This method is use to add an hot keys.
+     * @param hotKey is the hot key that must be added.
+     */
+    public final void add(final HotKey hotKey) {
+        this.hotKeyTracker.add(hotKey);
     }
 
     /**
@@ -59,6 +72,14 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
      */
     public final void remove(final HotKey hotKey) {
         this.hotKeyTracker.remove(hotKey);
+    }
+
+    /**
+     * This method is use to remove a set of hot key from the collection containing all hot keys.
+     * @param hotKeys is the set of hot keys to remove from the collection.
+     */
+    public final void removeAll(final Set<HotKey> hotKeys) {
+        this.hotKeyTracker.removeAll(hotKeys);
     }
 
 }
