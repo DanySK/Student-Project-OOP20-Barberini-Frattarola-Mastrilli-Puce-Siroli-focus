@@ -35,6 +35,13 @@ public interface ManagerEvent {
     Set<Event> findByHour(LocalTime hour);
 
     /**
+     * This method is use to find the events that have a specific name.
+     * @param name is the name on which to search for events.
+     * @return a list of events with the name parameter as name.
+     */
+    Set<Event> findByName(String name);
+
+    /**
      * This method is use for get all the scheduled events.
      * @return the list with all the scheduled events.
      */

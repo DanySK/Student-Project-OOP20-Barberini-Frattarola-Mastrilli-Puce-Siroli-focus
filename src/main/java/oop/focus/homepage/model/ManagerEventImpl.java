@@ -58,6 +58,15 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
+     * This method is use to find the events that have a specific name.
+     * @param name is the name on which to search for events.
+     * @return a list of events with the name parameter as name.
+     */
+    public final Set<Event> findByName(final String name) {
+        return this.events.stream().filter(e -> e.getName().equals(name)).collect(Collectors.toSet());
+    }
+
+    /**
      * This method is use for get all the scheduled events.
      * @return the list with all the scheduled events.
      */
@@ -85,4 +94,5 @@ public class ManagerEventImpl implements ManagerEvent {
     public final void removeEventsSet(final Set<Event> events) {
         this.events.removeAll(events);
     }
+
 }
