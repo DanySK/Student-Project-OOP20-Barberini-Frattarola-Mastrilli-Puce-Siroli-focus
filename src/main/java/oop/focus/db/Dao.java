@@ -15,9 +15,8 @@ public interface Dao<X> {
      * Can be used to get all the elements present in the source.
      *
      * @return a {@link List} containing all the elements of type X present in the source or an empty list if no elements are present
-     * @throws DaoAccessException if is not possible to get the elements
      */
-    List<X> getAll() throws DaoAccessException;
+    List<X> getAll();
 
     /**
      * Store an element of type X to the source.
@@ -29,6 +28,8 @@ public interface Dao<X> {
 
     /**
      * Update the stored element in the source with the new element.
+     * If an identifying property of the element is changed,
+     * the element will be no longer retrieved and updated from the source.
      *
      * @param x the element to be updated
      * @throws IllegalArgumentException if the element is not present in the source

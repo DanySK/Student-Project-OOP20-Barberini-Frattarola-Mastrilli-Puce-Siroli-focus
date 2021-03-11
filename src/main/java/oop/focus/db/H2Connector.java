@@ -81,7 +81,6 @@ public class H2Connector implements Connector<Connection> {
     }
 
     private void connect(final String url) throws SQLException {
-        System.out.println(url);
         this.connection = DriverManager.getConnection(url, USER, PASS);
     }
 
