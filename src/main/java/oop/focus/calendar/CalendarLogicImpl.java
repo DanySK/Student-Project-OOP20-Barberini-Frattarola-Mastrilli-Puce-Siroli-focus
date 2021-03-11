@@ -10,12 +10,16 @@ import org.joda.time.LocalDate;
 public class CalendarLogicImpl implements CalendarLogic {
 
     private final LocalDate today = new LocalDate();
+    //private LocalDate current;
+    private final int dayinaweek = today.dayOfWeek().getMaximumValue();
+    private final int dayinayear = today.dayOfYear().getMaximumValue();
     private DayImpl day;
     private List<DayImpl> week;
     private List<DayImpl> month;
     private List<DayImpl> year;
 
     public CalendarLogicImpl() {
+        //this.current = this.today;
         this.week = new ArrayList<>();
         this.month = new ArrayList<>();
         this.year = new ArrayList<>();
@@ -111,7 +115,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     */
     public List<DayImpl> generateWeek(final LocalDate startingday) {
         final LocalDate day = new LocalDate(startingday.getYear(), startingday.getMonthOfYear(), startingday.getDayOfMonth() - startingday.getDayOfWeek() + 1);
-        this.week = generate(startingday.dayOfWeek().getMaximumValue(), day);
+        this.week = generate(dayinaweek, day);
         return this.week;
     }
 
@@ -133,7 +137,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public List<DayImpl> generateYear(final LocalDate startingday) {
         final LocalDate day = new LocalDate(startingday.getYear(), 1, 1);
-        this.year = generate(startingday.dayOfYear() .getMaximumValue(), day);
+        this.year = generate(dayinayear, day);
         return this.year;
     }
 
@@ -145,9 +149,9 @@ public class CalendarLogicImpl implements CalendarLogic {
     public void  changeWeek(final LocalDate firstdayoftheweek, final boolean change) {
         final LocalDate changeweek;
         if (change) { //previous
-            changeweek = new LocalDate(firstdayoftheweek.getYear(), firstdayoftheweek.getMonthOfYear(), firstdayoftheweek.getDayOfWeek() - 1);
+            changeweek = new LocalDate(firstdayoftheweek.getYear(), firstdayoftheweek.getMonthOfYear(), firstdayoftheweek.getDayOfMonth() - dayinaweek);
         } else { //next
-            changeweek = new LocalDate(firstdayoftheweek.getYear(), firstdayoftheweek.getMonthOfYear(), firstdayoftheweek.getDayOfWeek() + 1);
+            changeweek = new LocalDate(firstdayoftheweek.getYear(), firstdayoftheweek.getMonthOfYear(), firstdayoftheweek.getDayOfMonth() + dayinaweek);
         }
         this.week = generateWeek(changeweek);
     }
