@@ -44,18 +44,18 @@ public enum HotKeyType {
     }
 
     /**
-     * This method is use to get the type of the hot key.
-     * @return a String that rappresent the type of the hot key.
-     */
-    public String getType() {
-        return this.type;
-    }
-
-    /**
      * This method is use to get the id of the hot key.
      * @return an int that rappresent the id of the hot key.
      */
     public int getId() {
         return id;
+    }
+
+    /**
+     * This method is use to get the type of the hot key.
+     * @return a String that rappresent the type of the hot key.
+     */
+    public String getType() {
+        return this.type;
     }
 }

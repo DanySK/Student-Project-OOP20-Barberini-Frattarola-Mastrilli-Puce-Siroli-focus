@@ -3,6 +3,7 @@ package oop.focus.homepage.model;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
 /**
@@ -13,28 +14,22 @@ import org.joda.time.LocalTime;
 public interface Event {
 
     /**
-     * This method is use for get the event name.
-     * @return a String.
+     * This method is used to add a new person who will attend the event.
+     * @param p is the person to be added.
      */
-    String getName();
+    void addPerson(Person p);
 
     /**
-     * This method is use for get the event start hour.
-     * @return a LocalDateTime.
+     * This method is use to get the color of an event.
+     * @return a String that rappresent the color of the event.
      */
-    LocalTime getStartHour();
+    String getColor();
 
     /**
-     * This method is use for get the event end hour.
-     *  @return a LocalDateTime.
+     * This method is used to know both the end date and the end time of an event.
+     * @return LocalDateTime.
      */
-    LocalTime getEndHour();
-
-    /**
-     * This method is use for get the event start day.
-     *  @return a LocalDate.
-     */
-    LocalDate getStartDate();
+    LocalDateTime getEnd();
 
     /**
      * This method is use for get the event end day.
@@ -43,10 +38,40 @@ public interface Event {
     LocalDate getEndDate();
 
     /**
+     * This method is use for get the event end hour.
+     *  @return a LocalDateTime.
+     */
+    LocalTime getEndHour();
+
+    /**
+     * This method is use for get the event name.
+     * @return a String.
+     */
+    String getName();
+
+    /**
      * This method is used to know the list of people who will attend the event.
      * @return the persons list, return an empty list if no other people will attend.
      */
     List<Person> getPersons();
+ 
+    /**
+     * This method is used to know both the start date and the start time of an event.
+     * @return LocalDateTime.
+     */
+    LocalDateTime getStart();
+
+    /**
+     * This method is use for get the event start day.
+     *  @return a LocalDate.
+     */
+    LocalDate getStartDate();
+
+    /**
+     * This method is use for get the event start hour.
+     * @return a LocalDateTime.
+     */
+    LocalTime getStartHour();
 
     /**
      * This method is used to know if an event repeats itself or not, and if it recurs, to know how often.
@@ -55,9 +80,4 @@ public interface Event {
      */
     Repetition getRipetition();
 
-    /**
-     * This method is used to add a new person who will attend the event.
-     * @param p is the person to be added.
-     */
-    void addPerson(Person p);
 }

@@ -54,10 +54,10 @@ public abstract class HotKeyImpl implements HotKey {
     }
 
     /**
-     * This method is use to verify if an event is equals as another.
-     * Two events are the same if their name and start date are the same.
-     * @param obj is the event whose equality needs to be checked.
-     * @return a boolean which will be true if the two events are equal and false if the two events are different.
+     * This method is used to check if one keyboard shortcut is the same as another.
+     * Two hotkeys are the same if their name and the hotkey category are the same.
+     * @param obj is the hot key whose equality needs to be checked.
+     * @return a boolean which will be true if the two hot keys are equal and false if the two hot keys are different.
      */
     public boolean equals(final Object obj) {
         if (this == obj) {

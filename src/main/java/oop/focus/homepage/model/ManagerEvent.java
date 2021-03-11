@@ -46,7 +46,6 @@ public interface ManagerEvent {
      * @return the list with all the scheduled events.
      */
     Set<Event> getEvents();
-
     /**
      * This method is used to sort a set of events by time.
      * @param eventsSet is the set of events to order by time.

@@ -6,15 +6,16 @@ package oop.focus.homepage.model;
 public interface Person {
 
     /**
+     *  This method is use for get the degree of kinship of the person.
+     *  @return a String.
+     */
+    String getDegreeOfKinship();
+
+    /**
      *  This method is use for get the name of the person.
      *  @return a String.
      */
     String getName();
 
-    /**
-     *  This method is use for get the degree of kinship of the person.
-     *  @return a String.
-     */
-    String getDegreeOfKinship();
 
 }

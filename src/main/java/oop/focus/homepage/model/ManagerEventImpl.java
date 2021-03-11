@@ -74,6 +74,11 @@ public class ManagerEventImpl implements ManagerEvent {
         return this.events;
     }
 
+    /**
+     * This method is used to sort a set of events by time.
+     * @param eventsList is the set of events to order by time.
+     * @return a set consisting of events sorted by time.
+     */
     public final List<Event> orderByHour(final List<Event> eventsList) {
         eventsList.sort((e1, e2) -> e1.getStartHour().getHourOfDay() - e2.getStartHour().getHourOfDay());
         return eventsList;

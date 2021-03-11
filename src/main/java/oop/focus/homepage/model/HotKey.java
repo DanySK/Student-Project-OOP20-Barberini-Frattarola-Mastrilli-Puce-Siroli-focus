@@ -6,6 +6,13 @@ package oop.focus.homepage.model;
 public interface HotKey {
 
     /**
+     * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
+     * This method is implemented differently based on the category of the hotkey. 
+     * @return an event.
+     */
+    Event createEvent();
+
+    /**
      * This method is use for getting the name of the HotKey.
      * @return a string that rappresent the hot key name.
      */
@@ -17,10 +24,4 @@ public interface HotKey {
      */
     HotKeyType getType();
  
-    /**
-     * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
-     * This method is implemented differently based on the category of the hotkey. 
-     * @return an event.
-     */
-    Event createEvent();
 }
