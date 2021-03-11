@@ -7,16 +7,23 @@ import java.util.List;
 
 public class GroupTransactionImpl implements GroupTransaction {
 
+    private final String description;
     private final Person madeBy;
     private final List<Person> forList;
     private final int amount;
     private final LocalDate date;
 
-    public GroupTransactionImpl(final Person madeBy, final List<Person> forList, final int amount, final LocalDate date) {
+    public GroupTransactionImpl(final String description, final Person madeBy, final List<Person> forList, final int amount, final LocalDate date) {
+        this.description = description;
         this.madeBy = madeBy;
         this.forList = forList;
         this.amount = amount;
         this.date = date;
+    }
+
+    @Override
+    public final String getDesc() {
+        return this.description;
     }
 
     @Override

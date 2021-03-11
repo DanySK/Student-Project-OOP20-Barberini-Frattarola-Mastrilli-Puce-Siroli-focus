@@ -12,6 +12,11 @@ import java.util.List;
 public interface GroupTransaction {
 
     /**
+     * @return transaction's description
+     */
+    String getDesc();
+
+    /**
      * @return the person who paid
      */
     Person getMadeBy();

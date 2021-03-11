@@ -40,15 +40,15 @@ public class FinanceTest {
         this.groupManager.addPerson(luca);
         this.groupManager.addPerson(gaia);
         // aggiungo alcune transazioni di gruppo
-        this.groupManager.addTransaction(new GroupTransactionImpl(alex, List.of(alex, gaia), 500, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(luca, List.of(alex, luca), 1000, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(luca, List.of(alex, gaia), 300, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(alex, List.of(alex), 300, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(gaia, List.of(luca), 100, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(alex, List.of(alex, luca, gaia), 600, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(gaia, List.of(alex, luca), 200, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(luca, List.of(alex, luca), 400, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl(gaia, List.of(alex, gaia), 500, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex, gaia), 500, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 1000, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, gaia), 300, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex), 300, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(luca), 100, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex, luca, gaia), 600, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(alex, luca), 200, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 400, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(alex, gaia), 500, new LocalDate()));
     }
 
     @org.junit.Test
@@ -163,7 +163,7 @@ public class FinanceTest {
         this.groupManager.removeTransaction(this.groupManager.getTransactions().get(4));
         this.groupManager.removeTransaction(this.groupManager.getTransactions().get(0));
         // eseguo una transazione
-        this.groupManager.addTransaction(new GroupTransactionImpl(this.groupManager.getGroup().get(0),
+        this.groupManager.addTransaction(new GroupTransactionImpl("", this.groupManager.getGroup().get(0),
                 List.of(this.groupManager.getGroup().get(0), this.groupManager.getGroup().get(2)),
                 200, new LocalDate()));
         // controllo che siano state aggiornate
