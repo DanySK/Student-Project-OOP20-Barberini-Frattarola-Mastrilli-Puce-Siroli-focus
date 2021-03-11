@@ -46,47 +46,42 @@ public interface CalendarLogic {
 
     /**
      * generate a list of 7 day.
-     * @param startingday is the day from it start to generate the week
      * @return Set of 7 generated days 
      */
-    List<DayImpl> generateWeek(LocalDate startingday);
+    List<DayImpl> generateWeek();
 
     /**
      * generate a list of x day.
-     * @param startingday is the day from it start to generate the month
      * @return Set of x generated days 
      */
-    List<DayImpl> generateMonth(LocalDate startingday);
+    List<DayImpl> generateMonth();
 
     /**
      * generate a list of 365 day.
-     * @param startingday is the day from it start to generate the year
      * @return Set of 365 generated days 
      */
-    List<DayImpl> generateYear(LocalDate startingday);
+    List<DayImpl> generateYear();
 
     /**
      * ask to generate the next week.
-     * @param firstdayoftheweek is the day from it start to generate the week
      * @param change , if is true get the previous week, if is false the next one
      */
-    void changeWeek(LocalDate firstdayoftheweek, boolean change);
+    void changeWeek(boolean change);
 
 
     /**
      * ask to generate the next month.
-     * @param firstdayofthemonth is the day from it start to generate the month
      * @param change , if is true get the previous month, if is false the next one
      */
-    void changeMonth(LocalDate firstdayofthemonth, boolean change);
+    void changeMonth(boolean change);
 
 
     /**
      * ask to generate the next year.
-     * @param firstdayoftheyear is the day from it start to generate the year
+
      * @param change , if is true get the previous year, if is false the next one
      */
-    void changeYear(LocalDate firstdayoftheyear, boolean change);
+    void changeYear(boolean change);
 
 
 

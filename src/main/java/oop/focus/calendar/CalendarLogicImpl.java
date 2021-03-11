@@ -10,7 +10,7 @@ import org.joda.time.LocalDate;
 public class CalendarLogicImpl implements CalendarLogic {
 
     private final LocalDate today = new LocalDate();
-    //private LocalDate current;
+    private LocalDate current;
     private final int dayinaweek = today.dayOfWeek().getMaximumValue();
     private final int dayinayear = today.dayOfYear().getMaximumValue();
     private DayImpl day;
@@ -19,7 +19,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     private List<DayImpl> year;
 
     public CalendarLogicImpl() {
-        //this.current = this.today;
+        this.current = this.today;
         this.week = new ArrayList<>();
         this.month = new ArrayList<>();
         this.year = new ArrayList<>();
@@ -68,7 +68,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public List<DayImpl> getWeek() {
         if (this.week.isEmpty()) {
-            this.week = generateWeek(today);
+            this.week = generateWeek();
         }
          return this.week;
     }
@@ -79,7 +79,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public List<DayImpl> getMonth() {
         if (this.month.isEmpty()) {
-            this.month = generateMonth(today);
+            this.month = generateMonth();
         }
          return this.month;
     }
@@ -90,7 +90,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public List<DayImpl> getYear() {
         if (this.year.isEmpty()) {
-            this.year = generateYear(today);
+            this.year = generateYear();
         }
          return this.year;
     }
@@ -110,80 +110,71 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     /**
     * generate a list of 7 day.
-    * @param startingday is the day from it start to generate the week
     * @return Set of 7 generated days 
     */
-    public List<DayImpl> generateWeek(final LocalDate startingday) {
-        final LocalDate day = new LocalDate(startingday.getYear(), startingday.getMonthOfYear(), startingday.getDayOfMonth() - startingday.getDayOfWeek() + 1);
+    public List<DayImpl> generateWeek() {
+        final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.getDayOfWeek() + 1);
         this.week = generate(dayinaweek, day);
         return this.week;
     }
 
     /**
      * generate a list of x day.
-     * @param startingday is the day from it start to generate the month
      * @return Set of x generated days 
      */
-    public List<DayImpl> generateMonth(final LocalDate startingday) {
-        final LocalDate day = new LocalDate(startingday.getYear(), startingday.getMonthOfYear(), 1);
-        this.month = generate(startingday.dayOfMonth().getMaximumValue(), day);
+    public List<DayImpl> generateMonth() {
+        final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), 1);
+        this.month = generate(this.current.dayOfMonth().getMaximumValue(), day);
         return this.month;
     }
 
     /**
      * generate a list of 365 day.
-     * @param startingday is the day from it start to generate the year
      * @return Set of 365 generated days 
      */
-    public List<DayImpl> generateYear(final LocalDate startingday) {
-        final LocalDate day = new LocalDate(startingday.getYear(), 1, 1);
+    public List<DayImpl> generateYear() {
+        final LocalDate day = new LocalDate(this.current.getYear(), 1, 1);
         this.year = generate(dayinayear, day);
         return this.year;
     }
 
     /**
      * ask to generate the next week.
-     * @param firstdayoftheweek is the day from it start to generate the week
      * @param change  ,if is true get the previous week, if is false the next one
      */
-    public void  changeWeek(final LocalDate firstdayoftheweek, final boolean change) {
-        final LocalDate changeweek;
+    public void  changeWeek(final boolean change) {
         if (change) { //previous
-            changeweek = new LocalDate(firstdayoftheweek.getYear(), firstdayoftheweek.getMonthOfYear(), firstdayoftheweek.getDayOfMonth() - dayinaweek);
+            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - dayinaweek);
         } else { //next
-            changeweek = new LocalDate(firstdayoftheweek.getYear(), firstdayoftheweek.getMonthOfYear(), firstdayoftheweek.getDayOfMonth() + dayinaweek);
+            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() + dayinaweek);
         }
-        this.week = generateWeek(changeweek);
+        this.week = generateWeek();
     }
 
     /**
      * ask to generate the next month.
-     * @param firstdayofthemonth is the day from it start to generate the month
      *  @param change  ,if is true get the previous month, if is false the next one
      */
-    public void  changeMonth(final LocalDate firstdayofthemonth, final boolean change) {
-        final LocalDate changemonth;
+    public void  changeMonth(final boolean change) {
         if (change) { //previous
-            changemonth = new LocalDate(firstdayofthemonth.getYear(), firstdayofthemonth.getMonthOfYear() - 1, firstdayofthemonth.getDayOfWeek());
+            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() - 1, this.current.getDayOfMonth());
         } else { //next
-            changemonth = new LocalDate(firstdayofthemonth.getYear(), firstdayofthemonth.getMonthOfYear() + 1, firstdayofthemonth.getDayOfWeek());
+            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() + 1, this.current.getDayOfMonth());
         }
-        this.month = generateMonth(changemonth);
+        this.month = generateMonth();
     }
 
     /**
      * ask to generate the next year.
-     * @param firstdayoftheyear is the day from it start to generate the year
      * @param change  ,if is true get the previous year, if is false the next one
      */
-    public void  changeYear(final LocalDate firstdayoftheyear, final boolean change) {
-        final LocalDate changeyear;
+    public void  changeYear(final boolean change) {
         if (change) { //previous
-            changeyear = new LocalDate(firstdayoftheyear.getYear() - 1, firstdayoftheyear.getMonthOfYear(), firstdayoftheyear.getDayOfWeek());
+            this.current = new LocalDate(this.current.getYear() - 1, this.current.getMonthOfYear(), this.current.getDayOfMonth());
         } else { //next
-            changeyear = new LocalDate(firstdayoftheyear.getYear() + 1, firstdayoftheyear.getMonthOfYear(), firstdayoftheyear.getDayOfWeek());
+            this.current = new LocalDate(this.current.getYear() + 1, this.current.getMonthOfYear(), this.current.getDayOfMonth());
         }
-        this.year = generateYear(changeyear);
+        this.year = generateYear();
     }
 
 
