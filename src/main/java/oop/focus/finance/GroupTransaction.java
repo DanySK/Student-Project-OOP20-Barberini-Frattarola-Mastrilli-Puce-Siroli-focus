@@ -1,6 +1,7 @@
 package oop.focus.finance;
 
 import oop.focus.homepage.model.Person;
+import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -24,4 +25,9 @@ public interface GroupTransaction {
      * @return the amount spent
      */
     int getAmount();
+
+    /**
+     * @return transaction's date
+     */
+    LocalDate getDate();
 }
