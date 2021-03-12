@@ -12,11 +12,11 @@ public class ToDoListManagerImplTest {
     @Test
     public void test() {
         final ToDoListManager tdlm = new ToDoListManagerImpl();
-        final ToDoListImpl prova = new ToDoListImpl("cucinare");
+        final ToDoActionImpl prova = new ToDoActionImpl("cucinare");
         tdlm.addAnnotation(prova);
-        final ToDoListImpl prova2 = new ToDoListImpl("portare fuori la spazzatura");
+        final ToDoActionImpl prova2 = new ToDoActionImpl("portare fuori la spazzatura");
         tdlm.addAnnotation(prova2);
-        final ToDoListImpl prova3 = new ToDoListImpl("studiare");
+        final ToDoActionImpl prova3 = new ToDoActionImpl("studiare");
         tdlm.addAnnotation(prova3);
         assertEquals(prova.getAnnotation(), "cucinare");
         assertFalse(prova2.isDone());

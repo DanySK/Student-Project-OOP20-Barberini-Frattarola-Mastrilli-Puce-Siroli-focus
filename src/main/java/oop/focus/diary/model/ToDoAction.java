@@ -4,7 +4,7 @@ package oop.focus.diary.model;
  * It defines methods to set/get the annotation.
  *
  */
-public interface ToDoList {
+public interface ToDoAction {
     /**
      * Return the annotation of ToDoList's section.
      * @return  the annotation of ToDoList's section

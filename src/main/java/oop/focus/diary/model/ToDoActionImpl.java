@@ -1,10 +1,10 @@
 package oop.focus.diary.model;
 
-public class ToDoListImpl implements ToDoList {
+public class ToDoActionImpl implements ToDoAction {
     private String annotation;
     private boolean done;
 
-    public ToDoListImpl(final String annotation) {
+    public ToDoActionImpl(final String annotation) {
         this.annotation = annotation;
         this.done = false;
     }

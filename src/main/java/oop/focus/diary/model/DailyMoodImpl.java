@@ -5,6 +5,11 @@ import org.joda.time.LocalDate;
 public class DailyMoodImpl implements DailyMood {
     private int value;
     private LocalDate date;
+    public DailyMoodImpl(final int value, final LocalDate date) {
+        super();
+        this.value = value;
+        this.date = date;
+    }
     @Override
     public final int getMoodValue() {
         return this.value;

@@ -12,23 +12,23 @@ public interface ToDoListManager {
      * 
      * @param tdl       ToDoList's annotation
      */
-    void addAnnotation(ToDoList tdl);
+    void addAnnotation(ToDoAction tdl);
     /**
      * Remove the ToDoList's section from the list.
      * 
      * @param tdl       the annotation to remove
      */
-    void removeAnnotation(ToDoList tdl);
+    void removeAnnotation(ToDoAction tdl);
     /**
      * Set as done or unset the annotation of the ToDoList in input: if the box is setted the method unsets it, so on the other side.
      * 
      * @param tdl       ToDoList's section : is the box is choosed, then
      */
-    void changeBoxStatus(ToDoList tdl);
+    void changeBoxStatus(ToDoAction tdl);
     /**
      * Return all the annotation saved.
      * 
      * @return  a list of all ToDoList's sections
      */
-    List<ToDoList> getAnnotations();
+    List<ToDoAction> getAnnotations();
 }
