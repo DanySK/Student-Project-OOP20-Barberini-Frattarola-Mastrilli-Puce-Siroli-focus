@@ -5,9 +5,16 @@ import java.util.stream.Collectors;
 
 public class FinanceManagerImpl implements FinanceManager {
 
-    private final AccountManager accounts = new AccountManagerImpl();
-    private final CategoryManager categories = new CategoryManagerImpl();
-    private final TransactionManager transactions = new TransactionManagerImpl();
+    private final AccountManager accounts;
+    private final CategoryManager categories;
+    private final TransactionManager transactions;
+
+    public FinanceManagerImpl() {
+        this.accounts = new AccountManagerImpl();
+        this.categories = new CategoryManagerImpl();
+        this.transactions = new TransactionManagerImpl();
+        this.transactions.getGeneratedTransactions().forEach(this::addTransaction);
+    }
 
     @Override
     public final void addAccount(final Account account) {
@@ -41,6 +48,7 @@ public class FinanceManagerImpl implements FinanceManager {
     public final void addTransaction(final Transaction transaction) {
         this.transactions.add(transaction);
         transaction.getAccount().execute(transaction.getAmount());
+        System.out.println(transaction.getAmount());
     }
 
     @Override

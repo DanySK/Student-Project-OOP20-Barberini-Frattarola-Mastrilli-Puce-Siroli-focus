@@ -40,9 +40,19 @@ public interface Transaction {
      */
     LocalDate getDate();
 
+
     /**
      * @return transaction's amount
      */
     int getAmount();
 
+    /**
+     * @param b boolean with which 'last' attribute must be changed
+     */
+    void setLast(boolean b);
+
+    /**
+     * @return the date of the next renewal
+     */
+    LocalDate getNextRenewal();
 }

@@ -4,18 +4,15 @@ import org.joda.time.LocalDate;
 
 import java.util.Objects;
 
-/**
- * Immutable implementation of a transaction.
-*/
 public class TransactionImpl implements Transaction {
 
     private final String description;
     private final Category category;
-    private final LocalDate date;
+    private LocalDate date;
     private final Account account;
     private final int amount;
     private final Repetition repetition;
-    private final boolean last;
+    private boolean last;
 
     public TransactionImpl(final String description, final Category category,
             final LocalDate localDate, final Account account, final int amount,
@@ -55,6 +52,11 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
+    public final void setLast(final boolean b) {
+        this.last = b;
+    }
+
+    @Override
     public final LocalDate getDate() {
         return this.date;
     }
@@ -62,6 +64,11 @@ public class TransactionImpl implements Transaction {
     @Override
     public final int getAmount() {
         return this.amount;
+    }
+
+    @Override
+    public final LocalDate getNextRenewal() {
+        return this.repetition.getFunction().apply(this.date);
     }
 
     @Override

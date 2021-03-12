@@ -1,51 +1,48 @@
 package oop.focus.finance;
 
+import org.joda.time.LocalDate;
+
+import java.util.function.Function;
+
 public enum Repetition {
 
     /**
      * it is not repeated.
      */
-    ONCE(1, 1, 1),
+    ONCE(1, 1, d -> d),
     /**
      * it is repeated every week.
      */
-    WEEKLY(2, 0.21, 52.14),
+    WEEKLY(0.21, 52.14, d -> d.plusWeeks(1)),
     /**
      * it is repeated every month.
      */
-    MONTHLY(3, 1, 12),
+    MONTHLY(1, 12, d -> d.plusMonths(1)),
     /**
      * it is repeated every two months.
      */
-    BIMONTHLY(5, 2, 6),
+    BIMONTHLY(2, 6, d -> d.plusMonths(2)),
     /**
      * it is repeated every three months.
      */
-    QUARTERLY(6, 3, 4),
+    QUARTERLY(3, 4, d -> d.plusMonths(3)),
     /**
      * it is repeated every six months.
      */
-    HALF_YEARLY(7, 6, 2),
+    HALF_YEARLY(6, 2, d -> d.plusMonths(6)),
     /**
      * it is repeated every year.
      */
-    YEARLY(4, 12, 1);
+    YEARLY(12, 1, d -> d.plusYears(1));
 
-    private final int id;
     private final double perMonth;
     private final double perYear;
+    private final Function<LocalDate, LocalDate> function;
 
-    Repetition(final int id, final double perMonth, final double perYear) {
-        this.id = id;
+    Repetition(final double perMonth, final double perYear, final Function<LocalDate, LocalDate> function) {
         this.perMonth = perMonth;
         this.perYear = perYear;
-    }
-
-    /**
-     * @return the ID of the repetition
-     */
-    public int getID() {
-        return this.id;
+        this.function = function;
     }
 
     /**
@@ -60,5 +57,12 @@ public enum Repetition {
      */
     public double getPerYear() {
         return this.perYear;
+    }
+
+    /**
+     * @return the function to calculate the day of the next renewal
+     */
+    public Function<LocalDate, LocalDate> getFunction() {
+        return this.function;
     }
 }

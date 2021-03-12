@@ -1,9 +1,11 @@
 package oop.focus.finance;
 
+import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class TransactionManagerImpl implements TransactionManager {
 
@@ -22,6 +24,20 @@ public class TransactionManagerImpl implements TransactionManager {
     @Override
     public final void removeAll(final List<Transaction> transactions) {
         transactions.forEach(this::remove);
+    }
+
+    @Override
+    public final List<Transaction> getGeneratedTransactions() {
+        return this.transactions.stream().flatMap(t -> this.generateNext(t).stream()).collect(Collectors.toList());
+    }
+
+    private List<Transaction> generateNext(final Transaction t) {
+        if (t.isLast() || LocalDate.now().isBefore(t.getNextRenewal())) {
+            return new ArrayList<>();
+        }
+        t.setLast(true);
+        var transaction = new TransactionImpl(t.getDesc(), t.getCat(), t.getNextRenewal(), t.getAccount(), t.getAmount(), t.getRep(), false);
+        return Stream.concat(List.of(transaction).stream(), this.generateNext(transaction).stream()).collect(Collectors.toList());
     }
 
     @Override
