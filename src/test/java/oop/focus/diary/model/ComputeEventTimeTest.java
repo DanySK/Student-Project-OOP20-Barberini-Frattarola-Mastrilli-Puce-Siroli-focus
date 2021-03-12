@@ -26,11 +26,8 @@ public class ComputeEventTimeTest {
         final TimeScrolling timer  = factory.createTimer(str);
         //il timer relativo all'attività studio è settata a 5 sec
         timer.setStarterValue(5);
-        timer.startCounter();
-        while(!timer.end()) {
-            ;
-        } 
-        Thread.sleep(2000);
+        timer.startCounter(); 
+        Thread.sleep(6000);
         System.out.println("Secondi = " +csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
         assertEquals(Optional.empty(), csc.computePeriod("correre"));
@@ -38,10 +35,7 @@ public class ComputeEventTimeTest {
         //il timer studio viene fatto ripartire per 3 sec
         timer2.setStarterValue(3);
         timer2.startCounter();
-        while(!timer2.end()) {
-            ;
-        }
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         //verifica che il tempo totale dedicato allo studio sia di 8 sec
         System.out.println("Secondi = " +csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
