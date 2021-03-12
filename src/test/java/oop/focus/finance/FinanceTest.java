@@ -26,10 +26,10 @@ public class FinanceTest {
         this.manager.addCategory(new CategoryImpl("Affitto", "FF00FF"));
         // creo qualche transazione e la aggiungo a transactions
         this.manager.addTransaction(new TransactionImpl("Gelato",
-                this.manager.getCategories().get(0), new LocalDate(2020-12-96),
+                this.manager.getCategories().get(0), new LocalDate(2020, 1, 1),
                 this.manager.getAccounts().get(0), -250, Repetition.ONCE, true));
         this.manager.addTransaction(new TransactionImpl("Pizzeria la Marinella",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
+                this.manager.getCategories().get(1), new LocalDate(2020, 1, 1),
                 this.manager.getAccounts().get(1), -1_200, Repetition.ONCE, true));
         // creo tre persone (nei due modi possibili)
         final Person alex = new PersonImpl("Alex", "me");
@@ -121,31 +121,38 @@ public class FinanceTest {
 
     @org.junit.Test
     public void testSubscriptions() {
+        this.manager.addAccount(new AccountImpl("Conto iscrizioni", "00FFFF", 200_000));
         // creo diverse transazioni ripetute (abbonamenti)
         this.manager.addTransaction(new TransactionImpl("Netflix",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
-                this.manager.getAccounts().get(1), -1_699, Repetition.MONTHLY, false));
+                this.manager.getCategories().get(1), new LocalDate(2021, 1, 4),
+                this.manager.getAccounts().get(2), -1_699, Repetition.WEEKLY, false)); // 10
         this.manager.addTransaction(new TransactionImpl("Acqua",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
-                this.manager.getAccounts().get(1), -15_000, Repetition.QUARTERLY, false));
+                this.manager.getCategories().get(1), new LocalDate(2020, 11, 25),
+                this.manager.getAccounts().get(2), -15_000, Repetition.QUARTERLY, false)); // 2
         this.manager.addTransaction(new TransactionImpl("Enel",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
-                this.manager.getAccounts().get(1), -12_500, Repetition.BIMONTHLY, false));
+                this.manager.getCategories().get(1), new LocalDate(2020, 11, 7),
+                this.manager.getAccounts().get(2), -12_500, Repetition.BIMONTHLY, false)); // 3
         this.manager.addTransaction(new TransactionImpl("Abbonamento autobus",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
-                this.manager.getAccounts().get(1), -39_900, Repetition.HALF_YEARLY, false));
+                this.manager.getCategories().get(1), new LocalDate(2020, 6, 5),
+                this.manager.getAccounts().get(2), -39_900, Repetition.HALF_YEARLY, false)); // 2
         this.manager.addTransaction(new TransactionImpl("Amazon",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
-                this.manager.getAccounts().get(1), -2_400, Repetition.YEARLY, false));
+                this.manager.getCategories().get(1), new LocalDate(2020, 1, 1),
+                this.manager.getAccounts().get(2), -2_400, Repetition.YEARLY, false)); // 2
         this.manager.addTransaction(new TransactionImpl("Tariffa TIM",
-                this.manager.getCategories().get(1), new LocalDate(2020-12-96),
-                this.manager.getAccounts().get(1), -699, Repetition.MONTHLY, false));
+                this.manager.getCategories().get(1), new LocalDate(2021, 3, 3),
+                this.manager.getAccounts().get(2), -699, Repetition.MONTHLY, false)); // 1
         // controllo che siano state aggiunte con successo
         assertEquals(8, this.manager.getTransactions().size());
         assertEquals(6, this.manager.getTransactionManager().getSubscriptions().size());
         // controllo spesa totale mensile e annuale
-        assertEquals(-20_498, this.manager.getTransactionManager().monthlyExpense());
-        assertEquals(-245_976, this.manager.getTransactionManager().yearlyExpense());
+        assertEquals(-26_889, this.manager.getTransactionManager().monthlyExpense());
+        assertEquals(-314_173, this.manager.getTransactionManager().yearlyExpense());
+        // faccio creare tutte le transazioni da ripetere
+        this.manager.getTransactionManager().getGeneratedTransactions().forEach(this.manager::addTransaction);
+        // controllo che siano state aggiunte tutte
+        assertEquals(22, this.manager.getTransactions().size());
+        // controllo che l'importo del conto sia corretto
+        assertEquals(30_211, this.manager.getAccounts().get(2).getAmount());
     }
 
     @org.junit.Test(expected = IllegalStateException.class)
