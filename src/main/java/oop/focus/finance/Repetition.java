@@ -9,60 +9,61 @@ public enum Repetition {
     /**
      * it is not repeated.
      */
-    ONCE(1, 1, d -> d),
+    ONCE(i -> 0,                     i -> 0,                     d -> d),
     /**
      * it is repeated every week.
      */
-    WEEKLY(0.21, 52.14, d -> d.plusWeeks(1)),
+    WEEKLY(i -> (int) (i / 0.21),    i -> (int) (i * 52.14),     d -> d.plusWeeks(1)),
     /**
      * it is repeated every month.
      */
-    MONTHLY(1, 12, d -> d.plusMonths(1)),
+    MONTHLY(i -> i,                  i -> i * 12,                d -> d.plusMonths(1)),
     /**
      * it is repeated every two months.
      */
-    BIMONTHLY(2, 6, d -> d.plusMonths(2)),
+    BIMONTHLY(i -> i / 2,            i -> i * 6,                 d -> d.plusMonths(2)),
     /**
      * it is repeated every three months.
      */
-    QUARTERLY(3, 4, d -> d.plusMonths(3)),
+    QUARTERLY(i -> i / 3,            i -> i * 4,                 d -> d.plusMonths(3)),
     /**
      * it is repeated every six months.
      */
-    HALF_YEARLY(6, 2, d -> d.plusMonths(6)),
+    HALF_YEARLY(i -> i / 6,          i -> i * 2,                 d -> d.plusMonths(6)),
     /**
      * it is repeated every year.
      */
-    YEARLY(12, 1, d -> d.plusYears(1));
+    YEARLY(i -> i / 12,              i -> i,                     d -> d.plusYears(1));
 
-    private final double perMonth;
-    private final double perYear;
-    private final Function<LocalDate, LocalDate> function;
+    private final Function<Integer, Integer> perMonthFunction;
+    private final Function<Integer, Integer> perYearFunction;
+    private final Function<LocalDate, LocalDate> nextRenewalFunction;
 
-    Repetition(final double perMonth, final double perYear, final Function<LocalDate, LocalDate> function) {
-        this.perMonth = perMonth;
-        this.perYear = perYear;
-        this.function = function;
+    Repetition(final Function<Integer, Integer> perMonthFunction, final Function<Integer, Integer> perYearFunction,
+               final Function<LocalDate, LocalDate> nextRenewalFunction) {
+        this.perMonthFunction = perMonthFunction;
+        this.perYearFunction = perYearFunction;
+        this.nextRenewalFunction = nextRenewalFunction;
     }
 
     /**
-     * @return the number of months that the subscription lasts
+     * @return the function to calculate the average yearly expense
      */
-    public double getPerMonth() {
-        return this.perMonth;
+    public Function<Integer, Integer> getPerMonthFunction() {
+        return this.perMonthFunction;
     }
 
     /**
-     * @return the number of times the transaction must be paid in a year
+     * @return the function to calculate the average monthly expense
      */
-    public double getPerYear() {
-        return this.perYear;
+    public Function<Integer, Integer> getPerYearFunction() {
+        return this.perYearFunction;
     }
 
     /**
      * @return the function to calculate the day of the next renewal
      */
-    public Function<LocalDate, LocalDate> getFunction() {
-        return this.function;
+    public Function<LocalDate, LocalDate> getNextRenewalFunction() {
+        return this.nextRenewalFunction;
     }
 }

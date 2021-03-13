@@ -3,6 +3,7 @@ package oop.focus.finance;
 import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -62,18 +63,19 @@ public class TransactionManagerImpl implements TransactionManager {
 
     @Override
     public final int monthlyExpense() {
-        return this.transactions.stream()
-                                .filter(t -> !t.isLast())
-                                .map(t -> (int) (t.getAmount() / t.getRep().getPerMonth()))
-                                .reduce(0, Integer::sum);
+        return this.computeExpense(Repetition::getPerMonthFunction);
     }
 
     @Override
     public final int yearlyExpense() {
+        return this.computeExpense(Repetition::getPerYearFunction);
+    }
+
+    private Integer computeExpense(final Function<Repetition, Function<Integer, Integer>> function) {
         return this.transactions.stream()
-                                .filter(t -> !t.isLast())
-                                .map(t -> (int) (t.getAmount() * t.getRep().getPerYear()))
-                                .reduce(0, Integer::sum);
+                .filter(t -> !t.isLast())
+                .map(t -> function.apply(t.getRep()).apply(t.getAmount()))
+                .reduce(0, Integer::sum);
     }
 
     private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {

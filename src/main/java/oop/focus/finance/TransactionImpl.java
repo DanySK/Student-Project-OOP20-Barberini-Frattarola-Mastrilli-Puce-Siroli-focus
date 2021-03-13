@@ -68,7 +68,7 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public final LocalDate getNextRenewal() {
-        return this.repetition.getFunction().apply(this.date);
+        return this.repetition.getNextRenewalFunction().apply(this.date);
     }
 
     @Override
