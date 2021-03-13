@@ -8,52 +8,42 @@ public class TransactionImpl implements Transaction {
 
     private final String description;
     private final Category category;
-    private LocalDate date;
+    private final LocalDate date;
     private final Account account;
     private final int amount;
     private final Repetition repetition;
-    private boolean last;
+    private boolean toRepeat;
 
     public TransactionImpl(final String description, final Category category,
             final LocalDate localDate, final Account account, final int amount,
-            final Repetition repetition, final boolean last) {
+            final Repetition repetition) {
         this.description = description;
         this.category = category;
         this.date = localDate;
         this.account = account;
         this.amount = amount;
         this.repetition = repetition;
-        this.last = last;
+        this.toRepeat = !repetition.equals(Repetition.ONCE);
     }
 
     @Override
-    public final String getDesc() {
+    public final LocalDate getNextRenewal() {
+        return this.repetition.getNextRenewalFunction().apply(this.date);
+    }
+
+    @Override
+    public final void stopRepeat() {
+        this.toRepeat = false;
+    }
+
+    @Override
+    public final String getDescription() {
         return this.description;
     }
 
     @Override
-    public final Category getCat() {
+    public final Category getCategory() {
         return this.category;
-    }
-
-    @Override
-    public final Account getAccount() {
-        return this.account;
-    }
-
-    @Override
-    public final Repetition getRep() {
-        return this.repetition;
-    }
-
-    @Override
-    public final Boolean isLast() {
-        return this.last;
-    }
-
-    @Override
-    public final void setLast(final boolean b) {
-        this.last = b;
     }
 
     @Override
@@ -62,13 +52,23 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
+    public final Account getAccount() {
+        return this.account;
+    }
+
+    @Override
     public final int getAmount() {
         return this.amount;
     }
 
     @Override
-    public final LocalDate getNextRenewal() {
-        return this.repetition.getNextRenewalFunction().apply(this.date);
+    public final Repetition getRepetition() {
+        return this.repetition;
+    }
+
+    @Override
+    public final Boolean isToBeRepeated() {
+        return this.toRepeat;
     }
 
     @Override

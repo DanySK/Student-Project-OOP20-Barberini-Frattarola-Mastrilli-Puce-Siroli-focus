@@ -30,5 +30,4 @@ public interface Account {
      * @param amount that must be applied to the account
      */
     void execute(int amount);
-
 }

@@ -1,7 +1,5 @@
 package oop.focus.finance;
 
-import java.util.List;
-
 /**
  * Interface that models a finance manager,
  * coordinating the three managers of transactions, accounts and categories.
@@ -51,19 +49,19 @@ public interface FinanceManager {
     void removeTransaction(Transaction transaction);
 
     /**
-     * @return accounts' list
+     * Check if repeat transactions are to be generated, and if so generate them.
      */
-    List<Account> getAccounts();
+    void generateRepeatedTransactions();
 
     /**
-     * @return categories' list
+     * @return account manager
      */
-    List<Category> getCategories();
+    AccountManager getAccountManager();
 
     /**
-     * @return transactions' list
+     * @return category manager
      */
-    List<Transaction> getTransactions();
+    CategoryManager getCategoryManager();
 
     /**
      * @return transaction manager

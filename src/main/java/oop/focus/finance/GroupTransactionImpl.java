@@ -6,6 +6,9 @@ import org.joda.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Immutable implementation of a group transaction.
+ */
 public class GroupTransactionImpl implements GroupTransaction {
 
     private final String description;
@@ -14,7 +17,8 @@ public class GroupTransactionImpl implements GroupTransaction {
     private final int amount;
     private final LocalDate date;
 
-    public GroupTransactionImpl(final String description, final Person madeBy, final List<Person> forList, final int amount, final LocalDate date) {
+    public GroupTransactionImpl(final String description, final Person madeBy, final List<Person> forList,
+                                final int amount, final LocalDate date) {
         this.description = description;
         this.madeBy = madeBy;
         this.forList = forList;
@@ -23,7 +27,7 @@ public class GroupTransactionImpl implements GroupTransaction {
     }
 
     @Override
-    public final String getDesc() {
+    public final String getDescription() {
         return this.description;
     }
 

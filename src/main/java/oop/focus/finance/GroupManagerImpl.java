@@ -25,6 +25,17 @@ public class GroupManagerImpl implements GroupManager {
     }
 
     @Override
+    public final int getCredit(final Person person) {
+        return this.transactions.stream()
+                .filter(t -> t.getMadeBy().equals(person))
+                .map(GroupTransaction::getAmount)
+                .reduce(0, Integer::sum) - this.transactions.stream()
+                .filter(t -> t.getForList().contains(person))
+                .map(t -> t.getAmount() / t.getForList().size())
+                .reduce(0, Integer::sum);
+    }
+
+    @Override
     public final void addTransaction(final GroupTransaction groupTransaction) {
         this.transactions.add(groupTransaction);
     }
@@ -43,16 +54,4 @@ public class GroupManagerImpl implements GroupManager {
     public final List<GroupTransaction> getTransactions() {
         return this.transactions;
     }
-
-    @Override
-    public final int getCredit(final Person person) {
-        return this.transactions.stream()
-                   .filter(t -> t.getMadeBy().equals(person))
-                   .map(GroupTransaction::getAmount)
-                   .reduce(0, Integer::sum) - this.transactions.stream()
-                                                          .filter(t -> t.getForList().contains(person))
-                                                          .map(t -> t.getAmount() / t.getForList().size())
-                                                          .reduce(0, Integer::sum);
-    }
-
 }

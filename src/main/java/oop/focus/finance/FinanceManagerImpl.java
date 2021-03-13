@@ -1,8 +1,10 @@
 package oop.focus.finance;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Immutable implementation of a finance manager.
+ */
 public class FinanceManagerImpl implements FinanceManager {
 
     private final AccountManager accounts;
@@ -13,7 +15,6 @@ public class FinanceManagerImpl implements FinanceManager {
         this.accounts = new AccountManagerImpl();
         this.categories = new CategoryManagerImpl();
         this.transactions = new TransactionManagerImpl();
-        this.transactions.getGeneratedTransactions().forEach(this::addTransaction);
     }
 
     @Override
@@ -23,10 +24,10 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void removeAccount(final Account account) {
-        this.transactions.removeAll(this.transactions.getTransactions().stream()
-                                                                       .filter(t -> t.getAccount()
-                                                                       .equals(account))
-                                                                       .collect(Collectors.toList()));
+        this.transactions.getTransactions().stream()
+                        .filter(t -> t.getAccount()
+                        .equals(account))
+                        .collect(Collectors.toList()).forEach(this.transactions::remove);
         this.accounts.remove(account);
     }
 
@@ -37,10 +38,12 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void removeCategory(final Category category) {
-        if (this.transactions.getTransactions().stream().map(Transaction::getCat).anyMatch(c -> c.equals(category))) {
-            throw new IllegalStateException();
-        } else {
+        if (this.transactions.getTransactions().stream()
+                .map(Transaction::getCategory)
+                .noneMatch(c -> c.equals(category))) {
             this.categories.remove(category);
+        } else {
+            throw new IllegalStateException();
         }
     }
 
@@ -48,28 +51,31 @@ public class FinanceManagerImpl implements FinanceManager {
     public final void addTransaction(final Transaction transaction) {
         this.transactions.add(transaction);
         transaction.getAccount().execute(transaction.getAmount());
-        System.out.println(transaction.getAmount());
     }
 
     @Override
     public final void removeTransaction(final Transaction transaction) {
-        this.transactions.remove(transaction);
-        transaction.getAccount().execute(-transaction.getAmount());
+        if (this.transactions.getTransactions().contains(transaction)) {
+            this.transactions.remove(transaction);
+            transaction.getAccount().execute(-transaction.getAmount());
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     @Override
-    public final List<Account> getAccounts() {
-        return this.accounts.getAccounts();
+    public final void generateRepeatedTransactions() {
+        this.transactions.getGeneratedTransactions().forEach(this::addTransaction);
     }
 
     @Override
-    public final List<Category> getCategories() {
-        return this.categories.getCategories();
+    public final AccountManager getAccountManager() {
+        return this.accounts;
     }
 
     @Override
-    public final List<Transaction> getTransactions() {
-        return this.transactions.getTransactions();
+    public final CategoryManager getCategoryManager() {
+        return this.categories;
     }
 
     @Override

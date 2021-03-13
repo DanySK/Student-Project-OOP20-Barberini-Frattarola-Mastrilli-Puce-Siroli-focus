@@ -21,6 +21,13 @@ public interface GroupManager {
     void removePerson(Person person);
 
     /**
+     *
+     * @param person whose we want to know credit amount
+     * @return the credit amount
+     */
+    int getCredit(Person person);
+
+    /**
      * @param groupTransaction added to group transactions
      */
     void addTransaction(GroupTransaction groupTransaction);
@@ -39,11 +46,4 @@ public interface GroupManager {
      * @return the list of group transactions
     */
     List<GroupTransaction> getTransactions();
-
-    /**
-     *
-     * @param person whose we want to know credit amount
-     * @return the credit amount
-     */
-    int getCredit(Person person);
 }

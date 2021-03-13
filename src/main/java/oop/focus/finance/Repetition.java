@@ -11,10 +11,6 @@ public enum Repetition {
      */
     ONCE(i -> 0,                     i -> 0,                     d -> d),
     /**
-     * it is repeated every week.
-     */
-    WEEKLY(i -> (int) (i / 0.21),    i -> (int) (i * 52.14),     d -> d.plusWeeks(1)),
-    /**
      * it is repeated every month.
      */
     MONTHLY(i -> i,                  i -> i * 12,                d -> d.plusMonths(1)),

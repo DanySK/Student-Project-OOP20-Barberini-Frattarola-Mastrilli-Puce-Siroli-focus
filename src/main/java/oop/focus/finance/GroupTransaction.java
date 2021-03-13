@@ -14,7 +14,7 @@ public interface GroupTransaction {
     /**
      * @return transaction's description
      */
-    String getDesc();
+    String getDescription();
 
     /**
      * @return the person who paid

@@ -15,6 +15,11 @@ public class AccountImpl implements Account {
     }
 
     @Override
+    public final void execute(final int amount) {
+        this.amount = this.amount + amount;
+    }
+
+    @Override
     public final String getName() {
         return this.name;
     }
@@ -27,11 +32,6 @@ public class AccountImpl implements Account {
     @Override
     public final int getAmount() {
         return this.amount;
-    }
-
-    @Override
-    public final void execute(final int amount) {
-        this.amount = this.amount + amount;
     }
 
     @Override
@@ -50,5 +50,4 @@ public class AccountImpl implements Account {
     public final int hashCode() {
         return Objects.hash(this.name);
     }
-
 }

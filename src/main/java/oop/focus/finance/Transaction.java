@@ -11,14 +11,29 @@ import org.joda.time.LocalDate;
 public interface Transaction {
 
     /**
+     * @return the date of the next renewal
+     */
+    LocalDate getNextRenewal();
+
+    /**
+     * Stop to repeat a subscription.
+     */
+    void stopRepeat();
+
+    /**
      * @return transaction's description
      */
-    String getDesc();
+    String getDescription();
 
     /**
      * @return transaction's category
      */
-    Category getCat();
+    Category getCategory();
+
+    /**
+     * @return transaction's date
+     */
+    LocalDate getDate();
 
     /**
      * @return transaction's account
@@ -26,33 +41,17 @@ public interface Transaction {
     Account getAccount();
 
     /**
-     * @return transaction's repetition
-     */
-    Repetition getRep();
-
-    /**
-     * @return true if the transaction no longer needs to be repeated 
-     */
-    Boolean isLast();
-
-    /**
-     * @return transaction's date
-     */
-    LocalDate getDate();
-
-
-    /**
      * @return transaction's amount
      */
     int getAmount();
 
     /**
-     * @param b boolean with which 'last' attribute must be changed
+     * @return transaction's repetition
      */
-    void setLast(boolean b);
+    Repetition getRepetition();
 
     /**
-     * @return the date of the next renewal
+     * @return true if the transaction no longer needs to be repeated 
      */
-    LocalDate getNextRenewal();
+    Boolean isToBeRepeated();
 }
