@@ -30,9 +30,9 @@ public class CalendarLogicImpl implements CalendarLogic {
      * @return all the information about a day
      */
     public DayImpl getDay(final LocalDate day) {
-        if (this.week.isEmpty()) {
-            if (this.month.isEmpty()) {
-                if (this.year.isEmpty()) {
+        if (!this.week.contains(new DayImpl(day))) {
+            if (!this.month.contains(new DayImpl(day))) {
+                if (!this.year.contains(new DayImpl(day))) {
                     return null;
                 }
                 return filter(this.year, day);
