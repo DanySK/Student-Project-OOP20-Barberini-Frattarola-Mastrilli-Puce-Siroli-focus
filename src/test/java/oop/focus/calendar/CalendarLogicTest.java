@@ -109,12 +109,12 @@ public class CalendarLogicTest {
     	//cambio anno, genero quello precedente
         manager.changeYear(true);
         
-        /*
+        
     	//controllo che mi abbia generato l'anno precedente
     	for(int i=0; i < (today.minusYears(1).dayOfYear().getMaximumValue()) ; i++) {
     		assertTrue(manager.getYear().get(i).equals(new DayImpl(today.minusDays(today.getDayOfYear() + today.minusYears(1).dayOfYear().getMaximumValue() - (1 + i)))));
     	}
-    	*/
+    	
     	
         
         //controllo che il giorno corrente non ci sia nel mese precedente
