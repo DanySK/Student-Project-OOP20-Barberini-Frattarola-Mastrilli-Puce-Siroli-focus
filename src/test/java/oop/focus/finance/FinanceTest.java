@@ -33,13 +33,17 @@ public class FinanceTest {
                 this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2020, 1, 1),
                 this.financeManager.getAccountManager().getAccounts().get(1), -1_200, Repetition.ONCE));
         // creo tre persone (nei due modi possibili)
-        final Person alex = new PersonImpl("Alex", "me", null);
-        final Person luca = new PersonImpl("Luca", "fratello", null);
-        final Person gaia = new PersonImpl("Gaia", "amica", null);
+        final Person alex = new PersonImpl("Alex", "me");
+        final Person luca = new PersonImpl("Luca", "fratello");
+        final Person gaia = new PersonImpl("Gaia", "amica");
+        final Person maia = new PersonImpl("Maia", "fidanzata");
+        final Person elia = new PersonImpl("Elia", "cugino");
         // aggiungo tre persone al financeManager delle transazioni di gruppo
         this.groupManager.addPerson(alex);
         this.groupManager.addPerson(luca);
         this.groupManager.addPerson(gaia);
+        this.groupManager.addPerson(maia);
+        this.groupManager.addPerson(elia);
         // aggiungo alcune transazioni di gruppo
         this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex, gaia), 500, new LocalDate()));
         this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 1000, new LocalDate()));
@@ -50,6 +54,8 @@ public class FinanceTest {
         this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(alex, luca), 200, new LocalDate()));
         this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 400, new LocalDate()));
         this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(alex, gaia), 500, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", maia, List.of(alex), 100, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("", elia, List.of(alex), 150, new LocalDate()));
     }
 
     @org.junit.Test
@@ -64,13 +70,19 @@ public class FinanceTest {
         assertEquals(1, this.financeManager.getTransactionManager().getTransactions().size());
     }
 
-    @org.junit.Test(expected = IllegalStateException.class)
+    @org.junit.Test()
     public void testCategories() {
         // controlli categories
         assertEquals(5, this.financeManager.getCategoryManager().getCategories().size());
         // provo a rimuovere delle categorie di cui esistono transazioni
-        this.financeManager.removeCategory(this.financeManager.getCategoryManager().getCategories().get(0));
-        this.financeManager.removeCategory(this.financeManager.getCategoryManager().getCategories().get(1));
+        try {
+            this.financeManager.removeCategory(this.financeManager.getCategoryManager().getCategories().get(0));
+            fail();
+        } catch (IllegalStateException ignored) { }
+        try {
+            this.financeManager.removeCategory(this.financeManager.getCategoryManager().getCategories().get(1));
+            fail();
+        } catch (IllegalStateException ignored) { }
         // controllo che non siano state rimosse categorie
         assertEquals(5, this.financeManager.getCategoryManager().getCategories().size());
         // provo a rimuovere le categorie di cui non esistono transazioni
@@ -164,13 +176,15 @@ public class FinanceTest {
     @org.junit.Test()
     public void testGroupTransactions() {
         // controllo che ci siano tutte le persone nel gruppo
-        assertEquals(3, this.groupManager.getGroup().size());
+        assertEquals(5, this.groupManager.getGroup().size());
         // controllo che ci siano tutte le transazioni di gruppo
-        assertEquals(9, this.groupManager.getTransactions().size());
+        assertEquals(11, this.groupManager.getTransactions().size());
         // controllo che i crediti e i debiti siano tutti corretti
-        assertEquals(-550, this.groupManager.getCredit(this.groupManager.getGroup().get(0)));
+        assertEquals(-800, this.groupManager.getCredit(this.groupManager.getGroup().get(0)));
         assertEquals(600, this.groupManager.getCredit(this.groupManager.getGroup().get(1)));
         assertEquals(-50, this.groupManager.getCredit(this.groupManager.getGroup().get(2)));
+        assertEquals(100, this.groupManager.getCredit(this.groupManager.getGroup().get(3)));
+        assertEquals(150, this.groupManager.getCredit(this.groupManager.getGroup().get(4)));
         // provo a eliminare qualche transazione
         this.groupManager.removeTransaction(this.groupManager.getTransactions().get(7));
         this.groupManager.removeTransaction(this.groupManager.getTransactions().get(4));
@@ -180,25 +194,25 @@ public class FinanceTest {
                 List.of(this.groupManager.getGroup().get(0), this.groupManager.getGroup().get(2)),
                 200, new LocalDate()));
         // controllo che siano state aggiornate
-        assertEquals(7, this.groupManager.getTransactions().size());
+        assertEquals(9, this.groupManager.getTransactions().size());
         // controllo che i crediti siano cambiati e corretti
-        assertEquals(-500, this.groupManager.getCredit(this.groupManager.getGroup().get(0)));
+        assertEquals(-750, this.groupManager.getCredit(this.groupManager.getGroup().get(0)));
         assertEquals(500, this.groupManager.getCredit(this.groupManager.getGroup().get(1)));
         assertEquals(0, this.groupManager.getCredit(this.groupManager.getGroup().get(2)));
         // elimino una persona eliminabile
         this.groupManager.removePerson(this.groupManager.getGroup().get(2));
         // controllo quante persone ci sono nel gruppo
-        assertEquals(2, this.groupManager.getGroup().size());
+        assertEquals(4, this.groupManager.getGroup().size());
         // elimino una persona non eliminabile
         try {
             this.groupManager.removePerson(this.groupManager.getGroup().get(0));
             fail();
         } catch (IllegalStateException ignored) { }
         // controllo quante persone ci sono nel gruppo
-        assertEquals(2, this.groupManager.getGroup().size());
+        assertEquals(4, this.groupManager.getGroup().size());
         // richiedo la soluzione dei debiti
         var solution = this.groupManager.resolve();
-        assertEquals(2, solution.size());
+        assertEquals(3, solution.size());
         // eseguo le transazioni di risoluzione
         solution.forEach(this.groupManager::addTransaction);
         // controllo che nessuno abbia più debiti
@@ -206,7 +220,7 @@ public class FinanceTest {
         // elimino il gruppo e le sue transazioni
         try {
             this.groupManager.reset();
-        } catch (IllegalStateException ignored) {
+        } catch (IllegalStateException e) {
             fail();
         }
         // controllo che non ci sia più nulla
