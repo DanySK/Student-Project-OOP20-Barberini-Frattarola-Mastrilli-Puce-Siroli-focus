@@ -4,9 +4,9 @@ public class ToDoActionImpl implements ToDoAction {
     private String annotation;
     private boolean done;
 
-    public ToDoActionImpl(final String annotation) {
+    public ToDoActionImpl(final String annotation, final boolean done) {
         this.annotation = annotation;
-        this.done = false;
+        this.done = done;
     }
 
     @Override
