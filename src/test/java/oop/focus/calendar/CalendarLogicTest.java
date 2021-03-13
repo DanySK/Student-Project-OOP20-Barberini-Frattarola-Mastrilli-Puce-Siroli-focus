@@ -33,26 +33,10 @@ public class CalendarLogicTest {
         assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 6))));
         assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 7))));
         
-        //cambio settimini, genero quella precedente
+        //cambio settimana, genero quella precedente
         manager.changeWeek(true);
-        
-        /*
-         * controllo che la nuova settimana generata 
-         * sia diversa da quella corrente
-         */
-        assertFalse(manager.getWeek().get(0).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 1))));
-        assertFalse(manager.getWeek().get(1).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 2))));
-        assertFalse(manager.getWeek().get(2).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 3))));
-        assertFalse(manager.getWeek().get(3).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 4))));
-        assertFalse(manager.getWeek().get(4).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 5))));
-        assertFalse(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 6))));
-        assertFalse(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 7))));
-        
-        /*
-         * controllo che abbia generato
-         * la settimana precedente
-         */
-        
+             
+        // controllo che abbia generato la settimana precedente
         assertTrue(manager.getWeek().get(0).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 6))));
         assertTrue(manager.getWeek().get(1).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 5))));
         assertTrue(manager.getWeek().get(2).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 4))));
@@ -61,9 +45,9 @@ public class CalendarLogicTest {
         assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 1))));
         assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 0))));
         
-        manager.changeWeek(false); //torno alla settimana attuale
-        
-        
+        //torno alla settimana attuale
+        manager.changeWeek(false); 
+          
         //controllo che abbia cambiato la settimana       
         assertTrue(manager.getWeek().get(0).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 1))));
         assertTrue(manager.getWeek().get(1).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 2))));
@@ -78,6 +62,31 @@ public class CalendarLogicTest {
         
 
 
+    }
+    @Test
+    public void testMonth() {
+
+    	manager.generateMonth(); //genero il mese corrente
+
+    	//controllo che mi abbia generato il mese corrente
+    	for(int i=0; i < today.dayOfMonth().getMaximumValue(); i++) {
+    		assertTrue(manager.getMonth().get(i).equals(new DayImpl(today.minusDays(today.getDayOfMonth() - (i + 1)))));
+    	}
+        
+    	//cambio mese, genero quello precedente
+        manager.changeMonth(true);
+        
+    	//controllo che mi abbia generato il mese precedente
+    	for(int i=0; i < today.minusMonths(1).dayOfMonth().getMaximumValue(); i++) {
+    		assertTrue(manager.getMonth().get(i).equals(new DayImpl(today.minusDays(today.getDayOfMonth() + today.minusMonths(1).dayOfMonth().getMaximumValue() - (1 + i)))));
+    	}
+    	
+    	//torno al mese corrente
+    	manager.changeMonth(false);
+    	
+        //controllo che il giorno corrente sia nel mese attualmente visibile
+        assertTrue(manager.getMonth().contains(manager.getDay(today)));
+        
     }
 
 }
