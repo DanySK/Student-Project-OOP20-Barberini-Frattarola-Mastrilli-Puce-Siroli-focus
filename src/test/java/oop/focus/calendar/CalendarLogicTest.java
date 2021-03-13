@@ -1,5 +1,6 @@
 package oop.focus.calendar;
 
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.joda.time.LocalDate;
@@ -45,6 +46,9 @@ public class CalendarLogicTest {
         assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 1))));
         assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 0))));
         
+        //controllo che il giorno corrente non ci sia nella settimana precedente
+        assertFalse(manager.getWeek().contains(manager.getDay(today)));
+        
         //torno alla settimana attuale
         manager.changeWeek(false); 
           
@@ -81,11 +85,46 @@ public class CalendarLogicTest {
     		assertTrue(manager.getMonth().get(i).equals(new DayImpl(today.minusDays(today.getDayOfMonth() + today.minusMonths(1).dayOfMonth().getMaximumValue() - (1 + i)))));
     	}
     	
+        //controllo che il giorno corrente non ci sia nel mese precedente
+        assertFalse(manager.getMonth().contains(manager.getDay(today)));
+    	
     	//torno al mese corrente
     	manager.changeMonth(false);
     	
         //controllo che il giorno corrente sia nel mese attualmente visibile
         assertTrue(manager.getMonth().contains(manager.getDay(today)));
+        
+    }
+    
+    @Test
+    public void testYear() {
+
+    	manager.generateYear(); //genero l'anno corrente
+
+    	//controllo che mi abbia generato l'hanno corrente
+    	for(int i=0; i < today.dayOfYear().getMaximumValue(); i++) {
+    		assertTrue(manager.getYear().get(i).equals(new DayImpl(today.minusDays(today.getDayOfYear() - (i + 1)))));
+    	}
+        
+    	//cambio anno, genero quello precedente
+        manager.changeYear(true);
+        
+        /*
+    	//controllo che mi abbia generato l'anno precedente
+    	for(int i=0; i < (today.minusYears(1).dayOfYear().getMaximumValue()) ; i++) {
+    		assertTrue(manager.getYear().get(i).equals(new DayImpl(today.minusDays(today.getDayOfYear() + today.minusYears(1).dayOfYear().getMaximumValue() - (1 + i)))));
+    	}
+    	*/
+    	
+        
+        //controllo che il giorno corrente non ci sia nel mese precedente
+        assertFalse(manager.getYear().contains(manager.getDay(today)));
+        
+    	//torno al mese corrente
+    	manager.changeYear(false);
+    	
+        //controllo che il giorno corrente sia nel mese attualmente visibile
+        assertTrue(manager.getYear().contains(manager.getDay(today)));
         
     }
 
