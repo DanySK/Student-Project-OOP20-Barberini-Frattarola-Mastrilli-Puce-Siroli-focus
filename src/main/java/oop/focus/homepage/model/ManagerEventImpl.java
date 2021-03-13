@@ -15,12 +15,14 @@ import org.joda.time.LocalTime;
 public class ManagerEventImpl implements ManagerEvent {
 
     private final Set<Event> events;
+    private final TimeProperty time;
 
     /**
      * This is the class constructor.
      */
     public ManagerEventImpl() {
         this.events = new HashSet<>();
+        this.time = new TimeProperty();
     }
 
     /**
@@ -28,7 +30,9 @@ public class ManagerEventImpl implements ManagerEvent {
      * @param e is the event that must be added to events list.
      */
     public final void addEvent(final Event e) {
-        this.events.add(e);
+        if (this.time.areCompatible(e, this.orderByHour(findByDate(e.getStartDate())))) {
+            this.events.add(e);
+        }
     }
 
     /**

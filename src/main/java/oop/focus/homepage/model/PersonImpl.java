@@ -14,12 +14,10 @@ public class PersonImpl implements Person {
      * This is the class constructor.
      * @param name is the name of the person to be created.
      * @param degree it is the degree of kinship of the person to be created.
-     * @param manager ;
      */
-    public PersonImpl(final String name, final String degree, final ManagerDegreeOfKinship manager) {
+    public PersonImpl(final String name, final String degree) {
         this.name = name;
         this.degreeOfKinship = degree;
-        manager.add(this.getDegreeOfKinship());
     }
 
     /**
