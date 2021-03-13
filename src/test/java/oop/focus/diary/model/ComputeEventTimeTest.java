@@ -7,11 +7,12 @@ import java.util.Optional;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
+import oop.focus.finance.Repetition;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.ManagerEvent;
 import oop.focus.homepage.model.ManagerEventImpl;
-import oop.focus.homepage.model.Repetition;
+
 
 
 
@@ -59,8 +60,8 @@ public class ComputeEventTimeTest {
         //si creano due eventi : shopping e palestra, da aggiungere al ManagerEvent
         final String str = "Shopping";
         final String pal = "Palestra";
-        Event first = new EventImpl(str, new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.NEVER);
-        final Event second = new EventImpl(pal, new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 00), Repetition.NEVER);
+        Event first = new EventImpl(str, new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+        final Event second = new EventImpl(pal, new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 00), Repetition.ONCE);
         me.addEvent(first);
         me.addEvent(second);
         //stampa tempo dedicato allo shopping e alla palestra
@@ -69,7 +70,7 @@ public class ComputeEventTimeTest {
         System.out.println("Test 2 :"+csc.computePeriod(pal).get().getHours() +":"+ csc.computePeriod(pal).get().getMinutes() +
                 ":" +csc.computePeriod(pal).get().getSeconds());
         //si crea un'altro evento "shopping", in un altro giorno e dalla durata di 5 ore
-        first = new EventImpl(str, new LocalDateTime(2021, 9, 27, 10, 30), new LocalDateTime(2021, 9, 27, 15, 30), Repetition.NEVER);
+        first = new EventImpl(str, new LocalDateTime(2021, 9, 27, 10, 30), new LocalDateTime(2021, 9, 27, 15, 30), Repetition.ONCE);
         me.addEvent(first);
         //si verifica che, in totale, sono state dedicate 6 ore in totale.
         System.out.println("Test 2 :"+csc.computePeriod(str).get().getHours()+
@@ -81,13 +82,13 @@ public class ComputeEventTimeTest {
     public void testEventsInDifferentsDays() {
         final String prog = "progetto";
         //creato evento progetto, dalla durata di 5 ore
-        Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20, 30), new LocalDateTime(2021, 9, 27, 01, 30), Repetition.NEVER);
+        Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20, 30), new LocalDateTime(2021, 9, 27, 01, 30), Repetition.ONCE);
         me.addEvent(third);
         //verifica la durata dell'evento progetto
         System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"
                 +csc.computePeriod(prog).get().getMinutes() + ":"+csc.computePeriod(prog).get().getSeconds());
         //nuovo evento progetto, dalla durata di 21 ore
-        third = new EventImpl("progetto", new LocalDateTime(2021, 9, 26, 21, 30), new LocalDateTime(2021, 9, 27, 18, 30), Repetition.NEVER);
+        third = new EventImpl("progetto", new LocalDateTime(2021, 9, 26, 21, 30), new LocalDateTime(2021, 9, 27, 18, 30), Repetition.ONCE);
         me.addEvent(third);
         //verifica la durata totale del progetto : 26 ore
         System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() + 

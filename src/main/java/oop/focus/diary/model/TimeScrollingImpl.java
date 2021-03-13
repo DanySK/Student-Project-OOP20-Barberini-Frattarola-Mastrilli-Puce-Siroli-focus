@@ -8,10 +8,9 @@ import java.util.function.Predicate;
 
 import org.joda.time.LocalDateTime;
 
-
+import oop.focus.finance.Repetition;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.ManagerEvent;
-import oop.focus.homepage.model.Repetition;
 
 public class TimeScrollingImpl implements TimeScrolling {
     private boolean stop;
@@ -59,7 +58,7 @@ public class TimeScrollingImpl implements TimeScrolling {
         this.stop = true;
     }
     private void createEvent() {
-        me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.NEVER));
+        me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
     }
     @Override
     public final boolean end() {
