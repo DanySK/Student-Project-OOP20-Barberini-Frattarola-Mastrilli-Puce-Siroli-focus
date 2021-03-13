@@ -38,6 +38,16 @@ public interface GroupManager {
     void removeTransaction(GroupTransaction groupTransaction);
 
     /**
+     * @return the list of transactions to be carried out to settle the debts.
+     */
+    List<GroupTransaction> resolve();
+
+    /**
+     * If there are no more debts, delete the group and all transactions.
+     */
+    void reset();
+
+    /**
      * @return the list of people in the group
      */
     List<Person> getGroup();
@@ -46,4 +56,5 @@ public interface GroupManager {
      * @return the list of group transactions
     */
     List<GroupTransaction> getTransactions();
+
 }

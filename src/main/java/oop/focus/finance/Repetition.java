@@ -9,7 +9,15 @@ public enum Repetition {
     /**
      * it is not repeated.
      */
-    ONCE(i -> 0,                     i -> 0,                     d -> d),
+    ONCE(i -> 0, i -> 0, d -> d),
+    /**
+     * it is repeated daily.
+     */
+    DAILY((i -> (int) (i * 30.42)),  i -> i * 365,               d -> d.plusDays(1)),
+    /**
+     * it is repeated every week.
+     */
+    WEEKLY(i -> (int) (i * 4.35),    i -> (int) (i * 52.14),     d -> d.plusWeeks(1)),
     /**
      * it is repeated every month.
      */

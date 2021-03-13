@@ -1,5 +1,7 @@
 package oop.focus.finance;
 
+import org.joda.time.LocalDate;
+
 import java.util.stream.Collectors;
 
 /**
@@ -64,8 +66,8 @@ public class FinanceManagerImpl implements FinanceManager {
     }
 
     @Override
-    public final void generateRepeatedTransactions() {
-        this.transactions.getGeneratedTransactions().forEach(this::addTransaction);
+    public final void generateRepeatedTransactions(final LocalDate date) {
+        this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package oop.focus.finance;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
@@ -32,9 +33,9 @@ public class FinanceTest {
                 this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2020, 1, 1),
                 this.financeManager.getAccountManager().getAccounts().get(1), -1_200, Repetition.ONCE));
         // creo tre persone (nei due modi possibili)
-        final Person alex = new PersonImpl("Alex", "me");
-        final Person luca = new PersonImpl("Marco", "fratello");
-        final Person gaia = new PersonImpl("Chiara", "amica");
+        final Person alex = new PersonImpl("Alex", "me", null);
+        final Person luca = new PersonImpl("Luca", "fratello", null);
+        final Person gaia = new PersonImpl("Gaia", "amica", null);
         // aggiungo tre persone al financeManager delle transazioni di gruppo
         this.groupManager.addPerson(alex);
         this.groupManager.addPerson(luca);
@@ -125,6 +126,12 @@ public class FinanceTest {
     public void testSubscriptions() {
         this.financeManager.addAccount(new AccountImpl("Conto iscrizioni", "00FFFF", 200_000));
         // creo diverse transazioni ripetute (abbonamenti)
+        this.financeManager.addTransaction(new TransactionImpl("Bar Pasquino",
+                this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2021, 1, 1),
+                this.financeManager.getAccountManager().getAccounts().get(2), -100, Repetition.DAILY));
+        this.financeManager.addTransaction(new TransactionImpl("Abbonamento metro",
+                this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2021, 1, 1),
+                this.financeManager.getAccountManager().getAccounts().get(2), -1_000, Repetition.WEEKLY));
         this.financeManager.addTransaction(new TransactionImpl("Tariffa TIM",
                 this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2021, 3, 3),
                 this.financeManager.getAccountManager().getAccounts().get(2), -699, Repetition.MONTHLY));
@@ -141,20 +148,20 @@ public class FinanceTest {
                 this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2020, 1, 1),
                 this.financeManager.getAccountManager().getAccounts().get(2), -2_400, Repetition.YEARLY));
         // controllo che siano state aggiunte con successo
-        assertEquals(7, this.financeManager.getTransactionManager().getTransactions().size());
-        assertEquals(5, this.financeManager.getTransactionManager().getSubscriptions().size());
+        assertEquals(9, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(7, this.financeManager.getTransactionManager().getSubscriptions().size());
         // controllo spesa totale mensile e annuale
-        assertEquals(-18_799, this.financeManager.getTransactionManager().monthlyExpense());
-        assertEquals(-225_588, this.financeManager.getTransactionManager().yearlyExpense());
+        assertEquals(-26_191, this.financeManager.getTransactionManager().monthlyExpense());
+        assertEquals(-314_228, this.financeManager.getTransactionManager().yearlyExpense());
         // faccio creare tutte le transazioni da ripetere
-        this.financeManager.generateRepeatedTransactions();
+        this.financeManager.generateRepeatedTransactions(new LocalDate(2021, 3, 13));
         // controllo che siano state aggiunte tutte
-        assertEquals(12, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(95, this.financeManager.getTransactionManager().getTransactions().size());
         // controllo che l'importo del conto sia corretto
-        assertEquals(47_201, this.financeManager.getAccountManager().getAccounts().get(2).getAmount());
+        assertEquals(29_001, this.financeManager.getAccountManager().getAccounts().get(2).getAmount());
     }
 
-    @org.junit.Test(expected = IllegalStateException.class)
+    @org.junit.Test()
     public void testGroupTransactions() {
         // controllo che ci siano tutte le persone nel gruppo
         assertEquals(3, this.groupManager.getGroup().size());
@@ -183,9 +190,28 @@ public class FinanceTest {
         // controllo quante persone ci sono nel gruppo
         assertEquals(2, this.groupManager.getGroup().size());
         // elimino una persona non eliminabile
-        this.groupManager.removePerson(this.groupManager.getGroup().get(0));
+        try {
+            this.groupManager.removePerson(this.groupManager.getGroup().get(0));
+            fail();
+        } catch (IllegalStateException ignored) { }
         // controllo quante persone ci sono nel gruppo
         assertEquals(2, this.groupManager.getGroup().size());
+        // richiedo la soluzione dei debiti
+        var solution = this.groupManager.resolve();
+        assertEquals(2, solution.size());
+        // eseguo le transazioni di risoluzione
+        solution.forEach(this.groupManager::addTransaction);
+        // controllo che nessuno abbia più debiti
+        this.groupManager.getGroup().forEach(p -> assertEquals(0, this.groupManager.getCredit(p)));
+        // elimino il gruppo e le sue transazioni
+        try {
+            this.groupManager.reset();
+        } catch (IllegalStateException ignored) {
+            fail();
+        }
+        // controllo che non ci sia più nulla
+        assertEquals(0, this.groupManager.getGroup().size());
+        assertEquals(0, this.groupManager.getTransactions().size());
     }
 }
 

@@ -1,5 +1,7 @@
 package oop.focus.finance;
 
+import org.joda.time.LocalDate;
+
 /**
  * Interface that models a finance manager,
  * coordinating the three managers of transactions, accounts and categories.
@@ -50,8 +52,9 @@ public interface FinanceManager {
 
     /**
      * Check if repeat transactions are to be generated, and if so generate them.
+     * @param date until it is time to calculate
      */
-    void generateRepeatedTransactions();
+    void generateRepeatedTransactions(LocalDate date);
 
     /**
      * @return account manager

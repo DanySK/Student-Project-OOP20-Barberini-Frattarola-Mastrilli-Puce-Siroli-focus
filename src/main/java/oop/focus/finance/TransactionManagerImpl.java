@@ -1,6 +1,7 @@
 package oop.focus.finance;
 
 import org.joda.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -14,7 +15,11 @@ public class TransactionManagerImpl implements TransactionManager {
 
     @Override
     public final void add(final Transaction transaction) {
-        this.transactions.add(transaction);
+        if (!transaction.getDate().isAfter(LocalDate.now())) {
+            this.transactions.add(transaction);
+        } else {
+            throw new UnsupportedOperationException();
+        }
     }
 
     @Override
@@ -60,19 +65,19 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public final List<Transaction> getGeneratedTransactions() {
-        return this.transactions.stream().flatMap(t -> this.generateNext(t).stream()).collect(Collectors.toList());
+    public final List<Transaction> getGeneratedTransactions(final LocalDate date) {
+        return this.transactions.stream().flatMap(t -> this.generateNext(t, date).stream()).collect(Collectors.toList());
     }
 
-    private List<Transaction> generateNext(final Transaction t) {
-        if (!t.isToBeRepeated() || LocalDate.now().isBefore(t.getNextRenewal())) {
+    private List<Transaction> generateNext(final Transaction t, final LocalDate date) {
+        if (!t.isToBeRepeated() || date.isBefore(t.getNextRenewal())) {
             return new ArrayList<>();
         }
         t.stopRepeat();
         var transaction = new TransactionImpl(t.getDescription(), t.getCategory(), t.getNextRenewal(),
                 t.getAccount(), t.getAmount(), t.getRepetition());
         return Stream.concat(List.of(transaction).stream(),
-                this.generateNext(transaction).stream()).collect(Collectors.toList());
+                this.generateNext(transaction, date).stream()).collect(Collectors.toList());
     }
 
     private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {

@@ -15,8 +15,20 @@ public class TransactionImpl implements Transaction {
     private boolean toRepeat;
 
     public TransactionImpl(final String description, final Category category,
-            final LocalDate localDate, final Account account, final int amount,
-            final Repetition repetition) {
+                           final LocalDate localDate, final Account account, final int amount,
+                           final Repetition repetition, final boolean toRepeat) {
+        this.description = description;
+        this.category = category;
+        this.date = localDate;
+        this.account = account;
+        this.amount = amount;
+        this.repetition = repetition;
+        this.toRepeat = toRepeat;
+    }
+
+    public TransactionImpl(final String description, final Category category,
+                           final LocalDate localDate, final Account account, final int amount,
+                           final Repetition repetition) {
         this.description = description;
         this.category = category;
         this.date = localDate;

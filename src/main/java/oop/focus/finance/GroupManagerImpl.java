@@ -1,9 +1,12 @@
 package oop.focus.finance;
 
 import oop.focus.homepage.model.Person;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupManagerImpl implements GroupManager {
 
@@ -43,6 +46,18 @@ public class GroupManagerImpl implements GroupManager {
     @Override
     public final void removeTransaction(final GroupTransaction groupTransaction) {
         this.transactions.remove(groupTransaction);
+    }
+
+    @Override
+    public final List<GroupTransaction> resolve() {
+        // TODO
+        return null;
+    }
+
+    @Override
+    public final void reset() {
+        this.group.forEach(this::removePerson);
+        this.transactions.clear();
     }
 
     @Override
