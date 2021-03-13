@@ -21,7 +21,7 @@ public class ComputeEventTimeTest {
     private final ComputeStarterCounter csc = new ComputeStarterCounterImpl(me);
    
     @Test
-    public void test() throws InterruptedException {
+    public void testTimer() throws InterruptedException {
         final String str = "studio";
         final TimeScrolling timer  = factory.createTimer(str);
         //il timer relativo all'attività studio è settata a 5 sec
@@ -41,7 +41,18 @@ public class ComputeEventTimeTest {
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
         assertEquals(Optional.empty(), csc.computePeriod("camminare"));  
         }
-        
+     
+    @Test
+    public void testStopwatch() throws InterruptedException {
+        final String cuc = "cucinare";
+        final TimeScrolling stopw = factory.createStopwatch(cuc);
+        stopw.startCounter();
+        Thread.sleep(6000);
+        stopw.stopCounter();
+        Thread.sleep(1000);
+        System.out.println("Sec = " +csc.computePeriod(cuc).get().getSeconds());
+        assertEquals(Optional.empty(), csc.computePeriod("camminare"));  
+    }
     
        @Test
     public void testEventsSaved() {
