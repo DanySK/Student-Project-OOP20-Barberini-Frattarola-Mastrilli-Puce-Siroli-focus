@@ -8,15 +8,15 @@ import org.junit.Test;
 
 public class LoyalityCardTest {
 
-    private final ManagerLoyalityCard loyalityCards = new ManagerLoyalityCardImpl();
+    private final ManagerFidelityCard fidelityCard = new ManagerFidelityCardImpl();
 
     @Test
-    public void addingAndRemovingLoyaltyCardsTest() {
+    public void addingAndRemovingFidelityCardsTest() {
 
-        final LoyalityCard first = new LoyalityCardImpl("Coop", "1234567");
-        loyalityCards.addLoyalityCard(first);
-        assertEquals(loyalityCards.getLoyalityCard(), Set.of(first));
-        loyalityCards.removeLoyalityCard(first);
-        assertEquals(loyalityCards.getLoyalityCard(), Set.of());
+        final FidelityCard first = new FidelityCardImpl("Coop", "1234567", FidelityCardType.ALIMENTARI);
+        fidelityCard.addFidelityCard(first);
+        assertEquals(fidelityCard.getFidelityCards(), Set.of(first));
+        fidelityCard.removeFidelityCard(first);
+        assertEquals(fidelityCard.getFidelityCards(), Set.of());
     }
 }

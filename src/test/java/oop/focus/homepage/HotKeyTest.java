@@ -8,6 +8,7 @@ import java.util.Set;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
+import oop.focus.finance.CategoryImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.HotKey;
@@ -16,7 +17,7 @@ import oop.focus.homepage.model.HotKeyFactoryImpl;
 import oop.focus.homepage.model.HotKeyType;
 import oop.focus.homepage.model.ManagerHotKey;
 import oop.focus.homepage.model.ManagerHotKeyImpl;
-import oop.focus.homepage.model.Repetition;
+import oop.focus.finance.Repetition;
 
 public class HotKeyTest {
 
@@ -27,7 +28,7 @@ public class HotKeyTest {
 	public void addingAndRemoveNewHotKeysTest() {
 		final HotKey first = factory.createEventHotKey("Shopping");
 		final HotKey second = factory.createActivityHotKey("Allenamento");
-		final HotKey third = factory.createEventHotKey("Shopping");
+		final HotKey third = factory.createCounterHotKey("Bere");
 		
 		this.hotKeyTrackers.add(first);
 		assertEquals(this.hotKeyTrackers.getAll(), Set.of(first));
@@ -59,26 +60,15 @@ public class HotKeyTest {
 	public void createEventTest() {
 		final HotKey first = factory.createActivityHotKey("Allenamento");
 		final HotKey second = factory.createCounterHotKey("Acqua");
-		final Event counterEvent = new EventImpl("Allenamento", LocalDateTime.now(), LocalDateTime.now(), Repetition.NEVER);
-		final Event activityEvent = new EventImpl("Acqua", LocalDateTime.now(), LocalDateTime.now(), Repetition.NEVER);
-
+		final Event activityEvent = new EventImpl("Allenamento", LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
+		final Event counterEvent = new EventImpl("Acqua", LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
 
 		this.hotKeyTrackers.addAll(Set.of(first, second));
-		final Event counter = this.hotKeyTrackers.action(first);
+		final Event activity = this.hotKeyTrackers.action(first);
+		assertEquals(activity, activityEvent);
+		final Event counter = this.hotKeyTrackers.action(second);
+		assertEquals(counter, counterEvent);
 
-		assertEquals(counter.getName(), counterEvent.getName());
-		assertEquals(counter.getRipetition(), counterEvent.getRipetition());
-		assertEquals(counter.getStartDate().toString(), counterEvent.getStartDate().toString());
-		assertEquals(counter.getEndDate().toString(), counterEvent.getEndDate().toString());
-		assertEquals(counter.getPersons(), List.of());
-		
-		final Event activity = this.hotKeyTrackers.action(second);
-
-		assertEquals(activity.getName(), activityEvent.getName());
-		assertEquals(activity.getRipetition(), activityEvent.getRipetition());
-		assertEquals(activity.getStartDate().toString(), activityEvent.getStartDate().toString());
-		assertEquals(activity.getEndDate().toString(), activityEvent.getEndDate().toString());
-		assertEquals(activity.getPersons(), List.of());
 	}
 	
 }

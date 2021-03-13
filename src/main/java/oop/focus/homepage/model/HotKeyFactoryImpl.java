@@ -2,6 +2,8 @@ package oop.focus.homepage.model;
 
 import org.joda.time.LocalDateTime;
 
+import oop.focus.finance.Repetition;
+
 /**
  * This class implements the HotKeyFactory interface.
  */
@@ -9,11 +11,10 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
 
     public final HotKey createActivityHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.ACTIVITY) {
-        //lo devi generare solola prima volta quindi in caso devi generare una eccezione.
-        public Event createEvent() {
-            return new EventImpl(name, LocalDateTime.now(), LocalDateTime.now(), Repetition.NEVER);
-        }
 
+            public Event createEvent() {
+                return new EventImpl(name, LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
+            }
         };
     }
 
@@ -21,7 +22,7 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
         return new HotKeyImpl(name, HotKeyType.COUNTER) {
 
             public Event createEvent() {
-                return new EventImpl(name, LocalDateTime.now(), LocalDateTime.now(), Repetition.NEVER);
+                return new EventImpl(name, LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
             }
 
         };
@@ -36,6 +37,26 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
         }
 
         };
+    }
+
+    /**
+     * This method is used to create a keyboard shortcut of a specific type based on the type id.
+     * @param name is the name of the hot key to create.
+     * @param id is the id of the type of the hot key.
+     * @return an hot key of type x (where x is the type of hot key specified by the id).
+     */
+    public final HotKey createFromType(final String name, final int id) {
+        final HotKeyType type = HotKeyType.values()[id];
+        switch (type) {
+            case ACTIVITY :
+                return this.createActivityHotKey(name);
+            case COUNTER :
+                return this.createCounterHotKey(name);
+            case EVENT :
+                return this.createEventHotKey(name);
+            default :
+                return null;
+        }
     }
 
 }

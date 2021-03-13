@@ -8,44 +8,55 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.junit.Test;
+
+import oop.focus.finance.CategoryImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.ManagerDegreeOfKinship;
+import oop.focus.homepage.model.ManagerDegreeOfKinshipImpl;
 import oop.focus.homepage.model.ManagerEvent;
 import oop.focus.homepage.model.ManagerEventImpl;
-import oop.focus.homepage.model.Repetition;
+import oop.focus.homepage.model.PersonImpl;
+import oop.focus.finance.Repetition;
 
 public class EventTest {
 
     private final ManagerEvent eventi = new ManagerEventImpl();
+    private final ManagerDegreeOfKinship gradiDiParentela = new ManagerDegreeOfKinshipImpl();
 
     @Test
     public void addingAndRemovingEventTest() {
 
-        final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.NEVER);
-        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.NEVER);
-        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.NEVER);
-        final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.NEVER);
+        final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 8, 30), new LocalDateTime(2021, 9, 26, 8, 45), Repetition.ONCE);
+        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 9, 45), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
+        final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
 
         eventi.addEvent(first);
         assertEquals(eventi.getEvents(), Set.of(first));
+        
+        eventi.addEvent(second);
+        assertEquals(eventi.getEvents(), Set.of(first, second));
 
-        eventi.addEventsSet(Set.of(second, third, four));
+        eventi.addEvent(third);
+        assertEquals(eventi.getEvents(), Set.of(first, second));
+        /*eventi.addEventsSet(Set.of(second, third, four));
         assertEquals(eventi.getEvents(), Set.of(first, second, third, four));
 
         eventi.removeEvent(first);
         assertEquals(eventi.getEvents(), Set.of(second, third, four));
 
         eventi.removeEventsSet(Set.of(second, third, four));
-        assertEquals(eventi.getEvents(), Set.of());
+        assertEquals(eventi.getEvents(), Set.of());*/
     }
-
+/*
     @Test
     public void compareTimeTable() {
 
-    	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.NEVER);
-        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.NEVER);
-        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.NEVER);
-        final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.NEVER);
+    	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
+        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
+        final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
 
         assertEquals(first.getStartHour(), new LocalTime(9, 30));
         assertEquals(first.getEndHour(), new LocalTime(10, 30));
@@ -59,15 +70,35 @@ public class EventTest {
 
     @Test
     public void findEventsByDateTest() {
-    	  final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.NEVER);
-          final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.NEVER);
-          final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.NEVER);
-          final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.NEVER);
+    	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
+        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
 
-        eventi.addEventsSet(Set.of(first, second, third, four));
-        assertEquals(eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(first, third, four));
-        assertEquals(eventi.findByDate(new LocalDate(2021, 9, 25)), List.of(second));
-        eventi.removeEventsSet(Set.of(first, second, third, four));
+        this.eventi.addEventsSet(Set.of(first, second, third));
+        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(third, first));
+        this.eventi.removeEventsSet(Set.of(first, second, third));
     }
 
+    @Test
+    public void addNewPersonsTest() {
+    	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
+        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
+
+        eventi.addEventsSet(Set.of(first, second, third));
+        first.addPerson(new PersonImpl("Alessia", "Cugina", this.gradiDiParentela));
+        assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina"));
+        first.addPerson(new PersonImpl("Alessia", "Cugina", this.gradiDiParentela));
+        assertEquals(this.gradiDiParentela.getAll().size(), 1);
+        second.addPerson(new PersonImpl("Andrea", "Cugino", this.gradiDiParentela));
+        assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino"));
+        third.addPerson(new PersonImpl("Alice", "Mamma", this.gradiDiParentela));
+        assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino", "Mamma"));
+    }
+    
+    @Test
+    public void equalsEventsTest() {
+    	
+    }
+*/
 }

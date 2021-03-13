@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import oop.focus.finance.Repetition;
 
 /**
  * This class implements Event interface.
@@ -12,7 +13,7 @@ import org.joda.time.LocalTime;
 public class EventImpl implements Event {
 
     private final String name;
-    private final HotKeyType category;
+    private final String color;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private final Repetition repetition;
@@ -21,17 +22,29 @@ public class EventImpl implements Event {
     /**
      * This is the class constructor.
      * @param name is the name of the event to create.
-     *@param startDate is the start day of the event to create.
+     * @param startDate is the start day of the event to create.
+     * @param endDate is the end day of the event to create.
+     * @param repetition is the field that tells if and when an event will repeat itself.
+     * @param persons is the list of persons to add at the event.
+     */
+    public EventImpl(final String name, final LocalDateTime startDate, final LocalDateTime endDate, final Repetition repetition, final List<Person> persons) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.repetition = repetition;
+        this.persons = persons;
+        this.color = "Pink";
+    }
+
+    /**
+     * This is the class constructor.
+     * @param name is the name of the event to create.
+     * @param startDate is the start day of the event to create.
      * @param endDate is the end day of the event to create.
      * @param repetition is the field that tells if and when an event will repeat itself.
      */
     public EventImpl(final String name, final LocalDateTime startDate, final LocalDateTime endDate, final Repetition repetition) {
-        this.name = name;
-        this.category = HotKeyType.EVENT;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.repetition = repetition;
-        this.persons = new ArrayList<>();
+        this(name, startDate, endDate, repetition, new ArrayList<>());
     }
 
     /**
@@ -49,7 +62,7 @@ public class EventImpl implements Event {
      * @return a String that rappresent the color of the event.
      */
     public final String getColor() {
-        return this.category.getColor();
+        return this.color;
     }
 
     /**
@@ -155,16 +168,22 @@ public class EventImpl implements Event {
         final EventImpl other = (EventImpl) obj;
         if (name == null) {
             if (other.name != null) {
-            return false;
-        }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (startDate == null) {
-            if (other.startDate != null) {
                 return false;
             }
-        } else if (!startDate.equals(other.startDate)) {
+        } else if (!name.equals(other.name)) {
+               return false;
+        }
+        if (startDate.toLocalTime().getHourOfDay() != other.startDate.toLocalTime().getHourOfDay()) {
+            return false;
+        }
+        if (startDate.toLocalTime().getMinuteOfHour() != other.startDate.toLocalTime().getMinuteOfHour()) {
+            return false;
+        }
+        if (startDate.toLocalDate() == null) {
+            if (other.startDate.toLocalDate() != null) {
+                return false;
+            }
+        } else if (!startDate.toLocalDate().equals(other.startDate.toLocalDate())) {
             return false;
         }
         return true;

@@ -27,4 +27,5 @@ public interface HotKeyFactory {
      */
      HotKey createEventHotKey(String name);
 
+     //HotKey createFromType(String name, int id);
 }
