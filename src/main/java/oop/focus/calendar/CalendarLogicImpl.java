@@ -10,8 +10,6 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     private final LocalDate today = new LocalDate();
     private LocalDate current;
-    private final int dayinaweek = today.dayOfWeek().getMaximumValue();
-    private final int dayinayear = today.dayOfYear().getMaximumValue();
     private DayImpl day;
     private List<DayImpl> week;
     private List<DayImpl> month;
@@ -117,7 +115,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     */
     public List<DayImpl> generateWeek() {
         final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.getDayOfWeek() + 1);
-        this.week = generate(dayinaweek, day);
+        this.week = generate(day.dayOfWeek().getMaximumValue(), day);
         return this.week;
     }
 
@@ -127,7 +125,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public List<DayImpl> generateMonth() {
         final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), 1);
-        this.month = generate(this.current.dayOfMonth().getMaximumValue(), day);
+        this.month = generate(day.dayOfMonth().getMaximumValue(), day);
         return this.month;
     }
 
@@ -137,7 +135,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public List<DayImpl> generateYear() {
         final LocalDate day = new LocalDate(this.current.getYear(), 1, 1);
-        this.year = generate(dayinayear, day);
+        this.year = generate(day.dayOfYear().getMaximumValue(), day);
         return this.year;
     }
 
@@ -147,9 +145,9 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public void  changeWeek(final boolean change) {
         if (change) { //previous
-            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - dayinaweek);
+            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.dayOfWeek().getMaximumValue());
         } else { //next
-            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() + dayinaweek);
+            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() + this.current.dayOfWeek().getMaximumValue());
         }
         this.week = generateWeek();
     }
