@@ -1,14 +1,22 @@
 package oop.focus.diary.model;
 
 public class ToDoActionImpl implements ToDoAction {
+     private static final int MAX_LENGTH = 50;
     private String annotation;
     private boolean done;
 
     public ToDoActionImpl(final String annotation, final boolean done) {
-        this.annotation = annotation;
-        this.done = done;
+        if (checkSize(annotation)) {
+            this.annotation = annotation;
+            this.done = done;
+        }
     }
-
+    private boolean checkSize(final String annotation) {
+        if (annotation.chars().count() > MAX_LENGTH) {
+            throw new IllegalArgumentException();
+        }
+        return true;
+    }
     @Override
     public final String getAnnotation() {
         return this.annotation;
@@ -16,7 +24,9 @@ public class ToDoActionImpl implements ToDoAction {
 
     @Override
     public final void setAnnotation(final String annotation) {
-        this.annotation = annotation;
+        if (checkSize(annotation)) {
+            this.annotation = annotation;
+        }
     }
     @Override
     public final boolean isDone() {
