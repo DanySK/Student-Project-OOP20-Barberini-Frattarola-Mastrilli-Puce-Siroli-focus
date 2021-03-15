@@ -1,6 +1,6 @@
 package oop.focus.calendar;
 
-//import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox; 
 
 
@@ -54,7 +54,6 @@ public class HoursViewImpl implements HoursView {
      * @param hour qualcosa part 2
      */
     public double getY(final int hour) {
-        //System.out.println(this.myvbox.getChildren().get(hour).boundsInLocalProperty());
         return this.myvbox.getChildren().get(hour).getLayoutY();
     }
 
@@ -76,7 +75,28 @@ public class HoursViewImpl implements HoursView {
     }
 
     private void buildVBox() {
+        final VBox vbox = new VBox();
 
+        if (this.hoursformat == Format.NORMAL.getNumber()) {
+            for (int i = 0; i <= hoursformat; i++) { 
+                    final Label label = new Label(i + ":00");
+                    label.setLayoutY(i);
+                    vbox.getChildren().add(label);
+            }
+        } else {
+            for (int i = 0; i <= hoursformat; i++) { 
+                if (flag) {
+                    final Label label = new Label(i / 2 + ":00");
+                    flag = false;
+                    vbox.getChildren().add(label);
+                } else {
+                    final Label label = new Label(i / 2 + ":30");
+                    flag = true;
+                    vbox.getChildren().add(label);
+                }
+            } 
+        }
+        setVBox(vbox);
     }
 
 
