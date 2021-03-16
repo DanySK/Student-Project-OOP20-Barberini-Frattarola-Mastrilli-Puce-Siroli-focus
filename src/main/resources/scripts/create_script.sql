@@ -1,184 +1,164 @@
-create table if not exists FREQUENCY
+create table if not exists FIDELITY_CARD
 (
-    PK_FREQUENCY INT         not null
+    ID   INT auto_increment
         primary key,
-    NAME         VARCHAR(45) not null
-);
-
-create table if not exists TODO_ACTION
-(
-    PK_TODO_ACTION INT auto_increment
-        primary key,
-    DESCRIPTION    VARCHAR(150) not null
+    NAME VARCHAR(45) not null,
+    CODE VARCHAR(45) not null,
+    TYPE INT
 );
 
 create table if not exists RELATIONSHIP
 (
-    PK_RELATIONSHIP INT auto_increment
+    ID   INT auto_increment
         primary key,
-    NAME            VARCHAR(45) not null
-);
-
-create table if not exists FIDELITY_CARD
-(
-    PK_FIDELITY_CARD INT auto_increment
-        primary key,
-    NAME             VARCHAR(45) not null,
-    CODE             VARCHAR(45) not null
-);
-
-create table if not exists DAILY_MOOD
-(
-    PK_DAILY_MOOD INT auto_increment
-        primary key,
-    VALUE         INT  not null,
-    DATE          DATE not null
+    NAME VARCHAR(45) not null
 );
 
 create table if not exists COLOR
 (
-    PK_COLOR INT auto_increment
+    ID    INT auto_increment
         primary key,
-    VALUE    CHAR(6) not null
-);
-
-create table if not exists ACTION_TYPE
-(
-    PK_ACTION_TYPE INT         not null
-        primary key,
-    VALUE          VARCHAR(45) not null
+    VALUE CHAR(6) not null
 );
 
 create table if not exists QUICK_ACTION
 (
-    PK_QUICK_ACTION INT auto_increment
+    ID          INT auto_increment
         primary key,
-    NAME            VARCHAR(45) not null,
-    FK_ACTION_TYPE  INT         not null,
-    constraint FK_1
-        foreign key (FK_ACTION_TYPE) references ACTION_TYPE (PK_ACTION_TYPE)
+    NAME        VARCHAR(45) not null,
+    ACTION_TYPE INT         not null
+);
+
+create table if not exists DAILY_MOOD
+(
+    ID    INT auto_increment
+        primary key,
+    VALUE INT         not null,
+    DATE  VARCHAR(45) not null
 );
 
 create table if not exists PERSON
 (
-    PK_PERSON       INT auto_increment
+    ID              INT auto_increment
         primary key,
     NAME            VARCHAR(50) not null,
-    FK_RELATIONSHIP INT         not null,
+    ID_RELATIONSHIP INT         not null,
     constraint FK_2
-        foreign key (FK_RELATIONSHIP) references RELATIONSHIP (PK_RELATIONSHIP)
+        foreign key (ID_RELATIONSHIP) references RELATIONSHIP (ID)
+);
+
+create table if not exists GROUP_TRANSACTION
+(
+    ID          INT auto_increment
+        primary key,
+    DESCRIPTION VARCHAR(100),
+    ID_PERSON   INT not null,
+    AMOUNT      INT not null,
+    DATE        VARCHAR(45),
+
+    constraint FK_12
+        foreign key (ID_PERSON) references PERSON (ID)
+);
+
+create table if not exists TODO_ACTION
+(
+    ID          INT auto_increment
+        primary key,
+    DESCRIPTION VARCHAR(150) not null,
+    DONE        TINYINT
 );
 
 create table if not exists EVENT
 (
-    PK_EVENT     INT auto_increment
+    ID        INT auto_increment
         primary key,
-    NAME         VARCHAR(45) not null,
-    STARTDATE    DATETIME    not null,
-    ENDDATE      DATETIME    not null,
-    FK_FREQUENCY INT         not null,
-    constraint FK_3
-        foreign key (FK_FREQUENCY) references FREQUENCY (PK_FREQUENCY)
+    NAME      VARCHAR(45) not null,
+    STARTDATE VARCHAR(45) not null,
+    ENDDATE   VARCHAR(45) not null,
+    FREQUENCY INT
 );
 
 create table if not exists CATEGORY
 (
-    PK_CATEGORY INT auto_increment
+    ID       INT auto_increment
         primary key,
-    NAME        VARCHAR(45) not null,
-    FK_COLOR    INT,
+    NAME     VARCHAR(45) not null,
+    ID_COLOR INT,
     constraint FK_4
-        foreign key (FK_COLOR) references COLOR (PK_COLOR)
+        foreign key (ID_COLOR) references COLOR (ID)
             on update cascade on delete set null
 );
 
 create table if not exists ACCOUNT
 (
-    PK_ACCOUT    INT auto_increment
+    ID           INT auto_increment
         primary key,
     NAME         VARCHAR(45) not null,
-    FK_COLOR     INT,
+    ID_COLOR     INT,
     START_AMOUNT INT         not null,
     constraint FK_6
-        foreign key (FK_COLOR) references COLOR (PK_COLOR)
+        foreign key (ID_COLOR) references COLOR (ID)
             on update cascade on delete set null
 );
 
 create table if not exists TRANSACTION
 (
-    PK_TRANSACTION      INT auto_increment
+    ID          INT auto_increment
         primary key,
-    DESCRIPTION         VARCHAR(100),
-    DATE                DATE    not null,
-    FK_CATEGORY         INT     not null,
-    FK_ACCOUT           INT     not null,
-    FK_TRANSACTION_TYPE INT     not null,
-    IS_LAST             TINYINT not null,
+    DESCRIPTION VARCHAR(100),
+    ID_CATEGORY INT     not null,
+    DATE        DATE    not null,
+    ID_ACCOUT   INT     not null,
+    AMOUNT      INT,
+    TYPE        INT     not null,
+    IS_LAST     TINYINT not null,
+
     constraint FK_7
-        foreign key (FK_CATEGORY) references CATEGORY (PK_CATEGORY),
+        foreign key (ID_CATEGORY) references CATEGORY (ID),
     constraint FK_8
-        foreign key (FK_ACCOUT) references ACCOUNT (PK_ACCOUT)
-            on delete cascade,
-    constraint FK_9
-        foreign key (FK_TRANSACTION_TYPE) references FREQUENCY (PK_FREQUENCY)
+        foreign key (ID_ACCOUT) references ACCOUNT (ID)
+            on delete cascade
 );
 
 create table if not exists QUICK_TRANSACTION
 (
-    PK_QUICK_TRANSACTION INT auto_increment
+    ID          INT auto_increment
         primary key,
-    PRICE                INT         not null,
-    NAME                 VARCHAR(45) not null,
-    FK_CATEGORY          INT         not null,
-    FK_ACCOUT            INT         not null,
+    PRICE       INT         not null,
+    NAME        VARCHAR(45) not null,
+    FK_CATEGORY INT         not null,
+    FK_ACCOUT   INT         not null,
+    DESCRIPTION VARCHAR(150),
     constraint FK_10
-        foreign key (FK_CATEGORY) references CATEGORY (PK_CATEGORY),
+        foreign key (FK_CATEGORY) references CATEGORY (ID),
     constraint FK_11
-        foreign key (FK_ACCOUT) references ACCOUNT (PK_ACCOUT)
+        foreign key (FK_ACCOUT) references ACCOUNT (ID)
             on delete cascade
 );
 
-create table if not exists GROUP_TRANSACTION
+create table if not exists EVENT_PERSON
 (
-    PK_EXPENSE  INT auto_increment
+    ID        INT auto_increment
         primary key,
-    PRICE       INT not null,
-    FK_PERSON   INT not null,
-    FK_ACCOUT   INT not null,
-    FK_CATEGORY INT not null,
-    constraint FK_12
-        foreign key (FK_PERSON) references PERSON (PK_PERSON),
-    constraint FK_13
-        foreign key (FK_ACCOUT) references ACCOUNT (PK_ACCOUT)
-            on delete cascade,
-    constraint FK_14
-        foreign key (FK_CATEGORY) references CATEGORY (PK_CATEGORY)
-);
-
-create table if not exists EVENT_PERSONS
-(
-    PK_EVENT_PERSONS INT auto_increment
-        primary key,
-    FK_EVENT         INT not null,
-    FK_PERSON        INT not null,
+    ID_EVENT  INT not null,
+    ID_PERSON INT not null,
     constraint FK_15
-        foreign key (FK_EVENT) references EVENT (PK_EVENT)
+        foreign key (ID_EVENT) references EVENT (ID)
             on delete cascade,
     constraint FK_16
-        foreign key (FK_PERSON) references PERSON (PK_PERSON)
+        foreign key (ID_PERSON) references PERSON (ID)
 );
 
 create table if not exists GROUP_TRANSACTION_PERSONS
 (
-    PK_GROUP_TRANSACTION_PERSONS INT auto_increment
+    ID                   INT auto_increment
         primary key,
-    FK_GROUP_TRANSACTION         INT not null,
-    FK_PERSON                    INT not null,
+    ID_GROUP_TRANSACTION INT not null,
+    ID_PERSON            INT not null,
     constraint FK_17
-        foreign key (FK_GROUP_TRANSACTION) references GROUP_TRANSACTION (PK_EXPENSE)
+        foreign key (ID_GROUP_TRANSACTION) references GROUP_TRANSACTION (ID)
             on delete cascade,
     constraint FK_18
-        foreign key (FK_PERSON) references PERSON (PK_PERSON)
+        foreign key (ID_PERSON) references PERSON (ID)
 );
-
 
