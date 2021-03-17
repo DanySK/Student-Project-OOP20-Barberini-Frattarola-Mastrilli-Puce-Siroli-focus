@@ -41,11 +41,20 @@ public interface ManagerEvent {
      */
     Set<Event> findByName(String name);
 
+    Set<Event> getDailyEvents();
     /**
      * This method is use for get all the scheduled events.
      * @return the list with all the scheduled events.
      */
     Set<Event> getEvents();
+
+    /**
+     * This method is use to obtain all the events that respect a minimum duration.
+     * @param eventsSet is the set from which to take the events that respect a minimum duration.
+     * @return set of event that respect a minimum duration.
+     */
+    Set<Event> getEventsWithDuration(Set<Event> eventsSet);
+
     /**
      * This method is used to sort a set of events by time.
      * @param eventsSet is the set of events to order by time.
@@ -53,15 +62,12 @@ public interface ManagerEvent {
      */
     List<Event> orderByHour(List<Event> eventsSet);
 
+    List<Event> takeOnly(List<Event> events);
+
+    List<Event> takeOnlyDailyEvent(List<Event> eventsList);
     /**
      * This method is use to remove a specific event from the events list.
      * @param event is the event that must be removed from the events list.
      */
     void removeEvent(Event event);
-
-    /**
-     * This method is use to remove a specific event from the events list.
-     * @param events  is the events list that must be removed from the events list.
-     */
-    void removeEventsSet(Set<Event> events);
 }

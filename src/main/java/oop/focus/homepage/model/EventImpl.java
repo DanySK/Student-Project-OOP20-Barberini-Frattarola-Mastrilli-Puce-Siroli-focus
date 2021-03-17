@@ -16,7 +16,7 @@ public class EventImpl implements Event {
     private final String color;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
-    private final Repetition repetition;
+    private Repetition repetition;
     private final List<Person> persons;
 
     /**

@@ -2,13 +2,10 @@ package oop.focus.homepage;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.List;
 import java.util.Set;
 
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
-
-import oop.focus.finance.CategoryImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.HotKey;
@@ -21,9 +18,12 @@ import oop.focus.finance.Repetition;
 
 public class HotKeyTest {
 
-	final ManagerHotKey hotKeyTrackers = new ManagerHotKeyImpl();
-	final HotKeyFactory factory = new HotKeyFactoryImpl();
+	private final ManagerHotKey hotKeyTrackers = new ManagerHotKeyImpl();
+	private final HotKeyFactory factory = new HotKeyFactoryImpl();
 
+	/**
+	 * This test is used to verify the correctness of adding and removing hot keys.
+	 */
 	@Test
 	public void addingAndRemoveNewHotKeysTest() {
 		final HotKey first = factory.createEventHotKey("Shopping");
@@ -40,10 +40,13 @@ public class HotKeyTest {
 		assertEquals(this.hotKeyTrackers.getAll(), Set.of());
 	}
 
+	/**
+	 * This test is used to verify the correctness in assigning the category.
+	 */
 	@Test
 	public void hotKeyCategoryTest() {
 		final HotKey first = factory.createEventHotKey("Discoteca");
-		final HotKey second = factory.createActivityHotKey("Allenamento");
+		final HotKey second = factory.createActivityHotKey("Lavare i denti");
 		final HotKey third = factory.createCounterHotKey("Acqua");
 
 		this.hotKeyTrackers.addAll(Set.of(first, second, third));
@@ -54,7 +57,8 @@ public class HotKeyTest {
 	}
 
 	/**
-	 * Each shortcut key when clicked creates a new event that must be stored in the database. 
+	 * Each hot key when clicked creates a new event that must be stored in the database. 
+	 * This test verifies that the event is created correctly.
 	 */
 	@Test
 	public void createEventTest() {

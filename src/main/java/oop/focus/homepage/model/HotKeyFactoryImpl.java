@@ -9,6 +9,11 @@ import oop.focus.finance.Repetition;
  */
 public class HotKeyFactoryImpl implements HotKeyFactory {
 
+	/**
+     * This method is use for create an activity hotKey.
+     * @param name is the name of the hot key to create.
+     * @return an hot key of type activity.
+     */
     public final HotKey createActivityHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.ACTIVITY) {
 
@@ -18,6 +23,11 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
         };
     }
 
+    /**
+     * This method is use for create a counter hotKey. 
+     * @param name is the name of the counter hot key to create.
+     * @return an hot key of type counter.
+     */
     public final HotKey createCounterHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.COUNTER) {
 
@@ -28,6 +38,11 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
         };
     }
 
+    /**
+     * This method is use for create an event hotKey.
+     * @param name is the name of the hot key to create.
+     * @return an hot key of type event.
+     */
     public final HotKey createEventHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.EVENT) {
 

@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-public class LoyalityCardTest {
+public class FidelityCardTest {
 
     private final ManagerFidelityCard fidelityCard = new ManagerFidelityCardImpl();
 
