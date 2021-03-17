@@ -1,6 +1,8 @@
 package oop.focus.db;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
  * Defines a parser for elements of type X.
  * it can be used to transform an element into a list of strings or vice versa.
@@ -33,7 +35,8 @@ public interface DataSourceParser<X> {
      * Builds a type X element from a {@link List} of strings representing the values.
      *
      * @param values the list to be parsed
-     * @return the created element, null if the element cannot be created
+     * @return An optional containing the generated element or an optional empty
+     * if the element cannot be created
      */
-    X create(List<String> values);
+    Optional<X> create(List<String> values);
 }
