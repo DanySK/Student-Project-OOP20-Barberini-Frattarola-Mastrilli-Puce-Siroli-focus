@@ -3,10 +3,11 @@ package oop.focus.homepage.model;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
 /**
@@ -55,16 +56,10 @@ public class ManagerEventImpl implements ManagerEvent {
      */
     public final List<Event> findByDate(final LocalDate date) {
         final List<Event> eventsList = new ArrayList<>();
-        eventsList.addAll(this.events.stream().filter(e -> e.getStartDate().equals(date)).collect(Collectors.toList()));
-        eventsList.addAll(this.events.stream().filter(e -> e.getEndDate().equals(date)).collect(Collectors.toList()));
-        eventsList.addAll(this.events.stream().filter(e -> e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date)).collect(Collectors.toList()));
-        final List<Event> finalList = new ArrayList<>();
-        for (final Event event : eventsList) {
-            if (!finalList.contains(event)) {
-                finalList.add(event);
-            }
-        }
-        return finalList;
+        eventsList.addAll(this.events.stream().filter(e -> {
+        return e.getStartDate().equals(date) || e.getEndDate().equals(date) || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
+        }).collect(Collectors.toList()));
+        return eventsList;
     }
 
     /**
@@ -100,16 +95,20 @@ public class ManagerEventImpl implements ManagerEvent {
 
     /**
      * This event is use to get the event that is closest to the event that must be added.
-     * @param event is the event to add.
-     * @return a list of event.
+     * @param date is the date by which to find the closest event.
+     * @return an event.
      */
-    public final List<Event> getClosestEvent(final Event event) {
-        return this.findByDate(event.getStartDate()).stream().filter(e -> e.getStartHour().isAfter(event.getStartHour())).collect(Collectors.toList());
+    public final LocalTime getClosestEvent(final LocalDateTime date) {
+        final LocalTime time = this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour();
+        if (time == null) {
+            throw new NoSuchElementException();
+        }
+        return time;
     }
 
     /**
-     * This method is use to get .
-     * @return set.
+     * This method is use to get only the daily events.
+     * @return a set composed by only the daily events.
      */
     public final Set<Event> getDailyEvents() {
         return this.events.stream().filter(e -> !this.time.getHourDuration(e)).collect(Collectors.toSet());

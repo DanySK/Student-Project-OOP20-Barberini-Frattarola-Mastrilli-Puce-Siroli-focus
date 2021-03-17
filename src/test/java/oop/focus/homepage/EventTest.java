@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -81,16 +82,9 @@ public class EventTest {
         this.gradiDiParentela.addAll(first.getPersons());
         assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina"));
 
-        first.addPerson(new PersonImpl("Angela", "Cugina"));
-        assertEquals(this.gradiDiParentela.getAll().size(), 1);
-
         second.addPerson(new PersonImpl("Andrea", "Cugino"));
         this.gradiDiParentela.addAll(second.getPersons());
         assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino"));
-
-        third.addPerson(new PersonImpl("Alice", "Mamma"));
-        this.gradiDiParentela.addAll(third.getPersons());
-        assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino", "Mamma"));
     }
 
     @Test
@@ -107,7 +101,7 @@ public class EventTest {
 
     	final Event fourth = new EventImpl("Studiare", new LocalDateTime(2021, 9, 25, 9, 30), new LocalDateTime(2021, 9, 26, 8, 00), Repetition.ONCE);
         final Event fifth = new EventImpl("Corsa", new LocalDateTime(2021, 9, 26, 14, 30), new LocalDateTime(2021, 9, 27, 13, 30), Repetition.ONCE);
-        final Event sixth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
+        final Event sixth = new EventImpl("Estetista", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
         final Event seventh = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 8, 00), new LocalDateTime(2021, 9, 26,9 , 00), Repetition.ONCE);
 
         this.eventi.addEvent(fourth);
@@ -126,14 +120,19 @@ public class EventTest {
         final Event fifth = new EventImpl("Corsa", new LocalDateTime(2021, 9, 26, 14, 30), new LocalDateTime(2021, 9, 27, 13, 30), Repetition.ONCE);
         final Event sixth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
         final Event seventh = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 8, 00), new LocalDateTime(2021, 9, 26,9 , 00), Repetition.ONCE);
-
         this.eventi.addEvent(fourth);
         this.eventi.addEvent(fifth);
         this.eventi.addEvent(sixth);
         this.eventi.addEvent(seventh);
 
         assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 25)), List.of(fourth, seventh));
-        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(fifth, sixth, fourth, seventh));
+        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(fourth, fifth, sixth, seventh));
+        //per ali test di verifica sul metodo getClosestEvent, nel primo caso ho tentato di far partire un timer alle 12
+        assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 12, 00)), fifth.getStartHour());
+        try {
+            this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 28, 10, 00));
+        } catch (NoSuchElementException ignored) {}
+        //se non ci sono eventi che iniziano dopo allora viene lanciata un eccezione
     }
 
     @Test

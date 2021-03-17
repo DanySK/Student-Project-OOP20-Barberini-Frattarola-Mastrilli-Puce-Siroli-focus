@@ -1,5 +1,6 @@
 package oop.focus.homepage;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -25,28 +26,32 @@ public class EventMainTest {
         final Event ninth = new EventImpl("Passeggio", new LocalDateTime(2021, 9, 25, 12, 30), new LocalDateTime(2021, 9, 25, 12, 45), Repetition.ONCE);
         final Event ten = new EventImpl("Gita", new LocalDateTime(2021, 9, 20, 12, 00), new LocalDateTime(2021, 9, 26, 15, 00), Repetition.ONCE);
         final Event tempon = new EventImpl("Prova", new LocalDateTime(2021, 9, 26,14, 30 ), new LocalDateTime(2021, 9, 26, 15, 30), Repetition.ONCE);
-
+        final Event eleven = new EventImpl("Uscita", new LocalDateTime(2021, 9, 26, 7, 30), new LocalDateTime(2021, 9, 26, 8, 30), Repetition.ONCE);
+        final Event twelve = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
+   
         final ManagerEvent manager = new ManagerEventImpl();
 
         manager.addEvent(first);
         manager.addEvent(second);
         try{
         	manager.addEvent(third);
-        } catch (IllegalStateException ignored) {}
+        } catch (final IllegalStateException ignored) {}
         manager.addEvent(fourth);
         try{
         	manager.addEvent(fifth);
-        } catch (IllegalStateException ignored) {}
+        } catch (final IllegalStateException ignored) {}
         try{
         	manager.addEvent(sixth);
-        } catch (IllegalStateException ignored) {}
+        } catch (final IllegalStateException ignored) {}
         try{
         	manager.addEvent(seventh);
-        } catch (IllegalStateException ignored) {}
+        } catch (final IllegalStateException ignored) {}
         manager.addEvent(eighth);
         manager.addEvent(ninth);
         manager.addEvent(ten);
         manager.addEvent(tempon);
+        manager.addEvent(eleven);
+        manager.addEvent(twelve);
 
         final Set<Event> set = manager.getEvents();
 
@@ -60,7 +65,7 @@ public class EventMainTest {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
-
+        
         eventsList = manager.takeOnly(eventsList);
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
@@ -90,5 +95,21 @@ public class EventMainTest {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
+        
+        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 25, 8, 00)));
+        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 11, 00)));
+        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 18, 30)));
+        try {
+            manager.getClosestEvent(new LocalDateTime(2021, 9, 25, 23, 00));
+        } catch (final NoSuchElementException ignored) {}
+
+        System.out.println(" ");
+
+        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 14, 00)));
+        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 7, 00)));
+        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 19, 28)));
+        try {
+            manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 23, 00));
+        } catch (final NoSuchElementException ignored) {}
 	}
 }

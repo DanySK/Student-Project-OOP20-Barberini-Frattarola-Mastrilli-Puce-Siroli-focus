@@ -9,7 +9,7 @@ import oop.focus.finance.Repetition;
  */
 public class HotKeyFactoryImpl implements HotKeyFactory {
 
-	/**
+    /**
      * This method is use for create an activity hotKey.
      * @param name is the name of the hot key to create.
      * @return an hot key of type activity.
