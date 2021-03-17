@@ -35,6 +35,17 @@ public class FinanceTest {
                 this.financeManager.getCategoryManager().getCategories().get(1), new LocalDate(2020, 1, 1),
                 this.financeManager.getAccountManager().getAccounts().get(1), -1_200, Repetition.ONCE));
 
+        // creo alcune transazioni rapide e le aggiungo a quickTransactions
+        this.financeManager.getQuickManager().add(new QuickTransactionImpl("Parcheggio",
+                this.financeManager.getCategoryManager().getCategories().get(3),
+                this.financeManager.getAccountManager().getAccounts().get(0), -150));
+        this.financeManager.getQuickManager().add(new QuickTransactionImpl("Frappe",
+                this.financeManager.getCategoryManager().getCategories().get(0),
+                this.financeManager.getAccountManager().getAccounts().get(0), -300));
+        this.financeManager.getQuickManager().add(new QuickTransactionImpl("Paghetta",
+                this.financeManager.getCategoryManager().getCategories().get(2),
+                this.financeManager.getAccountManager().getAccounts().get(0), 1000));
+
         // creo tre persone (nei due modi possibili)
         final Person alex = new PersonImpl("Alex", "me");
         final Person luca = new PersonImpl("Luca", "fratello");
@@ -201,6 +212,34 @@ public class FinanceTest {
     }
 
     @org.junit.Test()
+    public void testQuickTransactions() {
+        // controllo che siano il numero corretto
+        assertEquals(3, this.financeManager.getQuickManager().getQuickTransactions().size());
+
+        // controllo quante transazioni ci sono di base
+        assertEquals(2, this.financeManager.getTransactionManager().getTransactions().size());
+
+        // controllo il saldo del conto di riferimento
+        assertEquals(149750, this.financeManager.getAccountManager().getAccounts().get(0).getAmount());
+
+        // eseguo alcune transazioni rapide
+        this.financeManager.doQuickTransaction(this.financeManager.getQuickManager().getQuickTransactions().get(0));
+        this.financeManager.doQuickTransaction(this.financeManager.getQuickManager().getQuickTransactions().get(0));
+        this.financeManager.doQuickTransaction(this.financeManager.getQuickManager().getQuickTransactions().get(0));
+        this.financeManager.doQuickTransaction(this.financeManager.getQuickManager().getQuickTransactions().get(1));
+        this.financeManager.doQuickTransaction(this.financeManager.getQuickManager().getQuickTransactions().get(1));
+        this.financeManager.doQuickTransaction(this.financeManager.getQuickManager().getQuickTransactions().get(2));
+
+        // controllo che le transazioni siano sei in più
+        assertEquals(8, this.financeManager.getTransactionManager().getTransactions().size());
+
+        // controllo che il saldo sia corretto
+        assertEquals(149700, this.financeManager.getAccountManager().getAccounts().get(0).getAmount());
+
+        // AGGIUNGERE POSSIBILITA' DI MODIFICARE IL CONTO DI UN MOVIMENTO PASSATO O ALTRE COSE MAGARI
+    }
+
+    @org.junit.Test()
     public void testGroupTransactions() {
         // controllo che ci siano tutte le persone nel gruppo
         assertEquals(5, this.groupManager.getGroup().size());
@@ -269,5 +308,6 @@ public class FinanceTest {
         assertEquals(0, this.groupManager.getGroup().size());
         assertEquals(0, this.groupManager.getTransactions().size());
     }
+
 }
 
