@@ -51,6 +51,13 @@ public interface FinanceManager {
     void removeTransaction(Transaction transaction);
 
     /**
+     * Do a quick transaction, then a new transaction is created with the current date as its date.
+     *
+     * @param quickTransaction - that is executed
+     */
+    void doQuickTransaction(QuickTransaction quickTransaction);
+
+    /**
      * Check if repeat transactions are to be generated, and if so generate them.
      * @param date until it is time to calculate
      */
@@ -70,4 +77,9 @@ public interface FinanceManager {
      * @return transaction manager
      */
     TransactionManager getTransactionManager();
+
+    /**
+     * @return quick transaction manager
+     */
+    QuickTransactionManager getQuickManager();
 }

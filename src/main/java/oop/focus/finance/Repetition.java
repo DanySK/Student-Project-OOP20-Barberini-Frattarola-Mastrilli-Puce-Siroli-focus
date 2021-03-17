@@ -13,7 +13,7 @@ public enum Repetition {
     /**
      * it is repeated daily.
      */
-    DAILY(i -> (int) (i * 30.42),  i -> i * 365,               d -> d.plusDays(1)),
+    DAILY(i -> (int) (i * 30.42),    i -> i * 365,               d -> d.plusDays(1)),
     /**
      * it is repeated every week.
      */

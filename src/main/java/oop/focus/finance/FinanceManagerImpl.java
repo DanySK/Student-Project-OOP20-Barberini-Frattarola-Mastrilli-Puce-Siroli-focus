@@ -12,11 +12,13 @@ public class FinanceManagerImpl implements FinanceManager {
     private final AccountManager accounts;
     private final CategoryManager categories;
     private final TransactionManager transactions;
+    private final QuickTransactionManager quickTransactions;
 
     public FinanceManagerImpl() {
         this.accounts = new AccountManagerImpl();
         this.categories = new CategoryManagerImpl();
         this.transactions = new TransactionManagerImpl();
+        this.quickTransactions = new QuickTransactionManagerImpl();
     }
 
     @Override
@@ -66,6 +68,12 @@ public class FinanceManagerImpl implements FinanceManager {
     }
 
     @Override
+    public final void doQuickTransaction(final QuickTransaction quickTransaction) {
+        this.addTransaction(new TransactionImpl(quickTransaction.getDescription(), quickTransaction.getCategory(),
+                LocalDate.now(), quickTransaction.getAccount(), quickTransaction.getAmount(), Repetition.ONCE, false));
+    }
+
+    @Override
     public final void generateRepeatedTransactions(final LocalDate date) {
         this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
     }
@@ -83,5 +91,10 @@ public class FinanceManagerImpl implements FinanceManager {
     @Override
     public final TransactionManager getTransactionManager() {
         return this.transactions;
+    }
+
+    @Override
+    public final QuickTransactionManager getQuickManager() {
+        return this.quickTransactions;
     }
 }
