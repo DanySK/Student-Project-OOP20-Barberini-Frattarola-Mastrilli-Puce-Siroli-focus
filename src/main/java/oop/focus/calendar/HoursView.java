@@ -6,10 +6,22 @@ import oop.focus.calendar.HoursViewImpl.Format;
 public interface HoursView {
 
     /**
+     * Get spacing between two number.
+     * @return spacing
+     */
+    double getSpacing();
+
+    /**
+     * @param spacing between two number
+     * 
+     */
+    void setSpacing(double spacing);
+
+    /**
      * @param format of the time hours or half
      * 
      */
-    void setSpacing(Format format);
+    void setFormat(Format format);
 
     /**
      * @return  the position of the label

@@ -35,9 +35,25 @@ public class HoursViewImpl implements HoursView {
     private int hoursformat;
     private VBox myvbox;
     private boolean flag = true;
+    private double spacing;
 
     public HoursViewImpl() {
         this.hoursformat = Format.NORMAL.getNumber();
+    }
+
+    /**
+     * @param spacing between two number
+     * 
+     */
+    public void setSpacing(final double spacing) {
+        this.spacing = spacing;
+    }
+
+    /**
+     * @return spacing between two number 
+     */
+    public double getSpacing() {
+        return this.spacing;
     }
 
 
@@ -45,7 +61,7 @@ public class HoursViewImpl implements HoursView {
      * @param format of the time hours or half
      * 
      */
-    public void setSpacing(final Format format) {
+    public void setFormat(final Format format) {
         hoursformat = format.getNumber();
     }
 
@@ -80,7 +96,8 @@ public class HoursViewImpl implements HoursView {
         if (this.hoursformat == Format.NORMAL.getNumber()) {
             for (int i = 0; i <= hoursformat; i++) { 
                     final Label label = new Label(i + ":00");
-                    label.setLayoutY(i);
+                    label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
+                    label.setPrefHeight(spacing);
                     vbox.getChildren().add(label);
             }
         } else {
