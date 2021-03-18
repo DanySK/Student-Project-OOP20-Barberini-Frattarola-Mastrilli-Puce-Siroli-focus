@@ -20,33 +20,38 @@ public class ComputeEventTimeTest {
     private final ManagerEvent me = new ManagerEventImpl();
     private final TimerFactory factory = new TimerFactory(me);
     private final ComputeStarterCounter csc = new ComputeStarterCounterImpl(me);
-   
+    /*
     @Test
     public void testTimer() throws InterruptedException {
         final String str = "studio";
-        final TimeScrolling timer  = factory.createTimer(str);
+        factory.setEventName(str);
+        final TimeScrolling timer = factory.createTimer();
         //il timer relativo all'attività studio è settata a 5 sec
         timer.setStarterValue(5);
-        timer.startCounter(); 
+        timer.startCounter();
         Thread.sleep(6000);
-        System.out.println("Secondi = " +csc.computePeriod(str).get().getSeconds());
+        System.out.println("Secondi = " + csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
         assertEquals(Optional.empty(), csc.computePeriod("correre"));
-        final TimeScrolling timer2 = factory.createTimer(str);
+        final TimeScrolling timer2 = factory.createTimer();
         //il timer studio viene fatto ripartire per 3 sec
         timer2.setStarterValue(3);
         timer2.startCounter();
         Thread.sleep(6000);
         //verifica che il tempo totale dedicato allo studio sia di 8 sec
-        System.out.println("Secondi = " +csc.computePeriod(str).get().getSeconds());
+        System.out.println("Secondi = " + csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
-        assertEquals(Optional.empty(), csc.computePeriod("camminare"));  
-        }
-     
+        assertEquals(Optional.empty(), csc.computePeriod("camminare"));
+    }
+
+
+
+
     @Test
     public void testStopwatch() throws InterruptedException {
         final String cuc = "cucinare";
-        final TimeScrolling stopw = factory.createStopwatch(cuc);
+        factory.setEventName(cuc);
+        final TimeScrolling stopw = factory.createStopwatch();
         stopw.startCounter();
         Thread.sleep(6000);
         stopw.stopCounter();
@@ -54,7 +59,7 @@ public class ComputeEventTimeTest {
         System.out.println("Sec = " +csc.computePeriod(cuc).get().getSeconds());
         assertEquals(Optional.empty(), csc.computePeriod("camminare"));  
     }
-    
+
        @Test
     public void testEventsSaved() {
         //si creano due eventi : shopping e palestra, da aggiungere al ManagerEvent
@@ -77,7 +82,7 @@ public class ComputeEventTimeTest {
                 ":"+ csc.computePeriod(str).get().getMinutes() +":" +csc.computePeriod(str).get().getSeconds() );
     }
     
-    
+    */
     @Test
     public void testEventsInDifferentsDays() {
         final String prog = "progetto";
@@ -94,6 +99,10 @@ public class ComputeEventTimeTest {
         System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() + 
                 ":"+csc.computePeriod(prog).get().getSeconds());
     }
-    
+
+
+
+
+
 }
 
