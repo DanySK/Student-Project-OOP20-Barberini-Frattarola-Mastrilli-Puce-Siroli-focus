@@ -28,7 +28,8 @@ public class EventMainTest {
         final Event tempon = new EventImpl("Prova", new LocalDateTime(2021, 9, 26,14, 30 ), new LocalDateTime(2021, 9, 26, 15, 30), Repetition.ONCE);
         final Event eleven = new EventImpl("Uscita", new LocalDateTime(2021, 9, 26, 7, 30), new LocalDateTime(2021, 9, 26, 8, 30), Repetition.ONCE);
         final Event twelve = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
-   
+        final Event thirteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
+ 
         final ManagerEvent manager = new ManagerEventImpl();
 
         manager.addEvent(first);
@@ -53,7 +54,7 @@ public class EventMainTest {
         manager.addEvent(eleven);
         manager.addEvent(twelve);
 
-        final Set<Event> set = manager.getEvents();
+        Set<Event> set = manager.getEvents();
 
         for(final Event event : set) {
         	System.out.println(" " + event.getName());
@@ -111,5 +112,21 @@ public class EventMainTest {
         try {
             manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 23, 00));
         } catch (final NoSuchElementException ignored) {}
+        
+        System.out.println(" ");
+        
+        manager.addEvent(thirteenth);
+        set = manager.getEvents();
+        for(final Event event : set) {
+        	System.out.println(" " + event.getName());
+        }
+        System.out.println(" ");
+        
+        System.out.println(" " + thirteenth.getStartHour().getSecondOfMinute());
+        System.out.println(" " + thirteenth.getEndHour().getSecondOfMinute());
+        System.out.println(" " + thirteenth.getStartHour().getMillisOfSecond());
+        System.out.println(" " + thirteenth.getEndHour().getMillisOfSecond());
+        
+        
 	}
 }

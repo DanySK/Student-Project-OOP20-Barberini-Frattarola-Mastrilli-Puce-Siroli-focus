@@ -120,6 +120,7 @@ public class EventTest {
         final Event fifth = new EventImpl("Corsa", new LocalDateTime(2021, 9, 26, 14, 30), new LocalDateTime(2021, 9, 27, 13, 30), Repetition.ONCE);
         final Event sixth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
         final Event seventh = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 8, 00), new LocalDateTime(2021, 9, 26,9 , 00), Repetition.ONCE);
+        
         this.eventi.addEvent(fourth);
         this.eventi.addEvent(fifth);
         this.eventi.addEvent(sixth);

@@ -56,8 +56,7 @@ public class TimePropertyTest {
         assertTrue(this.time.areCompatibleEquals(fourth, events));
         events = this.refreshList(fourth, events);
 
-        assertTrue(this.time.areCompatibleDifferent(fifth, events, this.manager.takeOnly(this.manager.findByDate(new LocalDate(2021, 9, 27)))));
-        events = this.refreshList(fifth, events);
+        assertFalse(this.time.areCompatibleDifferent(fifth, events, this.manager.takeOnly(this.manager.findByDate(new LocalDate(2021, 9, 27)))));
 
         assertTrue(this.time.areCompatibleEquals(sixth, events));
     }

@@ -36,17 +36,10 @@ public class TimePropertyImpl implements TimeProperty {
      * @return true if the event is compatible , false otherwise.
      */
     public final boolean areCompatibleEquals(final Event e, final List<Event> list) {
-        if (list.isEmpty()) {
-            return true;
-        }
-        if (list.get(0).getStartDate().isEqual(list.get(0).getEndDate()) 
-           && 
-           e.getStartHour().isBefore(list.get(0).getStartHour())
-           &&
-           e.getEndHour().isBefore(list.get(0).getStartHour())) {
-            return true;
-        }
-        if (list.get(list.size() - 1).getEndDate().isEqual(list.get(list.size() - 1).getStartDate()) && e.getStartHour().isAfter(list.get(list.size() - 1).getEndHour())) {
+        if (list.isEmpty() || list.get(0).getStartDate().isEqual(list.get(0).getEndDate()) 
+           && e.getStartHour().isBefore(list.get(0).getStartHour())
+           && e.getEndHour().isBefore(list.get(0).getStartHour())
+           || list.get(list.size() - 1).getEndDate().isEqual(list.get(list.size() - 1).getStartDate()) && e.getStartHour().isAfter(list.get(list.size() - 1).getEndHour())) {
             return true;
         } else {
             for (int i = 0; i <= list.size() - 2; i++) {
@@ -67,14 +60,7 @@ public class TimePropertyImpl implements TimeProperty {
      */
     public final boolean areCompatibleDifferent(final Event e, final List<Event> listFirst, final List<Event> listSecond) {
         if (this.isPossible(e, listSecond)) {
-            if (listFirst.isEmpty()) {
-                return true;
-            }
-            if (listFirst.get(listFirst.size() - 1).getEndDate().isEqual(e.getStartDate()) 
-               &&
-               e.getStartHour().isAfter(listFirst.get(listFirst.size() - 1).getEndHour())) {
-                return true;
-            }
+            return listFirst.isEmpty() || listFirst.get(listFirst.size() - 1).getEndDate().isEqual(e.getStartDate()) && e.getStartHour().isAfter(listFirst.get(listFirst.size() - 1).getEndHour());
         }
         return false;
     }

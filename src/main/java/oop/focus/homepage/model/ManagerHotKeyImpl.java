@@ -67,6 +67,14 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
+     * This method is use to get all of the events generated after clicking an hot key.
+     * @return a set of events generated after clicking an hot key.
+     */
+    public final Set<Event> getEventsHotKey() {
+        return this.eventToSave;
+    }
+ 
+    /**
      * This method is use to remove an hot key from the right category.
      * @param hotKey is the hot key that must be placed in a specific category.
      */

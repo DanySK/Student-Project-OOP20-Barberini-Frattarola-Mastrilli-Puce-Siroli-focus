@@ -1,6 +1,5 @@
 package oop.focus.homepage.model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -55,11 +54,9 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a list of events taking place on that particular date.
      */
     public final List<Event> findByDate(final LocalDate date) {
-        final List<Event> eventsList = new ArrayList<>();
-        eventsList.addAll(this.events.stream().filter(e -> {
+        return this.events.stream().filter(e -> {
         return e.getStartDate().equals(date) || e.getEndDate().equals(date) || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
-        }).collect(Collectors.toList()));
-        return eventsList;
+        }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
     }
 
     /**
@@ -111,7 +108,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a set composed by only the daily events.
      */
     public final Set<Event> getDailyEvents() {
-        return this.events.stream().filter(e -> !this.time.getHourDuration(e)).collect(Collectors.toSet());
+        return this.events.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toSet());
     }
 
     /**
@@ -119,7 +116,9 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return the list with all the scheduled events.
      */
     public final Set<Event> getEvents() {
-        return this.events.stream().filter(e -> this.time.getHourDuration(e)).collect(Collectors.toSet());
+        return this.events.stream().filter(e -> {
+            return this.time.getHourDuration(e) && !this.isAdequate(e);
+        }).collect(Collectors.toSet());
     }
 
     /**
@@ -147,7 +146,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a list of event.
      */
     public final List<Event> takeOnly(final List<Event> eventsList) {
-        return eventsList.stream().filter(e -> this.time.getHourDuration(e)).collect(Collectors.toList());
+        return eventsList.stream().filter(e -> this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
     }
 
     /**
@@ -156,7 +155,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a list of event.
      */
     public final List<Event> takeOnlyDailyEvent(final List<Event> eventsList) {
-        return eventsList.stream().filter(e -> !this.time.getHourDuration(e)).collect(Collectors.toList());
+        return eventsList.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
     }
 
     /**
@@ -167,4 +166,14 @@ public class ManagerEventImpl implements ManagerEvent {
         this.events.remove(event);
     }
 
+    /**
+     * This method is used to not accept events that were saved when a hot key was clicked.
+     * @param event is the event on which to check.
+     * @return true if the event was saved after a hot key has been clicked false otherwise.
+     */
+    private boolean isAdequate(final Event event) {
+        return event.getStartHour().getHourOfDay() == event.getEndHour().getHourOfDay() 
+        && event.getStartHour().getMinuteOfHour() == event.getEndHour().getMinuteOfHour()
+        && event.getStartHour().getSecondOfMinute() == event.getEndHour().getSecondOfMinute();
+    }
 }
