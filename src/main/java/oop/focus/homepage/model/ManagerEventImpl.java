@@ -2,7 +2,6 @@ package oop.focus.homepage.model;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,6 +48,20 @@ public class ManagerEventImpl implements ManagerEvent {
         }
     }
 
+    /**
+     * This method is use to know if a timer can start.
+     * @param date represents the date and time to check if a timer can be started.
+     * @return true if it's possible, false otherwise.
+     */
+    public final boolean canStart(final LocalDateTime date) {
+        for (final Event event : this.events) {
+            if (date.toLocalTime().isEqual(event.getStartHour()) || date.toLocalTime().isEqual(event.getEndHour()) || date.toLocalTime().isBefore(event.getEndHour()) && date.toLocalTime().isAfter(event.getStartHour())) {
+                return false;
+            }
+        }
+    return true;
+    }
+ 
     /**
      * This method is use to find the events events that take place on a certain date.
      * @param date is the date on which to search for events.
@@ -97,11 +110,6 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return an event.
      */
     public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
-    	for (final Event event : this.events) {
-    		if (date.toLocalTime().isEqual(event.getStartHour()) || date.toLocalTime().isEqual(event.getEndHour()) || date.toLocalTime().isBefore(event.getEndHour()) && date.toLocalTime().isAfter(event.getEndHour())) {
-    			throw new IllegalStateException();
-    		}
-    	}
         return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
     }
 
@@ -133,6 +141,17 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
+     * This method is used to not accept events that were saved when a hot key was clicked.
+     * @param event is the event on which to check.
+     * @return true if the event was saved after a hot key has been clicked false otherwise.
+     */
+    private boolean isAdequate(final Event event) {
+        return event.getStartHour().getHourOfDay() == event.getEndHour().getHourOfDay() 
+        && event.getStartHour().getMinuteOfHour() == event.getEndHour().getMinuteOfHour()
+        && event.getStartHour().getSecondOfMinute() == event.getEndHour().getSecondOfMinute();
+    }
+
+    /**
      * This method is used to sort a set of events by time.
      * @param eventsList is the set of events to order by time.
      * @return a set consisting of events sorted by time.
@@ -140,6 +159,14 @@ public class ManagerEventImpl implements ManagerEvent {
     public final List<Event> orderByHour(final List<Event> eventsList) {
         eventsList.sort((e1, e2) -> e1.getEnd().compareTo(e2.getEnd()));
         return eventsList;
+    }
+
+    /**
+     * This method is use to remove a specific event from the events list.
+     * @param event is the event that must be removed from the events list.
+     */
+    public final void removeEvent(final Event event) {
+        this.events.remove(event);
     }
 
     /**
@@ -158,24 +185,5 @@ public class ManagerEventImpl implements ManagerEvent {
      */
     public final List<Event> takeOnlyDailyEvent(final List<Event> eventsList) {
         return eventsList.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
-    }
-
-    /**
-     * This method is use to remove a specific event from the events list.
-     * @param event is the event that must be removed from the events list.
-     */
-    public final void removeEvent(final Event event) {
-        this.events.remove(event);
-    }
-
-    /**
-     * This method is used to not accept events that were saved when a hot key was clicked.
-     * @param event is the event on which to check.
-     * @return true if the event was saved after a hot key has been clicked false otherwise.
-     */
-    private boolean isAdequate(final Event event) {
-        return event.getStartHour().getHourOfDay() == event.getEndHour().getHourOfDay() 
-        && event.getStartHour().getMinuteOfHour() == event.getEndHour().getMinuteOfHour()
-        && event.getStartHour().getSecondOfMinute() == event.getEndHour().getSecondOfMinute();
     }
 }

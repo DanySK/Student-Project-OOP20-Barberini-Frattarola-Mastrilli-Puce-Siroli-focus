@@ -23,6 +23,13 @@ public interface ManagerEvent {
     void addEventsSet(Set<Event> events);
 
     /**
+     * This method is use to know if a timer can start.
+     * @param date represents the date and time to check if a timer can be started.
+     * @return true if it's possible, false otherwise.
+     */
+    boolean canStart(LocalDateTime date);
+
+    /**
      * This method is use to find the events that have a specific start date.
      * @param date is the date on which to search for events.
      * @return a list of events with the date parameter as start date.
@@ -77,6 +84,12 @@ public interface ManagerEvent {
     List<Event> orderByHour(List<Event> eventsSet);
 
     /**
+     * This method is use to remove a specific event from the events list.
+     * @param event is the event that must be removed from the events list.
+     */
+    void removeEvent(Event event);
+
+    /**
      * This method is use to get only the events that have a duration less then 24 hours.
      * @param eventsList is the list of events from which to take only events with a duration of less than 24 hours.
      * @return a list of event.
@@ -89,10 +102,4 @@ public interface ManagerEvent {
      * @return a list of event.
      */
     List<Event> takeOnlyDailyEvent(List<Event> eventsList);
-
-    /**
-     * This method is use to remove a specific event from the events list.
-     * @param event is the event that must be removed from the events list.
-     */
-    void removeEvent(Event event);
 }

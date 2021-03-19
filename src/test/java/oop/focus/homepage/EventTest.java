@@ -1,11 +1,11 @@
 package oop.focus.homepage;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import org.joda.time.LocalDate;
@@ -88,19 +88,17 @@ public class EventTest {
         assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino"));
     }
 
-    //Test per ali
+    //Test per ali, modificato per testare tutti e due i metodi
     @Test
     public void closestEventsTest() {
     	this.eventi.addEvent(first);
     	this.eventi.addEvent(third);
-    	assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9,27)), Optional.of(new LocalTime(9, 30)));
-    	try {
-    		this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9, 45));
-    	} catch (IllegalStateException ignored) {}
 
-    	try {
-    		this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 18, 30));
-    	} catch (IllegalStateException ignored) {}
+    	assertTrue(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 9, 27)));
+    	assertFalse(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 9, 45)));
+        assertFalse(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 18, 30)));
+
+        assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9,27)), Optional.of(new LocalTime(9, 30)));
     }
 
     @Test

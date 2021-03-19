@@ -20,13 +20,17 @@ public class TimePropertyImpl implements TimeProperty {
     }
 
     /**
-     * This method is use to verify if an event have a duration greatest than 30 minutes.
-     * @param event is the event to check the duration of.
-     * @return true if it has false otherwise.
+     * This method it is used to check the possibility of adding an event when it has a different start date than the end date.
+     * @param e is the event that must be added.
+     * @param listFirst list of events that are scheduled for the start date of the event you want to add.
+     * @param listSecond list of events that are scheduled for the end date of the event you want to add.
+     * @return true if the event is compatible , false otherwise.
      */
-    public final boolean getMinEventTime(final Event event) {
-        final Duration durationEvent = new Duration(event.getStartDate().toDateTime(event.getStartHour()), event.getEndDate().toDateTime(event.getEndHour()));
-        return durationEvent.isEqual(this.minimumEventDuration) || durationEvent.isLongerThan(this.minimumEventDuration);
+    public final boolean areCompatibleDifferent(final Event e, final List<Event> listFirst, final List<Event> listSecond) {
+        if (this.isPossible(e, listSecond)) {
+            return listFirst.isEmpty() || listFirst.get(listFirst.size() - 1).getEndDate().isEqual(e.getStartDate()) && e.getStartHour().isAfter(listFirst.get(listFirst.size() - 1).getEndHour());
+        }
+        return false;
     }
 
     /**
@@ -52,20 +56,6 @@ public class TimePropertyImpl implements TimeProperty {
     }
 
     /**
-     * This method it is used to check the possibility of adding an event when it has a different start date than the end date.
-     * @param e is the event that must be added.
-     * @param listFirst list of events that are scheduled for the start date of the event you want to add.
-     * @param listSecond list of events that are scheduled for the end date of the event you want to add.
-     * @return true if the event is compatible , false otherwise.
-     */
-    public final boolean areCompatibleDifferent(final Event e, final List<Event> listFirst, final List<Event> listSecond) {
-        if (this.isPossible(e, listSecond)) {
-            return listFirst.isEmpty() || listFirst.get(listFirst.size() - 1).getEndDate().isEqual(e.getStartDate()) && e.getStartHour().isAfter(listFirst.get(listFirst.size() - 1).getEndHour());
-        }
-        return false;
-    }
-
-    /**
      * This method is use to know the daily duration expressed in hours of an event.
      * @param event is the event whose duration expressed in hours is to be calculated.
      * @return true if the event duration is greater than 24 hours(that is the duration of a day).
@@ -81,6 +71,16 @@ public class TimePropertyImpl implements TimeProperty {
      */
     public final int getMinuteDistance() {
         return this.minuteDistance;
+    }
+
+    /**
+     * This method is use to verify if an event have a duration greatest than 30 minutes.
+     * @param event is the event to check the duration of.
+     * @return true if it has false otherwise.
+     */
+    public final boolean getMinEventTime(final Event event) {
+        final Duration durationEvent = new Duration(event.getStartDate().toDateTime(event.getStartHour()), event.getEndDate().toDateTime(event.getEndHour()));
+        return durationEvent.isEqual(this.minimumEventDuration) || durationEvent.isLongerThan(this.minimumEventDuration);
     }
 
     /**
