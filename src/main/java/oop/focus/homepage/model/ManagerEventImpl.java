@@ -3,6 +3,7 @@ package oop.focus.homepage.model;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import org.joda.time.LocalDate;
@@ -95,12 +96,13 @@ public class ManagerEventImpl implements ManagerEvent {
      * @param date is the date by which to find the closest event.
      * @return an event.
      */
-    public final LocalTime getClosestEvent(final LocalDateTime date) {
-        final LocalTime time = this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour();
-        if (time == null) {
-            throw new NoSuchElementException();
-        }
-        return time;
+    public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
+    	for (final Event event : this.events) {
+    		if (date.toLocalTime().isEqual(event.getStartHour()) || date.toLocalTime().isEqual(event.getEndHour()) || date.toLocalTime().isBefore(event.getEndHour()) && date.toLocalTime().isAfter(event.getEndHour())) {
+    			throw new IllegalStateException();
+    		}
+    	}
+        return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
     }
 
     /**

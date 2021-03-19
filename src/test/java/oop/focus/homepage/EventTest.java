@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -87,6 +88,21 @@ public class EventTest {
         assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino"));
     }
 
+    //Test per ali
+    @Test
+    public void closestEventsTest() {
+    	this.eventi.addEvent(first);
+    	this.eventi.addEvent(third);
+    	assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9,27)), Optional.of(new LocalTime(9, 30)));
+    	try {
+    		this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9, 45));
+    	} catch (IllegalStateException ignored) {}
+
+    	try {
+    		this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 18, 30));
+    	} catch (IllegalStateException ignored) {}
+    }
+
     @Test
     public void equalsEventsTest() {
     	
@@ -128,12 +144,6 @@ public class EventTest {
 
         assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 25)), List.of(fourth, seventh));
         assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(fourth, fifth, sixth, seventh));
-        //per ali test di verifica sul metodo getClosestEvent, nel primo caso ho tentato di far partire un timer alle 12
-        assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 12, 00)), fifth.getStartHour());
-        try {
-            this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 28, 10, 00));
-        } catch (NoSuchElementException ignored) {}
-        //se non ci sono eventi che iniziano dopo allora viene lanciata un eccezione
     }
 
     @Test

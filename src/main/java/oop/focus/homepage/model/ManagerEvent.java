@@ -1,6 +1,7 @@
 package oop.focus.homepage.model;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -47,7 +48,7 @@ public interface ManagerEvent {
      * @param date is the date by which to find the closest event.
      * @return an event.
      */
-    LocalTime getClosestEvent(LocalDateTime date);
+    Optional<LocalTime> getClosestEvent(LocalDateTime date);
 
     /**
      * This method is use to get only the daily events.
