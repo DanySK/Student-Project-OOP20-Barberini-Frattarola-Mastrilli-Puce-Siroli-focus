@@ -29,6 +29,7 @@ public class EventMainTest {
         final Event eleven = new EventImpl("Uscita", new LocalDateTime(2021, 9, 26, 7, 30), new LocalDateTime(2021, 9, 26, 8, 30), Repetition.ONCE);
         final Event twelve = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
         final Event thirteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
+        final Event provaAli = new EventImpl("Ali", new LocalDateTime(2021, 9, 26, 9, 29, 10),  new LocalDateTime(2021, 9, 26, 9, 29, 59), Repetition.ONCE);
  
         final ManagerEvent manager = new ManagerEventImpl();
 
@@ -53,6 +54,7 @@ public class EventMainTest {
         manager.addEvent(tempon);
         manager.addEvent(eleven);
         manager.addEvent(twelve);
+        manager.addEvent(provaAli);
 
         Set<Event> set = manager.getEvents();
 
@@ -126,6 +128,7 @@ public class EventMainTest {
         System.out.println(" " + thirteenth.getEndHour().getSecondOfMinute());
         System.out.println(" " + thirteenth.getStartHour().getMillisOfSecond());
         System.out.println(" " + thirteenth.getEndHour().getMillisOfSecond());
+        
         
         
 	}
