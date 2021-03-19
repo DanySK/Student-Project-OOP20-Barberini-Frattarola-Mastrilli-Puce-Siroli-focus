@@ -20,10 +20,16 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class DataTypeTest {
+
+    private final DataSource df;
+
+    public DataTypeTest(){
+        this.df = new DataSourceImpl();
+    }
+
     @Test
     public void testGetAllAndDelete() {
         try {
-            DataSourceFactory df = new DataSourceFactoryImpl();
             var db = df.getRelationships();
             int size = db.getAll().size();
             db.save("Nuovo");
@@ -38,7 +44,6 @@ public class DataTypeTest {
 
     @Test
     public void testGetAndDelete() {
-        var df = new DataSourceFactoryImpl();
         var relationships = df.getRelationships();
         var persons = df.getPersons();
         try {
@@ -67,8 +72,7 @@ public class DataTypeTest {
 
     @Test
     public void testColors() {
-        var db = new DataSourceFactoryImpl();
-        var colors = db.getColors();
+        var colors = df.getColors();
         try {
             assertEquals(colors.getAll().size(), 0);
             colors.save("ffffff");
@@ -89,9 +93,8 @@ public class DataTypeTest {
 
     @Test
     public void testCategories() {
-        var db = new DataSourceFactoryImpl();
-        var categories = db.getCategories();
-        var colors = db.getColors();
+        var categories = df.getCategories();
+        var colors = df.getColors();
         Category c = null;
         try {
             String c1 = "ffffff", c2 = "000000";
@@ -124,7 +127,6 @@ public class DataTypeTest {
 
     @Test
     public void testAccounts() {
-        var df = new DataSourceFactoryImpl();
         Dao<Account> accounts = df.getAccounts();
         Dao<String> colors = df.getColors();
         try {
@@ -167,11 +169,10 @@ public class DataTypeTest {
 
     @Test
     public void testTransactions() {
-        var db = new DataSourceFactoryImpl();
-        var transactions = db.getTransactions();
-        var cats = db.getCategories();
-        var colors = db.getColors();
-        var accounts = db.getAccounts();
+        var transactions = df.getTransactions();
+        var cats = df.getCategories();
+        var colors = df.getColors();
+        var accounts = df.getAccounts();
         try {
             colors.save("000000");
             accounts.save(new AccountImpl("Conto Corrente", colors.getAll().get(0), 150_000));
@@ -213,7 +214,6 @@ public class DataTypeTest {
 
     @Test
     public void testEvents() {
-        var df = new DataSourceFactoryImpl();
         var rep = df.getEvents();
         var rel = df.getRelationships();
         var per = df.getPersons();
@@ -292,7 +292,6 @@ public class DataTypeTest {
 
     @Test
     public void testDailyMood() {
-        var df = new DataSourceFactoryImpl();
         Dao<DailyMood> rep = df.getDailyMoods();
         try {
             assertEquals(new DailyMoodImpl(5, LocalDate.now().plusDays(5)),
@@ -350,7 +349,7 @@ public class DataTypeTest {
 
     @Test
     public void testTodoList() {
-        var df = new DataSourceFactoryImpl();
+        var df = new DataSourceImpl();
         Dao<ToDoAction> rep = df.getToDoList();
         try {
             assertEquals(new ToDoActionImpl("Mangiare", false),
@@ -403,12 +402,11 @@ public class DataTypeTest {
 
     @Test
     public void testGroupTransaction() {
-        var db = new DataSourceFactoryImpl();
-        var transactions = db.getGroupTransactions();
-        var cats = db.getCategories();
-        var colors = db.getColors();
-        var persons = db.getPersons();
-        var rel = db.getRelationships();
+        var transactions = df.getGroupTransactions();
+        var cats = df.getCategories();
+        var colors = df.getColors();
+        var persons = df.getPersons();
+        var rel = df.getRelationships();
 
         var p1 = new PersonImpl("marco", "figlio");
         var p2 = new PersonImpl("luca", "figlio");
@@ -475,7 +473,6 @@ public class DataTypeTest {
 
     @Test
     public void testFidelityCards(){
-        var df = new DataSourceFactoryImpl();
         Dao<FidelityCard> rep = df.getFidelityCards();
         try {
             assertEquals(new FidelityCardImpl("Coop", "0012jada", FidelityCardType.ALIMENTARI),
@@ -528,7 +525,6 @@ public class DataTypeTest {
 
     @Test
     public void testHotkeys(){
-        var df = new DataSourceFactoryImpl();
         Dao<HotKey> rep = df.getHotKeys();
         var f = new HotKeyFactoryImpl();
         try {

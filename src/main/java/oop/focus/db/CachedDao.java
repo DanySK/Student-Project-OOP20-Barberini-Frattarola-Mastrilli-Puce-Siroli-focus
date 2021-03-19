@@ -214,12 +214,6 @@ public class CachedDao<X> implements SingleDao<X> {
     }
     @Override
     public final Optional<Integer> getId(final X x) {
-        var tmp = this.getIdFromCache(x);
-        if (tmp.isPresent()) {
-            return tmp;
-        } else {
-            this.getAll();
-            return this.getIdFromCache(x);
-        }
+        return this.getIdFromCache(x);
     }
 }

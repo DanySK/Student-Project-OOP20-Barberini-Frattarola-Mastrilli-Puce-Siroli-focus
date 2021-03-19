@@ -15,7 +15,7 @@ import oop.focus.homepage.model.Person;
  * Defines the methods to create an Object to access different types of data
  * that can be stored into a data source.
  */
-public interface DataSourceFactory {
+public interface DataSource {
     /**
      * Gets a data access object for {@link Person} type elements.
      *

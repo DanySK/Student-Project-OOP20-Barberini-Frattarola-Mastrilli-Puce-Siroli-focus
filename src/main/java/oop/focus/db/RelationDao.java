@@ -33,7 +33,11 @@ public class RelationDao<X> extends CachedDao<X> {
         }
     }
     private void saveAndCheckMissing(final X x) {
-        int id = this.getId(x).orElse(-1);
+        var opt = this.getId(x);
+        if (opt.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        int id = opt.get();
         for (var p : this.related) {
             var total = p.getValue().apply(id, x);
             this.saveRelated(p, total);
