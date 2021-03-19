@@ -1,34 +1,44 @@
 package oop.focus.diary.model;
 
-import java.util.ArrayList;
+import oop.focus.db.DataSourceImpl;
+import oop.focus.db.SingleDao;
+import oop.focus.db.exceptions.DaoAccessException;
 import java.util.List;
 
 
 public class ToDoListManagerImpl implements ToDoListManager {
-    private final List<ToDoAction> list;
-    public ToDoListManagerImpl() {
-        this.list = new ArrayList<>();
+    private final SingleDao<ToDoAction> dsi;
+    public ToDoListManagerImpl(final DataSourceImpl dsi) {
+        this.dsi = dsi.getToDoList();
     }
-
     @Override
     public final void addAnnotation(final ToDoAction tdl) {
-        if (!this.list.contains(tdl)) {
-            this.list.add(tdl);
+        if (!this.dsi.getAll().contains(tdl)) {
+            try {
+                this.dsi.save(tdl);
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
-
     @Override
     public final void removeAnnotation(final ToDoAction tdl) {
-        this.list.remove(tdl);
+        try {
+            this.dsi.delete(tdl);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
-
     @Override
     public final void changeBoxStatus(final ToDoAction tdl) {
-        this.list.stream().filter(l -> l.equals(tdl)).forEach(s ->  s.setDone(!s.isDone()));
+        try {
+            this.dsi.update(new ToDoActionImpl(tdl.getAnnotation(), !tdl.isDone()));
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
-
     @Override
     public final List<ToDoAction> getAnnotations() {
-        return this.list;
+        return this.dsi.getAll();
     }
 }
