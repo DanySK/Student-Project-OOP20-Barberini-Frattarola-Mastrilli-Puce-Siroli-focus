@@ -7,6 +7,7 @@ public class TimerListenerImpl implements TimerListener {
     private LocalDateTime start;
     private final String eventName;
     private final ManagerEvent me;
+
     public TimerListenerImpl(final ManagerEvent me, final String eventName) {
         this.me = me;
         this.eventName = eventName;
@@ -20,3 +21,4 @@ public class TimerListenerImpl implements TimerListener {
         this.start = LocalDateTime.now();
         }
     }
+

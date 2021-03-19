@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Optional;
 
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.junit.Test;
 
 import oop.focus.finance.Repetition;
@@ -82,7 +83,7 @@ public class ComputeEventTimeTest {
                 ":"+ csc.computePeriod(str).get().getMinutes() +":" +csc.computePeriod(str).get().getSeconds() );
     }
     
-    */
+    
     @Test
     public void testEventsInDifferentsDays() {
         final String prog = "progetto";
@@ -98,6 +99,20 @@ public class ComputeEventTimeTest {
         //verifica la durata totale del progetto : 26 ore
         System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() + 
                 ":"+csc.computePeriod(prog).get().getSeconds());
+    }
+    */
+    @Test
+    public void testTimerEnds() throws InterruptedException {
+        this.me.addEvent(new EventImpl("cucina", new LocalDateTime(2021, 03, 19, 9, 29), new LocalDateTime(2021, 03, 19, 10, 00), Repetition.ONCE));
+
+        System.out.println( "test " + new LocalDateTime().toLocalTime());
+        TimeScrolling timer2 = factory.createTimer();
+        factory.setEventName("corsa");
+        timer2.setStarterValue(50);
+        timer2.startCounter();
+        Thread.sleep(150000);
+        System.out.println("Test 2 :"+csc.computePeriod("corsa").get().getHours()+
+                ":"+ csc.computePeriod("corsa").get().getMinutes() +":" +csc.computePeriod("corsa").get().getSeconds() );
     }
 
 
