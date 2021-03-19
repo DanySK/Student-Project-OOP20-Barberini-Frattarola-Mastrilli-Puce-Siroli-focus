@@ -1,8 +1,5 @@
 package oop.focus.diary.model;
 
-
-import org.joda.time.LocalTime;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
@@ -32,7 +29,11 @@ public class TimeScrollingImpl implements TimeScrolling {
     }
     @Override
     public final void startCounter() {
-        this.stop = false;
+        if (this.tl.startCounter()) {
+            this.stop = false;
+        } else {
+            this.stop = true;
+        }
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             while (!end()) {
@@ -49,13 +50,11 @@ public class TimeScrollingImpl implements TimeScrolling {
     }
     @Override
     public final void stopCounter() {
-
         this.stop = true;
     }
 
     @Override
     public final boolean end() {
-    System.out.println(LocalTime.now());
        if (this.stop || !pre.test(starterCounter)) {
             System.out.println("ho finito");
             this.tl.createEvent();

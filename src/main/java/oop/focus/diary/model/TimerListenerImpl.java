@@ -17,8 +17,13 @@ public class TimerListenerImpl implements TimerListener {
         me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
         }
     @Override
-    public final void startCounter() {
-        this.start = LocalDateTime.now();
+    public final boolean startCounter() {
+        if (this.me.canStart(LocalDateTime.now())) {
+            this.start = LocalDateTime.now();
+            return true;
+        } else {
+            throw new IllegalStateException();
         }
     }
+}
 

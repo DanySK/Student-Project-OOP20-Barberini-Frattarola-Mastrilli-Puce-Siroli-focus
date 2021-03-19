@@ -8,22 +8,21 @@ import org.joda.time.LocalTime;
 
 public class TimerFactory {
     private final ManagerEvent me;
-    private String eventName;
-
     public TimerFactory(final ManagerEvent me) {
         this.me = me;
     }
-    public final void setEventName(final String eventName) {
-        this.eventName = eventName;
-    }
-//INTERROMPI CRONOMETRO POCO PRIMA DELL'INIZIO DELL'ALTRO EVENTI
-    public final TimeScrolling createTimer() {
-        System.out.println(me.getClosestEvent(LocalDateTime.now()));
-        return new TimeScrollingImpl(t -> t - 1, t -> !t.equals(0) && LocalTime.now().compareTo(me.getClosestEvent(LocalDateTime.now()).minusSeconds(10)) <= 0, new TimerListenerImpl(me, this.eventName));
 
+    public final TimeScrolling createTimer(final String eventName) {
+        return new TimeScrollingImpl(t -> t - 1, t -> !t.equals(0) && managerTimerEnds(), new TimerListenerImpl(me, eventName));
     }
-    public final TimeScrolling createStopwatch() {
-        return new TimeScrollingImpl(t -> t + 1, t -> true, new TimerListenerImpl(me, this.eventName));
+    private boolean managerTimerEnds() {
+        if (me.getClosestEvent(LocalDateTime.now()).isPresent()) {
+            return LocalTime.now().compareTo(me.getClosestEvent(LocalDateTime.now()).get().minusSeconds(1)) <= 0;
+        }
+        return true;
+    }
+    public final TimeScrolling createStopwatch(final String eventName) {
+        return new TimeScrollingImpl(t -> t + 1, t -> managerTimerEnds(), new TimerListenerImpl(me, eventName));
     }
 
 }
