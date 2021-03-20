@@ -1,6 +1,7 @@
 package oop.focus.finance;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import java.util.Objects;
 
@@ -8,14 +9,14 @@ public class TransactionImpl implements Transaction {
 
     private final String description;
     private final Category category;
-    private final LocalDate date;
+    private final LocalDateTime date;
     private final Account account;
     private final int amount;
     private final Repetition repetition;
     private boolean toRepeat;
 
     public TransactionImpl(final String description, final Category category,
-                           final LocalDate localDate, final Account account, final int amount,
+                           final LocalDateTime localDate, final Account account, final int amount,
                            final Repetition repetition, final boolean toRepeat) {
         this.description = description;
         this.category = category;
@@ -27,7 +28,7 @@ public class TransactionImpl implements Transaction {
     }
 
     public TransactionImpl(final String description, final Category category,
-                           final LocalDate localDate, final Account account, final int amount,
+                           final LocalDateTime localDate, final Account account, final int amount,
                            final Repetition repetition) {
         this.description = description;
         this.category = category;
@@ -40,7 +41,7 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public final LocalDate getNextRenewal() {
-        return this.repetition.getNextRenewalFunction().apply(this.date);
+        return this.repetition.getNextRenewalFunction().apply(new LocalDate(this.date.getYear(), this.date.getMonthOfYear(), this.date.getDayOfMonth()));
     }
 
     @Override
@@ -59,7 +60,7 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
-    public final LocalDate getDate() {
+    public final LocalDateTime getDate() {
         return this.date;
     }
 
