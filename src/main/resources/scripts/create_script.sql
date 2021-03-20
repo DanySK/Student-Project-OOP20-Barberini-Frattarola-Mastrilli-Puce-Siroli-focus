@@ -126,13 +126,12 @@ create table if not exists QUICK_TRANSACTION
         primary key,
     PRICE       INT         not null,
     NAME        VARCHAR(45) not null,
-    FK_CATEGORY INT         not null,
-    FK_ACCOUT   INT         not null,
-    DESCRIPTION VARCHAR(150),
+    ID_CATEGORY INT         not null,
+    ID_ACCOUT   INT         not null,
     constraint FK_10
-        foreign key (FK_CATEGORY) references CATEGORY (ID),
+        foreign key (ID_CATEGORY) references CATEGORY (ID),
     constraint FK_11
-        foreign key (FK_ACCOUT) references ACCOUNT (ID)
+        foreign key (ID_ACCOUT) references ACCOUNT (ID)
             on delete cascade
 );
 
@@ -159,6 +158,13 @@ create table if not exists GROUP_TRANSACTION_PERSONS
         foreign key (ID_GROUP_TRANSACTION) references GROUP_TRANSACTION (ID)
             on delete cascade,
     constraint FK_18
+        foreign key (ID_PERSON) references PERSON (ID)
+);
+create table if not exists "GROUP"
+(
+    ID        INT auto_increment primary key,
+    ID_PERSON INT not null,
+    constraint GROUP_PERSON_ID_FK
         foreign key (ID_PERSON) references PERSON (ID)
 );
 

@@ -43,7 +43,7 @@ public class DataTypeTest {
     }
 
     @Test
-    public void testGetAndDelete() {
+    public void testPerson() {
         var relationships = df.getRelationships();
         var persons = df.getPersons();
         try {
@@ -561,6 +561,62 @@ public class DataTypeTest {
             for (var ac : rep.getAll()) {
                 rep.delete(ac);
             }
+        } catch (DaoAccessException e) {
+            fail();
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testGroup(){
+        var relationships = df.getRelationships();
+        var persons = df.getPersons();
+        var group = df.getGroup();
+        try {
+            relationships.save("figlio");
+            assertEquals(persons.getAll().size(), 0);
+            persons.save(new PersonImpl("marco", "figlio"));
+            group.save(new PersonImpl("marco", "figlio"));
+            assertEquals(1,group.getAll().size());
+            assertEquals(persons.getAll().size(), 1);
+            persons.save(new PersonImpl("Luca", "figlio"));
+            group.save(new PersonImpl("Luca", "figlio"));
+            assertEquals(2,group.getAll().size());
+            assertEquals(persons.getAll().size(), 2);
+            for (var v : group.getAll()){
+                group.delete(v);
+            }
+            persons.delete(persons.getAll().get(0));
+            assertEquals(persons.getAll().size(), 1);
+            persons.delete(persons.getAll().get(0));
+            assertEquals(persons.getAll().size(), 0);
+            relationships.delete("figlio");
+        } catch (DaoAccessException e) {
+            fail();
+            e.printStackTrace();
+        }
+        try {
+            persons.delete(new PersonImpl("Giovanni", "figlio"));
+            fail();
+        } catch (Exception e) {
+            // success
+        }
+    }
+
+    @Test
+    public void testQuickTransaction(){
+        var categories = df.getCategories();
+        var colors = df.getColors();
+        var accounts = df.getAccounts();
+        var quickTransactions = df.getQuickTransactions();
+        try {
+            colors.save("00000");
+            categories.save(new CategoryImpl("ciao", colors.getAll().get(0)));
+            accounts.save(new AccountImpl("marco",colors.getAll().get(0),200));
+            quickTransactions.save(new QuickTransactionImpl(300,categories.getAll().get(0),
+                    accounts.getAll().get(0), "bau"));
+            assertEquals(1, quickTransactions.getAll().size());
+            quickTransactions.delete(new QuickTransactionImpl(300,categories.getAll().get(0),
+                    accounts.getAll().get(0), "bau"));
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();

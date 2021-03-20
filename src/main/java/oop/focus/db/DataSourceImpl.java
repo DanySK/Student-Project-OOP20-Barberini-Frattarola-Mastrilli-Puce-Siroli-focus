@@ -1,5 +1,4 @@
 package oop.focus.db;
-
 import javafx.util.Pair;
 import oop.focus.diary.model.DailyMood;
 import oop.focus.diary.model.DailyMoodImpl;
@@ -14,6 +13,8 @@ import oop.focus.finance.Category;
 import oop.focus.finance.CategoryImpl;
 import oop.focus.finance.GroupTransaction;
 import oop.focus.finance.GroupTransactionImpl;
+import oop.focus.finance.QuickTransaction;
+import oop.focus.finance.QuickTransactionImpl;
 import oop.focus.finance.Repetition;
 import oop.focus.finance.Transaction;
 import oop.focus.finance.TransactionImpl;
@@ -26,11 +27,9 @@ import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 public class DataSourceImpl implements DataSource {
     private static final int NA = -1;
     private static final DateTimeFormatter DF = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
@@ -48,6 +47,8 @@ public class DataSourceImpl implements DataSource {
     private final SingleDao<GroupTransaction> groupTransactions;
     private final SingleDao<Pair<Integer, Integer>> groupTransactionPersons;
     private final SingleDao<HotKey> hotKeys;
+    private final SingleDao<Person> groups;
+    private final SingleDao<QuickTransaction> quickTransactions;
     public DataSourceImpl() {
         this.colors = this.getColors();
         this.categories = this.getCategories();
@@ -63,6 +64,8 @@ public class DataSourceImpl implements DataSource {
         this.groupTransactionPersons = this.getGroupTransactionPersons();
         this.groupTransactions = this.getGroupTransactions();
         this.hotKeys = this.getHotKeys();
+        this.groups = this.getGroup();
+        this.quickTransactions = this.getQuickTransactions();
     }
     @Override
     public final SingleDao<Person> getPersons() {
@@ -195,6 +198,27 @@ public class DataSourceImpl implements DataSource {
                                 new Pair<>("code", FidelityCard::getCardId),
                                 new Pair<>("type", f -> String.valueOf(f.getType().ordinal()))))));
     }
+    @Override
+    public final SingleDao<Person> getGroup() {
+        return Objects.requireNonNullElseGet(this.groups, () ->
+                new CachedDao<>(new ParserImpl<>("person_Group",
+                        a -> this.persons.getValue(Integer.parseInt(a.remove(1))).orElse(null),
+                        List.of(new Pair<>("id_person", p -> String.valueOf(this.persons.getId(p).orElse(NA)))))));
+    }
+    @Override
+    public final SingleDao<QuickTransaction> getQuickTransactions() {
+        return Objects.requireNonNullElseGet(this.quickTransactions, () ->
+                new CachedDao<>(new ParserImpl<>("quick_transaction",
+                        a -> new QuickTransactionImpl(Integer.parseInt(a.remove(1)),
+                                this.categories.getValue(Integer.parseInt(a.remove(1))).orElse(null),
+                                this.accounts.getValue(Integer.parseInt(a.remove(1))).orElse(null),
+                                a.remove(1)),
+                        List.of(new Pair<>("price", t -> String.valueOf(t.getAmount())),
+                                new Pair<>("name", QuickTransaction::getDescription),
+                                new Pair<>("id_Category", t -> String.valueOf(this.categories.getId(t.getCategory()).orElse(NA))),
+                                new Pair<>("id_account", t -> String.valueOf(this.accounts.getId(t.getAccount()).orElse(NA)))))));
+    }
+
     private SingleDao<Pair<Integer, Integer>> getGroupTransactionPersons() {
         return Objects.requireNonNullElseGet(this.groupTransactionPersons, () -> new CachedDao<>(new ParserImpl<>("group_transaction_persons",
                 a -> new Pair<>(Integer.parseInt(a.remove(1)), Integer.parseInt(a.remove(1))),

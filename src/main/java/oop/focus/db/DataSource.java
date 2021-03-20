@@ -6,6 +6,7 @@ import oop.focus.fidelitycard.FidelityCard;
 import oop.focus.finance.Account;
 import oop.focus.finance.Category;
 import oop.focus.finance.GroupTransaction;
+import oop.focus.finance.QuickTransaction;
 import oop.focus.finance.Transaction;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.HotKey;
@@ -88,4 +89,17 @@ public interface DataSource {
      * @return the fidelity cards dao
      */
     SingleDao<FidelityCard> getFidelityCards();
+    /**
+     * Gets a data access object for a group of {@link Person} type elements.
+     *
+     * @return the persons group dao
+     */
+    SingleDao<Person> getGroup();
+    /**
+     * Gets a data access object for  {@link QuickTransaction} type elements.
+     *
+     * @return the quick transactions dao
+     */
+    SingleDao<QuickTransaction> getQuickTransactions();
+
 }
