@@ -201,7 +201,7 @@ public class DataSourceImpl implements DataSource {
     @Override
     public final SingleDao<Person> getGroup() {
         return Objects.requireNonNullElseGet(this.groups, () ->
-                new CachedDao<>(new ParserImpl<>("person_Group",
+                new CachedDao<>(new ParserImpl<>("group_person",
                         a -> this.persons.getValue(Integer.parseInt(a.remove(1))).orElse(null),
                         List.of(new Pair<>("id_person", p -> String.valueOf(this.persons.getId(p).orElse(NA)))))));
     }
