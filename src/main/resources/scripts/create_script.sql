@@ -160,7 +160,7 @@ create table if not exists GROUP_TRANSACTION_PERSONS
     constraint FK_18
         foreign key (ID_PERSON) references PERSON (ID)
 );
-create table if not exists "GROUP"
+create table if not exists "GROUP_PERSON"
 (
     ID        INT auto_increment primary key,
     ID_PERSON INT not null,
