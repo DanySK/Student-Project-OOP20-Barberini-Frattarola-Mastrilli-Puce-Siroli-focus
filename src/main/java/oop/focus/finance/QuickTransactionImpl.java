@@ -12,8 +12,8 @@ public class QuickTransactionImpl implements QuickTransaction {
     private final Account account;
     private final int amount;
 
-    public QuickTransactionImpl(final String description, final Category category,
-                                final Account account, final int amount) {
+    public QuickTransactionImpl(final int amount, final Category category,
+                                final Account account, final String description) {
         this.description = description;
         this.category = category;
         this.account = account;
