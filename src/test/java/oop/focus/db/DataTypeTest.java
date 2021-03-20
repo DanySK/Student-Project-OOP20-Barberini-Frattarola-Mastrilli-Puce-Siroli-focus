@@ -180,10 +180,10 @@ public class DataTypeTest {
             cats.save(new CategoryImpl("c1", colors.getAll().get(0)));
             cats.save(new CategoryImpl("c2", colors.getAll().get(0)));
             List<Transaction> vars = List.of(new TransactionImpl("Gelato",
-                            cats.getAll().get(0), new LocalDate(2020, 1, 1),
+                            cats.getAll().get(0), new LocalDateTime(2020, 1, 1,2,2,2),
                             accounts.getAll().get(0), -250, Repetition.ONCE),
                     new TransactionImpl("Biscotto",
-                            cats.getAll().get(1), new LocalDate(2020, 1, 1),
+                            cats.getAll().get(1), new LocalDateTime(2020, 1, 1,2,2,2),
                             accounts.getAll().get(1), 300, Repetition.ONCE));
             for (var v : vars) {
                 transactions.save(v);

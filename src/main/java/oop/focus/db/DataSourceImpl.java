@@ -25,6 +25,7 @@ import oop.focus.homepage.model.HotKeyFactoryImpl;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import java.util.List;
@@ -146,7 +147,7 @@ public class DataSourceImpl implements DataSource {
                 new CachedDao<>(new ParserImpl<>("transaction",
                         a -> new TransactionImpl(a.remove(1),
                                 this.categories.getValue(Integer.parseInt(a.remove(1))).orElse(null),
-                                new LocalDate(a.remove(1)),
+                                new LocalDateTime(a.remove(1)),
                                 this.accounts.getValue(Integer.parseInt(a.remove(1))).orElse(null),
                                 Integer.parseInt(a.remove(1)),
                                 Repetition.values()[Integer.parseInt(a.remove(1))],
