@@ -1,5 +1,6 @@
 package oop.focus.calendar;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.LocalDateTime;
@@ -26,12 +27,14 @@ public class EventViewImpl implements EventView {
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
     private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
-    private final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 12, 00), new LocalDateTime(2021, 9, 26, 12, 30), Repetition.ONCE);
+    private final Event test = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
+    private final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 14, 00), new LocalDateTime(2021, 9, 26, 17, 30), Repetition.ONCE);
     private final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
 
     private final HoursViewImpl hours;
     private VBox myvbox;
     private final List<Event> events = new ArrayList<>();
+    private static final double MINUTESINHOUR = 60;
     private double temp10;
 
     public EventViewImpl(final HoursViewImpl hours) {
@@ -43,6 +46,7 @@ public class EventViewImpl implements EventView {
     private void subito() {
         this.events.add(first);
         this.events.add(second);
+        this.events.add(test);
         this.events.add(third);
         this.events.add(four);
     }
@@ -52,7 +56,7 @@ public class EventViewImpl implements EventView {
      * @return qualcosa
      */
     public double getY(final int i) {
-        final double temp3 = hours.getSpacing() / 60;
+        final double temp3 = hours.getSpacing() / MINUTESINHOUR;
         final double temp4 = temp3 * this.events.get(i).getStartHour().getMinuteOfHour();
         return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + temp4;
     }
@@ -90,21 +94,17 @@ public class EventViewImpl implements EventView {
 
                 panel.getChildren().add(name);
 
-
-
-
-                //System.out.println(temp4);
                 if (i != 0) {
                 panel.setTranslateY(this.getY(i) - temp10);
                 } else {
                 panel.setTranslateY(this.getY(i));
                 }
 
-                final float temp = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
-                final float temp2 = (this.events.get(i).getEndHour().getMinuteOfHour() - this.events.get(i).getStartHour().getMinuteOfHour()) / 10;
-                System.out.println(temp10);
-                panel.setPrefHeight(temp * hours.getY(0) * 2 + temp2 * (hours.getY(0) / 3));
-                temp10 += temp * hours.getY(0) * 2 + temp2 * (hours.getY(0) / 3);
+                final double temp = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
+                final double temp2 = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
+                panel.setPrefHeight((hours.getSpacing() / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR));
+                temp10 += (hours.getSpacing() / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR);
+
                 vbox.getChildren().add(panel);
         }
         setVBox(vbox);
