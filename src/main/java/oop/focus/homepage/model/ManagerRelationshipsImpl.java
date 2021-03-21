@@ -1,18 +1,21 @@
 package oop.focus.homepage.model;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-public class ManagerDegreeOfKinshipImpl implements ManagerDegreeOfKinship {
+import oop.focus.db.Dao;
+import oop.focus.db.DataSource;
+import oop.focus.db.exceptions.DaoAccessException;
 
-    private final Set<String> degreeOfKinship;
+public class ManagerRelationshipsImpl implements ManagerRelationships {
+
+    private final Dao<String> sd;
 
     /**
      * This is the class constructor.
+     * @param dsi is the data source.
      */
-    public ManagerDegreeOfKinshipImpl() {
-        this.degreeOfKinship = new HashSet<>();
+    public ManagerRelationshipsImpl(final DataSource dsi) {
+        this.sd = dsi.getRelationships();
     }
 
     /**
@@ -20,7 +23,13 @@ public class ManagerDegreeOfKinshipImpl implements ManagerDegreeOfKinship {
      * @param degree is the degree of kinship to add.
      */
     public final void add(final String degree) {
-        this.degreeOfKinship.add(degree);
+        if (!this.sd.getAll().contains(degree)) {
+            try {
+                this.sd.save(degree);
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -29,9 +38,7 @@ public class ManagerDegreeOfKinshipImpl implements ManagerDegreeOfKinship {
      */
     public final void addAll(final List<Person> personsList) {
         for (final Person person : personsList) {
-            if (!this.degreeOfKinship.contains(person.getDegreeOfKinship())) {
-                this.add(person.getDegreeOfKinship());
-            }
+            this.add(person.getDegreeOfKinship());
         }
     }
 
@@ -39,8 +46,8 @@ public class ManagerDegreeOfKinshipImpl implements ManagerDegreeOfKinship {
      * This method is use to get all degrees of relationship saved.
      * @return a set of string that represent all the saved degrees of relationship.
      */
-    public final Set<String> getAll() {
-        return this.degreeOfKinship;
+    public final List<String> getAll() {
+        return this.sd.getAll();
     }
 
     /**
@@ -48,8 +55,10 @@ public class ManagerDegreeOfKinshipImpl implements ManagerDegreeOfKinship {
      * @param degree is the degree to remove.
      */
     public final void remove(final String degree) {
-        if (!this.degreeOfKinship.contains(degree)) {
-            this.degreeOfKinship.remove(degree);
+        try {
+            this.sd.delete(degree);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
         }
     }
 

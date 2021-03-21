@@ -15,26 +15,19 @@ import oop.focus.homepage.model.ManagerEvent;
 import oop.focus.homepage.model.ManagerEventImpl;
 import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.Repetition;
 
 public class TimePropertyTest {
 
 	private final TimeProperty time = new TimePropertyImpl();
-	private final ManagerEvent manager = new ManagerEventImpl();
-
-    @Test
-    public void respectMinimumDurationTest() {
-    	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
-        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 8, 30), new LocalDateTime(2021, 9, 26, 8, 45), Repetition.ONCE);
-        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 9, 45), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
-        final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
-
-    	assertTrue(this.time.getMinEventTime(first));
-    	assertFalse(this.time.getMinEventTime(second));
-    	assertFalse(this.time.getMinEventTime(third));
-    	assertTrue(this.time.getMinEventTime(four));
-    }
+	private final DataSource dsi = new DataSourceImpl();
+	private final ManagerEvent manager = new ManagerEventImpl(dsi);
     
+	/**
+	 * This test is use to verify if an event could be added to a specific journey.
+	 */
     @Test
     public void compatibleTest() {
     	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
@@ -61,6 +54,9 @@ public class TimePropertyTest {
         assertTrue(this.time.areCompatibleEquals(sixth, events));
     }
 
+    /**
+     * This test is use to verify that a specific event have a duration under 24 hours.
+     */
     @Test
     public void durationHourTest() {
     	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
@@ -78,6 +74,22 @@ public class TimePropertyTest {
     public void minuteDistanceTest() {
     	final int minuteDistance = 5;
     	assertEquals(this.time.getMinuteDistance(), minuteDistance);
+    }
+
+	/**
+	 * This test is use to verify if an event has a duration higher or equal than 30 minutes.
+	 */
+	@Test
+    public void respectMinimumDurationTest() {
+    	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+        final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 8, 30), new LocalDateTime(2021, 9, 26, 8, 45), Repetition.ONCE);
+        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 9, 45), new LocalDateTime(2021, 9, 26, 10, 00), Repetition.ONCE);
+        final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
+
+    	assertTrue(this.time.getMinEventTime(first));
+    	assertFalse(this.time.getMinEventTime(second));
+    	assertFalse(this.time.getMinEventTime(third));
+    	assertTrue(this.time.getMinEventTime(four));
     }
 
     private List<Event> refreshList(final Event event, final List<Event> events) {

@@ -1,6 +1,6 @@
 package oop.focus.fidelitycard;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * This interface models the class that deals with managing all the fidelity cards.
@@ -24,7 +24,7 @@ public interface ManagerFidelityCard {
      * This class is use for get the set of all the fidelity cards.
      * @return a set of all the saved fidelity cards.
      */
-    Set<FidelityCard> getFidelityCards();
+    List<FidelityCard> getFidelityCards();
 
     /**
      * This method is use for remove a fidelity card.

@@ -14,17 +14,16 @@ import org.joda.time.LocalTime;
 import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.ManagerDegreeOfKinship;
-import oop.focus.homepage.model.ManagerDegreeOfKinshipImpl;
 import oop.focus.homepage.model.ManagerEvent;
 import oop.focus.homepage.model.ManagerEventImpl;
-import oop.focus.homepage.model.PersonImpl;
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.Repetition;
 
 public class EventTest {
 
-    private final ManagerEvent eventi = new ManagerEventImpl();
-    private final ManagerDegreeOfKinship gradiDiParentela = new ManagerDegreeOfKinshipImpl();
+	private final DataSource dsi = new DataSourceImpl();
+    private final ManagerEvent eventi = new ManagerEventImpl(dsi);
     private final Set<Event> set = new HashSet<>();
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
@@ -33,7 +32,7 @@ public class EventTest {
 
     @Test
     public void addingAndRemovingEventTest() {
-
+        //cerco di aggiungere questi eventi , vengono aggiunti tutti tranne fourth, fifth, sixth.
         final Event fourth = new EventImpl("ACQUA", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 9, 45), Repetition.ONCE);
         final Event fifth = new EventImpl("Ikea", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
         final Event sixth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 6, 30), Repetition.ONCE);
@@ -66,26 +65,13 @@ public class EventTest {
         try{
         	this.eventi.addEvent(sixth);
         } catch (IllegalStateException ignored) {}
-
+        //verifico che gli eventi vengano aggiunti correttamente.
         assertEquals(this.eventi.getEvents(), this.set);
 
         this.eventi.addEvent(seventh);
         this.set.addAll(this.eventi.getDailyEvents());
+        //controllo che gli eventi vegano correttamente suddivisi tra giornalieri e non.
         assertTrue(this.eventi.getDailyEvents().contains(seventh));
-    }
-
-    @Test
-    public void addNewPersonsTest() {
-
-        eventi.addEventsSet(Set.of(first, second, third));
-
-        first.addPerson(new PersonImpl("Alessia", "Cugina"));
-        this.gradiDiParentela.addAll(first.getPersons());
-        assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina"));
-
-        second.addPerson(new PersonImpl("Andrea", "Cugino"));
-        this.gradiDiParentela.addAll(second.getPersons());
-        assertEquals(this.gradiDiParentela.getAll(), Set.of("Cugina", "Cugino"));
     }
 
     //Test per ali, modificato per testare tutti e due i metodi
@@ -93,17 +79,32 @@ public class EventTest {
     public void closestEventsTest() {
     	this.eventi.addEvent(first);
     	this.eventi.addEvent(third);
-
+        //verifico che un timer possa iniziare 
     	assertTrue(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 9, 27)));
     	assertFalse(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 9, 45)));
         assertFalse(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 18, 30)));
-
+        //verifico che venga trovato correttamente l'orario più vicino.
         assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9,27)), Optional.of(new LocalTime(9, 30)));
+    }
+
+    //prendo solo gli eventi che hanno durata superiore o uguale a 30 minuti.
+    @Test
+    public void durationInMinutes() {
+    	final Event sixth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 9, 15), Repetition.ONCE);
+    	
+    	this.eventi.addEvent(first);
+    	this.eventi.addEvent(second);
+    	this.eventi.addEvent(sixth);
+
+    	assertEquals(this.eventi.getEventsWithDuration(this.eventi.getEvents()), Set.of(first, second));
+
+    	this.eventi.addEvent(third);
+    	assertEquals(this.eventi.getEventsWithDuration(this.eventi.getEvents()), Set.of(first, second, third));
     }
 
     @Test
     public void equalsEventsTest() {
-    	
+
     	final Event firstCopy = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.DAILY);
     	assertEquals(first, firstCopy);
     	final Event secondCopy = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 00), Repetition.BIMONTHLY);
@@ -155,20 +156,6 @@ public class EventTest {
 
         assertEquals(third.getStartHour(), new LocalTime(11, 30));
         assertEquals(third.getEndHour(), new LocalTime(18, 30));
-    }
-
-    @Test
-    public void durationInMinutes() {
-    	final Event sixth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 9, 15), Repetition.ONCE);
-    	
-    	this.eventi.addEvent(first);
-    	this.eventi.addEvent(second);
-    	this.eventi.addEvent(sixth);
-
-    	assertEquals(this.eventi.getEventsWithDuration(this.eventi.getEvents()), Set.of(first, second));
-
-    	this.eventi.addEvent(third);
-    	assertEquals(this.eventi.getEventsWithDuration(this.eventi.getEvents()), Set.of(first, second, third));
     }
     
 }

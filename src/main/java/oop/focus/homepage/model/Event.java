@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+
 import oop.focus.finance.Repetition;
 
 /**
@@ -13,18 +14,6 @@ import oop.focus.finance.Repetition;
  * Also, an event can be repeated every day, every week, every month or every year , and can be carried out in the company of one or more people.
  */
 public interface Event {
-
-    /**
-     * This method is used to add a new person who will attend the event.
-     * @param p is the person to be added.
-     */
-    void addPerson(Person p);
-
-    /**
-     * This method is use to get the color of an event.
-     * @return a String that rappresent the color of the event.
-     */
-    String getColor();
 
     /**
      * This method is used to know both the end date and the end time of an event.

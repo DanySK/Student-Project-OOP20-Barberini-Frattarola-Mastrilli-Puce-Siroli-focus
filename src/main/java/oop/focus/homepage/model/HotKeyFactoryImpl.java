@@ -4,6 +4,7 @@ import org.joda.time.LocalDateTime;
 
 import oop.focus.finance.Repetition;
 
+
 /**
  * This class implements the HotKeyFactory interface.
  */
@@ -57,7 +58,7 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
     /**
      * This method is used to create a keyboard shortcut of a specific type based on the type id.
      * @param name is the name of the hot key to create.
-     * @param id is the id of the type of the hot key.
+     * @param id is the id of the hot key type.
      * @return an hot key of type x (where x is the type of hot key specified by the id).
      */
     public final HotKey createFromType(final String name, final int id) {

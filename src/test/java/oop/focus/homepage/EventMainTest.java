@@ -1,6 +1,5 @@
 package oop.focus.homepage;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -10,6 +9,8 @@ import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.ManagerEvent;
 import oop.focus.homepage.model.ManagerEventImpl;
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.Repetition;
 
 public class EventMainTest {
@@ -24,15 +25,16 @@ public class EventMainTest {
         final Event seventh = new EventImpl("Acqua", new LocalDateTime(2021, 9, 26, 22, 30), new LocalDateTime(2021, 9, 26, 23, 30), Repetition.ONCE);
         final Event eighth = new EventImpl("Ikea", new LocalDateTime(2021, 9, 25, 19, 30), new LocalDateTime(2021, 9, 25, 22, 45), Repetition.ONCE);
         final Event ninth = new EventImpl("Passeggio", new LocalDateTime(2021, 9, 25, 12, 30), new LocalDateTime(2021, 9, 25, 12, 45), Repetition.ONCE);
-        final Event ten = new EventImpl("Gita", new LocalDateTime(2021, 9, 20, 12, 00), new LocalDateTime(2021, 9, 26, 15, 00), Repetition.ONCE);
-        final Event tempon = new EventImpl("Prova", new LocalDateTime(2021, 9, 26,14, 30 ), new LocalDateTime(2021, 9, 26, 15, 30), Repetition.ONCE);
-        final Event eleven = new EventImpl("Uscita", new LocalDateTime(2021, 9, 26, 7, 30), new LocalDateTime(2021, 9, 26, 8, 30), Repetition.ONCE);
-        final Event twelve = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
-        final Event thirteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
-        final Event provaAli = new EventImpl("Ali", new LocalDateTime(2021, 9, 26, 9, 29, 10),  new LocalDateTime(2021, 9, 26, 9, 29, 59), Repetition.ONCE);
- 
-        final ManagerEvent manager = new ManagerEventImpl();
+        final Event tenth = new EventImpl("Gita", new LocalDateTime(2021, 9, 20, 12, 00), new LocalDateTime(2021, 9, 26, 15, 00), Repetition.ONCE);
+        final Event eleventh = new EventImpl("Prova", new LocalDateTime(2021, 9, 26,14, 30 ), new LocalDateTime(2021, 9, 26, 15, 30), Repetition.ONCE);
+        final Event twelfth = new EventImpl("Uscita", new LocalDateTime(2021, 9, 26, 7, 30), new LocalDateTime(2021, 9, 26, 8, 30), Repetition.ONCE);
+        final Event thirteenth = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
+        final Event fourteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
 
+        final DataSource dsi = new DataSourceImpl();
+        final ManagerEvent manager = new ManagerEventImpl(dsi);
+
+        //cerco di aggiungere 14 eventi di cui sono validi solo first, second, fourth, eight, ninth , tenth, eleventh, twelve, thirteenth.
         manager.addEvent(first);
         manager.addEvent(second);
         try{
@@ -50,86 +52,77 @@ public class EventMainTest {
         } catch (final IllegalStateException ignored) {}
         manager.addEvent(eighth);
         manager.addEvent(ninth);
-        manager.addEvent(ten);
-        manager.addEvent(tempon);
-        manager.addEvent(eleven);
-        manager.addEvent(twelve);
-        manager.addEvent(provaAli);
+        manager.addEvent(tenth);
+        try {
+            manager.addEvent(eleventh);
+        } catch (final IllegalStateException ignored) {}
+        manager.addEvent(twelfth);
+        manager.addEvent(thirteenth);
+        manager.addEvent(fourteenth);
+        //manager.addEvent(provaAli);
 
-        Set<Event> set = manager.getEvents();
+        final Set<Event> set = manager.getEvents();
 
+        //mi dovrà stampare tutti gli eventi inseriti tranne quelli giornalieri(durata maggiire di 24 ore ) e quelli che hanno datae ora di inizio e fine equivalenti.
         for(final Event event : set) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
 
+        //mi deve stampare solo gli eventi previsti nella giornata del 26 settembre
         List<Event> eventsList = manager.findByDate(new LocalDate(2021, 9, 26));
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
         
+        //deve stampare solo gli eventi con durata inferiore a 24 ore e quelli che hanno datae ora di inizio e fine equivalenti.
         eventsList = manager.takeOnly(eventsList);
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
 
+        //deve stampare gli eventi in ordine in basa all'ora di inizio crescente.
         eventsList = manager.orderByHour(eventsList);
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
 
+       //mi deve stampare solo gli eventi previsti nella giornata del 25 settembre
         eventsList = manager.findByDate(new LocalDate(2021, 9, 25));
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
 
+        //deve stampare solo gli eventi con durata inferiore a 24 ore e quelli che hanno datae ora di inizio e fine equivalenti.
         eventsList = manager.takeOnly(eventsList);
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
 
+        //deve stampare gli eventi in ordine in basa all'ora di inizio crescente.
         eventsList = manager.orderByHour(eventsList);
         for(final Event event : eventsList) {
         	System.out.println(" " + event.getName());
         }
         System.out.println(" ");
         
+        //verifico il funzionamento del metodo closest events.
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 25, 8, 00)));
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 11, 00)));
-        System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 18, 30)));
-        try {
-            manager.getClosestEvent(new LocalDateTime(2021, 9, 25, 23, 00));
-        } catch (final NoSuchElementException ignored) {}
+        System.out.println(" " + manager.canStart(new LocalDateTime(2021, 9, 26, 18, 30)));
 
         System.out.println(" ");
 
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 14, 00)));
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 7, 00)));
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 19, 28)));
-        try {
-            manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 23, 00));
-        } catch (final NoSuchElementException ignored) {}
-        
+
         System.out.println(" ");
-        
-        manager.addEvent(thirteenth);
-        set = manager.getEvents();
-        for(final Event event : set) {
-        	System.out.println(" " + event.getName());
-        }
-        System.out.println(" ");
-        
-        System.out.println(" " + thirteenth.getStartHour().getSecondOfMinute());
-        System.out.println(" " + thirteenth.getEndHour().getSecondOfMinute());
-        System.out.println(" " + thirteenth.getStartHour().getMillisOfSecond());
-        System.out.println(" " + thirteenth.getEndHour().getMillisOfSecond());
-        
-        
-        
+
 	}
 }

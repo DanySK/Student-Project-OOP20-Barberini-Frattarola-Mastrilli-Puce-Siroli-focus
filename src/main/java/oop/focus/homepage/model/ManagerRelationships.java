@@ -1,9 +1,8 @@
 package oop.focus.homepage.model;
 
 import java.util.List;
-import java.util.Set;
 
-public interface ManagerDegreeOfKinship {
+public interface ManagerRelationships {
 
     /**
     * This method is use to add a new degree of kinship.
@@ -21,7 +20,7 @@ public interface ManagerDegreeOfKinship {
      * This method is use to get all degrees of relationship saved.
      * @return a set of string that represent all the saved degrees of relationship.
      */
-    Set<String> getAll();
+    List<String> getAll();
 
     /**
      * This method is use to remove a degree of kinship from all the saved degrees of kinship.

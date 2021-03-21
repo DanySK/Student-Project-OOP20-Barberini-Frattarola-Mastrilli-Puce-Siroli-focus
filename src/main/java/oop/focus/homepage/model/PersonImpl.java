@@ -8,7 +8,7 @@ package oop.focus.homepage.model;
 public class PersonImpl implements Person {
 
     private final String name;
-    private final String degreeOfKinship;
+    private final String relationships;
 
     /**
      * This is the class constructor.
@@ -17,20 +17,20 @@ public class PersonImpl implements Person {
      */
     public PersonImpl(final String name, final String degree) {
         this.name = name;
-        this.degreeOfKinship = degree;
+        this.relationships = degree;
     }
 
     /**
      * This method is use for get the degree of kinship of the person.
-     * @return a String that rappresent the person degree of kinship.
+     * @return a String that represents the person degree of kinship.
      */
     public final String getDegreeOfKinship() {
-        return this.degreeOfKinship;
+        return this.relationships;
     }
 
     /**
      * This method is use for get the name of the person.
-     * @return a String that rappresent the person name.
+     * @return a String that represent the person name.
      */
     public final String getName() {
         return this.name;
@@ -38,12 +38,12 @@ public class PersonImpl implements Person {
 
     /**
      * This is the hasCode related to the equals method.
-     * @return an int.
+     * @return an integer.
      */
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((degreeOfKinship == null) ? 0 : degreeOfKinship.hashCode());
+        result = prime * result + ((relationships == null) ? 0 : relationships.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
@@ -65,11 +65,11 @@ public class PersonImpl implements Person {
             return false;
         }
         final PersonImpl other = (PersonImpl) obj;
-        if (degreeOfKinship == null) {
-            if (other.degreeOfKinship != null) {
+        if (relationships == null) {
+            if (other.relationships != null) {
                 return false;
             }
-        } else if (!degreeOfKinship.equals(other.degreeOfKinship)) {
+        } else if (!relationships.equals(other.relationships)) {
               return false;
         }
         if (name == null) {

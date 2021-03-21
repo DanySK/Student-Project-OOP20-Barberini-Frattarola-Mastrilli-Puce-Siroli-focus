@@ -1,6 +1,5 @@
 package oop.focus.homepage.model;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -9,30 +8,41 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
+import oop.focus.db.Dao;
+import oop.focus.db.DataSource;
+import oop.focus.db.exceptions.DaoAccessException;
+
 /**
  * This class adds new methods to manage events.
  * For example for search for an event by a specific date.
  */
 public class ManagerEventImpl implements ManagerEvent {
 
-    private final Set<Event> events;
+    private final Dao<Event> events;
     private final TimeProperty time;
 
     /**
      * This is the class constructor.
+     * @param dsi is the DataSource.
      */
-    public ManagerEventImpl() {
-        this.events = new HashSet<>();
+    public ManagerEventImpl(final DataSource dsi) {
         this.time = new TimePropertyImpl();
+        this.events = dsi.getEvents();
     }
 
     /**
-     * This method is use to add new event.
-     * @param e is the event that must be added to events list.
+     * This method is use to save a new event.
+     * @param event is the event that must be added to events list.
      */
-    public final void addEvent(final Event e) {
-        if (this.time.getValidity(e) && this.time.getHourDuration(e) && this.getAnswer(e) || !this.time.getHourDuration(e)) {
-            this.events.add(e);
+    public final void addEvent(final Event event) {
+        if (this.time.getValidity(event) && this.time.getHourDuration(event) && this.getAnswer(event) || !this.isAdequate(event) || !this.time.getHourDuration(event)) {
+            if (!this.events.getAll().contains(event)) {
+                try {
+                    this.events.save(event);
+                } catch (DaoAccessException e) {
+                    e.printStackTrace();
+                }
+            }
         } else {
             throw new IllegalStateException();
         }
@@ -54,12 +64,12 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return true if it's possible, false otherwise.
      */
     public final boolean canStart(final LocalDateTime date) {
-        for (final Event event : this.events) {
+        for (final Event event : this.events.getAll()) {
             if (date.toLocalTime().isEqual(event.getStartHour()) || date.toLocalTime().isEqual(event.getEndHour()) || date.toLocalTime().isBefore(event.getEndHour()) && date.toLocalTime().isAfter(event.getStartHour())) {
                 return false;
             }
         }
-    return true;
+        return true;
     }
  
     /**
@@ -68,7 +78,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a list of events taking place on that particular date.
      */
     public final List<Event> findByDate(final LocalDate date) {
-        return this.events.stream().filter(e -> {
+        return this.events.getAll().stream().filter(e -> {
         return e.getStartDate().equals(date) || e.getEndDate().equals(date) || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
         }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
     }
@@ -79,7 +89,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a list of events with the hour parameter as start hour.
      */
     public final Set<Event> findByHour(final LocalTime hour) {
-        return this.events.stream().filter(e -> e.getStartHour().equals(hour)).collect(Collectors.toSet());
+        return this.events.getAll().stream().filter(e -> e.getStartHour().equals(hour)).collect(Collectors.toSet());
     }
 
     /**
@@ -88,19 +98,19 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a list of events with the name parameter as name.
      */
     public final Set<Event> findByName(final String name) {
-        return this.events.stream().filter(e -> e.getName().equals(name)).collect(Collectors.toSet());
+        return this.events.getAll().stream().filter(e -> e.getName().equals(name)).collect(Collectors.toSet());
     }
 
     /**
      * This method is use to add a new events only if this is possible.
-     * @param e is the event that must be add.
+     * @param event is the event that must be add.
      * @return true if the event could be added, false otherview.
      */
-    public final boolean getAnswer(final Event e) {
-        if (e.getStartDate().isEqual(e.getEndDate())) {
-            return this.time.areCompatibleEquals(e, this.orderByHour(this.takeOnly(this.findByDate(e.getStartDate()))));
+    public final boolean getAnswer(final Event event) {
+        if (event.getStartDate().isEqual(event.getEndDate())) {
+            return this.time.areCompatibleEquals(event, this.orderByHour(this.takeOnly(this.findByDate(event.getStartDate()))));
         } else {
-            return this.time.areCompatibleDifferent(e, this.orderByHour(this.takeOnly(this.findByDate(e.getStartDate()))), this.takeOnly(this.orderByHour(this.findByDate(e.getEndDate()))));
+            return this.time.areCompatibleDifferent(event, this.orderByHour(this.takeOnly(this.findByDate(event.getStartDate()))), this.takeOnly(this.orderByHour(this.findByDate(event.getEndDate()))));
         }
     }
 
@@ -118,7 +128,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a set composed by only the daily events.
      */
     public final Set<Event> getDailyEvents() {
-        return this.events.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toSet());
+        return this.events.getAll().stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toSet());
     }
 
     /**
@@ -126,7 +136,7 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return the list with all the scheduled events.
      */
     public final Set<Event> getEvents() {
-        return this.events.stream().filter(e -> {
+        return this.events.getAll().stream().filter(e -> {
             return this.time.getHourDuration(e) && !this.isAdequate(e);
         }).collect(Collectors.toSet());
     }
@@ -137,7 +147,11 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return the list with all the scheduled events with a minimum duration.
      */
     public final Set<Event> getEventsWithDuration(final Set<Event> eventsSet) {
-        return eventsSet.stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
+        return this.events.getAll().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
+    }
+
+    public final List<Event> getHotKeyEvents() {
+        return this.events.getAll().stream().filter(e -> this.isAdequate(e)).collect(Collectors.toList());
     }
 
     /**
@@ -166,7 +180,11 @@ public class ManagerEventImpl implements ManagerEvent {
      * @param event is the event that must be removed from the events list.
      */
     public final void removeEvent(final Event event) {
-        this.events.remove(event);
+        try {
+            this.events.delete(event);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

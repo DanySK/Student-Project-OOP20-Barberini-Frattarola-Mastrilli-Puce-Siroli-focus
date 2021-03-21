@@ -5,7 +5,10 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+
 import oop.focus.finance.Repetition;
+
+
 
 /**
  * This class implements Event interface.
@@ -13,11 +16,10 @@ import oop.focus.finance.Repetition;
 public class EventImpl implements Event {
 
     private final String name;
-    private final String color;
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private Repetition repetition;
-    private final List<Person> persons;
+    private final List<Person> persons; //modifico
 
     /**
      * This is the class constructor.
@@ -33,7 +35,6 @@ public class EventImpl implements Event {
         this.endDate = endDate;
         this.repetition = repetition;
         this.persons = persons;
-        this.color = "Pink";
     }
 
     /**
@@ -45,24 +46,6 @@ public class EventImpl implements Event {
      */
     public EventImpl(final String name, final LocalDateTime startDate, final LocalDateTime endDate, final Repetition repetition) {
         this(name, startDate, endDate, repetition, new ArrayList<>());
-    }
-
-    /**
-     * This method is used to add a new person who will attend the event.
-     * @param p is the person to add.
-     */
-    public final void addPerson(final Person p) {
-        if (!this.persons.contains(p)) {
-            this.persons.add(p);
-        }
-    }
-
-    /**
-     * This method is use to get the color of an event.
-     * @return a String that rappresent the color of the event.
-     */
-    public final String getColor() {
-        return this.color;
     }
 
     /**
@@ -115,7 +98,7 @@ public class EventImpl implements Event {
 
     /**
      * This method is use for get the event start day.
-     * @return a LocalDate that rappresent the event startDay.
+     * @return a LocalDate that represent the event startDay.
      */
     public final LocalDate getStartDate() {
         return this.startDate.toLocalDate();
@@ -123,7 +106,7 @@ public class EventImpl implements Event {
 
     /**
      * This method is use for get the event start hour.
-     * @return a LocalDateTime that rappresent the event startHour.
+     * @return a LocalDateTime that represent the event startHour.
      */
     public final LocalTime getStartHour() {
         return this.startDate.toLocalTime();

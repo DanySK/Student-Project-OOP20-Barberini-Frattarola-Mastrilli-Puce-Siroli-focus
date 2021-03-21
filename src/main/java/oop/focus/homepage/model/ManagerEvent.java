@@ -71,10 +71,16 @@ public interface ManagerEvent {
 
     /**
      * This method is use to obtain all the events that respect a minimum duration.
-     * @param eventsSet is the set from which to take the events that respect a minimum duration.
+     * @param eventsList is the set from which to take the events that respect a minimum duration.
      * @return set of event that respect a minimum duration.
      */
-    Set<Event> getEventsWithDuration(Set<Event> eventsSet);
+    Set<Event> getEventsWithDuration(Set<Event> eventsList);
+
+    /**
+     * This method is use to obtain all the events that respect are generate after clicking hot keys.
+     * @return list of event that are generate after clicking hot keys.
+     */
+    List<Event> getHotKeyEvents();
 
     /**
      * This method is used to sort a set of events by time.
