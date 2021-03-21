@@ -1,5 +1,8 @@
 package oop.focus.finance;
 
+import oop.focus.db.Dao;
+import oop.focus.db.DataSource;
+import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDate;
 
@@ -11,18 +14,31 @@ import java.util.Comparator;
 
 public class GroupManagerImpl implements GroupManager {
 
-    private final List<Person> group = new ArrayList<>();
-    private final List<GroupTransaction> transactions = new ArrayList<>();
+    private final Dao<Person> group;
+    private final Dao<GroupTransaction> transactions;
+
+    public GroupManagerImpl(final DataSource db) {
+        this.group = db.getGroup();
+        this.transactions = db.getGroupTransactions();
+    }
 
     @Override
     public final void addPerson(final Person person) {
-        this.group.add(person);
+        try {
+            this.group.save(person);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public final void removePerson(final Person person) {
         if (this.getCredit(person) == 0) {
-            this.group.remove(person);
+            try {
+                this.group.delete(person);
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
         } else {
             throw new IllegalStateException();
         }
@@ -30,10 +46,10 @@ public class GroupManagerImpl implements GroupManager {
 
     @Override
     public final int getCredit(final Person person) {
-        return this.transactions.stream()
+        return this.transactions.getAll().stream()
                 .filter(t -> t.getMadeBy().equals(person))
                 .map(GroupTransaction::getAmount)
-                .reduce(0, Integer::sum) - this.transactions.stream()
+                .reduce(0, Integer::sum) - this.transactions.getAll().stream()
                 .filter(t -> t.getForList().contains(person))
                 .map(t -> t.getAmount() / t.getForList().size())
                 .reduce(0, Integer::sum);
@@ -41,19 +57,27 @@ public class GroupManagerImpl implements GroupManager {
 
     @Override
     public final void addTransaction(final GroupTransaction groupTransaction) {
-        this.transactions.add(groupTransaction);
+        try {
+            this.transactions.save(groupTransaction);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public final void removeTransaction(final GroupTransaction groupTransaction) {
-        this.transactions.remove(groupTransaction);
+        try {
+            this.transactions.delete(groupTransaction);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public final List<GroupTransaction> resolve() {
         var ret = new ArrayList<GroupTransaction>();
         Map<Person, Integer> map = new HashMap<>();
-        this.group.forEach(p -> map.put(p, this.getCredit(p)));
+        this.group.getAll().forEach(p -> map.put(p, this.getCredit(p)));
         while (!map.values().stream().allMatch(i -> i == 0)) {
             var creditor = this.getCreditor(map);
             var debtor = this.getDebtor(map);
@@ -71,26 +95,26 @@ public class GroupManagerImpl implements GroupManager {
     }
 
     private Person getCreditor(final Map<Person, Integer> map) {
-        return map.keySet().stream().max(Comparator.comparingInt(map::get)).get();
+        return map.keySet().stream().max(Comparator.comparingInt(map::get)).orElse(null);
     }
 
     private Person getDebtor(final Map<Person, Integer> map) {
-        return map.keySet().stream().filter(p -> map.get(p) < 0).max(Comparator.comparingInt(map::get)).get();
+        return map.keySet().stream().filter(p -> map.get(p) < 0).max(Comparator.comparingInt(map::get)).orElse(null);
     }
 
     @Override
     public final void reset() {
-        new ArrayList<>(this.group).forEach(this::removePerson);
-        this.transactions.clear();
+        new ArrayList<>(this.group.getAll()).forEach(this::removePerson);
+        new ArrayList<>(this.transactions.getAll()).forEach(this::removeTransaction);
     }
 
     @Override
     public final List<Person> getGroup() {
-        return this.group;
+        return this.group.getAll();
     }
 
     @Override
     public final List<GroupTransaction> getTransactions() {
-        return this.transactions;
+        return this.transactions.getAll();
     }
 }

@@ -1,6 +1,8 @@
 package oop.focus.finance;
 
+import oop.focus.db.DataSource;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import java.util.stream.Collectors;
 
@@ -14,11 +16,11 @@ public class FinanceManagerImpl implements FinanceManager {
     private final TransactionManager transactions;
     private final QuickTransactionManager quickTransactions;
 
-    public FinanceManagerImpl() {
-        this.accounts = new AccountManagerImpl();
-        this.categories = new CategoryManagerImpl();
-        this.transactions = new TransactionManagerImpl();
-        this.quickTransactions = new QuickTransactionManagerImpl();
+    public FinanceManagerImpl(final DataSource db) {
+        this.accounts = new AccountManagerImpl(db);
+        this.categories = new CategoryManagerImpl(db);
+        this.transactions = new TransactionManagerImpl(db);
+        this.quickTransactions = new QuickTransactionManagerImpl(db);
     }
 
     @Override
@@ -54,14 +56,21 @@ public class FinanceManagerImpl implements FinanceManager {
     @Override
     public final void addTransaction(final Transaction transaction) {
         this.transactions.add(transaction);
-        transaction.getAccount().execute(transaction.getAmount());
+    }
+
+    @Override
+    public final int getAmount(final Account account) {
+        var acc = this.accounts.getAccounts().get(this.accounts.getAccounts().indexOf(account));
+        return acc.getInitialAmount() + this.transactions.getTransactions().stream()
+                .filter(t -> t.getAccount().equals(acc))
+                .mapToInt(Transaction::getAmount)
+                .sum();
     }
 
     @Override
     public final void removeTransaction(final Transaction transaction) {
         if (this.transactions.getTransactions().contains(transaction)) {
             this.transactions.remove(transaction);
-            transaction.getAccount().execute(-transaction.getAmount());
         } else {
             throw new IllegalStateException();
         }
@@ -70,7 +79,7 @@ public class FinanceManagerImpl implements FinanceManager {
     @Override
     public final void doQuickTransaction(final QuickTransaction quickTransaction) {
         this.addTransaction(new TransactionImpl(quickTransaction.getDescription(), quickTransaction.getCategory(),
-                LocalDate.now(), quickTransaction.getAccount(), quickTransaction.getAmount(), Repetition.ONCE, false));
+                LocalDateTime.now(), quickTransaction.getAccount(), quickTransaction.getAmount(), Repetition.ONCE, false));
     }
 
     @Override

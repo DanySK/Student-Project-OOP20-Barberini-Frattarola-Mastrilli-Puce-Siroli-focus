@@ -4,7 +4,7 @@ import org.joda.time.LocalDate;
 
 /**
  * Interface that models a finance manager,
- * coordinating the three managers of transactions, accounts and categories.
+ * coordinating the four managers of transactions, quick transaction, accounts and categories.
  */
 public interface FinanceManager {
 
@@ -42,6 +42,14 @@ public interface FinanceManager {
      * @param transaction that is added
      */
     void addTransaction(Transaction transaction);
+
+    /**
+     * Given as a parameter, an account returns its current amount.
+     *
+     * @param account whose amount we want to know
+     * @return account's current amount
+     */
+    int getAmount(Account account);
 
     /**
      * Delete transaction from transactions and edit account's amount.

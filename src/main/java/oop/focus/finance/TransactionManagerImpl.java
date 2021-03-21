@@ -1,6 +1,10 @@
 package oop.focus.finance;
 
+import oop.focus.db.Dao;
+import oop.focus.db.DataSource;
+import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +15,20 @@ import java.util.stream.Stream;
 
 public class TransactionManagerImpl implements TransactionManager {
 
-    private final List<Transaction> transactions = new ArrayList<>();
+    private final Dao<Transaction> transactions;
+
+    public TransactionManagerImpl(final DataSource db) {
+        this.transactions = db.getTransactions();
+    }
 
     @Override
     public final void add(final Transaction transaction) {
-        if (!transaction.getDate().isAfter(LocalDate.now())) {
-            this.transactions.add(transaction);
+        if (!transaction.getDate().isAfter(LocalDateTime.now())) {
+            try {
+                this.transactions.save(transaction);
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
         } else {
             throw new UnsupportedOperationException();
         }
@@ -24,12 +36,16 @@ public class TransactionManagerImpl implements TransactionManager {
 
     @Override
     public final void remove(final Transaction transaction) {
-        this.transactions.remove(transaction);
+        try {
+            this.transactions.delete(transaction);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public final List<Transaction> getTransactions() {
-        return this.transactions;
+        return this.transactions.getAll();
     }
 
     @Override
@@ -58,7 +74,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     private Integer computeExpense(final Function<Repetition, Function<Integer, Integer>> function) {
-        return this.transactions.stream()
+        return this.transactions.getAll().stream()
                 .filter(Transaction::isToBeRepeated)
                 .map(t -> function.apply(t.getRepetition()).apply(t.getAmount()))
                 .reduce(0, Integer::sum);
@@ -66,21 +82,24 @@ public class TransactionManagerImpl implements TransactionManager {
 
     @Override
     public final List<Transaction> getGeneratedTransactions(final LocalDate date) {
-        return this.transactions.stream().flatMap(t -> this.generateNext(t, date).stream()).collect(Collectors.toList());
+        return this.transactions.getAll().stream()
+                .flatMap(t -> this.generateNext(t, date).stream()).collect(Collectors.toList());
     }
 
     private List<Transaction> generateNext(final Transaction t, final LocalDate date) {
-        if (!t.isToBeRepeated() || date.isBefore(t.getNextRenewal())) {
+        if (!t.isToBeRepeated() || new LocalDateTime(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth(), 0, 0, 0)
+                .isBefore(new LocalDateTime(t.getNextRenewal().getYear(), t.getNextRenewal().getMonthOfYear(), t.getNextRenewal().getDayOfMonth(), 0, 0, 0))) {
             return new ArrayList<>();
         }
         t.stopRepeat();
-        var transaction = new TransactionImpl(t.getDescription(), t.getCategory(), t.getNextRenewal(),
+        var transaction = new TransactionImpl(t.getDescription(), t.getCategory(),
+                new LocalDateTime(t.getNextRenewal().getYear(), t.getNextRenewal().getMonthOfYear(), t.getNextRenewal().getDayOfMonth(), 0, 0, 0),
                 t.getAccount(), t.getAmount(), t.getRepetition());
         return Stream.concat(List.of(transaction).stream(),
                 this.generateNext(transaction, date).stream()).collect(Collectors.toList());
     }
 
     private List<Transaction> filteredTransactions(final Predicate<Transaction> predicate) {
-        return this.transactions.stream().filter(predicate).collect(Collectors.toList());
+        return this.transactions.getAll().stream().filter(predicate).collect(Collectors.toList());
     }
 }

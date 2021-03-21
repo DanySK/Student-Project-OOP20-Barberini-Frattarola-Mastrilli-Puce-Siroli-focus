@@ -22,12 +22,5 @@ public interface Account {
     /**
      * @return the account's amount
      */
-    int getAmount();
-
-    /**
-     * Changes the account amount based on the amount passed as a parameter.
-     * 
-     * @param amount that must be applied to the account
-     */
-    void execute(int amount);
+    int getInitialAmount();
 }

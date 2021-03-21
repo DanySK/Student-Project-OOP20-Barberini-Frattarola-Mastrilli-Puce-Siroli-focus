@@ -2,21 +2,19 @@ package oop.focus.finance;
 
 import java.util.Objects;
 
+/**
+ * Immutable implementation of a category.
+ */
 public class AccountImpl implements Account {
 
     private final String name;
     private final String color;
-    private int amount;
+    private final int initialAmount;
 
-    public AccountImpl(final String name, final String color, final int amount) {
+    public AccountImpl(final String name, final String color, final int initialAmount) {
         this.name = name;
         this.color = color;
-        this.amount = amount;
-    }
-
-    @Override
-    public final void execute(final int amount) {
-        this.amount = this.amount + amount;
+        this.initialAmount = initialAmount;
     }
 
     @Override
@@ -30,8 +28,8 @@ public class AccountImpl implements Account {
     }
 
     @Override
-    public final int getAmount() {
-        return this.amount;
+    public final int getInitialAmount() {
+        return this.initialAmount;
     }
 
     @Override
