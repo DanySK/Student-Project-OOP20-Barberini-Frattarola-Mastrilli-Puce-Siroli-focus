@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.joda.time.LocalDate;
+
+import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.ManagerEventImpl;
 
@@ -12,7 +14,8 @@ public class DayImpl implements Day {
 
     private final LocalDate date;
     private final List<Event> events = new ArrayList<>();
-    private final ManagerEventImpl manager = new ManagerEventImpl();
+    private final DataSourceImpl datasource = new DataSourceImpl();
+    private final ManagerEventImpl manager = new ManagerEventImpl(datasource);
 
     public DayImpl(final LocalDate date) {
         this.date = date;
