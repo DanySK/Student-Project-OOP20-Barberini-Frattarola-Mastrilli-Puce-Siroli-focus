@@ -1,27 +1,18 @@
 package oop.focus.homepage;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-import java.util.Set;
-
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
+import oop.focus.finance.Repetition;
+import oop.focus.homepage.model.*;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.junit.Test;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyFactory;
-import oop.focus.homepage.model.HotKeyFactoryImpl;
-import oop.focus.homepage.model.HotKeyType;
-import oop.focus.homepage.model.ManagerEvent;
-import oop.focus.homepage.model.ManagerEventImpl;
-import oop.focus.homepage.model.ManagerHotKey;
-import oop.focus.homepage.model.ManagerHotKeyImpl;
-import oop.focus.db.DataSource;
-import oop.focus.db.DataSourceImpl;
-import oop.focus.finance.Repetition;
+
+import java.util.List;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
 
 public class HotKeyTest {
 

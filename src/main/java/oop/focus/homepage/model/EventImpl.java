@@ -38,6 +38,14 @@ public class EventImpl implements Event {
     }
 
     /**
+     * This method is use to add a new person to an event.
+     * @param person is the person to add.
+     */
+    public final void addPerson(final Person person) {
+        this.persons.add(person);
+    }
+
+    /**
      * This is the class constructor.
      * @param name is the name of the event to create.
      * @param startDate is the start day of the event to create.

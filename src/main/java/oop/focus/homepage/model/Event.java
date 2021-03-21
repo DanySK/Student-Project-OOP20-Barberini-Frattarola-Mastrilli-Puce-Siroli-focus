@@ -16,6 +16,12 @@ import oop.focus.finance.Repetition;
 public interface Event {
 
     /**
+     * This method is use to add a new person to an event.
+     * @param person is the person to add.
+     */
+    void addPerson(Person person);
+
+    /**
      * This method is used to know both the end date and the end time of an event.
      * @return LocalDateTime.
      */
