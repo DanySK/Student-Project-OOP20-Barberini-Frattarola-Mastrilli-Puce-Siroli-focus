@@ -57,7 +57,7 @@ public class TimeScrollingImpl implements TimeScrolling {
     public final boolean end() {
        if (this.stop || !pre.test(starterCounter)) {
             System.out.println("ho finito");
-            this.tl.createEvent();
+            this.tl.createEvent(this.getCounter());
         }
         return this.stop || !pre.test(starterCounter);
     }

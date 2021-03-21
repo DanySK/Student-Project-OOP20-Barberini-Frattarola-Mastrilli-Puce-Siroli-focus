@@ -7,8 +7,9 @@ package oop.focus.diary.model;
 public interface TimerListener {
     /**
      * Used to create new event when a counter ends.
+     * @param counter    final value of counter : if it is zero, alarm can play
      */
-    void createEvent();
+    void createEvent(Integer counter);
 
     /**
      * @throws  IllegalStateException if the counter couldn't start now, because another event is taking place

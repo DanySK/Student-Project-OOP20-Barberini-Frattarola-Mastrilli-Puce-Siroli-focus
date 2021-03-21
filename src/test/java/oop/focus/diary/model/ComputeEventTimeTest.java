@@ -2,22 +2,24 @@ package oop.focus.diary.model;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.Optional;
+import oop.focus.db.DataSourceImpl;
 
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
-
 import oop.focus.finance.Repetition;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.ManagerEvent;
 import oop.focus.homepage.model.ManagerEventImpl;
 
-
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 public class ComputeEventTimeTest {
-    private final ManagerEvent me = new ManagerEventImpl();
+    private final ManagerEvent me = new ManagerEventImpl(new DataSourceImpl());
     private final TimerFactory factory = new TimerFactory(me);
     private final ComputeStarterCounter csc = new ComputeStarterCounterImpl(me);
 
@@ -41,7 +43,23 @@ public class ComputeEventTimeTest {
         System.out.println("Secondi = " + csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
         assertEquals(Optional.empty(), csc.computePeriod("camminare"));
+
+
     }
+    
+    @Test
+    public void testAlarmSound() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+        final TimeScrolling timer4 = factory.createTimer("biscotti");
+        timer4.setStarterValue(3);
+        timer4.startCounter();
+        Thread.sleep(8000);
+        final Sound sound = new SoundImpl();
+        if(sound.isPlaying()){
+            sound.stopSound();
+        }
+
+    }
+       
     @Test
     public void testStopwatch() throws InterruptedException {
         final String cuc = "cucinare";
@@ -51,7 +69,7 @@ public class ComputeEventTimeTest {
         stopw.stopCounter();
         Thread.sleep(1000);
         System.out.println("Sec = " +csc.computePeriod(cuc).get().getSeconds());
-        assertEquals(Optional.empty(), csc.computePeriod("camminare"));  
+        assertEquals(Optional.empty(), csc.computePeriod("camminare"));
     }
     @Test
     public void testEventsSaved() {
@@ -87,7 +105,7 @@ public class ComputeEventTimeTest {
         third = new EventImpl("progetto", new LocalDateTime(2021, 9, 26, 21, 30), new LocalDateTime(2021, 9, 27, 18, 30), Repetition.ONCE);
         me.addEvent(third);
         //verifica la durata totale del progetto : 26 ore
-        System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() + 
+        System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() +
                 ":"+csc.computePeriod(prog).get().getSeconds());
     }
     @Test
@@ -102,8 +120,8 @@ public class ComputeEventTimeTest {
         System.out.println("test");
         System.out.println("Test 2 :"+csc.computePeriod(corsa).get().getHours()+
                 ":"+ csc.computePeriod(corsa).get().getMinutes() +":" +csc.computePeriod(corsa).get().getSeconds() );
-        
-        
+
+
     }
     @Test (expected =  IllegalStateException.class)
     public void testCompatibilityTimerWithEvents()   {
@@ -114,5 +132,7 @@ public class ComputeEventTimeTest {
         final TimeScrolling timer3 = factory.createTimer("gioco");
         timer3.startCounter();
     }
+
+     
 }
 
