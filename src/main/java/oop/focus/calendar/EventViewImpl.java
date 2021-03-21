@@ -23,7 +23,7 @@ import oop.focus.homepage.model.EventImpl;
 
 
 
-public class EventViewImpl implements EventView {
+public class EventViewImpl implements VBoxManager {
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
     private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
@@ -37,7 +37,7 @@ public class EventViewImpl implements EventView {
     private final List<Event> events = new ArrayList<>();
     private static final double MINUTESINHOUR = 60;
     private double spacing;
-    private double temp10;
+    private double inserteventsduration;
 
     public EventViewImpl(final HoursViewImpl hours) {
         subito();
@@ -55,27 +55,22 @@ public class EventViewImpl implements EventView {
     }
 
     private void checkSpacing() {
+        this.spacing = hours.getSpacing();
         if (hours.getFormat() == HoursViewImpl.Format.EXTENDED.getNumber()) {
-            spacing = spacing * 2;
+            this.spacing = this.spacing * 2;
         }
     }
 
     /**
-     * @param i qualxcosa
-     * @return qualcosa
+     * @param i  Index of the events
+     * @return position of the object in the VBox
      */
     public double getY(final int i) {
-        final double temp3 = this.spacing / MINUTESINHOUR;
-        final double temp4 = temp3 * this.events.get(i).getStartHour().getMinuteOfHour();
-        return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + temp4;
+        final double spaceforminute = this.spacing / MINUTESINHOUR;
+        final double minutestotalspace = spaceforminute * this.events.get(i).getStartHour().getMinuteOfHour();
+        return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutestotalspace;
     }
 
-    /**
-     *@param vbox set the events VBox.
-     */
-    public void setVBox(final VBox vbox) {
-        this.myvbox = vbox;
-    }
 
     /**
      * @return get the events box.
@@ -87,38 +82,41 @@ public class EventViewImpl implements EventView {
         return this.myvbox;
     }
 
+    private void buildPanel(final VBox vbox, final int i) {
+        final Pane panel = new Pane();
+        final Label name = new Label(this.events.get(i).getName());
+
+        panel.setBackground(new Background(
+                new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        panel.setBorder(new Border(
+                new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+        panel.getChildren().add(name);
+
+        if (i != 0) {
+        panel.setTranslateY(this.getY(i) - inserteventsduration);
+        } else {
+        panel.setTranslateY(this.getY(i));
+        }
+
+        final double durationeventinhours = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
+        final double durationeventinminutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
+        panel.setPrefHeight((this.spacing / MINUTESINHOUR) * (durationeventinminutes + durationeventinhours * MINUTESINHOUR));
+        inserteventsduration += (this.spacing / MINUTESINHOUR) * (durationeventinminutes + durationeventinhours * MINUTESINHOUR);
+
+        vbox.getChildren().add(panel);
+    }
+
     private void buildVBox() {
-        this.spacing = hours.getSpacing();
         checkSpacing();
         final VBox vbox = new VBox();
         vbox.setBackground(new Background(new BackgroundFill(Color.RED,
                 CornerRadii.EMPTY,
                 Insets.EMPTY)));
         for (int i = 0; i < this.events.size(); i++) {
-                final Pane panel = new Pane();
-                final Label name = new Label(this.events.get(i).getName());
-
-                panel.setBackground(new Background(
-                        new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-                panel.setBorder(new Border(
-                        new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-
-                panel.getChildren().add(name);
-
-                if (i != 0) {
-                panel.setTranslateY(this.getY(i) - temp10);
-                } else {
-                panel.setTranslateY(this.getY(i));
-                }
-
-                final double temp = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
-                final double temp2 = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
-                panel.setPrefHeight((this.spacing / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR));
-                temp10 += (this.spacing / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR);
-
-                vbox.getChildren().add(panel);
+            buildPanel(vbox, i);
         }
-        setVBox(vbox);
+        this.myvbox = vbox;
     }
 
 
