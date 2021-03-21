@@ -28,9 +28,9 @@ public class DayTest {
     @Test
     public void testDay() {
 
-        assertEquals(day.getNumber(), 4);
+        assertEquals(day.getNumber(), 26);
         assertEquals(day.getMonth(), "marzo");
-        assertEquals(day.getName(), "giovedì");
+        assertEquals(day.getName(), "venerdì");
         assertEquals(day.getYear(), YEAR);
         assertFalse(day.isSunday());
 
