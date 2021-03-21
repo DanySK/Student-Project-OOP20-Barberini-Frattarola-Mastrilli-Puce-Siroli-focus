@@ -3,6 +3,8 @@ package oop.focus.homepage.model;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDateTime;
+
 /**
  * This is the interface that models the handling of hot keys of all categories.
  */
@@ -12,8 +14,10 @@ public interface ManagerHotKey {
      * This method is used to perform the "action" method on a specific hot key.
      * Obviously a hot key has a category and the action varies according to that.
      * @param hotKey is the hot key on which to perform the action.
+     * @param start is the start.
+     * @param end is the end.
      */
-    void action(HotKey hotKey);
+    void action(HotKey hotKey, LocalDateTime start, LocalDateTime end);
 
     /**
      * This method is use to add an hot keys.
@@ -45,6 +49,8 @@ public interface ManagerHotKey {
      * @return a set of events generated after clicking an hot key.
      */
     List<Event> getEventsHotKey();
+
+    long getTimes(String name);
 
     /**
      * is used to remove a specific hot key from the collection containing all hot keys. 

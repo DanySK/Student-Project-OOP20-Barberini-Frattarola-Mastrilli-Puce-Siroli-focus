@@ -3,6 +3,8 @@ package oop.focus.homepage.model;
 import java.util.List;
 import java.util.Set;
 
+import org.joda.time.LocalDateTime;
+
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -30,9 +32,11 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
      * This method is used to perform the "action" method on a specific hot key.
      * Obviously a hot key has a category and the action varies according to that.
      * @param hotKey is the hot key on which to perform the action.
+     * @param start is the start.
+     * @param end is the end.
      */
-    public final void action(final HotKey hotKey) {
-        this.manager.addEvent(hotKey.createEvent());
+    public final void action(final HotKey hotKey, final LocalDateTime start, final LocalDateTime end) {
+        this.manager.addEvent(hotKey.createEvent(start, end));
     }
 
     /**
@@ -84,6 +88,10 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
         return this.manager.getHotKeyEvents();
     }
  
+    public final long getTimes(final String name) {
+        return this.getEventsHotKey().stream().filter(e -> e.getName().equals(name)).count();
+    }
+
     /**
      * This method is use to remove an hot key from the right category.
      * @param hotKey is the hot key that must be placed in a specific category.

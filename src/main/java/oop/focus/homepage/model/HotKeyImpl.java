@@ -1,5 +1,7 @@
 package oop.focus.homepage.model;
 
+import org.joda.time.LocalDateTime;
+
 /**
  * This class implements the HotKey interface that model a hotkey. 
  * An HotKey object is rappresented by a String ,that is the hotKey name, and a category that is rappresented by a member of the HotKeyType enum.
@@ -20,11 +22,13 @@ public abstract class HotKeyImpl implements HotKey {
     }
 
     /**
-     * This method is used to save the event generated when a hotkey is clicked.
-     * This method is implemented differently based on the category of the hotkey.
-     * @return the event.
+     * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
+     * This method is implemented differently based on the category of the hotkey. 
+     * @param start is the start.
+     * @param end is the end.
+     * @return an event.
      */
-    public abstract Event createEvent();
+    public abstract Event createEvent(LocalDateTime start, LocalDateTime end);
 
     /**
      * This method is use for getting the name of the HotKey.

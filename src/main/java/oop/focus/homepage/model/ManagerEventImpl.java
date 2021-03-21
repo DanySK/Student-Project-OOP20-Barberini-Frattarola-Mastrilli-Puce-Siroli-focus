@@ -120,6 +120,9 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return an event.
      */
     public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
+        if (this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty()) {
+            return Optional.empty();
+        }
         return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
     }
 

@@ -1,5 +1,7 @@
 package oop.focus.homepage.model;
 
+import org.joda.time.LocalDateTime;
+
 /**
  * This interface model the HotKey class, a class used for represent the hotkeys that are part of the homepage.
  */
@@ -8,9 +10,11 @@ public interface HotKey {
     /**
      * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
      * This method is implemented differently based on the category of the hotkey. 
+     * @param start is the start.
+     * @param end is the end.
      * @return an event.
      */
-    Event createEvent();
+    Event createEvent(LocalDateTime start, LocalDateTime end);
 
     /**
      * This method is use for getting the name of the HotKey.

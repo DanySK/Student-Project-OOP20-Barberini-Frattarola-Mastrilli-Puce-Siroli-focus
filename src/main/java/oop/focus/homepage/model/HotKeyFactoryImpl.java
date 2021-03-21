@@ -17,9 +17,14 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
      */
     public final HotKey createActivityHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.ACTIVITY) {
-
-            public Event createEvent() {
-                return new EventImpl(name, LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
+            private boolean possible = false;
+            //un tasto attività può cambiare il suo stato solo una volta quindi nel caso si cercasse di farlo più volte verrebbe lanciata un eccezione.
+            public Event createEvent(final LocalDateTime start, final LocalDateTime end) {
+                if (!this.possible) {
+                    this.possible = !this.possible;
+                    return new EventImpl(name, start, end, Repetition.ONCE);
+                } 
+                throw new IllegalStateException();
             }
         };
     }
@@ -32,10 +37,9 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
     public final HotKey createCounterHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.COUNTER) {
 
-            public Event createEvent() {
-                return new EventImpl(name, LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
+            public Event createEvent(final LocalDateTime start, final LocalDateTime end) {
+                return new EventImpl(name, start, end, Repetition.ONCE);
             }
-
         };
     }
 
@@ -46,12 +50,10 @@ public class HotKeyFactoryImpl implements HotKeyFactory {
      */
     public final HotKey createEventHotKey(final String name) {
         return new HotKeyImpl(name, HotKeyType.EVENT) {
-
-        public Event createEvent() {
-            // crea un evento che prende in input (attraverso un metodo che verrà creato , l'orario di inizio e quello di fine).
-            return null;
-        }
-
+ 
+            public Event createEvent(final LocalDateTime start, final LocalDateTime end) {
+                return new EventImpl(name, start, end, Repetition.ONCE);
+            }
         };
     }
 
