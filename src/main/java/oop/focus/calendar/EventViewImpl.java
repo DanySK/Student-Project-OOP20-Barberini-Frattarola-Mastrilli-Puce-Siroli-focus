@@ -107,7 +107,10 @@ public class EventViewImpl implements VBoxManager {
         vbox.getChildren().add(panel);
     }
 
-    private void buildVBox() {
+    /**
+     * build the vbox.
+     */
+    public void buildVBox() {
         checkSpacing();
         final VBox vbox = new VBox();
         vbox.setBackground(new Background(new BackgroundFill(Color.RED,

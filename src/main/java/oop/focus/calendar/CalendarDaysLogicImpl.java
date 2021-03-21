@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import oop.focus.calendar.HoursViewImpl.Format;
 
 
 public class CalendarDaysLogicImpl extends Application implements CalendarDaysLogic {
@@ -24,9 +25,37 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
     private final HoursViewImpl hoursbox = new HoursViewImpl();
     private final EventViewImpl eventbox = new EventViewImpl(hoursbox);
     private ScrollPane scroller = new ScrollPane();
-    private static final int DIMX = 80;
+    private static final int DIMX = 200;
     private static final int DIMY = 450;
     private static final int SPACING = 50;
+
+
+    private void configureDay(final HBox myhbox) {
+
+        hoursbox.setFormat(Format.NORMAL);
+        hoursbox.setSpacing(SPACING);
+
+        hoursbox.buildVBox();
+        eventbox.buildVBox();
+
+        hoursbox.getVBox().prefWidthProperty().bind(myhbox.widthProperty().divide(2));
+        eventbox.getVBox().prefWidthProperty().bind(myhbox.widthProperty());
+
+        myhbox.getChildren().add(hoursbox.getVBox());
+        myhbox.getChildren().add(eventbox.getVBox());
+        myhbox.setAlignment(Pos.CENTER);
+    }
+
+
+
+    private void configureDailyEvent(final VBox container, final Label daily) {
+        daily.prefWidthProperty().bind(container.widthProperty());
+        daily.setAlignment(Pos.CENTER);
+        daily.setTextAlignment(TextAlignment.CENTER);
+        daily.setText("Attività giornaliere: \nLavoro\nAllenamento");
+        daily.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        container.getChildren().add(daily);
+    }
 
     /**
      * Used for create Day for Calendar.
@@ -34,12 +63,11 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
      */
     public Scene buildDay() {
 
-        hoursbox.setSpacing(SPACING);
         final VBox container = new VBox();
         final HBox myhbox = new HBox();
-        myhbox.getChildren().add(hoursbox.getVBox());
-        myhbox.getChildren().add(eventbox.getVBox());
-        myhbox.setAlignment(Pos.CENTER);
+
+        configureDay(myhbox);
+
 
         final Label nameDay = new Label("lunedi");
         final Label numberDay = new Label("07");
@@ -48,12 +76,8 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
         container.getChildren().add(nameDay);
         container.getChildren().add(numberDay);
 
-        final Label giornaliero = new Label();
-        giornaliero.setAlignment(Pos.CENTER);
-        giornaliero.setTextAlignment(TextAlignment.CENTER);
-        giornaliero.setText("Attività giornaliere: \nLavoro\nAllenamento");
-        giornaliero.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-        container.getChildren().add(giornaliero);
+        final Label daily = new Label();
+        configureDailyEvent(container, daily);
 
         container.getChildren().add(myhbox);
         container.setBorder(new Border(new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));

@@ -15,4 +15,9 @@ public interface VBoxManager {
      */
     VBox getVBox();
 
+    /**
+     * build the vbox.
+     */
+    void buildVBox();
+
 }

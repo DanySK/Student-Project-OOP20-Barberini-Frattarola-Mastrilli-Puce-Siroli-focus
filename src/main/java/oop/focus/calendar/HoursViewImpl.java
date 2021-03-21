@@ -112,7 +112,10 @@ public class HoursViewImpl implements HoursView, VBoxManager {
         vbox.getChildren().add(label);
     }
 
-    private void buildVBox() {
+    /**
+     * build the vbox.
+     */
+    public void buildVBox() {
         final VBox vbox = new VBox();
 
         if (this.hoursformat == Format.NORMAL.getNumber()) {
