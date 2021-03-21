@@ -1,7 +1,9 @@
 package oop.focus.calendar;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox; 
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment; 
 
 
 
@@ -66,11 +68,23 @@ public class HoursViewImpl implements HoursView {
     }
 
     /**
+     * @return format of the time hours or half
+     * 
+     */
+    public int getFormat() {
+        return hoursformat;
+    }
+
+    /**
      * @return  the position of the label
      * @param hour qualcosa part 2
      */
     public double getY(final int hour) {
-        return this.myvbox.getChildren().get(hour).getLayoutY();
+        if (this.hoursformat == Format.NORMAL.getNumber()) {
+            return this.myvbox.getChildren().get(hour).getLayoutY();
+        } else {
+            return this.myvbox.getChildren().get(hour * 2).getLayoutY();
+        }
     }
 
     /**
@@ -98,16 +112,29 @@ public class HoursViewImpl implements HoursView {
                     final Label label = new Label(i + ":00");
                     label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
                     label.setPrefHeight(spacing);
+                    label.setTextAlignment(TextAlignment.CENTER);
+                    label.alignmentProperty().set(Pos.CENTER);
+                    label.prefWidthProperty().bind(vbox.prefWidthProperty());
                     vbox.getChildren().add(label);
             }
         } else {
             for (int i = 0; i <= hoursformat; i++) { 
                 if (flag) {
                     final Label label = new Label(i / 2 + ":00");
+                    label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
+                    label.setPrefHeight(spacing);
+                    label.setTextAlignment(TextAlignment.CENTER);
+                    label.alignmentProperty().set(Pos.CENTER);
+                    label.prefWidthProperty().bind(vbox.prefWidthProperty());
                     flag = false;
                     vbox.getChildren().add(label);
                 } else {
                     final Label label = new Label(i / 2 + ":30");
+                    label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
+                    label.setPrefHeight(spacing);
+                    label.alignmentProperty().set(Pos.CENTER);
+                    label.setTextAlignment(TextAlignment.CENTER);
+                    label.prefWidthProperty().bind(vbox.prefWidthProperty());
                     flag = true;
                     vbox.getChildren().add(label);
                 }

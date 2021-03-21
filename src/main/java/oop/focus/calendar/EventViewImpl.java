@@ -30,11 +30,13 @@ public class EventViewImpl implements EventView {
     private final Event test = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
     private final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 14, 00), new LocalDateTime(2021, 9, 26, 17, 30), Repetition.ONCE);
     private final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
+    private final Event five = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 22, 45), new LocalDateTime(2021, 9, 26, 23, 30), Repetition.ONCE);
 
     private final HoursViewImpl hours;
     private VBox myvbox;
     private final List<Event> events = new ArrayList<>();
     private static final double MINUTESINHOUR = 60;
+    private double spacing;
     private double temp10;
 
     public EventViewImpl(final HoursViewImpl hours) {
@@ -49,6 +51,13 @@ public class EventViewImpl implements EventView {
         this.events.add(test);
         this.events.add(third);
         this.events.add(four);
+        this.events.add(five);
+    }
+
+    private void checkSpacing() {
+        if (hours.getFormat() == HoursViewImpl.Format.EXTENDED.getNumber()) {
+            spacing = spacing * 2;
+        }
     }
 
     /**
@@ -56,7 +65,7 @@ public class EventViewImpl implements EventView {
      * @return qualcosa
      */
     public double getY(final int i) {
-        final double temp3 = hours.getSpacing() / MINUTESINHOUR;
+        final double temp3 = this.spacing / MINUTESINHOUR;
         final double temp4 = temp3 * this.events.get(i).getStartHour().getMinuteOfHour();
         return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + temp4;
     }
@@ -79,6 +88,8 @@ public class EventViewImpl implements EventView {
     }
 
     private void buildVBox() {
+        this.spacing = hours.getSpacing();
+        checkSpacing();
         final VBox vbox = new VBox();
         vbox.setBackground(new Background(new BackgroundFill(Color.RED,
                 CornerRadii.EMPTY,
@@ -88,7 +99,7 @@ public class EventViewImpl implements EventView {
                 final Label name = new Label(this.events.get(i).getName());
 
                 panel.setBackground(new Background(
-                        new BackgroundFill(Color.valueOf(this.events.get(i).getColor()), CornerRadii.EMPTY, Insets.EMPTY)));
+                        new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
                 panel.setBorder(new Border(
                         new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
@@ -102,8 +113,8 @@ public class EventViewImpl implements EventView {
 
                 final double temp = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
                 final double temp2 = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
-                panel.setPrefHeight((hours.getSpacing() / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR));
-                temp10 += (hours.getSpacing() / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR);
+                panel.setPrefHeight((this.spacing / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR));
+                temp10 += (this.spacing / MINUTESINHOUR) * (temp2 + temp * MINUTESINHOUR);
 
                 vbox.getChildren().add(panel);
         }
