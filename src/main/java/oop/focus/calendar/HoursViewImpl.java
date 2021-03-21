@@ -7,7 +7,7 @@ import javafx.scene.text.TextAlignment;
 
 
 
-public class HoursViewImpl implements HoursView {
+public class HoursViewImpl implements HoursView, VBoxManager {
 
     public enum Format {
 
@@ -76,8 +76,8 @@ public class HoursViewImpl implements HoursView {
     }
 
     /**
-     * @return  the position of the label
-     * @param hour qualcosa part 2
+     * @param hour  Index of the hour
+     * @return position of the object in the VBox
      */
     public double getY(final int hour) {
         if (this.hoursformat == Format.NORMAL.getNumber()) {
@@ -87,15 +87,8 @@ public class HoursViewImpl implements HoursView {
         }
     }
 
-    /**
-     *@param vbox set VBox hours.
-     */
-    public void setVBox(final VBox vbox) {
-        this.myvbox = vbox;
-    }
-
      /**
-     * @return get the hours box.
+     * @return the hours vbox.
      */
     public VBox getVBox() {
         if (this.myvbox == null) {
@@ -104,43 +97,43 @@ public class HoursViewImpl implements HoursView {
         return this.myvbox;
     }
 
+    /**
+     * Used for configure the hours label.
+     * @param label to configure
+     * @param vbox place where put the label
+     * @param i index
+     */
+    private void buildLabel(final Label label, final VBox vbox, final int i) {
+        label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
+        label.setPrefHeight(spacing);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.alignmentProperty().set(Pos.CENTER);
+        label.prefWidthProperty().bind(vbox.prefWidthProperty());
+        vbox.getChildren().add(label);
+    }
+
     private void buildVBox() {
         final VBox vbox = new VBox();
 
         if (this.hoursformat == Format.NORMAL.getNumber()) {
             for (int i = 0; i <= hoursformat; i++) { 
                     final Label label = new Label(i + ":00");
-                    label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
-                    label.setPrefHeight(spacing);
-                    label.setTextAlignment(TextAlignment.CENTER);
-                    label.alignmentProperty().set(Pos.CENTER);
-                    label.prefWidthProperty().bind(vbox.prefWidthProperty());
-                    vbox.getChildren().add(label);
+                    buildLabel(label, vbox, i);
             }
         } else {
             for (int i = 0; i <= hoursformat; i++) { 
                 if (flag) {
                     final Label label = new Label(i / 2 + ":00");
-                    label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
-                    label.setPrefHeight(spacing);
-                    label.setTextAlignment(TextAlignment.CENTER);
-                    label.alignmentProperty().set(Pos.CENTER);
-                    label.prefWidthProperty().bind(vbox.prefWidthProperty());
+                    buildLabel(label, vbox, i);
                     flag = false;
-                    vbox.getChildren().add(label);
                 } else {
                     final Label label = new Label(i / 2 + ":30");
-                    label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
-                    label.setPrefHeight(spacing);
-                    label.alignmentProperty().set(Pos.CENTER);
-                    label.setTextAlignment(TextAlignment.CENTER);
-                    label.prefWidthProperty().bind(vbox.prefWidthProperty());
+                    buildLabel(label, vbox, i);
                     flag = true;
-                    vbox.getChildren().add(label);
                 }
             } 
         }
-        setVBox(vbox);
+        this.myvbox = vbox;
     }
 
 

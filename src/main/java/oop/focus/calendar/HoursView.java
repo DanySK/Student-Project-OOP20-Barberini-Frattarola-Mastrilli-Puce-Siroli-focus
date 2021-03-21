@@ -1,6 +1,5 @@
 package oop.focus.calendar;
 
-import javafx.scene.layout.VBox;
 import oop.focus.calendar.HoursViewImpl.Format;
 
 public interface HoursView {
@@ -24,18 +23,9 @@ public interface HoursView {
     void setFormat(Format format);
 
     /**
-     * @return  the position of the label
-     * @param hour qualcosa part 2
+     * @return format of the time hours or half
+     * 
      */
-    double getY(int hour);
+    int getFormat();
 
-    /**
-     *@param vbox set VBox hours.
-     */
-     void setVBox(VBox vbox);
-
-    /**
-     * @return get the hours box.
-     */
-     VBox getVBox();
 }
