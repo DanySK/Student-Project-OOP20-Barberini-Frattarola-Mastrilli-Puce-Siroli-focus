@@ -1,13 +1,13 @@
 package oop.focus.diary.model;
 
+import oop.focus.db.Dao;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.db.SingleDao;
 import oop.focus.db.exceptions.DaoAccessException;
 import java.util.List;
 
 
 public class ToDoListManagerImpl implements ToDoListManager {
-    private final SingleDao<ToDoAction> dsi;
+    private final Dao<ToDoAction> dsi;
     public ToDoListManagerImpl(final DataSourceImpl dsi) {
         this.dsi = dsi.getToDoList();
     }

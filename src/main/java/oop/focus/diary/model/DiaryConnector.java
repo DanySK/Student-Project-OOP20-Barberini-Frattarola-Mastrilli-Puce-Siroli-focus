@@ -1,7 +1,4 @@
 package oop.focus.diary.model;
-
-
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,7 +9,6 @@ import oop.focus.db.exceptions.ConnectionException;
 import static java.nio.file.Files.createFile;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,7 +21,7 @@ public class DiaryConnector implements Connector<BufferedReader> {
     private boolean connected;
     private final Path dirPath = Paths.get(System.getProperty("user.home") + SEP + SOURCE_PATH + SEP + FOLDER_NAME);
     private Path filePath;
-    private FileReader fr;
+    private BufferedReader br;
 
     public DiaryConnector(final Path filePath) {
         this.filePath = filePath;
@@ -55,18 +51,17 @@ public class DiaryConnector implements Connector<BufferedReader> {
     }
     @Override
     public final BufferedReader getConnection() throws IllegalStateException {
-        try {
-            fr = new FileReader(filePath.toFile());
-            return new BufferedReader(fr);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return this.br;
     }
     @Override
     public final void open() throws ConnectionException, IllegalStateException {
         if (this.connected) {
             throw new IllegalStateException();
+        }
+        try {
+            br = new BufferedReader(new FileReader(filePath.toFile()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
         this.connected = true;
     }
@@ -78,7 +73,6 @@ public class DiaryConnector implements Connector<BufferedReader> {
         }
         try {
             this.getConnection().close();
-            this.fr.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
