@@ -9,29 +9,30 @@ public class DiaryDaoTest {
     private final DiaryImpl diario2 = new DiaryImpl("domani il tempo sarà bello e il sole splenderà", "domani");
     @Test
     public void testBackupPages() throws DaoAccessException {
-       
-        dsd.save(diario1);
-        dsd.save(diario2);
-        System.out.println(dsd.getAll().get(0).getName());
-        System.out.println(dsd.getAll().get(0).getContent());
-        System.out.println(dsd.getAll().get(1).getName());
-        System.out.println(dsd.getAll().get(1).getContent());
-
-
+        this.dsd.save(this.diario1);
+        this.dsd.save(this.diario2);
+        System.out.println(this.dsd.getAll().get(0).getName());
+        System.out.println(this.dsd.getAll().get(0).getContent());
+        System.out.println(this.dsd.getAll().get(1).getName());
+        System.out.println(this.dsd.getAll().get(1).getContent());
     }
     @Test
     public void testUpdate() throws DaoAccessException {
 
-        dsd.update(new DiaryImpl("ha smesso di piovere", "oggi"));
-        System.out.println(dsd.getAll().get(0).getName());
-        System.out.println(dsd.getAll().get(0).getContent());
-        System.out.println(dsd.getAll().get(1).getName());
-        System.out.println(dsd.getAll().get(1).getContent());
-        dsd.update(new DiaryImpl("ha smesso di piovere2", "ieri"));
-        System.out.println(dsd.getAll().get(0).getName());
-        System.out.println(dsd.getAll().get(0).getContent());
-        System.out.println(dsd.getAll().get(1).getName());
-        System.out.println(dsd.getAll().get(1).getContent());
+        this.dsd.update(new DiaryImpl("ha smesso di piovere", "oggi"));
+        System.out.println(this.dsd.getAll().get(0).getName());
+        System.out.println(this.dsd.getAll().get(0).getContent());
+        System.out.println(this.dsd.getAll().get(1).getName());
+        System.out.println(this.dsd.getAll().get(1).getContent());
+        this.dsd.update(new DiaryImpl("ha smesso di piovere2", "ieri"));
+        System.out.println("da elimiare : "+ this.dsd.getAll().get(0).getName());
+        System.out.println("da elimiare : " + this.dsd.getAll().get(0).getContent());
+        System.out.println(this.dsd.getAll().get(1).getName());
+        System.out.println(this.dsd.getAll().get(1).getContent());
+        this.dsd.delete(this.dsd.getAll().get(0));
+        System.out.println("dopo eliminazione : " );
+        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " "+ a.getContent()));
+
     }
 
 

@@ -1,7 +1,7 @@
 package oop.focus.diary.model;
 
 public class ToDoActionImpl implements ToDoAction {
-     private static final int MAX_LENGTH = 50;
+    private static final int MAX_LENGTH = 50;
     private String annotation;
     private boolean done;
 
