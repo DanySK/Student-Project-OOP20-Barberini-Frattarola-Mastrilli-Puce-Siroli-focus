@@ -152,7 +152,7 @@ public class DataTypeTest {
             assertEquals(1, accounts.getAll().size());
             accounts.update(account2);
             assertEquals(1, accounts.getAll().size());
-            assertEquals(150, accounts.getAll().get(0).getAmount());
+            assertEquals(150, accounts.getAll().get(0).getInitialAmount());
             assertEquals(1, accounts.getAll().size());
             accounts.delete(account);
             assertEquals(0, accounts.getAll().size());

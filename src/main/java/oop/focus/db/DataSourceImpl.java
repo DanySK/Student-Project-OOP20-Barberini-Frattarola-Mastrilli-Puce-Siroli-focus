@@ -91,7 +91,7 @@ public class DataSourceImpl implements DataSource {
                 Integer.parseInt(a.remove(1))),
                 List.of(new Pair<>("name", Account::getName),
                         new Pair<>("id_color", a -> this.colors.getId(a.getColor()).orElse(NA).toString()),
-                        new Pair<>("start_amount", a -> String.valueOf(a.getAmount()))))));
+                        new Pair<>("start_amount", a -> String.valueOf(a.getInitialAmount()))))));
     }
     @Override
     public final SingleDao<String> getColors() {
@@ -219,7 +219,6 @@ public class DataSourceImpl implements DataSource {
                                 new Pair<>("id_Category", t -> String.valueOf(this.categories.getId(t.getCategory()).orElse(NA))),
                                 new Pair<>("id_account", t -> String.valueOf(this.accounts.getId(t.getAccount()).orElse(NA)))))));
     }
-
     private SingleDao<Pair<Integer, Integer>> getGroupTransactionPersons() {
         return Objects.requireNonNullElseGet(this.groupTransactionPersons, () -> new CachedDao<>(new ParserImpl<>("group_transaction_persons",
                 a -> new Pair<>(Integer.parseInt(a.remove(1)), Integer.parseInt(a.remove(1))),
