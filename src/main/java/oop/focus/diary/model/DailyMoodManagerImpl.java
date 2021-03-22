@@ -6,7 +6,9 @@ import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Immutable implementation of DailyMoodManager.
+ */
 public class DailyMoodManagerImpl implements DailyMoodManager {
     private final Dao<DailyMood> dm;
     public DailyMoodManagerImpl(final DataSourceImpl dsi) {

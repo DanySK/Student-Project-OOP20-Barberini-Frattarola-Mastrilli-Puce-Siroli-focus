@@ -12,7 +12,7 @@ import org.joda.time.Period;
  * witch can be specified through the constructor.
  *
  */
-public interface ComputeStarterCounter {
+public interface TotalTimeEvent {
     /**
      * Compute the seconds spent to do an activity.
      * @param labelName   activity's name

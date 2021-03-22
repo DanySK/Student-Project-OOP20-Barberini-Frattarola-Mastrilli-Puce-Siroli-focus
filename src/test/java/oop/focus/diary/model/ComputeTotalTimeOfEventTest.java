@@ -18,10 +18,10 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 
-public class ComputeEventTimeTest {
+public class ComputeTotalTimeOfEventTest {
     private final ManagerEvent me = new ManagerEventImpl(new DataSourceImpl());
     private final TimerFactory factory = new TimerFactory(me);
-    private final ComputeStarterCounter csc = new ComputeStarterCounterImpl(me);
+    private final TotalTimeEvent csc = new TotalTimeEventImpl(me);
 
     @Test
     public void testTimer() throws InterruptedException {

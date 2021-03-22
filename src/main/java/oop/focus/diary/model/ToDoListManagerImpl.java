@@ -4,7 +4,9 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 import java.util.List;
-
+/**
+ * Immutable implementation of ToDoListManagerImpl.
+ */
 
 public class ToDoListManagerImpl implements ToDoListManager {
     private final Dao<ToDoAction> dsi;
