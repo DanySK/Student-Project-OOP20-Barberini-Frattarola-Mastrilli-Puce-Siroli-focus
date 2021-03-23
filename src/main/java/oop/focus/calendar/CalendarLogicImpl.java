@@ -14,6 +14,8 @@ public class CalendarLogicImpl implements CalendarLogic {
     private List<DayImpl> week;
     private List<DayImpl> month;
     private List<DayImpl> year;
+    private static final int DAYFIRSTWEEK = 7;
+    private static final int DAYLASTWEEK = 24;
 
     public CalendarLogicImpl() {
         this.current = this.today;
@@ -145,9 +147,25 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public void  changeWeek(final boolean change) {
         if (change) { //previous
-            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.dayOfWeek().getMaximumValue());
+            if (this.current.getMonthOfYear() == 1 && this.current.getDayOfMonth() < DAYFIRSTWEEK) {
+                this.current = new LocalDate(this.current.minusYears(1).getYear(), this.current.monthOfYear().getMaximumValue(), this.current.withMonthOfYear(this.current.monthOfYear().getMaximumValue()).dayOfMonth().getMaximumValue());
+            } else {
+                if (this.current.getDayOfMonth() - this.current.dayOfWeek().getMaximumValue() <= 1) {
+                    this.current = new LocalDate(this.current.getYear(), this.current.minusMonths(1).getMonthOfYear(), this.current.minusMonths(1).dayOfMonth().getMaximumValue());
+                } else {
+                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.dayOfWeek().getMaximumValue());
+                }
+            }
         } else { //next
-            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() + this.current.dayOfWeek().getMaximumValue());
+            if (this.current.getMonthOfYear() == this.current.monthOfYear().getMaximumValue() && this.current.getDayOfMonth() >= DAYLASTWEEK) {
+                this.current = new LocalDate(this.current.plusYears(1).getYear(), this.current.monthOfYear().getMinimumValue(), this.current.withMonthOfYear(this.current.monthOfYear().getMinimumValue()).dayOfMonth().getMinimumValue());
+            } else {
+                if (this.current.getDayOfMonth() + this.current.dayOfWeek().getMaximumValue() >= this.current.dayOfMonth().getMaximumValue()) {
+                    this.current = new LocalDate(this.current.getYear(), this.current.plusMonths(1).getMonthOfYear(), this.current.plusMonths(1).dayOfMonth().getMinimumValue() + this.current.dayOfWeek().getMaximumValue());
+                } else {
+                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() + this.current.dayOfWeek().getMaximumValue());
+                }
+            }
         }
         this.week = generateWeek();
     }
@@ -158,9 +176,17 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public void  changeMonth(final boolean change) {
         if (change) { //previous
-            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() - 1, this.current.getDayOfMonth());
-        } else { //next
-            this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() + 1, this.current.getDayOfMonth());
+                if (this.current.getMonthOfYear() == this.current.monthOfYear().getMinimumValue()) {
+                    this.current = new LocalDate(this.current.getYear() - 1, this.current.monthOfYear().getMaximumValue(), this.current.getDayOfMonth());
+                } else {
+                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() - 1, this.current.getDayOfMonth());
+                }
+            } else { //next
+                if (this.current.getMonthOfYear() == this.current.monthOfYear().getMaximumValue()) {
+                    this.current = new LocalDate(this.current.getYear() + 1, this.current.monthOfYear().getMinimumValue(), this.current.getDayOfMonth());
+                } else {
+                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() + 1, this.current.getDayOfMonth());
+                }
         }
         this.month = generateMonth();
     }
