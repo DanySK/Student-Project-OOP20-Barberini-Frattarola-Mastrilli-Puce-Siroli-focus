@@ -23,14 +23,14 @@ public class FinanceTest {
     public void initLists() {
         // ripristino il database
         var transactions = this.db.getTransactions();
-        var categories = this.db.getCategories();
         var accounts = this.db.getAccounts();
         var colors = this.db.getColors();
         var quickTransactions = this.db.getQuickTransactions();
+        var groupTransactions = this.db.getGroupTransactions();
         var group = this.db.getGroup();
+        var categories = this.db.getCategories();
         var persons = this.db.getPersons();
         var relationships = this.db.getRelationships();
-        var groupTransactions = this.db.getGroupTransactions();
 
         try {
             for (var v : transactions.getAll()) {
@@ -42,6 +42,7 @@ public class FinanceTest {
             for (var v : colors.getAll()) {
                 colors.delete(v);
             }
+            colors.save("ffffff");
             for (var v : quickTransactions.getAll()) {
                 quickTransactions.delete(v);
             }
@@ -60,61 +61,59 @@ public class FinanceTest {
             for (var v : relationships.getAll()) {
                 relationships.delete(v);
             }
-        } catch (DaoAccessException e) {
-            fail();
-        }
-
-        // salvo un colore nel dabatabe
-        try {
-            colors.save("FFFFFF");
-        } catch (DaoAccessException e) {
-            e.printStackTrace();
-            fail();
-        }
-        assertEquals(1, colors.getAll().size());
-
-        // creo qualche account e la aggiungo a accounts
-        this.financeManager.addAccount(new AccountImpl("Conto Corrente", "FFFFFF", 150_000));
-        this.financeManager.addAccount(new AccountImpl("Portafoglio", "FFFFFF", 10_000));
-
-        // creo qualche categoria e la aggiungo a categories
-        this.financeManager.addCategory(new CategoryImpl("Bar", "FFFFFF"));
-        this.financeManager.addCategory(new CategoryImpl("Ristoranti", "FFFFFF"));
-        this.financeManager.addCategory(new CategoryImpl("Stipendio", "FFFFFF"));
-        this.financeManager.addCategory(new CategoryImpl("Spesa", "FFFFFF"));
-        this.financeManager.addCategory(new CategoryImpl("Affitto", "FFFFFF"));
-
-        // creo qualche transazione e la aggiungo a transactions
-        this.financeManager.addTransaction(new TransactionImpl("Gelato",
-                new CategoryImpl("Bar", "FFFFFF"), new LocalDateTime(2020, 1, 1, 0, 0, 0),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), -250, Repetition.ONCE));
-        this.financeManager.addTransaction(new TransactionImpl("Pizzeria la Marinella",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2020, 1, 1, 0, 0, 0),
-                new AccountImpl("Portafoglio", "FFFFFF", 0), -1_200, Repetition.ONCE));
-
-        // creo alcune transazioni rapide e le aggiungo a quickTransactions
-        this.financeManager.getQuickManager().add(new QuickTransactionImpl(-150,
-                new CategoryImpl("Bar", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Parcheggio"));
-        this.financeManager.getQuickManager().add(new QuickTransactionImpl(-300,
-                new CategoryImpl("Bar", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Frappé"));
-        this.financeManager.getQuickManager().add(new QuickTransactionImpl(1000,
-                new CategoryImpl("Bar", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Paghetta"));
-
-        // creo e aggiugno al db le relationships
-        try {
             relationships.save("me");
             relationships.save("fratello");
             relationships.save("amica");
             relationships.save("fidanzata");
             relationships.save("fidanzato");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (DaoAccessException e) {
+            fail();
         }
 
-        // creo cinque persone (nei due modi possibili)
+        // controllo che ci sia un colore nel dabatabe
+        assertEquals(1, colors.getAll().size());
+
+        // controllo che ci siano 5 relationships
+        assertEquals(5, relationships.getAll().size());
+
+        // creo qualche account e li aggiungo a accounts
+        this.financeManager.addAccount(new AccountImpl("Conto Corrente", "ffffff", 150_000));
+        this.financeManager.addAccount(new AccountImpl("Portafoglio", "ffffff", 10_000));
+
+        // creo qualche categoria e le aggiungo a categories
+        this.financeManager.addCategory(new CategoryImpl("Bar", "ffffff"));
+        this.financeManager.addCategory(new CategoryImpl("Ristoranti", "ffffff"));
+        this.financeManager.addCategory(new CategoryImpl("Stipendio", "ffffff"));
+        this.financeManager.addCategory(new CategoryImpl("Spesa", "ffffff"));
+        this.financeManager.addCategory(new CategoryImpl("Affitto", "ffffff"));
+
+        // creo qualche transazione e la aggiungo a transactions
+        this.financeManager.addTransaction(new TransactionImpl("Gelato",
+                new CategoryImpl("Bar", "ffffff"),
+                new LocalDateTime(2020, 1, 1, 0, 0, 0),
+                new AccountImpl("Conto Corrente", "ffffff", 0),
+                -250, Repetition.ONCE));
+        this.financeManager.addTransaction(new TransactionImpl("Pizzeria la Marinella",
+                new CategoryImpl("Ristoranti", "ffffff"),
+                new LocalDateTime(2020, 1, 1, 0, 0, 0),
+                new AccountImpl("Portafoglio", "ffffff", 0),
+                -1_200, Repetition.ONCE));
+
+        // creo alcune transazioni rapide e le aggiungo a quickTransactions
+        this.financeManager.getQuickManager().add(new QuickTransactionImpl(-150,
+                new CategoryImpl("Bar", "ffffff"),
+                new AccountImpl("Conto Corrente", "ffffff", 0),
+                "Parcheggio"));
+        this.financeManager.getQuickManager().add(new QuickTransactionImpl(-300,
+                new CategoryImpl("Bar", "ffffff"),
+                new AccountImpl("Conto Corrente", "ffffff", 0),
+                "Frappé"));
+        this.financeManager.getQuickManager().add(new QuickTransactionImpl(1000,
+                new CategoryImpl("Bar", "ffffff"),
+                new AccountImpl("Conto Corrente", "ffffff", 0),
+                "Paghetta"));
+
+        // creo cinque persone
         final Person alex = new PersonImpl("Alex", "me");
         final Person luca = new PersonImpl("Luca", "fratello");
         final Person gaia = new PersonImpl("Gaia", "amica");
@@ -132,7 +131,7 @@ public class FinanceTest {
             e.printStackTrace();
         }
 
-        // aggiungo tre persone al financeManager delle transazioni di gruppo
+        // aggiungo le cinque persone al financeManager delle transazioni di gruppo
         this.groupManager.addPerson(alex);
         this.groupManager.addPerson(luca);
         this.groupManager.addPerson(gaia);
@@ -140,17 +139,28 @@ public class FinanceTest {
         this.groupManager.addPerson(elia);
 
         // aggiungo alcune transazioni di gruppo
-        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex, gaia), 500, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 1000, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, gaia), 300, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex), 300, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(luca), 100, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex, luca, gaia), 600, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(alex, luca), 200, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 400, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", gaia, List.of(alex, gaia), 500, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", maia, List.of(alex), 100, new LocalDate()));
-        this.groupManager.addTransaction(new GroupTransactionImpl("", elia, List.of(alex), 150, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Ombrellone",
+                alex, List.of(alex, gaia), 500, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Piscina",
+                luca, List.of(alex, luca), 1000, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Gelato",
+                luca, List.of(alex, gaia), 300, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Gelato",
+                alex, List.of(alex), 300, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Caramelle",
+                gaia, List.of(luca), 100, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Lettini",
+                alex, List.of(alex, luca, gaia), 600, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Patatine",
+                gaia, List.of(alex, luca), 200, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Pedalò",
+                luca, List.of(alex, luca), 400, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Taxi",
+                gaia, List.of(alex, gaia), 500, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Parcheggio",
+                maia, List.of(alex), 100, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Parcheggio",
+                elia, List.of(alex), 150, new LocalDate()));
     }
 
     @org.junit.Test
@@ -159,8 +169,7 @@ public class FinanceTest {
         assertEquals(2, this.financeManager.getAccountManager().getAccounts().size());
 
         // elimino un account
-        this.financeManager.removeAccount(new AccountImpl("Conto Corrente", "FFFFFF"
-        , 150_000));
+        this.financeManager.removeAccount(new AccountImpl("Conto Corrente", "", 0));
 
         // controllo che sia stato eliminato da account
         assertEquals(1, this.financeManager.getAccountManager().getAccounts().size());
@@ -176,13 +185,11 @@ public class FinanceTest {
 
         // provo a rimuovere delle categorie di cui esistono transazioni
         try {
-            this.financeManager.removeCategory(new CategoryImpl("Bar", "FFFFFF"
-            ));
+            this.financeManager.removeCategory(new CategoryImpl("Bar", ""));
             fail();
         } catch (Exception ignored) { }
         try {
-            this.financeManager.removeCategory(new CategoryImpl("Ristoranti", "FFFFFF"
-            ));
+            this.financeManager.removeCategory(new CategoryImpl("Ristoranti", ""));
             fail();
         } catch (Exception ignored) { }
 
@@ -190,10 +197,8 @@ public class FinanceTest {
         assertEquals(5, this.financeManager.getCategoryManager().getCategories().size());
 
         // provo a rimuovere le categorie di cui non esistono transazioni
-        this.financeManager.removeCategory(new CategoryImpl("Spesa", "FFFFFF"
-        ));
-        this.financeManager.removeCategory(new CategoryImpl("Affitto", "FFFFFF"
-        ));
+        this.financeManager.removeCategory(new CategoryImpl("Spesa", ""));
+        this.financeManager.removeCategory(new CategoryImpl("Affitto", ""));
 
         // controllo che siano state rimosse due categorie
         assertEquals(3, this.financeManager.getCategoryManager().getCategories().size());
@@ -205,8 +210,8 @@ public class FinanceTest {
         assertEquals(2, this.financeManager.getTransactionManager().getTransactions().size());
 
         // referenze ai due account
-        final Account firstAccount = new AccountImpl("Conto Corrente", "FFFFFF", 0);
-        final Account secondAccount = new AccountImpl("Portafoglio", "FFFFFF", 0);
+        final Account firstAccount = new AccountImpl("Conto Corrente", "", 0);
+        final Account secondAccount = new AccountImpl("Portafoglio", "", 0);
 
         // controlli importi iniziali
         assertEquals(149_750, this.financeManager.getAmount(firstAccount));
@@ -214,10 +219,12 @@ public class FinanceTest {
 
         // eseguo altre transazioni
         this.financeManager.addTransaction(new TransactionImpl("Iper",
-                new CategoryImpl("Spesa", "FFFFFF"), new LocalDateTime(2020, 12, 6, 0, 0, 0),
+                new CategoryImpl("Spesa", ""),
+                new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 firstAccount,-2_500, Repetition.ONCE));
         this.financeManager.addTransaction(new TransactionImpl("Conad",
-                new CategoryImpl("Spesa", "FFFFFF"), new LocalDateTime(2020, 12, 6, 0, 0, 0),
+                new CategoryImpl("Spesa", ""),
+                new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 firstAccount, 5_000, Repetition.ONCE));
 
         // controllo importi
@@ -225,20 +232,24 @@ public class FinanceTest {
         assertEquals(8_800, this.financeManager.getAmount(secondAccount));
 
         // eseguo altre transazioni
-        final var a = new TransactionImpl("Coop", new CategoryImpl("Spesa", "FFFFFF"),
-                new LocalDateTime(2020, 12, 6, 0, 0, 0), firstAccount, -10_000, Repetition.ONCE);
-        final var b = new TransactionImpl("Stipendio", new CategoryImpl("Stipendio", "FFFFFF"),
-                new LocalDateTime(2020, 12, 6, 0, 0, 0), secondAccount, 100_000, Repetition.ONCE);
-        this.financeManager.addTransaction(a);
-        this.financeManager.addTransaction(b);
+        final var firstTransaction = new TransactionImpl("Coop",
+                new CategoryImpl("Spesa", ""),
+                new LocalDateTime(2020, 12, 6, 0, 0, 0),
+                firstAccount, -10_000, Repetition.ONCE);
+        final var secondTransaction = new TransactionImpl("Stipendio",
+                new CategoryImpl("Stipendio", ""),
+                new LocalDateTime(2020, 12, 6, 0, 0, 0),
+                secondAccount, 100_000, Repetition.ONCE);
+        this.financeManager.addTransaction(firstTransaction);
+        this.financeManager.addTransaction(secondTransaction);
 
         // controllo importi
         assertEquals(142_250, this.financeManager.getAmount(firstAccount));
         assertEquals(108_800, this.financeManager.getAmount(secondAccount));
 
         // elimino le ultime due transazioni
-        this.financeManager.removeTransaction(a);
-        this.financeManager.removeTransaction(b);
+        this.financeManager.removeTransaction(firstTransaction);
+        this.financeManager.removeTransaction(secondTransaction);
 
         // controllo importi
         assertEquals(152_250, this.financeManager.getAmount(firstAccount));
@@ -252,30 +263,44 @@ public class FinanceTest {
 
     @org.junit.Test
     public void testSubscriptions() {
-        this.financeManager.addAccount(new AccountImpl("Conto iscrizioni", "FFFFFF", 200_000));
+        this.financeManager.addAccount(new AccountImpl("Conto iscrizioni", "ffffff", 200_000));
 
         // creo diverse transazioni ripetute (abbonamenti)
         this.financeManager.addTransaction(new TransactionImpl("Bar Pasquino",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2021, 1, 1, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 0), -100, Repetition.DAILY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2021, 1, 1, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 0),
+                -100, Repetition.DAILY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento metro",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2021, 1, 1, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 0), -1_000, Repetition.WEEKLY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2021, 1, 1, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 0),
+                -1_000, Repetition.WEEKLY));
         this.financeManager.addTransaction(new TransactionImpl("Tariffa TIM",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2021, 3, 3, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 0), -699, Repetition.MONTHLY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2021, 3, 3, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 0),
+                -699, Repetition.MONTHLY));
         this.financeManager.addTransaction(new TransactionImpl("Enel",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2020, 11, 7, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 200_000), -12_500, Repetition.BIMONTHLY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2020, 11, 7, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 200_000),
+                -12_500, Repetition.BIMONTHLY));
         this.financeManager.addTransaction(new TransactionImpl("Acqua",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2020, 11, 25, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 200_000), -15_000, Repetition.QUARTERLY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2020, 11, 25, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 200_000),
+                -15_000, Repetition.QUARTERLY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento autobus",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2020, 6, 5, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 200_000), -39_900, Repetition.HALF_YEARLY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2020, 6, 5, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 200_000),
+                -39_900, Repetition.HALF_YEARLY));
         this.financeManager.addTransaction(new TransactionImpl("Amazon",
-                new CategoryImpl("Ristoranti", "FFFFFF"), new LocalDateTime(2020, 1, 1, 0, 0, 0),
-                new AccountImpl("Conto iscrizioni", "FFFFFF", 200_000), -2_400, Repetition.YEARLY));
+                new CategoryImpl("Ristoranti", ""),
+                new LocalDateTime(2020, 1, 1, 0, 0, 0),
+                new AccountImpl("Conto iscrizioni", "", 200_000),
+                -2_400, Repetition.YEARLY));
 
         // controllo che siano state aggiunte con successo
         assertEquals(9, this.financeManager.getTransactionManager().getTransactions().size());
@@ -291,11 +316,8 @@ public class FinanceTest {
         // controllo che siano state aggiunte tutte
         assertEquals(95, this.financeManager.getTransactionManager().getTransactions().size());
 
-        // stampo
-        this.financeManager.getTransactionManager().getTransactions().forEach(System.out::println);
-
         // controllo che l'importo del conto sia corretto
-        assertEquals(29_001, this.financeManager.getAmount(new AccountImpl("Conto iscrizioni", "FFFFFF", 0)));
+        assertEquals(29_001, this.financeManager.getAmount(new AccountImpl("Conto iscrizioni", "", 0)));
     }
 
     @org.junit.Test()
@@ -306,41 +328,38 @@ public class FinanceTest {
         // controllo quante transazioni ci sono di base
         assertEquals(2, this.financeManager.getTransactionManager().getTransactions().size());
 
+        // mi salvo riferimento al conto
+        var account = new AccountImpl("Conto Corrente", "", 0);
+
         // controllo il saldo del conto di riferimento
-        assertEquals(149750, this.financeManager.getAmount(new AccountImpl("Conto Corrente", "FFFFFF", 0)));
+        assertEquals(149750, this.financeManager.getAmount(account));
 
         // eseguo alcune transazioni rapide
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Parcheggio"));
+                new CategoryImpl("Spesa", ""), account, "Parcheggio"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Parcheggio"));
+                new CategoryImpl("Spesa", ""), account, "Parcheggio"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Parcheggio"));
+                new CategoryImpl("Spesa", ""), account, "Parcheggio"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                new CategoryImpl("Bar", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Frappé"));
+                new CategoryImpl("Bar", ""), account, "Frappé"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                new CategoryImpl("Bar", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Frappé"));
+                new CategoryImpl("Bar", ""), account, "Frappé"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(1000,
-                new CategoryImpl("Stipendio", "FFFFFF"),
-                new AccountImpl("Conto Corrente", "FFFFFF", 0), "Paghetta"));
+                new CategoryImpl("Stipendio", ""), account, "Paghetta"));
 
         // controllo che le transazioni siano sei in più
         assertEquals(8, this.financeManager.getTransactionManager().getTransactions().size());
 
         // controllo che il saldo sia corretto
-        assertEquals(149700, this.financeManager.getAmount(new AccountImpl("Conto Corrente", "FFFFFF", 0)));
+        assertEquals(149700, this.financeManager.getAmount(account));
 
         // AGGIUNGERE POSSIBILITA' DI MODIFICARE IL CONTO DI UN MOVIMENTO PASSATO O ALTRE COSE MAGARI
     }
 
     @org.junit.Test()
     public void testGroupTransactions() {
-        // mi salvo tutte le persone
+        // mi salvo il riferimento a tutte le persone
         final Person alex = new PersonImpl("Alex", "me");
         final Person luca = new PersonImpl("Luca", "fratello");
         final Person gaia = new PersonImpl("Gaia", "amica");
@@ -361,12 +380,16 @@ public class FinanceTest {
         assertEquals(150, this.groupManager.getCredit(elia));
 
         // provo a eliminare qualche transazione
-        this.groupManager.removeTransaction(new GroupTransactionImpl("", luca, List.of(alex, luca), 400, new LocalDate()));
-        this.groupManager.removeTransaction(new GroupTransactionImpl("", gaia, List.of(luca), 100, new LocalDate()));
-        this.groupManager.removeTransaction(new GroupTransactionImpl("", alex, List.of(alex, gaia), 500, new LocalDate()));
+        this.groupManager.removeTransaction(new GroupTransactionImpl("Pedalò",
+                luca, List.of(alex, luca), 400, new LocalDate()));
+        this.groupManager.removeTransaction(new GroupTransactionImpl("Caramelle",
+                gaia, List.of(luca), 100, new LocalDate()));
+        this.groupManager.removeTransaction(new GroupTransactionImpl("Ombrellone",
+                alex, List.of(alex, gaia), 500, new LocalDate()));
 
         // eseguo una transazione
-        this.groupManager.addTransaction(new GroupTransactionImpl("", alex, List.of(alex, gaia), 200, new LocalDate()));
+        this.groupManager.addTransaction(new GroupTransactionImpl("Cuffie",
+                alex, List.of(alex, gaia), 200, new LocalDate()));
 
         // controllo che siano state aggiornate
         assertEquals(9, this.groupManager.getTransactions().size());
