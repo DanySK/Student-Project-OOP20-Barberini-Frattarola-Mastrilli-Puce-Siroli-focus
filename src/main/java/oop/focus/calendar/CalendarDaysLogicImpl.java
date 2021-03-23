@@ -1,9 +1,7 @@
 package oop.focus.calendar;
 
 
-import javafx.application.Application;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Border;
@@ -15,25 +13,40 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import javafx.stage.Stage;
 import oop.focus.calendar.HoursViewImpl.Format;
 
 
-public class CalendarDaysLogicImpl extends Application implements CalendarDaysLogic {
+public class CalendarDaysLogicImpl implements CalendarDaysLogic {
+
 
 
     private final HoursViewImpl hoursbox = new HoursViewImpl();
     private final EventViewImpl eventbox = new EventViewImpl(hoursbox);
+    private final DayImpl day;
     private ScrollPane scroller = new ScrollPane();
-    private static final int DIMX = 200;
-    private static final int DIMY = 450;
-    private static final int SPACING = 50;
+    private final int width;
+    private final int height;
+    private final int spacing;
+
+    /**
+     * 
+     * @param day    date of the day that we want build
+     * @param width  max width of the day view.
+     * @param height  max height of the day view.
+     * @param spacing space between two hours
+     */
+    public CalendarDaysLogicImpl(final DayImpl day, final int width, final int height, final int spacing) {
+        this.day = day; 
+        this.width = width;
+        this.height = height;
+        this.spacing = spacing;
+    }
 
 
     private void configureDay(final HBox myhbox) {
 
         hoursbox.setFormat(Format.NORMAL);
-        hoursbox.setSpacing(SPACING);
+        hoursbox.setSpacing(spacing);
 
         hoursbox.buildVBox();
         eventbox.buildVBox();
@@ -59,9 +72,8 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
 
     /**
      * Used for create Day for Calendar.
-     * @return scene
      */
-    public Scene buildDay() {
+    public void buildDay() {
 
         final VBox container = new VBox();
         final HBox myhbox = new HBox();
@@ -69,8 +81,8 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
         configureDay(myhbox);
 
 
-        final Label nameDay = new Label("lunedi");
-        final Label numberDay = new Label("07");
+        final Label nameDay = new Label(day.getName());
+        final Label numberDay = new Label(" " + day.getNumber() + " ");
         nameDay.setAlignment(Pos.CENTER);
         numberDay.setAlignment(Pos.CENTER);
         container.getChildren().add(nameDay);
@@ -85,9 +97,10 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
 
 
         final ScrollPane scroller = new ScrollPane(container);
+        scroller.prefHeight(height);
+        scroller.prefWidth(width);
         setScroller(scroller);
         scroller.setFitToWidth(true);
-        return new Scene(scroller, DIMX, DIMY); 
     }
 
     private void setScroller(final ScrollPane scroller) {
@@ -96,35 +109,11 @@ public class CalendarDaysLogicImpl extends Application implements CalendarDaysLo
 
     /**
      * Get the scroller with all the object of the day.
-     * @return stage
+     * @return scrollable view of the day
      */
     public ScrollPane getScroller() {
         return this.scroller;
     }
-
-
-    /**
-     * Qualcosa.
-     * @param stage qualcosa
-     */
-    public void start(final Stage stage) {
-
-
-        // set the scene 
-        stage.setScene(buildDay()); 
-
-        stage.show();
-
-
-    }
-
-    public static void main(final String... args) { 
-        // launch the application 
-        launch(args); 
-
-    }
-
-
 
 
 }
