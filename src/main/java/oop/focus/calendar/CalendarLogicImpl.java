@@ -14,8 +14,8 @@ public class CalendarLogicImpl implements CalendarLogic {
     private List<DayImpl> week;
     private List<DayImpl> month;
     private List<DayImpl> year;
-    private static final int DAYFIRSTWEEK = 7;
-    private static final int DAYLASTWEEK = 24;
+    private static final int DAYSINWEEK = 7;
+
 
     public CalendarLogicImpl() {
         this.current = this.today;
@@ -33,7 +33,7 @@ public class CalendarLogicImpl implements CalendarLogic {
         if (!this.week.contains(new DayImpl(day))) {
             if (!this.month.contains(new DayImpl(day))) {
                 if (!this.year.contains(new DayImpl(day))) {
-                    return null;
+                    return generateDay(day);
                 }
                 return filter(this.year, day);
             }
@@ -116,8 +116,14 @@ public class CalendarLogicImpl implements CalendarLogic {
     * @return List of 7 generated days 
     */
     public List<DayImpl> generateWeek() {
-        final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.getDayOfWeek() + 1);
-        this.week = generate(day.dayOfWeek().getMaximumValue(), day);
+        this.getDay(this.current).getNumber();
+        if (this.year.isEmpty()) {
+        this.generateYear();
+        }
+        this.week.clear();
+        for (int i = 0; i < DAYSINWEEK; i++) {
+            this.week.add(this.getDay(this.current.minusDays(this.current.getDayOfWeek() - 1).plusDays(i)));
+        }
         return this.week;
     }
 
@@ -147,25 +153,9 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public void  changeWeek(final boolean change) {
         if (change) { //previous
-            if (this.current.getMonthOfYear() == 1 && this.current.getDayOfMonth() < DAYFIRSTWEEK) {
-                this.current = new LocalDate(this.current.minusYears(1).getYear(), this.current.monthOfYear().getMaximumValue(), this.current.withMonthOfYear(this.current.monthOfYear().getMaximumValue()).dayOfMonth().getMaximumValue());
-            } else {
-                if (this.current.getDayOfMonth() - this.current.dayOfWeek().getMaximumValue() <= 1) {
-                    this.current = new LocalDate(this.current.getYear(), this.current.minusMonths(1).getMonthOfYear(), this.current.minusMonths(1).dayOfMonth().getMaximumValue());
-                } else {
-                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() - this.current.dayOfWeek().getMaximumValue());
-                }
-            }
+            this.current = this.current.minusDays(DAYSINWEEK);
         } else { //next
-            if (this.current.getMonthOfYear() == this.current.monthOfYear().getMaximumValue() && this.current.getDayOfMonth() >= DAYLASTWEEK) {
-                this.current = new LocalDate(this.current.plusYears(1).getYear(), this.current.monthOfYear().getMinimumValue(), this.current.withMonthOfYear(this.current.monthOfYear().getMinimumValue()).dayOfMonth().getMinimumValue());
-            } else {
-                if (this.current.getDayOfMonth() + this.current.dayOfWeek().getMaximumValue() >= this.current.dayOfMonth().getMaximumValue()) {
-                    this.current = new LocalDate(this.current.getYear(), this.current.plusMonths(1).getMonthOfYear(), this.current.plusMonths(1).dayOfMonth().getMinimumValue() + this.current.dayOfWeek().getMaximumValue());
-                } else {
-                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), this.current.getDayOfMonth() + this.current.dayOfWeek().getMaximumValue());
-                }
-            }
+            this.current = this.current.plusDays(DAYSINWEEK);
         }
         this.week = generateWeek();
     }
