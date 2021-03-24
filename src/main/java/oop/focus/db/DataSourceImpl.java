@@ -21,7 +21,8 @@ import oop.focus.finance.TransactionImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyFactoryImpl;
+import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyType;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
@@ -137,7 +138,7 @@ public class DataSourceImpl implements DataSource {
     @Override
     public final SingleDao<HotKey> getHotKeys() {
         return Objects.requireNonNullElseGet(this.hotKeys, () -> new CachedDao<>(new ParserImpl<>("quick_action",
-                a -> new HotKeyFactoryImpl().createFromType(a.remove(1), Integer.parseInt(a.remove(1))),
+                a -> new HotKeyImpl(a.remove(1), HotKeyType.values()[Integer.parseInt(a.remove(1))]),
                 List.of(new Pair<>("name", HotKey::getName),
                         new Pair<>("type", a -> String.valueOf(a.getType().ordinal()))))));
     }

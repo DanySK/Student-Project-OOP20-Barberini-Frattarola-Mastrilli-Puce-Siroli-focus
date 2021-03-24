@@ -617,6 +617,18 @@ public class DataTypeTest {
             assertEquals(1, quickTransactions.getAll().size());
             quickTransactions.delete(new QuickTransactionImpl(300,categories.getAll().get(0),
                     accounts.getAll().get(0), "bau"));
+            for (var v : quickTransactions.getAll()){
+                quickTransactions.delete(v);
+            }
+            for (var v : accounts.getAll()){
+                accounts.delete(v);
+            }
+            for (var v : categories.getAll()){
+                categories.delete(v);
+            }
+            for (var v : colors.getAll()){
+                colors.delete(v);
+            }
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
