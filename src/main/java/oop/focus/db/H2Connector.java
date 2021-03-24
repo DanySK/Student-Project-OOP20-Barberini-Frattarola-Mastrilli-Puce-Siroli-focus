@@ -50,7 +50,7 @@ public class H2Connector implements Connector<Connection> {
     }
 
     @Override
-    public final Connection getConnection() throws IllegalStateException {
+    public final Connection getConnection() {
         return this.connection;
     }
 

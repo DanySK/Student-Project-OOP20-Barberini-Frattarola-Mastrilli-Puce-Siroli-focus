@@ -551,8 +551,8 @@ public class DataTypeTest {
         }
 
         try {
-            var g = f.createActivityHotKey("acqua");
-            var h = f.createCounterHotKey("acqua");
+            var g = new HotKeyImpl("acqua", HotKeyType.COUNTER);
+            var h = new HotKeyImpl("acqua", HotKeyType.ACTIVITY);
             rep.save(g);
             rep.save(h);
             rep.delete(g);
