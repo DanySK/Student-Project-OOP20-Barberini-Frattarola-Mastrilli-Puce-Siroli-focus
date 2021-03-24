@@ -19,16 +19,15 @@ public class HotKeyTest {
 	private final DataSource dsi = new DataSourceImpl();
 	private final ManagerEvent manager = new ManagerEventImpl(dsi);
 	private final ManagerHotKey hotKeyTrackers = new ManagerHotKeyImpl(dsi, manager);
-	private final HotKeyFactory factory = new HotKeyFactoryImpl();
 
 	/**
 	 * This test is used to verify the correctness of adding and removing hot keys.
 	 */
 	@Test
 	public void addingAndRemoveNewHotKeysTest() {
-		final HotKey first = factory.createEventHotKey("Shopping");
-		final HotKey second = factory.createActivityHotKey("Allenamento");
-		final HotKey third = factory.createCounterHotKey("Bere");
+		final HotKey first = new HotKeyImpl("Discoteca", HotKeyType.EVENT);
+		final HotKey second = new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY);
+		final HotKey third = new HotKeyImpl("Bere", HotKeyType.COUNTER);
 		
 		this.hotKeyTrackers.add(first);
 		assertEquals(this.hotKeyTrackers.getAll(), List.of(first));
@@ -46,9 +45,9 @@ public class HotKeyTest {
 	 */
 	@Test
 	public void createEventTest() {
-		final HotKey activity = factory.createFromType("Allenamento", 2);
-		final HotKey counter = factory.createFromType("Acqua", 3);
-		final HotKey event = factory.createFromType("Discoteca", 1);
+		final HotKey activity = new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY);
+		final HotKey counter = new HotKeyImpl("Bere", HotKeyType.COUNTER);
+		final HotKey event = new HotKeyImpl("Discoteca", HotKeyType.EVENT);
 
 		final Event activityEvent = new EventImpl("Allenamento", LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
 		final Event counterEvent = new EventImpl("Acqua", LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
@@ -81,9 +80,10 @@ public class HotKeyTest {
 	 */
 	@Test
 	public void hotKeyCategoryTest() {
-		final HotKey first = factory.createEventHotKey("Discoteca");
-		final HotKey second = factory.createActivityHotKey("Lavare i denti");
-		final HotKey third = factory.createCounterHotKey("Acqua");
+		final HotKey first = new HotKeyImpl("Shopping", HotKeyType.EVENT);
+		final HotKey second = new HotKeyImpl("Addominali", HotKeyType.ACTIVITY);
+		final HotKey third = new HotKeyImpl("Lavare i denti", HotKeyType.COUNTER);
+		
 
 		this.hotKeyTrackers.addAll(Set.of(first, second, third));
 

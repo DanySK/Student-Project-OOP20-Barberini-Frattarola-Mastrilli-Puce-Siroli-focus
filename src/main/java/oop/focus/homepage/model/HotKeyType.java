@@ -48,4 +48,15 @@ public enum HotKeyType {
     public String getType() {
         return this.type;
     }
+
+    public static HotKeyType getTypeFrom(final String s) {
+        switch (s) {
+        case "Attività" :
+            return HotKeyType.ACTIVITY;
+        case "Contatore" :
+            return HotKeyType.COUNTER;
+        default :
+            return HotKeyType.EVENT;
+        }
+    }
 }

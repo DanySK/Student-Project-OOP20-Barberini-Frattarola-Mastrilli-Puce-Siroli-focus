@@ -19,7 +19,7 @@ public class EventImpl implements Event {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
     private Repetition repetition;
-    private final List<Person> persons; //modifico
+    private final List<Person> persons;
 
     /**
      * This is the class constructor.

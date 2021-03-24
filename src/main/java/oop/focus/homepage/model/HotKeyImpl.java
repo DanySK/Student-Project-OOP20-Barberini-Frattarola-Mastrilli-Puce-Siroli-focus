@@ -2,11 +2,13 @@ package oop.focus.homepage.model;
 
 import org.joda.time.LocalDateTime;
 
+import oop.focus.finance.Repetition;
+
 /**
  * This class implements the HotKey interface that model a hotkey. 
  * An HotKey object is rappresented by a String ,that is the hotKey name, and a category that is rappresented by a member of the HotKeyType enum.
  */
-public abstract class HotKeyImpl implements HotKey {
+public class HotKeyImpl implements HotKey {
 
     private final String name;
     private final HotKeyType hotKeyType;
@@ -28,7 +30,9 @@ public abstract class HotKeyImpl implements HotKey {
      * @param end is the end.
      * @return an event.
      */
-    public abstract Event createEvent(LocalDateTime start, LocalDateTime end);
+    public Event createEvent(final LocalDateTime start, final LocalDateTime end) {
+        return new EventImpl(this.name, start, end, Repetition.ONCE);
+    }
 
     /**
      * This method is use for getting the name of the HotKey.
