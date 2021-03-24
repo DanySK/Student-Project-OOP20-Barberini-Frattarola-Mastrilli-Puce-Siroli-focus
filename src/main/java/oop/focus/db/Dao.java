@@ -1,8 +1,7 @@
 package oop.focus.db;
 
+import javafx.collections.ObservableList;
 import oop.focus.db.exceptions.DaoAccessException;
-
-import java.util.List;
 
 /**
  * The Dao interface models a generic Data Access Object.
@@ -14,9 +13,9 @@ public interface Dao<X> {
     /**
      * Can be used to get all the elements present in the source.
      *
-     * @return a {@link List} containing all the elements of type X present in the source or an empty list if no elements are present
+     * @return a {@link ObservableList} containing all the elements of type X present in the source.
      */
-    List<X> getAll();
+    ObservableList<X> getAll();
 
     /**
      * Store an element of type X to the source.

@@ -1,4 +1,6 @@
 package oop.focus.db;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import oop.focus.common.Action;
 import oop.focus.db.exceptions.ConnectionException;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -10,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -24,7 +25,7 @@ public class CachedDao<X> implements SingleDao<X> {
     /**
      * The enum Db action.
      */
-    protected enum DbAction {
+    private enum DbAction {
         /**
          * The Insert syntax.
          */
@@ -76,6 +77,7 @@ public class CachedDao<X> implements SingleDao<X> {
      * The Cache containing the elements already retrieved from the source.
      */
     private final Map<Integer, X> cache;
+    private final ObservableList<X> observable;
     /**
      * Instantiates a new Cached dao.
      *
@@ -89,8 +91,9 @@ public class CachedDao<X> implements SingleDao<X> {
             e.printStackTrace();
         }
         this.cache = new HashMap<>();
+        this.observable = FXCollections.observableList(new ArrayList<>());
         this.parser = parser;
-        this.getAll();
+        this.getAllFromSource();
     }
     private void withNoParameters(final DbAction action, final int id) throws DaoAccessException {
         final Map<Integer, List<String>> values = new HashMap<>();
@@ -139,6 +142,14 @@ public class CachedDao<X> implements SingleDao<X> {
             throw new DaoAccessException();
         }
     }
+    private void getAllFromSource() {
+        try {
+            this.withNoParameters(DbAction.SELECT_ALL, NO_ID);
+            this.observable.addAll(this.cache.values());
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
+    }
     private Optional<Integer> getIdFromCache(final X x) {
         return this.cache.keySet().stream()
                 .filter(a -> this.cache.get(a).equals(x))
@@ -148,27 +159,19 @@ public class CachedDao<X> implements SingleDao<X> {
      * {@inheritDoc}
      */
     @Override
-    public List<X> getAll() {
-        try {
-            this.withNoParameters(DbAction.SELECT_ALL, NO_ID);
-        } catch (DaoAccessException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-        return new ArrayList<>(this.cache.values());
+    public ObservableList<X> getAll() {
+        return FXCollections.unmodifiableObservableList(this.observable);
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public void save(final X x) throws DaoAccessException {
-        if (this.cache.isEmpty()) {
-            this.getAll();
-        }
         if (this.cache.containsValue(x)) {
             return;
         }
         this.execute(() -> this.withParameters(x, DbAction.INSERT, NO_ID));
+        this.observable.add(x);
       }
     /**
      * {@inheritDoc}
@@ -182,6 +185,8 @@ public class CachedDao<X> implements SingleDao<X> {
         }
         id = optId.get();
         this.execute(() -> this.withParameters(x, DbAction.UPDATE, id));
+        this.observable.remove(x);
+        this.observable.add(x);
     }
     /**
      * {@inheritDoc}
@@ -198,6 +203,7 @@ public class CachedDao<X> implements SingleDao<X> {
                 .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),
                         this.parser.getFieldNames(), id)));
         this.cache.remove(id);
+        this.observable.remove(x);
     }
     @Override
     public final Optional<X> getValue(final int id) {
