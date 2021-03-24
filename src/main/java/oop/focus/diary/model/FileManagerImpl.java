@@ -8,19 +8,19 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.List;
 
 public class FileManagerImpl implements FileManager {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private final Path dirPath;
-    public FileManagerImpl(final Path dirPath) {
-        this.dirPath = dirPath;
+    private final File file;
+
+    public FileManagerImpl(final File file) {
+        this.file = file;
     }
     @Override
     public final void openBufferedReader(final File file) throws FileNotFoundException {
-        this.bufferedReader = new BufferedReader(new FileReader(file));
+        this.bufferedReader =
+                new BufferedReader(new FileReader(file));
     }
     @Override
     public final BufferedReader getBufferedReader() {
@@ -29,13 +29,14 @@ public class FileManagerImpl implements FileManager {
     @Override
     public final void openBufferedWriter(final File file) throws IOException {
         this.bufferedWriter = new BufferedWriter(new FileWriter(file));
+
     }
     @Override
     public final BufferedWriter getBufferedWriter()  {
         return this.bufferedWriter;
     }
     @Override
-    public final List<File> getList() {
-        return Arrays.asList(this.dirPath.toFile().listFiles());
+    public final Path getFile() {
+        return this.file.toPath();
     }
 }

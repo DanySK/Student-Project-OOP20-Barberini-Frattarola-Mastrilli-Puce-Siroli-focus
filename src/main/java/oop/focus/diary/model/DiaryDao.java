@@ -1,40 +1,60 @@
 package oop.focus.diary.model;
 import oop.focus.db.Dao;
+import oop.focus.db.exceptions.ConnectionException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 public class DiaryDao implements Dao<DiaryImpl> {
     private static final int MAX_LENGTH = 50;
-    private List<DiaryImpl> list;
-    private DiaryConnector connector;
+    private final Map<DiaryImpl, DiaryConnector> map;
+    private static final String SEP = File.separator;
+    private final DirectoryConnector directoryConnector = new DirectoryConnector();
     public DiaryDao() {
-       this.list = new ArrayList<>();
+       this.map = new HashMap<>();
+       this.directoryConnector.create();
     }
     @Override
     public final List<DiaryImpl> getAll() {
-        this.list = new ArrayList<>();
-        this.connector = new DiaryConnector(Optional.empty());
-        this.connector.getConnection().getList().forEach(elem -> {
+        Arrays.stream(Objects.requireNonNull(this.directoryConnector.getConnection().listFiles())).forEach(elem -> {
+            final DiaryConnector conn = new DiaryConnector(elem);
             try {
-                this.connector.getConnection().openBufferedReader(elem);
-                this.list.add(new DiaryImpl(this.connector.getConnection().getBufferedReader().readLine(), elem.getName()));
-                this.connector.getConnection().getBufferedReader().close();
+                conn.getConnection().openBufferedReader(elem);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                this.map.put(new DiaryImpl(conn.getConnection().getBufferedReader().readLine(), elem.getName()), conn);
+                conn.getConnection().getBufferedReader().close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        return this.list;
+        return new ArrayList<>(this.map.keySet());
+   }
+   private File getFile(final String name) {
+        return Path.of(this.directoryConnector.getConnection() + SEP + name).toFile();
    }
     @Override
     public final void save(final DiaryImpl x) {
-        if (x.getName().length() <= MAX_LENGTH) {
-            final DiaryConnector diaryConnector = new DiaryConnector(Optional.of(x.getName()));
-            if (!this.list.contains(x)) {
-                this.list.add(x);
+        if (x.getName().length() <= MAX_LENGTH || this.map.containsKey(x)) {
+            final DiaryConnector diaryConnector = new DiaryConnector(this.getFile(x.getName()));
+            try {
+                diaryConnector.create();
+            } catch (ConnectionException e) {
+                e.printStackTrace();
             }
+            this.map.put(x, diaryConnector);
             try {
                 diaryConnector.open();
                 diaryConnector.getConnection().getBufferedWriter().write(x.getContent());
@@ -52,12 +72,11 @@ public class DiaryDao implements Dao<DiaryImpl> {
         final Optional<DiaryImpl> di = this.getAll().stream().filter(l -> l.getName().equals(x.getName())).findAny();
         if (di.isPresent()) {
             try {
-                final DiaryConnector connector = new DiaryConnector(Optional.ofNullable(di.get().getName()));
+                final DiaryConnector connector = this.map.get(di.get());
                 connector.open();
                 connector.getConnection().getBufferedWriter().write(x.getContent());
-                this.list.stream().filter(a -> a.equals(di.get())).iterator().next().setContent(x.getContent());
+                di.get().setContent(x.getContent());
                 connector.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -68,7 +87,8 @@ public class DiaryDao implements Dao<DiaryImpl> {
     public final void delete(final DiaryImpl x) {
         try {
             if (this.getAll().contains(x)) {
-                Files.delete(this.connector.getConnection().getList().stream().filter(a -> a.getName().equals(x.getName())).findAny().get().toPath());
+                Files.delete(this.map.get(x).getConnection().getFile());
+                this.map.remove(x);
             }
         } catch (IOException e) {
             e.printStackTrace();

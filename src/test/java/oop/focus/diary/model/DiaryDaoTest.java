@@ -15,10 +15,10 @@ public class DiaryDaoTest {
         System.out.println(this.dsd.getAll().get(0).getContent());
         System.out.println(this.dsd.getAll().get(1).getName());
         System.out.println(this.dsd.getAll().get(1).getContent());
-    }
-    @Test
+    }    @Test
     public void testUpdate() throws DaoAccessException {
-
+        System.out.println(this.dsd.getAll().get(0).getName());
+        System.out.println(this.dsd.getAll().get(0).getContent());
         this.dsd.update(new DiaryImpl("ha smesso di piovere", "oggi"));
         System.out.println(this.dsd.getAll().get(0).getName());
         System.out.println(this.dsd.getAll().get(0).getContent());
@@ -33,7 +33,13 @@ public class DiaryDaoTest {
         System.out.println("dopo eliminazione : " );
         this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " "+ a.getContent()));
 
+
+
     }
+
+
+
+
 
 
 }

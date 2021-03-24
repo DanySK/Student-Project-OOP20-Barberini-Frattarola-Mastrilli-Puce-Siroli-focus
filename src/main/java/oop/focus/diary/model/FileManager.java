@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
+import java.nio.file.Path;
 
 /**
  * The interface can be used to manage the opening/closing of buffers.
@@ -40,6 +40,7 @@ public interface FileManager {
      * Return a list of all files that are in a specific director, defined throw the constructor.
      * @return  the list of all directory's files.
      */
-    List<File> getList();
+
+    Path getFile();
 }
 
