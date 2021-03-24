@@ -19,8 +19,7 @@ public class FileManagerImpl implements FileManager {
     }
     @Override
     public final void openBufferedReader(final File file) throws FileNotFoundException {
-        this.bufferedReader =
-                new BufferedReader(new FileReader(file));
+        this.bufferedReader = new BufferedReader(new FileReader(file));
     }
     @Override
     public final BufferedReader getBufferedReader() {
@@ -28,7 +27,7 @@ public class FileManagerImpl implements FileManager {
     }
     @Override
     public final void openBufferedWriter(final File file) throws IOException {
-        this.bufferedWriter = new BufferedWriter(new FileWriter(file));
+        this.bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 
     }
     @Override
