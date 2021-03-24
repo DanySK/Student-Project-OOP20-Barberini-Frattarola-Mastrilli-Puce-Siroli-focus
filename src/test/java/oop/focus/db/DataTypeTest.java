@@ -526,14 +526,13 @@ public class DataTypeTest {
     @Test
     public void testHotkeys(){
         Dao<HotKey> rep = df.getHotKeys();
-        var f = new HotKeyFactoryImpl();
         try {
-            assertNotEquals(f.createCounterHotKey("shopping"),
-                         f.createActivityHotKey("shopping"));
+            assertNotEquals(new HotKeyImpl("shopping", HotKeyType.COUNTER),
+                        new HotKeyImpl("shopping", HotKeyType.ACTIVITY));
             var vars = List.of(
-                    f.createCounterHotKey("acqua"),
-                    f.createEventHotKey("Spesa"),
-                    f.createActivityHotKey("shopping"));
+                    new HotKeyImpl("acqua", HotKeyType.COUNTER),
+                    new HotKeyImpl("Spesa", HotKeyType.ACTIVITY),
+                    new HotKeyImpl("shopping", HotKeyType.EVENT));
 
             for (var v : vars) {
                 rep.save(v);
