@@ -86,19 +86,23 @@ public class DiaryDao implements Dao<DiaryImpl> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
     @Override
     public final void delete(final DiaryImpl x) {
+        if (this.getAll().contains(x)) {
         try {
-            if (this.getAll().contains(x)) {
-                Files.delete(this.map.get(x).getConnection().getFile());
-                this.map.remove(x);
-                this.list.remove(x);
-            }
+            Files.delete(this.map.get(x).getConnection().getFile());
+            this.map.remove(x);
+            this.list.remove(x);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    } else {
+            throw new IllegalArgumentException();
         }
     }
 

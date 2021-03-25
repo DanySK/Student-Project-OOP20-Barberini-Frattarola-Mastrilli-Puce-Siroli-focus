@@ -7,7 +7,7 @@ public class DiaryDaoTest {
     private final DiaryDao dsd = new DiaryDao();
     private final DiaryImpl diario1 = new DiaryImpl("oggi il tempo è brutto, sta per piovere", "oggi");
     private final DiaryImpl diario2 = new DiaryImpl("domani il tempo sarà bello e il sole splenderà", "domani");
-    @Test
+  /*  @Test
     public void testBackupPages() throws DaoAccessException {
         this.dsd.save(this.diario1);
         this.dsd.save(this.diario2);
@@ -35,6 +35,11 @@ public class DiaryDaoTest {
 
 
 
+    }
+    */
+    @Test
+    public void anotherTest() {
+        this.dsd.save(new DiaryImpl("pro", "proa"));
     }
 
 
