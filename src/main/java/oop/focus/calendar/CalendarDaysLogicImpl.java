@@ -115,5 +115,21 @@ public class CalendarDaysLogicImpl implements CalendarDaysLogic {
         return this.scroller;
     }
 
+    /**
+     * Get the width of the scroller.
+     * @return width
+     */
+    public int getWidth() {
+        return this.width;
+    }
+
+    /**
+     * Get the height of the scroller.
+     * @return height
+     */
+    public int getHeight() {
+        return this.height;
+    }
+
 
 }

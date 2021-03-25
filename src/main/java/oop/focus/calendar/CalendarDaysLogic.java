@@ -17,4 +17,15 @@ public interface CalendarDaysLogic {
      */
     ScrollPane getScroller();
 
+    /**
+     * Get the width of the scroller.
+     * @return width
+     */
+    int getWidth();
+
+    /**
+     * Get the height of the scroller.
+     * @return height
+     */
+    int getHeight();
 }
