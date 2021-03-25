@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="685.0" prefWidth="1103.0" stylesheets="@diary_style.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.diary.view.DiaryView">
+   <children>
+      <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="38.0" prefWidth="604.0" stylesheets="@diary_style.css" text="DIARIO">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="containerDiaryLayout" layoutX="20.0" layoutY="52.0" prefHeight="574.0" prefWidth="604.0">
+         <content>
+            <Accordion fx:id="pages" prefHeight="572.0" prefWidth="602.0" />
+         </content></ScrollPane>
+      <Button fx:id="diaryButton" layoutX="250.0" layoutY="626.0" mnemonicParsing="false" onAction="#modifyDiary" prefHeight="45.0" prefWidth="144.0" text="Modifica" textFill="#a6521f">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="643.0" layoutY="52.0" prefHeight="293.0" prefWidth="447.0" />
+      <Label alignment="CENTER" layoutX="644.0" layoutY="14.0" prefHeight="38.0" prefWidth="447.0" styleClass="root" stylesheets="@diary_style.css" text="TO DO LIST">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="toDoListButton" layoutX="796.0" layoutY="345.0" mnemonicParsing="false" onAction="#modifyList" prefHeight="45.0" prefWidth="144.0" text="Modifica" textFill="#a6371e">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="647.0" layoutY="405.0" prefHeight="45.0" prefWidth="447.0" text="COME TI SENTI OGGI?">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <GridPane fx:id="grid" layoutX="648.0" layoutY="450.0" prefHeight="3.0" prefWidth="3.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="386.0" minWidth="0.0" prefWidth="0.0" />
+        </columnConstraints>
+      </GridPane>
+   </children>
+</Pane>
