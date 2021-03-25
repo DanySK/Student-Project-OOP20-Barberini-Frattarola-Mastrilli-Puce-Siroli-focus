@@ -13,8 +13,6 @@ import oop.focus.homepage.model.*;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
-
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -28,42 +26,32 @@ public class DataTypeTest {
     }
 
     @Test
-    public void testGetAllAndDelete() {
-        try {
-            var db = df.getRelationships();
-            int size = db.getAll().size();
-            db.save("Nuovo");
-            assertEquals(db.getAll().size(), size + 1);
-            db.delete("Nuovo");
-            assertEquals(db.getAll().size(), size);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-    }
-
-    @Test
     public void testPerson() {
         var relationships = df.getRelationships();
         var persons = df.getPersons();
+        var all = persons.getAll();
+        int initialSize = all.size();
+
         try {
-            relationships.save("figlio");
-            assertEquals(persons.getAll().size(), 0);
-            persons.save(new PersonImpl("marco", "figlio"));
-            assertEquals(persons.getAll().size(), 1);
-            persons.save(new PersonImpl("Luca", "figlio"));
-            assertEquals(persons.getAll().size(), 2);
-            persons.delete(persons.getAll().get(0));
-            assertEquals(persons.getAll().size(), 1);
-            persons.delete(persons.getAll().get(0));
-            assertEquals(persons.getAll().size(), 0);
-            relationships.delete("figlio");
+            var rel = "relation1";
+            var p1 = new PersonImpl("person1", "relation1");
+            var p2 = new PersonImpl("person2", "relation1");
+            relationships.save(rel);
+            persons.save(p1);
+            assertEquals(initialSize+1,all.size());
+            persons.save(p2);
+            assertEquals(initialSize+2,all.size());
+            persons.delete(p1);
+            assertEquals(initialSize+1,all.size());
+            persons.delete(p2);
+            assertEquals(initialSize,all.size());
+            relationships.delete(rel);
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
         try {
-            persons.delete(new PersonImpl("Giovanni", "figlio"));
+            persons.delete(new PersonImpl("Person1", "rel1"));
             fail();
         } catch (Exception e) {
             // success
@@ -73,21 +61,28 @@ public class DataTypeTest {
     @Test
     public void testColors() {
         var colors = df.getColors();
+        var all = colors.getAll();
+        int initialSize = all.size();
         try {
-            assertEquals(colors.getAll().size(), 0);
-            colors.save("ffffff");
-            assertEquals(colors.getAll().size(), 1);
-            colors.delete("ffffff");
-            assertEquals(colors.getAll().size(), 0);
+            var c1 = "color1";
+            var c2 = "color2";
+            colors.save(c1);
+            assertEquals(initialSize+1, all.size());
+            colors.save(c2);
+            assertEquals(initialSize+2, all.size());
+            colors.delete(c1);
+            assertEquals(initialSize+1, all.size());
+            colors.delete(c2);
+            assertEquals(initialSize, all.size());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
         try {
-            colors.save("ffffffffff"); // invalid arg
+            colors.save("ffffffffff"); // invalid color (too long)
             fail();
         } catch (Exception e) {
-            //
+            // success
         }
     }
 
@@ -95,20 +90,20 @@ public class DataTypeTest {
     public void testCategories() {
         var categories = df.getCategories();
         var colors = df.getColors();
-        Category c = null;
+        var all = categories.getAll();
+        int initialSize = all.size();
+        String c1 = "color1", c2 = "color2";
         try {
-            String c1 = "ffffff", c2 = "000000";
             colors.save(c2);
             colors.save(c1);
-            List<Category> vars = List.of(new CategoryImpl("Cibo ", colors.getAll().get(0)),
-                    new CategoryImpl("Palestra", colors.getAll().get(0)),
-                    new CategoryImpl("Cinema", colors.getAll().get(0)));
+            List<Category> vars = List.of(new CategoryImpl("cat1 ", c1),
+                    new CategoryImpl("cat2", c1),
+                    new CategoryImpl("cat3", c1));
             for (var v : vars) {
                 categories.save(v);
             }
-            assertEquals(3, categories.getAll().size());
-
-            for (var ac : categories.getAll()) {
+            assertEquals(initialSize+3, all.size());
+            for (var ac : vars) {
                 categories.delete(ac);
             }
             colors.delete(c1);
@@ -118,7 +113,7 @@ public class DataTypeTest {
             fail();
         }
         try {
-            categories.delete(c);
+            categories.delete(new CategoryImpl("CategoryNotExisting",c1));
             fail();
         } catch (Exception e) {
             //
@@ -129,42 +124,41 @@ public class DataTypeTest {
     public void testAccounts() {
         Dao<Account> accounts = df.getAccounts();
         Dao<String> colors = df.getColors();
+        var all = accounts.getAll();
+        int initialSize = all.size();
+
+        String c1 = "color1", c2 = "color2";
         try {
-            String c1 = "ffffff", c2 = "000000";
             colors.save(c2);
             colors.save(c1);
-            Account account = new AccountImpl("Portafoglio", colors.getAll().get(0), 100);
-            Account account2 = new AccountImpl("Hype", colors.getAll().get(0), 100);
-            Account account3 = new AccountImpl("Revolut", colors.getAll().get(0), 100);
+            Account account = new AccountImpl("Account1", c1, 100);
+            Account account2 = new AccountImpl("Account2", c1, 100);
+            Account account3 = new AccountImpl("Account3", c2, 100);
             accounts.save(account);
             accounts.save(account2);
             accounts.save(account3);
-            assertEquals(3, accounts.getAll().size());
-            for (var ac : accounts.getAll()) {
-                accounts.delete(ac);
-            }
-            assertEquals(0, accounts.getAll().size());
-
-            account = new AccountImpl("Portafoglio", colors.getAll().get(0), 300);
-            account2 = new AccountImpl("Portafoglio", colors.getAll().get(0), 150);
+            assertEquals(initialSize + 3, all.size());
+            accounts.delete(account);
+            accounts.delete(account2);
+            accounts.delete(account3);
+            assertEquals(initialSize, all.size());
+            account = new AccountImpl("Account1", c1, 300);
+            account2 = new AccountImpl("Account1", c1, 150);
             assertEquals(account, account2);
             accounts.save(account);
-            assertEquals(1, accounts.getAll().size());
+            assertEquals(initialSize + 1, all.size());
             accounts.update(account2);
-            assertEquals(1, accounts.getAll().size());
-            assertEquals(150, accounts.getAll().get(0).getInitialAmount());
-            assertEquals(1, accounts.getAll().size());
+            assertEquals(initialSize + 1, all.size());
+            assertEquals(150, all.get(all.indexOf(account)).getInitialAmount());
+            assertEquals(initialSize + 1, all.size());
             accounts.delete(account);
-            assertEquals(0, accounts.getAll().size());
-            for (var ac : colors.getAll()) {
-                colors.delete(ac);
-            }
-            assertEquals(0, colors.getAll().size());
+            assertEquals(initialSize, all.size());
+            colors.delete(c1);
+            colors.delete(c2);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
-
     }
 
     @Test
@@ -173,38 +167,42 @@ public class DataTypeTest {
         var cats = df.getCategories();
         var colors = df.getColors();
         var accounts = df.getAccounts();
+        var all = transactions.getAll();
+        int initialSize = all.size();
+        var c1 = "color1";
+        var ac1 = new AccountImpl("Account 1", c1, 150_000);
+        var ac2 = new AccountImpl("Account 2", c1, 10_000);
+        var cat1 = new CategoryImpl("cat1", c1);
+        var cat2 = new CategoryImpl("cat2", c1);
         try {
-            colors.save("000000");
-            accounts.save(new AccountImpl("Conto Corrente", colors.getAll().get(0), 150_000));
-            accounts.save(new AccountImpl("Portafoglio", colors.getAll().get(0), 10_000));
-            cats.save(new CategoryImpl("c1", colors.getAll().get(0)));
-            cats.save(new CategoryImpl("c2", colors.getAll().get(0)));
-            List<Transaction> vars = List.of(new TransactionImpl("Gelato",
-                            cats.getAll().get(0), new LocalDateTime(2020, 1, 1,2,2,2),
-                            accounts.getAll().get(0), -250, Repetition.ONCE),
-                    new TransactionImpl("Biscotto",
-                            cats.getAll().get(1), new LocalDateTime(2020, 1, 1,2,2,2),
-                            accounts.getAll().get(1), 300, Repetition.ONCE));
+
+            colors.save(c1);
+            accounts.save(ac1);
+            accounts.save(ac2);
+            cats.save(cat1);
+            cats.save(cat2);
+
+            List<Transaction> vars = List.of(
+                    new TransactionImpl("Transaction1",
+                            cat1, new LocalDateTime(2020, 1, 1,2,2,2),
+                            ac1, -250, Repetition.ONCE),
+                    new TransactionImpl("Transaction2",
+                            cat2, new LocalDateTime(2020, 1, 1,2,2,2),
+                            ac2, 300, Repetition.ONCE));
             for (var v : vars) {
                 transactions.save(v);
             }
-            assertEquals(2, transactions.getAll().size());
-            for (var v : transactions.getAll()) {
+            assertEquals(initialSize + 2, all.size());
+            for (var v : vars) {
                 transactions.delete(v);
             }
-            for (var v : accounts.getAll()) {
-                accounts.delete(v);
-            }
-            for (var v : cats.getAll()) {
-                cats.delete(v);
-            }
-            for (var v : colors.getAll()) {
-                colors.delete(v);
-            }
-            assertEquals(0, transactions.getAll().size());
-            assertEquals(0, colors.getAll().size());
-            assertEquals(0, cats.getAll().size());
-            assertEquals(0, accounts.getAll().size());
+            accounts.delete(ac1);
+            accounts.delete(ac2);
+            cats.delete(cat1);
+            cats.delete(cat2);
+            colors.delete(c1);
+            assertEquals(initialSize, all.size());
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -214,85 +212,90 @@ public class DataTypeTest {
 
     @Test
     public void testEvents() {
-        var rep = df.getEvents();
+        var events = df.getEvents();
         var rel = df.getRelationships();
         var per = df.getPersons();
+        var all = events.getAll();
+        int initialSize = all.size();
         try {
-            assertEquals(new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY),
-                    new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
+            assertEquals(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY),
+                    new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
             List<Event> vars = List.of(
-                    new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(5), Repetition.BIMONTHLY),
-                    new EventImpl("Bere", LocalDateTime.now(), LocalDateTime.now().plusDays(4), Repetition.HALF_YEARLY),
-                    new EventImpl("leggere ", LocalDateTime.now(), LocalDateTime.now().plusDays(3), Repetition.MONTHLY));
+                    new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(5), Repetition.BIMONTHLY),
+                    new EventImpl("Event2", LocalDateTime.now(), LocalDateTime.now().plusDays(4), Repetition.HALF_YEARLY),
+                    new EventImpl("Event3 ", LocalDateTime.now(), LocalDateTime.now().plusDays(3), Repetition.MONTHLY));
             for (var v : vars) {
-                rep.save(v);
+                events.save(v);
             }
-            assertEquals(3, rep.getAll().size());
-            for (var ac : rep.getAll()) {
-                rep.delete(ac);
+            assertEquals(initialSize + 3, all.size());
+            for (var ac : vars) {
+                events.delete(ac);
             }
-            var p = new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY);
-            rep.save(p);
-            assertEquals(Collections.emptyList(), rep.getAll().get(0).getPersons());
-
-
-            rel.save("figlio");
-            var p1 = new PersonImpl("marco", "figlio");
-            var p2 = new PersonImpl("luca", "figlio");
-            var p3 = new PersonImpl("gianni", "figlio");
+            var p = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY);
+            var relation = "figlio";
+            events.save(p);
+            rel.save(relation);
+            var p1 = new PersonImpl("person1", relation);
+            var p2 = new PersonImpl("person2", relation);
+            var p3 = new PersonImpl("person3", relation);
             per.save(p1);
             per.save(p2);
             per.save(p3);
             p.addPerson(p1);
             p.addPerson(p2);
-            rep.update(p);
+            events.update(p);
 
-            var k = rep.getAll().get(0);
-            assertEquals(2, k.getPersons().size());
-            k.addPerson(p3);
-            rep.update(k);
-            assertEquals(3, rep.getAll().get(0).getPersons().size());
-            k = new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(7),
+            assertEquals(2, all.get(all.indexOf(p)).getPersons().size());
+            p.addPerson(p3);
+            events.update(p);
+            assertEquals(3, all.get(all.indexOf(p)).getPersons().size());
+            p = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7),
                     Repetition.BIMONTHLY, List.of(p1));
-            rep.update(k);
-            assertEquals(1, rep.getAll().get(0).getPersons().size());
-            assertEquals(p1, rep.getAll().get(0).getPersons().get(0));
-            for (var ac : rep.getAll()) {
-                rep.delete(ac);
-            }
-            for (var ac : per.getAll()) {
-                per.delete(ac);
-            }
-            rel.delete("figlio");
+            events.update(p);
+            assertEquals(1, all.get(all.indexOf(p)).getPersons().size());
+            assertEquals(p1, all.get(all.indexOf(p)).getPersons().get(0));
+            events.delete(p);
+            per.delete(p1);
+            per.delete(p2);
+            per.delete(p3);
+            rel.delete(relation);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
+        var ev =new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(5),
+                Repetition.BIMONTHLY);
         try {
-            rep.save(new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(5), Repetition.BIMONTHLY));
-            rep.save(new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
-            assertEquals(1, rep.getAll().size());
-            rep.update(new EventImpl("Mangiare", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
-            assertEquals(1, rep.getAll().size());
+            events.save(ev);
+            events.save(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
+            assertEquals(initialSize + 1, all.size());
+            assertEquals(Repetition.BIMONTHLY, all.get(all.indexOf(ev)).getRipetition());
+            events.update(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
+            assertEquals(1, events.getAll().size());
+            assertEquals(Repetition.HALF_YEARLY, all.get(all.indexOf(ev)).getRipetition());
+            events.delete(new EventImpl("NotExistingEvent", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
+            fail();
         } catch (IllegalArgumentException e) {
             // success
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
-        rep.getAll().forEach(x -> {
-            try {
-                rep.delete(x);
-            } catch (DaoAccessException e) {
-                e.printStackTrace();
-            }
-        });
-
+        try {
+            events.delete(ev);
+            assertEquals(initialSize, all.size());
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+            fail();
+        }
     }
 
     @Test
     public void testDailyMood() {
-        Dao<DailyMood> rep = df.getDailyMoods();
+        Dao<DailyMood> dailyMoods = df.getDailyMoods();
+        var all = dailyMoods.getAll();
+        int initialSize = all.size();
+
         try {
             assertEquals(new DailyMoodImpl(5, LocalDate.now().plusDays(5)),
                     new DailyMoodImpl(3, LocalDate.now().plusDays(5)));
@@ -301,103 +304,104 @@ public class DataTypeTest {
                     new DailyMoodImpl(3, LocalDate.now().plusDays(3)));
 
             for (var v : vars) {
-                rep.save(v);
+                dailyMoods.save(v);
             }
-            assertEquals(3, rep.getAll().size());
+            assertEquals(initialSize + 3, all.size());
 
-            for (var ac : rep.getAll()) {
-                rep.delete(ac);
+            for (var ac : vars) {
+                dailyMoods.delete(ac);
             }
-            assertEquals(0, rep.getAll().size());
+            assertEquals(initialSize, all.size());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
         try {
             var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
-            rep.save(d);
-            rep.update(new DailyMoodImpl(2, LocalDate.now().plusDays(5)));
-            assertEquals(1, rep.getAll().size());
-            assertEquals(2, rep.getAll().get(0).getMoodValue());
+            dailyMoods.save(d);
+            dailyMoods.update(new DailyMoodImpl(2, LocalDate.now().plusDays(5)));
+            all = dailyMoods.getAll();
+            assertEquals(initialSize + 1, all.size());
+            assertEquals(2, all.get(all.indexOf(d)).getMoodValue());
             d.setMoodValue(3);
-            rep.update(d);
-            assertEquals(3, rep.getAll().get(0).getMoodValue());
-            rep.delete(d);
+            dailyMoods.update(d);
+            assertEquals(3, all.get(all.indexOf(d)).getMoodValue());
+            dailyMoods.delete(d);
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
-
+        var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
         try {
-            var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
-            rep.save(d);
-            rep.update(new DailyMoodImpl(5, LocalDate.now().plusDays(6)));
+            dailyMoods.save(d);
+            dailyMoods.update(new DailyMoodImpl(5, LocalDate.now().plusDays(6)));
+            fail();
         } catch (IllegalArgumentException e) {
             // right
         } catch (DaoAccessException ex) {
             fail();
         }
 
-        rep.getAll().forEach(x -> {
-            try {
-                rep.delete(x);
-            } catch (DaoAccessException e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            dailyMoods.delete(d);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+            fail();
+        }
+        assertEquals(initialSize, all.size());
     }
 
     @Test
     public void testTodoList() {
-        var df = new DataSourceImpl();
-        Dao<ToDoAction> rep = df.getToDoList();
+        Dao<ToDoAction> toDoList = df.getToDoList();
+        int initialSize = toDoList.getAll().size();
+        var all = toDoList.getAll();
         try {
-            assertEquals(new ToDoActionImpl("Mangiare", false),
-                    new ToDoActionImpl("Mangiare", false));
-            var vars = List.of( new ToDoActionImpl("Mangiare", false),
-                    new ToDoActionImpl("dormire", true),
-                    new ToDoActionImpl("leggere", false));
+            assertEquals(new ToDoActionImpl("Action1", false),
+                    new ToDoActionImpl("Action1", true));
+            var vars = List.of( new ToDoActionImpl("Action1", false),
+                    new ToDoActionImpl("Action2", true),
+                    new ToDoActionImpl("Action3", false));
 
             for (var v : vars) {
-                rep.save(v);
+                toDoList.save(v);
             }
-            assertEquals(3, rep.getAll().size());
-            rep.delete(rep.getAll().get(0));
-            assertEquals(2, rep.getAll().size());
+            assertEquals(initialSize + 3, toDoList.getAll().size());
 
-            for (var ac : rep.getAll()) {
-                rep.delete(ac);
+            for (var ac : vars) {
+                toDoList.delete(ac);
             }
-            assertEquals(0, rep.getAll().size());
+            assertEquals(initialSize, toDoList.getAll().size());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
+        var done = new ToDoActionImpl("Action1", false);
         try {
-            rep.save(new ToDoActionImpl("Mangiare", false));
-            rep.update(new ToDoActionImpl("Mangiare", true));
-            assertTrue(rep.getAll().get(0).isDone());
+            toDoList.save(done);
+            toDoList.update(new ToDoActionImpl("Action1", true));
+            assertTrue(all.get(all.indexOf(done)).isDone());
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
 
         try{
-            rep.save(new ToDoActionImpl("Mangiare", false));
-            rep.update(new ToDoActionImpl("leggere", true));
+            toDoList.update(new ToDoActionImpl("ActionNotExisting", true));
             fail();
         }catch (IllegalArgumentException e) {
             // right
         } catch (DaoAccessException ex) {
             fail();
         }
-            rep.getAll().forEach(x -> {
-                try {
-                    rep.delete(x);
-                } catch (DaoAccessException e) {
-                    e.printStackTrace();
-                }
-            });
+
+        try {
+            toDoList.delete(done);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+            fail();
+        }
+        assertEquals(initialSize, all.size());
     }
 
     @Test
@@ -407,109 +411,109 @@ public class DataTypeTest {
         var colors = df.getColors();
         var persons = df.getPersons();
         var rel = df.getRelationships();
+        var all = transactions.getAll();
+        int initialSize = all.size();
 
-        var p1 = new PersonImpl("marco", "figlio");
-        var p2 = new PersonImpl("luca", "figlio");
-        var p3 = new PersonImpl("gianni", "figlio");
+        var relation = "relation1";
+        var c1 = "color1";
+        var cat1 = new CategoryImpl("c1", c1);
+        var cat2 = new CategoryImpl("c2", c1);
+        var p1 = new PersonImpl("Person1", relation);
+        var p2 = new PersonImpl("Person2",relation);
+        var p3 = new PersonImpl("Person3", relation);
+
         try {
-            colors.save("000000");
-            rel.save("figlio");
+            colors.save(c1);
+            rel.save(relation);
             persons.save(p1);
             persons.save(p2);
             persons.save(p3);
-            cats.save(new CategoryImpl("c1", colors.getAll().get(0)));
-            cats.save(new CategoryImpl("c2", colors.getAll().get(0)));
-            List<GroupTransaction> vars = List.of(new GroupTransactionImpl("Gelato", p1, List.of(p2, p3),
+            cats.save(cat1);
+            cats.save(cat2);
+            List<GroupTransaction> vars = List.of(
+                    new GroupTransactionImpl("Transaction1", p1, List.of(p2, p3),
                             300, new LocalDate(2020, 1, 1)),
-                    new GroupTransactionImpl("Cornetto", p2, List.of(p1, p3),
+                    new GroupTransactionImpl("Transaction2", p2, List.of(p1, p3),
                             250, new LocalDate(2020, 1, 1)));
             for (var v : vars) {
                 transactions.save(v);
             }
-            assertEquals(2, transactions.getAll().size());
-            assertEquals(2, transactions.getAll().get(0).getForList().size());
+            assertEquals(initialSize + 2, all.size());
+            assertEquals(2, all.get(all.indexOf(vars.get(0))).getForList().size());
 
-            for (var v : transactions.getAll()) {
+            for (var v : vars) {
                 transactions.delete(v);
             }
         }catch (Exception e) {
             fail();
         }
-        var t = new GroupTransactionImpl("Gelato", p1, List.of(p2, p3),
+        final var t = new GroupTransactionImpl("Transaction1", p1, List.of(p2, p3),
                 300, new LocalDate(2020, 1, 1));
         try {
-                transactions.save(t);
-                assertEquals(2, transactions.getAll().get(0).getForList().size());
-                t = new GroupTransactionImpl("Gelato", p1, List.of(p2),
-                        300, new LocalDate(2020, 1, 1));
-                transactions.update(t);
-                fail();
-            }catch (Exception e) {
-                //
-            }
+            transactions.save(t);
+            assertEquals(2, all.get(all.indexOf(t)).getForList().size());
+            transactions.update(new GroupTransactionImpl("Transaction1", p1, List.of(p2),
+                    300, new LocalDate(2020, 1, 1)));
+            fail();
+        }catch (IllegalArgumentException e) {
+            // success
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+            fail();
+        }
         try{
-            for (var v : transactions.getAll()) {
-                transactions.delete(v);
-            }
-            for (var v : cats.getAll()) {
-                cats.delete(v);
-            }
-            for (var v : colors.getAll()) {
-                colors.delete(v);
-            }
-            for (var v : persons.getAll()) {
-                persons.delete(v);
-            }
-            for (var v : rel.getAll()) {
-                rel.delete(v);
-            }
-            assertEquals(0, transactions.getAll().size());
+            transactions.delete(t);
+            assertEquals(initialSize, all.size());
+            persons.delete(p1);
+            persons.delete(p2);
+            persons.delete(p3);
+            cats.delete(cat1);
+            cats.delete(cat2);
+            colors.delete(c1);
+            rel.delete(relation);
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
-
     }
 
     @Test
     public void testFidelityCards(){
         Dao<FidelityCard> rep = df.getFidelityCards();
+        var all = rep.getAll();
+        int initialSize = all.size();
         try {
-            assertEquals(new FidelityCardImpl("Coop", "0012jada", FidelityCardType.ALIMENTARI),
-                    new FidelityCardImpl("Coop", "0012jada", FidelityCardType.ABBIGLIAMENTO));
+            assertEquals(new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ALIMENTARI),
+                    new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ABBIGLIAMENTO));
             var vars = List.of(
-                    new FidelityCardImpl("Coop", "0012ada", FidelityCardType.ALIMENTARI),
-                    new FidelityCardImpl("Zara", "34232sdd", FidelityCardType.ABBIGLIAMENTO),
-                    new FidelityCardImpl("C'entro", "232424", FidelityCardType.RISTORAZIONE));
+                    new FidelityCardImpl("Card1", "0012ada", FidelityCardType.ALIMENTARI),
+                    new FidelityCardImpl("Card2", "34232sdd", FidelityCardType.ABBIGLIAMENTO),
+                    new FidelityCardImpl("Card3", "232424", FidelityCardType.RISTORAZIONE));
 
             for (var v : vars) {
                 rep.save(v);
             }
-            assertEquals(3, rep.getAll().size());
-            rep.delete(rep.getAll().get(0));
-            assertEquals(2, rep.getAll().size());
-
-            for (var ac : rep.getAll()) {
+            assertEquals(initialSize + 3, rep.getAll().size());
+            for (var ac : vars) {
                 rep.delete(ac);
             }
-            assertEquals(0, rep.getAll().size());
+            assertEquals(initialSize, rep.getAll().size());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
+        var f =new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ALIMENTARI);
         try {
-            rep.save(new FidelityCardImpl("Coop", "0012jada", FidelityCardType.ALIMENTARI));
-            rep.update(new FidelityCardImpl("Coop", "0012jada", FidelityCardType.COSMESI));
-            assertEquals(FidelityCardType.COSMESI,rep.getAll().get(0).getType());
-            rep.delete(rep.getAll().get(0));
+            rep.save(f);
+            rep.update(new FidelityCardImpl("Card1", "0012jada", FidelityCardType.COSMESI));
+            assertEquals(FidelityCardType.COSMESI,all.get(all.indexOf(f)).getType());
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
 
         try{
-            rep.save(new FidelityCardImpl("Coop", "0012jada", FidelityCardType.ALIMENTARI));
-            rep.update(new FidelityCardImpl("Mcdonald", "0012jada", FidelityCardType.ALIMENTARI));
+            rep.update(new FidelityCardImpl("NotExistingCard", "0012jada", FidelityCardType.ALIMENTARI));
             fail();
         }catch (IllegalArgumentException e) {
             // right
@@ -517,7 +521,7 @@ public class DataTypeTest {
             fail();
         }
         try {
-            rep.delete(rep.getAll().get(0));
+            rep.delete(f);
         } catch (DaoAccessException e) {
             e.printStackTrace();
         }
@@ -525,41 +529,40 @@ public class DataTypeTest {
 
     @Test
     public void testHotkeys(){
-        Dao<HotKey> rep = df.getHotKeys();
+        Dao<HotKey> hotKeys = df.getHotKeys();
+        var all = hotKeys.getAll();
+        int initialSize = all.size();
         try {
-            assertNotEquals(new HotKeyImpl("shopping", HotKeyType.COUNTER),
-                        new HotKeyImpl("shopping", HotKeyType.ACTIVITY));
+            assertNotEquals(new HotKeyImpl("HotKey1", HotKeyType.COUNTER),
+                    new HotKeyImpl("Hotkey1", HotKeyType.ACTIVITY));
             var vars = List.of(
-                    new HotKeyImpl("acqua", HotKeyType.COUNTER),
-                    new HotKeyImpl("Spesa", HotKeyType.ACTIVITY),
-                    new HotKeyImpl("shopping", HotKeyType.EVENT));
+                    new HotKeyImpl("H1", HotKeyType.COUNTER),
+                    new HotKeyImpl("H2", HotKeyType.ACTIVITY),
+                    new HotKeyImpl("H3", HotKeyType.EVENT));
 
             for (var v : vars) {
-                rep.save(v);
+                hotKeys.save(v);
             }
-            assertEquals(3, rep.getAll().size());
-            rep.delete(rep.getAll().get(0));
-            assertEquals(2, rep.getAll().size());
+            assertEquals(initialSize + 3, all.size());
 
-            for (var ac : rep.getAll()) {
-                rep.delete(ac);
+            for (var ac : vars) {
+                hotKeys.delete(ac);
             }
-            assertEquals(0, rep.getAll().size());
+            assertEquals(initialSize, all.size());
         } catch (Exception e) {
             e.printStackTrace();
             fail();
         }
 
         try {
-            var g = new HotKeyImpl("acqua", HotKeyType.COUNTER);
-            var h = new HotKeyImpl("acqua", HotKeyType.ACTIVITY);
-            rep.save(g);
-            rep.save(h);
-            rep.delete(g);
-            assertEquals(HotKeyType.COUNTER,rep.getAll().get(0).getType());
-            for (var ac : rep.getAll()) {
-                rep.delete(ac);
-            }
+            var g = new HotKeyImpl("H1", HotKeyType.COUNTER);
+            var h = new HotKeyImpl("H1", HotKeyType.ACTIVITY);
+            hotKeys.save(g);
+            hotKeys.save(h);
+            hotKeys.delete(g);
+            assertEquals(HotKeyType.ACTIVITY,all.get(all.indexOf(h)).getType());
+            hotKeys.delete(h);
+            assertEquals(initialSize, all.size());
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
@@ -570,34 +573,38 @@ public class DataTypeTest {
         var relationships = df.getRelationships();
         var persons = df.getPersons();
         var group = df.getGroup();
+        var all = group.getAll();
+        int initialSize = all.size();
+        var relation = "figlio";
+        var p1 = new PersonImpl("person1", relation);
+        var p2 = new PersonImpl("person2", relation);
         try {
-            relationships.save("figlio");
-            assertEquals(persons.getAll().size(), 0);
-            persons.save(new PersonImpl("marco", "figlio"));
-            group.save(new PersonImpl("marco", "figlio"));
-            assertEquals(1,group.getAll().size());
-            assertEquals(persons.getAll().size(), 1);
-            persons.save(new PersonImpl("Luca", "figlio"));
-            group.save(new PersonImpl("Luca", "figlio"));
-            assertEquals(2,group.getAll().size());
-            assertEquals(persons.getAll().size(), 2);
-            for (var v : group.getAll()){
-                group.delete(v);
-            }
-            persons.delete(persons.getAll().get(0));
-            assertEquals(persons.getAll().size(), 1);
-            persons.delete(persons.getAll().get(0));
-            assertEquals(persons.getAll().size(), 0);
-            relationships.delete("figlio");
+            relationships.save(relation);
+            persons.save(p1);
+            group.save(p1);
+            assertEquals(initialSize + 1,all.size());
+            persons.save(p2);
+            group.save(p2);
+            assertEquals(initialSize + 2,all.size());
+
+            group.delete(p1);
+            group.delete(p2);
+            persons.delete(p1);
+            persons.delete(p2);
+            assertEquals(initialSize, all.size());
+            relationships.delete(relation);
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
         try {
-            persons.delete(new PersonImpl("Giovanni", "figlio"));
+            persons.delete(new PersonImpl("PersonNotExisting", relation));
             fail();
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             // success
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+            fail();
         }
     }
 
@@ -607,27 +614,25 @@ public class DataTypeTest {
         var colors = df.getColors();
         var accounts = df.getAccounts();
         var quickTransactions = df.getQuickTransactions();
+        var all = quickTransactions.getAll();
+        int initialSize = all.size();
+        var c1 = "color1";
+        var cat1 = new CategoryImpl("Cat1", c1);
+        var ac1 = new AccountImpl("Ac1",c1,200);
+        var q1 = new QuickTransactionImpl(300,cat1, ac1, "random1");
+        var q2 = new QuickTransactionImpl(500,cat1, ac1, "random2");
         try {
-            colors.save("00000");
-            categories.save(new CategoryImpl("ciao", colors.getAll().get(0)));
-            accounts.save(new AccountImpl("marco",colors.getAll().get(0),200));
-            quickTransactions.save(new QuickTransactionImpl(300,categories.getAll().get(0),
-                    accounts.getAll().get(0), "bau"));
-            assertEquals(1, quickTransactions.getAll().size());
-            quickTransactions.delete(new QuickTransactionImpl(300,categories.getAll().get(0),
-                    accounts.getAll().get(0), "bau"));
-            for (var v : quickTransactions.getAll()){
-                quickTransactions.delete(v);
-            }
-            for (var v : accounts.getAll()){
-                accounts.delete(v);
-            }
-            for (var v : categories.getAll()){
-                categories.delete(v);
-            }
-            for (var v : colors.getAll()){
-                colors.delete(v);
-            }
+            colors.save(c1);
+            categories.save(cat1);
+            accounts.save(ac1);
+            quickTransactions.save(q1);
+            quickTransactions.save(q2);
+            assertEquals(initialSize + 2, all.size());
+            quickTransactions.delete(q1);
+            quickTransactions.delete(q2);
+            accounts.delete(ac1);
+            categories.delete(cat1);
+            colors.delete(c1);
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();

@@ -18,9 +18,9 @@ public class ObservableTest {
         list.addListener((ListChangeListener<String>) c -> counter.getAndSet(counter.get() + 1));
         try {
             int initial = list.size();
-            colors.save("111111");
+            colors.save("test11");
             assertEquals(1, (long) counter.get());
-            colors.delete("111111");
+            colors.delete("test11");
             assertEquals(initial, colors.getAll().size());
             assertEquals(2, (long) counter.get());
         } catch (DaoAccessException e) {
