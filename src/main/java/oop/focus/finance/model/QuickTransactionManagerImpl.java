@@ -1,4 +1,4 @@
-package oop.focus.finance;
+package oop.focus.finance.model;
 
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;

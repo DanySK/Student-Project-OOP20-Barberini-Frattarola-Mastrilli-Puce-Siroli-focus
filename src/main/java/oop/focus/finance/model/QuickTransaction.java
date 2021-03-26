@@ -1,4 +1,4 @@
-package oop.focus.finance;
+package oop.focus.finance.model;
 
 /**
  * interface that models a quick transaction.

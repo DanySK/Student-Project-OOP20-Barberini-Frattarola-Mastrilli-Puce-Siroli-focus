@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
+import oop.focus.finance.model.*;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
