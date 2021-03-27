@@ -22,14 +22,13 @@ public class CalendarMonthLogicImpl implements CalendarMonthLogic {
     private int counter;
     private int count;
 
-
     /**
      * 
      * @param month    list with the days of the calendar
      * @param cells    Map that link the button to the day
      * @return grid    Grid with the days
      */
-    public GridPane buildMonth(final List<DayImpl> month, final Map<Button, CalendarDaysLogicImpl> cells) {
+    public GridPane buildGridMonth(final List<DayImpl> month, final Map<Button, CalendarDaysLogicImpl> cells) {
 
         final EventHandler<ActionEvent> al = new EventHandler<ActionEvent>() {
 
@@ -95,6 +94,14 @@ public class CalendarMonthLogicImpl implements CalendarMonthLogic {
         daysGrid.setVgap(SPACING / 10);
         return daysGrid;
     }
+
+
+
+
+
+
+
+
 
     private List<Label> dayNameLabel() {
 
