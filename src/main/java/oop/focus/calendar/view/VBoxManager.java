@@ -1,4 +1,4 @@
-package oop.focus.calendar;
+package oop.focus.calendar.view;
 
 import javafx.scene.layout.VBox;
 

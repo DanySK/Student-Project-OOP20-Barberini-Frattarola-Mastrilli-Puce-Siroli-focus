@@ -1,4 +1,4 @@
-package oop.focus.calendar;
+package oop.focus.calendar.view;
 
 
 import java.util.HashMap;
@@ -13,11 +13,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import oop.focus.calendar.model.CalendarLogicImpl;
+import oop.focus.calendar.model.DayImpl;
 
 
 public class CalendarMonthView {
 
-    private final Map<Button, CalendarDaysLogicImpl> cells  = new HashMap<>();
+    private final Map<Button, CalendarDaysViewImpl> cells  = new HashMap<>();
     private List<DayImpl> month;
     private final double width;
     private final double height;

@@ -9,6 +9,8 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import oop.focus.calendar.model.DayImpl;
+
 
 public class DayTest {
 

@@ -1,4 +1,4 @@
-package oop.focus.calendar;
+package oop.focus.calendar.view;
 
 
 import javafx.geometry.Pos;
@@ -13,10 +13,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import oop.focus.calendar.HoursViewImpl.Format;
+import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.view.HoursViewImpl.Format;
 
 
-public class CalendarDaysLogicImpl implements CalendarDaysLogic {
+public class CalendarDaysViewImpl implements CalendarDaysView {
 
 
 
@@ -35,7 +36,7 @@ public class CalendarDaysLogicImpl implements CalendarDaysLogic {
      * @param height  max height of the day view.
      * @param spacing space between two hours
      */
-    public CalendarDaysLogicImpl(final DayImpl day, final int width, final int height, final int spacing) {
+    public CalendarDaysViewImpl(final DayImpl day, final int width, final int height, final int spacing) {
         this.day = day; 
         this.width = width;
         this.height = height;

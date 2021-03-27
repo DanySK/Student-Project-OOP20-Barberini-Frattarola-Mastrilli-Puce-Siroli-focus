@@ -1,4 +1,4 @@
-package oop.focus.calendar;
+package oop.focus.calendar.model;
 
 
 import java.util.ArrayList;

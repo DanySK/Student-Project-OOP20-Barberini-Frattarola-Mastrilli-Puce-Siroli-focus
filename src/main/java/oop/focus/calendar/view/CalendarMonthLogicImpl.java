@@ -1,4 +1,4 @@
-package oop.focus.calendar;
+package oop.focus.calendar.view;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import oop.focus.calendar.model.DayImpl;
 
 public class CalendarMonthLogicImpl implements CalendarMonthLogic {
 
@@ -28,7 +29,7 @@ public class CalendarMonthLogicImpl implements CalendarMonthLogic {
      * @param cells    Map that link the button to the day
      * @return grid    Grid with the days
      */
-    public GridPane buildGridMonth(final List<DayImpl> month, final Map<Button, CalendarDaysLogicImpl> cells) {
+    public GridPane buildGridMonth(final List<DayImpl> month, final Map<Button, CalendarDaysViewImpl> cells) {
 
         final EventHandler<ActionEvent> al = new EventHandler<ActionEvent>() {
 
@@ -36,7 +37,7 @@ public class CalendarMonthLogicImpl implements CalendarMonthLogic {
             public void handle(final ActionEvent event) {
 
                 final Button bt = (Button) event.getSource();
-                final CalendarDaysLogicImpl p = cells.get(bt);
+                final CalendarDaysViewImpl p = cells.get(bt);
 
                 Stage stage = new Stage();
                 stage.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
@@ -82,7 +83,7 @@ public class CalendarMonthLogicImpl implements CalendarMonthLogic {
             final Button jb = new Button(" " + day.getNumber() + " ");
             jb.setOnAction(al);
             jb.setPrefSize(DIM, DIM);
-            final CalendarDaysLogicImpl p = new CalendarDaysLogicImpl(day, 200, 500, 50);
+            final CalendarDaysViewImpl p = new CalendarDaysViewImpl(day, 200, 500, 50);
             p.buildDay();
             cells.put(jb, p);
             daysGrid.add(jb, counter, count);

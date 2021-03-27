@@ -1,6 +1,6 @@
-package oop.focus.calendar;
+package oop.focus.calendar.view;
 
-import oop.focus.calendar.HoursViewImpl.Format;
+import oop.focus.calendar.view.HoursViewImpl.Format;
 
 public interface HoursView {
 

@@ -7,6 +7,10 @@ import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import oop.focus.calendar.model.CalendarLogic;
+import oop.focus.calendar.model.CalendarLogicImpl;
+import oop.focus.calendar.model.DayImpl;
+
 public class CalendarLogicTest {
 
 	private CalendarLogic manager;

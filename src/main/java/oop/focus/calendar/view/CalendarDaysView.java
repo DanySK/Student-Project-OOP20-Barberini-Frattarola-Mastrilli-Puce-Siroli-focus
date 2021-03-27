@@ -1,9 +1,9 @@
-package oop.focus.calendar;
+package oop.focus.calendar.view;
 
 import javafx.scene.control.ScrollPane;
 
 
-public interface CalendarDaysLogic {
+public interface CalendarDaysView {
 
     /**
      * Used for create Day for Calendar.
