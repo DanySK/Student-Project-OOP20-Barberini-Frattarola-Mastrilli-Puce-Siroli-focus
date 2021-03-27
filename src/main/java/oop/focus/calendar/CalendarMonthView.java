@@ -1,25 +1,35 @@
 package oop.focus.calendar;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 
 public class CalendarMonthView {
 
-    private final Map<Button, DayImpl> cells  = new HashMap<>();
-    private Label monthname;
+    private final Map<Button, CalendarDaysLogicImpl> cells  = new HashMap<>();
+    private Label monthinfo;
     private List<DayImpl> month;
+    private final double width;
+    private final double height;
+    private static final int FONTSIZE = 20;
+    private static final int BORDER = 20;
 
 
-
+    public CalendarMonthView(final double width, final double height) {
+        this.width = width;
+        this.height = height;
+    }
 
     /**
      * Build the calendar month.
@@ -33,9 +43,15 @@ public class CalendarMonthView {
 
 
         final VBox container = new VBox();
+        container.minHeight(height);
+        container.minWidth(width);
 
-        final Button next = new Button();
-        final Button previous = new Button();
+        container.setAlignment(Pos.CENTER);
+        final HBox toppanel = new HBox();
+
+        final Button next = new Button("next");
+        final Button previous = new Button("previous");
+
 
         next.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -43,7 +59,7 @@ public class CalendarMonthView {
             public void handle(final ActionEvent event) {
                 calendarlogic.changeMonth(false);
                 month = calendarlogic.getMonth();
-                updateView(container, logics, monthname);
+                updateView(container, logics, monthinfo);
             }
 
         });
@@ -54,23 +70,32 @@ public class CalendarMonthView {
             public void handle(final ActionEvent event) {
                 calendarlogic.changeMonth(true);
                 month = calendarlogic.getMonth();
-                updateView(container, logics, monthname);
+                updateView(container, logics, monthinfo);
             }
 
         });
 
-        container.getChildren().add(previous);
-        container.getChildren().add(next);
 
-        monthname = new Label(month.get(0).getMonth());
+        monthinfo = new Label(month.get(0).getYear() + "   " + month.get(0).getMonth());
+        monthinfo.setFont(Font.font(FONTSIZE));
+        monthinfo.setAlignment(Pos.CENTER);
 
-        monthname.setAlignment(Pos.CENTER);
+        toppanel.getChildren().add(previous);
+        toppanel.getChildren().add(monthinfo);
+        toppanel.getChildren().add(next);
+        toppanel.setAlignment(Pos.CENTER);
+        toppanel.setSpacing(BORDER);
 
-        container.getChildren().add(monthname);
-
-        container.getChildren().add(dayNameLabel());
+        container.getChildren().add(toppanel);
 
         container.getChildren().add(logics.buildMonth(month, cells));
+
+        toppanel.setPrefWidth(container.getWidth());
+
+        container.setPadding(new Insets(BORDER, BORDER, BORDER, BORDER));
+
+        container.autosize();
+
 
         return container;
 
@@ -79,30 +104,9 @@ public class CalendarMonthView {
     private void updateView(final VBox container, final CalendarMonthLogic logics, final Label monthname) {
         container.getChildren().remove(container.getChildren().size() - 1);
         container.getChildren().add(logics.buildMonth(month, cells));
-        monthname.setText(month.get(0).getMonth());
+        monthname.setText(month.get(0).getMonth() + "   " + month.get(0).getYear());
     }
 
-    private HBox dayNameLabel() {
 
-        final HBox daysname = new HBox();
-
-        final Label lunedi = new Label("lunedì");
-        final Label martedi = new Label("martedì");
-        final Label mercoledi = new Label("mercoledì");
-        final Label giovedi = new Label("giovedì");
-        final Label venerdi = new Label("venerdì");
-        final Label sabato = new Label("sabato");
-        final Label domenica = new Label("domenica");
-
-        daysname.getChildren().add(lunedi);
-        daysname.getChildren().add(martedi);
-        daysname.getChildren().add(mercoledi);
-        daysname.getChildren().add(giovedi);
-        daysname.getChildren().add(venerdi);
-        daysname.getChildren().add(sabato);
-        daysname.getChildren().add(domenica);
-
-        return daysname;
-    }
 
 }
