@@ -14,5 +14,5 @@ public interface CalendarMonthLogic {
      * @param cells    Map that link the button to the day
      * @return grid    Grid with the days
      */
-    GridPane buildMonth(List<DayImpl> month, Map<Button, DayImpl> cells);
+    GridPane buildMonth(List<DayImpl> month, Map<Button, CalendarDaysLogicImpl> cells);
 }
