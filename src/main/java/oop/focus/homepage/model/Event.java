@@ -6,7 +6,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import oop.focus.finance.Repetition;
+import oop.focus.finance.model.Repetition;
 
 /**
  * This interface model an event.

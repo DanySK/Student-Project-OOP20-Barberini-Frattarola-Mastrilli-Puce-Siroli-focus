@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 
-<Pane fx:id="paneHotKeyView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.homepage.controller.HomePageController">
+<Pane fx:id="paneHotKeyView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.homepage.controller.HotKeyMenuController">
    <children>
-      <VBox fx:id="vboxHotKeyList" layoutX="28.0" layoutY="22.0" prefHeight="355.0" prefWidth="271.0" />
-      <Button fx:id="addHotKeyButton" layoutX="485.0" layoutY="87.0" mnemonicParsing="false" onAction="#addNewHotKey" prefHeight="25.0" prefWidth="72.0" text="NUOVO" />
-      <Button fx:id="modifyHotKey" layoutX="485.0" layoutY="32.0" mnemonicParsing="false" text="MODIFICA" />
-      <Button fx:id="deleteHotKeyButton" layoutX="485.0" layoutY="145.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="ELIMINA" />
-      <Button fx:id="goBackButton" layoutX="500.0" layoutY="345.0" mnemonicParsing="false" onAction="#goBack" text="INIDIETRO" />
+      <Button fx:id="addHotKeyButton" layoutX="477.0" layoutY="135.0" mnemonicParsing="false" onAction="#addNewHotKey" prefHeight="25.0" prefWidth="72.0" text="NUOVO" />
+      <Button fx:id="modifyHotKey" layoutX="477.0" layoutY="77.0" mnemonicParsing="false" onAction="#refreshList" text="MODIFICA" />
+      <Button fx:id="deleteElement" layoutX="101.0" layoutY="417.0" mnemonicParsing="false" onAction="#deletSelectedRowItem" prefHeight="25.0" prefWidth="218.0" text="ELIMINA ELEMENTO  SELEZIONATO" />
+      <Button fx:id="goBackButton" layoutX="477.0" layoutY="20.0" mnemonicParsing="false" onAction="#goBack" text="INIDIETRO" />
+      <TableView fx:id="tableHotKeyList" layoutX="22.0" layoutY="20.0" prefHeight="358.0" prefWidth="402.0">
+        <columns>
+          <TableColumn fx:id="nome" prefWidth="203.20001220703125" text="nome" />
+            <TableColumn fx:id="tipo" prefWidth="198.4000244140625" text="tipo" />
+        </columns>
+      </TableView>
    </children>
 </Pane>

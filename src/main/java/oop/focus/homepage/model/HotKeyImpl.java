@@ -2,7 +2,7 @@ package oop.focus.homepage.model;
 
 import org.joda.time.LocalDateTime;
 
-import oop.focus.finance.Repetition;
+import oop.focus.finance.model.Repetition;
 
 /**
  * This class implements the HotKey interface that model a hotkey. 
@@ -12,6 +12,7 @@ public class HotKeyImpl implements HotKey {
 
     private final String name;
     private final HotKeyType hotKeyType;
+    private final String typeRepresentation;
 
     /**
      * Class constructor.
@@ -21,6 +22,7 @@ public class HotKeyImpl implements HotKey {
     public HotKeyImpl(final String s, final HotKeyType e) {
         this.name = s;
         this.hotKeyType = e;
+        this.typeRepresentation = this.hotKeyType.getType();
     }
 
     /**
@@ -44,16 +46,25 @@ public class HotKeyImpl implements HotKey {
 
     /**
      * This method is use for getting the type of the HotKey.
-     * @return a member of the HotKeyType enum ( EVENT or ACTIVITY or COUNTER).
+     * @return a member of the HotKeyType enumeration.
      */
     public final HotKeyType getType() {
         return this.hotKeyType;
     }
+
+    /**
+     * This method is used to get the string representation of the hot key type.
+     * @return a string representing the type of the hot key.
+     */
+    public final String getTypeRepresentation() {
+        return this.typeRepresentation;
+    } 
+
     /**
      * This is the hasCode related to the equals method.
-     * @return an int.
+     * @return a string.
      */
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((hotKeyType == null) ? 0 : hotKeyType.hashCode());

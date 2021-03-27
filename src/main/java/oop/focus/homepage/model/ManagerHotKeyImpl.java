@@ -1,13 +1,12 @@
 package oop.focus.homepage.model;
 
-import java.util.List;
-import java.util.Set;
-
-import org.joda.time.LocalDateTime;
-
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
+import org.joda.time.LocalDateTime;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * This is a class use to manage hot keys.

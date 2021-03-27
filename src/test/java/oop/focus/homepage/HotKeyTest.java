@@ -2,8 +2,17 @@ package oop.focus.homepage;
 
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.finance.Repetition;
-import oop.focus.homepage.model.*;
+import oop.focus.finance.model.Repetition;
+import oop.focus.homepage.model.Event;
+import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.HotKey;
+import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyType;
+import oop.focus.homepage.model.ManagerEvent;
+import oop.focus.homepage.model.ManagerEventImpl;
+import oop.focus.homepage.model.ManagerHotKey;
+import oop.focus.homepage.model.ManagerHotKeyImpl;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;

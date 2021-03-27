@@ -17,7 +17,7 @@ import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.finance.Repetition;
+import oop.focus.finance.model.Repetition;
 
 public class TimePropertyTest {
 

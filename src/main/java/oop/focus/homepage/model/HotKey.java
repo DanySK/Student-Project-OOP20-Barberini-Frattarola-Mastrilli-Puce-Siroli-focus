@@ -27,5 +27,11 @@ public interface HotKey {
      * @return a member of the HotKeyType enumeration.
      */
     HotKeyType getType();
+
+    /**
+     * This method is used to get the string representation of the hot key type.
+     * @return a string representing the type of the hot key.
+     */
+    String getTypeRepresentation();
  
 }

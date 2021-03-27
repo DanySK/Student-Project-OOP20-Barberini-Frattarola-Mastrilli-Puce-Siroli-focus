@@ -55,8 +55,10 @@ public enum HotKeyType {
             return HotKeyType.ACTIVITY;
         case "Contatore" :
             return HotKeyType.COUNTER;
-        default :
+        case "Evento" :
             return HotKeyType.EVENT;
+        default :
+            throw new IllegalArgumentException();
         }
     }
 }
