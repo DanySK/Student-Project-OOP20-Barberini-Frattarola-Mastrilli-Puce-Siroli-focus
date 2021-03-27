@@ -1,5 +1,6 @@
 package oop.focus.diary.model;
-import oop.focus.finance.Repetition;
+
+import oop.focus.finance.model.Repetition;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.ManagerEvent;
 
@@ -14,6 +15,7 @@ public class TimerListenerImpl implements TimerListener {
     private final String eventName;
     private final ManagerEvent me;
     private Sound sound;
+    private int counterValue;
     public TimerListenerImpl(final ManagerEvent me, final String eventName) {
         this.me = me;
         try {
@@ -42,6 +44,10 @@ public class TimerListenerImpl implements TimerListener {
         } else {
             throw new IllegalStateException();
         }
+    }
+    @Override
+    public final void counterValue(final int value) {
+        this.counterValue = value;
     }
 }
 
