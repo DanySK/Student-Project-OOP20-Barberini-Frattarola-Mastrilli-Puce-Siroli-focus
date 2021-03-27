@@ -17,7 +17,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import oop.focus.finance.Repetition;
+import oop.focus.finance.model.Repetition;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 
