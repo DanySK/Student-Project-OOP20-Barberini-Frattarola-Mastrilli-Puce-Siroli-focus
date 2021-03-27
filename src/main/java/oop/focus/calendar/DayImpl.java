@@ -6,21 +6,21 @@ import java.util.List;
 import java.util.Locale;
 import org.joda.time.LocalDate;
 
-import oop.focus.db.DataSourceImpl;
+//import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.ManagerEventImpl;
+//import oop.focus.homepage.model.ManagerEventImpl;
 
 public class DayImpl implements Day {
 
     private final LocalDate date;
     private final List<Event> events = new ArrayList<>();
-    private final DataSourceImpl datasource = new DataSourceImpl();
-    private final ManagerEventImpl manager = new ManagerEventImpl(datasource);
+    //private final DataSourceImpl datasource = new DataSourceImpl();
+    //private final ManagerEventImpl manager = new ManagerEventImpl(datasource);
 
     public DayImpl(final LocalDate date) {
         this.date = date;
-        final List<Event> temp = manager.findByDate(date);
-        this.events.addAll(temp);
+        //final List<Event> temp = null; //manager.findByDate(date);
+        //this.events.addAll(temp);
     }
  
     /**
@@ -31,6 +31,16 @@ public class DayImpl implements Day {
      */
     public int getNumber() {
         return  date.getDayOfMonth();
+    }
+
+    /**
+     * Can be used to get the day of the week.
+     *
+     * @return the day of the week 
+     *
+     */
+    public int getDayOfTheWeek() {
+        return  date.getDayOfWeek();
     }
 
     /**

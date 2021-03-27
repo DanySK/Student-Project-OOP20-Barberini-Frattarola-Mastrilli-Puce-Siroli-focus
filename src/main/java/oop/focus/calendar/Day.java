@@ -20,6 +20,15 @@ public interface Day {
     int getNumber();
 
     /**
+     * Can be used to get the day of the week.
+     *
+     * @return the day of the week 
+     *
+     */
+    int getDayOfTheWeek();
+
+
+    /**
      * Can be used to get the name of the day.
      *
      * @return the name of the day 
