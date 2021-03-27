@@ -8,11 +8,12 @@ import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.fidelitycard.FidelityCard;
 import oop.focus.fidelitycard.FidelityCardImpl;
 import oop.focus.fidelitycard.FidelityCardType;
-import oop.focus.finance.*;
+import oop.focus.finance.model.*;
 import oop.focus.homepage.model.*;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
+
 import java.util.List;
 
 import static org.junit.Assert.*;
