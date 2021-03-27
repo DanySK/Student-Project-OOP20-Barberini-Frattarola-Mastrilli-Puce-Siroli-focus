@@ -49,7 +49,8 @@ public class DiaryDao implements Dao<DiaryImpl> {
    }
     @Override
     public final void save(final DiaryImpl x) {
-        if (x.getName().length() <= MAX_LENGTH || this.map.containsKey(x)) {
+        if (x.getName().length() <= MAX_LENGTH && !this.getAll().contains(x)) {
+            System.out.println(this.map.containsKey(x));
             final DiaryConnector diaryConnector = new DiaryConnector(this.getFile(x.getName()));
             try {
                 diaryConnector.create();
@@ -74,18 +75,8 @@ public class DiaryDao implements Dao<DiaryImpl> {
     public final void update(final DiaryImpl x) throws IllegalArgumentException {
         final Optional<DiaryImpl> di = this.getAll().stream().filter(l -> l.getName().equals(x.getName())).findAny();
         if (di.isPresent()) {
-            try {
-                final DiaryConnector connector = this.map.get(di.get());
-                connector.open();
-                connector.getConnection().getBufferedWriter().write(x.getContent());
-                if (this.list.stream().anyMatch(a -> a.equals(di.get()))) {
-                    this.list.stream().filter(a -> a.equals(di.get())).iterator().next().setContent(x.getContent());
-                }
-                di.get().setContent(x.getContent());
-                connector.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            delete(di.get());
+            save(x);
         } else {
             throw new IllegalArgumentException();
         }
