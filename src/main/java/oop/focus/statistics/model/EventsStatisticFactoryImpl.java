@@ -15,33 +15,45 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class StatisticFactoryImpl implements StatisticFactory {
+public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
 
     private static final int MAX_HOURS = 24 * 60;
     private final DataSource dataSource;
 
-    public StatisticFactoryImpl(final DataSource dataSource) {
+    public EventsStatisticFactoryImpl(final DataSource dataSource) {
         this.dataSource = dataSource;
     }
     @Override
-    public final DataCreator<Event, Pair<String, Integer>> getEventsOccurrences() {
+    public final DataCreator<Event, Pair<String, Integer>> eventsOccurrences() {
         return new DataCreatorImpl<>(this.dataSource.getEvents().getAll(),
                 (s) -> s.collect(Collectors.toMap(Event::getName, e -> 1,
                 Integer::sum)).entrySet().stream()
                 .map((a) -> new Pair<>(a.getKey(), a.getValue())).collect(Collectors.toSet()));
     }
     @Override
-    public final DataCreator<Event, Pair<LocalDate, Integer>> getEventTimePerDay(final String eventName) {
+    public final DataCreator<Event, Pair<LocalDate, Integer>> eventTimePerDay(final String eventName) {
+      return this.getEventPairDataCreator(e -> e.getName().equals(eventName));
+    }
+    @Override
+    public final DataCreator<Event, Pair<LocalDate, Integer>> boundedEventTimePerDay(final String eventName, final LocalDate start, final LocalDate end) {
+        if (start.isAfter(end)) {
+            throw new IllegalArgumentException();
+        }
+        return this.getEventPairDataCreator(e -> e.getName().equals(eventName)
+                && (e.getStartDate().isAfter(start) || e.getStartDate().equals(start))
+                && (e.getEndDate().isBefore(end) || e.getEndDate().equals(end)));
+    }
+
+    private DataCreatorImpl<Event, Pair<LocalDate, Integer>> getEventPairDataCreator(final Predicate<Event> condition) {
         var events = this.dataSource.getEvents().getAll();
         ObservableList<Event> filtered = FXCollections.observableArrayList();
-        this.linkList(e -> e.getName().equals(eventName), events, filtered);
+        this.linkList(condition, events, filtered);
         return new DataCreatorImpl<>(filtered,
                 s -> s.flatMap(this::getDividedEvents)
                         .collect(Collectors.toMap(Event::getStartDate, this::getDuration,
-                        Integer::sum)).entrySet().stream()
+                                Integer::sum)).entrySet().stream()
                         .map((a) -> new Pair<>(a.getKey(), a.getValue() < MAX_HOURS ? a.getValue() : MAX_HOURS)).collect(Collectors.toSet()));
     }
-
     private void linkList(final Predicate<Event> condition, final ObservableList<Event> events, final ObservableList<Event> filtered) {
         events.stream().filter(condition).forEach(filtered::add);
         events.addListener((ListChangeListener<Event>) c -> {

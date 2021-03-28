@@ -6,7 +6,8 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.finance.model.Repetition;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.statistics.model.StatisticFactoryImpl;
+import oop.focus.statistics.model.EventsStatisticFactoryImpl;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 
@@ -30,14 +31,14 @@ public class testEventTimePerDay {
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         assertEquals(evt1.getStartDate(), evt2.getStartDate());
-        var factory = new StatisticFactoryImpl(this.dataSource);
-        var dataset = factory.getEventTimePerDay("evt1");
+        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var dataset = factory.eventTimePerDay("evt1");
         try {
             events.save(evt1);
             events.save(evt2);
             System.out.println(dataset.get());
             assertEquals(1, dataset.get().size());
-            var tmp = dataset.get().stream().findAny().get();
+            var tmp = dataset.get().stream().findAny().orElseThrow();
             assertEquals(7*60, (int) tmp.getValue());
 
         } catch (Exception e) {
@@ -65,8 +66,8 @@ public class testEventTimePerDay {
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        var factory = new StatisticFactoryImpl(this.dataSource);
-        var dataset = factory.getEventTimePerDay("evt1");
+        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var dataset = factory.eventTimePerDay("evt1");
         try {
             events.save(evt1);
             events.save(evt2);
@@ -104,8 +105,8 @@ public class testEventTimePerDay {
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl("AnotherName",s3,f3,Repetition.WEEKLY);
         //assertEquals(evt1.getStartDate(), evt2.getStartDate());
-        var factory = new StatisticFactoryImpl(this.dataSource);
-        var dataset = factory.getEventTimePerDay("evt1");
+        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var dataset = factory.eventTimePerDay("evt1");
         try {
             events.save(evt1);
             events.save(evt2);
@@ -143,8 +144,8 @@ public class testEventTimePerDay {
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
         //assertEquals(evt1.getStartDate(), evt2.getStartDate());
-        var factory = new StatisticFactoryImpl(this.dataSource);
-        var dataset = factory.getEventTimePerDay("evt1");
+        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var dataset = factory.eventTimePerDay("evt1");
         try {
             events.save(evt1);
             events.save(evt2);
@@ -157,6 +158,47 @@ public class testEventTimePerDay {
         //System.out.println(data);
         assertEquals(4, dataset.get().size());
         assertEquals(List.of(2*60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
+                data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
+
+        try {
+            events.delete(evt1);
+            events.delete(evt2);
+            events.delete(evt3);
+        } catch (DaoAccessException e) {
+            fail();
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void testBounded(){
+        var events = this.dataSource.getEvents();
+        String evtName = "evt1";
+        LocalDateTime s1 = new LocalDateTime(2018,2,1,7,45);
+        LocalDateTime f1 = new LocalDateTime(2018,2,1,9,45);
+        LocalDateTime s2 = new LocalDateTime(2018,2,3,22,30);
+        LocalDateTime f2 = new LocalDateTime(2018,2,4,0,30);
+        LocalDateTime s3 = new LocalDateTime(2018,2,2,23,0);
+        LocalDateTime f3 = new LocalDateTime(2018,2,3,4,0);
+        var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
+        var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
+        var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
+        var start = new LocalDate(2018, 2 , 1);
+        var end = new LocalDate(2018,2,3);
+        //assertEquals(evt1.getStartDate(), evt2.getStartDate());
+        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var dataset = factory.boundedEventTimePerDay("evt1",start,end);
+        try {
+            events.save(evt1);
+            events.save(evt2);
+            events.save(evt3);
+        } catch (Exception e) {
+            fail();
+            e.printStackTrace();
+        }
+        var data = dataset.get();
+        //System.out.println(data);
+        assertEquals(3, dataset.get().size());
+        assertEquals(List.of(2*60, 60, 4*60).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
 
         try {
@@ -182,8 +224,8 @@ public class testEventTimePerDay {
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
         //assertEquals(evt1.getStartDate(), evt2.getStartDate());
-        var factory = new StatisticFactoryImpl(this.dataSource);
-        var dataset = factory.getEventTimePerDay("evt1");
+        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var dataset = factory.eventTimePerDay("evt1");
 
         try {
             events.save(evt1);
@@ -206,10 +248,19 @@ public class testEventTimePerDay {
         assertEquals(4, dataset.get().size());
         assertEquals(List.of(2*60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
                 dataset.get().stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
+
+        try{
+            events.delete(evt3);
+        }catch (Exception e){
+            e.printStackTrace();
+            fail();
+        }
+        assertEquals(3, dataset.get().size());
+        assertEquals(List.of(2*60, 90, 30).stream().sorted().collect(Collectors.toList()),
+                data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
         try {
             events.delete(evt1);
             events.delete(evt2);
-            events.delete(evt3);
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
