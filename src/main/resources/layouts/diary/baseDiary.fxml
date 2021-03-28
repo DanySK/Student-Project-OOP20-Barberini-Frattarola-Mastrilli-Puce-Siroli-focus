@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="685.0" prefWidth="1103.0" stylesheets="@diaryStyle.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.diary.view.DiaryView">
+<Pane prefHeight="685.0" prefWidth="1103.0" stylesheets="@diaryStyle.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.diary.view.BaseDiary">
    <children>
       <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="38.0" prefWidth="604.0" stylesheets="@diaryStyle.css" text="DIARIO">
          <font>
