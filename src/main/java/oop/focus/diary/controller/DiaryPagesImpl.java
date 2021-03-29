@@ -7,9 +7,9 @@ import javafx.collections.ObservableList;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.DiaryImpl;
 
-public class PagesDiaryImpl implements PagesDiary {
+public class DiaryPagesImpl implements DiaryPages {
     private final DiaryDao diaryDao;
-    public PagesDiaryImpl() {
+    public DiaryPagesImpl() {
         this.diaryDao = new DiaryDao();
     }
     @Override

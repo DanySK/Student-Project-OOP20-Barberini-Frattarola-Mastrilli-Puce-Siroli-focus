@@ -1,7 +1,10 @@
 package oop.focus.diary.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -11,13 +14,16 @@ public class TimeScrollingImpl implements TimeScrolling {
     private int starterCounter;
     private final Function<Integer, Integer> fun;
     private final Predicate<Integer> pre;
-    private final TimerListener tl;
-    public TimeScrollingImpl(final Function<Integer, Integer> function, final Predicate<Integer> predicate, final TimerListener tl) {
+    private final List<Consumer<Integer>> list;
+    public TimeScrollingImpl(final Function<Integer, Integer> function, final Predicate<Integer> predicate) {
         this.pre = predicate;
         this.stop = false;
         this.fun = function;
-
-        this.tl = tl;
+        this.list = new ArrayList<>();
+    }
+    @Override
+    public final void addListener(final Consumer<Integer> consumer) {
+        list.add(consumer);
     }
     @Override
     public final int getCounter() {
@@ -29,11 +35,6 @@ public class TimeScrollingImpl implements TimeScrolling {
     }
     @Override
     public final void startCounter() {
-        if (this.tl.startCounter()) {
-            this.stop = false;
-        } else {
-            this.stop = true;
-        }
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             while (!end()) {
@@ -45,7 +46,7 @@ public class TimeScrollingImpl implements TimeScrolling {
                      e.printStackTrace();
                  }
             }
-
+            this.list.forEach(z -> z.accept(this.starterCounter));
         });
     }
     @Override
@@ -55,10 +56,6 @@ public class TimeScrollingImpl implements TimeScrolling {
 
     @Override
     public final boolean end() {
-       if (this.stop || !pre.test(starterCounter)) {
-            System.out.println("ho finito");
-            this.tl.createEvent(this.getCounter());
-        }
         return this.stop || !pre.test(starterCounter);
     }
 }

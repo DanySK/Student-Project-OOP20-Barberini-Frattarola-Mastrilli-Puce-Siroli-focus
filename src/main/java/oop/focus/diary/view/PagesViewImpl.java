@@ -10,14 +10,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import oop.focus.diary.controller.PagesDiaryImpl;
+import oop.focus.diary.controller.DiaryPagesImpl;
 import oop.focus.diary.controller.UseControllerDiary;
 import oop.focus.diary.model.DiaryImpl;
 
 public class PagesViewImpl implements PagesView {
     private static final String BASE_DIARY = "/layouts/diary/pagesDiaryScheme.fxml";
     private final Accordion pages;
-    private final PagesDiaryImpl cf;
+    private final DiaryPagesImpl cf;
     private String toRemove;
     private final Button remove;
     private final ObservableList<DiaryImpl> list;

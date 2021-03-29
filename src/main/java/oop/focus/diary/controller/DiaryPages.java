@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This interface models a controller of pages' diary, saved as a file.
  */
-public interface PagesDiary {
+public interface DiaryPages {
     /**
      * The method returns a list with all files' names.
      * @return  a list of all files saved

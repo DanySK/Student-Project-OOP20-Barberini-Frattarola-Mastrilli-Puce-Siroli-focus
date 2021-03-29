@@ -1,4 +1,7 @@
 package oop.focus.diary.model;
+
+import java.util.function.Consumer;
+
 /**
  * The interface TimeScrolling can be used to manages the scroll of time of a counter
  * It has methods to start or stop the counter and to set/get the value of the counter itself.
@@ -26,5 +29,10 @@ public interface TimeScrolling {
      * @return  if counter it's over
      */
     boolean end();
+    /**
+     * The method add a listener to the class.
+     * @param consumer  the consumer to add
+     */
+    void addListener(Consumer<Integer> consumer);
 
 }
