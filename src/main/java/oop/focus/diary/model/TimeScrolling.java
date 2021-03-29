@@ -35,4 +35,10 @@ public interface TimeScrolling {
      */
     void addListener(Consumer<Integer> consumer);
 
+    /**
+     * The method can be used to see if a timer/stopwatch is over.
+     * @return  true if counter is over, false otherwise
+     */
+     boolean isOver();
+
 }

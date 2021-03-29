@@ -8,6 +8,7 @@ import org.joda.time.LocalDateTime;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.function.Consumer;
 
 public class CounterManagerImpl implements CounterManager {
     private final CounterFactory tf;
@@ -39,10 +40,15 @@ public class CounterManagerImpl implements CounterManager {
             e.printStackTrace();
         }
         this.counter.addListener(integer -> {
-            System.out.println(integer);
-            this.finalCounter = integer;
-            this.createEvent();
+            if (this.counter.isOver()) {
+                this.finalCounter = integer;
+                this.createEvent();
+            }
         });
+    }
+    @Override
+    public final void setListener(final Consumer<Integer> consumer) {
+        this.counter.addListener(consumer);
     }
     @Override
     public final void startCounter() {
@@ -62,6 +68,7 @@ public class CounterManagerImpl implements CounterManager {
         this.counter.setStarterValue(value);
         this.isSetted = true;
     }
+
     private void createEvent() {
         if (this.finalCounter.equals(0)) {
             try {
@@ -72,6 +79,5 @@ public class CounterManagerImpl implements CounterManager {
         }
         this.me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
     }
-
 
 }

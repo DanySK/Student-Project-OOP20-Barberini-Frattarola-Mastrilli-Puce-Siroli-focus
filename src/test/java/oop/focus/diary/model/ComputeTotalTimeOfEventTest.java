@@ -28,8 +28,9 @@ public class ComputeTotalTimeOfEventTest {
 
     @Test
     public void testTimer() throws InterruptedException {
-        final String str = "studio";
+        final String str = "studiare";
         this.timer.createCounter(str);
+        this.timer.setListener(System.out::println);
         //il timer relativo all'attività studio è settata a 5 sec
         this.timer.setStarterValue(5);
         this.timer.startCounter();
