@@ -24,14 +24,17 @@ public class CalendarMonthView {
     private final double width;
     private final double height;
     private static final int BORDER = 20;
-    private static final int FONTSIZE = 20;
+    private static final int FONTSIZE = 12;
     private final CalendarLogicImpl calendarlogic = new CalendarLogicImpl();
     private final CalendarMonthLogic logics = new CalendarMonthLogicImpl();
     private final Label monthinfo = new Label();
 
+    private VBox monthview;
+
     public CalendarMonthView(final double width, final double height) {
         this.width = width;
         this.height = height;
+        monthview = new VBox();
     }
 
     /**
@@ -56,13 +59,11 @@ public class CalendarMonthView {
 
         container.getChildren().add(logics.buildGridMonth(month, cells));
 
-
-
         container.setPadding(new Insets(BORDER, BORDER, BORDER, BORDER));
 
         container.autosize();
 
-
+        setMonthView(container);
         return container;
 
     }
@@ -72,6 +73,19 @@ public class CalendarMonthView {
         container.getChildren().remove(container.getChildren().size() - 1);
         container.getChildren().add(logics.buildGridMonth(month, cells));
         setMonthInfo(month.get(0).getMonth() + "   " + month.get(0).getYear());
+    }
+
+
+    private void setMonthView(final VBox month) {
+        monthview = month;
+    }
+
+    /**
+     * 
+     * @return monthview
+     */
+    public VBox getMonthView() {
+        return monthview;
     }
 
     /**

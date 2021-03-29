@@ -19,7 +19,7 @@ public class CalendarMonthLogicImpl implements CalendarMonthLogic {
     private static final int TABLEDAYS = 7;
     private static final int SPACING = 50;
     private static final int DIM = 50;
-    private static final int FONTSIZE = 20;
+    private static final int FONTSIZE = 12;
     private int counter;
     private int count;
 
