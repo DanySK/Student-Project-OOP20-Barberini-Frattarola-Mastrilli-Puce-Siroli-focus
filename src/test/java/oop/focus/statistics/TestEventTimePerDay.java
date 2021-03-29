@@ -9,6 +9,8 @@ import oop.focus.homepage.model.EventImpl;
 import oop.focus.statistics.model.EventsStatisticFactoryImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -17,17 +19,30 @@ import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-public class testEventTimePerDay {
+
+public class TestEventTimePerDay {
 
     private final DataSource dataSource = new DataSourceImpl();
+    private int initialSize;
+
+    @Before
+    public void countInitial() {
+        this.initialSize = this.dataSource.getEvents().getAll().size();
+    }
+
+    @After
+    public void checkSize() {
+        assertEquals(this.initialSize, this.dataSource.getEvents().getAll().size());
+    }
+
     @Test
-    public void testSingleDay(){
+    public void testSingleDay() {
         var events = this.dataSource.getEvents();
         String evtName = "evt1";
-        LocalDateTime s1 = new LocalDateTime(2018,1,1,7,0);
-        LocalDateTime f1 = new LocalDateTime(2018,1,1,9,0);
-        LocalDateTime s2 = new LocalDateTime(2018,1,1,10,0);
-        LocalDateTime f2 = new LocalDateTime(2018,1,1,15,0);
+        LocalDateTime s1 = new LocalDateTime(2018, 1, 1, 7, 0);
+        LocalDateTime f1 = new LocalDateTime(2018, 1, 1, 9, 0);
+        LocalDateTime s2 = new LocalDateTime(2018, 1, 1, 10, 0);
+        LocalDateTime f2 = new LocalDateTime(2018, 1, 1, 15, 0);
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         assertEquals(evt1.getStartDate(), evt2.getStartDate());
@@ -36,10 +51,11 @@ public class testEventTimePerDay {
         try {
             events.save(evt1);
             events.save(evt2);
-            System.out.println(dataset.get());
-            assertEquals(1, dataset.get().size());
-            var tmp = dataset.get().stream().findAny().orElseThrow();
-            assertEquals(7*60, (int) tmp.getValue());
+            //System.out.println(dataset.get());
+            var data = dataset.get();
+            assertEquals(1, data.size());
+            var tmp = data.stream().findAny().orElseThrow();
+            assertEquals(7 * 60, (int) tmp.getValue());
 
         } catch (Exception e) {
             fail();
@@ -76,11 +92,11 @@ public class testEventTimePerDay {
             fail();
             e.printStackTrace();
         }
-            var data = dataset.get();
-            //System.out.println(data);
-            assertEquals(3, dataset.get().size());
-            assertEquals(Set.of(30, 4*60,5*60),
-                    data.stream().map(Pair::getValue).collect(Collectors.toSet()));
+        var data = dataset.get();
+        //System.out.println(data);
+        assertEquals(3, data.size());
+        assertEquals(Set.of(30, 4 * 60, 5 * 60),
+                data.stream().map(Pair::getValue).collect(Collectors.toSet()));
 
         try {
             events.delete(evt1);
@@ -117,8 +133,8 @@ public class testEventTimePerDay {
         }
         var data = dataset.get();
         //System.out.println(data);
-        assertEquals(4, dataset.get().size());
-        assertEquals(List.of(17*60, 24*60,5*60,4*60).stream().sorted().collect(Collectors.toList()),
+        assertEquals(4, data.size());
+        assertEquals(List.of(17 * 60, 24 * 60, 5 * 60, 4 * 60).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
 
         try {
@@ -156,9 +172,10 @@ public class testEventTimePerDay {
         }
         var data = dataset.get();
         //System.out.println(data);
-        assertEquals(4, dataset.get().size());
-        assertEquals(List.of(2*60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
+        assertEquals(List.of(2 * 60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
+        assertEquals(4, data.size());
+
 
         try {
             events.delete(evt1);
@@ -197,8 +214,8 @@ public class testEventTimePerDay {
         }
         var data = dataset.get();
         //System.out.println(data);
-        assertEquals(3, dataset.get().size());
-        assertEquals(List.of(2*60, 60, 4*60).stream().sorted().collect(Collectors.toList()),
+        assertEquals(3, data.size());
+        assertEquals(List.of(2 * 60, 60, 4 * 60).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
 
         try {
@@ -235,8 +252,8 @@ public class testEventTimePerDay {
             e.printStackTrace();
         }
         var data = dataset.get();
-        assertEquals(3, dataset.get().size());
-        assertEquals(List.of(2*60, 90, 30).stream().sorted().collect(Collectors.toList()),
+        assertEquals(3, data.size());
+        assertEquals(List.of(2 * 60, 90, 30).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
         //System.out.println(data);
         try {
@@ -246,7 +263,7 @@ public class testEventTimePerDay {
             e.printStackTrace();
         }
         assertEquals(4, dataset.get().size());
-        assertEquals(List.of(2*60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
+        assertEquals(List.of(2 * 60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
                 dataset.get().stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
 
         try{
