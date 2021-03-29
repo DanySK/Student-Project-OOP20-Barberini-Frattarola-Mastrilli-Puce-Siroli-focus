@@ -1,5 +1,6 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableList;
 import oop.focus.homepage.model.Person;
 
 import java.util.List;
@@ -50,11 +51,11 @@ public interface GroupManager {
     /**
      * @return the list of people in the group
      */
-    List<Person> getGroup();
+    ObservableList<Person> getGroup();
 
     /**
      * @return the list of group transactions
     */
-    List<GroupTransaction> getTransactions();
+    ObservableList<GroupTransaction> getTransactions();
 
 }

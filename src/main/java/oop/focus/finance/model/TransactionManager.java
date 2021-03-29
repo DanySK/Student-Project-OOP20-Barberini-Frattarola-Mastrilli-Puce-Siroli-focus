@@ -1,5 +1,6 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableList;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public interface TransactionManager {
     /**
      * @return the list of all transactions.
      */
-    List<Transaction> getTransactions();
+    ObservableList<Transaction> getTransactions();
 
     /**
      * @return positive transactions' list

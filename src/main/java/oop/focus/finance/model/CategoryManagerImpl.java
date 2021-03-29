@@ -1,10 +1,9 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableList;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
-
-import java.util.List;
 
 public class CategoryManagerImpl implements CategoryManager {
 
@@ -33,7 +32,7 @@ public class CategoryManagerImpl implements CategoryManager {
     }
 
     @Override
-    public final List<Category> getCategories() {
+    public final ObservableList<Category> getCategories() {
         return this.categories.getAll();
     } 
 }

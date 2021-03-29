@@ -1,6 +1,6 @@
 package oop.focus.finance.model;
 
-import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  * Interface that models a quick transaction manager,
@@ -26,5 +26,5 @@ public interface QuickTransactionManager {
     /**
      * @return the list of all quick transactions
      */
-    List<QuickTransaction> getQuickTransactions();
+    ObservableList<QuickTransaction> getQuickTransactions();
 }

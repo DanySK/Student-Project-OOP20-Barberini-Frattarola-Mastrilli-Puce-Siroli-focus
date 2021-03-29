@@ -1,5 +1,6 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableList;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -109,12 +110,12 @@ public class GroupManagerImpl implements GroupManager {
     }
 
     @Override
-    public final List<Person> getGroup() {
+    public final ObservableList<Person> getGroup() {
         return this.group.getAll();
     }
 
     @Override
-    public final List<GroupTransaction> getTransactions() {
+    public final ObservableList<GroupTransaction> getTransactions() {
         return this.transactions.getAll();
     }
 }

@@ -1,10 +1,9 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableList;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
-
-import java.util.List;
 
 public class QuickTransactionManagerImpl implements QuickTransactionManager {
 
@@ -33,7 +32,7 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
     }
 
     @Override
-    public final List<QuickTransaction> getQuickTransactions() {
+    public final ObservableList<QuickTransaction> getQuickTransactions() {
         return this.quickTransactions.getAll();
     }
 }

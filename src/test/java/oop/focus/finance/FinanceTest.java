@@ -23,8 +23,8 @@ public class FinanceTest {
     @org.junit.Test
     public void testAccounts() {
         // mi salvo quanti conti e quante transazioni sono già salvate nel database
-        int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
+        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
 
         // riferimenti ai conti
         var firstAccount = new AccountImpl("Conto1", "ff6666", 150_000);
@@ -65,9 +65,9 @@ public class FinanceTest {
     @org.junit.Test()
     public void testCategories() {
         // mi salvo quante categorie, conti e transazioni ho già salvato
-        int numCat = this.financeManager.getCategoryManager().getCategories().size();
-        int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numCat = this.financeManager.getCategoryManager().getCategories().size();
+        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
+        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
 
         // creo delle categorie
         this.financeManager.addCategory(new CategoryImpl("Categoria1", "ff6666"));
@@ -113,11 +113,11 @@ public class FinanceTest {
     @org.junit.Test
     public void testTransactions() {
         // mi salvo quanti conti e transazioni ho già salvato
-        int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        int numTra = this.financeManager.getTransactionManager().getTransactions().size();
-        int numInc = this.financeManager.getTransactionManager().getIncomes().size();
-        int numOut = this.financeManager.getTransactionManager().getOutings().size();
-        int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
+        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
+        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numInc = this.financeManager.getTransactionManager().getIncomes().size();
+        final int numOut = this.financeManager.getTransactionManager().getOutings().size();
+        final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
 
         // creo un conto
         this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 250));
@@ -197,9 +197,9 @@ public class FinanceTest {
     @org.junit.Test
     public void testSubscriptions() {
         // mi salvo quanti conti e transazioni ho già salvato
-        int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        int numTra = this.financeManager.getTransactionManager().getTransactions().size();
-        int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
+        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
+        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
 
         // creo un conto
         this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 200_000));
@@ -270,9 +270,9 @@ public class FinanceTest {
     @org.junit.Test()
     public void testQuickTransactions() {
         // mi salvo quanti conti e transazioni ho già salvato
-        int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        int numTra = this.financeManager.getTransactionManager().getTransactions().size();
-        int numQui = this.financeManager.getQuickManager().getQuickTransactions().size();
+        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
+        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numQui = this.financeManager.getQuickManager().getQuickTransactions().size();
 
         // creo un conto
         this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 149_750));
@@ -295,7 +295,7 @@ public class FinanceTest {
         assertEquals(numQui+3, this.financeManager.getQuickManager().getQuickTransactions().size());
 
         // mi salvo riferimento al conto
-        var account = new AccountImpl("Conto1", "", 0);
+        final var account = new AccountImpl("Conto1", "", 0);
 
         // controllo il saldo del conto di riferimento
         assertEquals(149_750, this.financeManager.getAmount(account));
@@ -344,106 +344,106 @@ public class FinanceTest {
     @org.junit.Test()
     public void testGroupTransactions() {
         // mi salvo quante persone e transazioni di gruppo ho già salvato
-        int numPer = this.groupManager.getGroup().size();
-        int numTra = this.groupManager.getTransactions().size();
+        final int numPer = this.groupManager.getGroup().size();
+        final int numTra = this.groupManager.getTransactions().size();
 
         // aggiungo le persone a persons
-        var persons = this.db.getPersons();
-        final Person Persona1 = new PersonImpl("Persona1", "amico");
-        final Person Persona2 = new PersonImpl("Persona2", "amico");
-        final Person Persona3 = new PersonImpl("Persona3", "amico");
-        final Person Persona4 = new PersonImpl("Persona4", "amico");
-        final Person Persona5 = new PersonImpl("Persona5", "amico");
+        final var persons = this.db.getPersons();
+        final Person persona1 = new PersonImpl("Persona1", "amico");
+        final Person persona2 = new PersonImpl("Persona2", "amico");
+        final Person persona3 = new PersonImpl("Persona3", "amico");
+        final Person persona4 = new PersonImpl("Persona4", "amico");
+        final Person persona5 = new PersonImpl("Persona5", "amico");
         try {
-            persons.save(Persona1);
-            persons.save(Persona2);
-            persons.save(Persona3);
-            persons.save(Persona4);
-            persons.save(Persona5);
+            persons.save(persona1);
+            persons.save(persona2);
+            persons.save(persona3);
+            persons.save(persona4);
+            persons.save(persona5);
         } catch (DaoAccessException e) {
             fail();
         }
-        this.groupManager.addPerson(Persona1);
-        this.groupManager.addPerson(Persona2);
-        this.groupManager.addPerson(Persona3);
-        this.groupManager.addPerson(Persona4);
-        this.groupManager.addPerson(Persona5);
+        this.groupManager.addPerson(persona1);
+        this.groupManager.addPerson(persona2);
+        this.groupManager.addPerson(persona3);
+        this.groupManager.addPerson(persona4);
+        this.groupManager.addPerson(persona5);
 
         // controllo che ci siano tutte le persone nel gruppo
         assertEquals(numPer+5, this.groupManager.getGroup().size());
 
         // aggiungo alcune transazioni di gruppo
-        GroupTransactionImpl Transazione1 = new GroupTransactionImpl("Transazione1",
-                Persona1, List.of(Persona1, Persona3), 500, new LocalDate());
-        GroupTransactionImpl Transazione2 = new GroupTransactionImpl("Transazione2",
-                Persona2, List.of(Persona1, Persona2), 1000, new LocalDate());
-        GroupTransactionImpl Transazione3 = new GroupTransactionImpl("Transazione3",
-                Persona2, List.of(Persona1, Persona3), 300, new LocalDate());
-        GroupTransactionImpl Transazione4 = new GroupTransactionImpl("Transazione4",
-                Persona1, List.of(Persona1), 300, new LocalDate());
-        GroupTransactionImpl Transazione5 = new GroupTransactionImpl("Transazione5",
-                Persona3, List.of(Persona2), 100, new LocalDate());
-        GroupTransactionImpl Transazione6 = new GroupTransactionImpl("Transazion6",
-                Persona1, List.of(Persona1, Persona2, Persona3), 600, new LocalDate());
-        GroupTransactionImpl Transazione7 = new GroupTransactionImpl("Transazione7",
-                Persona3, List.of(Persona1, Persona2), 200, new LocalDate());
-        GroupTransactionImpl Transazione8 = new GroupTransactionImpl("Transazione8",
-                Persona2, List.of(Persona1, Persona2), 400, new LocalDate());
-        GroupTransactionImpl Transazione9 = new GroupTransactionImpl("Transazione9",
-                Persona3, List.of(Persona1, Persona3), 500, new LocalDate());
-        GroupTransactionImpl Transazione10 = new GroupTransactionImpl("Transazione10",
-                Persona4, List.of(Persona1), 100, new LocalDate());
-        GroupTransactionImpl Transazione11 = new GroupTransactionImpl("Transazione11",
-                Persona5, List.of(Persona1), 150, new LocalDate());
-        GroupTransactionImpl Transazione12 = new GroupTransactionImpl("Transazione12",
-                Persona1, List.of(Persona1, Persona3), 200, new LocalDate());
-        this.groupManager.addTransaction(Transazione1);
-        this.groupManager.addTransaction(Transazione2);
-        this.groupManager.addTransaction(Transazione3);
-        this.groupManager.addTransaction(Transazione4);
-        this.groupManager.addTransaction(Transazione5);
-        this.groupManager.addTransaction(Transazione6);
-        this.groupManager.addTransaction(Transazione7);
-        this.groupManager.addTransaction(Transazione8);
-        this.groupManager.addTransaction(Transazione9);
-        this.groupManager.addTransaction(Transazione10);
-        this.groupManager.addTransaction(Transazione11);
+        GroupTransactionImpl transazione1 = new GroupTransactionImpl("Transazione1",
+                persona1, List.of(persona1, persona3), 500, new LocalDate());
+        GroupTransactionImpl transazione2 = new GroupTransactionImpl("Transazione2",
+                persona2, List.of(persona1, persona2), 1000, new LocalDate());
+        GroupTransactionImpl transazione3 = new GroupTransactionImpl("Transazione3",
+                persona2, List.of(persona1, persona3), 300, new LocalDate());
+        GroupTransactionImpl transazione4 = new GroupTransactionImpl("Transazione4",
+                persona1, List.of(persona1), 300, new LocalDate());
+        GroupTransactionImpl transazione5 = new GroupTransactionImpl("Transazione5",
+                persona3, List.of(persona2), 100, new LocalDate());
+        GroupTransactionImpl transazione6 = new GroupTransactionImpl("Transazion6",
+                persona1, List.of(persona1, persona2, persona3), 600, new LocalDate());
+        GroupTransactionImpl transazione7 = new GroupTransactionImpl("Transazione7",
+                persona3, List.of(persona1, persona2), 200, new LocalDate());
+        GroupTransactionImpl transazione8 = new GroupTransactionImpl("Transazione8",
+                persona2, List.of(persona1, persona2), 400, new LocalDate());
+        GroupTransactionImpl transazione9 = new GroupTransactionImpl("Transazione9",
+                persona3, List.of(persona1, persona3), 500, new LocalDate());
+        GroupTransactionImpl transazione10 = new GroupTransactionImpl("Transazione10",
+                persona4, List.of(persona1), 100, new LocalDate());
+        GroupTransactionImpl transazione11 = new GroupTransactionImpl("Transazione11",
+                persona5, List.of(persona1), 150, new LocalDate());
+        GroupTransactionImpl transazione12 = new GroupTransactionImpl("Transazione12",
+                persona1, List.of(persona1, persona3), 200, new LocalDate());
+        this.groupManager.addTransaction(transazione1);
+        this.groupManager.addTransaction(transazione2);
+        this.groupManager.addTransaction(transazione3);
+        this.groupManager.addTransaction(transazione4);
+        this.groupManager.addTransaction(transazione5);
+        this.groupManager.addTransaction(transazione6);
+        this.groupManager.addTransaction(transazione7);
+        this.groupManager.addTransaction(transazione8);
+        this.groupManager.addTransaction(transazione9);
+        this.groupManager.addTransaction(transazione10);
+        this.groupManager.addTransaction(transazione11);
 
         // controllo che ci siano tutte le transazioni di gruppo
         assertEquals(numTra+11, this.groupManager.getTransactions().size());
 
         // controllo che i crediti e i debiti siano tutti corretti
-        assertEquals(-800, this.groupManager.getCredit(Persona1));
-        assertEquals(600, this.groupManager.getCredit(Persona2));
-        assertEquals(-50, this.groupManager.getCredit(Persona3));
-        assertEquals(100, this.groupManager.getCredit(Persona4));
-        assertEquals(150, this.groupManager.getCredit(Persona5));
+        assertEquals(-800, this.groupManager.getCredit(persona1));
+        assertEquals(600, this.groupManager.getCredit(persona2));
+        assertEquals(-50, this.groupManager.getCredit(persona3));
+        assertEquals(100, this.groupManager.getCredit(persona4));
+        assertEquals(150, this.groupManager.getCredit(persona5));
 
         // provo a eliminare qualche transazione
-        this.groupManager.removeTransaction(Transazione1);
-        this.groupManager.removeTransaction(Transazione5);
-        this.groupManager.removeTransaction(Transazione8);
+        this.groupManager.removeTransaction(transazione1);
+        this.groupManager.removeTransaction(transazione5);
+        this.groupManager.removeTransaction(transazione8);
 
         // eseguo una transazione
-        this.groupManager.addTransaction(Transazione12);
+        this.groupManager.addTransaction(transazione12);
 
         // controllo che siano state aggiornate
         assertEquals(numTra+9, this.groupManager.getTransactions().size());
 
         // controllo che i crediti siano cambiati e corretti
-        assertEquals(-750, this.groupManager.getCredit(Persona1));
-        assertEquals(500, this.groupManager.getCredit(Persona2));
-        assertEquals(0, this.groupManager.getCredit(Persona3));
+        assertEquals(-750, this.groupManager.getCredit(persona1));
+        assertEquals(500, this.groupManager.getCredit(persona2));
+        assertEquals(0, this.groupManager.getCredit(persona3));
 
         // elimino una persona eliminabile
-        this.groupManager.removePerson(Persona3);
+        this.groupManager.removePerson(persona3);
 
         // controllo quante persone ci sono nel gruppo
         assertEquals(numPer+4, this.groupManager.getGroup().size());
 
         // elimino una persona non eliminabile
         try {
-            this.groupManager.removePerson(Persona1);
+            this.groupManager.removePerson(persona1);
             fail();
         } catch (IllegalStateException ignored) { }
 
@@ -451,7 +451,7 @@ public class FinanceTest {
         assertEquals(numPer+4, this.groupManager.getGroup().size());
 
         // richiedo la soluzione dei debiti
-        var solution = this.groupManager.resolve();
+        final var solution = this.groupManager.resolve();
 
         // eseguo le transazioni di risoluzione
         solution.forEach(this.groupManager::addTransaction);
@@ -461,19 +461,19 @@ public class FinanceTest {
 
         // riporto tutto come da principio
         solution.forEach(this.groupManager::removeTransaction);
-        this.groupManager.removeTransaction(Transazione2);
-        this.groupManager.removeTransaction(Transazione3);
-        this.groupManager.removeTransaction(Transazione4);
-        this.groupManager.removeTransaction(Transazione6);
-        this.groupManager.removeTransaction(Transazione7);
-        this.groupManager.removeTransaction(Transazione9);
-        this.groupManager.removeTransaction(Transazione10);
-        this.groupManager.removeTransaction(Transazione11);
-        this.groupManager.removeTransaction(Transazione12);
-        this.groupManager.removePerson(Persona1);
-        this.groupManager.removePerson(Persona2);
-        this.groupManager.removePerson(Persona4);
-        this.groupManager.removePerson(Persona5);
+        this.groupManager.removeTransaction(transazione2);
+        this.groupManager.removeTransaction(transazione3);
+        this.groupManager.removeTransaction(transazione4);
+        this.groupManager.removeTransaction(transazione6);
+        this.groupManager.removeTransaction(transazione7);
+        this.groupManager.removeTransaction(transazione9);
+        this.groupManager.removeTransaction(transazione10);
+        this.groupManager.removeTransaction(transazione11);
+        this.groupManager.removeTransaction(transazione12);
+        this.groupManager.removePerson(persona1);
+        this.groupManager.removePerson(persona2);
+        this.groupManager.removePerson(persona4);
+        this.groupManager.removePerson(persona5);
 
         // controllo che la rimozione sia andata a buon fine
         assertEquals(numPer, this.groupManager.getGroup().size());

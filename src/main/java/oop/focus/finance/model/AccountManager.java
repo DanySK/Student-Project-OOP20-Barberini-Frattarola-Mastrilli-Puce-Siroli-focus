@@ -1,6 +1,6 @@
 package oop.focus.finance.model;
 
-import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  * Interface that models an account manager,
@@ -25,5 +25,5 @@ public interface AccountManager {
     /**
      * @return the list of all accounts.
      */
-    List<Account> getAccounts();
+    ObservableList<Account> getAccounts();
 }
