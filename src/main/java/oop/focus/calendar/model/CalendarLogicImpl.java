@@ -167,15 +167,15 @@ public class CalendarLogicImpl implements CalendarLogic {
     public void  changeMonth(final boolean change) {
         if (change) { //previous
                 if (this.current.getMonthOfYear() == this.current.monthOfYear().getMinimumValue()) {
-                    this.current = new LocalDate(this.current.getYear() - 1, this.current.monthOfYear().getMaximumValue(), this.current.getDayOfMonth());
+                    this.current = new LocalDate(this.current.getYear() - 1, this.current.monthOfYear().getMaximumValue(), 1);
                 } else {
-                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() - 1, this.current.getDayOfMonth());
+                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() - 1, 1);
                 }
             } else { //next
                 if (this.current.getMonthOfYear() == this.current.monthOfYear().getMaximumValue()) {
-                    this.current = new LocalDate(this.current.getYear() + 1, this.current.monthOfYear().getMinimumValue(), this.current.getDayOfMonth());
+                    this.current = new LocalDate(this.current.getYear() + 1, this.current.monthOfYear().getMinimumValue(), 1);
                 } else {
-                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() + 1, this.current.getDayOfMonth());
+                this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() + 1, 1);
                 }
         }
         this.month = generateMonth();
