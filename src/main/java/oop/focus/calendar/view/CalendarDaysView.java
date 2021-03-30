@@ -18,6 +18,12 @@ public interface CalendarDaysView {
     ScrollPane getScroller();
 
     /**
+     * Get the VBox with all the object of the day.
+     * @return VBox view of the day
+     */
+    ScrollPane getContainer();
+
+    /**
      * Get the width of the scroller.
      * @return width
      */
