@@ -30,13 +30,7 @@ public class TransactionImpl implements Transaction {
     public TransactionImpl(final String description, final Category category,
                            final LocalDateTime localDate, final Account account, final int amount,
                            final Repetition repetition) {
-        this.description = description;
-        this.category = category;
-        this.date = localDate;
-        this.account = account;
-        this.amount = amount;
-        this.repetition = repetition;
-        this.toRepeat = !repetition.equals(Repetition.ONCE);
+        this(description, category, localDate, account, amount, repetition, !repetition.equals(Repetition.ONCE));
     }
 
     @Override
