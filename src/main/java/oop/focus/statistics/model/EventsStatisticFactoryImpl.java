@@ -1,8 +1,5 @@
 package oop.focus.statistics.model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.util.Pair;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
@@ -46,26 +43,11 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
 
     private DataCreatorImpl<Event, Pair<LocalDate, Integer>> getEventPairDataCreator(final Predicate<Event> condition) {
         var events = this.dataSource.getEvents().getAll();
-        ObservableList<Event> filtered = FXCollections.observableArrayList();
-        this.linkList(condition, events, filtered);
-        return new DataCreatorImpl<>(filtered,
+        return new GeneratedDataCreator<>(() -> events.filtered(condition),
                 s -> s.flatMap(this::getDividedEvents)
                         .collect(Collectors.toMap(Event::getStartDate, this::getDuration,
                                 Integer::sum)).entrySet().stream()
                         .map((a) -> new Pair<>(a.getKey(), a.getValue() < MAX_HOURS ? a.getValue() : MAX_HOURS)).collect(Collectors.toSet()));
-    }
-    private void linkList(final Predicate<Event> condition, final ObservableList<Event> events, final ObservableList<Event> filtered) {
-        events.stream().filter(condition).forEach(filtered::add);
-        events.addListener((ListChangeListener<Event>) c -> {
-            while (c.next()) {
-                if (c.wasRemoved()) {
-                    filtered.removeAll(c.getRemoved());
-                } else if (c.wasAdded()) {
-                    c.getAddedSubList().stream().filter(condition)
-                            .forEach(filtered::add);
-                }
-            }
-        });
     }
     private Integer getDuration(final Event e) {
         return Math.abs(Minutes.minutesBetween(e.getEnd(), e.getStart()).getMinutes());

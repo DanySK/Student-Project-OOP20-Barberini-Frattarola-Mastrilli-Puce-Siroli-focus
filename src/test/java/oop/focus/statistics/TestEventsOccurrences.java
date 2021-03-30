@@ -67,5 +67,7 @@ public class TestEventsOccurrences {
             e.printStackTrace();
             fail();
         }
+
+        assertEquals(0, dataset.get().size());
     }
 }
