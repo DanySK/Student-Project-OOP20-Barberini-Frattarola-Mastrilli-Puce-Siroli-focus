@@ -44,7 +44,11 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         this.spacing = spacing;
     }
 
-
+    /*
+     * used for configure the day view and build the third (from the top) box 
+     * that is composed by the EventView and HoursView
+     *
+     */
     private void configureDay(final HBox myhbox) {
 
         hoursbox.setFormat(Format.NORMAL);
@@ -62,7 +66,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     }
 
 
-
+    //used for build the daily event box (the second from the top of the view)
     private void configureDailyEvent(final VBox container, final Label daily) {
         daily.prefWidthProperty().bind(container.widthProperty());
         daily.setAlignment(Pos.CENTER);
@@ -76,8 +80,9 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * Used for create Day for Calendar.
      */
     public void buildDay() {
-
+        //container is used for contain all the component of the day
         final VBox container = new VBox();
+        //myhbox is used for contain the HoursBox and EventBox
         final HBox myhbox = new HBox();
 
         configureDay(myhbox);
