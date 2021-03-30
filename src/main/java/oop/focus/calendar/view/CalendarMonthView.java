@@ -13,6 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarMonthControllerImpl;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
 
@@ -26,7 +28,7 @@ public class CalendarMonthView {
     private static final int BORDER = 20;
     private static final int FONTSIZE = 12;
     private final CalendarLogicImpl calendarlogic = new CalendarLogicImpl();
-    private final CalendarMonthLogic logics = new CalendarMonthLogicImpl();
+    private final CalendarMonthController logics = new CalendarMonthControllerImpl();
     private final Label monthinfo = new Label();
 
     private VBox monthview;
@@ -41,7 +43,7 @@ public class CalendarMonthView {
      * Build the calendar month.
      * @return panel
      */
-    public VBox buildMonthView() {
+    private VBox buildMonthView() {
 
 
 
@@ -69,7 +71,7 @@ public class CalendarMonthView {
     }
 
 
-    private void updateView(final VBox container, final CalendarMonthLogic logics) {
+    private void updateView(final VBox container, final CalendarMonthController logics) {
         container.getChildren().remove(container.getChildren().size() - 1);
         container.getChildren().add(logics.buildGridMonth(month, cells));
         setMonthInfo(month.get(0).getMonth() + "   " + month.get(0).getYear());
@@ -81,10 +83,12 @@ public class CalendarMonthView {
     }
 
     /**
-     * 
      * @return monthview
      */
     public VBox getMonthView() {
+        if (this.monthview.getChildren().size() == 0) {
+            buildMonthView();
+        }
         return monthview;
     }
 
@@ -129,7 +133,7 @@ public class CalendarMonthView {
         toppanel.getChildren().add(monthinfo);
         toppanel.getChildren().add(next);
         toppanel.setAlignment(Pos.CENTER);
-        toppanel.setPrefWidth(container.getWidth());
+        toppanel.prefWidthProperty().bind(container.widthProperty());
         toppanel.setSpacing(BORDER);
         return toppanel;
     }
