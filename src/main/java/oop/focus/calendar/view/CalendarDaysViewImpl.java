@@ -25,7 +25,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     private final EventViewImpl eventbox = new EventViewImpl(hoursbox);
     private final DayImpl day;
     private ScrollPane scroller = new ScrollPane();
-    private VBox container = new VBox();
+    private VBox dayview = new VBox();
     private final int width;
     private final int height;
     private final int spacing;
@@ -47,7 +47,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
 
     private void configureDay(final HBox myhbox) {
 
-        hoursbox.setFormat(Format.EXTENDED);
+        hoursbox.setFormat(Format.NORMAL);
         hoursbox.setSpacing(spacing);
 
         hoursbox.buildVBox();
@@ -77,7 +77,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      */
     public void buildDay() {
 
-
+        final VBox container = new VBox();
         final HBox myhbox = new HBox();
 
         configureDay(myhbox);
@@ -98,16 +98,13 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         container.setAlignment(Pos.CENTER);
 
 
-        final ScrollPane scroller = new ScrollPane(container);
-        scroller.maxHeight(height);
-        scroller.maxWidth(width);
-        scroller.setFitToWidth(true);
         setContainer(container);
-        setScroller(scroller);
+        setScroller(container);
     }
 
-    private void setScroller(final ScrollPane scroller) {
-        this.scroller = scroller;
+    private void setScroller(final VBox container) {
+        this.scroller = new ScrollPane(container);
+        this.scroller.setFitToWidth(true);
     }
 
     /**
@@ -119,15 +116,16 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     }
 
     private void setContainer(final VBox container) {
-        this.container = container;
+        this.dayview = new VBox(container);
+        //this.dayview.maxWidth(width);
     }
 
     /**
      * Get the VBox with all the object of the day.
      * @return VBox view of the day
      */
-    public ScrollPane getContainer() {
-        return this.scroller;
+    public VBox getContainer() {
+        return this.dayview;
     }
 
     /**

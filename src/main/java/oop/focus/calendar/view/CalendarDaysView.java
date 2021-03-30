@@ -1,6 +1,7 @@
 package oop.focus.calendar.view;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
 
 
 public interface CalendarDaysView {
@@ -21,7 +22,7 @@ public interface CalendarDaysView {
      * Get the VBox with all the object of the day.
      * @return VBox view of the day
      */
-    ScrollPane getContainer();
+    VBox getContainer();
 
     /**
      * Get the width of the scroller.
