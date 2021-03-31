@@ -24,6 +24,6 @@
       </HBox>
    </bottom>
    <center>
-      <ScrollPane fx:id="group_movements_scroll" prefHeight="232.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+      <ScrollPane fx:id="groupMovementsScroll" prefHeight="232.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
