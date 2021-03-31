@@ -13,31 +13,45 @@ public enum Repetition {
     /**
      * it is repeated daily.
      */
-    DAILY("Daily", i -> (int) (i * 30.42),    i -> i * 365,               d -> d.plusDays(1)),
+    DAILY("Daily", i -> (int) (i * Costants.DAYS_PER_MONTH),
+            i -> i * Costants.DAYS_PER_YEAR,
+            d -> d.plusDays(1)),
     /**
      * it is repeated every week.
      */
-    WEEKLY("Weekly", i -> (int) (i * 4.35),    i -> (int) (i * 52.14),     d -> d.plusWeeks(1)),
+    WEEKLY("Weekly", i -> (int) (i * Costants.WEEKS_PER_MONTH),
+            i -> (int) (i * Costants.WEEKS_PER_YEAR),
+            d -> d.plusWeeks(1)),
     /**
      * it is repeated every month.
      */
-    MONTHLY("Monthly", i -> i,                  i -> i * 12,                d -> d.plusMonths(1)),
+    MONTHLY("Monthly", i -> i,
+            i -> i * Costants.MONTHS_PER_YEAR,
+            d -> d.plusMonths(1)),
     /**
      * it is repeated every two months.
      */
-    BIMONTHLY("Bimonthly", i -> i / 2,            i -> i * 6,                 d -> d.plusMonths(2)),
+    BIMONTHLY("Bimonthly", i -> i / Costants.MONTHS_PER_TWO_MONTHS,
+            i -> i * Costants.TWO_MONTH_PER_YEAR,
+            d -> d.plusMonths(Costants.MONTHS_PER_TWO_MONTHS)),
     /**
      * it is repeated every three months.
      */
-    QUARTERLY("Quaterly", i -> i / 3,            i -> i * 4,                 d -> d.plusMonths(3)),
+    QUARTERLY("Quaterly", i -> i / Costants.MONTHS_PER_THREE_MONTHS,
+            i -> i * Costants.THREE_MONTH_PER_YEAR,
+            d -> d.plusMonths(Costants.MONTHS_PER_THREE_MONTHS)),
     /**
      * it is repeated every six months.
      */
-    HALF_YEARLY("Half_yearly", i -> i / 6,          i -> i * 2,                 d -> d.plusMonths(6)),
+    HALF_YEARLY("Half_yearly", i -> i / Costants.MONTHS_PER_SIX_MONTHS,
+            i -> i * Costants.SIX_MONTH_PER_YEAR,
+            d -> d.plusMonths(Costants.MONTHS_PER_SIX_MONTHS)),
     /**
      * it is repeated every year.
      */
-    YEARLY("Yearly", i -> i / 12,              i -> i,                     d -> d.plusYears(1));
+    YEARLY("Yearly", i -> i / Costants.MONTHS_PER_YEAR,
+            i -> i,
+            d -> d.plusYears(1));
 
     private final String name;
     private final Function<Integer, Integer> perMonthFunction;
@@ -76,4 +90,20 @@ public enum Repetition {
     public final String getName() {
         return this.name;
     }
+
+    private static class Costants {
+
+        public static final double DAYS_PER_MONTH = 30.42;
+        public static final int DAYS_PER_YEAR = 365;
+        public static final double WEEKS_PER_MONTH = 4.35;
+        public static final double WEEKS_PER_YEAR = 52.14;
+        public static final int MONTHS_PER_TWO_MONTHS = 2;
+        public static final int TWO_MONTH_PER_YEAR = 6;
+        public static final int MONTHS_PER_THREE_MONTHS = 3;
+        public static final int THREE_MONTH_PER_YEAR = 4;
+        public static final int MONTHS_PER_SIX_MONTHS = 6;
+        public static final int SIX_MONTH_PER_YEAR = 2;
+        public static final int MONTHS_PER_YEAR = 12;
+    }
+
 }
