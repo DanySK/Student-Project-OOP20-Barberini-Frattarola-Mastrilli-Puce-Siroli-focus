@@ -6,14 +6,14 @@ import java.util.Optional;
 
 import org.joda.time.Period;
 
-import oop.focus.homepage.model.ManagerEvent;
+import oop.focus.homepage.model.EventManager;
 /**
  * Immutable implementation of TotalTimeEvent.
  */
 
 public class TotalTimeEventImpl implements TotalTimeEvent {
-    private final ManagerEvent me;
-    public TotalTimeEventImpl(final ManagerEvent me) {
+    private final EventManager me;
+    public TotalTimeEventImpl(final EventManager me) {
         this.me = me;
     }
     @Override

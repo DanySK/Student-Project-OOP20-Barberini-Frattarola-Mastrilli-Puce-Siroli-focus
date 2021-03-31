@@ -28,7 +28,7 @@ public interface CounterManager {
      * The method add a listener to the timer/stopwatch created.
      * @param consumer  the consumer of listener to crete
      */
-    void setListener(Consumer<Integer> consumer);
+    void setChangeListener(Consumer<Integer> consumer);
 
     /**
      * The method sets starter value of counter.

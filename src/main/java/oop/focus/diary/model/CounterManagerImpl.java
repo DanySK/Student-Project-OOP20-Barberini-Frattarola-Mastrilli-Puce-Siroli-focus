@@ -2,7 +2,7 @@ package oop.focus.diary.model;
 
 import oop.focus.finance.model.Repetition;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.ManagerEvent;
+import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalDateTime;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -16,11 +16,11 @@ public class CounterManagerImpl implements CounterManager {
     private LocalDateTime start;
     private Sound sound;
     private Integer finalCounter;
-    private final ManagerEvent me;
+    private final EventManager me;
     private String eventName;
     private boolean isSetted;
     private final boolean isTimer;
-    public CounterManagerImpl(final ManagerEvent me, final boolean isTimer) {
+    public CounterManagerImpl(final EventManager me, final boolean isTimer) {
         this.me = me;
         this.isTimer = isTimer;
         this.tf = new CounterFactory(me);
@@ -39,20 +39,19 @@ public class CounterManagerImpl implements CounterManager {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
-        this.counter.addListener(integer -> {
-            if (this.counter.isOver()) {
-                this.finalCounter = integer;
-                this.createEvent();
-            }
+        this.counter.addFinishListener(integer -> {
+            this.finalCounter = integer;
+            this.createEvent();
         });
+
     }
     @Override
-    public final void setListener(final Consumer<Integer> consumer) {
-        this.counter.addListener(consumer);
+    public final void setChangeListener(final Consumer<Integer> consumer) {
+        this.counter.addChangeListener(consumer);
     }
     @Override
     public final void startCounter() {
-        if (this.isSetted) {
+        if (this.isSetted && this.me.timerCanStart(LocalDateTime.now())) {
             this.counter.startCounter();
             this.start = LocalDateTime.now();
         } else {

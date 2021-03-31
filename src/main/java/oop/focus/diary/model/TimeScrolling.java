@@ -25,20 +25,17 @@ public interface TimeScrolling {
      */
     void setStarterValue(int starterCounter);
     /**
-     * Return a boolean that is true if counter is over, false otherwise.
-     * @return  if counter it's over
-     */
-    boolean end();
-    /**
      * The method add a listener to the class.
+     * The listener warns that a counter is over.
      * @param consumer  the consumer to add
      */
-    void addListener(Consumer<Integer> consumer);
-
+    void addFinishListener(Consumer<Integer> consumer);
     /**
-     * The method can be used to see if a timer/stopwatch is over.
-     * @return  true if counter is over, false otherwise
+     * The method add a listener to the class.
+     * The listener warns that the counter's value is changed.
+     * @param consumer
      */
-     boolean isOver();
+    void addChangeListener(Consumer<Integer> consumer);
+
 
 }

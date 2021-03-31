@@ -14,17 +14,23 @@ public class TimeScrollingImpl implements TimeScrolling {
     private int starterCounter;
     private final Function<Integer, Integer> fun;
     private final Predicate<Integer> pre;
-    private final List<Consumer<Integer>> list;
-    private boolean isOver;
+    private final List<Consumer<Integer>> onFinishListener;
+    private final List<Consumer<Integer>> onChangeListener;
+
     public TimeScrollingImpl(final Function<Integer, Integer> function, final Predicate<Integer> predicate) {
         this.pre = predicate;
         this.stop = false;
         this.fun = function;
-        this.list = new ArrayList<>();
+        this.onFinishListener = new ArrayList<>();
+        this.onChangeListener = new ArrayList<>();
     }
     @Override
-    public final void addListener(final Consumer<Integer> consumer) {
-        list.add(consumer);
+    public final void addFinishListener(final Consumer<Integer> consumer) {
+        this.onFinishListener.add(consumer);
+    }
+    @Override
+    public final void addChangeListener(final Consumer<Integer> consumer) {
+        this.onChangeListener.add(consumer);
     }
     @Override
     public final int getCounter() {
@@ -36,10 +42,10 @@ public class TimeScrollingImpl implements TimeScrolling {
     }
     @Override
     public final void startCounter() {
-        this.isOver = false;
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            while (!end()) {
+            while (!isOver()) {
+                this.onChangeListener.forEach(s -> s.accept(this.starterCounter));
                 this.starterCounter = fun.apply(this.starterCounter);
                  try { 
                      Thread.sleep(1000);
@@ -47,22 +53,15 @@ public class TimeScrollingImpl implements TimeScrolling {
                      e.printStackTrace();
                  }
             }
+            this.onFinishListener.forEach(s -> s.accept(this.starterCounter));
         });
     }
     @Override
     public final void stopCounter() {
         this.stop = true;
     }
-    @Override
-    public final boolean isOver() {
-        return this.isOver;
-    }
-    @Override
-    public final boolean end() {
-        if (this.stop || !pre.test(starterCounter)) {
-            this.isOver = true;
-        }
-        this.list.forEach(z -> z.accept(this.starterCounter));
+
+    private boolean isOver() {
         return this.stop || !pre.test(starterCounter);
     }
 }
