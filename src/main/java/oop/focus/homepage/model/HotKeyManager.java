@@ -8,7 +8,7 @@ import org.joda.time.LocalDateTime;
 /**
  * This is the interface that models the handling of hot keys of all categories.
  */
-public interface ManagerHotKey {
+public interface HotKeyManager {
 
     /**
      * This method is used to perform the "action" method on a specific hot key.
@@ -20,37 +20,37 @@ public interface ManagerHotKey {
     void action(HotKey hotKey, LocalDateTime start, LocalDateTime end);
 
     /**
-     * This method is use to add an hot keys.
+     * This method is used to add an hot keys.
      * @param hotKey is the hot key that must be added.
      */
     void add(HotKey hotKey);
 
     /**
-     * This method is use to add a set of hot keys.
+     * This method is used to add a set of hot keys.
      * @param hotKeys is the set of hot keys that must be added.
      */
     void addAll(Set<HotKey> hotKeys);
 
     /**
-     * This method is use to get the set of all the hot keys(of all categories).
+     * This method is used to get the set of all the hot keys(of all categories).
      * @return a set of hot keys.
      */
     List<HotKey> getAll();
 
     /**
-     * This method is use to get the category of a specific hot key.
+     * This method is used to get the category of a specific hot key.
      * @param hotKey is the hot key whose category you want to know.
      * @return a member of the HotKeyType enumeration.
      */
     HotKeyType getCategory(HotKey hotKey);
 
     /**
-     * This method is use to get all of the events generated after clicking an hot key.
+     * This method is used to get all of the events generated after clicking an hot key.
      * @return a set of events generated after clicking an hot key.
      */
     List<Event> getEventsHotKey();
 
-    long getTimes(String name);
+    long getClickCount(String name);
 
     /**
      * is used to remove a specific hot key from the collection containing all hot keys. 
@@ -59,7 +59,7 @@ public interface ManagerHotKey {
     void remove(HotKey hotKey);
 
     /**
-     * This method is use to remove a set of hot key from the collection containing all hot keys.
+     * This method is used to remove a set of hot key from the collection containing all hot keys.
      * @param hotKeys is the set of hot keys to remove from the collection.
      */
     void removeAll(Set<HotKey> hotKeys);

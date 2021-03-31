@@ -6,7 +6,7 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
-public class ManagerRelationshipsImpl implements ManagerRelationships {
+public class RelationshipsManagerImpl implements RelationshipsManager {
 
     private final Dao<String> sd;
 
@@ -14,12 +14,12 @@ public class ManagerRelationshipsImpl implements ManagerRelationships {
      * This is the class constructor.
      * @param dsi is the data source.
      */
-    public ManagerRelationshipsImpl(final DataSource dsi) {
+    public RelationshipsManagerImpl(final DataSource dsi) {
         this.sd = dsi.getRelationships();
     }
 
     /**
-     * This method is use to add a new degree of kinship.
+     * This method is used to add a new degree of kinship.
      * @param degree is the degree of kinship to add.
      */
     public final void add(final String degree) {
@@ -43,7 +43,7 @@ public class ManagerRelationshipsImpl implements ManagerRelationships {
     }
 
     /**
-     * This method is use to get all degrees of relationship saved.
+     * This method is used to get all degrees of relationship saved.
      * @return a set of string that represent all the saved degrees of relationship.
      */
     public final List<String> getAll() {
@@ -51,7 +51,7 @@ public class ManagerRelationshipsImpl implements ManagerRelationships {
     }
 
     /**
-     * This method is use to remove a degree of kinship from all the saved degrees of kinship.
+     * This method is used to remove a degree of kinship from all the saved degrees of kinship.
      * @param degree is the degree to remove.
      */
     public final void remove(final String degree) {

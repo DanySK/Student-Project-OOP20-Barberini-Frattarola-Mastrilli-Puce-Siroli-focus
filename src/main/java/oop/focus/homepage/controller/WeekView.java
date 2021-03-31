@@ -64,12 +64,15 @@ public class WeekView  implements Initializable {
 
     public final void setWeek() {
         hbox = new HBox();
-        for (final LocalDate date = this.startOfWeek; !date.isAfter(endOfWeek); date.plusDays(1)) {
+        LocalDate date = this.startOfWeek;
+        var height = (int) this.hbox.getHeight();
+        for (int i = 0; i < 7; i++) {
             final DayImpl day = new DayImpl(date);
-            final CalendarDaysView dayView = new CalendarDaysViewImpl(day, 200, 450, 50);
+            final CalendarDaysViewImpl dayView = new CalendarDaysViewImpl(day, 200, 300, 50);
             dayView.buildDay();
-            dayView.getScroller().prefWidthProperty().bind(hbox.widthProperty().divide(this.weekDays));
+            dayView.getContainer().prefWidthProperty().bind(hbox.widthProperty().divide(this.weekDays));
             hbox.getChildren().add(dayView.getScroller());
+            date = date.plusDays(1);
         }
         this.paneWeek.getChildren().add(hbox);
     }

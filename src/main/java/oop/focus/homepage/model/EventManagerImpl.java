@@ -8,7 +8,10 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,7 +19,7 @@ import java.util.stream.Stream;
  * This class adds new methods to manage events.
  * For example for search for an event by a specific date.
  */
-public class ManagerEventImpl implements ManagerEvent {
+public class EventManagerImpl implements EventManager {
 
     private final Dao<Event> events;
     private final TimeProperty time;
@@ -25,13 +28,13 @@ public class ManagerEventImpl implements ManagerEvent {
      * This is the class constructor.
      * @param dsi is the DataSource.
      */
-    public ManagerEventImpl(final DataSource dsi) {
+    public EventManagerImpl(final DataSource dsi) {
         this.time = new TimePropertyImpl();
         this.events = dsi.getEvents();
     }
 
     /**
-     * This method is use to save a new event.
+     * This method is used to save a new event.
      * @param event is the event that must be added to events list.
      */
     public final void addEvent(final Event event) {
@@ -49,7 +52,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to add new events.
+     * This method is used to add new events.
      * @param eventsSet is an event list that must be added to events list.
      */
     public final void addEventsSet(final Set<Event> eventsSet) {
@@ -68,7 +71,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to find the events events that take place on a certain date.
+     * This method is used to find the events events that take place on a certain date.
      * @param date is the date on which to search for events.
      * @return a list of events taking place on that particular date.
      */
@@ -81,7 +84,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to find the events that have a specific start hour.
+     * This method is used to find the events that have a specific start hour.
      * @param hour is the start hour on which to search for events.
      * @return a list of events with the hour parameter as start hour.
      */
@@ -90,7 +93,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to find the events that have a specific name.
+     * This method is used to find the events that have a specific name.
      * @param name is the name on which to search for events.
      * @return a list of events with the name parameter as name.
      */
@@ -99,7 +102,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-    * This method is use to generate the next events that repeats.
+    * This method is used to generate the next events that repeats.
     * @param date is the date on which we take events.
     */
     public final void generateRepeatedEvents(final LocalDate date) {
@@ -107,7 +110,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
    /**
-    * This method is use to generate the next events that repeats.
+    * This method is used to generate the next events that repeats.
     * @param date is the date on which we take events.
     * @return the list of the events that have to be repeated.
     */
@@ -117,10 +120,10 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
    /**
-    * This method is use from the generateListOfNextEvent to generate the next event.
+    * This method is used from the generateListOfNextEvent to generate the next event.
     * @param event is the event to find the next repeat date.
     * @param date is the date on which we take events.
-    * @return a list of event thta repeat them self.
+    * @return a list of event that repeat them self.
     */
     private List<Event> generateNext(final Event event, final LocalDate date) {
         if (event.getRipetition().equals(Repetition.ONCE) || new LocalDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth())
@@ -134,9 +137,9 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to add a new events only if this is possible.
+     * This method is used to add a new events only if this is possible.
      * @param event is the event that must be add.
-     * @return true if the event could be added, false otherview.
+     * @return true if the event could be added, false otherwise.
      */
     public final boolean getAnswer(final Event event) {
         if (event.getStartDate().isEqual(event.getEndDate())) {
@@ -147,7 +150,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This event is use to get the event that is closest to the event that must be added.
+     * This event is used to get the event that is closest to the event that must be added.
      * @param date is the date by which to find the closest event.
      * @return an event.
      */
@@ -164,7 +167,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to get only the daily events.
+     * This method is used to get only the daily events.
      * @return a set composed by only the daily events.
      */
     public final Set<Event> getDailyEvents() {
@@ -172,7 +175,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use for get all the scheduled events.
+     * This method is used for get all the scheduled events.
      * @return the list with all the scheduled events.
      */
     public final Set<Event> getEvents() {
@@ -182,11 +185,10 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use for get all the scheduled events with a minimum duration.
-     * @param eventsSet is the set from which to take the events that respect a minimum duration.
+     * This method is used for get all the scheduled events with a minimum duration.
      * @return the list with all the scheduled events with a minimum duration.
      */
-    public final Set<Event> getEventsWithDuration(final Set<Event> eventsSet) {
+    public final Set<Event> getEventsWithDuration() {
         return this.events.getAll().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
     }
 
@@ -219,6 +221,9 @@ public class ManagerEventImpl implements ManagerEvent {
         return eventsList;
     }
 
+    /**
+     * This method is used to remove all the event.
+     */
     public final void removeAll() {
         for (final Event e : this.events.getAll()) {
             this.removeEvent(e);
@@ -226,7 +231,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to remove a specific event from the events list.
+     * This method is used to remove a specific event from the events list.
      * @param event is the event that must be removed from the events list.
      */
     public final void removeEvent(final Event event) {
@@ -238,7 +243,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to get only the events that have a duration less then 24 hours.
+     * This method is used to get only the events that have a duration less then 24 hours.
      * @param eventsList is the list of events from which to take only events with a duration of less than 24 hours.
      * @return a list of event.
      */
@@ -247,7 +252,7 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to get only the daily event.
+     * This method is used to get only the daily event.
      * @param eventsList is the list of events from which to take only events with a duration greatest than 24 hours.
      * @return a list of event.
      */
@@ -268,4 +273,5 @@ public class ManagerEventImpl implements ManagerEvent {
         }
         return true;
     }
+
 }

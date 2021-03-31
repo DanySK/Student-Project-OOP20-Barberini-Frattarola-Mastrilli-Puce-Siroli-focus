@@ -16,7 +16,7 @@ import oop.focus.finance.model.Repetition;
 public interface Event {
 
     /**
-     * This method is use to add a new person to an event.
+     * This method is used to add a new person to an event.
      * @param person is the person to add.
      */
     void addPerson(Person person);
@@ -28,19 +28,19 @@ public interface Event {
     LocalDateTime getEnd();
 
     /**
-     * This method is use for get the event end day.
+     * This method is used for get the event end day.
      *  @return a LocalDate.
      */
     LocalDate getEndDate();
 
     /**
-     * This method is use for get the event end hour.
+     * This method is used for get the event end hour.
      *  @return a LocalDateTime.
      */
     LocalTime getEndHour();
 
     /**
-     * This method is use for get the event name.
+     * This method is used for get the event name.
      * @return a String.
      */
     String getName();
@@ -58,13 +58,13 @@ public interface Event {
     LocalDateTime getStart();
 
     /**
-     * This method is use for get the event start day.
+     * This method is used for get the event start day.
      *  @return a LocalDate.
      */
     LocalDate getStartDate();
 
     /**
-     * This method is use for get the event start hour.
+     * This method is used for get the event start hour.
      * @return a LocalDateTime.
      */
     LocalTime getStartHour();

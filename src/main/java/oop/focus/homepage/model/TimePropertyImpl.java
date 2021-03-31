@@ -58,7 +58,7 @@ public class TimePropertyImpl implements TimeProperty {
     }
 
     /**
-     * This method is use to know the daily duration expressed in hours of an event.
+     * This method is used to know the daily duration expressed in hours of an event.
      * @param event is the event whose duration expressed in hours is to be calculated.
      * @return true if the event duration is greater than 24 hours(that is the duration of a day).
      */
@@ -68,8 +68,8 @@ public class TimePropertyImpl implements TimeProperty {
     }
 
     /**
-     * This method is use to get the distance between two minutes.
-     * @return an integer that rappresent the distance.
+     * This method is used to get the distance between two minutes.
+     * @return an integer that represent the distance.
      */
     public final int getMinuteDistance() {
         return this.minuteDistance;

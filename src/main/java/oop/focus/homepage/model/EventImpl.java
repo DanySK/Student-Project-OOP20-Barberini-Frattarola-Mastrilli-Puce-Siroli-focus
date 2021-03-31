@@ -64,7 +64,7 @@ public class EventImpl implements Event {
     }
 
     /**
-     * This method is use to add a new person to an event.
+     * This method is used to add a new person to an event.
      * @param person is the person to add.
      */
     public final void addPerson(final Person person) {
@@ -80,31 +80,31 @@ public class EventImpl implements Event {
     }
 
     /**
-     * This method is use for get the event end day.
-     * @return a LocalDate that rappresent the event endDay.
+     * This method is used for get the event end day.
+     * @return a LocalDate that represent the event endDay.
      */
     public final LocalDate getEndDate() {
         return this.endDate.toLocalDate();
     }
 
     /**
-     * This method is use for get the event end hour.
-     * @return a LocalDateTime that rappresent the event endHour.
+     * This method is used for get the event end hour.
+     * @return a LocalDateTime that represent the event endHour.
      */
     public final LocalTime getEndHour() {
         return this.endDate.toLocalTime();
     }
 
     /**
-     * This method is use for get the event name.
-     * @return a string that rappresent the event name.
+     * This method is used for get the event name.
+     * @return a string that represent the event name.
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * This method is use to get the next repetition of the event.
+     * This method is used to get the next repetition of the event.
      * @return the next repetition of this event.
      */
     public final Event getNextRenewal() {
@@ -130,7 +130,7 @@ public class EventImpl implements Event {
     }
 
     /**
-     * This method is use for get the event start day.
+     * This method is used for get the event start day.
      * @return a LocalDate that represent the event startDay.
      */
     public final LocalDate getStartDate() {
@@ -138,7 +138,7 @@ public class EventImpl implements Event {
     }
 
     /**
-     * This method is use for get the event start hour.
+     * This method is used for get the event start hour.
      * @return a LocalDateTime that represent the event startHour.
      */
     public final LocalTime getStartHour() {
@@ -154,8 +154,15 @@ public class EventImpl implements Event {
     }
 
     /**
+     * @return true if the event have to repeat false otherwise.
+     */
+    public final boolean isRepeated() {
+        return isRepeated;
+    }
+
+    /**
      * This is the hasCode related to the equals method.
-     * @return an int.
+     * @return an integer.
      */
     public final int hashCode() {
         final int prime = 31;
@@ -166,7 +173,7 @@ public class EventImpl implements Event {
     }
 
     /**
-     * This method is use to verify if an event is equals as another.
+     * This method is used to verify if an event is equals as another.
      * Two events are the same if their name and start date are the same.
      * @param obj is the event whose equality needs to be checked.
      * @return a boolean which will be true if the two events are equal and false if the two events are different.

@@ -1,21 +1,20 @@
 package oop.focus.homepage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
+
+import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.ManagerEvent;
-import oop.focus.homepage.model.ManagerEventImpl;
+import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.Repetition;
@@ -23,7 +22,7 @@ import oop.focus.finance.model.Repetition;
 public class EventTest {
 
 	private final DataSource dsi = new DataSourceImpl();
-    private final ManagerEvent eventi = new ManagerEventImpl(dsi);
+    private final EventManager eventi = new EventManagerImpl(dsi);
     private final Set<Event> set = new HashSet<>();
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
@@ -83,10 +82,10 @@ public class EventTest {
     	this.eventi.addEvent(second);
     	this.eventi.addEvent(sixth);
 
-    	assertEquals(this.eventi.getEventsWithDuration(this.eventi.getEvents()), Set.of(first, second));
+    	assertEquals(this.eventi.getEventsWithDuration(), Set.of(first, second));
 
     	this.eventi.addEvent(third);
-    	assertEquals(this.eventi.getEventsWithDuration(this.eventi.getEvents()), Set.of(first, second, third));
+    	assertEquals(this.eventi.getEventsWithDuration(), Set.of(first, second, third));
     }
 
     @Test

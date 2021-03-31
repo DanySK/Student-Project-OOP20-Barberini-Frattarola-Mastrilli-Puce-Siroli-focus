@@ -13,16 +13,16 @@ import java.util.Set;
  * This class is use for track all the hot keys from all the categories.
  */
 
-public class ManagerHotKeyImpl implements ManagerHotKey {
+public class HotKeyManagerImpl implements HotKeyManager {
 
     private final Dao<HotKey> sd;
-    private final ManagerEvent manager;
+    private final EventManager manager;
     /**
      * This is the class constructor.
      * @param dsi is the DataSource.
      * @param manager is the manager of events.
      */
-    public ManagerHotKeyImpl(final DataSource dsi, final ManagerEvent manager) {
+    public HotKeyManagerImpl(final DataSource dsi, final EventManager manager) {
         this.sd = dsi.getHotKeys();
         this.manager = manager;
     }
@@ -39,7 +39,7 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to add an hot keys.
+     * This method is used to add an hot keys.
      * @param hotKey is the hot key that must be added.
      */
     public final void add(final HotKey hotKey) {
@@ -53,7 +53,7 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to add a set of hot keys.
+     * This method is used to add a set of hot keys.
      * @param hotKeys is the set of hot keys that must be added.
      */
     public final void addAll(final Set<HotKey> hotKeys) {
@@ -63,7 +63,7 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to get the set of all the hot keys(of all categories).
+     * This method is used to get the set of all the hot keys(of all categories).
      * @return a set of hot keys.
      */
     public final List<HotKey> getAll() {
@@ -71,7 +71,7 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to get the category of a specific hot key.
+     * This method is used to get the category of a specific hot key.
      * @param hotKey is the hot key whose category you want to know.
      * @return a member of the HotKeyType enumeration.
      */
@@ -80,19 +80,19 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to get all of the events generated after clicking an hot key.
+     * This method is used to get all of the events generated after clicking an hot key.
      * @return a set of events generated after clicking an hot key.
      */
     public final List<Event> getEventsHotKey() {
         return this.manager.getHotKeyEvents();
     }
  
-    public final long getTimes(final String name) {
+    public final long getClickCount(final String name) {
         return this.getEventsHotKey().stream().filter(e -> e.getName().equals(name)).count();
     }
 
     /**
-     * This method is use to remove an hot key from the right category.
+     * This method is used to remove an hot key from the right category.
      * @param hotKey is the hot key that must be placed in a specific category.
      */
     public final void remove(final HotKey hotKey) {
@@ -104,7 +104,7 @@ public class ManagerHotKeyImpl implements ManagerHotKey {
     }
 
     /**
-     * This method is use to remove a set of hot key from the collection containing all hot keys.
+     * This method is used to remove a set of hot key from the collection containing all hot keys.
      * @param hotKeys is the set of hot keys to remove from the collection.
      */
     public final void removeAll(final Set<HotKey> hotKeys) {

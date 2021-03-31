@@ -34,7 +34,7 @@ public enum HotKeyType {
     }
 
     /**
-     * That method is use for get the color of the hot key.
+     * That method is used for get the color of the hot key.
      * @return a String that represents the color of the hot key.
      */
     public String getColor() {
@@ -42,13 +42,18 @@ public enum HotKeyType {
     }
 
     /**
-     * This method is use to get the type of the hot key.
+     * This method is used to get the type of the hot key.
      * @return a String that represents the type of the hot key.
      */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * This method is used to get the type by the string representation.
+     * @param s is the string.
+     * @return the type represented by the string s.
+     */
     public static HotKeyType getTypeFrom(final String s) {
         switch (s) {
         case "Attività" :

@@ -2,10 +2,10 @@ package oop.focus.homepage.model;
 
 import java.util.List;
 
-public interface ManagerRelationships {
+public interface RelationshipsManager {
 
     /**
-    * This method is use to add a new degree of kinship.
+    * This method is used to add a new degree of kinship.
     * @param degree is the degree of kinship to add.
     */
     void add(String degree);
@@ -17,13 +17,13 @@ public interface ManagerRelationships {
     void addAll(List<Person> personsList);
 
     /**
-     * This method is use to get all degrees of relationship saved.
+     * This method is used to get all degrees of relationship saved.
      * @return a set of string that represent all the saved degrees of relationship.
      */
     List<String> getAll();
 
     /**
-     * This method is use to remove a degree of kinship from all the saved degrees of kinship.
+     * This method is used to remove a degree of kinship from all the saved degrees of kinship.
      * @param degree is the degree to remove.
      */
     void remove(String degree);

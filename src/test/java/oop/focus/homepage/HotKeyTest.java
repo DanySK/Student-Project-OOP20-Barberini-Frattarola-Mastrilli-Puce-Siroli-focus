@@ -5,13 +5,13 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.Repetition;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyManager;
+import oop.focus.homepage.model.HotKeyManagerImpl;
 import oop.focus.homepage.model.HotKeyType;
-import oop.focus.homepage.model.ManagerEvent;
-import oop.focus.homepage.model.ManagerEventImpl;
-import oop.focus.homepage.model.ManagerHotKey;
-import oop.focus.homepage.model.ManagerHotKeyImpl;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -26,8 +26,8 @@ import static org.junit.Assert.assertEquals;
 public class HotKeyTest {
 
 	private final DataSource dsi = new DataSourceImpl();
-	private final ManagerEvent manager = new ManagerEventImpl(dsi);
-	private final ManagerHotKey hotKeyTrackers = new ManagerHotKeyImpl(dsi, manager);
+	private final EventManager manager = new EventManagerImpl(dsi);
+	private final HotKeyManager hotKeyTrackers = new HotKeyManagerImpl(dsi, manager);
 
 	/**
 	 * This test is used to verify the correctness of adding and removing hot keys.
@@ -80,7 +80,7 @@ public class HotKeyTest {
 		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
 		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
 		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
-		assertEquals(this.hotKeyTrackers.getTimes(counter.getName()), 4);
+		assertEquals(this.hotKeyTrackers.getClickCount(counter.getName()), 4);
 
 	}
 

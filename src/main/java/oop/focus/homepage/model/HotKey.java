@@ -3,13 +3,13 @@ package oop.focus.homepage.model;
 import org.joda.time.LocalDateTime;
 
 /**
- * This interface model the HotKey class, a class used for represent the hotkeys that are part of the homepage.
+ * This interface model the HotKey class, a class used for represent the hot keys that are part of the homepage.
  */
 public interface HotKey {
 
     /**
-     * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
-     * This method is implemented differently based on the category of the hotkey. 
+     * This method is used to save the event generated when a hot key is clicked, the event name is the hot key name.
+     * This method is implemented differently based on the category of the hot key. 
      * @param start is the start.
      * @param end is the end.
      * @return an event.
@@ -17,13 +17,13 @@ public interface HotKey {
     Event createEvent(LocalDateTime start, LocalDateTime end);
 
     /**
-     * This method is use for getting the name of the HotKey.
-     * @return a string that rappresent the hot key name.
+     * This method is used for getting the name of the HotKey.
+     * @return a string that represent the hot key name.
      */
     String getName();
 
     /**
-     * This method is use for getting the type of the HotKey.
+     * This method is used for getting the type of the HotKey.
      * @return a member of the HotKeyType enumeration.
      */
     HotKeyType getType();
@@ -34,8 +34,16 @@ public interface HotKey {
      */
     String getTypeRepresentation();
 
-    void setName(String newValue);
+    /**
+     * This method is used to modify the name.
+     * @param newName is the new name of the hot key.
+     */
+    void setName(String newName);
 
-	void setType(String newValue);
+    /**
+     * This method is used to modify the type.
+     * @param newType is the new type of the hot key.
+     */
+    void setType(String newType);
  
 }

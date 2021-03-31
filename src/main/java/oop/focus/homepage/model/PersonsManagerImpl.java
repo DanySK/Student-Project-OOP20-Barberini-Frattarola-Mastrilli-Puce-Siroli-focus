@@ -5,7 +5,7 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
-public class ManagerPersonsImpl implements ManagerPersons {
+public class PersonsManagerImpl implements PersonsManager {
 
     private final Dao<Person> sd;
 
@@ -13,12 +13,12 @@ public class ManagerPersonsImpl implements ManagerPersons {
      * This is the class constructor.
      * @param dsi is the DataSource.
      */
-    public ManagerPersonsImpl(final DataSource dsi) {
+    public PersonsManagerImpl(final DataSource dsi) {
         this.sd = dsi.getPersons();
     }
 
     /**
-     * This method is use to add new Person to the database.
+     * This method is used to add new Person to the database.
      * @param person is the person to add.
      */
     public final void addPerson(final Person person) {
@@ -32,7 +32,7 @@ public class ManagerPersonsImpl implements ManagerPersons {
     }
 
     /**
-     * This method is use to get all the saved persons.
+     * This method is used to get all the saved persons.
      * @return a list of persons.
      */
     public final List<Person> getPersons() {
@@ -40,7 +40,7 @@ public class ManagerPersonsImpl implements ManagerPersons {
     }
 
     /**
-     * This method is use to remove a person from the database if it's already saved.
+     * This method is used to remove a person from the database if it's already saved.
      * @param person is the person to remove from the database.
      */
     public final void removePerson(final Person person) {

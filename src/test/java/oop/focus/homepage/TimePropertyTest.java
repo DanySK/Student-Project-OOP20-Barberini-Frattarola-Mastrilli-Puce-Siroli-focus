@@ -11,8 +11,8 @@ import org.joda.time.LocalDateTime;
 import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.ManagerEvent;
-import oop.focus.homepage.model.ManagerEventImpl;
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
 import oop.focus.db.DataSource;
@@ -23,7 +23,7 @@ public class TimePropertyTest {
 
 	private final TimeProperty time = new TimePropertyImpl();
 	private final DataSource dsi = new DataSourceImpl();
-	private final ManagerEvent manager = new ManagerEventImpl(dsi);
+	private final EventManager manager = new EventManagerImpl(dsi);
     
 	/**
 	 * This test is use to verify if an event could be added to a specific journey.

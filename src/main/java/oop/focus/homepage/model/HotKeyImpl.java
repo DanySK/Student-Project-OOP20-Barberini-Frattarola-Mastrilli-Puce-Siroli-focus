@@ -5,8 +5,8 @@ import org.joda.time.LocalDateTime;
 import oop.focus.finance.model.Repetition;
 
 /**
- * This class implements the HotKey interface that model a hotkey. 
- * An HotKey object is rappresented by a String ,that is the hotKey name, and a category that is rappresented by a member of the HotKeyType enum.
+ * This class implements the HotKey interface that model a hot key. 
+ * An HotKey object is represented by a String ,that is the hotKey name, and a category that is represented by a member of the HotKeyType enumeration.
  */
 public class HotKeyImpl implements HotKey {
 
@@ -26,8 +26,8 @@ public class HotKeyImpl implements HotKey {
     }
 
     /**
-     * This method is used to save the event generated when a hotkey is clicked, the event name is the hot key name.
-     * This method is implemented differently based on the category of the hotkey. 
+     * This method is used to save the event generated when a hot key is clicked, the event name is the hot key name.
+     * This method is implemented differently based on the category of the hot key. 
      * @param start is the start.
      * @param end is the end.
      * @return an event.
@@ -37,7 +37,7 @@ public class HotKeyImpl implements HotKey {
     }
 
     /**
-     * This method is use for getting the name of the HotKey.
+     * This method is used for getting the name of the HotKey.
      * @return a String.
      */
     public final String getName() {
@@ -45,7 +45,7 @@ public class HotKeyImpl implements HotKey {
     }
 
     /**
-     * This method is use for getting the type of the HotKey.
+     * This method is used for getting the type of the HotKey.
      * @return a member of the HotKeyType enumeration.
      */
     public final HotKeyType getType() {
@@ -60,8 +60,12 @@ public class HotKeyImpl implements HotKey {
         return this.typeRepresentation;
     } 
 
-    public final void setName(final String newValue) {
-        this.name = newValue;	
+    /**
+     * This method is used to modify the name.
+     * @param newName is the new name of the hot key.
+     */
+    public void setName(final String newName) {
+        this.name = newName;
     }
 
     /**
@@ -78,7 +82,7 @@ public class HotKeyImpl implements HotKey {
 
     /**
      * This method is used to check if one keyboard shortcut is the same as another.
-     * Two hotkeys are the same if their name and the hotkey category are the same.
+     * Two hot keys are the same if their name and the hotkey category are the same.
      * @param obj is the hot key whose equality needs to be checked.
      * @return a boolean which will be true if the two hot keys are equal and false if the two hot keys are different.
      */
@@ -107,9 +111,9 @@ public class HotKeyImpl implements HotKey {
     }
 
     public final void setType(final String newValue) {
-		this.hotKeyType = HotKeyType.getTypeFrom(newValue);
-		this.typeRepresentation = newValue;
-	}
+        this.hotKeyType = HotKeyType.getTypeFrom(newValue);
+        this.typeRepresentation = newValue;
+    }
 
 }
 

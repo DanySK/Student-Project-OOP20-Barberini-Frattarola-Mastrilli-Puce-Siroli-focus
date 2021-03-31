@@ -2,13 +2,13 @@ package oop.focus.homepage;
 import java.util.List;
 import java.util.Set;
 
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.ManagerEvent;
-import oop.focus.homepage.model.ManagerEventImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.Repetition;
@@ -32,7 +32,7 @@ public class EventMainTest {
         final Event fourteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
 
         final DataSource dsi = new DataSourceImpl();
-        final ManagerEvent manager = new ManagerEventImpl(dsi);
+        final EventManager manager = new EventManagerImpl(dsi);
 
         //cerco di aggiungere 14 eventi di cui sono validi solo first, second, fourth, eight, ninth , tenth, eleventh, twelve, thirteenth.
         manager.addEvent(first);

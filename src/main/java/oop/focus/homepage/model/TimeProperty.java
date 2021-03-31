@@ -25,20 +25,20 @@ public interface TimeProperty {
     boolean areCompatibleEquals(Event event, List<Event> eventsList);
 
     /**
-     * This method is use to know the daily duration expressed in hours of an event.
+     * This method is used to know the daily duration expressed in hours of an event.
      * @param event is the event whose duration expressed in hours is to be calculated.
      * @return true if the event duration is greater than 24 hours(that is the duration of a day).
      */
     boolean getHourDuration(Event event);
 
     /**
-     * This method is use to get the distance between two minutes.
-     * @return an integer that rappresent the distance.
+     * This method is used to get the distance between two minutes.
+     * @return an integer that represent the distance.
      */
     int getMinuteDistance();
 
     /**
-     * This method is use to verify if an event have a duration greatest than 30 minutes.
+     * This method is used to verify if an event have a duration greatest than 30 minutes.
      * @param event is the event to check the duration of.
      * @return true if it has false otherwise.
      */
