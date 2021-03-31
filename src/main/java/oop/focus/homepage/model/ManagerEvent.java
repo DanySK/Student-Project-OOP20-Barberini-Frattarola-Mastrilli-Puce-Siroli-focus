@@ -1,7 +1,6 @@
 package oop.focus.homepage.model;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -23,11 +22,11 @@ public interface ManagerEvent {
     void addEventsSet(Set<Event> events);
 
     /**
-     * This method is use to know if a timer can start.
-     * @param date represents the date and time to check if a timer can be started.
-     * @return true if it's possible, false otherwise.
+     * This method is utilize from timer to check if the journey is empt(there aren't events).
+     * @param date is the timer date and hour of start.
+     * @return true if the journey is empty , false otherwise.
      */
-    boolean canStart(LocalDateTime date);
+    boolean checkEmptyJourney(LocalDateTime date);
 
     /**
      * This method is use to find the events that have a specific start date.
@@ -51,11 +50,23 @@ public interface ManagerEvent {
     Set<Event> findByName(String name);
 
     /**
+     * This method is use to generate the next events that repeats.
+     * @param date is the date on which we take events.
+     */
+    void generateRepeatedEvents(LocalDate date);
+
+    /**
      * This event is use to get the event that is closest to the event that must be added.
      * @param date is the date by which to find the closest event.
      * @return an event.
      */
-    Optional<LocalTime> getClosestEvent(LocalDateTime date);
+    LocalTime getClosestEvent(LocalDateTime date);
+
+    /**
+     * It return all the saved events.
+     * @return a list of events.
+     */
+    List<Event> getAll();
 
     /**
      * This method is use to get only the daily events.
@@ -90,6 +101,10 @@ public interface ManagerEvent {
     List<Event> orderByHour(List<Event> eventsSet);
 
     /**
+     * This method is use to remove all the save events.
+     */
+    void removeAll();
+    /**
      * This method is use to remove a specific event from the events list.
      * @param event is the event that must be removed from the events list.
      */
@@ -108,4 +123,11 @@ public interface ManagerEvent {
      * @return a list of event.
      */
     List<Event> takeOnlyDailyEvent(List<Event> eventsList);
+
+    /**
+     * This method is use to know if a timer can start.
+     * @param date represents the date and time to check if a timer can be started.
+     * @return true if it's possible, false otherwise.
+     */
+    boolean timerCanStart(LocalDateTime date);
 }

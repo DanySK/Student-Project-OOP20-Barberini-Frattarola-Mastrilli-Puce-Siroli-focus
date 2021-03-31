@@ -74,19 +74,6 @@ public class EventTest {
         assertTrue(this.eventi.getDailyEvents().contains(seventh));
     }
 
-    //Test per ali, modificato per testare tutti e due i metodi
-    @Test
-    public void closestEventsTest() {
-    	this.eventi.addEvent(first);
-    	this.eventi.addEvent(third);
-        //verifico che un timer possa iniziare 
-    	assertTrue(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 9, 27)));
-    	assertFalse(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 9, 45)));
-        assertFalse(this.eventi.canStart(new LocalDateTime(2021, 9, 26, 18, 30)));
-        //verifico che venga trovato correttamente l'orario più vicino.
-        assertEquals(this.eventi.getClosestEvent(new LocalDateTime(2021, 9, 26, 9,27)), Optional.of(new LocalTime(9, 30)));
-    }
-
     //prendo solo gli eventi che hanno durata superiore o uguale a 30 minuti.
     @Test
     public void durationInMinutes() {

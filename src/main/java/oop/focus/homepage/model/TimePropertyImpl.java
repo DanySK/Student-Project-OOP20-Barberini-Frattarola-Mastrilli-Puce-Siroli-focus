@@ -5,6 +5,8 @@ package oop.focus.homepage.model;
 import java.util.List;
 
 import org.joda.time.Duration;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 public class TimePropertyImpl implements TimeProperty {
 
@@ -81,6 +83,17 @@ public class TimePropertyImpl implements TimeProperty {
     public final boolean getMinEventTime(final Event event) {
         final Duration durationEvent = new Duration(event.getStartDate().toDateTime(event.getStartHour()), event.getEndDate().toDateTime(event.getEndHour()));
         return durationEvent.isEqual(this.minimumEventDuration) || durationEvent.isLongerThan(this.minimumEventDuration);
+    }
+
+    /**
+     * This method is utilize from the manager to verify if a timer can start.
+     * @param date is the date and the hour of start of the timer.
+     * @param  e is the event on which to perform the check.
+     * @return true if the timer can't start , false otherwise.
+     */
+    public final boolean getStart(final LocalDateTime date, final Event e) {
+        final LocalTime time = date.toLocalTime();
+        return e.getStartHour().isBefore(time) && e.getEndHour().isAfter(time) || e.getStartHour().isEqual(time) || e.getEndHour().isEqual(time);
     }
 
     /**

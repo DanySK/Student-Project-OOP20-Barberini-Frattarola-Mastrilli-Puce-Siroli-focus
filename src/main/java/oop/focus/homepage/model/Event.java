@@ -76,4 +76,15 @@ public interface Event {
      */
     Repetition getRipetition();
 
+    /**
+     * This method is utilized when we want to stop repeting an event.
+     * @return an event.
+     */
+    Event getNextRenewal();
+
+    /**
+     * This method stop the repetition.
+     */
+    void stopRepeat();
+
 }

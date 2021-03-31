@@ -10,7 +10,9 @@ public class HomePageApp extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        final Parent root = FXMLLoader.load(getClass().getResource("calendarHomePage.fxml"));
+        //final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/calendarHomePage.fxml"));
+        final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/weekView.fxml"));
+        //final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/nuovaSettimana.fxml"));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }

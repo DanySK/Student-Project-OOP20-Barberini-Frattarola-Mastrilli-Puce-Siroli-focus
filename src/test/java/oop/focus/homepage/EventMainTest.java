@@ -114,8 +114,6 @@ public class EventMainTest {
         //verifico il funzionamento del metodo closest events.
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 25, 8, 00)));
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 11, 00)));
-        System.out.println(" " + manager.canStart(new LocalDateTime(2021, 9, 26, 18, 30)));
-
         System.out.println(" ");
 
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 14, 00)));

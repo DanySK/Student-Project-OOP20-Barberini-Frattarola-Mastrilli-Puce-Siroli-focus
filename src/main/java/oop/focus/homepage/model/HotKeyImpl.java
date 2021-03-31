@@ -10,9 +10,9 @@ import oop.focus.finance.model.Repetition;
  */
 public class HotKeyImpl implements HotKey {
 
-    private final String name;
-    private final HotKeyType hotKeyType;
-    private final String typeRepresentation;
+    private String name;
+    private HotKeyType hotKeyType;
+    private String typeRepresentation;
 
     /**
      * Class constructor.
@@ -60,6 +60,10 @@ public class HotKeyImpl implements HotKey {
         return this.typeRepresentation;
     } 
 
+    public final void setName(final String newValue) {
+        this.name = newValue;	
+    }
+
     /**
      * This is the hasCode related to the equals method.
      * @return a string.
@@ -101,6 +105,11 @@ public class HotKeyImpl implements HotKey {
         }
         return true;
     }
+
+    public final void setType(final String newValue) {
+		this.hotKeyType = HotKeyType.getTypeFrom(newValue);
+		this.typeRepresentation = newValue;
+	}
 
 }
 

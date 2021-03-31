@@ -1,5 +1,7 @@
 package oop.focus.homepage.model;
 
+import org.joda.time.LocalDateTime;
+
 import java.util.List;
 
 
@@ -41,6 +43,14 @@ public interface TimeProperty {
      * @return true if it has false otherwise.
      */
     boolean getMinEventTime(Event event);
+
+    /**
+     * This method is utilize from the manager to verify if a timer can start.
+     * @param date is the date and the hour of start of the timer.
+     * @param  e is the event on which to perform the check.
+     * @return true if the timer can't start , false otherwise.
+     */
+    boolean getStart(LocalDateTime date, Event e);
 
     /**
      * This method is used to check if an event is valid.

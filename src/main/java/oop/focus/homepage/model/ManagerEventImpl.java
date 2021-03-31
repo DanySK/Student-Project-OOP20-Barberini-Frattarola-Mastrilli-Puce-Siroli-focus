@@ -1,16 +1,16 @@
 package oop.focus.homepage.model;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
+import oop.focus.db.Dao;
+import oop.focus.db.DataSource;
+import oop.focus.db.exceptions.DaoAccessException;
+import oop.focus.finance.model.Repetition;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import oop.focus.db.Dao;
-import oop.focus.db.DataSource;
-import oop.focus.db.exceptions.DaoAccessException;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This class adds new methods to manage events.
@@ -59,28 +59,25 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
-     * This method is use to know if a timer can start.
-     * @param date represents the date and time to check if a timer can be started.
-     * @return true if it's possible, false otherwise.
+     * This method is utilize from timer to check if the journey is empt(there aren't events).
+     * @param date is the timer date and hour of start.
+     * @return true if the journey is empty , false otherwise.
      */
-    public final boolean canStart(final LocalDateTime date) {
-        for (final Event event : this.events.getAll()) {
-            if (date.toLocalTime().isEqual(event.getStartHour()) || date.toLocalTime().isEqual(event.getEndHour()) || date.toLocalTime().isBefore(event.getEndHour()) && date.toLocalTime().isAfter(event.getStartHour())) {
-                return false;
-            }
-        }
-        return true;
+    public final boolean checkEmptyJourney(final LocalDateTime date) {
+        return this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty();
     }
- 
+
     /**
      * This method is use to find the events events that take place on a certain date.
      * @param date is the date on which to search for events.
      * @return a list of events taking place on that particular date.
      */
     public final List<Event> findByDate(final LocalDate date) {
-        return this.events.getAll().stream().filter(e -> {
-        return e.getStartDate().equals(date) || e.getEndDate().equals(date) || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
+       return this.events.getAll().stream().filter(e -> {
+            return e.getStartDate().equals(date) || e.getEndDate().equals(date) 
+            || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
         }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
+
     }
 
     /**
@@ -102,6 +99,41 @@ public class ManagerEventImpl implements ManagerEvent {
     }
 
     /**
+    * This method is use to generate the next events that repeats.
+    * @param date is the date on which we take events.
+    */
+    public final void generateRepeatedEvents(final LocalDate date) {
+        this.generateListOfNextEvent(date).forEach(this::addEvent);
+    }
+
+   /**
+    * This method is use to generate the next events that repeats.
+    * @param date is the date on which we take events.
+    * @return the list of the events that have to be repeated.
+    */
+    public final List<Event> generateListOfNextEvent(final LocalDate date) {
+         return this.events.getAll().stream()
+               .flatMap(e -> this.generateNext(e, date).stream()).collect(Collectors.toList());
+    }
+
+   /**
+    * This method is use from the generateListOfNextEvent to generate the next event.
+    * @param event is the event to find the next repeat date.
+    * @param date is the date on which we take events.
+    * @return a list of event thta repeat them self.
+    */
+    private List<Event> generateNext(final Event event, final LocalDate date) {
+        if (event.getRipetition().equals(Repetition.ONCE) || new LocalDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth())
+               .isBefore(new LocalDate(event.getNextRenewal().getStartDate()))) {
+           return new ArrayList<>();
+        }
+        event.stopRepeat();
+        final var newEvent = event.getNextRenewal();
+        return Stream.concat(List.of(newEvent).stream(),
+               this.generateNext(newEvent, date).stream()).collect(Collectors.toList());
+    }
+
+    /**
      * This method is use to add a new events only if this is possible.
      * @param event is the event that must be add.
      * @return true if the event could be added, false otherview.
@@ -119,11 +151,16 @@ public class ManagerEventImpl implements ManagerEvent {
      * @param date is the date by which to find the closest event.
      * @return an event.
      */
-    public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
-        if (this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
+    public final LocalTime getClosestEvent(final LocalDateTime date) {
+        return this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour();
+    }
+
+    /**
+     * It return all the saved events.
+     * @return a list of events.
+     */
+    public final List<Event> getAll() {
+        return this.events.getAll();
     }
 
     /**
@@ -153,6 +190,10 @@ public class ManagerEventImpl implements ManagerEvent {
         return this.events.getAll().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
     }
 
+    /**
+     * It return all the events generate after clicking hot keys.
+     * @return a list of event.
+     */
     public final List<Event> getHotKeyEvents() {
         return this.events.getAll().stream().filter(e -> this.isAdequate(e)).collect(Collectors.toList());
     }
@@ -174,8 +215,14 @@ public class ManagerEventImpl implements ManagerEvent {
      * @return a set consisting of events sorted by time.
      */
     public final List<Event> orderByHour(final List<Event> eventsList) {
-        eventsList.sort((e1, e2) -> e1.getEnd().compareTo(e2.getEnd()));
+        eventsList.sort(Comparator.comparing(Event::getEnd));
         return eventsList;
+    }
+
+    public final void removeAll() {
+        for (final Event e : this.events.getAll()) {
+            this.removeEvent(e);
+        }
     }
 
     /**
@@ -206,5 +253,19 @@ public class ManagerEventImpl implements ManagerEvent {
      */
     public final List<Event> takeOnlyDailyEvent(final List<Event> eventsList) {
         return eventsList.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
+    }
+
+    /**
+     * This method returns false if there are other events at the same time as we want to start the timer.
+     * @param date is the timer date and hour of start.
+     * @return false if there are other events at the same time as we want to start  the timer true otherwise.
+     */
+    public final boolean timerCanStart(final LocalDateTime date) {
+        for (final Event e : this.takeOnly(this.findByDate(date.toLocalDate()))) {
+            if (this.time.getStart(date, e)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

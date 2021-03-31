@@ -20,6 +20,25 @@ public class EventImpl implements Event {
     private final LocalDateTime endDate;
     private Repetition repetition;
     private final List<Person> persons;
+    private boolean isRepeated;
+
+    /**
+     * This is the class constructor.
+     * @param name is the name of the event to create.
+     * @param startDate is the start day of the event to create.
+     * @param endDate is the end day of the event to create.
+     * @param repetition is the field that tells if and when an event will repeat itself.
+     * @param persons is the list of persons to add at the event.
+     * @param isRepeat is true if the event is repeated false otherwise.
+     */
+    public EventImpl(final String name, final LocalDateTime startDate, final LocalDateTime endDate, final Repetition repetition, final List<Person> persons, final boolean isRepeat) {
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.repetition = repetition;
+        this.persons = persons;
+        this.isRepeated = isRepeat;
+    }
 
     /**
      * This is the class constructor.
@@ -30,19 +49,7 @@ public class EventImpl implements Event {
      * @param persons is the list of persons to add at the event.
      */
     public EventImpl(final String name, final LocalDateTime startDate, final LocalDateTime endDate, final Repetition repetition, final List<Person> persons) {
-        this.name = name;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.repetition = repetition;
-        this.persons = persons;
-    }
-
-    /**
-     * This method is use to add a new person to an event.
-     * @param person is the person to add.
-     */
-    public final void addPerson(final Person person) {
-        this.persons.add(person);
+        this(name, startDate, endDate, repetition, persons, !repetition.equals(Repetition.ONCE));
     }
 
     /**
@@ -53,7 +60,15 @@ public class EventImpl implements Event {
      * @param repetition is the field that tells if and when an event will repeat itself.
      */
     public EventImpl(final String name, final LocalDateTime startDate, final LocalDateTime endDate, final Repetition repetition) {
-        this(name, startDate, endDate, repetition, new ArrayList<>());
+        this(name, startDate, endDate, repetition, new ArrayList<>(), !repetition.equals(Repetition.ONCE));
+    }
+
+    /**
+     * This method is use to add a new person to an event.
+     * @param person is the person to add.
+     */
+    public final void addPerson(final Person person) {
+        this.persons.add(person);
     }
 
     /**
@@ -86,6 +101,16 @@ public class EventImpl implements Event {
      */
     public final String getName() {
         return this.name;
+    }
+
+    /**
+     * This method is use to get the next repetition of the event.
+     * @return the next repetition of this event.
+     */
+    public final Event getNextRenewal() {
+        final LocalDate nextStart = this.repetition.getNextRenewalFunction().apply(new LocalDate(this.getStartDate().getYear(), this.getStartDate().getMonthOfYear(), this.getStartDate().getDayOfMonth()));
+        final LocalDate nextEnd = this.repetition.getNextRenewalFunction().apply(new LocalDate(this.getEndDate().getYear(), this.getEndDate().getMonthOfYear(), this.getEndDate().getDayOfMonth()));
+        return new EventImpl(this.name, nextStart.toLocalDateTime(this.getStartHour()), nextEnd.toLocalDateTime(this.getEndHour()), this.repetition);
     }
 
     /**
@@ -178,6 +203,10 @@ public class EventImpl implements Event {
             return false;
         }
         return true;
+    }
+
+    public final void stopRepeat() {
+        this.isRepeated = false;
     }
 
 }

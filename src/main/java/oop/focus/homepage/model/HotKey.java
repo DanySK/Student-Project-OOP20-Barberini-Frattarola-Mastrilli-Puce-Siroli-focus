@@ -33,5 +33,9 @@ public interface HotKey {
      * @return a string representing the type of the hot key.
      */
     String getTypeRepresentation();
+
+    void setName(String newValue);
+
+	void setType(String newValue);
  
 }
