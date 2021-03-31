@@ -3,7 +3,7 @@ package oop.focus.diary.view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,46 +16,52 @@ import javafx.stage.Stage;
 
 public class BaseDiary implements Initializable {
     private static final String WINDOW_NEW_PAGE_PATH = "/layouts/diary/windowAddPage.fxml";
+    private static final String WINDOW_NEW_ANNOTATION_PATH = "/layouts/diary/windowAddAnnotation.fxml";
 
     @FXML
     private ScrollPane containerDiaryLayout;
 
     @FXML
     private Button addPage;
-
     @FXML
-    private Button toDoListButton;
-
+    private ScrollPane containerToDoList;
+    @FXML
+    private Button addAnnotation;
+    @FXML
+    private Button removeAnnotation;
     @FXML
     private GridPane grid;
     @FXML
     private Button removePage;
 
 
-    @FXML
-    public final void modifyDiary(final ActionEvent event) {
+    public final void modifyDiary(final String path) {
         try {
-        final Parent root = FXMLLoader.load(this.getClass().getResource(WINDOW_NEW_PAGE_PATH));
+        final Parent root = FXMLLoader.load(this.getClass().getResource(path));
         final Scene scene = new Scene(root);
             final Stage window = new Stage();
             window.setScene(scene);
             window.show();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    public void modifyList(final ActionEvent event) {
-
-    }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.addPage.setText("Aggiungi");
+        this.addPage.setOnMouseClicked(event -> modifyDiary(WINDOW_NEW_PAGE_PATH));
         this.removePage.setText("Rimuovi");
         this.removePage.setDisable(true);
+        this.addAnnotation.setText("Aggiungi");
+        this.addAnnotation.setOnMouseClicked(event -> modifyDiary(WINDOW_NEW_ANNOTATION_PATH));
+        this.removeAnnotation.setText("Rimuovi");
         this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage).getAccordion());
+        final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation);
+        annotationView.getListView().setPrefHeight(containerDiaryLayout.getPrefHeight());
+        annotationView.getListView().setPrefWidth(containerDiaryLayout.getPrefWidth());
+        this.containerToDoList.setContent(annotationView.getListView());
     }
+
 }
