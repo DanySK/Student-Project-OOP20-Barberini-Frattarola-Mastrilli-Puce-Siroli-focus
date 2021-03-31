@@ -16,18 +16,18 @@
          </font>
       </Label>
       <ScrollPane fx:id="containerDiaryLayout" layoutX="20.0" layoutY="52.0" prefHeight="574.0" prefWidth="604.0" />
-      <Button fx:id="addPage" layoutX="133.0" layoutY="626.0" mnemonicParsing="false" onAction="#modifyDiary" prefHeight="45.0" prefWidth="144.0" textFill="#a6521f">
+      <Button fx:id="addPage" layoutX="133.0" layoutY="626.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6521f">
          <font>
             <Font name="Bell MT Bold" size="12.0" />
          </font>
       </Button>
-      <ScrollPane layoutX="643.0" layoutY="52.0" prefHeight="293.0" prefWidth="447.0" />
+      <ScrollPane fx:id="containerToDoList" layoutX="643.0" layoutY="52.0" prefHeight="293.0" prefWidth="447.0" />
       <Label alignment="CENTER" layoutX="644.0" layoutY="14.0" prefHeight="38.0" prefWidth="447.0" styleClass="root" stylesheets="@diaryStyle.css" text="TO DO LIST">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="toDoListButton" layoutX="796.0" layoutY="345.0" mnemonicParsing="false" onAction="#modifyList" prefHeight="45.0" prefWidth="144.0" text="Modifica" textFill="#a6371e">
+      <Button fx:id="addAnnotation" layoutX="681.0" layoutY="345.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6371e">
          <font>
             <Font name="Bell MT Bold" size="12.0" />
          </font>
@@ -43,6 +43,11 @@
         </columnConstraints>
       </GridPane>
       <Button fx:id="removePage" layoutX="358.0" layoutY="626.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6521f">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeAnnotation" layoutX="910.0" layoutY="345.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6371e">
          <font>
             <Font name="Bell MT Bold" size="12.0" />
          </font>
