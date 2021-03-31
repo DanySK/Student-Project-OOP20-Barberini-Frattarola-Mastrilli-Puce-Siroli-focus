@@ -50,6 +50,7 @@ public class BaseView implements Initializable, View {
     }
 
     private void populate() {
-        //TODO
+        Node buttons = new ButtonsBoxImpl(this.controller);
+        this.menuScroll.setContent(buttons);
     }
 }
