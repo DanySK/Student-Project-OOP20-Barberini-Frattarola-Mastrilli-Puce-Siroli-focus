@@ -15,10 +15,10 @@ public class CounterFactory {
         return new TimeScrollingImpl(t -> t - 1, t -> !t.equals(0) && this.managerTimerEnds());
     }
     private boolean managerTimerEnds() {
-        if (!this.me.getClosestEvent(LocalDateTime.now()).isEmpty()) {
-            return LocalTime.now().compareTo(this.me.getClosestEvent(LocalDateTime.now()).get().minusSeconds(1)) <= 0;
-        }
-        return true;
+       // if (!this.me.getClosestEvent(LocalDateTime.now()).isEmpty()) {
+            return LocalTime.now().compareTo(this.me.getClosestEvent(LocalDateTime.now()).minusSeconds(1)) <= 0;
+        //}
+        //return true;
     }
     public final TimeScrolling createStopwatch() {
         return new TimeScrollingImpl(t -> t + 1, t -> this.managerTimerEnds());
