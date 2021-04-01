@@ -5,6 +5,7 @@ import oop.focus.calendar.view.HoursViewImpl.Format;
 public class CalendarOptionsControllerImpl implements CalendarOptionsController {
 
     private static final double SPACING = 50; 
+    private static final double MINSPACING = 30;
     private Format format;
     private double spacing;
 
@@ -29,21 +30,35 @@ public class CalendarOptionsControllerImpl implements CalendarOptionsController 
     }
 
     /**
-     * 
      * @param spacing
+     * @return true
      */
-    public void setSpacing(final String spacing) {
+    public boolean checkSpacing(final String spacing) {
         if (spacing.isBlank()) {
-            this.spacing = SPACING;
+            this.setSpacing(SPACING);
+            return true;
         } else {
             try {
                 final double d = Double.parseDouble(spacing);
-                this.spacing = d;
+                this.setSpacing(d);
+                return true;
             } catch (NumberFormatException nfe) {
-                nfe.printStackTrace();
+                return false;
             }
         }
 
+    }
+
+    /**
+     * 
+     * @param spacing
+     */
+    public void setSpacing(final double spacing) {
+        if (spacing < MINSPACING) {
+            System.out.println("MINIMO VALORE CONCESSO E' 30");
+        }  else {
+            this.spacing = spacing;
+        } 
     }
 
     /**

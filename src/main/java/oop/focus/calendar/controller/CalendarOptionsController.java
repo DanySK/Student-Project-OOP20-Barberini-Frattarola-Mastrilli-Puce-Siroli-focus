@@ -16,10 +16,16 @@ public interface CalendarOptionsController {
     Format getFormat();
 
     /**
+     * @param spacing
+     * @return true
+     */
+    boolean checkSpacing(String spacing);
+
+    /**
      * 
      * @param spacing
      */
-    void setSpacing(String spacing);
+    void setSpacing(double spacing);
 
     /**
      * @return format
