@@ -16,22 +16,22 @@ public class DailyMoodControllerImpl implements DailyMoodController {
 
     public DailyMoodControllerImpl() {
         this.manager = new DailyMoodManagerImpl(new DataSourceImpl());
-        if(this.manager.getMoodByDate(LocalDate.now()).isPresent()) {
+        if (this.manager.getMoodByDate(LocalDate.now()).isPresent()) {
             this.dailyMood = new DailyMoodImpl(this.manager.getMoodByDate(LocalDate.now()).get(), LocalDate.now());
         }
     }
     @Override
-    public void addDailyMood(int value) throws DaoAccessException {
-        this.dailyMood =new DailyMoodImpl(value, LocalDate.now());
+    public final void addDailyMood(final int value) throws DaoAccessException {
+        this.dailyMood = new DailyMoodImpl(value, LocalDate.now());
         this.manager.addDailyMood(this.dailyMood);
     }
     @Override
-    public Optional<Integer> getValueChosen() {
+    public final Optional<Integer> getValueChosen() {
         return this.manager.getMoodByDate(LocalDate.now());
     }
     @Override
-    public void removeChoice() throws DaoAccessException {
-        if(this.getValueChosen().isPresent()) {
+    public final void removeChoice() throws DaoAccessException {
+        if (this.getValueChosen().isPresent()) {
             this.manager.deleteDailyMood(dailyMood);
         }
     }

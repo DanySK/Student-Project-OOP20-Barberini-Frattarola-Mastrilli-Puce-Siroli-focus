@@ -7,11 +7,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class BaseDiary implements Initializable {
@@ -29,8 +30,9 @@ public class BaseDiary implements Initializable {
     private Button addAnnotation;
     @FXML
     private Button removeAnnotation;
+
     @FXML
-    private GridPane grid;
+    private BorderPane containerIcons;
     @FXML
     private Button removePage;
 
@@ -47,7 +49,6 @@ public class BaseDiary implements Initializable {
         }
     }
 
-
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.addPage.setText("Aggiungi");
@@ -62,6 +63,16 @@ public class BaseDiary implements Initializable {
         annotationView.getListView().setPrefHeight(containerDiaryLayout.getPrefHeight());
         annotationView.getListView().setPrefWidth(containerDiaryLayout.getPrefWidth());
         this.containerToDoList.setContent(annotationView.getListView());
+        try {
+            final DailyMoodViewImpl iconView = new DailyMoodViewImpl();
+            iconView.getGrid().setMaxWidth(containerIcons.getMaxWidth());
+            iconView.getGrid().setMaxHeight(containerIcons.getMaxHeight());
+            this.containerIcons.setTop(iconView.getGrid());
+            this.containerIcons.setBottom(iconView.getButton());
+            BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

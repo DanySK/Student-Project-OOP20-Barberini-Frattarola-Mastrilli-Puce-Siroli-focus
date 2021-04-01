@@ -1,6 +1,5 @@
 package oop.focus.diary.model;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.exceptions.ConnectionException;
