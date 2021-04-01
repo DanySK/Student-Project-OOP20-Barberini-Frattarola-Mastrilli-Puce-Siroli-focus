@@ -8,12 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import oop.focus.finance.controller.BaseController;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.controller.TransactionsController;
+import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 public class TransactionsView implements Initializable, View {
 
@@ -26,10 +28,10 @@ public class TransactionsView implements Initializable, View {
     @FXML
     private Button newAccountButton;
 
-    private final BaseController controller;
+    private final TransactionsController controller;
     private Parent root;
 
-    public TransactionsView(final BaseController controller) {
+    public TransactionsView(final TransactionsController controller) {
         this.controller = controller;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ALL.getPath()));
         loader.setController(this);
@@ -41,7 +43,7 @@ public class TransactionsView implements Initializable, View {
     }
 
     @Override
-    public final Node getRoot() {
+    public final Parent getRoot() {
         return this.root;
     }
 
@@ -51,6 +53,15 @@ public class TransactionsView implements Initializable, View {
     }
 
     private void populate() {
-        //TODO
+        Node accountsButtons = new AccountButtonsImpl(this.controller);
+        this.accountsScroll.setContent(accountsButtons);
+        this.amountLabel.setText("€ " + this.controller.getAmount());
+    }
+
+    public void updateTransactions(final Set<Transaction> transactions) {
+        /*
+        Node transactionsBox = new TransactionsBoxImpl(transactions);
+        this.transactionsScroll.setContent(transactionsBox);
+        */
     }
 }

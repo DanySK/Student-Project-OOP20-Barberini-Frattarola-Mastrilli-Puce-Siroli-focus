@@ -1,12 +1,16 @@
 package oop.focus.finance.view;
 
+import oop.focus.db.DataSource;
 import oop.focus.finance.controller.BaseController;
+import oop.focus.finance.controller.TransactionsController;
+import oop.focus.finance.controller.TransactionsControllerImpl;
+import oop.focus.finance.model.Account;
 
 public class ButtonFactoryImpl implements ButtonFactory {
 
     @Override
-    public final FinanceMenuButton getTransactions(final BaseController controller) {
-        View transactionsView = new TransactionsView(controller);
+    public final FinanceMenuButton getTransactions(final BaseController controller, final DataSource db) {
+        View transactionsView = new TransactionsView(new TransactionsControllerImpl(db));
         return new FinanceMenuButtonImpl("Tutte", (c -> c.changeView(transactionsView)));
     }
 
@@ -32,5 +36,15 @@ public class ButtonFactoryImpl implements ButtonFactory {
     public final FinanceMenuButton getGroupTransactions(final BaseController controller) {
         View groupView = new GroupView(controller);
         return new FinanceMenuButtonImpl("Gruppo", (c -> c.changeView(groupView)));
+    }
+
+    @Override
+    public final AccountsMenuButton getAccountTransactions(final TransactionsController controller, final Account account) {
+        return new AccountsMenuButtonImpl(account.getName(), (c -> c.showTransactions(account)));
+    }
+
+    @Override
+    public final AccountsMenuButton getAccountTransactions(final TransactionsController controller) {
+        return new AccountsMenuButtonImpl("Tutti i conti", (TransactionsController::showTransactions));
     }
 }

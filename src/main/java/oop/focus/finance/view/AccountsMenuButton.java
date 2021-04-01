@@ -1,12 +1,12 @@
 package oop.focus.finance.view;
 
 import javafx.scene.control.Button;
-import oop.focus.finance.controller.BaseController;
+import oop.focus.finance.controller.TransactionsController;
 
-public interface FinanceMenuButton {
+public interface AccountsMenuButton {
 
     /**
-     * @return the Button of FinanceMenuButton
+     * @return the Button of AccountsMenuButton
      */
     Button getButton();
 
@@ -15,5 +15,5 @@ public interface FinanceMenuButton {
      *
      * @param controller that contains the method for the action
      */
-    void getAction(BaseController controller);
+    void getAction(TransactionsController controller);
 }

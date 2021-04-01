@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import oop.focus.db.DataSource;
 import oop.focus.finance.controller.BaseController;
 import oop.focus.finance.controller.FXMLPaths;
 
@@ -22,10 +23,12 @@ public class BaseView implements Initializable, View {
     private Pane mainPane;
 
     private final BaseController controller;
+    private final DataSource db;
     private Parent root;
 
-    public BaseView(final BaseController controller) {
+    public BaseView(final BaseController controller, final DataSource db) {
         this.controller = controller;
+        this.db = db;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.MAIN.getPath()));
         loader.setController(this);
         try {
@@ -50,7 +53,7 @@ public class BaseView implements Initializable, View {
     }
 
     private void populate() {
-        Node buttons = new ButtonsBoxImpl(this.controller);
+        Node buttons = new ButtonsBoxImpl(this.controller, this.db);
         this.menuScroll.setContent(buttons);
     }
 }

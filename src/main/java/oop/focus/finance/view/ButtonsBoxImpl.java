@@ -1,6 +1,7 @@
 package oop.focus.finance.view;
 
 import javafx.scene.layout.VBox;
+import oop.focus.db.DataSource;
 import oop.focus.finance.controller.BaseController;
 
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import java.util.List;
 
 public class ButtonsBoxImpl extends VBox {
 
-    public ButtonsBoxImpl(final BaseController controller) {
+    public ButtonsBoxImpl(final BaseController controller, final DataSource db) {
         List<FinanceMenuButton> menuButtons = new ArrayList<>();
         ButtonFactory factory = new ButtonFactoryImpl();
-        menuButtons.add(factory.getTransactions(controller));
+        menuButtons.add(factory.getTransactions(controller, db));
         menuButtons.add(factory.getOutings(controller));
         menuButtons.add(factory.getIncomes(controller));
         menuButtons.add(factory.getSubscriptions(controller));
