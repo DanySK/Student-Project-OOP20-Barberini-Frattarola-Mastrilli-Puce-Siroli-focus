@@ -66,7 +66,7 @@ public class HotKeyManagerImpl implements HotKeyManager {
      * This method is used to get the set of all the hot keys(of all categories).
      * @return a set of hot keys.
      */
-    public final List<HotKey> getAll() {
+    public final Set<HotKey> getAll() {
         return this.sd.getAll();
     }
 

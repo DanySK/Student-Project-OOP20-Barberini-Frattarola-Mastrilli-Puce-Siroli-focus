@@ -35,7 +35,7 @@ public interface HotKeyManager {
      * This method is used to get the set of all the hot keys(of all categories).
      * @return a set of hot keys.
      */
-    List<HotKey> getAll();
+    Set<HotKey> getAll();
 
     /**
      * This method is used to get the category of a specific hot key.

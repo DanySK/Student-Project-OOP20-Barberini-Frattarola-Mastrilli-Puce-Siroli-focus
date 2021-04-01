@@ -14,8 +14,8 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.Repetition;
 
 public class EventMainTest {
-	
-	public static void main(final String... args) {
+
+        public static void main(final String... args) {
 	    final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
         final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
         final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 7, 30), new LocalDateTime(2021, 9, 25, 18, 30), Repetition.ONCE);

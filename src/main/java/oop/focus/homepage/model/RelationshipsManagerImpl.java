@@ -1,6 +1,7 @@
 package oop.focus.homepage.model;
 
 import java.util.List;
+import java.util.Set;
 
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
@@ -46,7 +47,7 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
      * This method is used to get all degrees of relationship saved.
      * @return a set of string that represent all the saved degrees of relationship.
      */
-    public final List<String> getAll() {
+    public final Set<String> getAll() {
         return this.sd.getAll();
     }
 

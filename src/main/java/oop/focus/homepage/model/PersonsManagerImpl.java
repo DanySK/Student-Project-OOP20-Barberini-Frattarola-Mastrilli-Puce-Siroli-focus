@@ -1,6 +1,7 @@
 package oop.focus.homepage.model;
 
-import java.util.List;
+import java.util.Set;
+
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -35,7 +36,7 @@ public class PersonsManagerImpl implements PersonsManager {
      * This method is used to get all the saved persons.
      * @return a list of persons.
      */
-    public final List<Person> getPersons() {
+    public final Set<Person> getPersons() {
         return this.sd.getAll();
     }
 

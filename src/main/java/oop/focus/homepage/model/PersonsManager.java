@@ -1,6 +1,6 @@
 package oop.focus.homepage.model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface PersonsManager {
 
@@ -14,7 +14,7 @@ public interface PersonsManager {
      * This method is used to get all the saved persons.
      * @return a list of persons.
      */
-    List<Person> getPersons();
+    Set<Person> getPersons();
 
     /**
      * This method is used to remove a person from the database if it's already saved.

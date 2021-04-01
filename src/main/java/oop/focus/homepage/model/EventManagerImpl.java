@@ -62,7 +62,7 @@ public class EventManagerImpl implements EventManager {
     }
 
     /**
-     * This method is utilize from timer to check if the journey is empt(there aren't events).
+     * This method is utilize from timer to check if the journey is empty(there aren't events).
      * @param date is the timer date and hour of start.
      * @return true if the journey is empty , false otherwise.
      */
@@ -162,7 +162,7 @@ public class EventManagerImpl implements EventManager {
      * It return all the saved events.
      * @return a list of events.
      */
-    public final List<Event> getAll() {
+    public final Set<Event> getAll() {
         return this.events.getAll();
     }
 
@@ -189,7 +189,7 @@ public class EventManagerImpl implements EventManager {
      * @return the list with all the scheduled events with a minimum duration.
      */
     public final Set<Event> getEventsWithDuration() {
-        return this.events.getAll().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
+        return this.getEvents().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
     }
 
     /**

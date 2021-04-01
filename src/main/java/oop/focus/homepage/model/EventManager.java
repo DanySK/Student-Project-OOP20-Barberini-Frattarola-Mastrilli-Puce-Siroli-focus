@@ -66,7 +66,7 @@ public interface EventManager {
      * It return all the saved events.
      * @return a list of events.
      */
-    List<Event> getAll();
+    Set<Event> getAll();
 
     /**
      * This method is used to get only the daily events.
