@@ -22,9 +22,8 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
 
 
 
-    private final CalendarOptionsControllerImpl optionscontroller = new CalendarOptionsControllerImpl();
-    private final HoursViewImpl hoursbox = new HoursViewImpl();
-    private final EventViewImpl eventbox = new EventViewImpl(hoursbox);
+    private final HoursViewImpl hoursbox;
+    private final EventViewImpl eventbox;
     private final DayImpl day;
     private ScrollPane scroller = new ScrollPane();
     private VBox dayview = new VBox();
@@ -40,7 +39,13 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * @param height  max height of the day view.
      */
     public CalendarDaysViewImpl(final DayImpl day, final int width, final int height) {
-        this.day = day; 
+
+        final CalendarOptionsControllerImpl optionscontroller = new CalendarOptionsControllerImpl();
+
+        this.day = day;
+        hoursbox = new HoursViewImpl();
+        eventbox = new EventViewImpl(hoursbox, day);
+
         this.width = width;
         this.height = height;
         this.spacing = optionscontroller.getSpacing();
