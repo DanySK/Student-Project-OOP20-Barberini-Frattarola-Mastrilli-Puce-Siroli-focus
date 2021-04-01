@@ -8,8 +8,24 @@ import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.fidelitycard.FidelityCard;
 import oop.focus.fidelitycard.FidelityCardImpl;
 import oop.focus.fidelitycard.FidelityCardType;
-import oop.focus.finance.model.*;
-import oop.focus.homepage.model.*;
+import oop.focus.finance.model.Account;
+import oop.focus.finance.model.AccountImpl;
+import oop.focus.finance.model.Category;
+import oop.focus.finance.model.CategoryImpl;
+import oop.focus.finance.model.GroupTransaction;
+import oop.focus.finance.model.GroupTransactionImpl;
+import oop.focus.finance.model.QuickTransaction;
+import oop.focus.finance.model.QuickTransactionImpl;
+import oop.focus.finance.model.Repetition;
+import oop.focus.finance.model.Transaction;
+import oop.focus.finance.model.TransactionImpl;
+import oop.focus.homepage.model.Event;
+import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.HotKey;
+import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyType;
+import oop.focus.homepage.model.Person;
+import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -117,7 +133,8 @@ public class DataSourceImpl implements DataSource {
                 List.of(new Pair<>("name", Event::getName),
                         new Pair<>("startdate", e -> DF.print(e.getStart())),
                         new Pair<>("enddate", e -> DF.print(e.getEnd())),
-                        new Pair<>("frequency", e -> String.valueOf(e.getRipetition().ordinal())))),
+                        new Pair<>("frequency", e -> String.valueOf(e.getRipetition().ordinal())),
+                        new Pair<>("is_last", e -> "0"))),
                 List.of(new Pair<>(this.getEventPerson(),
                         (id, a) -> a.getPersons().stream()
                                 .map(p -> new Pair<>(id, this.persons.getId(p).orElse(NA))).collect(Collectors.toList())))));

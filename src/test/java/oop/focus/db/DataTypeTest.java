@@ -28,8 +28,8 @@ public class DataTypeTest {
 
     @Test
     public void testPerson() {
-        var relationships = df.getRelationships();
-        var persons = df.getPersons();
+        var relationships = this.df.getRelationships();
+        var persons = this.df.getPersons();
         var all = persons.getAll();
         int initialSize = all.size();
 
@@ -39,7 +39,7 @@ public class DataTypeTest {
             var p2 = new PersonImpl("person2", "relation1");
             relationships.save(rel);
             persons.save(p1);
-            assertEquals(initialSize+1,all.size());
+            assertEquals(initialSize + 1, all.size());
             persons.save(p2);
             assertEquals(initialSize+2,all.size());
             persons.delete(p1);
@@ -61,7 +61,7 @@ public class DataTypeTest {
 
     @Test
     public void testColors() {
-        var colors = df.getColors();
+        var colors = this.df.getColors();
         var all = colors.getAll();
         int initialSize = all.size();
         try {
@@ -89,8 +89,8 @@ public class DataTypeTest {
 
     @Test
     public void testCategories() {
-        var categories = df.getCategories();
-        var colors = df.getColors();
+        var categories = this.df.getCategories();
+        var colors = this.df.getColors();
         var all = categories.getAll();
         int initialSize = all.size();
         String c1 = "color1", c2 = "color2";
@@ -123,8 +123,8 @@ public class DataTypeTest {
 
     @Test
     public void testAccounts() {
-        Dao<Account> accounts = df.getAccounts();
-        Dao<String> colors = df.getColors();
+        Dao<Account> accounts = this.df.getAccounts();
+        Dao<String> colors = this.df.getColors();
         var all = accounts.getAll();
         int initialSize = all.size();
 
@@ -164,10 +164,10 @@ public class DataTypeTest {
 
     @Test
     public void testTransactions() {
-        var transactions = df.getTransactions();
-        var cats = df.getCategories();
-        var colors = df.getColors();
-        var accounts = df.getAccounts();
+        var transactions = this.df.getTransactions();
+        var cats = this.df.getCategories();
+        var colors = this.df.getColors();
+        var accounts = this.df.getAccounts();
         var all = transactions.getAll();
         int initialSize = all.size();
         var c1 = "color1";
@@ -213,18 +213,19 @@ public class DataTypeTest {
 
     @Test
     public void testEvents() {
-        var events = df.getEvents();
-        var rel = df.getRelationships();
-        var per = df.getPersons();
+        var events = this.df.getEvents();
+        var rel = this.df.getRelationships();
+        var per = this.df.getPersons();
         var all = events.getAll();
         int initialSize = all.size();
+        var today = new LocalDateTime(2020, 1, 1, 0, 0, 0);
         try {
-            assertEquals(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY),
-                    new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
+            assertEquals(new EventImpl("Event1", today, today.plusDays(7), Repetition.BIMONTHLY),
+                    new EventImpl("Event1", today, today.plusDays(7), Repetition.HALF_YEARLY));
             List<Event> vars = List.of(
-                    new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(5), Repetition.BIMONTHLY),
-                    new EventImpl("Event2", LocalDateTime.now(), LocalDateTime.now().plusDays(4), Repetition.HALF_YEARLY),
-                    new EventImpl("Event3 ", LocalDateTime.now(), LocalDateTime.now().plusDays(3), Repetition.MONTHLY));
+                    new EventImpl("Event1", today, today.plusDays(5), Repetition.BIMONTHLY),
+                    new EventImpl("Event2", today, today.plusDays(4), Repetition.HALF_YEARLY),
+                    new EventImpl("Event3 ", today, today.plusDays(3), Repetition.MONTHLY));
             for (var v : vars) {
                 events.save(v);
             }
@@ -232,7 +233,7 @@ public class DataTypeTest {
             for (var ac : vars) {
                 events.delete(ac);
             }
-            final var p = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY);
+            final var p = new EventImpl("Event1", today, today.plusDays(7), Repetition.BIMONTHLY);
             var relation = "figlio";
             events.save(p);
             rel.save(relation);
@@ -250,7 +251,7 @@ public class DataTypeTest {
             p.addPerson(p3);
             events.update(p);
             assertEquals(3, all.stream().filter(a -> a.equals(p)).findFirst().orElseThrow().getPersons().size());
-            var newp = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7),
+            var newp = new EventImpl("Event1", today, today.plusDays(7),
                     Repetition.BIMONTHLY, List.of(p1));
             events.update(newp);
             assertEquals(1, all.stream().filter(a -> a.equals(newp)).findFirst().orElseThrow().getPersons().size());
@@ -264,17 +265,17 @@ public class DataTypeTest {
             e.printStackTrace();
             fail();
         }
-        final var ev = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(5),
+        final var ev = new EventImpl("Event1", today, today.plusDays(5),
                 Repetition.BIMONTHLY);
         try {
             events.save(ev);
-            events.save(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
+            events.save(new EventImpl("Event1", today, today.plusDays(7), Repetition.HALF_YEARLY));
             assertEquals(initialSize + 1, all.size());
             assertEquals(Repetition.BIMONTHLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
-            events.update(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
+            events.update(new EventImpl("Event1", today, today.plusDays(8), Repetition.HALF_YEARLY));
             assertEquals(1, events.getAll().size());
             assertEquals(Repetition.HALF_YEARLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
-            events.delete(new EventImpl("NotExistingEvent", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
+            events.delete(new EventImpl("NotExistingEvent", today, today.plusDays(8), Repetition.HALF_YEARLY));
             fail();
         } catch (IllegalArgumentException e) {
             // success
@@ -293,7 +294,7 @@ public class DataTypeTest {
 
     @Test
     public void testDailyMood() {
-        Dao<DailyMood> dailyMoods = df.getDailyMoods();
+        Dao<DailyMood> dailyMoods = this.df.getDailyMoods();
         var all = dailyMoods.getAll();
         int initialSize = all.size();
 
@@ -354,7 +355,7 @@ public class DataTypeTest {
 
     @Test
     public void testTodoList() {
-        Dao<ToDoAction> toDoList = df.getToDoList();
+        Dao<ToDoAction> toDoList = this.df.getToDoList();
         int initialSize = toDoList.getAll().size();
         var all = toDoList.getAll();
         try {
@@ -407,11 +408,11 @@ public class DataTypeTest {
 
     @Test
     public void testGroupTransaction() {
-        var transactions = df.getGroupTransactions();
-        var cats = df.getCategories();
-        var colors = df.getColors();
-        var persons = df.getPersons();
-        var rel = df.getRelationships();
+        var transactions = this.df.getGroupTransactions();
+        var cats = this.df.getCategories();
+        var colors = this.df.getColors();
+        var persons = this.df.getPersons();
+        var rel = this.df.getRelationships();
         var all = transactions.getAll();
         int initialSize = all.size();
 
@@ -420,7 +421,7 @@ public class DataTypeTest {
         var cat1 = new CategoryImpl("c1", c1);
         var cat2 = new CategoryImpl("c2", c1);
         var p1 = new PersonImpl("Person1", relation);
-        var p2 = new PersonImpl("Person2",relation);
+        var p2 = new PersonImpl("Person2", relation);
         var p3 = new PersonImpl("Person3", relation);
 
         try {
@@ -481,7 +482,7 @@ public class DataTypeTest {
 
     @Test
     public void testFidelityCards(){
-        Dao<FidelityCard> rep = df.getFidelityCards();
+        Dao<FidelityCard> rep = this.df.getFidelityCards();
         var all = rep.getAll();
         int initialSize = all.size();
         try {
@@ -531,7 +532,7 @@ public class DataTypeTest {
 
     @Test
     public void testHotkeys(){
-        Dao<HotKey> hotKeys = df.getHotKeys();
+        Dao<HotKey> hotKeys = this.df.getHotKeys();
         var all = hotKeys.getAll();
         int initialSize = all.size();
         try {
@@ -570,11 +571,12 @@ public class DataTypeTest {
             e.printStackTrace();
         }
     }
+
     @Test
-    public void testGroup(){
-        var relationships = df.getRelationships();
-        var persons = df.getPersons();
-        var group = df.getGroup();
+    public void testGroup() {
+        var relationships = this.df.getRelationships();
+        var persons = this.df.getPersons();
+        var group = this.df.getGroup();
         var all = group.getAll();
         int initialSize = all.size();
         var relation = "figlio";
@@ -584,7 +586,7 @@ public class DataTypeTest {
             relationships.save(relation);
             persons.save(p1);
             group.save(p1);
-            assertEquals(initialSize + 1,all.size());
+            assertEquals(initialSize + 1, all.size());
             persons.save(p2);
             group.save(p2);
             assertEquals(initialSize + 2,all.size());
@@ -611,18 +613,18 @@ public class DataTypeTest {
     }
 
     @Test
-    public void testQuickTransaction(){
-        var categories = df.getCategories();
-        var colors = df.getColors();
-        var accounts = df.getAccounts();
-        var quickTransactions = df.getQuickTransactions();
+    public void testQuickTransaction() {
+        var categories = this.df.getCategories();
+        var colors = this.df.getColors();
+        var accounts = this.df.getAccounts();
+        var quickTransactions = this.df.getQuickTransactions();
         var all = quickTransactions.getAll();
         int initialSize = all.size();
         var c1 = "color1";
         var cat1 = new CategoryImpl("Cat1", c1);
-        var ac1 = new AccountImpl("Ac1",c1,200);
-        var q1 = new QuickTransactionImpl(300,cat1, ac1, "random1");
-        var q2 = new QuickTransactionImpl(500,cat1, ac1, "random2");
+        var ac1 = new AccountImpl("Ac1", c1, 200);
+        var q1 = new QuickTransactionImpl(300, cat1, ac1, "random1");
+        var q2 = new QuickTransactionImpl(500, cat1, ac1, "random2");
         try {
             colors.save(c1);
             categories.save(cat1);
