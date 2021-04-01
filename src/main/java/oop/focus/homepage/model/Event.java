@@ -83,6 +83,12 @@ public interface Event {
     Event getNextRenewal();
 
     /**
+     * This method is used to know the status of the repetitions.
+     * @return true if the event is repeated false otherwise.
+     */
+    boolean isRepeated();
+
+    /**
      * This method stop the repetition.
      */
     void stopRepeat();
