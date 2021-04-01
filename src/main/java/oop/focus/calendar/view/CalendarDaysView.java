@@ -2,6 +2,7 @@ package oop.focus.calendar.view;
 
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
+import oop.focus.calendar.view.HoursViewImpl.Format;
 
 
 public interface CalendarDaysView {
@@ -35,4 +36,16 @@ public interface CalendarDaysView {
      * @return height
      */
     int getHeight();
+
+    /**
+     * 
+     * @param spacing
+     */
+    void setSpacing(double spacing);
+
+    /**
+     * 
+     * @param format
+     */
+    void setFormat(Format format);
 }

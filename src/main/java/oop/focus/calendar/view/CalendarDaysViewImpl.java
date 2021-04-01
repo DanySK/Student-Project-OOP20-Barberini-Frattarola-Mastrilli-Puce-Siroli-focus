@@ -13,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import oop.focus.calendar.controller.CalendarOptionsControllerImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.HoursViewImpl.Format;
 
@@ -21,6 +22,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
 
 
 
+    private final CalendarOptionsControllerImpl optionscontroller = new CalendarOptionsControllerImpl();
     private final HoursViewImpl hoursbox = new HoursViewImpl();
     private final EventViewImpl eventbox = new EventViewImpl(hoursbox);
     private final DayImpl day;
@@ -28,20 +30,21 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     private VBox dayview = new VBox();
     private final int width;
     private final int height;
-    private final int spacing;
+    private double spacing;
+    private Format format;
 
     /**
      * 
      * @param day    date of the day that we want build
      * @param width  max width of the day view.
      * @param height  max height of the day view.
-     * @param spacing space between two hours
      */
-    public CalendarDaysViewImpl(final DayImpl day, final int width, final int height, final int spacing) {
+    public CalendarDaysViewImpl(final DayImpl day, final int width, final int height) {
         this.day = day; 
         this.width = width;
         this.height = height;
-        this.spacing = spacing;
+        this.spacing = optionscontroller.getSpacing();
+        format = optionscontroller.getFormat();
     }
 
     /*
@@ -51,7 +54,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      */
     private void configureDay(final HBox myhbox) {
 
-        hoursbox.setFormat(Format.NORMAL);
+        hoursbox.setFormat(format);
         hoursbox.setSpacing(spacing);
 
         hoursbox.buildVBox();
@@ -147,6 +150,22 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      */
     public int getHeight() {
         return this.height;
+    }
+
+    /**
+     * 
+     * @param spacing
+     */
+    public void setSpacing(final double spacing) {
+        this.spacing = spacing;
+    }
+
+    /**
+     * 
+     * @param format
+     */
+    public void setFormat(final Format format) {
+        this.format = format;
     }
 
 
