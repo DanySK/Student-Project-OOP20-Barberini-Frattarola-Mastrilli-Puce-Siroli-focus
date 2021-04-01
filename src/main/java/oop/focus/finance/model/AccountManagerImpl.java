@@ -1,6 +1,6 @@
 package oop.focus.finance.model;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -32,7 +32,7 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     @Override
-    public final ObservableList<Account> getAccounts() {
+    public final ObservableSet<Account> getAccounts() {
         return this.accounts.getAll();
     }
 }

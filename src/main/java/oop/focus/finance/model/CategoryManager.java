@@ -1,6 +1,6 @@
 package oop.focus.finance.model;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 /**
  * Interface that models a category manager,
@@ -25,5 +25,5 @@ public interface CategoryManager {
     /**
      * @return the list of all categories.
      */
-    ObservableList<Category> getCategories();
+    ObservableSet<Category> getCategories();
 }

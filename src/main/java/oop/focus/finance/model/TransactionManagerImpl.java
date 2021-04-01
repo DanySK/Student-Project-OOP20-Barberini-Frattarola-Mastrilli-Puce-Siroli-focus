@@ -1,6 +1,6 @@
 package oop.focus.finance.model;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -45,7 +45,7 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public final ObservableList<Transaction> getTransactions() {
+    public final ObservableSet<Transaction> getTransactions() {
         return this.transactions.getAll();
     }
 

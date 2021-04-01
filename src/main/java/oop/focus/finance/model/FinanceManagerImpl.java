@@ -60,7 +60,10 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final int getAmount(final Account account) {
-        var acc = this.accounts.getAccounts().get(this.accounts.getAccounts().indexOf(account));
+        var acc = this.accounts.getAccounts().stream()
+                .filter(a -> a.equals(account))
+                .collect(Collectors.toList())
+                .get(0);
         return acc.getInitialAmount() + this.transactions.getTransactions().stream()
                 .filter(t -> t.getAccount().equals(acc))
                 .mapToInt(Transaction::getAmount)
