@@ -1,4 +1,5 @@
 package oop.focus.db;
+
 import javafx.util.Pair;
 import oop.focus.diary.model.DailyMood;
 import oop.focus.diary.model.DailyMoodImpl;
@@ -7,28 +8,13 @@ import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.fidelitycard.FidelityCard;
 import oop.focus.fidelitycard.FidelityCardImpl;
 import oop.focus.fidelitycard.FidelityCardType;
-import oop.focus.finance.model.Account;
-import oop.focus.finance.model.AccountImpl;
-import oop.focus.finance.model.Category;
-import oop.focus.finance.model.CategoryImpl;
-import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.model.GroupTransactionImpl;
-import oop.focus.finance.model.QuickTransaction;
-import oop.focus.finance.model.QuickTransactionImpl;
-import oop.focus.finance.model.Repetition;
-import oop.focus.finance.model.Transaction;
-import oop.focus.finance.model.TransactionImpl;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyImpl;
-import oop.focus.homepage.model.HotKeyType;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonImpl;
+import oop.focus.finance.model.*;
+import oop.focus.homepage.model.*;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -125,7 +111,8 @@ public class DataSourceImpl implements DataSource {
                     this.getEventPerson().getAll().stream().filter(p -> p.getKey().equals(id))
                             .map(i -> this.getPersons().getValue(i.getValue()).orElse(null))
                             .filter(Objects::nonNull)
-                            .collect(Collectors.toList()));
+                            .collect(Collectors.toList()),
+                    Integer.parseInt(a.remove(0)) == 0);
         },
                 List.of(new Pair<>("name", Event::getName),
                         new Pair<>("startdate", e -> DF.print(e.getStart())),

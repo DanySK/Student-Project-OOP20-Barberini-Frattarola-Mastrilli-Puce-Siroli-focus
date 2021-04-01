@@ -75,7 +75,8 @@ create table if not exists EVENT
     NAME      VARCHAR(45) not null,
     STARTDATE VARCHAR(45) not null,
     ENDDATE   VARCHAR(45) not null,
-    FREQUENCY INT
+    FREQUENCY INT,
+    IS_LAST   INT         not null
 );
 
 create table if not exists CATEGORY

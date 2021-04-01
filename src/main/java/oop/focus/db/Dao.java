@@ -1,6 +1,6 @@
 package oop.focus.db;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.db.exceptions.DaoAccessException;
 
 /**
@@ -13,9 +13,9 @@ public interface Dao<X> {
     /**
      * Can be used to get all the elements present in the source.
      *
-     * @return a {@link ObservableList} containing all the elements of type X present in the source.
+     * @return a {@link ObservableSet} containing all the elements of type X present in the source.
      */
-    ObservableList<X> getAll();
+    ObservableSet<X> getAll();
 
     /**
      * Store an element of type X to the source.

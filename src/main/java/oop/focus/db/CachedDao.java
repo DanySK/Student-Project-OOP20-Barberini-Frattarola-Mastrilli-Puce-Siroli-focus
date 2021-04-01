@@ -1,6 +1,7 @@
 package oop.focus.db;
+
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.common.Action;
 import oop.focus.db.exceptions.ConnectionException;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -8,11 +9,8 @@ import oop.focus.db.exceptions.DaoAccessException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -77,7 +75,7 @@ public class CachedDao<X> implements SingleDao<X> {
      * The Cache containing the elements already retrieved from the source.
      */
     private final Map<Integer, X> cache;
-    private final ObservableList<X> observable;
+    private final ObservableSet<X> observable;
     /**
      * Instantiates a new Cached dao.
      *
@@ -90,14 +88,15 @@ public class CachedDao<X> implements SingleDao<X> {
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
-        this.cache = new HashMap<>();
-        this.observable = FXCollections.observableList(new ArrayList<>());
+        this.cache = new ConcurrentHashMap<>();
+        this.observable = FXCollections.observableSet(new HashSet<>());
         this.parser = parser;
         this.getAllFromSource();
     }
-    private void withNoParameters(final DbAction action, final int id) throws DaoAccessException {
+
+    private synchronized void withNoParameters(final DbAction action, final int id) throws DaoAccessException {
         final Map<Integer, List<String>> values = new HashMap<>();
-        this.execute(() -> {
+        try {
             var s = this.db.getConnection().createStatement();
             var resultSet = s.executeQuery(action.getSyntax(this.parser.getTypeName(), this.parser.getFieldNames(), id));
             while (resultSet.next()) {
@@ -109,13 +108,18 @@ public class CachedDao<X> implements SingleDao<X> {
                     values.put(resultSet.getInt(1), new ArrayList<>(tmp));
                 }
             }
-        });
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new DaoAccessException();
+        }
+
         this.cache.putAll(values.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> this.parser.create(v.getValue())))
                 .entrySet().stream().filter(e -> e.getValue().isPresent())
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().get())));
     }
-    private void withParameters(final X x, final DbAction action, final int id) throws SQLException {
+
+    private synchronized void withParameters(final X x, final DbAction action, final int id) throws SQLException {
         var values = this.parser.getValues(x);
         var p = this.db.getConnection()
                 .prepareStatement(action.getSyntax(this.parser.getTypeName(),
@@ -130,38 +134,45 @@ public class CachedDao<X> implements SingleDao<X> {
             this.cache.put(this.getKey(id, tmp), x);
         }
     }
+
     private int getKey(final int id, final long tmp) {
         return (int) (tmp == 0 ? id : tmp);
     }
-    private void execute(final Action a) throws DaoAccessException {
+
+    private synchronized void execute(final Action a) throws DaoAccessException {
         try {
             this.db.open();
             a.execute();
             this.db.close();
         } catch (Exception e) {
+            e.printStackTrace();
             throw new DaoAccessException();
         }
     }
+
     private void getAllFromSource() {
         try {
-            this.withNoParameters(DbAction.SELECT_ALL, NO_ID);
+            this.execute(() -> this.withNoParameters(DbAction.SELECT_ALL, NO_ID));
             this.observable.addAll(this.cache.values());
         } catch (DaoAccessException e) {
             e.printStackTrace();
         }
     }
+
     private Optional<Integer> getIdFromCache(final X x) {
         return this.cache.keySet().stream()
                 .filter(a -> this.cache.get(a).equals(x))
                 .findFirst();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public ObservableList<X> getAll() {
-        return FXCollections.unmodifiableObservableList(this.observable);
+    public ObservableSet<X> getAll() {
+        return FXCollections.unmodifiableObservableSet(this.observable);
     }
+
     /**
      * {@inheritDoc}
      */
@@ -170,9 +181,15 @@ public class CachedDao<X> implements SingleDao<X> {
         if (this.cache.containsValue(x)) {
             return;
         }
-        this.execute(() -> this.withParameters(x, DbAction.INSERT, NO_ID));
         this.observable.add(x);
-      }
+        new Thread(() -> {
+            try {
+                this.execute(() -> this.withParameters(x, DbAction.INSERT, NO_ID));
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
     /**
      * {@inheritDoc}
      */
@@ -184,26 +201,39 @@ public class CachedDao<X> implements SingleDao<X> {
             throw new IllegalArgumentException();
         }
         id = optId.get();
-        this.execute(() -> this.withParameters(x, DbAction.UPDATE, id));
         this.observable.remove(x);
         this.observable.add(x);
+        new Thread(() -> {
+            try {
+                this.execute(() -> this.withParameters(x, DbAction.UPDATE, id));
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void delete(final X x) throws DaoAccessException {
+    public void delete(final X x) throws DaoAccessException, IllegalArgumentException {
         int id;
         Optional<Integer> optId = this.getId(x);
         if (optId.isEmpty()) {
             throw new IllegalArgumentException();
         }
         id = optId.get();
-        this.execute(() -> this.db.getConnection().createStatement()
-                .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),
-                        this.parser.getFieldNames(), id)));
         this.cache.remove(id);
         this.observable.remove(x);
+        new Thread(() -> {
+            try {
+                this.execute(() -> this.db.getConnection().createStatement()
+                        .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),
+                                this.parser.getFieldNames(), id)));
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
     @Override
     public final Optional<X> getValue(final int id) {
