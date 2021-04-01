@@ -51,8 +51,8 @@ public class CalendarMonthView {
 
 
         final VBox container = new VBox();
-        container.minHeight(height);
-        container.minWidth(width);
+        container.prefHeight(height);
+        container.prefWidth(width);
 
         container.setAlignment(Pos.CENTER);
 
@@ -144,7 +144,6 @@ public class CalendarMonthView {
     private void setMonthInfo(final String string) {
         this.monthinfo.setText(string);
     }
-
 
 
 }

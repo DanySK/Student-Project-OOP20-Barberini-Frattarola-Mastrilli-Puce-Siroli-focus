@@ -24,6 +24,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     private int counter;
     private int count;
 
+
     /**
      * 
      * @param month    list with the days of the calendar
@@ -88,7 +89,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             final Button jb = new Button(" " + day.getNumber() + " ");
             jb.setOnAction(getdayview);
             jb.setPrefSize(DIM, DIM);
-            final CalendarDaysViewImpl p = new CalendarDaysViewImpl(day, 200, 500, 50);
+            final CalendarDaysViewImpl p = new CalendarDaysViewImpl(day, 200, 500);
             p.buildDay();
             cells.put(jb, p);
             daysGrid.add(jb, counter, count);
