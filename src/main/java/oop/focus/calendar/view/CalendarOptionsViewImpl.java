@@ -58,7 +58,10 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
         save.setOnAction(new EventHandler<ActionEvent>() {
 
             public void handle(final ActionEvent event) {
-                controller.setSpacing(spacing.getText());
+                if (!controller.checkSpacing(spacing.getText())) {
+                    System.out.println("ERRORE");
+                }
+                System.out.println(controller.getSpacing() + " " + controller.getFormat());
                 controller.setFormat(temp);
                 optionwindows.close();
             }
