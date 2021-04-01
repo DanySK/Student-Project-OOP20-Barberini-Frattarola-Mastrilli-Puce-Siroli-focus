@@ -25,6 +25,7 @@ import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.CalendarMonthView;
+import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
@@ -43,21 +44,43 @@ public class HomePageBaseView implements Initializable {
     @FXML
     private VBox vbox, calendarVBox;
 
+    @FXML
+    private VBox vbox1;
 
     private List<HotKey> hotKeyList;
-
+    private Parent root;
     private String eventName;
+    private HomePageController controller;
+
+    public HomePageBaseView(final HomePageController controller) {
+        this.controller = controller;
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/calendarHomePage.fxml"));
+        loader.setController(this);
+
+        try {
+            this.root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         //final CalendarMonthView calendar = new CalendarMonthView(20, 20);
         //final VBox calendarVBox = calendar.buildMonthView();
         //this.paneCalendarHomePage.getChildren().add(calendarVBox);
-        DayImpl day = new DayImpl(LocalDate.now());
-        final CalendarDaysView days = new CalendarDaysViewImpl(day, 20, 20, 10);
+
+        final DayImpl day = new DayImpl(LocalDate.now());
+        final CalendarDaysView days = new CalendarDaysViewImpl(day, 20, 20);
+
         days.buildDay();
-        ScrollPane scroller = days.getScroller();
-        this.paneCalendarHomePage.getChildren().add(scroller);
+        days.getScroller().prefWidthProperty().bind(vbox1.widthProperty());
+        days.getScroller().prefHeightProperty().bind(vbox1.heightProperty());
+
+        vbox1.getChildren().add(days.getScroller());
+
+
         this.hotKeyList = new ArrayList<>();
         this.hotKeyList.add(new HotKeyImpl("Shopping", HotKeyType.EVENT));
         this.hotKeyList.add(new HotKeyImpl("Bere", HotKeyType.COUNTER));
@@ -129,6 +152,10 @@ public class HomePageBaseView implements Initializable {
         return this.eventName;
     }
 
+    public final Parent getRoot() {
+        return this.root;
+    }
+
     @FXML
     public final void modifyClicked(final ActionEvent event) throws IOException {
         final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/choiceMenu.fxml"));
@@ -138,5 +165,6 @@ public class HomePageBaseView implements Initializable {
         window.setScene(scene);
         window.show();
     }
+
 
 }

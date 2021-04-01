@@ -1,8 +1,6 @@
 package oop.focus.homepage.controller;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -10,10 +8,11 @@ public class HomePageApp extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        //final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/calendarHomePage.fxml"));
-        final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/weekView.fxml"));
-        //final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/nuovaSettimana.fxml"));
-        primaryStage.setScene(new Scene(root));
+       //final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/calendarHomePage.fxml"));
+        final HomePageController controller = new HomePageController();
+        final HomePageBaseView home = new HomePageBaseView(controller);
+
+        primaryStage.setScene(new Scene(home.getRoot()));
         primaryStage.show();
     }
 

@@ -9,7 +9,7 @@ import oop.focus.homepage.model.HotKeyManager;
 import oop.focus.homepage.model.HotKeyManagerImpl;
 import oop.focus.db.DataSource;
 
-import java.util.List;
+import java.util.Set;
 
 public class HomePageController {
     private final DataSource dsi;
@@ -22,11 +22,11 @@ public class HomePageController {
         this.hotKeys = new  HotKeyManagerImpl(dsi, events);
     }
 
-    public final List<Event> getEvent() {
+    public final Set<Event> getEvent() {
         return this.events.getAll();
     }
 
-    public final List<HotKey> getHotKey() {
+    public final Set<HotKey> getHotKey() {
         return this.hotKeys.getAll();
     }
 
