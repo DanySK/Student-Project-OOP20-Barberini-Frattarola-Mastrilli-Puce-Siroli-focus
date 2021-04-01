@@ -5,12 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
+import oop.focus.finance.model.Repetition;
 //import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 //import oop.focus.homepage.model.ManagerEventImpl;
+import oop.focus.homepage.model.EventImpl;
 
 public class DayImpl implements Day {
+
+    private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+    private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
+    private final Event test = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
+    private final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 14, 00), new LocalDateTime(2021, 9, 26, 17, 30), Repetition.ONCE);
+    private final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
+    private final Event five = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 22, 45), new LocalDateTime(2021, 9, 26, 23, 30), Repetition.ONCE);
 
     private final LocalDate date;
     private final List<Event> events = new ArrayList<>();
@@ -19,8 +29,18 @@ public class DayImpl implements Day {
 
     public DayImpl(final LocalDate date) {
         this.date = date;
+        subito();
         //final List<Event> temp = null; //manager.findByDate(date);
         //this.events.addAll(temp);
+    }
+
+    private void subito() {
+        this.events.add(first);
+        this.events.add(second);
+        this.events.add(test);
+        this.events.add(third);
+        this.events.add(four);
+        this.events.add(five);
     }
  
     /**
