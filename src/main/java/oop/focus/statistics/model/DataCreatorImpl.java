@@ -1,6 +1,6 @@
 package oop.focus.statistics.model;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 import java.util.Collection;
 import java.util.Set;
@@ -17,10 +17,10 @@ import java.util.stream.Stream;
  */
 public class DataCreatorImpl<X, Y> implements DataCreator<X, Y> {
 
-    private final ObservableList<X> dataset;
+    private final ObservableSet<X> dataset;
     private final Function<Stream<X>, Set<Y>> mapper;
 
-    public DataCreatorImpl(final ObservableList<X> input, final Function<Stream<X>, Set<Y>> mapper) {
+    public DataCreatorImpl(final ObservableSet<X> input, final Function<Stream<X>, Set<Y>> mapper) {
         this.dataset = input;
         this.mapper = mapper;
     }

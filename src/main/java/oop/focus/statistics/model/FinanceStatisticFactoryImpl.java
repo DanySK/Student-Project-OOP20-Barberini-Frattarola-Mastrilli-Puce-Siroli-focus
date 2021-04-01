@@ -39,8 +39,25 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
     @Override
     public final DataCreator<Transaction, Pair<String, Integer>> accountCategoryBalances(final Account account) {
         return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager().getTransactions()
-                .filtered(t -> t.getAccount().equals(account)),
+                .stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toSet()),
                 c -> this.toPairSet(c.collect(Collectors.toMap(t -> t.getCategory().getName(),
+                        Transaction::getAmount, Integer::sum))));
+    }
+
+    @Override
+    public final DataCreator<Transaction, Pair<String, Integer>> dailyExpenses() {
+        return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getTransactions(),
+                t -> this.toPairSet(t.collect(Collectors.toMap(
+                        x -> x.getDate().toLocalDate().toString(),
+                        Transaction::getAmount, Integer::sum))));
+    }
+
+    @Override
+    public final DataCreator<Transaction, Pair<String, Integer>> dailyAccountExpenses(final Account account) {
+        return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager()
+                .getTransactions().stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toSet()),
+                t -> this.toPairSet(t.collect(Collectors.toMap(
+                        x -> x.getDate().toLocalDate().toString(),
                         Transaction::getAmount, Integer::sum))));
     }
 }

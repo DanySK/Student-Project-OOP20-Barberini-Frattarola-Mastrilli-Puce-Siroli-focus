@@ -132,7 +132,7 @@ public class DataTypeTest {
         try {
             colors.save(c2);
             colors.save(c1);
-            Account account = new AccountImpl("Account1", c1, 100);
+            final Account account = new AccountImpl("Account1", c1, 100);
             Account account2 = new AccountImpl("Account2", c1, 100);
             Account account3 = new AccountImpl("Account3", c2, 100);
             accounts.save(account);
@@ -143,16 +143,16 @@ public class DataTypeTest {
             accounts.delete(account2);
             accounts.delete(account3);
             assertEquals(initialSize, all.size());
-            account = new AccountImpl("Account1", c1, 300);
+            final var newAccount1 = new AccountImpl("Account1", c1, 300);
             account2 = new AccountImpl("Account1", c1, 150);
-            assertEquals(account, account2);
-            accounts.save(account);
+            assertEquals(newAccount1, account2);
+            accounts.save(newAccount1);
             assertEquals(initialSize + 1, all.size());
             accounts.update(account2);
             assertEquals(initialSize + 1, all.size());
-            assertEquals(150, all.get(all.indexOf(account)).getInitialAmount());
+            assertEquals(150, all.stream().filter(a -> a.equals(newAccount1)).findFirst().orElseThrow().getInitialAmount());
             assertEquals(initialSize + 1, all.size());
-            accounts.delete(account);
+            accounts.delete(newAccount1);
             assertEquals(initialSize, all.size());
             colors.delete(c1);
             colors.delete(c2);
@@ -232,13 +232,13 @@ public class DataTypeTest {
             for (var ac : vars) {
                 events.delete(ac);
             }
-            var p = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY);
+            final var p = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.BIMONTHLY);
             var relation = "figlio";
             events.save(p);
             rel.save(relation);
-            var p1 = new PersonImpl("person1", relation);
-            var p2 = new PersonImpl("person2", relation);
-            var p3 = new PersonImpl("person3", relation);
+            final var p1 = new PersonImpl("person1", relation);
+            final var p2 = new PersonImpl("person2", relation);
+            final var p3 = new PersonImpl("person3", relation);
             per.save(p1);
             per.save(p2);
             per.save(p3);
@@ -246,16 +246,16 @@ public class DataTypeTest {
             p.addPerson(p2);
             events.update(p);
 
-            assertEquals(2, all.get(all.indexOf(p)).getPersons().size());
+            assertEquals(2, all.stream().filter(a -> a.equals(p)).findFirst().orElseThrow().getPersons().size());
             p.addPerson(p3);
             events.update(p);
-            assertEquals(3, all.get(all.indexOf(p)).getPersons().size());
-            p = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7),
+            assertEquals(3, all.stream().filter(a -> a.equals(p)).findFirst().orElseThrow().getPersons().size());
+            var newp = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7),
                     Repetition.BIMONTHLY, List.of(p1));
-            events.update(p);
-            assertEquals(1, all.get(all.indexOf(p)).getPersons().size());
-            assertEquals(p1, all.get(all.indexOf(p)).getPersons().get(0));
-            events.delete(p);
+            events.update(newp);
+            assertEquals(1, all.stream().filter(a -> a.equals(newp)).findFirst().orElseThrow().getPersons().size());
+            assertEquals(p1, all.stream().filter(a -> a.equals(newp)).findFirst().orElseThrow().getPersons().get(0));
+            events.delete(newp);
             per.delete(p1);
             per.delete(p2);
             per.delete(p3);
@@ -264,16 +264,16 @@ public class DataTypeTest {
             e.printStackTrace();
             fail();
         }
-        var ev =new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(5),
+        final var ev = new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(5),
                 Repetition.BIMONTHLY);
         try {
             events.save(ev);
             events.save(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(7), Repetition.HALF_YEARLY));
             assertEquals(initialSize + 1, all.size());
-            assertEquals(Repetition.BIMONTHLY, all.get(all.indexOf(ev)).getRipetition());
+            assertEquals(Repetition.BIMONTHLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
             events.update(new EventImpl("Event1", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
             assertEquals(1, events.getAll().size());
-            assertEquals(Repetition.HALF_YEARLY, all.get(all.indexOf(ev)).getRipetition());
+            assertEquals(Repetition.HALF_YEARLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
             events.delete(new EventImpl("NotExistingEvent", LocalDateTime.now(), LocalDateTime.now().plusDays(8), Repetition.HALF_YEARLY));
             fail();
         } catch (IllegalArgumentException e) {
@@ -318,15 +318,15 @@ public class DataTypeTest {
             fail();
         }
         try {
-            var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
+            final var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
             dailyMoods.save(d);
             dailyMoods.update(new DailyMoodImpl(2, LocalDate.now().plusDays(5)));
             all = dailyMoods.getAll();
             assertEquals(initialSize + 1, all.size());
-            assertEquals(2, all.get(all.indexOf(d)).getMoodValue());
+            assertEquals(2, all.stream().filter(a -> a.equals(d)).findFirst().orElseThrow().getMoodValue());
             d.setMoodValue(3);
             dailyMoods.update(d);
-            assertEquals(3, all.get(all.indexOf(d)).getMoodValue());
+            assertEquals(3, all.stream().filter(a -> a.equals(d)).findFirst().orElseThrow().getMoodValue());
             dailyMoods.delete(d);
         } catch (DaoAccessException e) {
             fail();
@@ -377,11 +377,11 @@ public class DataTypeTest {
             e.printStackTrace();
             fail();
         }
-        var done = new ToDoActionImpl("Action1", false);
+        final var done = new ToDoActionImpl("Action1", false);
         try {
             toDoList.save(done);
             toDoList.update(new ToDoActionImpl("Action1", true));
-            assertTrue(all.get(all.indexOf(done)).isDone());
+            assertTrue(all.stream().filter(a -> a.equals(done)).findFirst().orElseThrow().isDone());
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
@@ -439,8 +439,9 @@ public class DataTypeTest {
             for (var v : vars) {
                 transactions.save(v);
             }
+            final var var = vars.get(0);
             assertEquals(initialSize + 2, all.size());
-            assertEquals(2, all.get(all.indexOf(vars.get(0))).getForList().size());
+            assertEquals(2, all.stream().filter(a -> a.equals(var)).findFirst().orElseThrow().getForList().size());
 
             for (var v : vars) {
                 transactions.delete(v);
@@ -452,7 +453,7 @@ public class DataTypeTest {
                 300, new LocalDate(2020, 1, 1));
         try {
             transactions.save(t);
-            assertEquals(2, all.get(all.indexOf(t)).getForList().size());
+            assertEquals(2, all.stream().filter(a -> a.equals(t)).findFirst().orElseThrow().getForList().size());
             transactions.update(new GroupTransactionImpl("Transaction1", p1, List.of(p2),
                     300, new LocalDate(2020, 1, 1)));
             fail();
@@ -503,11 +504,11 @@ public class DataTypeTest {
             e.printStackTrace();
             fail();
         }
-        var f =new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ALIMENTARI);
+        final var f = new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ALIMENTARI);
         try {
             rep.save(f);
             rep.update(new FidelityCardImpl("Card1", "0012jada", FidelityCardType.COSMESI));
-            assertEquals(FidelityCardType.COSMESI,all.get(all.indexOf(f)).getType());
+            assertEquals(FidelityCardType.COSMESI, all.stream().filter(a -> a.equals(f)).findFirst().orElseThrow().getType());
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
@@ -557,11 +558,11 @@ public class DataTypeTest {
 
         try {
             var g = new HotKeyImpl("H1", HotKeyType.COUNTER);
-            var h = new HotKeyImpl("H1", HotKeyType.ACTIVITY);
+            final var h = new HotKeyImpl("H1", HotKeyType.ACTIVITY);
             hotKeys.save(g);
             hotKeys.save(h);
             hotKeys.delete(g);
-            assertEquals(HotKeyType.ACTIVITY,all.get(all.indexOf(h)).getType());
+            assertEquals(HotKeyType.ACTIVITY, all.stream().filter(a -> a.equals(h)).findFirst().orElseThrow().getType());
             hotKeys.delete(h);
             assertEquals(initialSize, all.size());
         } catch (DaoAccessException e) {

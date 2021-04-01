@@ -1,4 +1,4 @@
-package oop.focus.statistics;
+package oop.focus.statistics.model;
 
 import javafx.util.Pair;
 import oop.focus.db.DataSource;
@@ -6,7 +6,6 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.finance.model.Repetition;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.statistics.model.EventsStatisticFactoryImpl;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 

@@ -43,7 +43,7 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
 
     private DataCreatorImpl<Event, Pair<LocalDate, Integer>> getEventPairDataCreator(final Predicate<Event> condition) {
         var events = this.dataSource.getEvents().getAll();
-        return new GeneratedDataCreator<>(() -> events.filtered(condition),
+        return new GeneratedDataCreator<>(() -> events.stream().filter(condition).collect(Collectors.toSet()),
                 s -> s.flatMap(this::getDividedEvents)
                         .collect(Collectors.toMap(Event::getStartDate, this::getDuration,
                                 Integer::sum)).entrySet().stream()

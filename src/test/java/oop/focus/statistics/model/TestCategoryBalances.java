@@ -1,10 +1,9 @@
-package oop.focus.statistics;
+package oop.focus.statistics.model;
 
 import javafx.util.Pair;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.*;
-import oop.focus.statistics.model.FinanceStatisticFactoryImpl;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 

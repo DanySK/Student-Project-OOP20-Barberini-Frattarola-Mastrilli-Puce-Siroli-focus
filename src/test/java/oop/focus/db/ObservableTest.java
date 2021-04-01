@@ -1,6 +1,6 @@
 package oop.focus.db;
 
-import javafx.collections.ListChangeListener;
+import javafx.collections.SetChangeListener;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ public class ObservableTest {
         var colors = db.getColors();
         var list  = colors.getAll();
         AtomicReference<Integer> counter = new AtomicReference<>(0);
-        list.addListener((ListChangeListener<String>) c -> counter.getAndSet(counter.get() + 1));
+        list.addListener((SetChangeListener<String>) c -> counter.getAndSet(counter.get() + 1));
         try {
             int initial = list.size();
             colors.save("test11");

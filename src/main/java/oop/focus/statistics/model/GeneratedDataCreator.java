@@ -2,7 +2,6 @@ package oop.focus.statistics.model;
 
 import javafx.collections.FXCollections;
 
-import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -10,10 +9,10 @@ import java.util.stream.Stream;
 
 public class GeneratedDataCreator<X, Y> extends DataCreatorImpl<X, Y> {
 
-    private final Supplier<List<X>> generator;
+    private final Supplier<Set<X>> generator;
 
-    public GeneratedDataCreator(final Supplier<List<X>> generator, final Function<Stream<X>, Set<Y>> mapper) {
-        super(FXCollections.observableList(generator.get()), mapper);
+    public GeneratedDataCreator(final Supplier<Set<X>> generator, final Function<Stream<X>, Set<Y>> mapper) {
+        super(FXCollections.observableSet(generator.get()), mapper);
         this.generator = generator;
     }
 
