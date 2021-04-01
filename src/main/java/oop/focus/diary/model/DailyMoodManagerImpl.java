@@ -1,10 +1,11 @@
 package oop.focus.diary.model;
 
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDate;
-import java.util.List;
+
 import java.util.Optional;
 /**
  * Immutable implementation of DailyMoodManager.
@@ -34,7 +35,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
         }
     }
     @Override
-    public final List<DailyMood> getAllMoods() {
+    public final ObservableSet<DailyMood> getAllMoods() {
         return this.dm.getAll();
     }
     @Override

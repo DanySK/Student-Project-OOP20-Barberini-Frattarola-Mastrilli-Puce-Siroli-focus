@@ -1,6 +1,7 @@
 package oop.focus.diary.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.exceptions.ConnectionException;
 
@@ -8,26 +9,21 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 public class DiaryDao implements Dao<DiaryImpl> {
     private static final int MAX_LENGTH = 50;
     private final Map<DiaryImpl, DiaryConnector> map;
     private static final String SEP = File.separator;
-    private final ObservableList<DiaryImpl> list;
+    private final ObservableSet<DiaryImpl> list;
     private final DirectoryConnector directoryConnector = new DirectoryConnector();
     public DiaryDao() {
        this.map = new HashMap<>();
        this.directoryConnector.create();
-       this.list = FXCollections.observableList(new ArrayList<>());
+       this.list = FXCollections.observableSet(new HashSet<>());
     }
     @Override
-    public final ObservableList<DiaryImpl> getAll() {
+    public final ObservableSet<DiaryImpl> getAll() {
         if (this.map.isEmpty()) {
             Arrays.stream(Objects.requireNonNull(this.directoryConnector.getConnection().listFiles())).forEach(elem -> {
                 final DiaryConnector conn = new DiaryConnector(elem);
@@ -42,7 +38,7 @@ public class DiaryDao implements Dao<DiaryImpl> {
                 conn.close();
             });
         }
-        return FXCollections.unmodifiableObservableList(this.list);
+        return FXCollections.unmodifiableObservableSet(this.list);
    }
    private File getFile(final String name) {
         return Path.of(this.directoryConnector.getConnection() + SEP + name).toFile();

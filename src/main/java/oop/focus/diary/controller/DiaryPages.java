@@ -1,6 +1,6 @@
 package oop.focus.diary.controller;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.diary.model.DiaryImpl;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface DiaryPages {
      * The list return an observable list with all diary saved(a diary is formed by title and content).
      * @return  an observable list of all Diary's saved
      */
-    ObservableList<DiaryImpl> getObservableList();
+    ObservableSet<DiaryImpl> getObservableList();
 
     /**
      * Return the content of page's diary whose title is the input's string.

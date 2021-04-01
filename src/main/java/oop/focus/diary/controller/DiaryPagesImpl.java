@@ -4,20 +4,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.DiaryImpl;
 
 public class DiaryPagesImpl implements DiaryPages {
     private final DiaryDao diaryDao;
+    private ObservableList<DiaryImpl> list;
     public DiaryPagesImpl() {
         this.diaryDao = new DiaryDao();
     }
     @Override
     public List<String> filesName() {
         return this.diaryDao.getAll().stream().map(DiaryImpl::getName).collect(Collectors.toList());
+
     }
     @Override
-    public ObservableList<DiaryImpl> getObservableList() {
+    public ObservableSet<DiaryImpl> getObservableList() {
          return this.diaryDao.getAll();
      }
     @Override

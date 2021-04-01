@@ -1,6 +1,7 @@
 package oop.focus.diary.model;
-import java.util.List;
 import java.util.Optional;
+
+import javafx.collections.ObservableSet;
 import org.joda.time.LocalDate;
 import oop.focus.db.exceptions.DaoAccessException;
 
@@ -30,7 +31,7 @@ import oop.focus.db.exceptions.DaoAccessException;
      * Returns all register moods.
      * @return  a list with all register DailyMood
      */
-    List<DailyMood> getAllMoods();
+    ObservableSet<DailyMood> getAllMoods();
     /**
      * Returns the value of mood on the input's date.
      * @param date  the date in which compute the mood

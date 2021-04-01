@@ -1,6 +1,6 @@
 package oop.focus.diary.model;
 
-import java.util.List;
+import javafx.collections.ObservableSet;
 
 /**
  * The interface is a manager of ToDoList's section, with method to create or delete annotations and to set if an annotation has been complete.
@@ -30,5 +30,5 @@ public interface ToDoListManager {
      * 
      * @return  a list of all ToDoList's sections
      */
-    List<ToDoAction> getAnnotations();
+    ObservableSet<ToDoAction> getAnnotations();
 }

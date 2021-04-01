@@ -1,9 +1,10 @@
 package oop.focus.diary.model;
 
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
-import java.util.List;
+
 /**
  * Immutable implementation of ToDoListManagerImpl.
  */
@@ -40,7 +41,7 @@ public class ToDoListManagerImpl implements ToDoListManager {
         }
     }
     @Override
-    public final List<ToDoAction> getAnnotations() {
+    public final ObservableSet<ToDoAction> getAnnotations() {
         return this.dsi.getAll();
     }
 }

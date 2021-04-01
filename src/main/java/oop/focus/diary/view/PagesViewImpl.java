@@ -2,8 +2,8 @@ package oop.focus.diary.view;
 
 import java.io.IOException;
 
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -20,21 +20,19 @@ public class PagesViewImpl implements PagesView {
     private final DiaryPagesImpl cf;
     private String toRemove;
     private final Button remove;
-    private final ObservableList<DiaryImpl> list;
+    private final ObservableSet<DiaryImpl> set;
     public PagesViewImpl(final Button rem) {
         this.cf = UseControllerDiary.getCF();
         this.pages = new Accordion();
-        this.list = this.cf.getObservableList();
+        this.set = this.cf.getObservableList();
         this.remove = rem;
         this.insertPages();
-        this.list.addListener((ListChangeListener<DiaryImpl>) c -> {
-            while (c.next()) {
-                if (c.wasAdded()) {
-                    this.updateView(c.getAddedSubList().get(0).getName());
-                } else if (c .wasRemoved()) {
-                    this.pages.getPanes().clear();
-                    this.insertPages();
-                }
+        this.set.addListener((SetChangeListener<DiaryImpl>) change -> {
+            if(change.wasAdded()) {
+                updateView(change.getElementAdded().getName());
+            } else if (change.wasRemoved()) {
+                pages.getPanes().clear();
+                insertPages();
             }
         });
     }
