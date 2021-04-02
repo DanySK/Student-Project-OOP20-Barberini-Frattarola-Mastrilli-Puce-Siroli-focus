@@ -66,8 +66,10 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
                      System.out.println("ERRORE: inserire dei numeri");
                      spacing.setText(String.valueOf(optioncontroller.getSpacing()));
                  }
+                 if (hoursformat == null) {
+                     hoursformat = Format.NORMAL;
+                 }
                  optioncontroller.setFormat(hoursformat);
-                 System.out.println(optioncontroller.getSpacing() + " " + optioncontroller.getFormat());
                  monthcontroller.updateView(monthview, monthcontroller);
                  optionwindows.close();
            }
@@ -100,6 +102,7 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
         format.setOnAction((e) -> {
                 this.hoursformat = format.getValue();
         });
+
 
         settings.add(formatlabel, 0, 1);
         settings.add(format, 1, 1);
