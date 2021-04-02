@@ -10,8 +10,11 @@ public class LauncherDiary extends Application {
     private static final String PATH_MAIN_STYLE = "/layouts/diary/diaryStyle.css";
     private static final String PATH_BASE_DIARY = "/layouts/diary/baseDiary.fxml";
     private final Stage firstStage = new Stage();
+
+
     @Override
     public final void start(final Stage primaryStage) throws Exception {
+        firstStage.setMaximized(true);
     final Parent root = FXMLLoader.load(this.getClass().getResource(PATH_BASE_DIARY));
     final Scene scene = new Scene(root);
     final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();

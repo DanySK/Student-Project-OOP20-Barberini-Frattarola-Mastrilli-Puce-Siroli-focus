@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.diary.view.StopwatchView">
+   <top>
+      <AnchorPane prefHeight="106.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="nameEventLabel" layoutX="40.0" layoutY="35.0" prefHeight="39.0" prefWidth="92.0" />
+            <Label fx:id="timeLabel" layoutX="454.0" layoutY="21.0" prefHeight="52.0" prefWidth="121.0" />
+            <ComboBox fx:id="chooseEvent" layoutX="186.0" layoutY="36.0" prefHeight="35.0" prefWidth="194.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <AnchorPane prefHeight="294.0" prefWidth="345.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="startButton" layoutX="157.0" layoutY="199.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="108.0" />
+            <Button fx:id="stopButton" layoutX="336.0" layoutY="199.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="108.0" />
+            <Label fx:id="counterLabel" layoutX="178.0" layoutY="62.0" prefHeight="96.0" prefWidth="245.0" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>
