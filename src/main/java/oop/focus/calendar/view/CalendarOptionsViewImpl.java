@@ -10,18 +10,29 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oop.focus.calendar.controller.CalendarOptionsControllerImpl;
+import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarOptionsController;
 import oop.focus.calendar.view.HoursViewImpl.Format;
 
 public class CalendarOptionsViewImpl implements CalendarOptionsView {
 
 
-    private final CalendarOptionsControllerImpl controller = new CalendarOptionsControllerImpl();
+    private final CalendarOptionsController optioncontroller;
+    private final CalendarMonthController monthcontroller;
+    private final CalendarMonthView monthview;
 
     private VBox options = new VBox();
 
-    private Format temp;
+    private Format hoursformat;
     private Stage optionwindows;
+
+    public CalendarOptionsViewImpl(final CalendarOptionsController controller, final CalendarMonthController monthcontroller, final CalendarMonthView monthview) {
+        this.optioncontroller = controller;
+        this.monthcontroller = monthcontroller;
+        this.monthview = monthview;
+    }
+
+
 
     private VBox buildOptionsView() {
 
@@ -29,6 +40,42 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
 
         final GridPane settings = new GridPane();
 
+        final Button save = new Button("salva");
+
+        this.buildSpacingRow(settings, save);
+
+        this.buildFormatRow(settings);
+
+        this.configureSettingsGrid(settings);
+
+
+        container.getChildren().add(settings);
+        container.getChildren().add(save);
+        container.setAlignment(Pos.CENTER);
+        container.setSpacing(10);
+
+        return container;
+    }
+
+    private EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                 if (!optioncontroller.checkSpacing(spacing.getText())) {
+                     System.out.println("ERRORE: inserire dei numeri");
+                     spacing.setText(String.valueOf(optioncontroller.getSpacing()));
+                 }
+                 optioncontroller.setFormat(hoursformat);
+                 System.out.println(optioncontroller.getSpacing() + " " + optioncontroller.getFormat());
+                 monthcontroller.updateView(monthview, monthcontroller);
+                 optionwindows.close();
+           }
+
+        };
+    }
+
+    private void buildSpacingRow(final GridPane settings, final Button save) {
         final Label spacinglabel = new Label("spaziatura ore");
 
         final TextField spacing = new TextField();
@@ -36,6 +83,10 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
         settings.add(spacinglabel, 0, 0);
         settings.add(spacing, 1, 0);
 
+        save.setOnAction(this.saveOnAction(spacing));
+    }
+ 
+    private void buildFormatRow(final GridPane settings) {
         final Label formatlabel = new Label("formato ore");
 
         final ComboBox<Format> format = new ComboBox<>();
@@ -47,39 +98,17 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
         format.getItems().add(extended);
 
         format.setOnAction((e) -> {
-            this.temp = format.getValue();
+                this.hoursformat = format.getValue();
         });
 
         settings.add(formatlabel, 0, 1);
         settings.add(format, 1, 1);
+    }
 
-        final Button save = new Button("salva");
-
-        save.setOnAction(new EventHandler<ActionEvent>() {
-
-            public void handle(final ActionEvent event) {
-                if (!controller.checkSpacing(spacing.getText())) {
-                    System.out.println("ERRORE");
-                }
-                System.out.println(controller.getSpacing() + " " + controller.getFormat());
-                controller.setFormat(temp);
-                optionwindows.close();
-            }
-        });
-
-
+    private void configureSettingsGrid(final GridPane settings) {
         settings.setAlignment(Pos.CENTER);
         settings.setVgap(10);
         settings.setHgap(10);
-
-        container.getChildren().add(settings);
-
-        container.getChildren().add(save);
-
-        container.setAlignment(Pos.CENTER);
-        container.setSpacing(10);
-
-        return container;
     }
 
 

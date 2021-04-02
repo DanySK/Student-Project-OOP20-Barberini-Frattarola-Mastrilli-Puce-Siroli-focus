@@ -1,11 +1,7 @@
 package oop.focus.calendar.view;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -14,26 +10,26 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import oop.focus.calendar.controller.CalendarMonthController;
-import oop.focus.calendar.controller.CalendarMonthControllerImpl;
-import oop.focus.calendar.model.CalendarLogicImpl;
-import oop.focus.calendar.model.DayImpl;
+
+
 
 
 public class CalendarMonthView {
 
-    private final Map<Button, CalendarDaysViewImpl> cells  = new HashMap<>();
-    private List<DayImpl> month;
+
     private final double width;
     private final double height;
     private static final int BORDER = 20;
     private static final int FONTSIZE = 12;
-    private final CalendarLogicImpl calendarlogic = new CalendarLogicImpl();
-    private final CalendarMonthController logics = new CalendarMonthControllerImpl();
+
+    private final CalendarMonthController monthcontroller;
+
     private final Label monthinfo = new Label();
 
     private VBox monthview;
 
-    public CalendarMonthView(final double width, final double height) {
+    public CalendarMonthView(final double width, final double height, final CalendarMonthController monthcontroller) {
+        this.monthcontroller = monthcontroller;
         this.width = width;
         this.height = height;
         monthview = new VBox();
@@ -47,9 +43,6 @@ public class CalendarMonthView {
 
 
 
-        month = calendarlogic.getMonth();
-
-
         final VBox container = new VBox();
         container.prefHeight(height);
         container.prefWidth(width);
@@ -59,7 +52,7 @@ public class CalendarMonthView {
 
         container.getChildren().add(buildTopPanel(container));
 
-        container.getChildren().add(logics.buildGridMonth(month, cells));
+        container.getChildren().add(monthcontroller.buildGridMonth());
 
         container.setPadding(new Insets(BORDER, BORDER, BORDER, BORDER));
 
@@ -70,15 +63,23 @@ public class CalendarMonthView {
 
     }
 
-
-    private void updateView(final VBox container, final CalendarMonthController logics) {
-        container.getChildren().remove(container.getChildren().size() - 1);
-        container.getChildren().add(logics.buildGridMonth(month, cells));
-        setMonthInfo(month.get(0).getMonth() + "   " + month.get(0).getYear());
+    public final CalendarMonthController getController() {
+        return this.monthcontroller;
     }
 
 
-    private void setMonthView(final VBox month) {
+    public final Label getMonthInfo() {
+        return this.monthinfo;
+    }
+
+
+
+    /**
+     * 
+     * monthview.
+     * @param month
+     */
+    public void setMonthView(final VBox month) {
         monthview = month;
     }
 
@@ -92,23 +93,7 @@ public class CalendarMonthView {
         return monthview;
     }
 
-    /**
-     * @param container
-     * @param flag
-     * @return next
-     */
-    private EventHandler<ActionEvent> buildButton(final VBox container, final Boolean flag) {
-        return new EventHandler<ActionEvent>() {
 
-            @Override
-            public void handle(final ActionEvent event) {
-                calendarlogic.changeMonth(flag);
-                month = calendarlogic.getMonth();
-                updateView(container, logics);
-            }
-
-        };
-    }
 
     /**
      * 
@@ -120,14 +105,14 @@ public class CalendarMonthView {
      */
     private HBox buildTopPanel(final VBox container) {
         final HBox toppanel = new HBox();
-        this.monthinfo.setText(month.get(0).getYear() + "   " + month.get(0).getMonth());
+        this.monthinfo.setText(monthcontroller.getMonth().get(0).getYear() + "   " + monthcontroller.getMonth().get(0).getMonth());
         this.monthinfo.setFont(Font.font(FONTSIZE));
         this.monthinfo.setAlignment(Pos.CENTER);
 
         final Button next = new Button("next");
         final Button previous = new Button("previous");
-        next.setOnAction(buildButton(container, false));
-        previous.setOnAction(buildButton(container, true));
+        next.setOnAction(monthcontroller.changeMonthButton(this, false, monthcontroller));
+        previous.setOnAction(monthcontroller.changeMonthButton(this, true, monthcontroller));
 
         toppanel.getChildren().add(previous);
         toppanel.getChildren().add(monthinfo);
@@ -138,12 +123,6 @@ public class CalendarMonthView {
         return toppanel;
     }
 
-    /**
-     * @param string    Month name and the years of the Month
-     */
-    private void setMonthInfo(final String string) {
-        this.monthinfo.setText(string);
-    }
 
 
 }
