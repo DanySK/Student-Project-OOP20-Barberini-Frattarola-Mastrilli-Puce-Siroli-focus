@@ -106,7 +106,10 @@ public class EventManagerImpl implements EventManager {
     }
 
     public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
-        return Optional.ofNullable(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
+        if(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().anyMatch(e -> e.getStartHour().isAfter(date.toLocalTime()))){
+            return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
+        }
+        return Optional.empty();
     }
 
     public final Set<Event> getAll() {
