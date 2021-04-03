@@ -8,6 +8,7 @@ import org.joda.time.LocalDateTime;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.function.Consumer;
 
 public class CounterManagerImpl implements CounterManager {
@@ -15,7 +16,7 @@ public class CounterManagerImpl implements CounterManager {
     private TimeScrolling counter;
     private LocalDateTime start;
     private Sound sound;
-    private Integer finalCounter;
+    private Optional<Integer> finalCounter;
     private final EventManager me;
     private String eventName;
     private boolean isSetted;
@@ -25,6 +26,7 @@ public class CounterManagerImpl implements CounterManager {
         this.isTimer = isTimer;
         this.tf = new CounterFactory(me);
         this.isSetted = false;
+        this.finalCounter = Optional.empty();
     }
     @Override
     public final void createCounter(final String event) {
@@ -40,7 +42,7 @@ public class CounterManagerImpl implements CounterManager {
             e.printStackTrace();
         }
         this.counter.addFinishListener(integer -> {
-            this.finalCounter = integer;
+            this.finalCounter = Optional.of(integer);
             this.createEvent();
         });
 
@@ -61,6 +63,7 @@ public class CounterManagerImpl implements CounterManager {
     @Override
     public final void stopCounter() {
         this.counter.stopCounter();
+        this.createEvent();
     }
     @Override
     public final void setStarterValue(final Integer value) {
@@ -69,7 +72,7 @@ public class CounterManagerImpl implements CounterManager {
     }
 
     private void createEvent() {
-        if (this.finalCounter.equals(0)) {
+        if (this.finalCounter.isPresent() && this.finalCounter.equals(0)) {
             try {
                 this.sound.playSound();
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {

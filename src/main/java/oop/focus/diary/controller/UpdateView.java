@@ -6,9 +6,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 public class UpdateView implements Runnable {
-    private final StopwatchControllerImpl controller;
+    private final CounterControllerImpl controller;
     private final Label counter;
-    public UpdateView(final StopwatchControllerImpl controller, final Label counter) {
+    public UpdateView(final CounterControllerImpl controller, final Label counter) {
         this.controller = controller;
         this.counter = counter;
     }
@@ -16,7 +16,7 @@ public class UpdateView implements Runnable {
     public final void run() {
         Platform.runLater(() -> {
             final DateTimeFormatter fmt = DateTimeFormat.forPattern("HH : mm : ss");
-            this.counter.setText(this.controller.getCounter().toString(fmt));
+            this.counter.setText(this.controller.getValue().get(this.controller.getValue().size() - 1).toString(fmt));
         });
     }
 }

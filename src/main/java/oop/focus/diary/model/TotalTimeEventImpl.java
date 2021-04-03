@@ -19,6 +19,6 @@ public class TotalTimeEventImpl implements TotalTimeEvent {
     @Override
     public final Optional<Period> computePeriod(final String labelName) {
         return this.me.findByName(labelName).stream().map(s -> new Period(s.getStart().toDateTime(), s.getEnd().toDateTime())).
-            reduce((a, b) -> a.plus(b));
+            reduce(Period::plus);
     }
 }
