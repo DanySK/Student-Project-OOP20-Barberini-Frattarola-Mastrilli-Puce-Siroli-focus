@@ -200,6 +200,8 @@ public class FinanceTest {
         final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
         final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
         final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
+        final int monthlyExp = this.financeManager.getTransactionManager().monthlyExpense();
+        final int yearlyExp = this.financeManager.getTransactionManager().yearlyExpense();
 
         // creo un conto
         this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 200_000));
@@ -246,8 +248,8 @@ public class FinanceTest {
         assertEquals(numSub+7, this.financeManager.getTransactionManager().getSubscriptions().size());
 
         // controllo spesa totale mensile e annuale
-        assertEquals(-26_191, this.financeManager.getTransactionManager().monthlyExpense());
-        assertEquals(-314_228, this.financeManager.getTransactionManager().yearlyExpense());
+        assertEquals(monthlyExp-26_191, this.financeManager.getTransactionManager().monthlyExpense());
+        assertEquals(yearlyExp-314_228, this.financeManager.getTransactionManager().yearlyExpense());
 
         // faccio creare tutte le transazioni da ripetere
         this.financeManager.generateRepeatedTransactions(new LocalDate(2021, 3, 13));
