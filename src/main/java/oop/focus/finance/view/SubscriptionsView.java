@@ -18,7 +18,7 @@ public class SubscriptionsView implements Initializable, View {
     @FXML
     private ScrollPane subcriptionsScroll;
     @FXML
-    private Label monthlyTransactionLlabel;
+    private Label monthlyTransactionLabel;
     @FXML
     private Label annualTransactionLabel;
 
@@ -47,6 +47,9 @@ public class SubscriptionsView implements Initializable, View {
     }
 
     private void populate() {
-        //TODO
+        this.annualTransactionLabel.setText("Spesa annuale -> € " + this.controller.getYearlyExpense());
+        this.monthlyTransactionLabel.setText("Spesa mensile -> € " + this.controller.getMonthlyExpense());
+        //Node subscriptionsBox = new SubscriptionsBoxImpl(this.controller);
+        //this.subcriptionsScroll.setContent(subscriptionsBox);
     }
 }

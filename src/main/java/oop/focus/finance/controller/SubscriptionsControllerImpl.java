@@ -20,4 +20,14 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     public final Parent getView() {
         return this.view.getRoot();
     }
+
+    @Override
+    public final double getYearlyExpense() {
+        return (double) this.manager.getTransactionManager().yearlyExpense() / 100;
+    }
+
+    @Override
+    public final double getMonthlyExpense() {
+        return (double) this.manager.getTransactionManager().monthlyExpense() / 100;
+    }
 }
