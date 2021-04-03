@@ -1,9 +1,8 @@
 package oop.focus.finance.controller;
 
-import javafx.scene.Parent;
 import oop.focus.finance.view.View;
 
-public interface BaseController {
+public interface BaseController extends FinanceController {
 
     /**
      * Change the view to show in BaseView.
@@ -11,9 +10,4 @@ public interface BaseController {
      * @param view to show
      */
     void changeView(View view);
-
-    /**
-     * @return the root of BaseView
-     */
-    Parent getView();
 }

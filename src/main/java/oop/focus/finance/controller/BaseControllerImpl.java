@@ -22,5 +22,4 @@ public class BaseControllerImpl implements BaseController {
     public final Parent getView() {
         return this.view.getRoot();
     }
-
 }

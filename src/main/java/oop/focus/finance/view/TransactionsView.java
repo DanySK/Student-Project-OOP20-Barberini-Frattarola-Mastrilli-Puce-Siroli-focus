@@ -10,12 +10,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.TransactionsController;
+import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class TransactionsView implements Initializable, View {
 
@@ -55,10 +57,10 @@ public class TransactionsView implements Initializable, View {
     private void populate() {
         Node accountsButtons = new AccountButtonsImpl(this.controller);
         this.accountsScroll.setContent(accountsButtons);
-        this.amountLabel.setText("€ " + this.controller.getAmount());
     }
 
-    public void updateTransactions(final Set<Transaction> transactions) {
+    public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
+        this.amountLabel.setText("€ " + this.controller.getAmount(predicate));
         /*
         Node transactionsBox = new TransactionsBoxImpl(transactions);
         this.transactionsScroll.setContent(transactionsBox);
