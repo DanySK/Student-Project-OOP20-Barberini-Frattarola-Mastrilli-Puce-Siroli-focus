@@ -15,8 +15,8 @@ public class CounterFactory {
         return new TimeScrollingImpl(t -> t - 1, t -> !t.equals(0) && this.managerTimerEnds());
     }
     private boolean managerTimerEnds() {
-        if (!this.me.checkEmptyJourney(LocalDateTime.now())) {
-            return LocalTime.now().compareTo(this.me.getClosestEvent(LocalDateTime.now()).minusSeconds(1)) <= 0;
+        if (!this.me.checkEmptyJourney(LocalDateTime.now()) && this.me.getClosestEvent(LocalDateTime.now()).isPresent()) {
+            return LocalTime.now().compareTo(this.me.getClosestEvent(LocalDateTime.now()).get().minusSeconds(1)) <= 0;
         }
         return true;
     }
