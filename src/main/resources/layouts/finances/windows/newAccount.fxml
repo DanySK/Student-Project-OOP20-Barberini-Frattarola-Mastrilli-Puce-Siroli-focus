@@ -6,16 +6,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label prefHeight="49.0" prefWidth="295.0" text="Nuovo conto" />
-      <Label layoutX="31.0" layoutY="94.0" prefHeight="36.0" prefWidth="114.0" text="Nome:" />
-      <Label layoutX="31.0" layoutY="164.0" prefHeight="36.0" prefWidth="114.0" text="Importo:                €" />
-      <Label layoutX="31.0" layoutY="230.0" prefHeight="36.0" prefWidth="114.0" text="Colore:" />
-      <Button fx:id="cancelButton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="82.0" text="Cancella" />
-      <Button fx:id="saveButton" layoutX="165.0" layoutY="310.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="82.0" text="Salva" />
-      <TextField fx:id="nameTextfield" layoutX="149.0" layoutY="100.0" prefHeight="25.0" prefWidth="114.0" />
-      <TextField fx:id="amountTextfield" layoutX="149.0" layoutY="170.0" prefHeight="25.0" prefWidth="114.0" />
-      <ColorPicker fx:id="colorPicker" layoutX="148.0" layoutY="236.0" prefHeight="25.0" prefWidth="114.0" />
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="295.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label prefHeight="49.0" prefWidth="295.0" text="Nuovo conto"/>
+   <Label layoutX="31.0" layoutY="94.0" prefHeight="36.0" prefWidth="114.0" text="Nome:"/>
+   <Label layoutX="31.0" layoutY="164.0" prefHeight="36.0" prefWidth="114.0" text="Importo:                €"/>
+   <Label layoutX="31.0" layoutY="230.0" prefHeight="36.0" prefWidth="114.0" text="Colore:"/>
+   <Button fx:id="cancelButton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="49.0"
+           prefWidth="82.0" text="Cancella"/>
+   <Button fx:id="saveButton" layoutX="165.0" layoutY="310.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="82.0"
+           text="Salva"/>
+   <TextField fx:id="nameTextfield" layoutX="149.0" layoutY="100.0" prefHeight="25.0" prefWidth="114.0"/>
+   <TextField fx:id="amountTextfield" layoutX="149.0" layoutY="170.0" prefHeight="25.0" prefWidth="114.0"/>
+   <ColorPicker fx:id="colorPicker" layoutX="148.0" layoutY="236.0" prefHeight="25.0" prefWidth="114.0"/>
 </Pane>

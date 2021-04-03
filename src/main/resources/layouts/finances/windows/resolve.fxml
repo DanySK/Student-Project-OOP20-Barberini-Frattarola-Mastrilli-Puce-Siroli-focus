@@ -6,15 +6,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label prefHeight="58.0" prefWidth="350.0" text="Risolvi" />
-      <ScrollPane fx:id="resolveScroll" prefHeight="277.0" prefWidth="350.0" />
-      <Pane prefHeight="64.0" prefWidth="350.0">
-         <children>
-            <Button fx:id="cancelButton" layoutX="61.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0" text="Cancella" />
-            <Button fx:id="saveButton" layoutX="197.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0" text="Salva" />
-         </children>
-      </Pane>
-   </children>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+      prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label prefHeight="58.0" prefWidth="350.0" text="Risolvi"/>
+   <ScrollPane fx:id="resolveScroll" prefHeight="277.0" prefWidth="350.0"/>
+   <Pane prefHeight="64.0" prefWidth="350.0">
+      <Button fx:id="cancelButton" layoutX="61.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0"
+              prefWidth="93.0" text="Cancella"/>
+      <Button fx:id="saveButton" layoutX="197.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0"
+              prefWidth="93.0" text="Salva"/>
+   </Pane>
 </VBox>
