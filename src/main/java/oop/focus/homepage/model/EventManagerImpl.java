@@ -8,10 +8,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -57,22 +54,6 @@ public class EventManagerImpl implements EventManager {
         return this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty();
     }
 
-
-    public final boolean emptyFromNowOn(LocalDateTime time){
-        List<Event> eventList = this.takeOnly(this.findByDate(LocalDateTime.now().toLocalDate()));
-        for (Event event : eventList){
-            if (event.getStartDate().isEqual(event.getEndDate())){
-                if(event.getStartHour().isAfter(time.toLocalTime()) || event.getEndHour().isAfter(time.toLocalTime())){
-                    return false;
-                }
-            } else {
-                if(event.getStart().isAfter(time) || event.getEnd().isAfter(time)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     public final List<Event> findByDate(final LocalDate date) {
        return this.events.getAll().stream().filter(e -> {
@@ -124,8 +105,8 @@ public class EventManagerImpl implements EventManager {
         }
     }
 
-    public final LocalTime getClosestEvent(final LocalDateTime date) {
-        return this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour();
+    public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
+        return Optional.ofNullable(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
     }
 
     public final Set<Event> getAll() {

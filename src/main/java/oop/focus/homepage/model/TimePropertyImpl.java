@@ -57,8 +57,7 @@ public class TimePropertyImpl implements TimeProperty {
     }
 
     public final boolean getStart(final LocalDateTime date, final Event e) {
-        final LocalTime time = date.toLocalTime();
-        return e.getStartHour().isBefore(time) && e.getEndHour().isAfter(time) || e.getStartHour().isEqual(time) || e.getEndHour().isEqual(time);
+        return e.getStart().isBefore(date) && e.getEnd().isAfter(date) || e.getStart().isEqual(date) || e.getEnd().isEqual(date);
     }
 
     public final boolean getValidity(final Event e) {
