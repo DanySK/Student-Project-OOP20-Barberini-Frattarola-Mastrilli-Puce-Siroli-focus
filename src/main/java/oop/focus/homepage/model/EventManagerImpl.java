@@ -54,7 +54,7 @@ public class EventManagerImpl implements EventManager {
     }
 
     public final boolean checkEmptyJourney(final LocalDateTime date) {
-        return this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty() || this.emptyFromNowOn(date);
+        return this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty();
     }
 
 
