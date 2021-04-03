@@ -1,4 +1,4 @@
-package oop.focus.homepage.controller;
+package oop.focus.homepage.view;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,4 +26,5 @@ public class CounterHotKeyView extends Pane {
     public final String getLabelValue() {
         return this.label.getText();
     }
+
 }

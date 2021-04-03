@@ -63,34 +63,18 @@ public class EventImpl implements Event {
         this(name, startDate, endDate, repetition, new ArrayList<>(), !repetition.equals(Repetition.ONCE));
     }
 
-    /**
-     * This method is used to add a new person to an event.
-     * @param person is the person to add.
-     */
     public final void addPerson(final Person person) {
         this.persons.add(person);
     }
 
-    /**
-     * This method is used to know both the end date and the end time of an event.
-     * @return LocalDateTime.
-     */
     public final LocalDateTime getEnd() {
         return this.endDate;
     }
 
-    /**
-     * This method is used for get the event end day.
-     * @return a LocalDate that represent the event endDay.
-     */
     public final LocalDate getEndDate() {
         return this.endDate.toLocalDate();
     }
 
-    /**
-     * This method is used for get the event end hour.
-     * @return a LocalDateTime that represent the event endHour.
-     */
     public final LocalTime getEndHour() {
         return this.endDate.toLocalTime();
     }
@@ -103,67 +87,36 @@ public class EventImpl implements Event {
         return this.name;
     }
 
-    /**
-     * This method is used to get the next repetition of the event.
-     * @return the next repetition of this event.
-     */
     public final Event getNextRenewal() {
         final LocalDate nextStart = this.repetition.getNextRenewalFunction().apply(new LocalDate(this.getStartDate().getYear(), this.getStartDate().getMonthOfYear(), this.getStartDate().getDayOfMonth()));
         final LocalDate nextEnd = this.repetition.getNextRenewalFunction().apply(new LocalDate(this.getEndDate().getYear(), this.getEndDate().getMonthOfYear(), this.getEndDate().getDayOfMonth()));
         return new EventImpl(this.name, nextStart.toLocalDateTime(this.getStartHour()), nextEnd.toLocalDateTime(this.getEndHour()), this.repetition);
     }
 
-    /**
-     * This method is used to know the list of people who will attend the event.
-     * @return the persons list, return an empty list if no other people will attend.
-     */
     public final List<Person> getPersons() {
         return this.persons;
     }
 
-    /**
-     * This method is used to know both the start date and the start time of an event.
-     * @return LocalDateTime.
-     */
     public final LocalDateTime getStart() {
         return this.startDate;
     }
 
-    /**
-     * This method is used for get the event start day.
-     * @return a LocalDate that represent the event startDay.
-     */
     public final LocalDate getStartDate() {
         return this.startDate.toLocalDate();
     }
 
-    /**
-     * This method is used for get the event start hour.
-     * @return a LocalDateTime that represent the event startHour.
-     */
     public final LocalTime getStartHour() {
         return this.startDate.toLocalTime();
     }
 
-    /**
-     * This method is used to know if an event repeats itself or not, and if it recurs, to know how often.
-     * @return a member of the Repetition enumeration.
-     */
     public final Repetition getRipetition() {
         return this.repetition;
     }
 
-    /**
-     * @return true if the event have to repeat false otherwise.
-     */
     public final boolean isRepeated() {
         return isRepeated;
     }
 
-    /**
-     * This is the hasCode related to the equals method.
-     * @return an integer.
-     */
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -172,12 +125,6 @@ public class EventImpl implements Event {
         return result;
     }
 
-    /**
-     * This method is used to verify if an event is equals as another.
-     * Two events are the same if their name and start date are the same.
-     * @param obj is the event whose equality needs to be checked.
-     * @return a boolean which will be true if the two events are equal and false if the two events are different.
-     */
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;

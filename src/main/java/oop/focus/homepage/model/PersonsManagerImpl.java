@@ -18,10 +18,6 @@ public class PersonsManagerImpl implements PersonsManager {
         this.sd = dsi.getPersons();
     }
 
-    /**
-     * This method is used to add new Person to the database.
-     * @param person is the person to add.
-     */
     public final void addPerson(final Person person) {
         if (!this.sd.getAll().contains(person)) {
             try {
@@ -32,18 +28,10 @@ public class PersonsManagerImpl implements PersonsManager {
         }
     }
 
-    /**
-     * This method is used to get all the saved persons.
-     * @return a list of persons.
-     */
     public final Set<Person> getPersons() {
         return this.sd.getAll();
     }
 
-    /**
-     * This method is used to remove a person from the database if it's already saved.
-     * @param person is the person to remove from the database.
-     */
     public final void removePerson(final Person person) {
         try {
             this.sd.delete(person);

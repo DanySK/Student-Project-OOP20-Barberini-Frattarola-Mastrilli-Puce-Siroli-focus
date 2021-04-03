@@ -1,37 +1,67 @@
 package oop.focus.homepage.controller;
 
-import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
-import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyManager;
-import oop.focus.homepage.model.HotKeyManagerImpl;
-import oop.focus.db.DataSource;
+import java.util.Optional;
 
-import java.util.Set;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
+import oop.focus.homepage.model.Event;
+import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.HotKey;
+import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyType;
+import oop.focus.homepage.view.HomePageBaseView;
 
 public class HomePageController {
-    private final DataSource dsi;
-    private final EventManager events;
-    private final HotKeyManager hotKeys;
+
+    private final HomePageBaseView view;
+    private ObservableList<Event> event;
+    private final ObservableList<HotKey> hotKeyList;
 
     public HomePageController() {
-        this.dsi = new DataSourceImpl();
-        this.events = new EventManagerImpl(dsi);
-        this.hotKeys = new  HotKeyManagerImpl(dsi, events);
+        this.view = new HomePageBaseView(this);
+        hotKeyList = FXCollections.observableArrayList();
+        this.hotKeyList.addAll(new HotKeyImpl("Shopping", HotKeyType.EVENT), new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY), new HotKeyImpl("Bere", HotKeyType.COUNTER), new HotKeyImpl("Addominali", HotKeyType.COUNTER), new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY));
     }
 
-    public final Set<Event> getEvent() {
-        return this.events.getAll();
+    public final Parent getView() {
+        return this.view.getRoot();
     }
 
-    public final Set<HotKey> getHotKey() {
-        return this.hotKeys.getAll();
+    public final ObservableList<HotKey> getHotKey() {
+        return this.hotKeyList;
     }
 
-    public final void addEvent(final Event e) {
-        this.events.addEvent(e);
+    public final HomePageBaseView getViewForChange() {
+        return this.view;
+    }
+
+    public final void showAllert() {
+        final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("I campi non sono stati riempiti correttamente!");
+        alert.setContentText("Riempire i campi o tornare indietro");
+
+        final Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+            alert.close();
+        }
+    }
+
+
+    public final void saveHotKey(final HotKey hotKey) {
+        this.hotKeyList.add(hotKey);
+    }
+
+    public final void deleteHotKey(final HotKey selectedItem) {
+        this.hotKeyList.remove(selectedItem);
+    }
+
+    public final void saveEvent(final EventImpl eventImpl) {
+        this.event.add(eventImpl);
     }
 
 }

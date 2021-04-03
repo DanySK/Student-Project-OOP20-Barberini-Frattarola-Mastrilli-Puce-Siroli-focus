@@ -25,53 +25,26 @@ public class HotKeyImpl implements HotKey {
         this.typeRepresentation = this.hotKeyType.getType();
     }
 
-    /**
-     * This method is used to save the event generated when a hot key is clicked, the event name is the hot key name.
-     * This method is implemented differently based on the category of the hot key. 
-     * @param start is the start.
-     * @param end is the end.
-     * @return an event.
-     */
-    public Event createEvent(final LocalDateTime start, final LocalDateTime end) {
+    public final Event createEvent(final LocalDateTime start, final LocalDateTime end) {
         return new EventImpl(this.name, start, end, Repetition.ONCE);
     }
 
-    /**
-     * This method is used for getting the name of the HotKey.
-     * @return a String.
-     */
     public final String getName() {
         return this.name;
     }
 
-    /**
-     * This method is used for getting the type of the HotKey.
-     * @return a member of the HotKeyType enumeration.
-     */
     public final HotKeyType getType() {
         return this.hotKeyType;
     }
 
-    /**
-     * This method is used to get the string representation of the hot key type.
-     * @return a string representing the type of the hot key.
-     */
     public final String getTypeRepresentation() {
         return this.typeRepresentation;
     } 
 
-    /**
-     * This method is used to modify the name.
-     * @param newName is the new name of the hot key.
-     */
-    public void setName(final String newName) {
+    public final void setName(final String newName) {
         this.name = newName;
     }
 
-    /**
-     * This is the hasCode related to the equals method.
-     * @return a string.
-     */
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -80,13 +53,7 @@ public class HotKeyImpl implements HotKey {
         return result;
     }
 
-    /**
-     * This method is used to check if one keyboard shortcut is the same as another.
-     * Two hot keys are the same if their name and the hotkey category are the same.
-     * @param obj is the hot key whose equality needs to be checked.
-     * @return a boolean which will be true if the two hot keys are equal and false if the two hot keys are different.
-     */
-    public boolean equals(final Object obj) {
+    public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

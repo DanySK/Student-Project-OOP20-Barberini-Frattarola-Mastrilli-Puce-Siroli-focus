@@ -11,23 +11,14 @@ import org.joda.time.LocalTime;
 public class TimePropertyImpl implements TimeProperty {
 
     private final Duration minimumEventDuration;
-    private final int minimunDuration = 30;
-    private final int minuteDistance = 5;
 
     /**
      * This is the class constructor.
      */
     public TimePropertyImpl() {
-        this.minimumEventDuration = Duration.standardMinutes(this.minimunDuration);
+        this.minimumEventDuration = Duration.standardMinutes(Costants.MININUM_DURATION);
     }
 
-    /**
-     * This method it is used to check the possibility of adding an event when it has a different start date than the end date.
-     * @param e is the event that must be added.
-     * @param listFirst list of events that are scheduled for the start date of the event you want to add.
-     * @param listSecond list of events that are scheduled for the end date of the event you want to add.
-     * @return true if the event is compatible , false otherwise.
-     */
     public final boolean areCompatibleDifferent(final Event e, final List<Event> listFirst, final List<Event> listSecond) {
         if (this.isPossible(e, listSecond)) {
             return listFirst.isEmpty() || listFirst.get(listFirst.size() - 1).getEndDate().isEqual(e.getStartDate()) && e.getStartHour().isAfter(listFirst.get(listFirst.size() - 1).getEndHour());
@@ -35,12 +26,6 @@ public class TimePropertyImpl implements TimeProperty {
         return false;
     }
 
-    /**
-     * This method it is used to check the possibility of adding an event when it has a start date equal to the end date.
-     * @param e is the event that must be added.
-     * @param list list of events that are scheduled for the date of the event you want to add.
-     * @return true if the event is compatible , false otherwise.
-     */
     public final boolean areCompatibleEquals(final Event e, final List<Event> list) {
         if (list.isEmpty() || list.get(0).getStartDate().isEqual(list.get(0).getEndDate()) 
            && e.getStartHour().isBefore(list.get(0).getStartHour())
@@ -57,51 +42,25 @@ public class TimePropertyImpl implements TimeProperty {
         return false;
     }
 
-    /**
-     * This method is used to know the daily duration expressed in hours of an event.
-     * @param event is the event whose duration expressed in hours is to be calculated.
-     * @return true if the event duration is greater than 24 hours(that is the duration of a day).
-     */
     public final boolean getHourDuration(final Event event) {
         final Duration hourDuration = new Duration(event.getStartDate().toDateTime(event.getStartHour()), event.getEndDate().toDateTime(event.getEndHour()));
-        return hourDuration.toStandardHours().getHours() < 24;
+        return hourDuration.toStandardHours().getHours() < Costants.HOUR_OF_DAY;
     }
 
-    /**
-     * This method is used to get the distance between two minutes.
-     * @return an integer that represent the distance.
-     */
     public final int getMinuteDistance() {
-        return this.minuteDistance;
+        return Costants.MINUTE_DISTACE;
     }
 
-    /**
-     * This method is use to verify if an event have a duration greatest than 30 minutes.
-     * @param event is the event to check the duration of.
-     * @return true if it has false otherwise.
-     */
     public final boolean getMinEventTime(final Event event) {
         final Duration durationEvent = new Duration(event.getStartDate().toDateTime(event.getStartHour()), event.getEndDate().toDateTime(event.getEndHour()));
         return durationEvent.isEqual(this.minimumEventDuration) || durationEvent.isLongerThan(this.minimumEventDuration);
     }
 
-    /**
-     * This method is utilize from the manager to verify if a timer can start.
-     * @param date is the date and the hour of start of the timer.
-     * @param  e is the event on which to perform the check.
-     * @return true if the timer can't start , false otherwise.
-     */
     public final boolean getStart(final LocalDateTime date, final Event e) {
         final LocalTime time = date.toLocalTime();
         return e.getStartHour().isBefore(time) && e.getEndHour().isAfter(time) || e.getStartHour().isEqual(time) || e.getEndHour().isEqual(time);
     }
 
-    /**
-     * This method is used to check if an event is valid.
-     * An event is valid if, with the same start date and end date, the start time is earlier than the end time , or if the start date and the end date do not coincide.
-     * @param e is the event to verify the validity of.
-     * @return true if the event is valid false otherwise.
-     */
     public final boolean getValidity(final Event e) {
         return e.getStartDate().isEqual(e.getEndDate()) && e.getEndHour().isAfter(e.getStartHour()) || e.getEndDate().isAfter(e.getStartDate());
     }
@@ -116,4 +75,9 @@ public class TimePropertyImpl implements TimeProperty {
         return listSecond.isEmpty() || listSecond.get(0).getStartHour().isAfter(e.getEndHour());
     }
 
+    private static class Costants {
+        public static final int HOUR_OF_DAY = 24;
+        public static final int MININUM_DURATION = 30;
+        public static final int MINUTE_DISTACE = 5;
+    }
 }

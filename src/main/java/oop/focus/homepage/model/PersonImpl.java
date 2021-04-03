@@ -20,26 +20,14 @@ public class PersonImpl implements Person {
         this.relationships = degree;
     }
 
-    /**
-     * This method is used for get the degree of kinship of the person.
-     * @return a String that represents the person degree of kinship.
-     */
     public final String getDegreeOfKinship() {
         return this.relationships;
     }
 
-    /**
-     * This method is used for get the name of the person.
-     * @return a String that represent the person name.
-     */
     public final String getName() {
         return this.name;
     }
 
-    /**
-     * This is the hasCode related to the equals method.
-     * @return an integer.
-     */
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -48,12 +36,6 @@ public class PersonImpl implements Person {
         return result;
     }
 
-    /**
-     * This method is used to verify if a person is equals as another.
-     * Two persons are the same if their name and degree of kinship are the same.
-     * @param obj is the person whose equality needs to be checked.
-     * @return a boolean which will be true if the two persons are equal and false if the two persons are different.
-     */
     public final boolean equals(final Object obj) {
         if (this == obj) {
             return true;

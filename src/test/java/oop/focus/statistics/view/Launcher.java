@@ -1,6 +1,5 @@
 package oop.focus.statistics.view;
 
-import oop.focus.homepage.controller.HomePageApp;
 
 public class Launcher {
 

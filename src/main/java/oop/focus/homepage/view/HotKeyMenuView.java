@@ -1,4 +1,4 @@
-package oop.focus.homepage.controller;
+package oop.focus.homepage.view;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,11 +22,12 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
 
-public class HotKeyMenuView implements Initializable {
+public class HotKeyMenuView implements Initializable, View {
 
     @FXML
     private Pane paneHotKeyView;
@@ -45,9 +45,25 @@ public class HotKeyMenuView implements Initializable {
     private TableColumn<HotKey, String> nome, tipo;
 
     private ObservableList<HotKey> hotKeyList;
+    private final HomePageController controller;
+    private Parent root;
+
+    public HotKeyMenuView(final HomePageController controller) {
+        this.controller = controller;
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/choiceMenu.fxml"));
+        loader.setController(this);
+
+        try {
+            this.root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+
         nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
         nome.setCellFactory(TextFieldTableCell.forTableColumn());
         nome.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
@@ -67,24 +83,22 @@ public class HotKeyMenuView implements Initializable {
                 hotKey.setType(event.getNewValue());
             }
         });
-        this.hotKeyList = FXCollections.observableArrayList();
-        this.hotKeyList.addAll(new HotKeyImpl("Shopping", HotKeyType.ACTIVITY), new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY), new HotKeyImpl("Bere", HotKeyType.COUNTER));
+
         tableHotKeyList.setEditable(true);
-        tableHotKeyList.setItems(hotKeyList);
+        tableHotKeyList.setItems(this.controller.getHotKey());
     }
 
     @FXML
     public final void addNewHotKey(final ActionEvent event) throws IOException {
-        final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/addNewHotKey.fxml"));
-        final Scene scene = new Scene(root);
-        final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(scene);
-        window.show();
+        final NewHotKeyView newHotKey = new NewHotKeyView(this.controller);
+        Stage stage = new Stage();
+        stage.setScene(new Scene(newHotKey.getRoot()));
+        stage.show();
     }
 
     @FXML
     public final void deletSelectedRowItem(final ActionEvent event) {
+        this.controller.deleteHotKey(tableHotKeyList.getSelectionModel().getSelectedItem());
         this.tableHotKeyList.getItems().removeAll(tableHotKeyList.getSelectionModel().getSelectedItems());
     }
 
@@ -94,12 +108,9 @@ public class HotKeyMenuView implements Initializable {
 
     @FXML
     public final void goBack(final ActionEvent event) throws IOException {
-        final Parent root = FXMLLoader.load(getClass().getResource("/layouts/homepage/calendarHomePage.fxml"));
-        final Scene scene = new Scene(root);
-        final Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        window.setScene(scene);
-        window.show(); 
+        final HomePageBaseView base = new HomePageBaseView(this.controller);
+        this.paneHotKeyView.getChildren().clear();
+        this.paneHotKeyView.getChildren().add(base.getRoot());
     }
 
     @FXML
@@ -110,5 +121,8 @@ public class HotKeyMenuView implements Initializable {
         tableHotKeyList.setItems(hotKeyList);
     }
 
+    public final Parent getRoot() {
+        return this.root;
+    }
 }
 
