@@ -1,15 +1,17 @@
 package oop.focus.finance.controller;
 
 import javafx.collections.ObservableSet;
-import javafx.scene.Parent;
 import oop.focus.finance.model.Account;
 
-public interface TransactionsController {
+import java.util.function.Predicate;
+
+public interface TransactionsController extends FinanceController {
 
     /**
-     * @return the total amount of all accounts
+     * @param predicate filter the account whose amount we want to see
+     * @return returns the account amount indicated in the predicate
      */
-    double getAmount();
+    double getAmount(Predicate<Account> predicate);
 
     /**
      * @return a ObservableSet of all accounts
@@ -17,19 +19,8 @@ public interface TransactionsController {
     ObservableSet<Account> getAccounts();
 
     /**
-     * Notify the view to show all transactions.
-     */
-    void showTransactions();
-
-    /**
      * Notify view to show account's transactions.
-     * @param account whose transactions we want to see
+     * @param predicate whose transactions we want to see
      */
-    void showTransactions(Account account);
-
-    /**
-     * @return the root of TransactionsView
-     */
-    Parent getView();
-
+    void showTransactions(Predicate<Account> predicate);
 }

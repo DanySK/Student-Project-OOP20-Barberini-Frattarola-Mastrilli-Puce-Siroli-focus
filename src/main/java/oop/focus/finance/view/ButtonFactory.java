@@ -4,39 +4,38 @@ import oop.focus.db.DataSource;
 import oop.focus.finance.controller.BaseController;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
+import oop.focus.finance.model.Transaction;
+
+import java.util.function.Predicate;
 
 public interface ButtonFactory {
 
     /**
-     * @param controller of finance
-     * @param db finance DataBase
-     * @return a FinanceMenuButton that has as its action the visualization of TransactionView
+     *
+     * @param controller of transactions
+     * @param name of the button
+     * @param predicate filter the transactions we want to view
+     * @param db finance database
+     * @return a FinanceMenuButton that has as its action the visualization of filtered transactions
      */
-    FinanceMenuButton getTransactions(BaseController controller, DataSource db);
+    FinanceMenuButton getTransactions(BaseController controller, String name,
+                                      Predicate<Transaction> predicate, DataSource db);
 
     /**
-     * @param controller of finance
-     * @return a FinanceMenuButton that has as its action the visualization of OutingsView
-     */
-    FinanceMenuButton getOutings(BaseController controller);
-
-    /**
-     * @param controller of finance
-     * @return a FinanceMenuButton that has as its action the visualization of IncomesView
-     */
-    FinanceMenuButton getIncomes(BaseController controller);
-
-    /**
-     * @param controller of finance
+     * @param controller of subscriptions
+     * @param name of the button
+     * @param db finance database
      * @return a FinanceMenuButton that has as its action the visualization of SubscriptionsView
      */
-    FinanceMenuButton getSubscriptions(BaseController controller);
+    FinanceMenuButton getSubscriptions(BaseController controller, String name, DataSource db);
 
     /**
-     * @param controller of finance
+     * @param controller of group
+     * @param name of the button
+     * @param db finance database
      * @return a FinanceMenuButton that has as its action the visualization of GroupView
      */
-    FinanceMenuButton getGroupTransactions(BaseController controller);
+    FinanceMenuButton getGroupTransactions(BaseController controller, String name, DataSource db);
 
     /**
      * @param controller of finance
