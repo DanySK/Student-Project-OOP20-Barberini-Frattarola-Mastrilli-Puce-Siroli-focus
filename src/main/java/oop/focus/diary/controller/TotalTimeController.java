@@ -20,4 +20,10 @@ public interface TotalTimeController {
      * @return  the sum of all time spent to do the event in input
      */
     LocalTime getTotalTime(String event);
+
+    /**
+     * The method creates new event(witch name is the string in input).
+     * @param text the name of the event to add.
+     */
+    void addValue(final String text);
 }

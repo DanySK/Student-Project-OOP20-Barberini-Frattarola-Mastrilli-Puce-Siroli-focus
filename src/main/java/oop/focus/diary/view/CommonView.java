@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import oop.focus.diary.controller.TotalTimeControllerImpl;
 import oop.focus.diary.controller.CounterControllerImpl;
 import oop.focus.diary.controller.UpdateView;
+
+import oop.focus.diary.controller.UseTotalTimeController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -32,12 +34,13 @@ public final class CommonView {
             box.setDisable(true);
         });
     }
-    public static void addStopTimer(final TotalTimeControllerImpl controller, final CounterControllerImpl specificController, final Button startButton,
-                             final Button stopButton, final Label timeLabel, final ComboBox<String> chooseEvent, final DateTimeFormatter timeFormatter) {
+    public static void addStopTimer( final CounterControllerImpl specificController, final Button startButton,
+                                    final Button stopButton, final Label timeLabel, final ComboBox<String> chooseEvent, final DateTimeFormatter timeFormatter) {
         specificController.stopTimer();
         startButton.setDisable(false);
         stopButton.setDisable(true);
-        timeLabel.setText(controller.getTotalTime(chooseEvent.getItems().get(0)).toString(timeFormatter));
-        specificController.setStarter(chooseEvent.getItems().get(0), LocalTime.MIDNIGHT);
+        timeLabel.setText(UseTotalTimeController.getTotalTimeController().getTotalTime(chooseEvent.getValue()).toString(timeFormatter));
+        System.out.println(UseTotalTimeController.getTotalTimeController().getTotalTime(chooseEvent.getValue()));
+        specificController.setStarter(chooseEvent.getValue(), LocalTime.MIDNIGHT);
     }
 }

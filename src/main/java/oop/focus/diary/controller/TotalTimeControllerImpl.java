@@ -9,22 +9,25 @@ import org.joda.time.LocalTime;
 
 public class TotalTimeControllerImpl implements TotalTimeController {
     private final EventManager eventManager;
-    private final TotalTimeEvent totalTimeEvent;
+    private final ObservableSet<String> set = FXCollections.observableSet();
     public TotalTimeControllerImpl(final EventManager em) {
         this.eventManager = em;
-        this.totalTimeEvent = new TotalTimeEventImpl(em);
+        this.eventManager.getAll().forEach(s -> this.set.add(s.getName()));
     }
     @Override
     public final ObservableSet<String> getAllEvents() {
-        final ObservableSet<String> set = FXCollections.observableSet();
-        this.eventManager.getAll().forEach(s -> set.add(s.getName()));
-        return set;
+        return this.set;
+    }
+    @Override
+    public void addValue(final String text) {
+        this.set.add(text);
     }
     @Override
     public final LocalTime getTotalTime(final String event) {
         System.out.println(event);
-        if (this.totalTimeEvent.computePeriod(event).isPresent()) {
-            return LocalTime.MIDNIGHT.plus(this.totalTimeEvent.computePeriod(event).get());
+        TotalTimeEvent totalTimeEvent = new TotalTimeEventImpl(eventManager);
+        if (totalTimeEvent.computePeriod(event).isPresent()) {
+            return LocalTime.MIDNIGHT.plus(totalTimeEvent.computePeriod(event).get());
         }
         return LocalTime.MIDNIGHT;
     }

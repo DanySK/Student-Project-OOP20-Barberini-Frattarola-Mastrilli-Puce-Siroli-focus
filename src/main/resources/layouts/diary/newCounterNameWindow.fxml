@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.diary.view.InsertNewCounterNameImpl">
+   <top>
+      <AnchorPane prefHeight="169.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="newEventNameLabel" layoutX="31.0" layoutY="59.0" prefHeight="51.0" prefWidth="207.0" />
+            <TextField fx:id="textField" layoutX="325.0" layoutY="61.0" prefHeight="47.0" prefWidth="234.0" />
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <Button fx:id="insertEvent" mnemonicParsing="false" prefHeight="50.0" prefWidth="94.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

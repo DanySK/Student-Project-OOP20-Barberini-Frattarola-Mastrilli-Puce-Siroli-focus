@@ -31,4 +31,5 @@ public interface CounterController {
      * The method stop the counter.
      */
     void stopTimer();
+
 }
