@@ -34,14 +34,14 @@ public class EventViewImpl implements VBoxManager {
     private double inserteventsduration;
 
     //List
-    private final List<Event> events = new ArrayList<>();
+    private final List<Event> events;
 
     //Constants
     private static final double MINUTESINHOUR = 60;
 
 
     public EventViewImpl(final HoursViewImpl hours, final DayImpl day) {
-        this.events.addAll(day.getEvents());
+        events = new ArrayList<>(day.getEvents());
         this.hours = hours;
     }
 

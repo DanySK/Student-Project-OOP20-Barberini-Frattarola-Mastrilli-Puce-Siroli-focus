@@ -5,7 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import oop.focus.calendar.view.CalendarMonthView;
+import oop.focus.calendar.view.CalendarMonthViewImpl;
 import oop.focus.calendar.view.CalendarSettingsView;
 import oop.focus.calendar.view.CalendarSettingsViewImpl;
 
@@ -15,7 +15,7 @@ public class CalendarControllerImpl implements CalendarController {
 
     private final CalendarSettingsView settingsview;
 
-    private final CalendarMonthView monthview;
+    private final CalendarMonthViewImpl monthview;
 
     private final double optionwidth;
     private final double optionheight;
@@ -25,7 +25,7 @@ public class CalendarControllerImpl implements CalendarController {
         this.optionheight = optionheight;
         final CalendarSettingsController settingscontroller = new CalendarSettingsControllerImpl();
         final CalendarMonthController monthcontroller = new CalendarMonthControllerImpl(settingscontroller, daywidth, dayheight);
-        this.monthview = new CalendarMonthView(monthwidth, monthheight, monthcontroller);
+        this.monthview = new CalendarMonthViewImpl(monthwidth, monthheight, monthcontroller);
         this.settingsview = new CalendarSettingsViewImpl(settingscontroller, monthcontroller, this.monthview);
     }
 
@@ -52,7 +52,7 @@ public class CalendarControllerImpl implements CalendarController {
 
 
         final Stage settingsstage = new Stage();
-        settingsstage.setScene(new Scene(settingsview.getOptions(), optionwidth, optionheight));
+        settingsstage.setScene(new Scene(settingsview.getSettings(), optionwidth, optionheight));
 
         settings.setOnAction((e) -> {
             settingsview.setWindow(settingsstage);
