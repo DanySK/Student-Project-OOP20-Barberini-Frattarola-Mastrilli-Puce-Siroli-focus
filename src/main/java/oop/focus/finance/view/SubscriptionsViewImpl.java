@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SubscriptionsView implements Initializable, View {
+public class SubscriptionsViewImpl implements Initializable, SubscriptionView {
 
     @FXML
     private ScrollPane subcriptionsScroll;
@@ -25,7 +25,7 @@ public class SubscriptionsView implements Initializable, View {
     private final SubscriptionsController controller;
     private Parent root;
 
-    public SubscriptionsView(final SubscriptionsController controller) {
+    public SubscriptionsViewImpl(final SubscriptionsController controller) {
         this.controller = controller;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.SUBS.getPath()));
         loader.setController(this);
@@ -47,8 +47,8 @@ public class SubscriptionsView implements Initializable, View {
     }
 
     private void populate() {
-        this.annualTransactionLabel.setText("Spesa annuale -> € " + this.controller.getYearlyExpense());
-        this.monthlyTransactionLabel.setText("Spesa mensile -> € " + this.controller.getMonthlyExpense());
+        this.annualTransactionLabel.setText("Spesa annuale -> E " + this.controller.getYearlyExpense());
+        this.monthlyTransactionLabel.setText("Spesa mensile -> E " + this.controller.getMonthlyExpense());
         //Node subscriptionsBox = new SubscriptionsBoxImpl(this.controller);
         //this.subcriptionsScroll.setContent(subscriptionsBox);
     }
