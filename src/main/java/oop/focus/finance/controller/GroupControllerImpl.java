@@ -1,23 +1,21 @@
 package oop.focus.finance.controller;
 
-import javafx.scene.Parent;
-import oop.focus.db.DataSource;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.finance.view.GroupView;
+import oop.focus.finance.view.GroupViewImpl;
+import oop.focus.finance.view.View;
 
 public class GroupControllerImpl implements GroupController {
 
-    private final GroupView view;
+    private final GroupViewImpl view;
     private final FinanceManager manager;
 
-    public GroupControllerImpl(final DataSource db) {
-        this.view = new GroupView(this);
-        this.manager = new FinanceManagerImpl(db);
+    public GroupControllerImpl(final FinanceManager manager) {
+        this.manager = manager;
+        this.view = new GroupViewImpl(this);
     }
 
     @Override
-    public final Parent getView() {
-        return this.view.getRoot();
+    public final View getView() {
+        return this.view;
     }
 }

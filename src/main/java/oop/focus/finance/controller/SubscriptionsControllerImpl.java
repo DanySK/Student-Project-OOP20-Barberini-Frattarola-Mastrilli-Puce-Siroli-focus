@@ -1,24 +1,22 @@
 package oop.focus.finance.controller;
 
-import javafx.scene.Parent;
-import oop.focus.db.DataSource;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.finance.view.SubscriptionsView;
+import oop.focus.finance.view.SubscriptionsViewImpl;
+import oop.focus.finance.view.View;
 
 public class SubscriptionsControllerImpl implements SubscriptionsController {
 
-    private final SubscriptionsView view;
+    private final SubscriptionsViewImpl view;
     private final FinanceManager manager;
 
-    public SubscriptionsControllerImpl(final DataSource db) {
-        this.view = new SubscriptionsView(this);
-        this.manager = new FinanceManagerImpl(db);
+    public SubscriptionsControllerImpl(final FinanceManager manager) {
+        this.manager = manager;
+        this.view = new SubscriptionsViewImpl(this);
     }
 
     @Override
-    public final Parent getView() {
-        return this.view.getRoot();
+    public final View getView() {
+        return this.view;
     }
 
     @Override

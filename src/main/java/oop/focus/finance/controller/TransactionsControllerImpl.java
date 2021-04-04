@@ -1,13 +1,11 @@
 package oop.focus.finance.controller;
 
 import javafx.collections.ObservableSet;
-import javafx.scene.Parent;
-import oop.focus.db.DataSource;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.finance.model.FinanceManagerImpl;
 import oop.focus.finance.model.Transaction;
-import oop.focus.finance.view.TransactionsView;
+import oop.focus.finance.view.TransactionsViewImpl;
+import oop.focus.finance.view.View;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -15,14 +13,14 @@ import java.util.stream.Collectors;
 
 public class TransactionsControllerImpl implements TransactionsController {
 
-    private final TransactionsView view;
+    private final TransactionsViewImpl view;
     private final FinanceManager manager;
     private final Predicate<Transaction> predicate;
 
-    public TransactionsControllerImpl(final DataSource db, final Predicate<Transaction> predicate) {
-        this.view = new TransactionsView(this);
-        this.manager = new FinanceManagerImpl(db);
+    public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
+        this.manager = manager;
         this.predicate = predicate;
+        this.view = new TransactionsViewImpl(this);
     }
 
     @Override
@@ -41,8 +39,13 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
-    public final Parent getView() {
-        return this.view.getRoot();
+    public final void deleteTransaction(final Transaction transaction) {
+        this.manager.removeTransaction(transaction);
+    }
+
+    @Override
+    public final View getView() {
+        return this.view;
     }
 
     private Set<Transaction> filteredTransactions(final Predicate<Account> predicate) {

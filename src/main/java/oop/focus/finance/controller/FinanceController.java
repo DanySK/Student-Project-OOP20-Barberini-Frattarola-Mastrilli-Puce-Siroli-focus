@@ -1,11 +1,11 @@
 package oop.focus.finance.controller;
 
-import javafx.scene.Parent;
+import oop.focus.finance.view.View;
 
 public interface FinanceController {
 
     /**
      * @return the root of the view
      */
-    Parent getView();
+    View getView();
 }
