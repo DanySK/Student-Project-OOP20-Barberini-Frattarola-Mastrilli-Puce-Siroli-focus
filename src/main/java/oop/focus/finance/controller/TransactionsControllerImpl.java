@@ -51,8 +51,9 @@ public class TransactionsControllerImpl implements TransactionsController {
     private Set<Transaction> filteredTransactions(final Predicate<Account> predicate) {
         return this.manager.getTransactionManager().getTransactions().stream()
                 .filter(t -> t.getAccount().equals(this.manager.getAccountManager().getAccounts().stream()
+                        .filter(predicate).count() == 1 ? this.manager.getAccountManager().getAccounts().stream()
                         .filter(predicate)
-                        .collect(Collectors.toList()).get(0)))
+                        .collect(Collectors.toList()).get(0) : t.getAccount()))
                 .filter(this.predicate)
                 .collect(Collectors.toSet());
     }
