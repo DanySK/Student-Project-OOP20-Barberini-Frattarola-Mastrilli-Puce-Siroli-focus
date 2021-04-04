@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import oop.focus.calendar.controller.CalendarOptionsControllerImpl;
+import oop.focus.calendar.controller.CalendarSettingsControllerImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.HoursViewImpl.Format;
 
@@ -27,8 +27,8 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     private final DayImpl day;
     private ScrollPane scroller = new ScrollPane();
     private VBox dayview = new VBox();
-    private final int width;
-    private final int height;
+    private final double width;
+    private final double height;
     private double spacing;
     private Format format;
 
@@ -38,9 +38,9 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * @param width  max width of the day view.
      * @param height  max height of the day view.
      */
-    public CalendarDaysViewImpl(final DayImpl day, final int width, final int height) {
+    public CalendarDaysViewImpl(final DayImpl day, final double width, final double height) {
 
-        final CalendarOptionsControllerImpl optionscontroller = new CalendarOptionsControllerImpl();
+        final CalendarSettingsControllerImpl optionscontroller = new CalendarSettingsControllerImpl();
 
         this.day = day;
         hoursbox = new HoursViewImpl();
@@ -145,7 +145,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * Get the width of the scroller.
      * @return width
      */
-    public int getWidth() {
+    public double getWidth() {
         return this.width;
     }
 
@@ -153,7 +153,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * Get the height of the scroller.
      * @return height
      */
-    public int getHeight() {
+    public double getHeight() {
         return this.height;
     }
 

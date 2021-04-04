@@ -29,13 +29,13 @@ public interface CalendarDaysView {
      * Get the width of the scroller.
      * @return width
      */
-    int getWidth();
+    double getWidth();
 
     /**
      * Get the height of the scroller.
      * @return height
      */
-    int getHeight();
+    double getHeight();
 
     /**
      * 
