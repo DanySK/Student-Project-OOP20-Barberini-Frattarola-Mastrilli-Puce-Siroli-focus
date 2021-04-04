@@ -23,19 +23,31 @@ import oop.focus.homepage.model.Event;
 
 public class EventViewImpl implements VBoxManager {
 
+    //Classes
     private final HoursViewImpl hours;
+
+    //View
     private VBox myvbox;
-    private final List<Event> events = new ArrayList<>();
-    private static final double MINUTESINHOUR = 60;
+
+    //Variables
     private double spacing;
     private double inserteventsduration;
+
+    //List
+    private final List<Event> events = new ArrayList<>();
+
+    //Constants
+    private static final double MINUTESINHOUR = 60;
+
 
     public EventViewImpl(final HoursViewImpl hours, final DayImpl day) {
         this.events.addAll(day.getEvents());
         this.hours = hours;
     }
 
-
+    /**
+     * Used for check if we are setting the right spacing according to the format.
+     */
     private void checkSpacing() {
         this.spacing = hours.getSpacing();
         if (hours.getFormat() == HoursViewImpl.Format.EXTENDED.getNumber()) {
@@ -43,27 +55,26 @@ public class EventViewImpl implements VBoxManager {
         }
     }
 
-    /**
-     * @param i  Index of the events
-     * @return position of the object in the VBox
-     */
-    public double getY(final int i) {
+
+    public final double getY(final int i) {
         final double spaceforminute = this.spacing / MINUTESINHOUR;
         final double minutestotalspace = spaceforminute * this.events.get(i).getStartHour().getMinuteOfHour();
         return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutestotalspace;
     }
 
 
-    /**
-     * @return get the events box.
-     */
-    public VBox getVBox() {
+    public final VBox getVBox() {
         if (this.myvbox == null) {
             buildVBox();
         }
         return this.myvbox;
     }
 
+    /**
+     * Used for build the events panel.
+     * @param vbox is the box where the events will be
+     * @param i index of the events
+     */
     private void buildPanel(final VBox vbox, final int i) {
         final Pane panel = new Pane();
         final Label name = new Label(this.events.get(i).getName());
@@ -89,10 +100,8 @@ public class EventViewImpl implements VBoxManager {
         vbox.getChildren().add(panel);
     }
 
-    /**
-     * build the vbox.
-     */
-    public void buildVBox() {
+
+    public final void buildVBox() {
         checkSpacing();
         final VBox vbox = new VBox();
         vbox.setBackground(new Background(new BackgroundFill(Color.RED,

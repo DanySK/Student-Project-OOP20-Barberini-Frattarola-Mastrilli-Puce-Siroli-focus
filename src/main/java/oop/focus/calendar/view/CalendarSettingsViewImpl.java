@@ -16,25 +16,31 @@ import oop.focus.calendar.view.HoursViewImpl.Format;
 
 public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
-
-    private final CalendarSettingsController optioncontroller;
+    //Classes
+    private final CalendarSettingsController settingscontroller;
     private final CalendarMonthController monthcontroller;
-    private final CalendarMonthView monthview;
+    private final CalendarMonthViewImpl monthview;
 
-    private VBox options = new VBox();
+    //View
+    private VBox settings = new VBox();
+    private Stage settingswindows;
 
+    //Variables
     private Format hoursformat;
-    private Stage optionwindows;
 
-    public CalendarSettingsViewImpl(final CalendarSettingsController controller, final CalendarMonthController monthcontroller, final CalendarMonthView monthview) {
-        this.optioncontroller = controller;
+
+    public CalendarSettingsViewImpl(final CalendarSettingsController controller, final CalendarMonthController monthcontroller, final CalendarMonthViewImpl monthview) {
+        this.settingscontroller = controller;
         this.monthcontroller = monthcontroller;
         this.monthview = monthview;
     }
 
 
-
-    private VBox buildOptionsView() {
+    /**
+     * Used for build the settings view.
+     * @return vbox
+     */
+    private VBox buildSettingsView() {
 
         final VBox container = new VBox();
 
@@ -57,26 +63,36 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         return container;
     }
 
+    /**
+     * Is the EventHandler of the save button.
+     * @param spacing : TextField where is written the spacing to save
+     */
     private EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
         return new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(final ActionEvent event) {
-                 if (!optioncontroller.checkSpacing(spacing.getText())) {
+                 if (!settingscontroller.checkSpacing(spacing.getText())) {
                      System.out.println("ERRORE: inserire dei numeri");
-                     spacing.setText(String.valueOf(optioncontroller.getSpacing()));
+                     spacing.setText(String.valueOf(settingscontroller.getSpacing()));
                  }
                  if (hoursformat == null) {
                      hoursformat = Format.NORMAL;
                  }
-                 optioncontroller.setFormat(hoursformat);
+                 settingscontroller.setFormat(hoursformat);
                  monthcontroller.updateView(monthview, monthcontroller);
-                 optionwindows.close();
+                 settingswindows.close();
            }
 
         };
     }
 
+
+    /**
+     * Used for build the Spacing row.
+     * @param settings : is the place where the row will be put
+     * @param save : is the button that will save the changes
+     */
     private void buildSpacingRow(final GridPane settings, final Button save) {
         final Label spacinglabel = new Label("spaziatura ore");
 
@@ -88,6 +104,11 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         save.setOnAction(this.saveOnAction(spacing));
     }
  
+
+    /**
+     * Used for build the Format row.
+     * @param settings : is the place where the row will be put
+     */
     private void buildFormatRow(final GridPane settings) {
         final Label formatlabel = new Label("formato ore");
 
@@ -108,6 +129,10 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         settings.add(format, 1, 1);
     }
 
+    /**
+     * Used for configure the settings grid.
+     * @param settings : is the grid to be setting up 
+     */
     private void configureSettingsGrid(final GridPane settings) {
         settings.setAlignment(Pos.CENTER);
         settings.setVgap(10);
@@ -115,16 +140,16 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     }
 
 
-    public final VBox getOptions() {
-        if (this.options.getChildren().size() == 0) {
-            this.options = buildOptionsView();
+    public final VBox getSettings() {
+        if (this.settings.getChildren().size() == 0) {
+            this.settings = buildSettingsView();
         }
-        return this.options;
+        return this.settings;
     }
 
 
     public final void setWindow(final Stage stage) {
-        this.optionwindows = stage;
+        this.settingswindows = stage;
     }
 
 }

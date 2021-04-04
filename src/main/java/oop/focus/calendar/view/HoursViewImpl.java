@@ -34,52 +34,45 @@ public class HoursViewImpl implements HoursView, VBoxManager {
 
     }
 
-    private int hoursformat;
+
+    //View
     private VBox myvbox;
+
+    //Variables
+    private int hoursformat;
     private boolean flag = true;
     private double spacing;
+
+
+
 
     public HoursViewImpl() {
         this.hoursformat = Format.NORMAL.getNumber();
     }
 
-    /**
-     * @param spacing between two number
-     * 
-     */
-    public void setSpacing(final double spacing) {
+
+    public final void setSpacing(final double spacing) {
         this.spacing = spacing;
     }
 
-    /**
-     * @return spacing between two number 
-     */
-    public double getSpacing() {
+
+    public final double getSpacing() {
         return this.spacing;
     }
 
 
-    /**
-     * @param format of the time hours or half
-     * 
-     */
-    public void setFormat(final Format format) {
+
+    public final void setFormat(final Format format) {
         hoursformat = format.getNumber();
     }
 
-    /**
-     * @return format of the time hours or half
-     * 
-     */
-    public int getFormat() {
+
+    public final int getFormat() {
         return hoursformat;
     }
 
-    /**
-     * @param hour  Index of the hour
-     * @return position of the object in the VBox
-     */
-    public double getY(final int hour) {
+
+    public final double getY(final int hour) {
         if (this.hoursformat == Format.NORMAL.getNumber()) {
             return this.myvbox.getChildren().get(hour).getLayoutY();
         } else {
@@ -87,10 +80,8 @@ public class HoursViewImpl implements HoursView, VBoxManager {
         }
     }
 
-     /**
-     * @return the hours vbox.
-     */
-    public VBox getVBox() {
+
+    public final VBox getVBox() {
         if (this.myvbox == null) {
             buildVBox();
         }
@@ -100,7 +91,7 @@ public class HoursViewImpl implements HoursView, VBoxManager {
     /**
      * Used for configure the hours label.
      * @param label to configure
-     * @param vbox place where put the label
+     * @param vbox where put the label
      * @param i index
      */
     private void buildLabel(final Label label, final VBox vbox, final int i) {
@@ -112,10 +103,8 @@ public class HoursViewImpl implements HoursView, VBoxManager {
         vbox.getChildren().add(label);
     }
 
-    /**
-     * build the vbox.
-     */
-    public void buildVBox() {
+
+    public final void buildVBox() {
         final VBox vbox = new VBox();
 
         if (this.hoursformat == Format.NORMAL.getNumber()) {

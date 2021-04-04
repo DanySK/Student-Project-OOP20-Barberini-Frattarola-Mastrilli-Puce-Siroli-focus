@@ -17,13 +17,13 @@ public interface HoursView {
     void setSpacing(double spacing);
 
     /**
-     * @param format of the time hours or half
+     * @param format of the time ( hours or half hours)
      * 
      */
     void setFormat(Format format);
 
     /**
-     * @return format of the time hours or half
+     * @return format of the time ( hours or half hours )
      * 
      */
     int getFormat();

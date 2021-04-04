@@ -21,16 +21,21 @@ import oop.focus.calendar.view.HoursViewImpl.Format;
 public class CalendarDaysViewImpl implements CalendarDaysView {
 
 
-
+    //Classes
     private final HoursViewImpl hoursbox;
     private final EventViewImpl eventbox;
     private final DayImpl day;
+
+    //View
     private ScrollPane scroller = new ScrollPane();
     private VBox dayview = new VBox();
+
+    //Variables
     private final double width;
     private final double height;
     private double spacing;
     private Format format;
+
 
     /**
      * 
@@ -55,7 +60,6 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     /*
      * used for configure the day view and build the third (from the top) box 
      * that is composed by the EventView and HoursView
-     *
      */
     private void configureDay(final HBox myhbox) {
 
@@ -74,7 +78,11 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     }
 
 
-    //used for build the daily event box (the second from the top of the view)
+    /**
+     * used for build the daily event box (the second from the top of the view).
+     * @param container : box where put the daily event label
+     * @param daily : label where put the daily event
+     */
     private void configureDailyEvent(final VBox container, final Label daily) {
         daily.prefWidthProperty().bind(container.widthProperty());
         daily.setAlignment(Pos.CENTER);
@@ -84,10 +92,8 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         container.getChildren().add(daily);
     }
 
-    /**
-     * Used for create Day for Calendar.
-     */
-    public void buildDay() {
+
+    public final void buildDay() {
         //container is used for contain all the component of the day
         final VBox container = new VBox();
         //myhbox is used for contain the HoursBox and EventBox
@@ -115,61 +121,50 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         setScroller(container);
     }
 
+    /**
+     * Used for set the day box in a scrollable panel.
+     * @param container : is the day box
+     */
     private void setScroller(final VBox container) {
         this.scroller = new ScrollPane(container);
         this.scroller.setFitToWidth(true);
     }
 
-    /**
-     * Get the scroller with all the object of the day.
-     * @return scrollable view of the day
-     */
-    public ScrollPane getScroller() {
+
+    public final ScrollPane getScroller() {
         return this.scroller;
     }
 
+    /**
+     * Used for set the container panel of the day view.
+     * @param container : is the day box
+     */
     private void setContainer(final VBox container) {
         this.dayview = new VBox(container);
-        //this.dayview.maxWidth(width);
     }
 
-    /**
-     * Get the VBox with all the object of the day.
-     * @return VBox view of the day
-     */
-    public VBox getContainer() {
+
+    public final VBox getContainer() {
         return this.dayview;
     }
 
-    /**
-     * Get the width of the scroller.
-     * @return width
-     */
-    public double getWidth() {
+
+    public final double getWidth() {
         return this.width;
     }
 
-    /**
-     * Get the height of the scroller.
-     * @return height
-     */
-    public double getHeight() {
+
+    public final double getHeight() {
         return this.height;
     }
 
-    /**
-     * 
-     * @param spacing
-     */
-    public void setSpacing(final double spacing) {
+
+    public final void setSpacing(final double spacing) {
         this.spacing = spacing;
     }
 
-    /**
-     * 
-     * @param format
-     */
-    public void setFormat(final Format format) {
+
+    public final void setFormat(final Format format) {
         this.format = format;
     }
 

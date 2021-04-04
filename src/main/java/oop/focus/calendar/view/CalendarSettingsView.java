@@ -6,13 +6,13 @@ import javafx.stage.Stage;
 public interface CalendarSettingsView {
 
     /**
-     * 
-     * @return options
+     * Used for get the settings view.
+     * @return settings vbox
      */
-    VBox getOptions();
+    VBox getSettings();
 
     /**
-     * 
+     * Used for set the stage of the settings view.
      * @param stage
      */
     void setWindow(Stage stage);
