@@ -43,73 +43,38 @@ public class DayImpl implements Day {
         this.events.add(five);
     }
  
-    /**
-     * Can be used to get the number of the day.
-     *
-     * @return the number of the day 
-     *
-     */
-    public int getNumber() {
+
+    public final int getNumber() {
         return  date.getDayOfMonth();
     }
 
-    /**
-     * Can be used to get the day of the week.
-     *
-     * @return the day of the week 
-     *
-     */
-    public int getDayOfTheWeek() {
+
+    public final int getDayOfTheWeek() {
         return  date.getDayOfWeek();
     }
 
-    /**
-     * Can be used to get the name of the day.
-     *
-     * @return the name of the day 
-     *
-     */
-    public String getName() {
+
+    public final String getName() {
         return date.dayOfWeek().getAsText(Locale.ITALY);
     }
 
-    /**
-     * Can be used to get the Month of the day.
-     *
-     * @return the name of the Month 
-     *
-     */
-    public String getMonth() {
+
+    public final String getMonth() {
         return date.monthOfYear().getAsText(Locale.ITALY);
     }
 
-    /**
-     * Can be used to get the Year of the day.
-     *
-     * @return the number of the Year 
-     *
-     */
-    public int getYear() {
+
+    public final int getYear() {
         return date.getYear();
     }
 
-    /**
-     * Can be used to get the list of the events of the day.
-     *
-     * @return the list of event of the day 
-     *
-     */
-    public List<Event> getEvents() {
+
+    public final List<Event> getEvents() {
         return  this.events;
     }
 
-    /**
-     * Can be used to see if is Sunday.
-     *
-     * @return true if is Sunday 
-     *
-     */
-    public boolean isSunday() {
+
+    public final boolean isSunday() {
         return "domenica".equalsIgnoreCase(getName());
     }
 
