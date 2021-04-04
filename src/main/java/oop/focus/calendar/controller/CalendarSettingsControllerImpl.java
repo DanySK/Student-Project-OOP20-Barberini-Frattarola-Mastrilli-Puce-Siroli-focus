@@ -2,14 +2,14 @@ package oop.focus.calendar.controller;
 
 import oop.focus.calendar.view.HoursViewImpl.Format;
 
-public class CalendarOptionsControllerImpl implements CalendarOptionsController {
+public class CalendarSettingsControllerImpl implements CalendarSettingsController {
 
     private static final double SPACING = 50; 
     private static final double MINSPACING = 30;
     private Format format;
     private double spacing;
 
-    public CalendarOptionsControllerImpl() {
+    public CalendarSettingsControllerImpl() {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
     }

@@ -2,7 +2,7 @@ package oop.focus.calendar.controller;
 
 import oop.focus.calendar.view.HoursViewImpl.Format;
 
-public interface CalendarOptionsController {
+public interface CalendarSettingsController {
 
     /**
      * 

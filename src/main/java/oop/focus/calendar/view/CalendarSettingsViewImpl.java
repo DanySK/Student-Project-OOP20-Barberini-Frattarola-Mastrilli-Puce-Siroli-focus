@@ -11,13 +11,13 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarMonthController;
-import oop.focus.calendar.controller.CalendarOptionsController;
+import oop.focus.calendar.controller.CalendarSettingsController;
 import oop.focus.calendar.view.HoursViewImpl.Format;
 
-public class CalendarOptionsViewImpl implements CalendarOptionsView {
+public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
 
-    private final CalendarOptionsController optioncontroller;
+    private final CalendarSettingsController optioncontroller;
     private final CalendarMonthController monthcontroller;
     private final CalendarMonthView monthview;
 
@@ -26,7 +26,7 @@ public class CalendarOptionsViewImpl implements CalendarOptionsView {
     private Format hoursformat;
     private Stage optionwindows;
 
-    public CalendarOptionsViewImpl(final CalendarOptionsController controller, final CalendarMonthController monthcontroller, final CalendarMonthView monthview) {
+    public CalendarSettingsViewImpl(final CalendarSettingsController controller, final CalendarMonthController monthcontroller, final CalendarMonthView monthview) {
         this.optioncontroller = controller;
         this.monthcontroller = monthcontroller;
         this.monthview = monthview;

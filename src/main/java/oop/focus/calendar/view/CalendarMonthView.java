@@ -42,7 +42,6 @@ public class CalendarMonthView {
     private VBox buildMonthView() {
 
 
-
         final VBox container = new VBox();
         container.prefHeight(height);
         container.prefWidth(width);
