@@ -45,6 +45,16 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
+    public final void stopRepeat(final Transaction subscription) {
+        subscription.stopRepeat();
+        try {
+            this.transactions.update(subscription);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public final ObservableSet<Transaction> getTransactions() {
         return this.transactions.getAll();
     }

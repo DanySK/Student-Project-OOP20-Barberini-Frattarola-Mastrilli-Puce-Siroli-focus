@@ -27,6 +27,13 @@ public interface TransactionManager {
     void remove(Transaction transaction);
 
     /**
+     * Stop repetition of a subscription and update it in the database.
+     *
+     * @param subscription being stopped.
+     */
+    void stopRepeat(Transaction subscription);
+
+    /**
      * @return the list of all transactions.
      */
     ObservableSet<Transaction> getTransactions();
