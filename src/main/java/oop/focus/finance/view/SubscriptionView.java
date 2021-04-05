@@ -2,14 +2,10 @@ package oop.focus.finance.view;
 
 import oop.focus.finance.model.Transaction;
 
-import java.util.List;
-
 public interface SubscriptionView extends View {
 
     /**
-     * Show subscriptions in the subcriptionsScroll.
-     *
-     * @param subscriptions to be showed
+     * @return the subscription referenced by the view
      */
-    void showSubscriptions(List<Transaction> subscriptions);
+    Transaction getSubscription();
 }
