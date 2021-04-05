@@ -16,12 +16,14 @@ public class FinanceManagerImpl implements FinanceManager {
     private final CategoryManager categories;
     private final TransactionManager transactions;
     private final QuickTransactionManager quickTransactions;
+    private final GroupManager group;
 
     public FinanceManagerImpl(final DataSource db) {
         this.accounts = new AccountManagerImpl(db);
         this.categories = new CategoryManagerImpl(db);
         this.transactions = new TransactionManagerImpl(db);
         this.quickTransactions = new QuickTransactionManagerImpl(db);
+        this.group = new GroupManagerImpl(db);
     }
 
     @Override
@@ -111,5 +113,10 @@ public class FinanceManagerImpl implements FinanceManager {
     @Override
     public final QuickTransactionManager getQuickManager() {
         return this.quickTransactions;
+    }
+
+    @Override
+    public final GroupManager getGroupManager() {
+        return this.group;
     }
 }

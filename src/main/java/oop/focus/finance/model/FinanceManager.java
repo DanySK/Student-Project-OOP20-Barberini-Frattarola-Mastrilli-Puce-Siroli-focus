@@ -90,4 +90,9 @@ public interface FinanceManager {
      * @return quick transaction manager
      */
     QuickTransactionManager getQuickManager();
+
+    /**
+     * @return group manager
+     */
+    GroupManager getGroupManager();
 }
