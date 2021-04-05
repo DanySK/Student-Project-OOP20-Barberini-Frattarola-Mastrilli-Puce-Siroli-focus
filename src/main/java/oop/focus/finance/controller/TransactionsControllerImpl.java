@@ -21,6 +21,7 @@ public class TransactionsControllerImpl implements TransactionsController {
         this.manager = manager;
         this.predicate = predicate;
         this.view = new TransactionsViewImpl(this);
+        this.showTransactions(a -> true);
     }
 
     @Override

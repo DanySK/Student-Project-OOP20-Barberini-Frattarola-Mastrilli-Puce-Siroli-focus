@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.TransactionsController;
@@ -16,6 +17,8 @@ import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -62,9 +65,11 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
 
     public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
         this.amountLabel.setText("E " + this.controller.getAmount(predicate));
-        VBox transactionTiles = new VBox();
-        transactions.forEach(t -> transactionTiles.getChildren().add(new TransactionViewImpl(this.controller, t).getRoot()));
-        //transactionTiles.forEach(t -> t.getRoot().addEventHandler(event -> this.controller.editTransaction(t.getTransaction())));
-        this.transactionsScroll.setContent(transactionTiles);
+        List<TransactionView> transactionsTiles = new ArrayList<>();
+        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(this.controller, t)));
+        VBox box = new VBox();
+        transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
+        transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deleteTransaction(t.getTransaction())));
+        this.transactionsScroll.setContent(box);
     }
 }
