@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.GridPane;
 import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
 
 
@@ -41,5 +42,5 @@ public interface CalendarMonthController {
      * @param monthview
      * @param monthcontroller
      */
-    void updateView(CalendarMonthViewImpl monthview, CalendarMonthController monthcontroller);
+    void updateView(CalendarMonthView monthview, CalendarMonthController monthcontroller);
 }

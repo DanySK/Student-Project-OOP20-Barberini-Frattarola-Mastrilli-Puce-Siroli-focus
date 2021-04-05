@@ -39,7 +39,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         this.monthcontroller = monthcontroller;
         this.width = width;
         this.height = height;
-        monthview = new VBox();
+        this.monthview = buildMonthView();
     }
 
     /**
@@ -69,11 +69,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     }
 
-    public final CalendarMonthController getController() {
-        return this.monthcontroller;
-    }
-
-
     public final Label getMonthInfo() {
         return this.monthinfo;
     }
@@ -85,9 +80,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
 
     public final VBox getMonthView() {
-        if (this.monthview.getChildren().size() == 0) {
-            buildMonthView();
-        }
         return monthview;
     }
 

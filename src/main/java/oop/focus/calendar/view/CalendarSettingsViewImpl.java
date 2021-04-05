@@ -19,20 +19,21 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     //Classes
     private final CalendarSettingsController settingscontroller;
     private final CalendarMonthController monthcontroller;
-    private final CalendarMonthViewImpl monthview;
+    private final CalendarMonthView monthview;
 
     //View
-    private VBox settings = new VBox();
+    private final VBox settings;
     private Stage settingswindows;
 
     //Variables
     private Format hoursformat;
 
 
-    public CalendarSettingsViewImpl(final CalendarSettingsController controller, final CalendarMonthController monthcontroller, final CalendarMonthViewImpl monthview) {
+    public CalendarSettingsViewImpl(final CalendarSettingsController controller, final CalendarMonthController monthcontroller, final CalendarMonthView monthview) {
         this.settingscontroller = controller;
         this.monthcontroller = monthcontroller;
         this.monthview = monthview;
+        this.settings = buildSettingsView();
     }
 
 
@@ -73,7 +74,6 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
             @Override
             public void handle(final ActionEvent event) {
                  if (!settingscontroller.checkSpacing(spacing.getText())) {
-                     System.out.println("ERRORE: inserire dei numeri");
                      spacing.setText(String.valueOf(settingscontroller.getSpacing()));
                  }
                  if (hoursformat == null) {
@@ -141,9 +141,6 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
 
     public final VBox getSettings() {
-        if (this.settings.getChildren().size() == 0) {
-            this.settings = buildSettingsView();
-        }
         return this.settings;
     }
 
