@@ -27,14 +27,21 @@ public interface TransactionManager {
     void remove(Transaction transaction);
 
     /**
+     * Updates the data of a transaction in the database.
+     *
+     * @param transaction geing updated
+     */
+    void update(Transaction transaction);
+
+    /**
      * Stop repetition of a subscription and update it in the database.
      *
-     * @param subscription being stopped.
+     * @param subscription being stopped
      */
     void stopRepeat(Transaction subscription);
 
     /**
-     * @return the list of all transactions.
+     * @return the list of all transactions
      */
     ObservableSet<Transaction> getTransactions();
 

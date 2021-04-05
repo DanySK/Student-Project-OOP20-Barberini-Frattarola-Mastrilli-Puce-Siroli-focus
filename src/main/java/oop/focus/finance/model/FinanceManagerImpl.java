@@ -87,7 +87,9 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void generateRepeatedTransactions(final LocalDate date) {
+        var sub = this.transactions.getSubscriptions();
         this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
+        sub.forEach(this.transactions::update);
     }
 
     @Override
