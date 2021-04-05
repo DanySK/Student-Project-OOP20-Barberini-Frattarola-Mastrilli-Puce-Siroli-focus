@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SubscriptionsViewImpl implements Initializable, SubscriptionView {
+public class SubscriptionsViewImpl implements Initializable, SubscriptionsView {
 
     @FXML
     private ScrollPane subcriptionsScroll;
@@ -58,8 +58,8 @@ public class SubscriptionsViewImpl implements Initializable, SubscriptionView {
 
     @Override
     public final void showSubscriptions(final List<Transaction> subscriptions) {
-        List<TileView> subscriptionsTiles = new ArrayList<>();
-        subscriptions.forEach(t -> subscriptionsTiles.add(new TileViewImpl(this.controller, t)));
+        List<SubscriptionView> subscriptionsTiles = new ArrayList<>();
+        subscriptions.forEach(t -> subscriptionsTiles.add(new SubscriptionViewImpl(this.controller, t)));
         VBox box = new VBox();
         subscriptionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         subscriptionsTiles.forEach(t -> t.getRoot()
