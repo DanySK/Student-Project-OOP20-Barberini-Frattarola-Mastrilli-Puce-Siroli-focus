@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50"
-      prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <VBox prefHeight="90" prefWidth="380.0">
-      <Label fx:id="descriptionLabel" prefHeight="30" prefWidth="430.0"/>
+      <Label fx:id="descriptionLabel" prefHeight="30" prefWidth="430.0" />
       <HBox prefHeight="40" prefWidth="427.0">
-         <ImageView fx:id="colorImage" fitHeight="20" fitWidth="50.0" pickOnBounds="true" preserveRatio="true"/>
-         <Label fx:id="categoryLabel" prefHeight="20" prefWidth="379.0"/>
+         <ImageView fx:id="colorImage" fitHeight="20" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
+         <Label fx:id="categoryLabel" prefHeight="20" prefWidth="139.0" />
+         <Label fx:id="dateLabel" prefHeight="20" prefWidth="139.0" />
       </HBox>
    </VBox>
-   <Label fx:id="amountLabel" prefHeight="50" prefWidth="175.0"/>
+   <Label fx:id="amountLabel" prefHeight="50" prefWidth="175.0" />
 </HBox>
