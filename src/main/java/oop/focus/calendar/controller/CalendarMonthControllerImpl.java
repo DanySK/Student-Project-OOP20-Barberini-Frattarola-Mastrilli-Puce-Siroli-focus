@@ -13,12 +13,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
+import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
 
 
@@ -28,16 +28,17 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     //Classes
     private final CalendarSettingsController settingscontroller;
     private final CalendarLogic calendarlogic;
-    private CalendarDaysView daycheck;
+
 
     //View
     private Stage daywindows;
 
+
     //Variables
     private final double daywidth;
     private final double dayheight;
-    private int counter;
-    private int count;
+    private int counter;     // count the days in a row
+    private int count;     // count the rows
 
     //List
     private List<DayImpl> month;
@@ -45,9 +46,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
     //Costants
     private static final int TABLEDAYS = 7;
-    private static final int GAP = 5;
-    private static final int DIM = 50;
-    private static final int FONTSIZE = 12;
+    private static final int GAP = 10;
+    private static final int DIM = 100;
+    private static final int FONTSIZE = 18;
 
 
     public CalendarMonthControllerImpl(final CalendarSettingsController optioncontroller, final double daywidth, final double dayheight) {
@@ -63,43 +64,6 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
     public final GridPane buildGridMonth() {
 
-        //used for launch a windows with the day view of the clicked one
-        final EventHandler<ActionEvent> getdayview = new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                final Button bt = (Button) event.getSource();
-                daycheck = cells.get(bt);
-                if (daywindows == null) {
-
-                    daywindows = new Stage();
-                    daycheck = cells.get(bt);
-                    final CalendarDaysView p = cells.get(bt);
-
-                    daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
-
-                } else if (daywindows.getScene().getRoot() != daycheck.getScroller()) {
-                    daywindows.close();
-                    daywindows = new Stage();
-                    daycheck = cells.get(bt);
-                    final CalendarDaysView p = cells.get(bt);
-
-                    daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
-                }
-
-
-                daywindows.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                    @Override
-                    public void handle(final  WindowEvent event) {
-                        daywindows.close();
-                    }
-                });
-
-                daywindows.show();
-
-            }
-
-        };
 
         final GridPane daysGrid = new GridPane();
 
@@ -115,7 +79,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             counter++;
         }
 
+        // count the days in a row
         count++;
+        // count the rows
         counter = 0;
 
         //used for put the button of the day in the correct position
@@ -138,7 +104,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             counter++;
 
             final Button jb = new Button(" " + day.getNumber() + " ");
-            jb.setOnAction(getdayview);
+            jb.setOnAction(getDayView());
             jb.setPrefSize(DIM, DIM);
             final CalendarDaysView dayview = new CalendarDaysViewImpl(day, this.daywidth, this.dayheight);
             configureday(dayview);
@@ -165,6 +131,39 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         return this.month;
     }
 
+    /**
+     * Used for launch a windows with the day view of the clicked one.
+     * @return EventHandler
+     */
+    private EventHandler<ActionEvent> getDayView() {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                final Button bt = (Button) event.getSource();
+                final CalendarDaysView daycheck = cells.get(bt);
+                if (daywindows == null) {
+
+                    daywindows = new Stage();
+                    final CalendarDaysView p = cells.get(bt);
+
+                    daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
+
+                } else if (!daywindows.getScene().getRoot().equals(daycheck.getScroller())) {
+
+                    daywindows.close();
+                    daywindows = new Stage();
+                    final CalendarDaysView p = cells.get(bt);
+                    daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
+                }
+
+                daywindows.show();
+
+            }
+
+        };
+    }
+
 
     public final EventHandler<ActionEvent> changeMonthButton(final CalendarMonthViewImpl monthview, final Boolean flag, final CalendarMonthController monthcontroller) {
         return new EventHandler<ActionEvent>() {
@@ -180,7 +179,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     }
 
 
-    public final void updateView(final CalendarMonthViewImpl monthview, final CalendarMonthController logics) {
+    public final void updateView(final CalendarMonthView monthview, final CalendarMonthController logics) {
         monthview.getMonthView().getChildren().remove(monthview.getMonthView().getChildren().size() - 1);
         monthview.getMonthView().getChildren().add(logics.buildGridMonth());
         monthview.setMonthView(monthview.getMonthView());
