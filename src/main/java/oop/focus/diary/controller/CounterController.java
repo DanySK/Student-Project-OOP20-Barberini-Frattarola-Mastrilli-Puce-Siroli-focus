@@ -3,6 +3,8 @@ package oop.focus.diary.controller;
 import javafx.collections.ObservableList;
 import org.joda.time.LocalTime;
 
+import java.util.function.Consumer;
+
 /**
  * This interface has methods to start or stop a counter(which could be a timer or a stopwatch).
  */
@@ -23,6 +25,11 @@ public interface CounterController {
     void setStarter(String event, LocalTime localTime);
 
     /**
+     * The methods stops counter's alarm if it is playing.
+     */
+    void stopSound();
+
+    /**
      * The method start the counter.
      */
     void startTimer();
@@ -32,4 +39,15 @@ public interface CounterController {
      */
     void stopTimer();
 
+    /**
+     * The method sets the consumer of the listener of counter's controller that advise wherever counter's value changes.
+     * @param consumer  the consumer to add
+     */
+    void setListener(Consumer<Integer> consumer);
+
+    /**
+     * The method can be used to know if counter's alarm is started.
+     * @return  true if alarm is playing, false otherwise
+     */
+    boolean isPlaying();
 }

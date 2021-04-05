@@ -25,8 +25,8 @@ public interface CounterManager {
     void stopCounter();
 
     /**
-     * The method add a listener to the timer/stopwatch created.
-     * @param consumer  the consumer of listener to crete
+     * The method add a listener to the timer/stopwatch created. This listener advise whenever counter's value changes.
+     * @param consumer  the consumer of listener
      */
     void setChangeListener(Consumer<Integer> consumer);
 
@@ -35,5 +35,27 @@ public interface CounterManager {
      * @param value     the starter value of counter
      */
     void setStarterValue(Integer value);
+
+    /**
+     * The method add a listener to the timer/stopwatch created. This listener advise whenever counter ends.
+     * @param consumer  the consumer of listener
+     */
+    void setFinishListener(Consumer<Integer> consumer);
+
+    /**
+     * The method is called when a counter ends and create new event.
+     */
+     void createEvent();
+
+    /**
+     * The method stops counter's alarm (if it is playing).
+     */
+    void stopSound();
+
+    /**
+     * The method can be used to know if an alarm's counter is playing or not.
+     * @return  true if alarm is playing, false otherwise.
+     */
+    boolean isPlaying();
 
 }

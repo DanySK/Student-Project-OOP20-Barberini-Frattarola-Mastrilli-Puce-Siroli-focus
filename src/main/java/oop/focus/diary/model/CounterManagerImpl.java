@@ -19,14 +19,16 @@ public class CounterManagerImpl implements CounterManager {
     private Optional<Integer> finalCounter;
     private final EventManager me;
     private String eventName;
-    private boolean isSetted;
+    private boolean isSet;
     private final boolean isTimer;
+    private boolean isPlaying;
     public CounterManagerImpl(final EventManager me, final boolean isTimer) {
         this.me = me;
         this.isTimer = isTimer;
         this.tf = new CounterFactory(me);
-        this.isSetted = false;
+        this.isSet = false;
         this.finalCounter = Optional.empty();
+        this.isPlaying = false;
     }
     @Override
     public final void createCounter(final String event) {
@@ -42,10 +44,13 @@ public class CounterManagerImpl implements CounterManager {
             e.printStackTrace();
         }
         this.counter.addFinishListener(integer -> {
-            this.finalCounter = Optional.of(integer);
-            this.createEvent();
+           this.finalCounter = Optional.of(integer);
         });
 
+    }
+    @Override
+    public final void setFinishListener(final Consumer<Integer> consumer) {
+        this.counter.addFinishListener(consumer);
     }
     @Override
     public final void setChangeListener(final Consumer<Integer> consumer) {
@@ -53,7 +58,7 @@ public class CounterManagerImpl implements CounterManager {
     }
     @Override
     public final void startCounter() {
-        if (this.isSetted && this.me.timerCanStart(LocalDateTime.now())) {
+        if (this.isSet && this.me.timerCanStart(LocalDateTime.now())) {
             this.counter.startCounter();
             this.start = LocalDateTime.now();
         } else {
@@ -68,18 +73,28 @@ public class CounterManagerImpl implements CounterManager {
     @Override
     public final void setStarterValue(final Integer value) {
         this.counter.setStarterValue(value);
-        this.isSetted = true;
+        this.isSet = true;
     }
-
-    private void createEvent() {
-        if (this.finalCounter.isPresent() && this.finalCounter.equals(0)) {
+    @Override
+    public final void stopSound() {
+        this.sound.stopSound();
+        this.isPlaying = false;
+    }
+    @Override
+    public final void createEvent() {
+        if (this.finalCounter.isPresent() && this.finalCounter.get().equals(0)) {
             try {
                 this.sound.playSound();
+                this.isPlaying = true;
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
                 e.printStackTrace();
             }
         }
         this.me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
+    }
+    @Override
+    public final boolean isPlaying() {
+        return this.isPlaying;
     }
 
 }

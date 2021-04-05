@@ -25,5 +25,6 @@ public interface TotalTimeController {
      * The method creates new event(witch name is the string in input).
      * @param text the name of the event to add.
      */
-    void addValue(final String text);
+    void addValue(String text);
+
 }
