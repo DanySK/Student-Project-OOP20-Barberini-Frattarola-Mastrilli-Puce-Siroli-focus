@@ -20,13 +20,11 @@ public class SubscriptionViewImpl implements Initializable, SubscriptionView {
     @FXML
     private Label amountLabel;
 
-    private final SubscriptionsController controller;
     private final Transaction subscription;
     private Parent root;
 
     public SubscriptionViewImpl(final SubscriptionsController controller, final Transaction subscription) {
         this.subscription = subscription;
-        this.controller = controller;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GENERICTILE.getPath()));
         loader.setController(this);
         try {
