@@ -20,7 +20,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private final CalendarMonthController monthcontroller;
 
     //View
-    private final Label monthinfo = new Label();
+    private final Label monthinfo;
     private VBox monthview;
 
     //Variables
@@ -29,13 +29,14 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     //Costants
     private static final int BORDER = 20;
-    private static final int FONTSIZE = 12;
+    private static final int FONTSIZE = 24;
 
 
 
 
 
     public CalendarMonthViewImpl(final double width, final double height, final CalendarMonthController monthcontroller) {
+        this.monthinfo = new Label();
         this.monthcontroller = monthcontroller;
         this.width = width;
         this.height = height;
