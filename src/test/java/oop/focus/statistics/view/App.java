@@ -5,6 +5,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.*;
 import oop.focus.statistics.model.FinanceStatisticFactoryImpl;

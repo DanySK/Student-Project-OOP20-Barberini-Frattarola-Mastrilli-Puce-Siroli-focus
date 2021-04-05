@@ -3,7 +3,7 @@ package oop.focus.homepage.model;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;

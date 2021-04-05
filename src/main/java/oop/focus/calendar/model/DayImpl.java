@@ -7,7 +7,7 @@ import java.util.Locale;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 //import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 //import oop.focus.homepage.model.ManagerEventImpl;

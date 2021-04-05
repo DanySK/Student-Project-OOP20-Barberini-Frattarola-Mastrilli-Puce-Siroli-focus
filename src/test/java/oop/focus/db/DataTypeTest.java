@@ -1,5 +1,6 @@
 package oop.focus.db;
 
+import oop.focus.common.Repetition;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.diary.model.DailyMood;
 import oop.focus.diary.model.DailyMoodImpl;

@@ -2,24 +2,14 @@ package oop.focus.diary.model;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import oop.focus.db.DataSourceImpl;
 
-import oop.focus.finance.model.Repetition;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 
-import org.joda.time.LocalDateTime;
 import org.junit.Test;
-
-
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 public class ComputeTotalTimeOfEventTest {

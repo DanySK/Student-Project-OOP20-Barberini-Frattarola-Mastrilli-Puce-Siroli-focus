@@ -1,4 +1,4 @@
-package oop.focus.finance.model;
+package oop.focus.common;
 
 import org.joda.time.LocalDate;
 

@@ -4,7 +4,7 @@ import javafx.util.Pair;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import oop.focus.homepage.model.EventImpl;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;

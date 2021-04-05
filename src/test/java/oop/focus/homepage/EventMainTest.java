@@ -11,7 +11,7 @@ import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 
 public class EventMainTest {
 

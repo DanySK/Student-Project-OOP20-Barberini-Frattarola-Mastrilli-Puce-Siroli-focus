@@ -2,7 +2,7 @@ package oop.focus.homepage.model;
 
 import org.joda.time.LocalDateTime;
 
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 
 /**
  * This class implements the HotKey interface that model a hot key. 

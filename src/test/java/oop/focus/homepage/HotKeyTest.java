@@ -2,7 +2,7 @@ package oop.focus.homepage;
 
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;

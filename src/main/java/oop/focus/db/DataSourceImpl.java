@@ -16,7 +16,7 @@ import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.QuickTransactionImpl;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.model.TransactionImpl;
 import oop.focus.homepage.model.Event;

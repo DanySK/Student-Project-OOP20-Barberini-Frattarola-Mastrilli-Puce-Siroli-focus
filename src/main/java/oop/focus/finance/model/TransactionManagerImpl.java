@@ -1,6 +1,7 @@
 package oop.focus.finance.model;
 
 import javafx.collections.ObservableSet;
+import oop.focus.common.Repetition;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;

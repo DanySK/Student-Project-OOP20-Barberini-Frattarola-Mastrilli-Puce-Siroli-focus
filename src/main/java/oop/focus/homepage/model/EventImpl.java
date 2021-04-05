@@ -6,7 +6,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 
 
 

@@ -3,6 +3,7 @@ package oop.focus.finance;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;

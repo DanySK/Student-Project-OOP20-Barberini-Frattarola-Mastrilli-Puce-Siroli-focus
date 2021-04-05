@@ -1,7 +1,7 @@
 package oop.focus.homepage.view;
 
 import javafx.scene.control.ComboBox;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import oop.focus.homepage.model.HotKeyType;
 
 public class ComboBoxFiller {

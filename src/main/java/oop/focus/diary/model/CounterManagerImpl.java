@@ -1,6 +1,6 @@
 package oop.focus.diary.model;
 
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalDateTime;

@@ -1,5 +1,6 @@
 package oop.focus.finance.model;
 
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;

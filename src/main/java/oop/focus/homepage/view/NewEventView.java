@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import oop.focus.finance.model.Repetition;
+import oop.focus.common.Repetition;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
