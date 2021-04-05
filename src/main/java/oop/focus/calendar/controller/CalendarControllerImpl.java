@@ -31,26 +31,21 @@ public class CalendarControllerImpl implements CalendarController {
     }
 
     public final HBox buildMonth() {
-        final HBox test = new HBox();
+        final HBox month = new HBox();
 
 
-        test.getChildren().add(this.buildSettingsWindows());
-        test.getChildren().add(monthview.getMonthView());
+        month.getChildren().add(monthview.getMonthView());
 
-        monthview.getMonthView().prefWidthProperty().bind(test.widthProperty().divide(2));
-        test.setAlignment(Pos.CENTER);
+        monthview.getMonthView().prefWidthProperty().bind(month.widthProperty());
+        month.setAlignment(Pos.CENTER);
 
-        return test;
+        return month;
     }
 
 
-    /**
-     * Used for build the Settings button and his window.
-     * @return settings button
-     */
-    private Button buildSettingsWindows() {
-        final Button settings = new Button("OPZIONI");
 
+    public final Button buildSettingsWindows() {
+        final Button settings = new Button("IMPOSTAZIONI");
 
         final Stage settingsstage = new Stage();
         settingsstage.setScene(new Scene(settingsview.getSettings(), optionwidth, optionheight));
