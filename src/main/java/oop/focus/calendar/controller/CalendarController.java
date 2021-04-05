@@ -1,7 +1,10 @@
 package oop.focus.calendar.controller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public interface CalendarController {
 
@@ -16,4 +19,18 @@ public interface CalendarController {
      * @return settings button
      */
     Button buildSettingsWindows();
+
+    /**
+     * Used for show the month panel.
+     * @param panelcolumn : column where we put the panel
+     * @return EventHandler
+     */
+    EventHandler<ActionEvent> monthPanel(VBox panelcolumn);
+
+    /**
+     * Used for show the week panel.
+     * @param panelcolumn : column where we put the panel
+     * @return EventHandler
+     */
+    EventHandler<ActionEvent> weekPanel(VBox panelcolumn);
 }

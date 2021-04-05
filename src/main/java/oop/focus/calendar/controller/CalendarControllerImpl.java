@@ -1,9 +1,17 @@
 package oop.focus.calendar.controller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
@@ -33,10 +41,10 @@ public class CalendarControllerImpl implements CalendarController {
     public final HBox buildMonth() {
         final HBox month = new HBox();
 
-
         month.getChildren().add(monthview.getMonthView());
 
-        monthview.getMonthView().prefWidthProperty().bind(month.widthProperty());
+        monthview.getMonthView().setBackground(new Background(
+                new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
         month.setAlignment(Pos.CENTER);
 
         return month;
@@ -55,6 +63,40 @@ public class CalendarControllerImpl implements CalendarController {
             settingsstage.show();
         });
         return settings;
+    }
+
+    public final EventHandler<ActionEvent> monthPanel(final VBox panelcolumn) {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                if (panelcolumn.getChildren().size() != 0) {
+                    panelcolumn.getChildren().remove(0);
+                    monthview.getMonthView().setBackground(new Background(
+                            new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
+                    panelcolumn.getChildren().add(monthview.getMonthView());
+                } else {
+                    panelcolumn.getChildren().add(monthview.getMonthView());
+                }
+            }
+
+        };
+    }
+
+    public final EventHandler<ActionEvent> weekPanel(final VBox panelcolumn) {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                if (panelcolumn.getChildren().size() != 0) {
+                    panelcolumn.getChildren().remove(0);
+                    panelcolumn.getChildren().add(buildMonth());
+                } else {
+                    panelcolumn.getChildren().add(buildMonth());
+                }
+            }
+
+        };
     }
 
 

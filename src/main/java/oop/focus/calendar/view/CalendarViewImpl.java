@@ -40,50 +40,69 @@ public class CalendarViewImpl implements CalendarView {
 
         final VBox buttoncolumn = new VBox();
         final VBox panelcolumn = new VBox();
-        columnButton(buttoncolumn, panelcolumn, "Mese");
+
+        columnButton(buttoncolumn, "Mese", prova.monthPanel(panelcolumn));
+        columnButton(buttoncolumn, "Settimana", prova.weekPanel(panelcolumn));
         buttoncolumn.getChildren().add(prova.buildSettingsWindows());
 
         calendarpage.getChildren().add(buttoncolumn);
         calendarpage.getChildren().add(panelcolumn);
 
-        buttoncolumn.setSpacing(GAP);
-
-        buttoncolumn.setAlignment(Pos.CENTER);
-        buttoncolumn.setBackground(new Background(
-                new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-        panelcolumn.setAlignment(Pos.CENTER);
-        panelcolumn.setBackground(new Background(
-                new BackgroundFill(Color.PURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
-
         calendarpage.prefWidthProperty().bind(this.generalview.widthProperty());
         calendarpage.prefHeightProperty().bind(this.generalview.heightProperty());
-        buttoncolumn.prefWidthProperty().bind(this.calendarpage.widthProperty().multiply(WIDTHBUTTONPANEL));
-        buttoncolumn.prefHeightProperty().bind(this.generalview.heightProperty());
-        panelcolumn.prefWidthProperty().bind(this.calendarpage.widthProperty().multiply(WIDTHPANEL));
-        panelcolumn.prefHeightProperty().bind(this.generalview.heightProperty());
+
+        configureButtonColumn(buttoncolumn);
+        configurePanelColumn(panelcolumn);
+
+
         return calendarpage;
     }
 
 
+    /**
+     * Used for configure the button column box.
+     * @param buttoncolumn : column box to configure
+     */
+    private void configureButtonColumn(final VBox buttoncolumn) {
+        buttoncolumn.prefWidthProperty().bind(this.calendarpage.widthProperty().multiply(WIDTHBUTTONPANEL));
+        buttoncolumn.prefHeightProperty().bind(this.generalview.heightProperty());
 
-    private void columnButton(final VBox buttoncolumn, final VBox panelcolumn, final String string) {
+        buttoncolumn.setAlignment(Pos.CENTER);
+        buttoncolumn.setSpacing(GAP);
+
+        buttoncolumn.setBackground(new Background(
+                new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+
+    /**
+     * Used for configure the panel column box.
+     * @param panelcolumn : column box to configure
+     */
+    private void configurePanelColumn(final VBox panelcolumn) {
+        panelcolumn.prefWidthProperty().bind(this.calendarpage.widthProperty().multiply(WIDTHPANEL));
+        panelcolumn.prefHeightProperty().bind(this.generalview.heightProperty());
+
+        panelcolumn.setAlignment(Pos.CENTER);
+
+        panelcolumn.setBackground(new Background(
+                new BackgroundFill(Color.PURPLE, CornerRadii.EMPTY, Insets.EMPTY)));
+    }
+
+
+    /**
+     * Used for create the button to put in the button column (the left one of the view).
+     * @param buttoncolumn : where the button will be
+     * @param string : name of the button
+     * @param openthispanel : is the EventHandler that open a panel
+     */
+    private void columnButton(final VBox buttoncolumn, final String string, final EventHandler<ActionEvent> openthispanel) {
         final Button button = new Button(string);
         button.prefWidthProperty().bind(buttoncolumn.widthProperty().multiply(WIDTHBUTTON));
-        button.setOnAction(changeWindows(panelcolumn, string));
         buttoncolumn.getChildren().add(button);
+        button.setOnAction(openthispanel);
     }
 
-    public final EventHandler<ActionEvent> changeWindows(final VBox panelcolumn, final String string) {
-        return new EventHandler<ActionEvent>() {
 
-            @Override
-            public void handle(final ActionEvent event) {
-                System.out.println(string);
-                if (panelcolumn.getChildren().size() == 0) {
-                    panelcolumn.getChildren().add(prova.buildMonth());
-                }
-            }
 
-        };
-    }
 }
