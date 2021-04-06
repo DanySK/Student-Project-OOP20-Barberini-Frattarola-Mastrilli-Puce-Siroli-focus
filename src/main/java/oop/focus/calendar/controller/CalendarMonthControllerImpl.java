@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
-import oop.focus.calendar.view.CalendarDaysView;
-import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
 
@@ -42,7 +40,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
     //List
     private List<DayImpl> month;
-    private Map<Button, CalendarDaysView> cells;
+    private Map<Button, CalendarDayController> cells;
 
     //Costants
     private static final int TABLEDAYS = 7;
@@ -106,10 +104,10 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             jb.setAlignment(Pos.CENTER);
             jb.setOnAction(getDayView());
             jb.setPrefSize(DIM, DIM);
-            final CalendarDaysView dayview = new CalendarDaysViewImpl(day, this.daywidth, this.dayheight);
-            configureday(dayview);
-            dayview.buildDay();
-            cells.put(jb, dayview);
+            final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, this.daywidth, this.dayheight);
+            configureday(daycontroller);
+            daycontroller.buildDay();
+            cells.put(jb, daycontroller);
             daysGrid.add(jb, counter, count);
 
         });
@@ -121,9 +119,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     }
 
 
-    private void configureday(final CalendarDaysView dayview) {
-        dayview.setFormat(settingscontroller.getFormat());
-        dayview.setSpacing(settingscontroller.getSpacing());
+    private void configureday(final CalendarDayController daycontroller) {
+        daycontroller.setFormat(settingscontroller.getFormat());
+        daycontroller.setSpacing(settingscontroller.getSpacing());
     }
 
 
@@ -141,11 +139,11 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             @Override
             public void handle(final ActionEvent event) {
                 final Button bt = (Button) event.getSource();
-                final CalendarDaysView daycheck = cells.get(bt);
+                final CalendarDayController daycheck = cells.get(bt);
                 if (daywindows == null) {
 
                     daywindows = new Stage();
-                    final CalendarDaysView p = cells.get(bt);
+                    final CalendarDayController p = cells.get(bt);
 
                     daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
 
@@ -153,7 +151,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
                     daywindows.close();
                     daywindows = new Stage();
-                    final CalendarDaysView p = cells.get(bt);
+                    final CalendarDayController p = cells.get(bt);
                     daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
                 }
 
