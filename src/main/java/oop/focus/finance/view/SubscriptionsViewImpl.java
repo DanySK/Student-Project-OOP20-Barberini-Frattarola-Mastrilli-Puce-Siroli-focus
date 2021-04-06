@@ -23,9 +23,7 @@ public class SubscriptionsViewImpl implements Initializable, SubscriptionsView {
     @FXML
     private ScrollPane subcriptionsScroll;
     @FXML
-    private Label monthlyTransactionLabel;
-    @FXML
-    private Label annualTransactionLabel;
+    private Label monthlyTransactionLabel, annualTransactionLabel;
 
     private final SubscriptionsController controller;
     private Parent root;

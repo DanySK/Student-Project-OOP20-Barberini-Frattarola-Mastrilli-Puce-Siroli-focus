@@ -23,23 +23,13 @@ public class NewAccountViewImpl implements Initializable, NewAccountView {
     @FXML
     private Pane newAccountPane;
     @FXML
-    private Label titleLabel;
+    private Label titleLabel, nameLabel, amountLabel, colorLabel;
     @FXML
-    private Label nameLabel;
-    @FXML
-    private Label amountLabel;
-    @FXML
-    private Label colorLabel;
-    @FXML
-    private TextField nameTextfield;
-    @FXML
-    private TextField amountTextfield;
+    private TextField nameTextfield, amountTextfield;
     @FXML
     private ChoiceBox<String> colorChoiche;
     @FXML
-    private Button cancelButton;
-    @FXML
-    private Button saveButton;
+    private Button cancelButton, saveButton;
 
     private final TransactionsController controller;
     private Parent root;

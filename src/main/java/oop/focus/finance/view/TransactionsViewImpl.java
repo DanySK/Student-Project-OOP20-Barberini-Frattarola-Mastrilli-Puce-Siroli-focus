@@ -28,9 +28,7 @@ import java.util.function.Predicate;
 public class TransactionsViewImpl implements Initializable, TransactionsView {
 
     @FXML
-    private ScrollPane transactionsScroll;
-    @FXML
-    private ScrollPane accountsScroll;
+    private ScrollPane transactionsScroll, accountsScroll;
     @FXML
     private Label amountLabel;
     @FXML

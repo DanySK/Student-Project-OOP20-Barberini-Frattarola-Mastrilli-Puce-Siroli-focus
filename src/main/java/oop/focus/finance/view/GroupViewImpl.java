@@ -25,15 +25,7 @@ public class GroupViewImpl implements Initializable, GroupView {
     @FXML
     private ScrollPane groupMovementsScroll;
     @FXML
-    private Button peopleButton;
-    @FXML
-    private Button groupTransactionsButton;
-    @FXML
-    private Button newPersonButton;
-    @FXML
-    private Button resolveButton;
-    @FXML
-    private Button newGroupTransactionButton;
+    private Button peopleButton, groupTransactionsButton, newPersonButton, resolveButton, newGroupTransactionButton;
 
     private final GroupController controller;
     private Parent root;

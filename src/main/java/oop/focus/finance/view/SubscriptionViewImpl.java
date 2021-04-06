@@ -15,9 +15,7 @@ import java.util.ResourceBundle;
 public class SubscriptionViewImpl implements Initializable, SubscriptionView {
 
     @FXML
-    private Label descriptionLabel;
-    @FXML
-    private Label amountLabel;
+    private Label descriptionLabel, amountLabel;
 
     private final Transaction subscription;
     private Parent root;

@@ -16,9 +16,7 @@ import java.util.ResourceBundle;
 public class PersonViewImpl implements Initializable, PersonView {
 
     @FXML
-    private Label descriptionLabel;
-    @FXML
-    private Label amountLabel;
+    private Label descriptionLabel, amountLabel;
 
     private final GroupController controller;
     private final Person person;

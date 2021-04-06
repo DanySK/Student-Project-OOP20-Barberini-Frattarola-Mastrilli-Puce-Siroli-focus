@@ -15,11 +15,7 @@ import java.util.ResourceBundle;
 public class GroupTransactionViewImpl implements Initializable, GroupTransactionView {
 
     @FXML
-    private Label personLabel;
-    @FXML
-    private Label descriptionLabel;
-    @FXML
-    private Label amountLabel;
+    private Label personLabel, descriptionLabel, amountLabel;
 
     private final GroupTransaction transaction;
     private Parent root;

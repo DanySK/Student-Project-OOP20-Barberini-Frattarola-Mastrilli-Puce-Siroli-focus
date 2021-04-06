@@ -16,13 +16,7 @@ import java.util.ResourceBundle;
 public class TransactionViewImpl extends VBox implements Initializable, TransactionView {
 
     @FXML
-    private Label descriptionLabel;
-    @FXML
-    private Label categoryLabel;
-    @FXML
-    private Label dateLabel;
-    @FXML
-    private Label amountLabel;
+    private Label descriptionLabel, categoryLabel, dateLabel, amountLabel;
 
     private final Transaction transaction;
     private Parent root;
