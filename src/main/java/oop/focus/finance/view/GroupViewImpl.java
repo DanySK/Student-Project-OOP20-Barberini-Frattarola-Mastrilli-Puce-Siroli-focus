@@ -5,10 +5,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
@@ -54,9 +57,9 @@ public class GroupViewImpl implements Initializable, GroupView {
     private void populate() {
         this.peopleButton.setOnAction(event -> this.controller.showPeople());
         this.groupTransactionsButton.setOnAction(event -> this.controller.showTansactions());
-        //this.newPersonButton.setOnAction(event -> this.controller.newPerson());
-        //this.newGroupTransactionButton.setOnAction(event -> this.controller.newTransaction());
-        //this.resolveButton.setOnAction(event -> this.controller.resolve());
+        this.newPersonButton.setOnAction(event -> this.showWindow(new NewPersonViewImpl(this.controller)));
+        this.newGroupTransactionButton.setOnAction(event -> this.showWindow(new NewGroupTransactionViewImpl(this.controller)));
+        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(this.controller)));
     }
 
     @Override
@@ -79,5 +82,12 @@ public class GroupViewImpl implements Initializable, GroupView {
         transactionTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deleteTransaction(t.getTransaction())));
         this.groupMovementsScroll.setContent(box);
+    }
+
+    @Override
+    public final void showWindow(final View impl) {
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) impl.getRoot()));
+        stage.show();
     }
 }

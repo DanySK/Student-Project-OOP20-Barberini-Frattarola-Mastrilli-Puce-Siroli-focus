@@ -76,7 +76,7 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
 
     @Override
     public final void showNewAccount() {
-        final NewAccountView newAccount = new NewAccountViewImpl(this.controller);
+        final FinanceWindow newAccount = new NewAccountViewImpl(this.controller);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newAccount.getRoot()));
         stage.show();
