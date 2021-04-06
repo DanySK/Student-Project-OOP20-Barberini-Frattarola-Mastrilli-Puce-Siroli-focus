@@ -76,9 +76,25 @@ public class CalendarControllerImpl implements CalendarController {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(monthview.getMonthView());
+
                 } else {
-                    panelcolumn.getChildren().add(monthview.getMonthView());
+
+                }
+            }
+
+        };
+    }
+
+    public final EventHandler<ActionEvent> statisticsPanel(final VBox panelcolumn) {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                if (panelcolumn.getChildren().size() != 0) {
+                    panelcolumn.getChildren().remove(0);
+
+                } else {
+
                 }
             }
 

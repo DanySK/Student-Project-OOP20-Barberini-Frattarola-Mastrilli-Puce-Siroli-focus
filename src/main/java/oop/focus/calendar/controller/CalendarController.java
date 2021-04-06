@@ -27,4 +27,11 @@ public interface CalendarController {
      * @return EventHandler
      */
     EventHandler<ActionEvent> weekPanel(VBox panelcolumn);
+
+    /**
+     * Used for show the statistics panel.
+     * @param panelcolumn : column where we put the panel
+     * @return EventHandler
+     */
+    EventHandler<ActionEvent> statisticsPanel(VBox panelcolumn);
 }
