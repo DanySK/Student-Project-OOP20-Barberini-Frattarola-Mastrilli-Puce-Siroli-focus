@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import oop.focus.db.Dao;
-import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 
 public class RelationshipsManagerImpl implements RelationshipsManager {
@@ -15,7 +15,7 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
      * This is the class constructor.
      * @param dsi is the data source.
      */
-    public RelationshipsManagerImpl(final DataSource dsi) {
+    public RelationshipsManagerImpl(final DataSourceImpl dsi) {
         this.sd = dsi.getRelationships();
     }
 

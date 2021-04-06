@@ -8,7 +8,7 @@
 <Pane fx:id="paneHotKeyView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="addHotKeyButton" layoutX="477.0" layoutY="135.0" mnemonicParsing="false" onAction="#addNewHotKey" prefHeight="25.0" prefWidth="72.0" text="NUOVO" />
-      <Button fx:id="modifyHotKey" layoutX="477.0" layoutY="77.0" mnemonicParsing="false" onAction="#refreshList" text="MODIFICA" />
+      <Button fx:id="modifyHotKey" layoutX="477.0" layoutY="77.0" mnemonicParsing="false" onAction="#modifyClicked" text="MODIFICA" />
       <Button fx:id="deleteElement" layoutX="101.0" layoutY="417.0" mnemonicParsing="false" onAction="#deletSelectedRowItem" prefHeight="25.0" prefWidth="218.0" text="ELIMINA ELEMENTO  SELEZIONATO" />
       <Button fx:id="goBackButton" layoutX="477.0" layoutY="20.0" mnemonicParsing="false" onAction="#goBack" text="INDIETRO" />
       <TableView fx:id="tableHotKeyList" layoutX="22.0" layoutY="20.0" prefHeight="358.0" prefWidth="402.0">

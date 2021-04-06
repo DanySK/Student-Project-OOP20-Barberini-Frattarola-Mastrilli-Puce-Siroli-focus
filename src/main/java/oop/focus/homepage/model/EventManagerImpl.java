@@ -1,14 +1,18 @@
 package oop.focus.homepage.model;
 
 import oop.focus.db.Dao;
-import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.common.Repetition;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,13 +29,13 @@ public class EventManagerImpl implements EventManager {
      * This is the class constructor.
      * @param dsi is the DataSource.
      */
-    public EventManagerImpl(final DataSource dsi) {
+    public EventManagerImpl(final DataSourceImpl dsi) {
         this.time = new TimePropertyImpl();
         this.events = dsi.getEvents();
     }
 
     public final void addEvent(final Event event) {
-        if (this.time.getValidity(event) && this.time.getHourDuration(event) && this.getAnswer(event) || !this.isAdequate(event) || !this.time.getHourDuration(event)) {
+        if (this.isHotKey(event) || this.time.getValidity(event) && this.time.getHourDuration(event) && this.getAnswer(event) || !this.isAdequate(event) || !this.time.getHourDuration(event)) {
             if (!this.events.getAll().contains(event)) {
                 try {
                     this.events.save(event);
@@ -42,6 +46,10 @@ public class EventManagerImpl implements EventManager {
         } else {
             throw new IllegalStateException();
         }
+    }
+
+    private boolean isHotKey(final Event event) {
+        return event.getStart().isEqual(event.getEnd());
     }
 
     public final void addEventsSet(final Set<Event> eventsSet) {
@@ -106,7 +114,7 @@ public class EventManagerImpl implements EventManager {
     }
 
     public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
-        if(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().anyMatch(e -> e.getStartHour().isAfter(date.toLocalTime()))){
+        if (this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().anyMatch(e -> e.getStartHour().isAfter(date.toLocalTime()))) {
             return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
         }
         return Optional.empty();

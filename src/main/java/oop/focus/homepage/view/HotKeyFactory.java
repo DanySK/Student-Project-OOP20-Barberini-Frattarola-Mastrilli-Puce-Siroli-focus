@@ -1,14 +1,12 @@
 package oop.focus.homepage.view;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import oop.focus.homepage.controller.HomePageController;
 
 public interface HotKeyFactory {
 
-    Button getEventButton(String buttonName, HomePageController controller);
+    EventHotKeyView getEventButton(String buttonName, HomePageController controller);
 
-    CheckBox getActivityButton(String buttonNamer);
+    ActivityHotKeyView getActivityButton(String buttonNamer, HomePageController controller);
 
-    CounterHotKeyView getCounterButton(String buttonName);
+    CounterHotKeyView getCounterButton(String buttonName, HomePageController controller);
 }

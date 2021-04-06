@@ -19,7 +19,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import oop.focus.common.Repetition;
 import oop.focus.homepage.controller.HomePageController;
-import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 
 public class NewEventView implements Initializable, View {
@@ -36,10 +35,8 @@ public class NewEventView implements Initializable, View {
     @FXML
     private Button back, saveSelection, deleteSelection;
 
-    private Event event;
     private Parent root;
-    private Repetition lastRep;
-    private HomePageController controller;
+    private final HomePageController controller;
 
     public NewEventView(final HomePageController controller) {
         this.controller = controller;
@@ -57,18 +54,17 @@ public class NewEventView implements Initializable, View {
     public final void initialize(final URL location, final ResourceBundle resources) {
         final ComboBoxFiller filler = new ComboBoxFiller();
 
-        this.endHourChoice = filler.getHourAndMinute(Constants.HOUR_PER_DAY);
-        this.startHourChoice = filler.getHourAndMinute(Constants.HOUR_PER_DAY);
-        this.startMinuteChoice = filler.getHourAndMinute(Constants.MINUTE_PER_HOUR);
-        this.endMinuteChoice = filler.getHourAndMinute(Constants.MINUTE_PER_HOUR);
-        this.repetitionChoice = filler.getRepetition();
+        this.endHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY).getItems());
+        this.startHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY).getItems());
+        this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR).getItems());
+        this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR).getItems());
+        this.repetitionChoice.setItems(filler.getRepetition().getItems());
 
-        this.lastRep = null;
     }
 
     @FXML
     public final void backButtonPress(final ActionEvent event) throws IOException {
-        Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
+        final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
         stage.close();
     }
 
@@ -91,17 +87,20 @@ public class NewEventView implements Initializable, View {
         if (!this.startHourChoice.getSelectionModel().isEmpty() && !this.endHourChoice.getSelectionModel().isEmpty()
                 && !this.startMinuteChoice.getSelectionModel().isEmpty() && !this.endMinuteChoice.getSelectionModel().isEmpty()
                 && !this.repetitionChoice.getSelectionModel().isEmpty()) {
-
-            final LocalDate date = LocalDate.now();
-            final LocalTime start = new LocalTime(Integer.valueOf(this.startHourChoice.getSelectionModel().getSelectedItem()), Integer.valueOf(this.startMinuteChoice.getSelectionModel().getSelectedItem()));
-            final LocalTime end = new LocalTime(Integer.valueOf(this.endHourChoice.getSelectionModel().getSelectedItem()), Integer.valueOf(this.endMinuteChoice.getSelectionModel().getSelectedItem()));
-            final Repetition repetition = Repetition.valueOf(this.repetitionChoice.getSelectionModel().getSelectedItem());
-
-            this.controller.saveEvent(new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), repetition));
             this.backButtonPress(event);
         } else {
-            this.controller.showAllert();
+            final AllertGenerator allert = new AllertGenerator();
+            allert.showAllert();
         }
+    }
+
+    public final void saveEvent() {
+        final LocalDate date = LocalDate.now();
+        final LocalTime start = new LocalTime(Integer.valueOf(this.startHourChoice.getSelectionModel().getSelectedItem()), Integer.valueOf(this.startMinuteChoice.getSelectionModel().getSelectedItem()));
+        final LocalTime end = new LocalTime(Integer.valueOf(this.endHourChoice.getSelectionModel().getSelectedItem()), Integer.valueOf(this.endMinuteChoice.getSelectionModel().getSelectedItem()));
+        final Repetition repetition = Repetition.valueOf(this.repetitionChoice.getSelectionModel().getSelectedItem());
+
+        this.controller.saveEvent(new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), repetition));
     }
 
     public final void setText(final String eventName) {

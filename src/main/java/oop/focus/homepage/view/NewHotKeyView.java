@@ -13,6 +13,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
@@ -24,6 +25,7 @@ public class NewHotKeyView implements Initializable, View {
 
     @FXML
     private Label newHotKeyName, newHotKeyCategory;
+
     @FXML
     private TextField nameTextField;
 
@@ -62,9 +64,8 @@ public class NewHotKeyView implements Initializable, View {
 
     @FXML
     public final void goBack(final ActionEvent event) throws IOException {
-        final HotKeyMenuView menu = new HotKeyMenuView(this.controller);
-        this.paneNewHotKey.getChildren().clear();
-        this.paneNewHotKey.getChildren().add(menu.getRoot());
+        final Stage stage = (Stage) this.paneNewHotKey.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
@@ -74,7 +75,8 @@ public class NewHotKeyView implements Initializable, View {
             this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
             this.goBack(event);
         } else {
-            this.controller.showAllert();
+            final AllertGenerator allert = new AllertGenerator();
+            allert.showAllert();
         }
     }
 

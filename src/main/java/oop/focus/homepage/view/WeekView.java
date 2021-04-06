@@ -1,124 +1,114 @@
 package oop.focus.homepage.view;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.joda.time.LocalDate;
 
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.HoursViewImpl.Format;
 import oop.focus.homepage.controller.WeekController;
 
-public class WeekView  implements Initializable, View {
+public class WeekView implements View, Initializable {
 
     @FXML
-    private Pane paneWeek;
+    private AnchorPane weekDaysPane;
 
     @FXML
-    private Label thisWeek, month;
+    private ScrollPane weekDaysScroller;
 
     @FXML
-    private Button nextWeek, previousWeek;
+    private Label thisWeek;
 
     @FXML
-    private HBox hbox;
+    private Button nextWeek;
 
     @FXML
-    private ScrollPane scrollPaneEvents;
+    private Button lastWeek;
 
-    private LocalDate startOfWeek, endOfWeek;
-    private List<Node> list;
+    @FXML
+    private Button newEvent;
+
     private Parent root;
-    private WeekController controller;
+    private LocalDate startWeek;
+    private final WeekController controller;
 
     public WeekView(final WeekController controller) {
         this.controller = controller;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/week.fxml"));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/pane.fxml"));
         loader.setController(this);
-
         try {
-            loader.load();
-            this.root = loader.getRoot();
-        } catch (IOException e) {
+            this.root = loader.load();
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.list = new ArrayList<>();
         final LocalDate today = LocalDate.now();
-        this.startOfWeek = today.minusDays(today.getDayOfWeek() - 1);
-        this.endOfWeek = startOfWeek.plusDays(6);
-        this.month.setText(startOfWeek.toString() + " " + "-" + " " + endOfWeek.toString());
-        this.setWeek();
+        this.startWeek = today.minusDays(today.getDayOfWeek() - 1);
+        this.setWeekDays();
+    }
+
+    @FXML
+    public final void addNewEvent(final ActionEvent event) {
+        final NewEventWeekView newEvent = new NewEventWeekView(this.controller);
+        final Stage stage = new Stage();
+        stage.setScene(new Scene(newEvent.getRoot()));
+        stage.show();
     }
 
     @FXML
     public final void lastWeek(final ActionEvent event) {
-        this.startOfWeek = this.startOfWeek.minusDays(7);
-        this.endOfWeek = this.startOfWeek.plusDays(6);
-        this.hbox.getChildren().removeAll(list);
-        this.list.clear();
-        this.setWeek();
+        this.startWeek = this.startWeek.minusDays(Constants.DAYS_PER_WEEK);
+        this.setWeekDays();
+    }
+
+    private void setWeekDays() {
+        LocalDate date = this.startWeek;
+        final HBox hbox = new HBox();
+
+        for (int i = 0; i < Constants.DAYS_PER_WEEK; i++) {
+            final CalendarDaysViewImpl day = new CalendarDaysViewImpl(new DayImpl(date), 200, 500);
+            day.setFormat(Format.NORMAL);
+            day.setSpacing(Constants.SPACING);
+            day.buildDay();
+            day.getContainer().prefWidthProperty().bind(hbox.widthProperty().divide(Constants.DAYS_PER_WEEK));
+            hbox.getChildren().add(day.getContainer());
+            date = date.plusDays(1);
+        }
+        hbox.prefWidthProperty().bind(weekDaysScroller.widthProperty());
+
+        this.weekDaysScroller.setContent(hbox);
     }
 
     @FXML
     public final void nextWeek(final ActionEvent event) {
-        this.startOfWeek = this.startOfWeek.plusDays(7);
-        this.endOfWeek = this.startOfWeek.plusDays(6);
-        this.hbox.getChildren().removeAll(list);
-        this.list = new ArrayList<>();
-        this.setWeek();
-    }
-
-    public final void setWeek() {
-        LocalDate date = this.startOfWeek;
-
-        for (int i = 0; i < 7; i++) {
-            final DayImpl day = new DayImpl(date);
-
-            final CalendarDaysViewImpl dayView = new CalendarDaysViewImpl(day, 200, 300);
-            dayView.setFormat(Format.NORMAL);
-            dayView.setSpacing(100);
-            dayView.buildDay();
-
-            dayView.getContainer().prefWidthProperty().bind(hbox.widthProperty().divide(7));
-            dayView.getContainer().prefHeightProperty().bind(hbox.heightProperty());
-
-            this.list.add(dayView.getContainer());
-
-            hbox.getChildren().add(dayView.getContainer());
-
-            date = date.plusDays(1);
-        }
-
-        this.scrollPaneEvents = new ScrollPane();
-        scrollPaneEvents.prefHeightProperty().bind(this.paneWeek.heightProperty());
-        scrollPaneEvents.prefHeightProperty().bind(this.paneWeek.widthProperty());
-        this.scrollPaneEvents.setContent(hbox);
-        hbox.prefWidthProperty().bind(scrollPaneEvents.widthProperty());
-        hbox.prefHeightProperty().bind(scrollPaneEvents.heightProperty());
+        this.startWeek = this.startWeek.plusDays(Constants.DAYS_PER_WEEK);
+        this.setWeekDays();
     }
 
     @Override
     public final Parent getRoot() {
         return this.root;
+    }
+
+    private class Constants {
+        private static final int DAYS_PER_WEEK = 7;
+        private static final int SPACING = 50;
     }
 }

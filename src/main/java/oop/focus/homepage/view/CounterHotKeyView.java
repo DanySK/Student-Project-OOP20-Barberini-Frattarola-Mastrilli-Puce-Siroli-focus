@@ -1,30 +1,43 @@
 package oop.focus.homepage.view;
 
+import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyType;
+import org.joda.time.LocalDateTime;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import oop.focus.common.Repetition;
+import oop.focus.homepage.controller.HomePageController;
+import oop.focus.homepage.model.EventImpl;
 
-public class CounterHotKeyView extends Pane {
+public class CounterHotKeyView extends Pane implements HotKeyView {
 
+    private final HomePageController controller;
     private final Button button;
     private final Label label;
 
-    public CounterHotKeyView(final String buttonName) {
-        this.label = new Label("0");
+    public CounterHotKeyView(final String buttonName, final HomePageController controller) {
+        this.controller = controller;
+        this.label = new Label();
         this.button = new Button(buttonName);
+        this.setAction();
+        this.label.setText(this.controller.getClickTime(new HotKeyImpl(this.button.getText(), HotKeyType.COUNTER)));
         this.getChildren().addAll(this.button, this.label);
-    }
-
-    public final void setLabelText(final String count) {
-        this.label.setText(count);
-    }
-
-    public final Button getButton() {
-        return this.button;
     }
 
     public final String getLabelValue() {
         return this.label.getText();
     }
+
+    public final void setAction() {
+        this.button.setOnAction(event -> {
+            //final int count = Integer.valueOf(this.getLabelValue()) + 1;
+            //this.label.setText(String.valueOf(count));
+            this.controller.saveEvent(new EventImpl(this.label.getText(), LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE));
+            this.label.setText(this.controller.getClickTime(new HotKeyImpl(this.button.getText(), HotKeyType.COUNTER)));
+        });
+    }
+
 
 }

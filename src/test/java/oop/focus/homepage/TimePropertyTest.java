@@ -15,14 +15,13 @@ import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
-import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 
 public class TimePropertyTest {
 
 	private final TimeProperty time = new TimePropertyImpl();
-	private final DataSource dsi = new DataSourceImpl();
+	private final DataSourceImpl dsi = new DataSourceImpl();
 	private final EventManager manager = new EventManagerImpl(dsi);
     
 	/**

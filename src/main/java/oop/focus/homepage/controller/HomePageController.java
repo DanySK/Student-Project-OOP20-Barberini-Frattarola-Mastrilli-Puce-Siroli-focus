@@ -1,30 +1,35 @@
 package oop.focus.homepage.controller;
 
-import java.util.Optional;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
-import oop.focus.homepage.model.HotKeyType;
+import oop.focus.homepage.model.HotKeyManager;
+import oop.focus.homepage.model.HotKeyManagerImpl;
 import oop.focus.homepage.view.HomePageBaseView;
+import org.joda.time.LocalDate;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomePageController {
 
     private final HomePageBaseView view;
-    private ObservableList<Event> event;
-    private final ObservableList<HotKey> hotKeyList;
+    private final EventManager eventManager;
+    private final HotKeyManager hotKeyManager;
+    private final DataSourceImpl dsi;
 
-    public HomePageController() {
+    public HomePageController(final DataSourceImpl dsi) {
+        this.dsi = dsi;
+        this.eventManager = new EventManagerImpl(dsi);
+        this.hotKeyManager = new HotKeyManagerImpl(dsi, eventManager);
         this.view = new HomePageBaseView(this);
-        hotKeyList = FXCollections.observableArrayList();
-        this.hotKeyList.addAll(new HotKeyImpl("Shopping", HotKeyType.EVENT), new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY), new HotKeyImpl("Bere", HotKeyType.COUNTER), new HotKeyImpl("Addominali", HotKeyType.COUNTER), new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY));
     }
 
     public final Parent getView() {
@@ -32,36 +37,40 @@ public class HomePageController {
     }
 
     public final ObservableList<HotKey> getHotKey() {
-        return this.hotKeyList;
+        final ObservableList<HotKey> list = FXCollections.observableArrayList();
+        hotKeyManager.getAll().forEach(hotKey -> list.add(hotKey));
+        return list;
     }
 
     public final HomePageBaseView getViewForChange() {
         return this.view;
     }
 
-    public final void showAllert() {
-        final Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-        alert.setContentText("Riempire i campi o tornare indietro");
-
-        final Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            alert.close();
-        }
-    }
-
-
     public final void saveHotKey(final HotKey hotKey) {
-        this.hotKeyList.add(hotKey);
+        this.hotKeyManager.add(hotKey);
     }
 
-    public final void deleteHotKey(final HotKey selectedItem) {
-        this.hotKeyList.remove(selectedItem);
+    public final void deleteHotKey(final HotKeyImpl hotKeyImpl) {
+        this.hotKeyManager.remove(hotKeyImpl);
     }
 
     public final void saveEvent(final EventImpl eventImpl) {
-        this.event.add(eventImpl);
+        this.eventManager.addEvent(eventImpl);
     }
 
+    public final String getClickTime(final HotKey hotKey) {
+        final List<Event> list = this.eventManager.takeOnly(this.eventManager.findByDate(LocalDate.now()).stream().collect(Collectors.toList()));
+        return String.valueOf(list.stream().filter(e -> e.getName().equals(hotKey.getName())).count());
+    }
+
+    public final boolean getActivitySelected(final HotKeyImpl hotKey) {
+        List<Event> list = this.eventManager.takeOnly(this.eventManager.findByDate(LocalDate.now()).stream().collect(Collectors.toList()));
+        list = list.stream().filter(e -> e.getName().equals(hotKey.getName())).collect(Collectors.toList());
+        return list.isEmpty();
+
+    }
+
+    public final void refreshDailyEvents() {
+        this.eventManager.generateRepeatedEvents(LocalDate.now());
+    }
 }

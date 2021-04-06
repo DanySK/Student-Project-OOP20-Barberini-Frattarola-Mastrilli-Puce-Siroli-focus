@@ -3,7 +3,7 @@ package oop.focus.homepage.model;
 import java.util.Set;
 
 import oop.focus.db.Dao;
-import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
 
 public class PersonsManagerImpl implements PersonsManager {
@@ -14,7 +14,7 @@ public class PersonsManagerImpl implements PersonsManager {
      * This is the class constructor.
      * @param dsi is the DataSource.
      */
-    public PersonsManagerImpl(final DataSource dsi) {
+    public PersonsManagerImpl(final DataSourceImpl dsi) {
         this.sd = dsi.getPersons();
     }
 

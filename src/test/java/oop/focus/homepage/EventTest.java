@@ -14,13 +14,12 @@ import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManagerImpl;
-import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 
 public class EventTest {
 
-	private final DataSource dsi = new DataSourceImpl();
+	private final DataSourceImpl dsi = new DataSourceImpl();
     private final EventManager eventi = new EventManagerImpl(dsi);
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);

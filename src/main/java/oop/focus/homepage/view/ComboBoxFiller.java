@@ -22,6 +22,7 @@ public class ComboBoxFiller {
 
     public final ComboBox<String> getHourAndMinute(final int range) {
         this.comboBox.getItems().clear();
+
         for (int i = 00; i < range; i++) {
             if (i < 10) {
                 this.comboBox.getItems().add("0" + i);
