@@ -43,4 +43,11 @@ public interface CalendarMonthController {
      * @param monthcontroller
      */
     void updateView(CalendarMonthView monthview, CalendarMonthController monthcontroller);
+
+
+    /**
+     * Used for disable all the button of the month grid.
+     * @param flag : true for disable or false for not
+     */
+    void disableButton(boolean flag);
 }

@@ -230,4 +230,8 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         return daysname;
     }
 
+
+    public final void disableButton(final boolean flag) {
+        cells.forEach((button, day) -> button.setDisable(flag));
+    }
 }
