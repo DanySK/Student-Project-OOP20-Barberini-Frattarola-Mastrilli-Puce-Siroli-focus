@@ -58,4 +58,8 @@ public interface GroupManager {
     */
     ObservableSet<GroupTransaction> getTransactions();
 
+    /**
+     * @return the list of relationships
+     */
+    ObservableSet<String> getRelationships();
 }
