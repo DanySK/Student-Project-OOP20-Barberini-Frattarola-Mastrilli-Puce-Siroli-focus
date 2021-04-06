@@ -3,16 +3,10 @@ package oop.focus.calendar.controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public interface CalendarController {
 
-    /**
-     * Used for return the Month box.
-     * @return Month box
-     */
-    HBox buildMonth();
 
     /**
      * Used for build the Settings button and his window.

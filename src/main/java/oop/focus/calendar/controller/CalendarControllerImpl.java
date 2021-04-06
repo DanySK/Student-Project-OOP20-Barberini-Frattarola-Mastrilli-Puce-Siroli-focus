@@ -3,13 +3,11 @@ package oop.focus.calendar.controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -36,18 +34,6 @@ public class CalendarControllerImpl implements CalendarController {
         final CalendarMonthController monthcontroller = new CalendarMonthControllerImpl(settingscontroller, daywidth, dayheight);
         this.monthview = new CalendarMonthViewImpl(monthwidth, monthheight, monthcontroller);
         this.settingsview = new CalendarSettingsViewImpl(settingscontroller, monthcontroller, this.monthview);
-    }
-
-    public final HBox buildMonth() {
-        final HBox month = new HBox();
-
-        month.getChildren().add(monthview.getMonthView());
-
-        monthview.getMonthView().setBackground(new Background(
-                new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
-        month.setAlignment(Pos.CENTER);
-
-        return month;
     }
 
 
@@ -90,9 +76,9 @@ public class CalendarControllerImpl implements CalendarController {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(buildMonth());
+                    panelcolumn.getChildren().add(monthview.getMonthView());
                 } else {
-                    panelcolumn.getChildren().add(buildMonth());
+                    panelcolumn.getChildren().add(monthview.getMonthView());
                 }
             }
 
