@@ -18,7 +18,7 @@ import oop.focus.calendar.controller.CalendarControllerImpl;
 public class CalendarViewImpl implements CalendarView {
 
     //Classes
-    private final CalendarControllerImpl prova = new CalendarControllerImpl(300, 150, 200, 400);
+    private final CalendarControllerImpl calendarcontroller = new CalendarControllerImpl(300, 150, 200, 400);
 
     //Views
     private final HBox calendarpage;
@@ -41,9 +41,10 @@ public class CalendarViewImpl implements CalendarView {
         final VBox buttoncolumn = new VBox();
         final VBox panelcolumn = new VBox();
 
-        columnButton(buttoncolumn, "Mese", prova.monthPanel(panelcolumn));
-        columnButton(buttoncolumn, "Settimana", prova.weekPanel(panelcolumn));
-        buttoncolumn.getChildren().add(prova.buildSettingsWindows());
+        columnButton(buttoncolumn, "Mese", calendarcontroller.monthPanel(panelcolumn));
+        columnButton(buttoncolumn, "Settimana", calendarcontroller.weekPanel(panelcolumn));
+        columnButton(buttoncolumn, "Statistiche", calendarcontroller.statisticsPanel(panelcolumn));
+        buttoncolumn.getChildren().add(calendarcontroller.buildSettingsWindows());
 
         calendarpage.getChildren().add(buttoncolumn);
         calendarpage.getChildren().add(panelcolumn);
@@ -98,6 +99,8 @@ public class CalendarViewImpl implements CalendarView {
      */
     private void columnButton(final VBox buttoncolumn, final String string, final EventHandler<ActionEvent> openthispanel) {
         final Button button = new Button(string);
+        button.setPrefHeight(GAP * 2);
+        button.setAlignment(Pos.CENTER);
         button.prefWidthProperty().bind(buttoncolumn.widthProperty().multiply(WIDTHBUTTON));
         buttoncolumn.getChildren().add(button);
         button.setOnAction(openthispanel);
