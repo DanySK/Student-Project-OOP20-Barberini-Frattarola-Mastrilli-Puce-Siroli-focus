@@ -67,4 +67,13 @@ public interface Day {
      *
      */
     List<Event> getEvents();
+
+
+    /**
+     * Can be used to get the list of the daily events of the day.
+     *
+     * @return the list of the daily event of the day 
+     *
+     */
+    List<Event> getDailyEvents();
 }
