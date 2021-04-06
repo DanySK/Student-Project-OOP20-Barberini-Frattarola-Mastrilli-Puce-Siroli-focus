@@ -18,7 +18,7 @@ import oop.focus.calendar.controller.CalendarControllerImpl;
 public class CalendarViewImpl implements CalendarView {
 
     //Classes
-    private final CalendarControllerImpl prova = new CalendarControllerImpl(400, 400, 300, 150, 200, 400);
+    private final CalendarControllerImpl prova = new CalendarControllerImpl(300, 150, 200, 400);
 
     //Views
     private final HBox calendarpage;

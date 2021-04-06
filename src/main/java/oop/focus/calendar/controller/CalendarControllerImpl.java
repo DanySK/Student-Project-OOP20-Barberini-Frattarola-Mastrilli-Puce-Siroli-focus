@@ -27,12 +27,12 @@ public class CalendarControllerImpl implements CalendarController {
     private final double optionwidth;
     private final double optionheight;
 
-    public CalendarControllerImpl(final double monthwidth, final double monthheight, final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
+    public CalendarControllerImpl(final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
         this.optionwidth = optionwidth;
         this.optionheight = optionheight;
         final CalendarSettingsController settingscontroller = new CalendarSettingsControllerImpl();
         final CalendarMonthController monthcontroller = new CalendarMonthControllerImpl(settingscontroller, daywidth, dayheight);
-        this.monthview = new CalendarMonthViewImpl(monthwidth, monthheight, monthcontroller);
+        this.monthview = new CalendarMonthViewImpl(monthcontroller);
         this.settingsview = new CalendarSettingsViewImpl(settingscontroller, monthcontroller, this.monthview);
     }
 

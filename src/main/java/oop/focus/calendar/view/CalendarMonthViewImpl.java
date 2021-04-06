@@ -23,10 +23,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private final Label monthinfo;
     private VBox monthview;
 
-    //Variables
-    private final double width;
-    private final double height;
-
     //Costants
     private static final int BORDER = 20;
     private static final int FONTSIZE = 24;
@@ -35,11 +31,10 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
 
 
-    public CalendarMonthViewImpl(final double width, final double height, final CalendarMonthController monthcontroller) {
+    public CalendarMonthViewImpl(final CalendarMonthController monthcontroller) {
         this.monthinfo = new Label();
         this.monthcontroller = monthcontroller;
-        this.width = width;
-        this.height = height;
+
         this.monthview = buildMonthView();
     }
 
@@ -51,8 +46,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
 
         final VBox container = new VBox();
-        container.prefHeight(height);
-        container.prefWidth(width);
 
         container.setAlignment(Pos.CENTER);
 
