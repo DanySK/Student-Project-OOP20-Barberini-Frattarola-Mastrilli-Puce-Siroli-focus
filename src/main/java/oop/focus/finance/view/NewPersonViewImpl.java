@@ -11,32 +11,31 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
-
-import oop.focus.finance.controller.TransactionsController;
+import oop.focus.finance.controller.GroupController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NewAccountViewImpl implements Initializable, FinanceWindow {
+public class NewPersonViewImpl implements Initializable, FinanceWindow {
 
     @FXML
-    private Pane newAccountPane;
+    private Pane newPersonPane;
     @FXML
-    private Label titleLabel, nameLabel, amountLabel, colorLabel;
+    private Label titleLabel, nameLabel, relationshipLabel;
     @FXML
-    private TextField nameTextfield, amountTextfield;
+    private TextField nameTextField;
     @FXML
-    private ChoiceBox<String> colorChoiche;
+    private ChoiceBox<String> relationshipChoice;
     @FXML
     private Button cancelButton, saveButton;
 
-    private final TransactionsController controller;
+    private final GroupController controller;
     private Parent root;
 
-    public NewAccountViewImpl(final TransactionsController controller) {
+    public NewPersonViewImpl(final GroupController controller) {
         this.controller = controller;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.NEWACCOUNT.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.NEWPERSON.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -56,27 +55,25 @@ public class NewAccountViewImpl implements Initializable, FinanceWindow {
     }
 
     private void populate() {
-        this.titleLabel.setText("Nuovo conto");
+        this.titleLabel.setText("Nuova persona");
         this.nameLabel.setText("Nome:");
-        this.amountLabel.setText("Importo:                E");
-        this.colorLabel.setText("Colore:");
+        this.relationshipLabel.setText("Relazione:");
         this.cancelButton.setText("Cancella");
         this.saveButton.setText("Salva");
-        this.colorChoiche.setItems(this.controller.getColors());
+        this.relationshipChoice.setItems(this.controller.getRelationships());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
     }
 
     @Override
     public final void close() {
-        final Stage stage = (Stage) this.newAccountPane.getScene().getWindow();
+        final Stage stage = (Stage) this.newPersonPane.getScene().getWindow();
         stage.close();
     }
 
     @Override
     public final void save() {
-        this.controller.newAccount(this.nameTextfield.getText(), this.colorChoiche.getValue(),
-                Integer.parseInt(this.amountTextfield.getText()));
+        this.controller.newPerson(this.nameTextField.getText(), this.relationshipChoice.getValue());
         this.close();
     }
 
