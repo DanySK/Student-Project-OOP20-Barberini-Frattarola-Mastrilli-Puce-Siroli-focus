@@ -42,7 +42,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
     //List
     private List<DayImpl> month;
-    private final Map<Button, CalendarDaysView> cells;
+    private Map<Button, CalendarDaysView> cells;
 
     //Costants
     private static final int TABLEDAYS = 7;
@@ -57,13 +57,12 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         this.dayheight = dayheight;
         this.settingscontroller = optioncontroller;
         calendarlogic = new CalendarLogicImpl();
-        month = calendarlogic.getMonth();
+        this.month = calendarlogic.getMonth();
     }
 
 
 
     public final GridPane buildGridMonth() {
-
 
         final GridPane daysGrid = new GridPane();
 
@@ -104,6 +103,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             counter++;
 
             final Button jb = new Button(" " + day.getNumber() + " ");
+            jb.setAlignment(Pos.CENTER);
             jb.setOnAction(getDayView());
             jb.setPrefSize(DIM, DIM);
             final CalendarDaysView dayview = new CalendarDaysViewImpl(day, this.daywidth, this.dayheight);
@@ -180,6 +180,8 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
 
     public final void updateView(final CalendarMonthView monthview, final CalendarMonthController logics) {
+        cells  = new HashMap<>();
+        this.month = calendarlogic.generateMonth();
         monthview.getMonthView().getChildren().remove(monthview.getMonthView().getChildren().size() - 1);
         monthview.getMonthView().getChildren().add(logics.buildGridMonth());
         monthview.setMonthView(monthview.getMonthView());
