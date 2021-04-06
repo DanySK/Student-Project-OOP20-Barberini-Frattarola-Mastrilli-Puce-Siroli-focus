@@ -5,11 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
@@ -59,7 +61,7 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
     }
 
     private void populate() {
-        //this.newAccountButton.setOnAction(event -> this.controller.newAccount());
+        this.newAccountButton.setOnAction(event -> this.showNewAccount());
         final Node accountsButtons = new AccountButtonsImpl(this.controller);
         this.accountsScroll.setContent(accountsButtons);
     }
@@ -72,5 +74,13 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
         transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deleteTransaction(t.getTransaction())));
         this.transactionsScroll.setContent(box);
+    }
+
+    @Override
+    public final void showNewAccount() {
+        final NewAccountView newAccount = new NewAccountViewImpl(this.controller);
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) newAccount.getRoot()));
+        stage.show();
     }
 }
