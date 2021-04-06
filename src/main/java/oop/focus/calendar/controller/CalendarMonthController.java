@@ -32,17 +32,15 @@ public interface CalendarMonthController {
      * Is an EventHandler for change the month (next or previous one).
      * @param monthview : the month view
      * @param flag : true previous month, false next month
-     * @param monthcontroller
      * @return EventHandler
      */
-    EventHandler<ActionEvent> changeMonthButton(CalendarMonthViewImpl monthview, Boolean flag, CalendarMonthController monthcontroller);
+    EventHandler<ActionEvent> changeMonthButton(CalendarMonthViewImpl monthview, Boolean flag);
 
     /**
      * Used for update the view when there are changes.
      * @param monthview
-     * @param monthcontroller
      */
-    void updateView(CalendarMonthView monthview, CalendarMonthController monthcontroller);
+    void updateView(CalendarMonthView monthview);
 
 
     /**

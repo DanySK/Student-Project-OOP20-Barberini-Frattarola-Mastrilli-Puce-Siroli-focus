@@ -163,27 +163,27 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     }
 
 
-    public final EventHandler<ActionEvent> changeMonthButton(final CalendarMonthViewImpl monthview, final Boolean flag, final CalendarMonthController monthcontroller) {
+    public final EventHandler<ActionEvent> changeMonthButton(final CalendarMonthViewImpl monthview, final Boolean flag) {
         return new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(final ActionEvent event) {
                 calendarlogic.changeMonth(flag);
                 month = calendarlogic.getMonth();
-                monthcontroller.updateView(monthview, monthcontroller);
+                updateView(monthview);
             }
 
         };
     }
 
 
-    public final void updateView(final CalendarMonthView monthview, final CalendarMonthController logics) {
+    public final void updateView(final CalendarMonthView monthview) {
         cells  = new HashMap<>();
         this.month = calendarlogic.generateMonth();
         monthview.getMonthView().getChildren().remove(monthview.getMonthView().getChildren().size() - 1);
-        monthview.getMonthView().getChildren().add(logics.buildGridMonth());
+        monthview.getMonthView().getChildren().add(buildGridMonth());
         monthview.setMonthView(monthview.getMonthView());
-        this.setMonthInfo(monthview.getMonthInfo(), logics.getMonth().get(0).getMonth() + "   " + logics.getMonth().get(0).getYear());
+        this.setMonthInfo(monthview.getMonthInfo(), this.month.get(0).getMonth() + "   " + this.month.get(0).getYear());
     }
 
 

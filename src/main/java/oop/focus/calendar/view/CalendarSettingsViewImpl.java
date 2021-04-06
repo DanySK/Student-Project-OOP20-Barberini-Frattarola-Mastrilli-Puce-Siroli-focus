@@ -80,7 +80,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
                      hoursformat = Format.NORMAL;
                  }
                  settingscontroller.setFormat(hoursformat);
-                 monthcontroller.updateView(monthview, monthcontroller);
+                 monthcontroller.updateView(monthview);
                  settingswindows.close();
            }
 

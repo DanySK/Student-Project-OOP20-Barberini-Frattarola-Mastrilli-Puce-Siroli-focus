@@ -91,8 +91,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
         final Button next = new Button("next");
         final Button previous = new Button("previous");
-        next.setOnAction(monthcontroller.changeMonthButton(this, false, monthcontroller));
-        previous.setOnAction(monthcontroller.changeMonthButton(this, true, monthcontroller));
+        next.setOnAction(monthcontroller.changeMonthButton(this, false));
+        previous.setOnAction(monthcontroller.changeMonthButton(this, true));
 
         toppanel.getChildren().add(previous);
         toppanel.getChildren().add(monthinfo);
