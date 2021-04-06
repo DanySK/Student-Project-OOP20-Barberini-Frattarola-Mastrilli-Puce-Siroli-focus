@@ -1,6 +1,6 @@
 package oop.focus.finance.controller;
 
-import oop.focus.finance.view.View;
+import oop.focus.common.View;
 
 public interface FinanceController {
 

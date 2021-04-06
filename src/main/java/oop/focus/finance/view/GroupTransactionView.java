@@ -1,5 +1,6 @@
 package oop.focus.finance.view;
 
+import oop.focus.common.View;
 import oop.focus.finance.model.GroupTransaction;
 
 public interface GroupTransactionView extends View {

@@ -1,5 +1,6 @@
 package oop.focus.finance.view;
 
+import oop.focus.common.View;
 import oop.focus.finance.model.Transaction;
 
 import java.util.List;

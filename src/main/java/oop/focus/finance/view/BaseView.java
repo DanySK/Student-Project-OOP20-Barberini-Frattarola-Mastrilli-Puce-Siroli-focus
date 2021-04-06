@@ -1,5 +1,7 @@
 package oop.focus.finance.view;
 
+import oop.focus.common.View;
+
 public interface BaseView extends View {
 
     /**

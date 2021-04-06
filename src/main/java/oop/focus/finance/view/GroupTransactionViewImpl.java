@@ -33,7 +33,7 @@ public class GroupTransactionViewImpl implements Initializable, GroupTransaction
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.personLabel.setText(this.transaction.getMadeBy().getName());
+        this.personLabel.setText(this.transaction.getMadeBy().getName() + " - > " + this.transaction.getForList());
         this.descriptionLabel.setText(this.transaction.getDescription());
         this.amountLabel.setText("E " + (double) this.transaction.getAmount() / 100);
     }

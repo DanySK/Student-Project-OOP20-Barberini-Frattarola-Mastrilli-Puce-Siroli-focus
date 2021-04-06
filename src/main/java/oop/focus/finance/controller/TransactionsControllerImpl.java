@@ -3,12 +3,12 @@ package oop.focus.finance.controller;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.TransactionsViewImpl;
-import oop.focus.finance.view.View;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -50,7 +50,7 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     @Override
     public final void newAccount(final String name, final String color, final int amount) {
-        this.manager.addAccount(new AccountImpl(name, color, amount));
+        this.manager.addAccount(new AccountImpl(name, color, amount * 100));
     }
 
     @Override

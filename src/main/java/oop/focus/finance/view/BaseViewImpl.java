@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import oop.focus.common.View;
 import oop.focus.finance.controller.BaseController;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.model.FinanceManager;

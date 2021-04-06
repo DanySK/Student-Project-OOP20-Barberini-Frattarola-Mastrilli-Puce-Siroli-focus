@@ -1,9 +1,9 @@
 package oop.focus.finance.controller;
 
+import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.SubscriptionsViewImpl;
-import oop.focus.finance.view.View;
 
 public class SubscriptionsControllerImpl implements SubscriptionsController {
 
