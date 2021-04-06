@@ -1,5 +1,6 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableSet;
 import org.joda.time.LocalDate;
 
 /**
@@ -95,4 +96,9 @@ public interface FinanceManager {
      * @return group manager
      */
     GroupManager getGroupManager();
+
+    /**
+     * @return an ObservabelSet of colors
+     */
+    ObservableSet<String> getColors();
 }

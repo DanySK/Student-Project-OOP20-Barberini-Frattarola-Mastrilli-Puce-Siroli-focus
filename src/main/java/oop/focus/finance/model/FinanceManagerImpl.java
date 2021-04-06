@@ -1,5 +1,6 @@
 package oop.focus.finance.model;
 
+import javafx.collections.ObservableSet;
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import org.joda.time.LocalDate;
@@ -17,6 +18,7 @@ public class FinanceManagerImpl implements FinanceManager {
     private final TransactionManager transactions;
     private final QuickTransactionManager quickTransactions;
     private final GroupManager group;
+    private final ObservableSet<String> colors;
 
     public FinanceManagerImpl(final DataSource db) {
         this.accounts = new AccountManagerImpl(db);
@@ -24,6 +26,7 @@ public class FinanceManagerImpl implements FinanceManager {
         this.transactions = new TransactionManagerImpl(db);
         this.quickTransactions = new QuickTransactionManagerImpl(db);
         this.group = new GroupManagerImpl(db);
+        this.colors = db.getColors().getAll();
     }
 
     @Override
@@ -118,5 +121,10 @@ public class FinanceManagerImpl implements FinanceManager {
     @Override
     public final GroupManager getGroupManager() {
         return this.group;
+    }
+
+    @Override
+    public final ObservableSet<String> getColors() {
+        return this.colors;
     }
 }
