@@ -1,12 +1,16 @@
 package oop.focus.finance.controller;
 
+import com.sun.javafx.collections.ObservableListWrapper;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import oop.focus.finance.model.Account;
+import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.TransactionsViewImpl;
 import oop.focus.finance.view.View;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -42,6 +46,16 @@ public class TransactionsControllerImpl implements TransactionsController {
     @Override
     public final void deleteTransaction(final Transaction transaction) {
         this.manager.removeTransaction(transaction);
+    }
+
+    @Override
+    public final void newAccount(final String name, final String color, final int amount) {
+        this.manager.addAccount(new AccountImpl(name, color, amount));
+    }
+
+    @Override
+    public final ObservableList<String> getColors() {
+        return new ObservableListWrapper<>(new ArrayList<>(this.manager.getColors()));
     }
 
     @Override
