@@ -35,6 +35,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     private final double height;
     private double spacing;
     private Format format;
+    private String dailyevents;
 
 
     /**
@@ -87,7 +88,13 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         daily.prefWidthProperty().bind(container.widthProperty());
         daily.setAlignment(Pos.CENTER);
         daily.setTextAlignment(TextAlignment.CENTER);
-        daily.setText("Attività giornaliere: \nLavoro\nAllenamento");
+
+        dailyevents = "Attività giornaliere:\n";
+        day.getDailyEvents().forEach(e -> {
+            dailyevents += e.getName() + "\n";
+        });
+        daily.setText(dailyevents);
+
         daily.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         container.getChildren().add(daily);
     }
