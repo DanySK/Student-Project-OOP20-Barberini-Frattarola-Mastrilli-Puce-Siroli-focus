@@ -54,11 +54,11 @@ public class NewEventView implements Initializable, View {
     public final void initialize(final URL location, final ResourceBundle resources) {
         final ComboBoxFiller filler = new ComboBoxFiller();
 
-        this.endHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY).getItems());
-        this.startHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY).getItems());
-        this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR).getItems());
-        this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR).getItems());
-        this.repetitionChoice.setItems(filler.getRepetition().getItems());
+        this.endHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
+        this.startHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
+        this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
+        this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
+        this.repetitionChoice.setItems(filler.getRepetition());
 
     }
 

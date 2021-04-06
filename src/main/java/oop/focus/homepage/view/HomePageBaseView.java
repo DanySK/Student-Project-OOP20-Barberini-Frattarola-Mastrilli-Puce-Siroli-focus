@@ -16,6 +16,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import oop.focus.calendar.controller.CalendarDayController;
+import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
@@ -65,7 +67,7 @@ public class HomePageBaseView implements Initializable, View {
             });
 
             final DayImpl day = new DayImpl(LocalDate.now());
-            final CalendarDaysView days = new CalendarDaysViewImpl(day, 20, 20);
+            final CalendarDayController days = new CalendarDayControllerImpl(day, 20, 20);
             days.buildDay();
             days.getScroller().prefWidthProperty().bind(calendarVBox.widthProperty());
             days.getScroller().prefHeightProperty().bind(calendarVBox.heightProperty());

@@ -1,5 +1,7 @@
 package oop.focus.homepage.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import oop.focus.common.Repetition;
 import oop.focus.homepage.model.HotKeyType;
@@ -12,33 +14,32 @@ public class ComboBoxFiller {
         this.comboBox = new ComboBox<>();
     }
 
-    public final ComboBox<String> getRepetition() {
-        this.comboBox.getItems().clear();
+    public final ObservableList<String> getRepetition() {
+        final ObservableList<String> list = FXCollections.observableArrayList();
         for (final Repetition repetition : Repetition.values()) {
-            this.comboBox.getItems().add(repetition.getName());
+            list.add(repetition.getName());
         }
-        return this.comboBox;
+        return list;
     }
 
-    public final ComboBox<String> getHourAndMinute(final int range) {
-        this.comboBox.getItems().clear();
-
-        for (int i = 00; i < range; i++) {
+    public final ObservableList<String> getHourAndMinute(final int range) {
+        final ObservableList<String> list = FXCollections.observableArrayList();
+        for (int i = 0; i < range; i++) {
             if (i < 10) {
-                this.comboBox.getItems().add("0" + i);
+                list.add("0" + i);
             } else {
-                this.comboBox.getItems().add(String.valueOf(i));
+                list.add(String.valueOf(i));
             }
         }
-        return this.comboBox;
+        return list;
     }
 
-    public final ComboBox<String> getHotKey() {
-        this.comboBox.getItems().clear();
+    public final ObservableList<String> getHotKey() {
+        final ObservableList<String> list = FXCollections.observableArrayList();
         for (final HotKeyType type : HotKeyType.values()) {
-            this.comboBox.getItems().add(type.getType());
+            list.add(type.getType());
         }
-        return this.comboBox;
+        return list;
     }
 
 }

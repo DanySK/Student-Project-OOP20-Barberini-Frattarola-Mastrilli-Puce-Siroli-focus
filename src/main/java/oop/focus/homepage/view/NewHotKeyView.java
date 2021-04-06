@@ -53,7 +53,7 @@ public class NewHotKeyView implements Initializable, View {
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         final ComboBoxFiller comboBox = new ComboBoxFiller();
-        this.categoryComboBox.setItems(comboBox.getHotKey().getItems());
+        this.categoryComboBox.setItems(comboBox.getHotKey());
     }
 
     @FXML

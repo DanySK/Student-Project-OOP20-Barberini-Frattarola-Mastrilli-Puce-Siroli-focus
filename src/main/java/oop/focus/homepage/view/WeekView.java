@@ -17,6 +17,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import oop.focus.calendar.controller.CalendarDayController;
+import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.HoursViewImpl.Format;
@@ -83,7 +85,7 @@ public class WeekView implements View, Initializable {
         final HBox hbox = new HBox();
 
         for (int i = 0; i < Constants.DAYS_PER_WEEK; i++) {
-            final CalendarDaysViewImpl day = new CalendarDaysViewImpl(new DayImpl(date), 200, 500);
+            final CalendarDayController day = new CalendarDayControllerImpl(new DayImpl(date), 200, 500);
             day.setFormat(Format.NORMAL);
             day.setSpacing(Constants.SPACING);
             day.buildDay();

@@ -7,8 +7,8 @@ package oop.focus.homepage.model;
  */
 public class PersonImpl implements Person {
 
-    private final String name;
-    private final String relationships;
+    private String name;
+    private String relationships;
 
     /**
      * This is the class constructor.
@@ -62,5 +62,15 @@ public class PersonImpl implements Person {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public final void setName(final String newValue) {
+        this.name = newValue;
+    }
+
+    @Override
+    public final void setRelationships(final String newValue) {
+        this.relationships = newValue;
     }
 }

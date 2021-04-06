@@ -1,5 +1,6 @@
 package oop.focus.homepage.view;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,13 +67,13 @@ public class NewEventWeekView implements Initializable, View {
     }
 
     private void fillComboBox(final ComboBoxFiller filler) {
-        this.endHourComboBox.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY).getItems());
-        this.startHourComboBox.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY).getItems());
+        this.endHourComboBox.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
+        this.startHourComboBox.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
 
-        this.endMinuteComboBox.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR).getItems());
-        this.startMinuteComboBox.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR).getItems());
+        this.endMinuteComboBox.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
+        this.startMinuteComboBox.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
 
-        this.repetitionComboBox.setItems(filler.getRepetition().getItems());
+        this.repetitionComboBox.setItems(filler.getRepetition());
     }
 
     @FXML

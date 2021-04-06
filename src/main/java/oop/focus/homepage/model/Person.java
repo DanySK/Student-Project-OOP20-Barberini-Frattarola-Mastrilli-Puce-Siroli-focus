@@ -17,5 +17,9 @@ public interface Person {
      */
     String getName();
 
+    void setName(String newValue);
+
+    void setRelationships(String newValue);
+
 
 }
