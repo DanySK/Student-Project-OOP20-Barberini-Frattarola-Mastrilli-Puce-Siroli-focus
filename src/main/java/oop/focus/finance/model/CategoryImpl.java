@@ -33,7 +33,7 @@ public class CategoryImpl implements Category {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        var category = (CategoryImpl) o;
+        final var category = (CategoryImpl) o;
         return Objects.equals(this.name, category.name);
     }
 

@@ -7,7 +7,15 @@ import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.finance.model.*;
+
+import oop.focus.finance.model.Account;
+import oop.focus.finance.model.AccountImpl;
+import oop.focus.finance.model.FinanceManager;
+import oop.focus.finance.model.FinanceManagerImpl;
+import oop.focus.finance.model.TransactionImpl;
+import oop.focus.finance.model.CategoryImpl;
+import oop.focus.finance.model.QuickTransactionImpl;
+import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
@@ -17,6 +25,9 @@ import java.util.List;
 
 public class FinanceTest {
 
+    private static final String RELATIONSHIP = "amico";
+    private static final String CATEGORY = "Spesa";
+    private static final String COLOR = "ff6666";
     private final DataSource db = new DataSourceImpl();
     private final FinanceManager financeManager = new FinanceManagerImpl(this.db);
 
@@ -27,8 +38,8 @@ public class FinanceTest {
         final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
 
         // riferimenti ai conti
-        var firstAccount = new AccountImpl("Conto1", "ff6666", 150_000);
-        var secondAccount = new AccountImpl("Conto2", "ff6666", 10_000);
+        final Account firstAccount = new AccountImpl("Conto1", COLOR, 150_000);
+        final Account secondAccount = new AccountImpl("Conto2", COLOR, 10_000);
 
         // salvo i conti
         this.financeManager.addAccount(firstAccount);
@@ -36,7 +47,7 @@ public class FinanceTest {
 
         // aggiungo una transazione
         this.financeManager.addTransaction(new TransactionImpl("Transazione1",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 1, 1, 0, 0, 0),
                 firstAccount, -250, Repetition.ONCE));
 
@@ -70,12 +81,12 @@ public class FinanceTest {
         final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
 
         // creo delle categorie
-        this.financeManager.addCategory(new CategoryImpl("Categoria1", "ff6666"));
-        this.financeManager.addCategory(new CategoryImpl("Categoria2", "ff6666"));
-        this.financeManager.addCategory(new CategoryImpl("Categoria3", "ff6666"));
+        this.financeManager.addCategory(new CategoryImpl("Categoria1", COLOR));
+        this.financeManager.addCategory(new CategoryImpl("Categoria2", COLOR));
+        this.financeManager.addCategory(new CategoryImpl("Categoria3", COLOR));
 
         // creo un conto e una transazione
-        this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 250));
+        this.financeManager.addAccount(new AccountImpl("Conto1", COLOR, 250));
         this.financeManager.addTransaction(new TransactionImpl("Transazione1",
                 new CategoryImpl("Categoria1", ""),
                 new LocalDateTime(2020, 1, 1, 0, 0, 0),
@@ -88,7 +99,7 @@ public class FinanceTest {
         try {
             this.financeManager.removeCategory(new CategoryImpl("Categoria1", ""));
             fail();
-        } catch (Exception ignored) { }
+        } catch (IllegalStateException ignored) { }
 
         // controllo che non siano state rimosse categorie
         assertEquals(numCat+3, this.financeManager.getCategoryManager().getCategories().size());
@@ -120,16 +131,16 @@ public class FinanceTest {
         final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
 
         // creo un conto
-        this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 250));
+        this.financeManager.addAccount(new AccountImpl("Conto1", COLOR, 250));
 
         // creo due transazioni
         this.financeManager.addTransaction(new TransactionImpl("Transazione1",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 1, 1, 0, 0, 0),
                 new AccountImpl("Conto1", "", 0),
                 -250, Repetition.ONCE));
         this.financeManager.addTransaction(new TransactionImpl("Transazione2",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 1, 1, 0, 0, 0),
                 new AccountImpl("Conto1", "", 0),
                 1_000, Repetition.ONCE));
@@ -145,11 +156,11 @@ public class FinanceTest {
 
         // eseguo altre transazioni
         this.financeManager.addTransaction(new TransactionImpl("Transazione3",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 account,-2_500, Repetition.ONCE));
         this.financeManager.addTransaction(new TransactionImpl("Transazione4",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 account, 7_500, Repetition.ONCE));
         assertEquals(numTra+4, this.financeManager.getTransactionManager().getTransactions().size());
@@ -159,11 +170,11 @@ public class FinanceTest {
 
         // eseguo altre transazioni
         final var fifthTransaction = new TransactionImpl("Transazione5",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 account, -6_000, Repetition.ONCE);
         final var sixthTransaction = new TransactionImpl("Transazione6",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 account, 100_000, Repetition.ONCE);
         this.financeManager.addTransaction(fifthTransaction);
@@ -204,41 +215,41 @@ public class FinanceTest {
         final int yearlyExp = this.financeManager.getTransactionManager().yearlyExpense();
 
         // creo un conto
-        this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 200_000));
+        this.financeManager.addAccount(new AccountImpl("Conto1", COLOR, 200_000));
 
         // creo diverse transazioni ripetute (abbonamenti)
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento1",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2021, 1, 1, 0, 0, 0),
                 new AccountImpl("Conto1", "", 0),
                 -100, Repetition.DAILY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento2",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2021, 1, 1, 0, 0, 0),
                 new AccountImpl("Conto1", "", 0),
                 -1_000, Repetition.WEEKLY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento3",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2021, 3, 3, 0, 0, 0),
                 new AccountImpl("Conto1", "", 0),
                 -699, Repetition.MONTHLY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento4",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 11, 7, 0, 0, 0),
                 new AccountImpl("Conto1", "", 200_000),
                 -12_500, Repetition.BIMONTHLY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento5",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 11, 25, 0, 0, 0),
                 new AccountImpl("Conto1", "", 200_000),
                 -15_000, Repetition.QUARTERLY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento6",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 6, 5, 0, 0, 0),
                 new AccountImpl("Conto1", "", 200_000),
                 -39_900, Repetition.HALF_YEARLY));
         this.financeManager.addTransaction(new TransactionImpl("Abbonamento7",
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 1, 1, 0, 0, 0),
                 new AccountImpl("Conto1", "", 200_000),
                 -2_400, Repetition.YEARLY));
@@ -277,19 +288,19 @@ public class FinanceTest {
         final int numQui = this.financeManager.getQuickManager().getQuickTransactions().size();
 
         // creo un conto
-        this.financeManager.addAccount(new AccountImpl("Conto1", "ff6666", 149_750));
+        this.financeManager.addAccount(new AccountImpl("Conto1", COLOR, 149_750));
 
         // creo delle transazioni rapide
         this.financeManager.getQuickManager().add(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new AccountImpl("Conto1", "", 0),
                 "TransazioneRapida1"));
         this.financeManager.getQuickManager().add(new QuickTransactionImpl(-300,
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new AccountImpl("Conto1", "", 0),
                 "TransazioneRapida2"));
         this.financeManager.getQuickManager().add(new QuickTransactionImpl(1000,
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new AccountImpl("Conto1", "", 0),
                 "TransazioneRapida3"));
 
@@ -304,36 +315,36 @@ public class FinanceTest {
 
         // eseguo alcune transazioni rapide
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", ""), account, "TransazioneRapida1"));
+                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida1"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", ""), account, "TransazioneRapida1"));
+                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida1"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", ""), account, "TransazioneRapida1"));
+                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida1"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                new CategoryImpl("Spesa", ""), account, "TransazioneRapida2"));
+                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida2"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                new CategoryImpl("Spesa", ""), account, "TransazioneRapida2"));
+                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida2"));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(1000,
-                new CategoryImpl("Spesa", ""), account, "TransazioneRapida3"));
+                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida3"));
 
         // controllo che le transazioni siano sei in più
         assertEquals(numTra+6, this.financeManager.getTransactionManager().getTransactions().size());
 
         // controllo che il saldo sia corretto
-        assertEquals(149700, this.financeManager.getAmount(account));
+        assertEquals(149_700, this.financeManager.getAmount(account));
 
         // riporto tutto come da principio
         this.financeManager.removeAccount(new AccountImpl("Conto1", "", 0));
         this.financeManager.getQuickManager().remove(new QuickTransactionImpl(-150,
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new AccountImpl("Conto1", "", 0),
                 "TransazioneRapida1"));
         this.financeManager.getQuickManager().remove(new QuickTransactionImpl(-300,
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new AccountImpl("Conto1", "", 0),
                 "TransazioneRapida2"));
         this.financeManager.getQuickManager().remove(new QuickTransactionImpl(1000,
-                new CategoryImpl("Spesa", ""),
+                new CategoryImpl(CATEGORY, ""),
                 new AccountImpl("Conto1", "", 0),
                 "TransazioneRapida3"));
 
@@ -351,11 +362,11 @@ public class FinanceTest {
 
         // aggiungo le persone a persons
         final var persons = this.db.getPersons();
-        final Person persona1 = new PersonImpl("Persona1", "amico");
-        final Person persona2 = new PersonImpl("Persona2", "amico");
-        final Person persona3 = new PersonImpl("Persona3", "amico");
-        final Person persona4 = new PersonImpl("Persona4", "amico");
-        final Person persona5 = new PersonImpl("Persona5", "amico");
+        final Person persona1 = new PersonImpl("Persona1", RELATIONSHIP);
+        final Person persona2 = new PersonImpl("Persona2", RELATIONSHIP);
+        final Person persona3 = new PersonImpl("Persona3", RELATIONSHIP);
+        final Person persona4 = new PersonImpl("Persona4", RELATIONSHIP);
+        final Person persona5 = new PersonImpl("Persona5", RELATIONSHIP);
         try {
             persons.save(persona1);
             persons.save(persona2);
@@ -375,29 +386,29 @@ public class FinanceTest {
         assertEquals(numPer+5, this.financeManager.getGroupManager().getGroup().size());
 
         // aggiungo alcune transazioni di gruppo
-        GroupTransactionImpl transazione1 = new GroupTransactionImpl("Transazione1",
+        final GroupTransactionImpl transazione1 = new GroupTransactionImpl("Transazione1",
                 persona1, List.of(persona1, persona3), 500, new LocalDate());
-        GroupTransactionImpl transazione2 = new GroupTransactionImpl("Transazione2",
+        final GroupTransactionImpl transazione2 = new GroupTransactionImpl("Transazione2",
                 persona2, List.of(persona1, persona2), 1000, new LocalDate());
-        GroupTransactionImpl transazione3 = new GroupTransactionImpl("Transazione3",
+        final GroupTransactionImpl transazione3 = new GroupTransactionImpl("Transazione3",
                 persona2, List.of(persona1, persona3), 300, new LocalDate());
-        GroupTransactionImpl transazione4 = new GroupTransactionImpl("Transazione4",
+        final GroupTransactionImpl transazione4 = new GroupTransactionImpl("Transazione4",
                 persona1, List.of(persona1), 300, new LocalDate());
-        GroupTransactionImpl transazione5 = new GroupTransactionImpl("Transazione5",
+        final GroupTransactionImpl transazione5 = new GroupTransactionImpl("Transazione5",
                 persona3, List.of(persona2), 100, new LocalDate());
-        GroupTransactionImpl transazione6 = new GroupTransactionImpl("Transazion6",
+        final GroupTransactionImpl transazione6 = new GroupTransactionImpl("Transazion6",
                 persona1, List.of(persona1, persona2, persona3), 600, new LocalDate());
-        GroupTransactionImpl transazione7 = new GroupTransactionImpl("Transazione7",
+        final GroupTransactionImpl transazione7 = new GroupTransactionImpl("Transazione7",
                 persona3, List.of(persona1, persona2), 200, new LocalDate());
-        GroupTransactionImpl transazione8 = new GroupTransactionImpl("Transazione8",
+        final GroupTransactionImpl transazione8 = new GroupTransactionImpl("Transazione8",
                 persona2, List.of(persona1, persona2), 400, new LocalDate());
-        GroupTransactionImpl transazione9 = new GroupTransactionImpl("Transazione9",
+        final GroupTransactionImpl transazione9 = new GroupTransactionImpl("Transazione9",
                 persona3, List.of(persona1, persona3), 500, new LocalDate());
-        GroupTransactionImpl transazione10 = new GroupTransactionImpl("Transazione10",
+        final GroupTransactionImpl transazione10 = new GroupTransactionImpl("Transazione10",
                 persona4, List.of(persona1), 100, new LocalDate());
-        GroupTransactionImpl transazione11 = new GroupTransactionImpl("Transazione11",
+        final GroupTransactionImpl transazione11 = new GroupTransactionImpl("Transazione11",
                 persona5, List.of(persona1), 150, new LocalDate());
-        GroupTransactionImpl transazione12 = new GroupTransactionImpl("Transazione12",
+        final GroupTransactionImpl transazione12 = new GroupTransactionImpl("Transazione12",
                 persona1, List.of(persona1, persona3), 200, new LocalDate());
         this.financeManager.getGroupManager().addTransaction(transazione1);
         this.financeManager.getGroupManager().addTransaction(transazione2);

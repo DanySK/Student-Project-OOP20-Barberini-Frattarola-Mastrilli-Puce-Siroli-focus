@@ -29,7 +29,7 @@ public class BaseViewImpl implements Initializable, BaseView {
     public BaseViewImpl(final BaseController controller, final FinanceManager manager) {
         this.controller = controller;
         this.manager = manager;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.MAIN.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.MAIN.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -55,7 +55,7 @@ public class BaseViewImpl implements Initializable, BaseView {
     }
 
     private void populate() {
-        Node buttons = new ButtonsBoxImpl(this.controller, this.manager);
+        final Node buttons = new ButtonsBoxImpl(this.controller, this.manager);
         this.menuScroll.setContent(buttons);
     }
 }

@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
 
 import java.io.IOException;
@@ -22,14 +21,12 @@ public class GroupTransactionViewImpl implements Initializable, GroupTransaction
     @FXML
     private Label amountLabel;
 
-    private final GroupController controller;
     private final GroupTransaction transaction;
     private Parent root;
 
-    public GroupTransactionViewImpl(final GroupController controller, final GroupTransaction transaction) {
+    public GroupTransactionViewImpl(final GroupTransaction transaction) {
         this.transaction = transaction;
-        this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GROUPTILE.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GROUPTILE.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();

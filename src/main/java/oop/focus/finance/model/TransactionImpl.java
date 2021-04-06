@@ -87,7 +87,7 @@ public class TransactionImpl implements Transaction {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        TransactionImpl that = (TransactionImpl) o;
+        final TransactionImpl that = (TransactionImpl) o;
         return this.amount == that.amount && Objects.equals(this.description, that.description)
                 && Objects.equals(this.category, that.category) && Objects.equals(this.date, that.date)
                 && Objects.equals(this.account, that.account) && this.repetition == that.repetition;

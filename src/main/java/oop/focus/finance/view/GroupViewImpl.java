@@ -40,7 +40,7 @@ public class GroupViewImpl implements Initializable, GroupView {
 
     public GroupViewImpl(final GroupController controller) {
         this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GROUP.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GROUP.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -62,13 +62,16 @@ public class GroupViewImpl implements Initializable, GroupView {
     private void populate() {
         this.peopleButton.setOnAction(event -> this.controller.showPeople());
         this.groupTransactionsButton.setOnAction(event -> this.controller.showTansactions());
+        //this.newPersonButton.setOnAction(event -> this.controller.newPerson());
+        //this.newGroupTransactionButton.setOnAction(event -> this.controller.newTransaction());
+        //this.resolveButton.setOnAction(event -> this.controller.resolve());
     }
 
     @Override
     public final void showPeople(final ObservableSet<Person> group) {
-        List<PersonView> personTiles = new ArrayList<>();
+        final List<PersonView> personTiles = new ArrayList<>();
         group.forEach(p -> personTiles.add(new PersonViewImpl(this.controller, p)));
-        VBox box = new VBox();
+        final VBox box = new VBox();
         personTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         personTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deletePerson(t.getPerson())));
@@ -77,9 +80,9 @@ public class GroupViewImpl implements Initializable, GroupView {
 
     @Override
     public final void showTransactions(final ObservableSet<GroupTransaction> transactions) {
-        List<GroupTransactionView> transactionTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(this.controller, t)));
-        VBox box = new VBox();
+        final List<GroupTransactionView> transactionTiles = new ArrayList<>();
+        transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
+        final VBox box = new VBox();
         transactionTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deleteTransaction(t.getTransaction())));

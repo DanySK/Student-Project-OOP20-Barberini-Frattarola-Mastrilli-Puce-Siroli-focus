@@ -27,7 +27,7 @@ public class PersonViewImpl implements Initializable, PersonView {
     public PersonViewImpl(final GroupController controller, final Person person) {
         this.person = person;
         this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GENERICTILE.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GENERICTILE.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();

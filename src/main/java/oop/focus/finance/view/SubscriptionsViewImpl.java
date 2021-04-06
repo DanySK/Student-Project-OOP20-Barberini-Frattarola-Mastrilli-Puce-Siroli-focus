@@ -32,7 +32,7 @@ public class SubscriptionsViewImpl implements Initializable, SubscriptionsView {
 
     public SubscriptionsViewImpl(final SubscriptionsController controller) {
         this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.SUBS.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.SUBS.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -58,9 +58,9 @@ public class SubscriptionsViewImpl implements Initializable, SubscriptionsView {
 
     @Override
     public final void showSubscriptions(final List<Transaction> subscriptions) {
-        List<SubscriptionView> subscriptionsTiles = new ArrayList<>();
-        subscriptions.forEach(t -> subscriptionsTiles.add(new SubscriptionViewImpl(this.controller, t)));
-        VBox box = new VBox();
+        final List<SubscriptionView> subscriptionsTiles = new ArrayList<>();
+        subscriptions.forEach(t -> subscriptionsTiles.add(new SubscriptionViewImpl(t)));
+        final VBox box = new VBox();
         subscriptionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         subscriptionsTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.stopSubscription(t.getSubscription())));

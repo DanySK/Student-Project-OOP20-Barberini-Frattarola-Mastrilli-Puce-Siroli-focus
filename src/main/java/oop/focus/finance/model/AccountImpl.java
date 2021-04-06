@@ -40,7 +40,7 @@ public class AccountImpl implements Account {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        var account = (AccountImpl) o;
+        final var account = (AccountImpl) o;
         return Objects.equals(this.name, account.name);
     }
 

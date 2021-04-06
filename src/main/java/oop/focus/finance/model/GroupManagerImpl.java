@@ -76,13 +76,13 @@ public class GroupManagerImpl implements GroupManager {
 
     @Override
     public final List<GroupTransaction> resolve() {
-        var ret = new ArrayList<GroupTransaction>();
-        Map<Person, Integer> map = new HashMap<>();
+        final var ret = new ArrayList<GroupTransaction>();
+        final Map<Person, Integer> map = new HashMap<>();
         this.group.getAll().forEach(p -> map.put(p, this.getCredit(p)));
         while (!map.values().stream().allMatch(i -> i == 0)) {
-            var creditor = this.getCreditor(map);
-            var debtor = this.getDebtor(map);
-            var amount = this.calculateAmount(map);
+            final var creditor = this.getCreditor(map);
+            final var debtor = this.getDebtor(map);
+            final var amount = this.calculateAmount(map);
             ret.add(new GroupTransactionImpl("Auto", debtor, List.of(creditor), amount, LocalDate.now()));
             map.replace(creditor, map.get(creditor) - amount);
             map.replace(debtor, map.get(debtor) + amount);
@@ -91,7 +91,7 @@ public class GroupManagerImpl implements GroupManager {
     }
 
     private int calculateAmount(final Map<Person, Integer> map) {
-        return (map.get(this.getCreditor(map)) < -map.get(this.getDebtor(map)))
+        return map.get(this.getCreditor(map)) < -map.get(this.getDebtor(map))
                 ? map.get(this.getCreditor(map)) : -map.get(this.getDebtor(map));
     }
 

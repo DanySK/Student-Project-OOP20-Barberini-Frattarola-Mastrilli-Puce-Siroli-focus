@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
@@ -23,9 +22,9 @@ public class SubscriptionViewImpl implements Initializable, SubscriptionView {
     private final Transaction subscription;
     private Parent root;
 
-    public SubscriptionViewImpl(final SubscriptionsController controller, final Transaction subscription) {
+    public SubscriptionViewImpl(final Transaction subscription) {
         this.subscription = subscription;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GENERICTILE.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GENERICTILE.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();

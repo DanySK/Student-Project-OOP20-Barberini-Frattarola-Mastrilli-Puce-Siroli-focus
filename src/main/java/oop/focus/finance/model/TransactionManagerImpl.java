@@ -106,7 +106,7 @@ public class TransactionManagerImpl implements TransactionManager {
             return new ArrayList<>();
         }
         t.stopRepeat();
-        var transaction = new TransactionImpl(t.getDescription(), t.getCategory(),
+        final var transaction = new TransactionImpl(t.getDescription(), t.getCategory(),
                 new LocalDateTime(t.getNextRenewal().getYear(), t.getNextRenewal().getMonthOfYear(), t.getNextRenewal().getDayOfMonth(), 0, 0, 0),
                 t.getAccount(), t.getAmount(), t.getRepetition());
         return Stream.concat(List.of(transaction).stream(),

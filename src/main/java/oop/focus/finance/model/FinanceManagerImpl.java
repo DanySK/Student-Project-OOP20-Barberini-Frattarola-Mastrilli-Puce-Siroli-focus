@@ -63,7 +63,7 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final int getAmount(final Account account) {
-        var acc = this.accounts.getAccounts().stream()
+        final var acc = this.accounts.getAccounts().stream()
                 .filter(a -> a.equals(account))
                 .collect(Collectors.toList())
                 .get(0);
@@ -90,7 +90,7 @@ public class FinanceManagerImpl implements FinanceManager {
 
     @Override
     public final void generateRepeatedTransactions(final LocalDate date) {
-        var sub = this.transactions.getSubscriptions();
+        final var sub = this.transactions.getSubscriptions();
         this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
         sub.forEach(this.transactions::update);
     }

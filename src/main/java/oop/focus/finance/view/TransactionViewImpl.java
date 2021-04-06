@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
@@ -25,14 +24,12 @@ public class TransactionViewImpl extends VBox implements Initializable, Transact
     @FXML
     private Label amountLabel;
 
-    private final TransactionsController controller;
     private final Transaction transaction;
     private Parent root;
 
-    public TransactionViewImpl(final TransactionsController controller, final Transaction transaction) {
+    public TransactionViewImpl(final Transaction transaction) {
         this.transaction = transaction;
-        this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.MOVTILE.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.MOVTILE.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();

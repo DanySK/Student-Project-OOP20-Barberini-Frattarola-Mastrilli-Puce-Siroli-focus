@@ -59,7 +59,7 @@ public class GroupTransactionImpl implements GroupTransaction {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        var that = (GroupTransactionImpl) o;
+        final var that = (GroupTransactionImpl) o;
         return this.amount == that.amount && Objects.equals(this.description, that.description)
                && Objects.equals(this.madeBy, that.madeBy) && Objects.equals(this.forList, that.forList)
                && Objects.equals(this.date, that.date);

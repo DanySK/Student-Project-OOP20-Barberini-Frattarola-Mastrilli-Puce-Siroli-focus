@@ -39,7 +39,7 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
 
     public TransactionsViewImpl(final TransactionsController controller) {
         this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ALL.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ALL.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -59,15 +59,16 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
     }
 
     private void populate() {
-        Node accountsButtons = new AccountButtonsImpl(this.controller);
+        //this.newAccountButton.setOnAction(event -> this.controller.newAccount());
+        final Node accountsButtons = new AccountButtonsImpl(this.controller);
         this.accountsScroll.setContent(accountsButtons);
     }
 
     public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
         this.amountLabel.setText("E " + this.controller.getAmount(predicate));
-        List<TransactionView> transactionsTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(this.controller, t)));
-        VBox box = new VBox();
+        final List<TransactionView> transactionsTiles = new ArrayList<>();
+        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
+        final VBox box = new VBox();
         transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deleteTransaction(t.getTransaction())));
         this.transactionsScroll.setContent(box);

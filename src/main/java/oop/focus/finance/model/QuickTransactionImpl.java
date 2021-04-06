@@ -48,7 +48,7 @@ public class QuickTransactionImpl implements QuickTransaction {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        QuickTransactionImpl that = (QuickTransactionImpl) o;
+        final QuickTransactionImpl that = (QuickTransactionImpl) o;
         return this.amount == that.amount && Objects.equals(this.description, that.description)
                 && Objects.equals(this.category, that.category) && Objects.equals(this.account, that.account);
     }
