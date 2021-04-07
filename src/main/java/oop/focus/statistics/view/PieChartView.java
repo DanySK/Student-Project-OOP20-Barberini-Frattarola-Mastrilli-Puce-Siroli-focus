@@ -1,99 +1,73 @@
 package oop.focus.statistics.view;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.geometry.Dimension2D;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.util.Pair;
+import oop.focus.common.View;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-public class PieChartView {
+public class PieChartView implements View {
     private static final double SPACING = 20;
     private final Pane container;
-    private final CategoryAxis xAxis;
-    private final NumberAxis yAxis;
-    private final List<XYChart.Series<String, Number>> series;
-    private final LineChart<String, Number> lineChart;
+    private final ObservableList<PieChart.Data> data;
+    private final PieChart pieChart;
     private final NumberFormat format = new DecimalFormat("#.#E0");
     private final Label title;
 
-
-    public PieChartView(final Dimension2D dimension) {
+    public PieChartView() {
         VBox vBox = new VBox(SPACING);
         vBox.setAlignment(Pos.TOP_CENTER);
         this.container = vBox;
-        this.xAxis = new CategoryAxis();
-        this.yAxis = new NumberAxis();
         this.title = new Label("Titolo");
-        this.series = new ArrayList<>();
-
-        this.lineChart = new LineChart<>(this.xAxis, this.yAxis);
-        this.lineChart.getData().addAll(this.series);
-        this.container.getChildren().addAll(this.title, this.lineChart);
-        this.setProperties(dimension);
+        this.data = FXCollections.observableArrayList();
+        this.pieChart = new PieChart(this.data);
+        this.container.getChildren().addAll(this.title, this.pieChart);
     }
 
-    private void setProperties(final Dimension2D dimension) {
-        this.lineChart.setAxisSortingPolicy(LineChart.SortingPolicy.X_AXIS);
-        this.xAxis.setAutoRanging(true);
-        this.xAxis.setStartMargin(10);
-        this.yAxis.setAutoRanging(true);
-        this.xAxis.setAnimated(false);
-        this.container.setPrefSize(dimension.getWidth(), dimension.getHeight());
+    public final void updateData(final List<Pair<String, Double>> items) {
+        this.data.clear();
+        items.forEach(i -> this.data.add(new PieChart.Data(i.getKey(), i.getValue())));
     }
 
-    public final void updateData(final List<Set<Pair<String, Double>>> items, final List<String> names) {
-        this.series.clear();
-        System.out.println("Data size ->" + items);
-        items.forEach(i -> this.series.add(new XYChart.Series<>(
-                FXCollections.observableList(i.stream()
-                        .map(this::getPair)
-                        .collect(Collectors.toList())))));
-        this.lineChart.getData().addAll(this.series);
-
-        for (int i = 0; i < names.size(); i++) {
-            if (i < this.series.size()) {
-                this.series.get(i).setName(names.get(i));
-                System.out.println("Data size ->" + this.series.get(i).getData());
+    public final void setColors(final List<String> colors) {
+        int ind = 0;
+        for (String c : colors) {
+            String style = "-fx-pie-color: #" + c + ";";
+            System.out.println(style);
+            this.pieChart.getData().get(ind++).getNode().setStyle(style);
+        }
+        Platform.runLater(() -> {
+            for (int i = 0; i < this.pieChart.getData().size(); i++) {
+                PieChart.Data d = this.pieChart.getData().get(i);
+                String colorClass = "";
+                for (String cls : d.getNode().getStyleClass()) {
+                    if (cls.startsWith("default-color")) {
+                        colorClass = cls;
+                        break;
+                    }
+                }
+                for (var n : this.pieChart.lookupAll("." + colorClass)) {
+                    n.setStyle("-fx-pie-color: #" + colors.get(i));
+                }
             }
-        }
-    }
-
-    private XYChart.Data<String, Number> getPair(final Pair<String, Double> i) {
-        try {
-            return new XYChart.Data<>(i.getKey(), this.format.parse(i.getValue().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public final void setXAxisName(final String name) {
-        this.xAxis.setLabel(name);
-    }
-
-    public final void setYAxisName(final String name) {
-        this.yAxis.setLabel(name);
+        });
     }
 
     public final void setTitle(final String name) {
         this.title.setText(name);
     }
 
-    public final Pane getChart() {
+    @Override
+    public final Pane getRoot() {
         return this.container;
     }
 }
