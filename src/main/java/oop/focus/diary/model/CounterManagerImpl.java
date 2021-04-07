@@ -28,7 +28,7 @@ public class CounterManagerImpl implements CounterManager {
         this.tf = new CounterFactory(me);
         this.isSet = false;
         this.finalCounter = Optional.empty();
-        this.isPlaying = false;
+
     }
     @Override
     public final void createCounter(final String event) {
@@ -78,14 +78,12 @@ public class CounterManagerImpl implements CounterManager {
     @Override
     public final void stopSound() {
         this.sound.stopSound();
-        this.isPlaying = false;
     }
     @Override
     public final void createEvent() {
         if (this.finalCounter.isPresent() && this.finalCounter.get().equals(0)) {
             try {
                 this.sound.playSound();
-                this.isPlaying = true;
             } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
                 e.printStackTrace();
             }
@@ -94,7 +92,7 @@ public class CounterManagerImpl implements CounterManager {
     }
     @Override
     public final boolean isPlaying() {
-        return this.isPlaying;
+        return this.sound.isPlaying();
     }
 
 }

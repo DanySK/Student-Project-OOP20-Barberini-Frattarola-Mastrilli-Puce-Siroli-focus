@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -35,7 +36,6 @@ import java.util.function.Consumer;
 public class TimerView implements Initializable {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private static final  DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");
-    private static final String SELECT_TIME = "/layouts/diary/insertTimeWindow.fxml";
     private static final int MINUTES_GAP = 15;
     private static final double INSETS = 20;
     private static final double H_GAP_PERCENTAGE = 0.05;
@@ -84,7 +84,7 @@ public class TimerView implements Initializable {
     private List<Button> buttonList;
     private CounterControllerImpl specificController;
     private Parent root;
-    private Dimension2D dim;
+    private final Dimension2D dim;
     public TimerView(final Dimension2D dim) {
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TIMER.getPath()));
         loader.setController(this);
@@ -93,28 +93,24 @@ public class TimerView implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         this.setProperties();
         this.dim = dim;
+
     }
     private void setTime() {
-        try {
-            final FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(this.getClass().getResource(SELECT_TIME));
-            final Consumer<String> consumer = integer -> {
-                this.specificController.setStarter(this.chooseEvent.getValue(), LocalTime.parse(this.otherTime.getText(), TIME_FORMATTER));
-                this.counterLabel.setText(this.otherTime.getText());
-                this.startButton.setDisable(false);
-            };
-            final InsertTimeTimerWindow timerWindow = new InsertTimeTimerWindow(consumer);
-            loader.setController(timerWindow);
-            final Parent root = loader.load();
-            final Scene scene = new Scene(root);
-            final Stage window = new Stage();
-            window.setScene(scene);
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final Consumer<String> consumer = integer -> {
+            this.otherTime.setText(integer);
+            this.specificController.setStarter(this.chooseEvent.getValue(), LocalTime.parse(this.otherTime.getText(), TIME_FORMATTER));
+            this.counterLabel.setText(this.otherTime.getText());
+            this.startButton.setDisable(false);
+        };
+
+        final Scene scene = new Scene(new InsertTimeTimerWindow(consumer).getRoot());
+
+        final Stage window = new Stage();
+        window.setScene(scene);
+        window.show();
     }
 
     public final Parent getRoot() {
@@ -146,7 +142,6 @@ public class TimerView implements Initializable {
         final ControllersFactory factory = new ControllerFactoryImpl();
         this.specificController = factory.createTimer();
         final UpdateView connection = new UpdateView(this.specificController, this.counterLabel);
-        this.manageSound();
         this.modifyAllButtons(true);
         this.buttonList = List.of(this.timer1, this.timer2, this.timer3);
         CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addEventButton,
@@ -171,6 +166,9 @@ public class TimerView implements Initializable {
     }
     private void setStopButton() {
         this.stopButton.setOnMouseClicked(event -> {
+            if (this.specificController.isPlaying()) {
+                this.specificController.stopSound();
+            }
             CommonView.addStopTimer(this.specificController, this.startButton, this.stopButton, this.timeLabel, this.chooseEvent, TIME_FORMATTER);
             this.specificController.setStarter(this.chooseEvent.getValue(), LocalTime.parse(this.counterLabel.getText(), TIME_FORMATTER));
             this.modifyAllButtons(false);
@@ -182,17 +180,7 @@ public class TimerView implements Initializable {
         final List<Node> list = List.of(this.timer1, this.timer2, this.timer3, this.otherTime);
         list.forEach(s -> s.setDisable(disable));
     }
-    private void manageSound() {
-        this.specificController.setListener(integer -> {
-            if (this.specificController.isPlaying()) {
-                this.stopButton.setOnMouseClicked(event -> {
-                    this.specificController.stopSound();
-                    this.modifyAllButtons(false);
-                    this.setStopButton();
-                });
-            }
-        });
-    }
+
     private void setTimeButtons() {
         int min = MINUTES_GAP;
         for (final var elem : this.buttonList) {

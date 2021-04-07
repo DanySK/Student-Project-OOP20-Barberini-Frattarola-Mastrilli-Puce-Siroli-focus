@@ -13,7 +13,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    ADD_EVENT_NAME_COUNTER(Costants.DIARY + "newCounterNameWindow.fxml");
+    ADD_EVENT_NAME_COUNTER(Costants.DIARY + "newCounterNameWindow.fxml"),
+    /**
+     *
+     */
+    INSERT_TIMER_TIME(Costants.DIARY + "insertTimeWindow.fxml");
     private final String path;
 
     FXMLPaths(final String path) {
