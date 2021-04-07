@@ -4,16 +4,21 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.diary.controller.ControllerFactoryImpl;
 import oop.focus.diary.controller.ControllersFactory;
 import oop.focus.diary.controller.CounterControllerImpl;
+import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UpdateView;
 import oop.focus.diary.controller.UseTotalTimeController;
 import org.joda.time.LocalTime;
@@ -31,6 +36,19 @@ public class TimerView implements Initializable {
     private static final  DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");
     private static final String SELECT_TIME = "/layouts/diary/insertTimeWindow.fxml";
     private static final int MINUTES_GAP = 15;
+    private static final double INSETS = 20;
+    private static final double H_GAP_PERCENTAGE = 0.05;
+    private static final double V_GAP_PERCENTAGE = 0.15;
+    private static final double LABEL_HEIGHT_PERCENTAGE = 0.10;
+    private static final double LABEL_WIDTH_PERCENTAGE = 0.25;
+    private static final double COMBO_BOX_HEIGHT = 0.1;
+    private static final double COMBO_BOX_WIDTH = 0.15;
+    private static final double ADD_EVENT_BUTTON_DIM = 0.05;
+    private static final double BUTTON_WIDTH_PERCENTAGE = 0.15;
+
+    @FXML
+    private Pane pane;
+
     @FXML
     private Label nameEventLabel;
 
@@ -64,8 +82,8 @@ public class TimerView implements Initializable {
     private Button addEventButton;
 
     private List<Button> buttonList;
-    private final CounterControllerImpl specificController;
-
+    private CounterControllerImpl specificController;
+    private Parent root;
     private void setTime() {
         try {
             final FXMLLoader loader = new FXMLLoader();
@@ -88,12 +106,44 @@ public class TimerView implements Initializable {
     }
 
     public TimerView() {
-        final ControllersFactory factory = new ControllerFactoryImpl();
-        this.specificController = factory.createTimer();
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TIMER.getPath()));
+        loader.setController(this);
+        try {
+            this.root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.setProperties();
+
     }
+    public final Parent getRoot() {
+        return this.root;
+    }
+    private void setProperties() {
+        final GridPane grid = new GridPane();
+        grid.addRow(0, this.nameEventLabel, this.chooseEvent, this.addEventButton, this.timeLabel);
+        grid.add(this.counterLabel, (grid.getColumnCount() - 2) / 2, 2, 2, 1);
+        grid.add(this.startButton, 1, 3, 2, 1);
+        grid.add(this.stopButton, 2, 3, 2, 1);
+        CommonView.setGrid(grid, this.pane, H_GAP_PERCENTAGE, V_GAP_PERCENTAGE, this.counterLabel, this.nameEventLabel);
+        GridPane.setHalignment(this.addEventButton, HPos.CENTER);
+        CommonView.setDimLabel(List.of(this.counterLabel, this.timeLabel, this.nameEventLabel), this.pane, LABEL_HEIGHT_PERCENTAGE);
+        CommonView.setDimButton(List.of(this.startButton, this.stopButton, this.timer1, this.timer2, this.timer3, this.otherTime),
+                this.pane, BUTTON_WIDTH_PERCENTAGE, LABEL_HEIGHT_PERCENTAGE);
+        this.chooseEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(COMBO_BOX_HEIGHT));
+        this.chooseEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(COMBO_BOX_WIDTH));
+        this.addEventButton.prefHeightProperty().bind(this.pane.heightProperty().multiply(ADD_EVENT_BUTTON_DIM));
+        this.addEventButton.prefWidthProperty().bind(this.pane.widthProperty().multiply(ADD_EVENT_BUTTON_DIM));
+        grid.setPadding(new Insets(INSETS));
+        grid.addRow(1, this.timer1, this.timer2, this.timer3, this.otherTime);
+        GridPane.setHalignment(this.timer1, HPos.RIGHT);
+    }
+
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+        final ControllersFactory factory = new ControllerFactoryImpl();
+        this.specificController = factory.createTimer();
         final UpdateView connection = new UpdateView(this.specificController, this.counterLabel);
         this.manageSound();
         this.modifyAllButtons(true);

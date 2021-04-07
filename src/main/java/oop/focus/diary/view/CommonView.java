@@ -4,11 +4,14 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.SetChangeListener;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.diary.controller.CounterControllerImpl;
 import oop.focus.diary.controller.UpdateView;
@@ -18,14 +21,38 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * This class has method that can be used by two different classes: StopwatchView and TimerView.
  */
 public final class CommonView {
+    private static final double LABEL_WIDTH_PERCENTAGE = 0.25;
     private static final String BASE_DIARY = "/layouts/diary/newCounterNameWindow.fxml";
+
     private CommonView() {
 
+    }
+    public static void setDimLabel(final List<Label> node, final Pane pane, final double labelHeightPercentage) {
+        node.forEach(s -> {
+            s.prefWidthProperty().bind(pane.widthProperty().multiply(LABEL_WIDTH_PERCENTAGE));
+            s.prefHeightProperty().bind(pane.heightProperty().multiply(labelHeightPercentage));
+        });
+    }
+    public static void setDimButton(final List<Button> button, final Pane pane, final double buttonWidthPercentage,
+                              final double labelHeightPercentage) {
+        button.forEach(s -> {
+            s.prefWidthProperty().bind(pane.widthProperty().multiply(buttonWidthPercentage));
+            s.prefHeightProperty().bind(pane.heightProperty().multiply(labelHeightPercentage));
+        });
+    }
+    public static void setGrid(final GridPane grid, final Pane pane, final double hGapPercentage, final double vGapPercentage,
+                        final Label counterLabel, final Label nameEventLabel) {
+        grid.hgapProperty().bind(pane.widthProperty().multiply(hGapPercentage));
+        grid.vgapProperty().bind(pane.heightProperty().multiply(vGapPercentage));
+        pane.getChildren().add(grid);
+        GridPane.setHalignment(counterLabel, HPos.CENTER);
+        GridPane.setHalignment(nameEventLabel, HPos.CENTER);
     }
     private static void updateCounter(final CounterControllerImpl specificController, final UpdateView connection) {
         final ObservableList<LocalTime> list = specificController.getValue();

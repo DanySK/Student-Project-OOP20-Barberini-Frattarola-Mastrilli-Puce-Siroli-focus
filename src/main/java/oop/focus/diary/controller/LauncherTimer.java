@@ -2,24 +2,28 @@ package oop.focus.diary.controller;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Dimension2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oop.focus.diary.view.StopwatchView;
+import oop.focus.diary.view.TimerView;
 
 public class LauncherTimer extends Application {
     private static final String PATH_MAIN_STYLE = "/layouts/diary/diaryStyle.css";
-    private static final String PATH_BASE_DIARY = "/layouts/diary/timerScheme.fxml";
-    private final Stage firstStage = new Stage();
+
 
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        final Parent root = FXMLLoader.load(this.getClass().getResource(PATH_BASE_DIARY));
-        final Scene scene = new Scene(root);
+        Dimension2D dim = new Dimension2D(1400, 900);
+        Scene scene = new Scene(new TimerView().getRoot());
+        primaryStage.setScene(scene);
         final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
         scene.getStylesheets().add(css);
         primaryStage.setScene(scene);
-        this.firstStage.setResizable(true);
+        primaryStage.setWidth(dim.getWidth());
+        primaryStage.setHeight(dim.getHeight());
         primaryStage.show();
     }
     public static void main(final String[] args) {

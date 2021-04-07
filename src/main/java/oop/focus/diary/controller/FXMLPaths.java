@@ -5,8 +5,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    STOPWATCH(Costants.DIARY + "stopwatchScheme.fxml");
-
+    STOPWATCH(Costants.DIARY + "stopwatchScheme.fxml"),
+    /**
+     *
+     */
+    TIMER(Costants.DIARY + "timerScheme.fxml");
     private final String path;
 
     FXMLPaths(final String path) {

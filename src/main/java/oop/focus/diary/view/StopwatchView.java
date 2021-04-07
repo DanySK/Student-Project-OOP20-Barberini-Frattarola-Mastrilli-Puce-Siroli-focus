@@ -3,7 +3,6 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -32,7 +31,6 @@ public class StopwatchView implements  Initializable {
     private static final double H_GAP_PERCENTAGE = 0.07;
     private static final double V_GAP_PERCENTAGE = 0.2;
     private static final double LABEL_HEIGHT_PERCENTAGE = 0.15;
-    private static final double LABEL_WIDTH_PERCENTAGE = 0.25;
     private static final double COMBO_BOX_HEIGHT = 0.1;
     private static final double COMBO_BOX_WIDTH = 0.15;
     private static final double ADD_EVENT_BUTTON_DIM = 0.05;
@@ -62,7 +60,7 @@ public class StopwatchView implements  Initializable {
     private Button addNewEvent;
     private Parent root;
     public StopwatchView() {
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.STOPWATCH.getPath()));
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.STOPWATCH.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -72,36 +70,21 @@ public class StopwatchView implements  Initializable {
         this.setProperties();
     }
     private void setProperties() {
-        final GridPane grid = new GridPane();
+        GridPane grid = new GridPane();
         grid.addRow(0, this.nameEventLabel, this.chooseEvent, this.addNewEvent, this.timeLabel);
         grid.add(this.counterLabel, (grid.getColumnCount() - 2) / 2, 1, 2, 1);
         grid.add(this.startButton, 1, 2, 2, 1);
         grid.add(this.stopButton, 2, 2, 2, 1);
-        grid.hgapProperty().bind(this.pane.widthProperty().multiply(H_GAP_PERCENTAGE));
-        grid.vgapProperty().bind(this.pane.heightProperty().multiply(V_GAP_PERCENTAGE));
-        this.pane.getChildren().add(grid);
-        GridPane.setHalignment(this.counterLabel, HPos.CENTER);
-        GridPane.setHalignment(this.nameEventLabel, HPos.CENTER);
-        this.setDimLabel(List.of(this.counterLabel, this.timeLabel, this.nameEventLabel));
-        this.setDimButton(List.of(this.startButton, this.stopButton));
+        CommonView.setGrid(grid, this.pane, H_GAP_PERCENTAGE, V_GAP_PERCENTAGE, this.counterLabel, this.nameEventLabel);
+        CommonView.setDimLabel(List.of(this.counterLabel, this.timeLabel, this.nameEventLabel), this.pane, LABEL_HEIGHT_PERCENTAGE);
+        CommonView.setDimButton(List.of(this.startButton, this.stopButton), this.pane, BUTTON_WIDTH_PERCENTAGE, LABEL_HEIGHT_PERCENTAGE);
         this.chooseEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(COMBO_BOX_HEIGHT));
         this.chooseEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(COMBO_BOX_WIDTH));
         this.addNewEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(ADD_EVENT_BUTTON_DIM));
         this.addNewEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(ADD_EVENT_BUTTON_DIM));
         grid.setPadding(new Insets(INSETS));
     }
-    private void setDimLabel(final List<Label> node) {
-        node.forEach(s -> {
-            s.prefWidthProperty().bind(this.pane.widthProperty().multiply(LABEL_WIDTH_PERCENTAGE));
-            s.prefHeightProperty().bind(this.pane.heightProperty().multiply(LABEL_HEIGHT_PERCENTAGE));
-        });
-    }
-    private void setDimButton(final List<Button> button) {
-        button.forEach(s -> {
-            s.prefWidthProperty().bind(this.pane.widthProperty().multiply(BUTTON_WIDTH_PERCENTAGE));
-            s.prefHeightProperty().bind(this.pane.heightProperty().multiply(LABEL_HEIGHT_PERCENTAGE));
-        });
-    }
+
     public final Parent getRoot() {
         return this.root;
     }
