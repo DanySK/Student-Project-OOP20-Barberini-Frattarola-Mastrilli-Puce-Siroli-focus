@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
+import javafx.stage.Stage;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UseTotalTimeController;
 
@@ -67,6 +68,8 @@ public class InsertNewCounterNameImpl implements Initializable {
             alert.showAndWait();
         }
         UseTotalTimeController.getTotalTimeController().addValue(this.textField.getText());
+        Stage stage = (Stage) this.insertEvent.getScene().getWindow();
+        stage.close();
         return this.textField.getText();
     }
 }

@@ -1,5 +1,7 @@
 package oop.focus.diary.view;
 
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +14,8 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.converter.DateTimeStringConverter;
 import oop.focus.diary.controller.FXMLPaths;
 import org.joda.time.LocalTime;
@@ -71,7 +75,7 @@ public class InsertTimeTimerWindow implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.separate0.setText(":");
         this.separate1.setText(":");
         this.save.setText("Salva");
@@ -83,7 +87,9 @@ public class InsertTimeTimerWindow implements Initializable {
             LocalTime r = new LocalTime(Integer.parseInt(this.hours.getText()), Integer.parseInt(this.minutes.getText()),
                     Integer.parseInt(this.seconds.getText()));
             value = r.toString(TIME_FORMATTER);
-            consumer.accept(value);
+            this.consumer.accept(value);
+            Stage stage = (Stage) this.pane.getScene().getWindow();
+            stage.close();
         });
     }
 }
