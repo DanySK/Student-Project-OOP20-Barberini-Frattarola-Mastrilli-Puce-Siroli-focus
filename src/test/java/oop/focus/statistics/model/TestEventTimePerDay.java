@@ -1,10 +1,10 @@
 package oop.focus.statistics.model;
 
 import javafx.util.Pair;
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.common.Repetition;
 import oop.focus.homepage.model.EventImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;

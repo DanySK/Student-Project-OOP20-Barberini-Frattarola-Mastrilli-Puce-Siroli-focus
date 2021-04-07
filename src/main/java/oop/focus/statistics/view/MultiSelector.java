@@ -1,7 +1,6 @@
 package oop.focus.statistics.view;
 
 import oop.focus.common.View;
-
 import java.util.Set;
 
 /**
