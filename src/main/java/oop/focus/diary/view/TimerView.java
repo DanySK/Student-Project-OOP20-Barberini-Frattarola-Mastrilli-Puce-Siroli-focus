@@ -4,6 +4,7 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -40,7 +41,6 @@ public class TimerView implements Initializable {
     private static final double H_GAP_PERCENTAGE = 0.05;
     private static final double V_GAP_PERCENTAGE = 0.15;
     private static final double LABEL_HEIGHT_PERCENTAGE = 0.10;
-    private static final double LABEL_WIDTH_PERCENTAGE = 0.25;
     private static final double COMBO_BOX_HEIGHT = 0.1;
     private static final double COMBO_BOX_WIDTH = 0.15;
     private static final double ADD_EVENT_BUTTON_DIM = 0.05;
@@ -84,6 +84,18 @@ public class TimerView implements Initializable {
     private List<Button> buttonList;
     private CounterControllerImpl specificController;
     private Parent root;
+    private Dimension2D dim;
+    public TimerView(final Dimension2D dim) {
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TIMER.getPath()));
+        loader.setController(this);
+        try {
+            this.root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.setProperties();
+        this.dim = dim;
+    }
     private void setTime() {
         try {
             final FXMLLoader loader = new FXMLLoader();
@@ -105,17 +117,6 @@ public class TimerView implements Initializable {
         }
     }
 
-    public TimerView() {
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TIMER.getPath()));
-        loader.setController(this);
-        try {
-            this.root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.setProperties();
-
-    }
     public final Parent getRoot() {
         return this.root;
     }
@@ -148,7 +149,8 @@ public class TimerView implements Initializable {
         this.manageSound();
         this.modifyAllButtons(true);
         this.buttonList = List.of(this.timer1, this.timer2, this.timer3);
-        CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addEventButton, this.addEventButton);
+        CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addEventButton,
+                this.addEventButton, this.dim);
         this.otherTime.setText("Scegli");
         this.otherTime.setOnMouseClicked(event -> this.setTime());
         this.setTimeButtons();

@@ -17,11 +17,10 @@ public class LauncherTimer extends Application {
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         Dimension2D dim = new Dimension2D(1400, 900);
-        Scene scene = new Scene(new TimerView().getRoot());
+        Scene scene = new Scene(new TimerView(dim).getRoot());
         primaryStage.setScene(scene);
         final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
         scene.getStylesheets().add(css);
-        primaryStage.setScene(scene);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());
         primaryStage.show();

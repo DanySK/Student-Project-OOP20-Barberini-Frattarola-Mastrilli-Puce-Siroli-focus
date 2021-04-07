@@ -9,7 +9,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    TIMER(Costants.DIARY + "timerScheme.fxml");
+    TIMER(Costants.DIARY + "timerScheme.fxml"),
+    /**
+     *
+     */
+    ADD_EVENT_NAME_COUNTER(Costants.DIARY + "newCounterNameWindow.fxml");
     private final String path;
 
     FXMLPaths(final String path) {

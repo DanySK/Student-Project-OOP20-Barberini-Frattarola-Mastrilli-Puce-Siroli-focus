@@ -3,6 +3,7 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -59,7 +60,9 @@ public class StopwatchView implements  Initializable {
     @FXML
     private Button addNewEvent;
     private Parent root;
-    public StopwatchView() {
+    private Dimension2D dim;
+    public StopwatchView(final Dimension2D dim) {
+        this.dim = dim;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.STOPWATCH.getPath()));
         loader.setController(this);
         try {
@@ -68,6 +71,7 @@ public class StopwatchView implements  Initializable {
             e.printStackTrace();
         }
         this.setProperties();
+
     }
     private void setProperties() {
         GridPane grid = new GridPane();
@@ -94,7 +98,8 @@ public class StopwatchView implements  Initializable {
         final UpdateView connection = new UpdateView(specificController, this.counterLabel);
         this.startButton.setDisable(true);
         this.stopButton.setDisable(true);
-        CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addNewEvent, this.addNewEvent);
+        CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addNewEvent,
+                this.addNewEvent, this.dim);
         this.counterLabel.setText(LocalTime.MIDNIGHT.toString(TIME_FORMATTER));
 
         this.chooseEvent.valueProperty().addListener((observable, oldValue, newValue) -> {

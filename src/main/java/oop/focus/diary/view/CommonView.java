@@ -3,9 +3,8 @@ package oop.focus.diary.view;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.SetChangeListener;
-import javafx.fxml.FXMLLoader;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.HPos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -20,7 +19,6 @@ import oop.focus.diary.controller.UseTotalTimeController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,7 +26,6 @@ import java.util.List;
  */
 public final class CommonView {
     private static final double LABEL_WIDTH_PERCENTAGE = 0.25;
-    private static final String BASE_DIARY = "/layouts/diary/newCounterNameWindow.fxml";
 
     private CommonView() {
 
@@ -80,25 +77,20 @@ public final class CommonView {
         timeLabel.setText(UseTotalTimeController.getTotalTimeController().getTotalTime(chooseEvent.getValue()).toString(timeFormatter));
 
     }
-    public static void openWindow(final String path) {
-        try {
-            final Parent root = FXMLLoader.load(CommonView.class.getResource(path));
-            final Scene scene = new Scene(root);
-            final Stage window = new Stage();
-            window.setScene(scene);
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private static void openWindow(final Dimension2D dim) {
+        final Scene scene = new Scene(new InsertNewCounterNameImpl().getRoot());
+        final Stage window = new Stage();
+        window.setScene(scene);
+        window.show();
     }
     public static void setConfig(final ComboBox<String> chooseEvent, final Label nameEventLabel, final Button startButton,
-                          final Button stopButton, final Button eventButton, final Button addNewEvent) {
+                          final Button stopButton, final Button eventButton, final Button addNewEvent, final Dimension2D dim) {
         chooseEvent.getItems().addAll(UseTotalTimeController.getTotalTimeController().getAllEvents());
         nameEventLabel.setText("Inserisci evento");
         startButton.setText("Start");
         stopButton.setText("Stop");
         eventButton.setText("+");
-        addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(BASE_DIARY));
+        addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(dim));
         UseTotalTimeController.getTotalTimeController().getAllEvents().addListener((SetChangeListener<String>) change -> {
             if (change.wasAdded()) {
                 chooseEvent.getItems().add(change.getElementAdded());
