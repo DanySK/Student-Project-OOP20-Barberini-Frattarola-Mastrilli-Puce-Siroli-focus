@@ -41,7 +41,7 @@ public class TransactionViewImpl extends VBox implements Initializable, Transact
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.descriptionLabel.setText(this.transaction.getDescription());
         this.categoryLabel.setText(this.transaction.getCategory().getName());
-        this.dateLabel.setText(this.transaction.getDate().toString());
+        this.dateLabel.setText(this.transaction.getDateToString());
         this.amountLabel.setText("E " + (double) this.transaction.getAmount() / 100);
     }
 

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.homepage.model.Person;
+import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.statistics.view.MultiSelectorView;
 
 import java.io.IOException;
@@ -84,9 +85,26 @@ public class NewGroupTransactionViewImpl implements Initializable, FinanceWindow
 
     @Override
     public final void save() {
-        this.controller.newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
-        this.multiSelector.getSelected(), Integer.parseInt(this.amountTextField.getText()));
-        this.close();
+        if (this.descriptionTextField.getText().isEmpty() || !isNumeric(this.amountTextField.getText())
+                || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null) {
+            final AllertGenerator allert = new AllertGenerator();
+            allert.showAllert();
+        } else {
+            this.controller.newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
+                    this.multiSelector.getSelected(), Double.parseDouble(this.amountTextField.getText()));
+            this.close();
+        }
     }
 
+    private static boolean isNumeric(final String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 }

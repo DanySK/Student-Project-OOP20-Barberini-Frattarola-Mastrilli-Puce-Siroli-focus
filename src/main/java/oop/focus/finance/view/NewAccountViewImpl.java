@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
 
 import oop.focus.finance.controller.TransactionsController;
+import oop.focus.homepage.view.AllertGenerator;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,9 +76,26 @@ public class NewAccountViewImpl implements Initializable, FinanceWindow {
 
     @Override
     public final void save() {
-        this.controller.newAccount(this.nameTextfield.getText(), this.colorChoiche.getValue(),
-                Integer.parseInt(this.amountTextfield.getText()));
-        this.close();
+        if (this.nameTextfield.getText().isEmpty() || !isNumeric(this.amountTextfield.getText())
+                || this.colorChoiche.getValue().isEmpty()) {
+            final AllertGenerator allert = new AllertGenerator();
+            allert.showAllert();
+        } else {
+            this.controller.newAccount(this.nameTextfield.getText(), this.colorChoiche.getValue(),
+                    Double.parseDouble(this.amountTextfield.getText()));
+            this.close();
+        }
     }
 
+    private static boolean isNumeric(final String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
 }

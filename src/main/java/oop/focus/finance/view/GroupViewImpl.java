@@ -57,7 +57,7 @@ public class GroupViewImpl implements Initializable, GroupView {
     private void populate() {
         this.peopleButton.setOnAction(event -> this.controller.showPeople());
         this.groupTransactionsButton.setOnAction(event -> this.controller.showTansactions());
-        this.newPersonButton.setOnAction(event -> this.showWindow(new NewPersonViewImpl(this.controller)));
+        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(this.controller)));
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(new NewGroupTransactionViewImpl(this.controller)));
         this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(this.controller)));
     }

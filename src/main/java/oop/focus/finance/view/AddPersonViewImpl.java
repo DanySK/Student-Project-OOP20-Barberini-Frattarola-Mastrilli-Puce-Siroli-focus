@@ -7,35 +7,34 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
+import oop.focus.homepage.model.Person;
+import oop.focus.homepage.view.AllertGenerator;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NewPersonViewImpl implements Initializable, FinanceWindow {
+public class AddPersonViewImpl implements Initializable, FinanceWindow {
 
     @FXML
     private Pane newPersonPane;
     @FXML
-    private Label titleLabel, nameLabel, relationshipLabel;
+    private Label titleLabel, selectLabel, newPersonLabel;
     @FXML
-    private TextField nameTextField;
+    private ChoiceBox<Person> personChoice;
     @FXML
-    private ChoiceBox<String> relationshipChoice;
-    @FXML
-    private Button cancelButton, saveButton;
+    private Button newPersonButton, cancelButton, saveButton;
 
     private final GroupController controller;
     private Parent root;
 
-    public NewPersonViewImpl(final GroupController controller) {
+    public AddPersonViewImpl(final GroupController controller) {
         this.controller = controller;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.NEWPERSON.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDPERSON.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -56,13 +55,19 @@ public class NewPersonViewImpl implements Initializable, FinanceWindow {
 
     private void populate() {
         this.titleLabel.setText("Nuova persona");
-        this.nameLabel.setText("Nome:");
-        this.relationshipLabel.setText("Relazione:");
+        this.selectLabel.setText("Seleziona la persona da aggiungere:");
+        this.newPersonLabel.setText("Clicca qui invece per creare una nuova persona:");
         this.cancelButton.setText("Cancella");
         this.saveButton.setText("Salva");
-        this.relationshipChoice.setItems(this.controller.getRelationships());
+        this.newPersonButton.setText("Nuova persona");
+        this.personChoice.setItems(this.controller.getPersonsToAdd());
+        this.newPersonButton.setOnAction(event -> this.newPerson());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
+    }
+
+    private void newPerson() {
+        //TODO lanciare la finestra di aggiunta nuova persona
     }
 
     @Override
@@ -73,8 +78,13 @@ public class NewPersonViewImpl implements Initializable, FinanceWindow {
 
     @Override
     public final void save() {
-        this.controller.newPerson(this.nameTextField.getText(), this.relationshipChoice.getValue());
-        this.close();
+        if (this.personChoice.getValue() == null) {
+            final AllertGenerator allert = new AllertGenerator();
+            allert.showAllert();
+        } else {
+            this.controller.addPerson(this.personChoice.getValue());
+            this.close();
+        }
     }
 
 }
