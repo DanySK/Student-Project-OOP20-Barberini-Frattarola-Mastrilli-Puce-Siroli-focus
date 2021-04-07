@@ -7,45 +7,46 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="685.0" prefWidth="1103.0" stylesheets="@diaryStyle.css" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.focus.diary.view.BaseDiary">
+
+<Pane fx:id="pane" prefHeight="667.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="38.0" prefWidth="604.0" stylesheets="@diaryStyle.css" text="DIARIO">
+      <Button fx:id="addAnnotation" layoutX="775.0" layoutY="336.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="129.0" textFill="#a6371e">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="removeAnnotation" layoutX="591.0" layoutY="336.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="129.0" textFill="#a6371e">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="diaryLabel" alignment="CENTER" focusTraversable="false" layoutX="21.0" layoutY="12.0" prefHeight="61.0" prefWidth="475.0" stylesheets="@diaryStyle.css">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="containerDiaryLayout" layoutX="20.0" layoutY="52.0" prefHeight="574.0" prefWidth="604.0" />
-      <Button fx:id="addPage" layoutX="133.0" layoutY="626.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6521f">
-         <font>
-            <Font name="Bell MT Bold" size="12.0" />
-         </font>
-      </Button>
-      <ScrollPane fx:id="containerToDoList" layoutX="643.0" layoutY="52.0" prefHeight="293.0" prefWidth="447.0" />
-      <Label alignment="CENTER" layoutX="644.0" layoutY="14.0" prefHeight="38.0" prefWidth="447.0" styleClass="root" stylesheets="@diaryStyle.css" text="TO DO LIST">
+      <Label fx:id="toDoListLabel" alignment="CENTER" layoutX="569.0" layoutY="12.0" prefHeight="61.0" prefWidth="362.0" styleClass="root" stylesheets="@diaryStyle.css">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="addAnnotation" layoutX="681.0" layoutY="345.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6371e">
+      <ScrollPane fx:id="containerDiaryLayout" layoutX="21.0" layoutY="73.0" prefHeight="436.0" prefWidth="475.0" />
+      <ScrollPane fx:id="containerToDoList" layoutX="568.0" layoutY="73.0" prefHeight="241.0" prefWidth="362.0" />
+      <Button fx:id="addPage" layoutX="72.0" layoutY="533.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="162.0" textFill="#a6521f">
          <font>
             <Font name="Bell MT Bold" size="12.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="647.0" layoutY="405.0" prefHeight="45.0" prefWidth="447.0" text="COME TI SENTI OGGI?">
+      <Button fx:id="removePage" layoutX="313.0" layoutY="533.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="162.0" textFill="#a6521f">
+         <font>
+            <Font name="Bell MT Bold" size="12.0" />
+         </font>
+      </Button>
+      <Label fx:id="dailyMoodLabel" alignment="CENTER" layoutX="563.0" layoutY="414.0" prefHeight="60.0" prefWidth="374.0">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <Button fx:id="removePage" layoutX="358.0" layoutY="626.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6521f">
-         <font>
-            <Font name="Bell MT Bold" size="12.0" />
-         </font>
-      </Button>
-      <Button fx:id="removeAnnotation" layoutX="910.0" layoutY="345.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="144.0" textFill="#a6371e">
-         <font>
-            <Font name="Bell MT Bold" size="12.0" />
-         </font>
-      </Button>
-      <BorderPane fx:id="containerIcons" layoutX="647.0" layoutY="460.0" prefHeight="189.0" prefWidth="447.0" />
+      <BorderPane fx:id="containerIcons" layoutX="568.0" layoutY="478.0" prefHeight="170.0" prefWidth="381.0" />
    </children>
 </Pane>

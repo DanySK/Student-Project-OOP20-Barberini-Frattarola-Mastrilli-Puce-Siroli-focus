@@ -29,20 +29,20 @@ public interface DiaryPages {
     String getContentByName(String fileName);
 
     /**
-     * The method updates the diary's page whose title is "name", replacing his content with the input's "content"
+     * The method updates the diary's page whose title is "name", replacing his content with the input's "content".
      * @param name  the name of diary's page
      * @param content   the new content of diary's page
      */
     void updatePage(String name, String content);
 
     /**
-     * The method removes the diary's page whose title is the string in input
+     * The method removes the diary's page whose title is the string in input.
      * @param name  the title of page to remove
      */
     void removePage(String name);
 
     /**
-     * The method creates a new diary's page whose name and content are specified
+     * The method creates a new diary's page whose name and content are specified.
      * @param name  the title of the page to insert
      * @param content   the content of the page to insert
      */

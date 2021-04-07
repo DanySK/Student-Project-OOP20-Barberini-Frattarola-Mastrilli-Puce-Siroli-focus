@@ -17,7 +17,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    INSERT_TIMER_TIME(Costants.DIARY + "insertTimeWindow.fxml");
+    INSERT_TIMER_TIME(Costants.DIARY + "insertTimeWindow.fxml"),
+    /**
+     *
+     */
+    BASE_DIARY(Costants.DIARY + "baseDiary.fxml");
     private final String path;
 
     FXMLPaths(final String path) {
