@@ -10,12 +10,12 @@ import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.finance.view.GroupViewImpl;
 import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GroupControllerImpl implements GroupController {
 
@@ -59,8 +59,10 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    public final ObservableList<String> getRelationships() {
-        return new ObservableListWrapper<>(new ArrayList<>(this.manager.getRelationships()));
+    public final ObservableList<Person> getPersonsToAdd() {
+        return new ObservableListWrapper<>(this.manager.getPersons().stream()
+                .filter(p -> !this.getGroup().contains(p))
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -69,14 +71,15 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    public final void newPerson(final String name, final String relationship) {
-        this.manager.addPerson(new PersonImpl(name, relationship));
+    public final void addPerson(final Person person) {
+        this.manager.addPerson(person);
     }
 
     @Override
-    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet, final int amount) {
+    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet,
+                                          final double amount) {
         this.manager.addTransaction(new GroupTransactionImpl(description, madeBy,
-                new ArrayList<>(forSet), amount * 100, LocalDate.now()));
+                new ArrayList<>(forSet), (int) (amount * 100), LocalDate.now()));
     }
 
     @Override

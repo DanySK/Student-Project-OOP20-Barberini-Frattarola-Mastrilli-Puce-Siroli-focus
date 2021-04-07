@@ -49,8 +49,8 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
-    public final void newAccount(final String name, final String color, final int amount) {
-        this.manager.addAccount(new AccountImpl(name, color, amount * 100));
+    public final void newAccount(final String name, final String color, final double amount) {
+        this.manager.addAccount(new AccountImpl(name, color, (int) (amount * 100)));
     }
 
     @Override

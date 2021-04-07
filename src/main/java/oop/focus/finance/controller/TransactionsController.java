@@ -39,7 +39,7 @@ public interface TransactionsController extends FinanceController {
      * @param amount of the account to save
      * @param color of the account to save
      */
-    void newAccount(String name, String color, int amount);
+    void newAccount(String name, String color, double amount);
 
     /**
      * @return colors saved in the database

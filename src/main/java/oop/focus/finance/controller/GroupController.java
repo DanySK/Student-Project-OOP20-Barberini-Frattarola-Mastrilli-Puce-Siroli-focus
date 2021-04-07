@@ -37,9 +37,9 @@ public interface GroupController extends FinanceController {
     void deleteTransaction(GroupTransaction transaction);
 
     /**
-     * @return relationships saved in the databse
+     * @return people saved in the database but not yet added to the group transaction group
      */
-    ObservableList<String> getRelationships();
+    ObservableList<Person> getPersonsToAdd();
 
     /**
      * @return people saved in the databse
@@ -49,10 +49,9 @@ public interface GroupController extends FinanceController {
     /**
      * Adds the person to the group.
      *
-     * @param name of the person added
-     * @param relationship of the person added
+     * @param person to be added to the group
      */
-    void newPerson(String name, String relationship);
+    void addPerson(Person person);
 
     /**
      * Adds a new group transaction to the database.
@@ -62,7 +61,7 @@ public interface GroupController extends FinanceController {
      * @param forList persons for whom the transaction was made
      * @param amount of the transaction to add
      */
-    void newGroupTransaction(String description, Person madeBy, Set<Person> forList, int amount);
+    void newGroupTransaction(String description, Person madeBy, Set<Person> forList, double amount);
 
     /**
      * @return a list of group transactions which, if carried out, resolve all debts
