@@ -17,12 +17,12 @@ public class GroupManagerImpl implements GroupManager {
 
     private final Dao<Person> group;
     private final Dao<GroupTransaction> transactions;
-    private final Dao<String> relationships;
+    private final Dao<Person> persons;
 
     public GroupManagerImpl(final DataSource db) {
         this.group = db.getGroup();
         this.transactions = db.getGroupTransactions();
-        this.relationships = db.getRelationships();
+        this.persons = db.getPersons();
     }
 
     @Override
@@ -122,7 +122,7 @@ public class GroupManagerImpl implements GroupManager {
     }
 
     @Override
-    public final ObservableSet<String> getRelationships() {
-        return this.relationships.getAll();
+    public final ObservableSet<Person> getPersons() {
+        return this.persons.getAll();
     }
 }

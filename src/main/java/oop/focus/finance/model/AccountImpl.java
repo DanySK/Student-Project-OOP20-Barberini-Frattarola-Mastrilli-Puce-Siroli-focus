@@ -48,4 +48,9 @@ public class AccountImpl implements Account {
     public final int hashCode() {
         return Objects.hash(this.name);
     }
+
+    @Override
+    public final String toString() {
+        return "" + this.name;
+    }
 }

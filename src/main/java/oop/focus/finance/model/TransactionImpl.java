@@ -1,6 +1,7 @@
 package oop.focus.finance.model;
 
 import oop.focus.common.Repetition;
+import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
@@ -96,5 +97,12 @@ public class TransactionImpl implements Transaction {
     @Override
     public final int hashCode() {
         return Objects.hash(this.description, this.category, this.date, this.account, this.amount, this.repetition);
+    }
+
+    @Override
+    public final String getDateToString() {
+        return "" + this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
+                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + this.date.get(DateTimeFieldType.hourOfDay())
+                + ":" + this.date.get(DateTimeFieldType.minuteOfHour());
     }
 }

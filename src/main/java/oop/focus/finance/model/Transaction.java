@@ -56,4 +56,9 @@ public interface Transaction {
      * @return true if the transaction no longer needs to be repeated 
      */
     Boolean isToBeRepeated();
+
+    /**
+     * @return a readable version of transaction date
+     */
+    String getDateToString();
 }

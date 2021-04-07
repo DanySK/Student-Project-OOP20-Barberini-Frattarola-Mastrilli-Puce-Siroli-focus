@@ -59,7 +59,7 @@ public interface GroupManager {
     ObservableSet<GroupTransaction> getTransactions();
 
     /**
-     * @return the list of relationships
+     * @return the list of all the people saved in database
      */
-    ObservableSet<String> getRelationships();
+    ObservableSet<Person> getPersons();
 }
