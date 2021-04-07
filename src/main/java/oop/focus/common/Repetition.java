@@ -9,47 +9,47 @@ public enum Repetition {
     /**
      * it is not repeated.
      */
-    ONCE("Once", i -> 0, i -> 0, d -> d),
+    ONCE("Una tantum", i -> 0, i -> 0, d -> d),
     /**
      * it is repeated daily.
      */
-    DAILY("Daily", i -> (int) (i * Costants.DAYS_PER_MONTH),
+    DAILY("Giornaliero", i -> (int) (i * Costants.DAYS_PER_MONTH),
             i -> i * Costants.DAYS_PER_YEAR,
             d -> d.plusDays(1)),
     /**
      * it is repeated every week.
      */
-    WEEKLY("Weekly", i -> (int) (i * Costants.WEEKS_PER_MONTH),
+    WEEKLY("Settimanale", i -> (int) (i * Costants.WEEKS_PER_MONTH),
             i -> (int) (i * Costants.WEEKS_PER_YEAR),
             d -> d.plusWeeks(1)),
     /**
      * it is repeated every month.
      */
-    MONTHLY("Monthly", i -> i,
+    MONTHLY("Mensile", i -> i,
             i -> i * Costants.MONTHS_PER_YEAR,
             d -> d.plusMonths(1)),
     /**
      * it is repeated every two months.
      */
-    BIMONTHLY("Bimonthly", i -> i / Costants.MONTHS_PER_TWO_MONTHS,
+    BIMONTHLY("Bimensile", i -> i / Costants.MONTHS_PER_TWO_MONTHS,
             i -> i * Costants.TWO_MONTH_PER_YEAR,
             d -> d.plusMonths(Costants.MONTHS_PER_TWO_MONTHS)),
     /**
      * it is repeated every three months.
      */
-    QUARTERLY("Quaterly", i -> i / Costants.MONTHS_PER_THREE_MONTHS,
+    QUARTERLY("Trimestrale", i -> i / Costants.MONTHS_PER_THREE_MONTHS,
             i -> i * Costants.THREE_MONTH_PER_YEAR,
             d -> d.plusMonths(Costants.MONTHS_PER_THREE_MONTHS)),
     /**
      * it is repeated every six months.
      */
-    HALF_YEARLY("Half_yearly", i -> i / Costants.MONTHS_PER_SIX_MONTHS,
+    HALF_YEARLY("Semestrale", i -> i / Costants.MONTHS_PER_SIX_MONTHS,
             i -> i * Costants.SIX_MONTH_PER_YEAR,
             d -> d.plusMonths(Costants.MONTHS_PER_SIX_MONTHS)),
     /**
      * it is repeated every year.
      */
-    YEARLY("Yearly", i -> i / Costants.MONTHS_PER_YEAR,
+    YEARLY("Annuale", i -> i / Costants.MONTHS_PER_YEAR,
             i -> i,
             d -> d.plusYears(1));
 

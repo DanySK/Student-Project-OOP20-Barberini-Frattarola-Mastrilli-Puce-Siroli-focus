@@ -70,8 +70,15 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         final VBox box = new VBox();
         transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
-        transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deleteTransaction(t.getTransaction())));
+        transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showDetails(t.getTransaction())));
         this.transactionsScroll.setContent(box);
+    }
+
+    private void showDetails(final Transaction transaction) {
+        final TransactionDetailsWindow details = new TransactionDetailsWindowImpl(this.controller, transaction);
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) details.getRoot()));
+        stage.show();
     }
 
     @Override
