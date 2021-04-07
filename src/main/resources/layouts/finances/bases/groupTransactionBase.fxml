@@ -16,7 +16,7 @@
    <bottom>
       <HBox prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <Button fx:id="newPersonButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0"
-                 text="Crea persona"/>
+                 text="Aggiungi persona"/>
          <Button fx:id="resolveButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0"
                  text="Risolvi crediti/debiti"/>
          <Button fx:id="newGroupTransactionButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="214.0"

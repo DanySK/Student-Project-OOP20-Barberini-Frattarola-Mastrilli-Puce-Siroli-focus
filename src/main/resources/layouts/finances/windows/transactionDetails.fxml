@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane fx:id="detailsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0"
+      prefWidth="486.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="titleLabel" layoutX="175.0" layoutY="14.0" prefHeight="30.0" prefWidth="136.0" textAlignment="CENTER"/>
+   <Label fx:id="descriptionLabel" layoutX="38.0" layoutY="63.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="dataDescriptionLabel" layoutX="200.0" layoutY="63.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="categoryLabel" layoutX="38.0" layoutY="127.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="dateLabel" layoutX="38.0" layoutY="192.0" prefHeight="30.0" prefWidth="224.0" textAlignment="CENTER"/>
+   <Label fx:id="accountLabel" layoutX="38.0" layoutY="254.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="amountLabel" layoutX="38.0" layoutY="318.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="subscriptionLabel" layoutX="38.0" layoutY="381.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Button fx:id="closeButton" layoutX="139.0" layoutY="435.0" mnemonicParsing="false" prefHeight="25.0"
+           prefWidth="72.0"/>
+   <Label fx:id="dataCategoryLabel" layoutX="200.0" layoutY="127.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="dataDateLabel" layoutX="200.0" layoutY="192.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="dataAccountLabel" layoutX="200.0" layoutY="254.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="dataAmountLabel" layoutX="200.0" layoutY="318.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Label fx:id="dataSubscriptionLabel" layoutX="200.0" layoutY="381.0" prefHeight="30.0" prefWidth="224.0"
+          textAlignment="CENTER"/>
+   <Button fx:id="deleteButton" layoutX="253.0" layoutY="435.0" mnemonicParsing="false" prefHeight="25.0"
+           prefWidth="72.0"/>
+</Pane>

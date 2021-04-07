@@ -41,11 +41,15 @@ public enum FXMLPaths {
     /**
      *
      */
-    NEWPERSON(Costants.WINDOWS + "newPerson.fxml"),
+    ADDPERSON(Costants.WINDOWS + "addPerson.fxml"),
     /**
      *
      */
-    RESOLVE(Costants.WINDOWS + "resolve.fxml");
+    RESOLVE(Costants.WINDOWS + "resolve.fxml"),
+    /**
+     *
+     */
+    TRANSACTIONDETAILS(Costants.WINDOWS + "transactionDetails.fxml");
 
     private final String path;
 

@@ -6,16 +6,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="newGroupTransactionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="367.0" prefWidth="324.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Button fx:id="cancelButton" layoutX="38.0" layoutY="286.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="88.0" />
-   <Button fx:id="saveButton" layoutX="194.0" layoutY="286.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="88.0" />
-   <TextField fx:id="amountTextField" layoutX="155.0" layoutY="218.0" prefHeight="25.0" prefWidth="130.0" />
+<Pane fx:id="newGroupTransactionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="324.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Button fx:id="cancelButton" layoutX="40.0" layoutY="383.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="88.0" />
+   <Button fx:id="saveButton" layoutX="196.0" layoutY="383.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="88.0" />
+   <TextField fx:id="amountTextField" layoutX="157.0" layoutY="315.0" prefHeight="25.0" prefWidth="130.0" />
    <ChoiceBox fx:id="madeByChoice" layoutX="155.0" layoutY="113.0" prefHeight="25.0" prefWidth="130.0" />
    <Label fx:id="titleLabel" layoutX="-6.0" layoutY="-5.0" prefHeight="43.0" prefWidth="332.0" />
    <Label fx:id="descriptionLabel" layoutX="35.0" layoutY="63.0" prefHeight="25.0" prefWidth="76.0" />
    <Label fx:id="madeByLabel" layoutX="35.0" layoutY="113.0" prefHeight="25.0" prefWidth="76.0" />
    <Label fx:id="forLabel" layoutX="35.0" layoutY="167.0" prefHeight="25.0" prefWidth="76.0" />
-   <Label fx:id="amountLabel" layoutX="35.0" layoutY="218.0" prefHeight="25.0" prefWidth="76.0" />
-   <Pane fx:id="multiPane" layoutX="155.0" layoutY="167.0" prefHeight="25.0" prefWidth="130.0" />
+   <Label fx:id="amountLabel" layoutX="37.0" layoutY="315.0" prefHeight="25.0" prefWidth="76.0" />
+   <Pane fx:id="multiPane" layoutX="155.0" layoutY="158.0" prefHeight="133.0" prefWidth="130.0" />
    <TextField fx:id="descriptionTextField" layoutX="155.0" layoutY="63.0" prefHeight="25.0" prefWidth="130.0" />
 </Pane>
