@@ -30,6 +30,9 @@ public enum FXMLPaths {
      *
      */
     INSERT_TDL_ANNOTATION(Costants.DIARY + "windowAddAnnotation.fxml");
+    /**
+     *
+     */
     private final String path;
 
     FXMLPaths(final String path) {
@@ -43,7 +46,6 @@ public enum FXMLPaths {
     private static class Costants {
 
         public static final String DIARY = "/layouts/diary/";
-       // public static final String BASES = FINANCE + "bases/";
        // public static final String TILES = FINANCE + "tiles/";
        // public static final String WINDOWS = FINANCE + "windows/";
 

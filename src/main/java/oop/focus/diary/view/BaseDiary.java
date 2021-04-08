@@ -26,7 +26,6 @@ import oop.focus.diary.controller.FXMLPaths;
 
 
 public class BaseDiary implements Initializable {
-    private static final String WINDOW_NEW_ANNOTATION_PATH = "/layouts/diary/windowAddAnnotation.fxml";
     private static final double LEFT_VBOX_WIDTH = 0.55;
     private static final double RIGHT_VBOX_WIDTH = 0.45;
     private static final double LABEL_HEIGHT = 0.1;
@@ -149,16 +148,12 @@ public class BaseDiary implements Initializable {
         annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
         annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.setContent(annotationView.getListView());
-        try {
-            final DailyMoodViewImpl iconView = new DailyMoodViewImpl();
-            iconView.getGrid().setMaxWidth(this.containerIcons.getMaxWidth());
-            iconView.getGrid().setMaxHeight(this.containerIcons.getMaxHeight());
-            this.containerIcons.setTop(iconView.getGrid());
-            this.containerIcons.setBottom(iconView.getButton());
-            BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final DailyMoodViewImpl iconView = new DailyMoodViewImpl();
+        this.containerIcons.setTop(iconView.getGrid());
+        this.containerIcons.setBottom(iconView.getButton());
+        iconView.getButton().prefWidthProperty().bind(this.dailyMoodLabel.widthProperty().multiply(BUTTON_WIDTH));
+        iconView.getButton().prefHeightProperty().bind(this.dailyMoodLabel.heightProperty());
+        BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
     }
 
 }
