@@ -28,6 +28,9 @@ public class CalendarDayControllerImpl implements CalendarDayController {
     private Format format;
     private String dailyevents;
 
+    //Costants
+    private static final double SPACING = 50; 
+
     /**
      * 
      * @param day    date of the day that we want build
@@ -37,7 +40,6 @@ public class CalendarDayControllerImpl implements CalendarDayController {
     public CalendarDayControllerImpl(final DayImpl day, final double width, final double height) {
 
         dayviewlogic = new CalendarDaysViewImpl(this);
-        final CalendarSettingsController optionscontroller = new CalendarSettingsControllerImpl();
 
         this.scroller = new ScrollPane();
         this.dayview = new VBox();
@@ -49,8 +51,8 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
         this.width = width;
         this.height = height;
-        this.spacing = optionscontroller.getSpacing();
-        format = optionscontroller.getFormat();
+        setSpacing(SPACING);
+        setFormat(Format.NORMAL);
     }
 
 
