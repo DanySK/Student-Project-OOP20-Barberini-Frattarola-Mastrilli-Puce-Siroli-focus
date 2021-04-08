@@ -3,36 +3,12 @@ package oop.focus.calendar.view;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment; 
+import javafx.scene.text.TextAlignment;
+import oop.focus.calendar.model.Format; 
 
 
 
 public class HoursViewImpl implements HoursView, VBoxManager {
-
-    public enum Format {
-
-        /**
-         * Normal format day.
-         */
-        NORMAL(24),
-
-        /**
-         * Extended format day.
-         */
-        EXTENDED(48);
-
-        private int number;
-
-        Format(final int i) {
-            number = i;
-        }
-
-        int getNumber() {
-            return number;
-        }
-
-
-    }
 
 
     //View

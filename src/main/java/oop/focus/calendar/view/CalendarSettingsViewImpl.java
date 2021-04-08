@@ -8,7 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import oop.focus.calendar.controller.CalendarSettingsController;
-import oop.focus.calendar.view.HoursViewImpl.Format;
+import oop.focus.calendar.model.Format;
+
 
 public class CalendarSettingsViewImpl implements CalendarSettingsView {
 

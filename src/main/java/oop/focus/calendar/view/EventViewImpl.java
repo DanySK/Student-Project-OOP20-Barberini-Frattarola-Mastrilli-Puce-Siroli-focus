@@ -16,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Format;
 import oop.focus.homepage.model.Event;
 
 
@@ -50,7 +51,7 @@ public class EventViewImpl implements VBoxManager {
      */
     private void checkSpacing() {
         this.spacing = hours.getSpacing();
-        if (hours.getFormat() == HoursViewImpl.Format.EXTENDED.getNumber()) {
+        if (hours.getFormat() == Format.EXTENDED.getNumber()) {
             this.spacing = this.spacing * 2;
         }
     }

@@ -5,7 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oop.focus.calendar.view.HoursViewImpl.Format;
+import oop.focus.calendar.model.Format;
+
 
 public interface CalendarSettingsController {
 

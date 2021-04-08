@@ -8,10 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarSettingsView;
 import oop.focus.calendar.view.CalendarSettingsViewImpl;
-import oop.focus.calendar.view.HoursViewImpl.Format;
+
 
 public class CalendarSettingsControllerImpl implements CalendarSettingsController {
 

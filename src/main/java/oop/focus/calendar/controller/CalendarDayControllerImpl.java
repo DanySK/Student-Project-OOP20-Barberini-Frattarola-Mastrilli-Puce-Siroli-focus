@@ -3,11 +3,12 @@ package oop.focus.calendar.controller;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.EventViewImpl;
 import oop.focus.calendar.view.HoursViewImpl;
-import oop.focus.calendar.view.HoursViewImpl.Format;
+
 
 public class CalendarDayControllerImpl implements CalendarDayController {
 
