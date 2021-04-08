@@ -2,38 +2,33 @@ package oop.focus.calendar.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
-import oop.focus.calendar.view.CalendarSettingsView;
-import oop.focus.calendar.view.CalendarSettingsViewImpl;
+
 
 
 public class CalendarControllerImpl implements CalendarController {
 
-
-    private final CalendarSettingsView settingsview;
-
+    //Classes
+    private final CalendarSettingsController settingscontroller;
     private final CalendarMonthView monthview;
 
+    //Variables
     private final double optionwidth;
     private final double optionheight;
 
     public CalendarControllerImpl(final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
         this.optionwidth = optionwidth;
         this.optionheight = optionheight;
-        final CalendarSettingsController settingscontroller = new CalendarSettingsControllerImpl();
-        final CalendarMonthController monthcontroller = new CalendarMonthControllerImpl(settingscontroller, daywidth, dayheight);
+
+        final CalendarMonthController monthcontroller = new CalendarMonthControllerImpl(daywidth, dayheight);
         this.monthview = new CalendarMonthViewImpl(monthcontroller);
-        this.settingsview = new CalendarSettingsViewImpl(settingscontroller, monthcontroller, this.monthview);
+
+        settingscontroller = new CalendarSettingsControllerImpl(monthcontroller, this.monthview);
     }
 
 
@@ -42,10 +37,9 @@ public class CalendarControllerImpl implements CalendarController {
         final Button settings = new Button("IMPOSTAZIONI");
 
         final Stage settingsstage = new Stage();
-        settingsstage.setScene(new Scene(settingsview.getSettings(), optionwidth, optionheight));
-
+        settingsstage.setScene(new Scene(settingscontroller.getSettings(), optionwidth, optionheight));
+        settingscontroller.setWindow(settingsstage);
         settings.setOnAction((e) -> {
-            settingsview.setWindow(settingsstage);
             settingsstage.show();
         });
         return settings;
@@ -58,8 +52,6 @@ public class CalendarControllerImpl implements CalendarController {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-                    monthview.getMonthView().setBackground(new Background(
-                            new BackgroundFill(Color.ORANGE, CornerRadii.EMPTY, Insets.EMPTY)));
                     panelcolumn.getChildren().add(monthview.getMonthView());
                 } else {
                     panelcolumn.getChildren().add(monthview.getMonthView());
