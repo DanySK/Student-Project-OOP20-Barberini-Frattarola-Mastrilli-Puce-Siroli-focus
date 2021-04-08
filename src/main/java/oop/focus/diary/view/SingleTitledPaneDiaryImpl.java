@@ -2,7 +2,6 @@ package oop.focus.diary.view;
 
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,11 +12,11 @@ import javafx.scene.layout.VBox;
 import oop.focus.diary.controller.UseControllerDiary;
 
 
-public class SingleTitledPaneDiaryImpl implements InsertNewDiaryPage {
+public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
     private final Button modify = new Button("Modify");
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
-    @FXML
+
     private TitledPane title;
     public SingleTitledPaneDiaryImpl() {
         this.modify.setOnMouseClicked((EventHandler<Event>) event -> {

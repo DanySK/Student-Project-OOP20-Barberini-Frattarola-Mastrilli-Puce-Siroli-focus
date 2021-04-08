@@ -67,8 +67,9 @@ public class BaseDiary implements Initializable {
     @FXML
     private BorderPane containerIcons;
     private Parent root;
-
+    private Dimension2D dim;
     public BaseDiary(final Dimension2D dimension2D) {
+        dim = dimension2D;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.BASE_DIARY.getPath()));
         loader.setController(this);
         try {
@@ -154,7 +155,7 @@ public class BaseDiary implements Initializable {
         this.addAnnotation.setText("Aggiungi");
         //this.addAnnotation.setOnMouseClicked(event ->new PagesViewImpl(this.removePage));
         this.removeAnnotation.setText("Rimuovi");
-        this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage).getAccordion());
+        this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty()).getAccordion());
         final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation);
         annotationView.getListView().setPrefHeight(this.containerDiaryLayout.getPrefHeight());
         annotationView.getListView().setPrefWidth(this.containerDiaryLayout.getPrefWidth());
