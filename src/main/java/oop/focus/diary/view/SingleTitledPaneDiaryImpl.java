@@ -13,13 +13,13 @@ import javafx.scene.layout.VBox;
 import oop.focus.diary.controller.UseControllerDiary;
 
 
-public class SingleTitledPaneDiary implements InsertNewDiaryPage {
+public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
     private final Button modify = new Button("Modify");
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
     @FXML
     private TitledPane title;
-    public SingleTitledPaneDiary() {
+    public SingleTitledPaneDiaryImpl() {
         this.modify.setOnMouseClicked((EventHandler<Event>) event -> {
             UseControllerDiary.getCF().updatePage(this.title.getText(), this.newContent.getText());
             this.pane.setTop(this.createBox(this.title.getText()));

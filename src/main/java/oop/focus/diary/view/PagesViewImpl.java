@@ -39,7 +39,7 @@ public class PagesViewImpl implements PagesView {
     }
 
     private void updateView(final String s) {
-        this.pages.getPanes().add(new SingleTitledPaneDiary().createTitledPane(s));
+        this.pages.getPanes().add(new SingleTitledPaneDiaryImpl().createTitledPane(s));
     }
 
     private void insertPages() {
