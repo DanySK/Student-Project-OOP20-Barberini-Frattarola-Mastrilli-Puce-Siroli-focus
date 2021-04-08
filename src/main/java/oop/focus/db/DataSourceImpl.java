@@ -216,12 +216,12 @@ public class DataSourceImpl implements DataSource {
         return Objects.requireNonNullElseGet(this.quickTransactions, () ->
                 new CachedDao<>(new ParserImpl<>("quick_transaction",
                         a -> new QuickTransactionImpl(Integer.parseInt(a.remove(1)),
+                                a.remove(1),
                                 this.categories.getValue(Integer.parseInt(a.remove(1))).orElse(null),
-                                this.accounts.getValue(Integer.parseInt(a.remove(1))).orElse(null),
-                                a.remove(1)),
+                                this.accounts.getValue(Integer.parseInt(a.remove(1))).orElse(null)),
                         List.of(new Pair<>("price", t -> String.valueOf(t.getAmount())),
                                 new Pair<>("name", QuickTransaction::getDescription),
-                                new Pair<>("id_Category", t -> String.valueOf(this.categories.getId(t.getCategory()).orElse(NA))),
+                                new Pair<>("id_category", t -> String.valueOf(this.categories.getId(t.getCategory()).orElse(NA))),
                                 new Pair<>("id_account", t -> String.valueOf(this.accounts.getId(t.getAccount()).orElse(NA)))))));
     }
     private SingleDao<Pair<Integer, Integer>> getGroupTransactionPersons() {
