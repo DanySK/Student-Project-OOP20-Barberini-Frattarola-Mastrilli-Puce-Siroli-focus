@@ -1,23 +1,18 @@
-package oop.focus.diary.controller;
+package oop.focus.diary.model;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Dimension2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.diary.view.StopwatchView;
-import oop.focus.diary.view.TimerView;
 
-public class LauncherTimer extends Application {
+public class LauncherStopwatch extends Application {
     private static final String PATH_MAIN_STYLE = "/layouts/diary/diaryStyle.css";
-
-
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         Dimension2D dim = new Dimension2D(1400, 900);
-        Scene scene = new Scene(new TimerView(dim).getRoot());
+        Scene scene = new Scene(new StopwatchView(dim).getRoot());
         primaryStage.setScene(scene);
         final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
         scene.getStylesheets().add(css);
