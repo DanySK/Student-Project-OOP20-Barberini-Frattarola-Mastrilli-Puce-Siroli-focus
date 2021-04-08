@@ -10,6 +10,7 @@ import oop.focus.finance.model.GroupTransaction;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class GroupTransactionViewImpl implements Initializable, GroupTransactionView {
@@ -35,7 +36,8 @@ public class GroupTransactionViewImpl implements Initializable, GroupTransaction
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.personLabel.setText(this.transaction.getMadeBy().getName() + " - > " + this.transaction.getForList());
         this.descriptionLabel.setText(this.transaction.getDescription());
-        this.amountLabel.setText("E " + (double) this.transaction.getAmount() / 100);
+        DecimalFormat df = new DecimalFormat("#.00");
+        this.amountLabel.setText("E " + df.format((double) this.transaction.getAmount() / 100));
     }
 
     @Override

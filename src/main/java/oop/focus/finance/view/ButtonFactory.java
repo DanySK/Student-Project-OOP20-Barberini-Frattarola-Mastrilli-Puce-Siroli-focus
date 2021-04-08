@@ -18,7 +18,7 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of filtered transactions
      */
-    FinanceMenuButton getTransactions(BaseController controller, String name,
+    FinanceMenuButton<BaseController> getTransactions(BaseController controller, String name,
                                       Predicate<Transaction> predicate, FinanceManager manager);
 
     /**
@@ -27,7 +27,7 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of SubscriptionsView
      */
-    FinanceMenuButton getSubscriptions(BaseController controller, String name, FinanceManager manager);
+    FinanceMenuButton<BaseController> getSubscriptions(BaseController controller, String name, FinanceManager manager);
 
     /**
      * @param controller of group
@@ -35,18 +35,18 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of GroupView
      */
-    FinanceMenuButton getGroupTransactions(BaseController controller, String name, FinanceManager manager);
+    FinanceMenuButton<BaseController> getGroupTransactions(BaseController controller, String name, FinanceManager manager);
 
     /**
      * @param controller of finance
      * @param account whose transactions we want to see
      * @return a FinanceMenuButton that has as its action the visualization of account's transactions
      */
-    AccountsMenuButton getAccountTransactions(TransactionsController controller, Account account);
+    FinanceMenuButton<TransactionsController> getAccountTransactions(TransactionsController controller, Account account);
 
     /**
      * @param controller of finance
      * @return a FinanceMenuButton that has as its action the visualization of every transactions
      */
-    AccountsMenuButton getAccountTransactions(TransactionsController controller);
+    FinanceMenuButton<TransactionsController> getAccountTransactions(TransactionsController controller);
 }

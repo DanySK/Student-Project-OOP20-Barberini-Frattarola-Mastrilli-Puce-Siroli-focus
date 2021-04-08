@@ -1,16 +1,15 @@
 package oop.focus.finance.view;
 
 import javafx.scene.control.Button;
-import oop.focus.finance.controller.BaseController;
 
 import java.util.function.Consumer;
 
-public class FinanceMenuButtonImpl implements FinanceMenuButton {
+public class FinanceMenuButtonImpl<X> implements FinanceMenuButton<X> {
 
     private final Button button;
-    private final Consumer<BaseController> action;
+    private final Consumer<X> action;
 
-    public FinanceMenuButtonImpl(final String string, final Consumer<BaseController> action) {
+    public FinanceMenuButtonImpl(final String string, final Consumer<X> action) {
         this.button = new Button(string);
         this.action = action;
     }
@@ -21,7 +20,7 @@ public class FinanceMenuButtonImpl implements FinanceMenuButton {
     }
 
     @Override
-    public final void getAction(final BaseController controller) {
+    public final void getAction(final X controller) {
         this.action.accept(controller);
     }
 }

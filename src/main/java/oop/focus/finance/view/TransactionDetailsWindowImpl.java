@@ -15,6 +15,7 @@ import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class TransactionDetailsWindowImpl implements Initializable, TransactionDetailsWindow {
@@ -61,7 +62,8 @@ public class TransactionDetailsWindowImpl implements Initializable, TransactionD
         this.dataCategoryLabel.setText(this.transaction.getCategory().getName());
         this.dataDateLabel.setText(this.transaction.getDateToString());
         this.dataAccountLabel.setText(this.transaction.getAccount().toString());
-        this.dataAmountLabel.setText("E " + (double) this.transaction.getAmount() / 100);
+        DecimalFormat df = new DecimalFormat("#.00");
+        this.dataAmountLabel.setText("E " + df.format((double) this.transaction.getAmount() / 100));
         this.dataSubscriptionLabel.setText(this.transaction.getRepetition().equals(Repetition.ONCE) ? "No"
                 : this.transaction.getRepetition().toString());
         this.deleteButton.setText("Elimina");

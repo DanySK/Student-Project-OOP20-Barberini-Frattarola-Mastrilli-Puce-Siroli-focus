@@ -11,6 +11,7 @@ import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
 public class TransactionViewImpl extends VBox implements Initializable, TransactionView {
@@ -42,7 +43,8 @@ public class TransactionViewImpl extends VBox implements Initializable, Transact
         this.descriptionLabel.setText(this.transaction.getDescription());
         this.categoryLabel.setText(this.transaction.getCategory().getName());
         this.dateLabel.setText(this.transaction.getDateToString());
-        this.amountLabel.setText("E " + (double) this.transaction.getAmount() / 100);
+        DecimalFormat df = new DecimalFormat("#.00");
+        this.amountLabel.setText("E " + df.format((double) this.transaction.getAmount() / 100));
     }
 
     @Override
