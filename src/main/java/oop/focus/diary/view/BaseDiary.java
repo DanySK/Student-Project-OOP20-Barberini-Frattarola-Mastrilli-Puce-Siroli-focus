@@ -134,8 +134,8 @@ public class BaseDiary implements Initializable {
             e.printStackTrace();
         }
     }
-    private static void openWindow() {
-        final Scene scene = new Scene(new WindowCreateNewPage().getRoot());
+    private static void openWindow(final Parent root) {
+        final Scene scene = new Scene(root);
         final Stage window = new Stage();
         window.setScene(scene);
         window.show();
@@ -149,16 +149,16 @@ public class BaseDiary implements Initializable {
         this.toDoListLabel.setText("To Do List");
         this.diaryLabel.setText("Diario");
         this.addPage.setText("Aggiungi");
-        this.addPage.setOnMouseClicked(event ->openWindow());
+        this.addPage.setOnMouseClicked(event -> openWindow(new WindowCreateNewPage().getRoot()));
         this.removePage.setText("Rimuovi");
         this.removePage.setDisable(true);
         this.addAnnotation.setText("Aggiungi");
-        //this.addAnnotation.setOnMouseClicked(event ->new PagesViewImpl(this.removePage));
+        this.addAnnotation.setOnMouseClicked(event -> openWindow(new WindowCreateNewAnnotation().getRoot()));
         this.removeAnnotation.setText("Rimuovi");
         this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty()).getAccordion());
-        final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation);
-        annotationView.getListView().setPrefHeight(this.containerDiaryLayout.getPrefHeight());
-        annotationView.getListView().setPrefWidth(this.containerDiaryLayout.getPrefWidth());
+        final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty());
+        annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
+        annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.setContent(annotationView.getListView());
         try {
             final DailyMoodViewImpl iconView = new DailyMoodViewImpl();

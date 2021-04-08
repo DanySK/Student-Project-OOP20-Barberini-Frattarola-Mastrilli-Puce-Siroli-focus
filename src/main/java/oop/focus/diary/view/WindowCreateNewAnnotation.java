@@ -1,11 +1,16 @@
 package oop.focus.diary.view;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import oop.focus.diary.controller.CounterController;
+import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UseTDLController;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,7 +23,20 @@ public class WindowCreateNewAnnotation implements Initializable {
 
     @FXML
     private TextField annotationTitle;
+    private Parent root;
+    public WindowCreateNewAnnotation() {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TDL_ANNOTATION.getPath()));
+        loader.setController(this);
+        try {
+            this.root = loader.load();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public Parent getRoot() {
+        return this.root;
+    }
     private void createNewAnnotation() {
         if (!this.annotationTitle.getText().isEmpty()) {
             UseTDLController.getCF().addNote(this.annotationTitle.getText());

@@ -1,6 +1,7 @@
 package oop.focus.diary.view;
 
 
+import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -14,10 +15,13 @@ import oop.focus.diary.model.ToDoAction;
 
 
 public class AnnotationViewImpl implements AnnotationView {
+    private static final double CHECKBOX_HEIGHT =  0.05;
     private final ListView<CheckBox> listView;
     private final ObservableList<CheckBox> checkBoxes;
     private final Button remove;
-    public AnnotationViewImpl(final Button remove)  {
+    private final ReadOnlyDoubleProperty height;
+    public AnnotationViewImpl(final Button remove, final ReadOnlyDoubleProperty height)  {
+        this.height = height;
         this.remove = remove;
         this.remove.setDisable(true);
         this.checkBoxes =  FXCollections.observableArrayList();
@@ -27,29 +31,31 @@ public class AnnotationViewImpl implements AnnotationView {
             while (c.next()) {
                 if (c.wasAdded()) {
                     final ToDoAction change = c.getAddedSubList().get(0);
-                    checkBoxes.add(createCheckBox(change));
+                    this.checkBoxes.add(this.createCheckBox(change));
                 }
             }
         });
         this.checkBoxes.forEach(a -> a.setOnAction(event -> UseTDLController.getCF().changeCheck(a.getText())));
         this.remove.setOnMouseClicked(event -> {
-            final String a = listView.getSelectionModel().getSelectedItem().getText();
+            final String a = this.listView.getSelectionModel().getSelectedItem().getText();
             UseTDLController.getCF().remove(a);
-            listView.getItems().clear();
-            updateTDLView();
+            this.listView.getItems().clear();
+            this.updateTDLView();
         });
-        listView.setItems(this.checkBoxes);
+        this.listView.setItems(this.checkBoxes);
+
     }
 
     private CheckBox createCheckBox(final ToDoAction action) {
         final CheckBox box = new CheckBox(action.getAnnotation());
+        box.prefHeightProperty().bind(this.height.multiply(CHECKBOX_HEIGHT));
         box.setSelected(action.isDone());
         return box;
     }
 
     @Override
     public final ListView<CheckBox> getListView() {
-        this.listView.setOnMouseClicked(event -> remove.setDisable(false));
+        this.listView.setOnMouseClicked(event -> this.remove.setDisable(false));
         return this.listView;
     }
 

@@ -25,7 +25,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    INSERT_DIARY_PAGE(Costants.DIARY + "windowAddPage.fxml");
+    INSERT_DIARY_PAGE(Costants.DIARY + "windowAddPage.fxml"),
+    /**
+     *
+     */
+    INSERT_TDL_ANNOTATION(Costants.DIARY + "windowAddAnnotation.fxml");
     private final String path;
 
     FXMLPaths(final String path) {
