@@ -1,8 +1,6 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.bases;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,20 +10,23 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.tiles.TransactionView;
+import oop.focus.finance.view.tiles.TransactionViewImpl;
+import oop.focus.finance.view.windows.FinanceWindow;
+import oop.focus.finance.view.windows.NewAccountViewImpl;
+import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class TransactionsViewImpl implements Initializable, TransactionsView {
+public class TransactionsViewImpl extends GenericView<TransactionsController> implements TransactionsView {
 
     @FXML
     private ScrollPane transactionsScroll, accountsScroll;
@@ -34,40 +35,22 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
     @FXML
     private Button newAccountButton;
 
-    private final TransactionsController controller;
-    private Parent root;
-
-    public TransactionsViewImpl(final TransactionsController controller) {
-        this.controller = controller;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ALL.getPath()));
-        loader.setController(this);
-        try {
-            this.root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public TransactionsViewImpl(final TransactionsController controller, final FXMLPaths path) {
+        super(controller, path);
     }
 
     @Override
-    public final Parent getRoot() {
-        return this.root;
-    }
-
-    @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.populate();
-    }
-
-    private void populate() {
+    public final void populate() {
         this.newAccountButton.setOnAction(event -> this.showNewAccount());
-        final Node accountsButtons = new AccountButtonsImpl(this.controller);
+        final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
     }
 
+    @Override
     public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
-        this.amountLabel.setText("E " + this.controller.getAmount(predicate));
+        this.amountLabel.setText("E " + super.getX().getAmount(predicate));
         final List<TransactionView> transactionsTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
+        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t, FXMLPaths.MOVTILE)));
         final VBox box = new VBox();
         transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showDetails(t.getTransaction())));
@@ -75,15 +58,14 @@ public class TransactionsViewImpl implements Initializable, TransactionsView {
     }
 
     private void showDetails(final Transaction transaction) {
-        final TransactionDetailsWindow details = new TransactionDetailsWindowImpl(this.controller, transaction);
+        final View details = new TransactionDetailsWindowImpl(super.getX(), transaction, FXMLPaths.TRANSACTIONDETAILS);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) details.getRoot()));
         stage.show();
     }
 
-    @Override
-    public final void showNewAccount() {
-        final FinanceWindow newAccount = new NewAccountViewImpl(this.controller);
+    private void showNewAccount() {
+        final FinanceWindow newAccount = new NewAccountViewImpl(super.getX(), FXMLPaths.NEWACCOUNT);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newAccount.getRoot()));
         stage.show();

@@ -1,4 +1,4 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.bases;
 
 import javafx.collections.ObservableSet;
 import oop.focus.common.View;
@@ -20,11 +20,4 @@ public interface GroupView extends View {
      * @param transactions to be showed
      */
     void showTransactions(ObservableSet<GroupTransaction> transactions);
-
-    /**
-     * Show the view in a new window.
-     *
-     * @param impl implementation of the view to be displayed
-     */
-    void showWindow(View impl);
 }

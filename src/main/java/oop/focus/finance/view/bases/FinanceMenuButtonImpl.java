@@ -1,4 +1,4 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.bases;
 
 import javafx.scene.control.Button;
 

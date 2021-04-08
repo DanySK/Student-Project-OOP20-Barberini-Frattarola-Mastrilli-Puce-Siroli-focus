@@ -1,4 +1,4 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.bases;
 
 import oop.focus.finance.controller.BaseController;
 import oop.focus.finance.controller.GroupController;

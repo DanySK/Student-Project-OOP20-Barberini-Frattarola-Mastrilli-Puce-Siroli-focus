@@ -1,4 +1,4 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.bases;
 
 import oop.focus.common.View;
 import oop.focus.finance.model.Transaction;
