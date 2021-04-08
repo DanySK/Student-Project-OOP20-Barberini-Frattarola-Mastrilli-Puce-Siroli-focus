@@ -9,6 +9,7 @@ import javafx.scene.layout.GridPane;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
+import oop.focus.calendar.view.HoursViewImpl.Format;
 
 
 
@@ -48,4 +49,17 @@ public interface CalendarMonthController {
      * @param flag : true for disable or false for not
      */
     void disableButton(boolean flag);
+
+    /**
+     * 
+     * @param format
+     */
+    void setFormat(Format format);
+
+    /**
+     * 
+     * @param spacing
+     */
+    void setSpacing(double spacing);
+
 }

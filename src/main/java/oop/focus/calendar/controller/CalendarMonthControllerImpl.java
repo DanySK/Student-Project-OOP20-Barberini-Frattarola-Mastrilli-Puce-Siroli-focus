@@ -18,13 +18,13 @@ import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
+import oop.focus.calendar.view.HoursViewImpl.Format;
 
 
 public class CalendarMonthControllerImpl implements CalendarMonthController {
 
 
     //Classes
-    private final CalendarSettingsController settingscontroller;
     private final CalendarLogic calendarlogic;
 
 
@@ -37,25 +37,29 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     private final double dayheight;
     private int counter;     // count the days in a row
     private int count;     // count the rows
+    private Format format;
+    private double spacing;
 
     //List
     private List<DayImpl> month;
     private Map<Button, CalendarDayController> cells;
 
     //Costants
+    private static final double SPACING = 50; 
     private static final int TABLEDAYS = 7;
     private static final int GAP = 10;
     private static final int DIM = 100;
     private static final int FONTSIZE = 18;
 
 
-    public CalendarMonthControllerImpl(final CalendarSettingsController optioncontroller, final double daywidth, final double dayheight) {
+    public CalendarMonthControllerImpl(final double daywidth, final double dayheight) {
         cells  = new HashMap<>();
         this.daywidth = daywidth;
         this.dayheight = dayheight;
-        this.settingscontroller = optioncontroller;
         calendarlogic = new CalendarLogicImpl();
         this.month = calendarlogic.getMonth();
+        this.format = Format.NORMAL;
+        this.spacing = SPACING;
     }
 
 
@@ -120,8 +124,17 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
 
     private void configureday(final CalendarDayController daycontroller) {
-        daycontroller.setFormat(settingscontroller.getFormat());
-        daycontroller.setSpacing(settingscontroller.getSpacing());
+        daycontroller.setFormat(this.format);
+        daycontroller.setSpacing(this.spacing);
+    }
+
+    public final void setFormat(final Format format) {
+        this.format = format;
+    }
+
+
+    public final void setSpacing(final double spacing) {
+        this.spacing = spacing;
     }
 
 
