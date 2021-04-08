@@ -8,7 +8,9 @@ import oop.focus.diary.model.TotalTimeEventImpl;
 import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalTime;
 
-
+/**
+ * Immutable implementation of TotalTimeController.
+ */
 public class TotalTimeControllerImpl implements TotalTimeController {
     private final EventManager eventManager;
     private final ObservableSet<String> set = FXCollections.observableSet();

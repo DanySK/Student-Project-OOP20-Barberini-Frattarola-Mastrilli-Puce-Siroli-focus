@@ -26,10 +26,6 @@ public class CounterControllerImpl implements CounterController {
         this.counterManager = new CounterManagerImpl(me, isTimer);
     }
     @Override
-    public final void setListener(final Consumer<Integer> consumer) {
-        this.listener.add(consumer);
-    }
-    @Override
     public final ObservableList<LocalTime> getValue() {
         return this.list;
     }

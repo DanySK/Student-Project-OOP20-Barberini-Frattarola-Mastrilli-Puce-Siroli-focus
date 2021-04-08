@@ -12,15 +12,15 @@ public class DiaryPagesImpl implements DiaryPages {
         this.diaryDao = new DiaryDao();
     }
     @Override
-    public List<String> filesName() {
+    public final List<String> filesName() {
         return this.diaryDao.getAll().stream().map(DiaryImpl::getName).collect(Collectors.toList());
     }
     @Override
-    public ObservableSet<DiaryImpl> getObservableSet() {
+    public final ObservableSet<DiaryImpl> getObservableSet() {
          return this.diaryDao.getAll();
      }
     @Override
-    public String getContentByName(final String fileName) {
+    public final String getContentByName(final String fileName) {
         if (this.diaryDao.getAll().stream().anyMatch(s -> s.getName().equals(fileName))) {
             return this.diaryDao.getAll().stream().filter(s -> s.getName().equals(fileName)).findAny().get().getContent();
         }
@@ -28,20 +28,20 @@ public class DiaryPagesImpl implements DiaryPages {
     }
 
     @Override
-    public void updatePage(final String name, final String content) {
+    public final void updatePage(final String name, final String content) {
         if (this.filesName().contains(name)) {
             this.diaryDao.update(new DiaryImpl(content, name));
             System.out.println(content);
         }
     }
     @Override
-    public void removePage(final String name) {
+    public final void removePage(final String name) {
         if (this.filesName().contains(name)) {
             this.diaryDao.delete(new DiaryImpl(this.getContentByName(name), name));
         }
     }
     @Override
-    public void createPage(final String name, final String content) {
+    public final void createPage(final String name, final String content) {
         this.diaryDao.save(new DiaryImpl(content, name));
         this.diaryDao.getAll().forEach(s -> System.out.println(s.getName()));
     }

@@ -32,7 +32,7 @@ public class DailyMoodControllerImpl implements DailyMoodController {
     @Override
     public final void removeChoice() throws DaoAccessException {
         if (this.getValueChosen().isPresent()) {
-            this.manager.deleteDailyMood(dailyMood);
+            this.manager.deleteDailyMood(this.dailyMood);
         }
     }
 }

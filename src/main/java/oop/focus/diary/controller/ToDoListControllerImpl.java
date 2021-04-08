@@ -17,7 +17,7 @@ public class ToDoListControllerImpl implements ToDoListController {
     }
     @Override
     public final ObservableList<ToDoAction> allAnnotations() {
-        return toDoActions;
+        return this.toDoActions;
     }
     @Override
     public final void addNote(final String annotation) {
@@ -27,6 +27,12 @@ public class ToDoListControllerImpl implements ToDoListController {
             this.manager.addAnnotation(ac);
         }
     }
+
+    /**
+     * The method finds the to do action whose name is the string in input.
+     * @param s the name of the annotation to found
+     * @return  the to do action whose name is the string in input
+     */
     private ToDoAction findTDAbyString(final String s) {
         if (this.toDoActions.stream().anyMatch(a -> a.getAnnotation().equals(s))) {
             return this.toDoActions.stream().filter(a -> a.getAnnotation().equals(s)).findAny().get();

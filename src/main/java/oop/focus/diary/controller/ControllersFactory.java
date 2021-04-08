@@ -1,7 +1,7 @@
 package oop.focus.diary.controller;
 
 /**
- * The interface, through Factory's pattern, create three different Controllers witch can be used by timer or stopwatch.
+ * The interface, through Factory's pattern, create two different Controllers witch can be used by timer or stopwatch.
  */
 public interface ControllersFactory {
     /**
@@ -15,10 +15,4 @@ public interface ControllersFactory {
      * @return  Stopwatch's Controller
      */
     CounterControllerImpl createStopwatch();
-
-    /**
-     * Creates a general Controller which manages event and can be used by both stopwatch and timer.
-     * @return  TotalTime's Controller
-     */
-    TotalTimeControllerImpl createCounterController();
 }
