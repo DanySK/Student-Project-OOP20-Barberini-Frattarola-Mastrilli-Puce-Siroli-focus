@@ -17,7 +17,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
     }
     @Override
     public final void addDailyMood(final DailyMood mood) throws DaoAccessException {
-        if (!dm.getAll().contains(mood)) {
+        if (!this.dm.getAll().contains(mood)) {
             this.dm.save(mood);
         }
     }
@@ -41,9 +41,6 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
     @Override
     public final Optional<Integer> getMoodByDate(final LocalDate date) {
         final Optional<DailyMood> mood = this.getAllMoods().stream().filter(x -> x.getDate().equals(date)).findAny();
-        if (mood.isPresent()) {
-            return Optional.of(mood.get().getMoodValue());
-        }
-        return Optional.empty();
+        return mood.map(DailyMood::getMoodValue);
     }
 }

@@ -44,9 +44,9 @@ public class TimeScrollingImpl implements TimeScrolling {
     public final void startCounter() {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
-            while (!isOver()) {
+            while (!this.isOver()) {
                 this.onChangeListener.forEach(s -> s.accept(this.starterCounter));
-                this.starterCounter = fun.apply(this.starterCounter);
+                this.starterCounter = this.fun.apply(this.starterCounter);
                  try { 
                      Thread.sleep(1000);
                  } catch (InterruptedException e) {
@@ -62,6 +62,6 @@ public class TimeScrollingImpl implements TimeScrolling {
     }
 
     private boolean isOver() {
-        return this.stop || !pre.test(starterCounter);
+        return this.stop || !this.pre.test(this.starterCounter);
     }
 }

@@ -1,7 +1,6 @@
 package oop.focus.diary.model;
 /**
  * The interface Diary models a diary's page in witch is possible to set title and content of the note.
- *
  */
 public interface Diary {
     /**

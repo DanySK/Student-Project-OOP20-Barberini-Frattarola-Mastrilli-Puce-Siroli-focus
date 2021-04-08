@@ -33,7 +33,7 @@ public interface TimeScrolling {
     /**
      * The method add a listener to the class.
      * The listener warns that the counter's value is changed.
-     * @param consumer
+     * @param consumer  the consumer to add
      */
     void addChangeListener(Consumer<Integer> consumer);
 

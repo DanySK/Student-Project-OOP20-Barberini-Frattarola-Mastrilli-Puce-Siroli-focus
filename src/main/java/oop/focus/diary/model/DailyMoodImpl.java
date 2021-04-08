@@ -30,7 +30,7 @@ public class DailyMoodImpl implements DailyMood {
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
         return result;
     }
     @Override
@@ -41,14 +41,12 @@ public class DailyMoodImpl implements DailyMood {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         final DailyMoodImpl other = (DailyMoodImpl) obj;
-        if (date == null) {
-            if (other.date != null) {
-                return false;
-            }
+        if (this.date == null) {
+            return other.date == null;
         } else if (!date.equals(other.date)) {
             return false;
         }

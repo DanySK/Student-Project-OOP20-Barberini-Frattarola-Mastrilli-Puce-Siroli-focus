@@ -21,7 +21,7 @@ public class CounterManagerImpl implements CounterManager {
     private String eventName;
     private boolean isSet;
     private final boolean isTimer;
-    private boolean isPlaying;
+
     public CounterManagerImpl(final EventManager me, final boolean isTimer) {
         this.me = me;
         this.isTimer = isTimer;
@@ -82,11 +82,7 @@ public class CounterManagerImpl implements CounterManager {
     @Override
     public final void createEvent() {
         if (this.finalCounter.isPresent() && this.finalCounter.get().equals(0)) {
-            try {
-                this.sound.playSound();
-            } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-                e.printStackTrace();
-            }
+            this.sound.playSound();
         }
         this.me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
     }

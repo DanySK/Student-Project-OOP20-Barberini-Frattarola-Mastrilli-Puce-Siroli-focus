@@ -9,6 +9,7 @@ import java.nio.file.Path;
 
 /**
  * The interface can be used to manage the opening/closing of buffers.
+ * Every file has his own FileManager.
  */
 public interface FileManager {
     /**
@@ -36,11 +37,11 @@ public interface FileManager {
      * @return  the last buffered writer created
      */
     BufferedWriter getBufferedWriter();
-    /**
-     * Return a list of all files that are in a specific director, defined throw the constructor.
-     * @return  the list of all directory's files.
-     */
 
+    /**
+     * Return the path of the specific file of file manager.
+     * @return  the path of the file specified in the constructor of the class
+     */
     Path getFile();
 }
 

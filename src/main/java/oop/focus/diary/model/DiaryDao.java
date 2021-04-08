@@ -8,7 +8,12 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 public class DiaryDao implements Dao<DiaryImpl> {
     private static final int MAX_LENGTH = 50;
@@ -24,7 +29,7 @@ public class DiaryDao implements Dao<DiaryImpl> {
     @Override
     public final ObservableSet<DiaryImpl> getAll() {
         if (this.map.isEmpty()) {
-            Arrays.stream(Objects.requireNonNull(this.directoryConnector.getConnection().listFiles())).forEach(elem -> {
+            Arrays.stream(this.directoryConnector.getConnection().listFiles()).forEach(elem -> {
                 final DiaryConnector conn = new DiaryConnector(elem);
                 conn.open();
                 try {
@@ -39,6 +44,12 @@ public class DiaryDao implements Dao<DiaryImpl> {
         }
         return FXCollections.unmodifiableObservableSet(this.list);
    }
+
+    /**
+     * The method returns the file whose name is the string in input.
+     * @param name  the name of file to found
+     * @return  the file whose name is the string in input
+     */
    private File getFile(final String name) {
         return Path.of(this.directoryConnector.getConnection() + SEP + name).toFile();
    }
@@ -70,8 +81,8 @@ public class DiaryDao implements Dao<DiaryImpl> {
     public final void update(final DiaryImpl x) throws IllegalArgumentException {
         final Optional<DiaryImpl> di = this.getAll().stream().filter(l -> l.getName().equals(x.getName())).findAny();
         if (di.isPresent()) {
-            delete(di.get());
-            save(x);
+            this.delete(di.get());
+            this.save(x);
         } else {
             throw new IllegalArgumentException();
         }

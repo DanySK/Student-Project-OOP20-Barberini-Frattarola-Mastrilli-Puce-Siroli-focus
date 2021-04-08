@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -22,13 +21,13 @@ public class SoundImpl implements Sound {
     public SoundImpl() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.setAlarmPath();
         this.clip = AudioSystem.getClip();
-        this.clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(alarmPath))));
+        this.clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(this.alarmPath))));
     }
     private void setAlarmPath() {
-        alarmPath = Arrays.stream(soundDir.toFile().listFiles()).iterator().next(); 
+        this.alarmPath = Arrays.stream(this.soundDir.toFile().listFiles()).iterator().next();
     }
     @Override
-    public final void playSound() throws IOException, UnsupportedAudioFileException, LineUnavailableException {
+    public final void playSound()  {
         if (!this.clip.isRunning()) {
             this.clip.start();
         }
