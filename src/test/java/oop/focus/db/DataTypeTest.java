@@ -621,11 +621,12 @@ public class DataTypeTest {
         var quickTransactions = this.df.getQuickTransactions();
         var all = quickTransactions.getAll();
         int initialSize = all.size();
+        System.out.println(initialSize);
         var c1 = "color1";
         var cat1 = new CategoryImpl("Cat1", c1);
         var ac1 = new AccountImpl("Ac1", c1, 200);
-        var q1 = new QuickTransactionImpl(300, cat1, ac1, "random1");
-        var q2 = new QuickTransactionImpl(500, cat1, ac1, "random2");
+        var q1 = new QuickTransactionImpl(300, "random1", cat1, ac1);
+        var q2 = new QuickTransactionImpl(500, "random2", cat1, ac1);
         try {
             colors.save(c1);
             categories.save(cat1);
