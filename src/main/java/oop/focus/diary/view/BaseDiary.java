@@ -87,12 +87,12 @@ public class BaseDiary implements Initializable {
         vboxLeft.prefWidthProperty().bind(principalBox.widthProperty().multiply(LEFT_VBOX_WIDTH));
         vboxLeft.prefHeightProperty().bind(this.pane.heightProperty());
         vboxLeft.setPadding(new Insets(INSETS));
-        HBox diaryButton = new HBox(this.removePage, this.addPage);
-        diaryButton.prefWidthProperty().bind(vboxLeft.widthProperty());
-        diaryButton.setPadding(new Insets(INSETS));
-        diaryButton.setAlignment(Pos.CENTER);
-        diaryButton.setSpacing(INSETS);
-        vboxLeft.getChildren().add(diaryButton);
+        HBox diaryButtons = new HBox(this.removePage, this.addPage);
+        diaryButtons.prefWidthProperty().bind(vboxLeft.widthProperty());
+        diaryButtons.setPadding(new Insets(INSETS));
+        diaryButtons.setAlignment(Pos.CENTER);
+        diaryButtons.setSpacing(INSETS);
+        vboxLeft.getChildren().add(diaryButtons);
         principalBox.getChildren().add(vboxLeft);
         VBox vBoxRight = new VBox();
         vBoxRight.prefWidthProperty().bind(principalBox.widthProperty().multiply(RIGHT_VBOX_WIDTH));
@@ -123,17 +123,6 @@ public class BaseDiary implements Initializable {
         List.of(this.addAnnotation, this.removeAnnotation).forEach(s -> s.prefWidthProperty().bind(this.containerToDoList.widthProperty().multiply(BUTTON_WIDTH)));
     }
 
-    public final void modifyDiary(final String path) {
-        try {
-        final Parent root = FXMLLoader.load(this.getClass().getResource(path));
-        final Scene scene = new Scene(root);
-            final Stage window = new Stage();
-            window.setScene(scene);
-            window.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private static void openWindow(final Parent root) {
         final Scene scene = new Scene(root);
         final Stage window = new Stage();

@@ -3,10 +3,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import oop.focus.diary.controller.CounterController;
+import javafx.stage.Stage;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UseTDLController;
 
@@ -40,12 +41,19 @@ public class WindowCreateNewAnnotation implements Initializable {
     private void createNewAnnotation() {
         if (!this.annotationTitle.getText().isEmpty()) {
             UseTDLController.getCF().addNote(this.annotationTitle.getText());
+            Stage stage = (Stage) this.annotationTitle.getScene().getWindow();
+            stage.close();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setContentText("La nota non deve essere vuota");
+            alert.showAndWait();
         }
     }
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.createButton.setText("Crea");
         this.titleLabel.setText("Aggiungi nota");
-        this.createButton.setOnMouseClicked(event -> createNewAnnotation());
+        this.createButton.setOnMouseClicked(event -> this.createNewAnnotation());
     }
 }
