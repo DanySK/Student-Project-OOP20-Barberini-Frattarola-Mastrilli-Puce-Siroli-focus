@@ -21,6 +21,10 @@ public enum FXMLPaths {
     /**
      *
      */
+    HOMEPAGE(Costants.BASES + "homePageBase.fxml"),
+    /**
+     *
+     */
     GENERICTILE(Costants.TILES + "genericTile.fxml"),
     /**
      *
@@ -30,6 +34,10 @@ public enum FXMLPaths {
      *
      */
     MOVTILE(Costants.TILES + "movementTile.fxml"),
+    /**
+     *
+     */
+    FASTACCOUNT(Costants.TILES + "fastAccountTile.fxml"),
     /**
      *
      */
@@ -49,7 +57,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    TRANSACTIONDETAILS(Costants.WINDOWS + "transactionDetails.fxml");
+    TRANSACTIONDETAILS(Costants.WINDOWS + "transactionDetails.fxml"),
+    /**
+     *
+     */
+    NEWMOVEMENT(Costants.WINDOWS + "newMovement.fxml");
 
     private final String path;
 
