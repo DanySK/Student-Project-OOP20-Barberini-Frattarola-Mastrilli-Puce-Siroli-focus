@@ -10,13 +10,7 @@ public interface InsertNewDiaryPage {
      * Creates a new TitledPane, that represents a diary's page. TitledPane has as name the title of the page to save
      * and, as content, the content of that page.
      * @param s the name of diary's page to view
+     * @return titledPane created
      */
-    void setData(String s);
-
-    /**
-     * The method returns the last titledPane created, then it will be added in the apposite container
-     * by "PagesView" class.
-     * @return  tha last titledPane created
-     * */
-    TitledPane getData();
+    TitledPane createTitledPane(String s);
 }

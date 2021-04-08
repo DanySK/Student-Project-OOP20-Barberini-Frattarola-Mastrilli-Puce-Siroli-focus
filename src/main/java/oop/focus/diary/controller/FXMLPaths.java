@@ -21,7 +21,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    BASE_DIARY(Costants.DIARY + "baseDiary.fxml");
+    BASE_DIARY(Costants.DIARY + "baseDiary.fxml"),
+    /**
+     *
+     */
+    INSERT_DIARY_PAGE(Costants.DIARY + "windowAddPage.fxml");
     private final String path;
 
     FXMLPaths(final String path) {

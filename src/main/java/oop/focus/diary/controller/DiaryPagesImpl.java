@@ -2,25 +2,21 @@ package oop.focus.diary.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.DiaryImpl;
 
 public class DiaryPagesImpl implements DiaryPages {
     private final DiaryDao diaryDao;
-    private ObservableList<DiaryImpl> list;
     public DiaryPagesImpl() {
         this.diaryDao = new DiaryDao();
     }
     @Override
     public List<String> filesName() {
         return this.diaryDao.getAll().stream().map(DiaryImpl::getName).collect(Collectors.toList());
-
     }
     @Override
-    public ObservableSet<DiaryImpl> getObservableList() {
+    public ObservableSet<DiaryImpl> getObservableSet() {
          return this.diaryDao.getAll();
      }
     @Override
@@ -47,6 +43,7 @@ public class DiaryPagesImpl implements DiaryPages {
     @Override
     public void createPage(final String name, final String content) {
         this.diaryDao.save(new DiaryImpl(content, name));
+        this.diaryDao.getAll().forEach(s -> System.out.println(s.getName()));
     }
 
 }

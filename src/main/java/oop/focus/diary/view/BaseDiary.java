@@ -26,7 +26,6 @@ import oop.focus.diary.controller.FXMLPaths;
 
 
 public class BaseDiary implements Initializable {
-    private static final String WINDOW_NEW_PAGE_PATH = "/layouts/diary/windowAddPage.fxml";
     private static final String WINDOW_NEW_ANNOTATION_PATH = "/layouts/diary/windowAddAnnotation.fxml";
     private static final double LEFT_VBOX_WIDTH = 0.55;
     private static final double RIGHT_VBOX_WIDTH = 0.45;
@@ -134,6 +133,12 @@ public class BaseDiary implements Initializable {
             e.printStackTrace();
         }
     }
+    private static void openWindow() {
+        final Scene scene = new Scene(new WindowCreateNewPage().getRoot());
+        final Stage window = new Stage();
+        window.setScene(scene);
+        window.show();
+    }
     public final Parent getRoot() {
         return this.root;
     }
@@ -143,11 +148,11 @@ public class BaseDiary implements Initializable {
         this.toDoListLabel.setText("To Do List");
         this.diaryLabel.setText("Diario");
         this.addPage.setText("Aggiungi");
-        this.addPage.setOnMouseClicked(event -> this.modifyDiary(WINDOW_NEW_PAGE_PATH));
+        this.addPage.setOnMouseClicked(event ->openWindow());
         this.removePage.setText("Rimuovi");
         this.removePage.setDisable(true);
         this.addAnnotation.setText("Aggiungi");
-        this.addAnnotation.setOnMouseClicked(event -> this.modifyDiary(WINDOW_NEW_ANNOTATION_PATH));
+        //this.addAnnotation.setOnMouseClicked(event ->new PagesViewImpl(this.removePage));
         this.removeAnnotation.setText("Rimuovi");
         this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage).getAccordion());
         final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation);

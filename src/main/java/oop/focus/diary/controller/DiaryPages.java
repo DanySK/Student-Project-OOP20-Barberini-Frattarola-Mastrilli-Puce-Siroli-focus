@@ -16,10 +16,10 @@ public interface DiaryPages {
     List<String> filesName();
 
     /**
-     * The list return an observable list with all diary saved(a diary is formed by title and content).
-     * @return  an observable list of all Diary's saved
+     * The list return an observable set with all diary saved(a diary is formed by title and content).
+     * @return  an observable set of all Diary's saved
      */
-    ObservableSet<DiaryImpl> getObservableList();
+    ObservableSet<DiaryImpl> getObservableSet();
 
     /**
      * Return the content of page's diary whose title is the input's string.

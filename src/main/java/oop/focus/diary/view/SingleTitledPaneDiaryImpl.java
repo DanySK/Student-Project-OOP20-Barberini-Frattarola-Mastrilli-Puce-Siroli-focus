@@ -12,20 +12,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oop.focus.diary.controller.UseControllerDiary;
 
-public class InsertNewDiaryPageImpl implements InsertNewDiaryPage {
+
+public class SingleTitledPaneDiary implements InsertNewDiaryPage {
     private final Button modify = new Button("Modify");
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
     @FXML
     private TitledPane title;
-    public InsertNewDiaryPageImpl() {
+    public SingleTitledPaneDiary() {
         this.modify.setOnMouseClicked((EventHandler<Event>) event -> {
             UseControllerDiary.getCF().updatePage(this.title.getText(), this.newContent.getText());
             this.pane.setTop(this.createBox(this.title.getText()));
             this.modify.setDisable(true);
         });
     }
-
     private VBox createBox(final String s) {
         final VBox box = new VBox();
         final Label label = new Label();
@@ -35,7 +35,8 @@ public class InsertNewDiaryPageImpl implements InsertNewDiaryPage {
     }
 
     @Override
-    public final void setData(final String s) {
+    public TitledPane createTitledPane(final String s) {
+        this.title = new TitledPane();
         this.modify.setDisable(true);
         this.title.setText(s);
         this.pane.setTop(this.createBox(s));
@@ -47,9 +48,6 @@ public class InsertNewDiaryPageImpl implements InsertNewDiaryPage {
             this.pane.setTop(this.newContent);
             this.modify.setDisable(false);
         });
-    }
-    @Override
-    public final TitledPane getData() {
         return this.title;
     }
 }
