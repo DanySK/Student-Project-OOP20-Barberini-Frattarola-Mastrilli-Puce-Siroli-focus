@@ -1,7 +1,6 @@
 package oop.focus.calendar.view;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 
 public interface CalendarMonthView {
@@ -16,16 +15,10 @@ public interface CalendarMonthView {
 
 
     /**
-     * Used for set the month view.
-     * @param month view
+     * Used for set the month view in the controller.
      */
-    void setMonthView(VBox month);
+    void setMonthView();
 
 
-    /**
-     * Used for get the month view box.
-     * @return vbox
-     */
-    VBox getMonthView();
 
 }

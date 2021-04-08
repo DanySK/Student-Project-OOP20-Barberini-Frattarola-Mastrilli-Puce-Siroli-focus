@@ -21,21 +21,20 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     //View
     private final Label monthinfo;
-    private VBox monthview;
+
 
     //Costants
     private static final int BORDER = 20;
-    private static final int FONTSIZE = 24;
 
 
 
-
-
+    /**
+     * Used for Initialize the month controller.
+     * @param monthcontroller
+     */
     public CalendarMonthViewImpl(final CalendarMonthController monthcontroller) {
         this.monthinfo = new Label();
         this.monthcontroller = monthcontroller;
-
-        this.monthview = buildMonthView();
     }
 
     /**
@@ -58,7 +57,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
         container.autosize();
 
-        setMonthView(container);
         return container;
 
     }
@@ -68,13 +66,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
 
-    public final void setMonthView(final VBox month) {
-        monthview = month;
-    }
-
-
-    public final VBox getMonthView() {
-        return monthview;
+    public final void setMonthView() {
+        monthcontroller.setMonthView(buildMonthView());
     }
 
 
@@ -86,7 +79,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private HBox buildTopPanel(final VBox container) {
         final HBox toppanel = new HBox();
         this.monthinfo.setText(monthcontroller.getMonth().get(0).getYear() + "   " + monthcontroller.getMonth().get(0).getMonth());
-        this.monthinfo.setFont(Font.font(FONTSIZE));
+        this.monthinfo.setFont(Font.font(monthcontroller.getFontSize()));
         this.monthinfo.setAlignment(Pos.CENTER);
 
         final Button next = new Button("next");

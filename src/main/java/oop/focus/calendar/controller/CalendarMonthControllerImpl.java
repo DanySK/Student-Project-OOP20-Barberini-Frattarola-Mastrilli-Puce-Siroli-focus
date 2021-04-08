@@ -11,14 +11,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
-import oop.focus.calendar.view.HoursViewImpl.Format;
+
 
 
 public class CalendarMonthControllerImpl implements CalendarMonthController {
@@ -26,11 +28,12 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
     //Classes
     private final CalendarLogic calendarlogic;
+    private final CalendarMonthView monthview;
 
 
     //View
     private Stage daywindows;
-
+    private VBox monthbox;
 
     //Variables
     private final double daywidth;
@@ -39,27 +42,32 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     private int count;     // count the rows
     private Format format;
     private double spacing;
+    private double fontsize;
 
     //List
     private List<DayImpl> month;
-    private Map<Button, CalendarDayController> cells;
+    private Map<Button, Scene> cells;
 
     //Costants
     private static final double SPACING = 50; 
     private static final int TABLEDAYS = 7;
     private static final int GAP = 10;
     private static final int DIM = 100;
-    private static final int FONTSIZE = 18;
+    private static final int DEFAULTFONTSIZE = 18;
 
 
     public CalendarMonthControllerImpl(final double daywidth, final double dayheight) {
         cells  = new HashMap<>();
         this.daywidth = daywidth;
         this.dayheight = dayheight;
-        calendarlogic = new CalendarLogicImpl();
-        this.month = calendarlogic.getMonth();
         this.format = Format.NORMAL;
         this.spacing = SPACING;
+        this.fontsize = DEFAULTFONTSIZE;
+
+        calendarlogic = new CalendarLogicImpl();
+        this.month = calendarlogic.getMonth();
+
+        monthview = new CalendarMonthViewImpl(this);
     }
 
 
@@ -105,13 +113,14 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             counter++;
 
             final Button jb = new Button(" " + day.getNumber() + " ");
+            jb.setFont(Font.font(fontsize));
             jb.setAlignment(Pos.CENTER);
             jb.setOnAction(getDayView());
             jb.setPrefSize(DIM, DIM);
             final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, this.daywidth, this.dayheight);
             configureday(daycontroller);
             daycontroller.buildDay();
-            cells.put(jb, daycontroller);
+            cells.put(jb, new Scene(daycontroller.getScroller(), daycontroller.getWidth(), daycontroller.getHeight()));
             daysGrid.add(jb, counter, count);
 
         });
@@ -128,6 +137,14 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         daycontroller.setSpacing(this.spacing);
     }
 
+    public final void setFontSize(final double fontsize) {
+        this.fontsize = fontsize;
+    }
+
+    public final double getFontSize() {
+        return this.fontsize;
+    }
+
     public final void setFormat(final Format format) {
         this.format = format;
     }
@@ -142,6 +159,15 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         return this.month;
     }
 
+    public final void setMonthView(final VBox month) {
+        this.monthbox = month;
+    }
+
+    public final VBox getMonthView() {
+        monthview.setMonthView();
+        return monthbox;
+    }
+
     /**
      * Used for launch a windows with the day view of the clicked one.
      * @return EventHandler
@@ -152,20 +178,20 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             @Override
             public void handle(final ActionEvent event) {
                 final Button bt = (Button) event.getSource();
-                final CalendarDayController daycheck = cells.get(bt);
+                final Scene daycheck = cells.get(bt);
                 if (daywindows == null) {
 
                     daywindows = new Stage();
-                    final CalendarDayController p = cells.get(bt);
+                    final Scene p = cells.get(bt);
 
-                    daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
+                    daywindows.setScene(p);
 
-                } else if (!daywindows.getScene().getRoot().equals(daycheck.getScroller())) {
+                } else if (!daywindows.getScene().equals(daycheck)) {
 
                     daywindows.close();
                     daywindows = new Stage();
-                    final CalendarDayController p = cells.get(bt);
-                    daywindows.setScene(new Scene(p.getScroller(), p.getWidth(), p.getHeight()));
+                    final Scene p = cells.get(bt);
+                    daywindows.setScene(p);
                 }
 
                 daywindows.show();
@@ -193,10 +219,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     public final void updateView(final CalendarMonthView monthview) {
         cells  = new HashMap<>();
         this.month = calendarlogic.generateMonth();
-        monthview.getMonthView().getChildren().remove(monthview.getMonthView().getChildren().size() - 1);
-        monthview.getMonthView().getChildren().add(buildGridMonth());
-        monthview.setMonthView(monthview.getMonthView());
-        this.setMonthInfo(monthview.getMonthInfo(), this.month.get(0).getMonth() + "   " + this.month.get(0).getYear());
+        this.monthbox.getChildren().remove(this.monthbox.getChildren().size() - 1);
+        this.monthbox.getChildren().add(buildGridMonth());
+        this.setMonthInfo(monthview.getMonthInfo(), this.month.get(0).getYear() + "   " + this.month.get(0).getMonth());
     }
 
 
@@ -215,19 +240,19 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         final List<Label> daysname = new ArrayList<>();
 
         final Label lunedi = new Label("lun");
-        lunedi.setFont(Font.font(FONTSIZE));
+        lunedi.setFont(Font.font(fontsize));
         final Label martedi = new Label("mar");
-        martedi.setFont(Font.font(FONTSIZE));
+        martedi.setFont(Font.font(fontsize));
         final Label mercoledi = new Label("mer");
-        mercoledi.setFont(Font.font(FONTSIZE));
+        mercoledi.setFont(Font.font(fontsize));
         final Label giovedi = new Label("gio");
-        giovedi.setFont(Font.font(FONTSIZE));
+        giovedi.setFont(Font.font(fontsize));
         final Label venerdi = new Label("ven");
-        venerdi.setFont(Font.font(FONTSIZE));
+        venerdi.setFont(Font.font(fontsize));
         final Label sabato = new Label("sab");
-        sabato.setFont(Font.font(FONTSIZE));
+        sabato.setFont(Font.font(fontsize));
         final Label domenica = new Label("dom");
-        domenica.setFont(Font.font(FONTSIZE));
+        domenica.setFont(Font.font(fontsize));
 
         daysname.add(lunedi);
         daysname.add(martedi);
