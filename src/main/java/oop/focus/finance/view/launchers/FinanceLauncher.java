@@ -1,4 +1,4 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.launchers;
 
 import javafx.application.Application;
 import javafx.scene.Parent;
