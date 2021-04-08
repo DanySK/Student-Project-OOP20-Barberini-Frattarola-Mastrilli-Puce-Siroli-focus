@@ -1,4 +1,4 @@
-package oop.focus.finance.view;
+package oop.focus.finance.view.tiles;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
