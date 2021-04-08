@@ -11,7 +11,7 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.model.TransactionImpl;
-import oop.focus.finance.view.FinanceHomePageViewImpl;
+import oop.focus.finance.view.bases.FinanceHomePageViewImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
@@ -35,12 +35,30 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
         return this.view;
     }
 
+
+    @Override
+    public final void newTransaction(final String description, final double amount, final Category category,
+                                     final Account account, final LocalDateTime date, final Repetition repetition) {
+        this.manager.addTransaction(new TransactionImpl(description, category, date, account,
+                (int) (amount * 100), repetition));
+    }
+
+    @Override
+    public final int getAmount(final Account account) {
+        return this.manager.getAmount(account);
+    }
+
     @Override
     public final double getTotalAmount() {
         return (double) this.getAccounts().stream()
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
                 .sum() / 100;
+    }
+
+    @Override
+    public final void doQuickTransaction(final QuickTransaction quickTransaction) {
+        this.manager.doQuickTransaction(quickTransaction);
     }
 
     @Override
@@ -59,10 +77,8 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
     }
 
     @Override
-    public final void newTransaction(final String description, final double amount, final Category category,
-                               final Account account, final LocalDateTime date, final Repetition repetition) {
-        this.manager.addTransaction(new TransactionImpl(description, category, date, account,
-                (int) (amount * 100), repetition));
+    public final ObservableSet<QuickTransaction> getQuickTransactions() {
+        return this.manager.getQuickManager().getQuickTransactions();
     }
 
     @Override
@@ -71,20 +87,5 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
                 .filter(t -> !t.getDate().isBefore(new LocalDateTime(LocalDate.now().getYear(),
                         LocalDate.now().getMonthOfYear(), LocalDate.now().getDayOfMonth(), 0, 0, 0)))
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public final int getAmount(final Account account) {
-        return this.manager.getAmount(account);
-    }
-
-    @Override
-    public final void doQuickTransaction(final QuickTransaction quickTransaction) {
-        this.manager.doQuickTransaction(quickTransaction);
-    }
-
-    @Override
-    public final ObservableSet<QuickTransaction> getQuickTransactions() {
-        return this.manager.getQuickManager().getQuickTransactions();
     }
 }

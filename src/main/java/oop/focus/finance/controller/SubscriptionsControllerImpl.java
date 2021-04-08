@@ -3,7 +3,7 @@ package oop.focus.finance.controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
-import oop.focus.finance.view.SubscriptionsViewImpl;
+import oop.focus.finance.view.bases.SubscriptionsViewImpl;
 
 public class SubscriptionsControllerImpl implements SubscriptionsController {
 
@@ -12,7 +12,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
 
     public SubscriptionsControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new SubscriptionsViewImpl(this);
+        this.view = new SubscriptionsViewImpl(this, FXMLPaths.SUBS);
         this.showSubscriptions();
     }
 

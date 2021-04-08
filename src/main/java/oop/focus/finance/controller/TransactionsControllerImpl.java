@@ -8,7 +8,7 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
-import oop.focus.finance.view.TransactionsViewImpl;
+import oop.focus.finance.view.bases.TransactionsViewImpl;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -24,18 +24,13 @@ public class TransactionsControllerImpl implements TransactionsController {
     public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
         this.manager = manager;
         this.predicate = predicate;
-        this.view = new TransactionsViewImpl(this);
+        this.view = new TransactionsViewImpl(this, FXMLPaths.ALL);
         this.showTransactions(a -> true);
     }
 
     @Override
-    public final ObservableSet<Account> getAccounts() {
-        return this.manager.getAccountManager().getAccounts();
-    }
-
-    @Override
-    public final double getAmount(final Predicate<Account> predicate) {
-        return this.filteredAmount(predicate);
+    public final View getView() {
+        return this.view;
     }
 
     @Override
@@ -44,23 +39,28 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
-    public final void deleteTransaction(final Transaction transaction) {
-        this.manager.removeTransaction(transaction);
-    }
-
-    @Override
     public final void newAccount(final String name, final String color, final double amount) {
         this.manager.addAccount(new AccountImpl(name, color, (int) (amount * 100)));
     }
 
     @Override
-    public final ObservableList<String> getColors() {
-        return new ObservableListWrapper<>(new ArrayList<>(this.manager.getColors()));
+    public final double getAmount(final Predicate<Account> predicate) {
+        return this.filteredAmount(predicate);
     }
 
     @Override
-    public final View getView() {
-        return this.view;
+    public final void deleteTransaction(final Transaction transaction) {
+        this.manager.removeTransaction(transaction);
+    }
+
+    @Override
+    public final ObservableSet<Account> getAccounts() {
+        return this.manager.getAccountManager().getAccounts();
+    }
+
+    @Override
+    public final ObservableList<String> getColors() {
+        return new ObservableListWrapper<>(new ArrayList<>(this.manager.getColors()));
     }
 
     private Set<Transaction> filteredTransactions(final Predicate<Account> predicate) {

@@ -8,7 +8,7 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupManager;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.model.GroupTransactionImpl;
-import oop.focus.finance.view.GroupViewImpl;
+import oop.focus.finance.view.bases.GroupViewImpl;
 import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDate;
 
@@ -24,7 +24,7 @@ public class GroupControllerImpl implements GroupController {
 
     public GroupControllerImpl(final FinanceManager manager) {
         this.manager = manager.getGroupManager();
-        this.view = new GroupViewImpl(this);
+        this.view = new GroupViewImpl(this, FXMLPaths.GROUP);
         this.showPeople();
     }
 
@@ -44,6 +44,18 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
+    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet,
+                                          final double amount) {
+        this.manager.addTransaction(new GroupTransactionImpl(description, madeBy,
+                new ArrayList<>(forSet), (int) (amount * 100), LocalDate.now()));
+    }
+
+    @Override
+    public final void addPerson(final Person person) {
+        this.manager.addPerson(person);
+    }
+
+    @Override
     public final void deletePerson(final Person person) {
         this.manager.removePerson(person);
     }
@@ -59,6 +71,11 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
+    public final void resolve() {
+        this.manager.resolve().forEach(this.manager::addTransaction);
+    }
+
+    @Override
     public final ObservableList<Person> getPersonsToAdd() {
         return new ObservableListWrapper<>(this.manager.getPersons().stream()
                 .filter(p -> !this.getGroup().contains(p))
@@ -71,24 +88,7 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    public final void addPerson(final Person person) {
-        this.manager.addPerson(person);
-    }
-
-    @Override
-    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet,
-                                          final double amount) {
-        this.manager.addTransaction(new GroupTransactionImpl(description, madeBy,
-                new ArrayList<>(forSet), (int) (amount * 100), LocalDate.now()));
-    }
-
-    @Override
     public final List<GroupTransaction> getResolvingTransactions() {
         return this.manager.resolve();
-    }
-
-    @Override
-    public final void resolve() {
-        this.manager.resolve().forEach(this.manager::addTransaction);
     }
 }

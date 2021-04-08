@@ -21,6 +21,23 @@ public interface GroupController extends FinanceController {
     void showTansactions();
 
     /**
+     * Adds a new group transaction to the database.
+     *
+     * @param description of the transaction to add
+     * @param madeBy person who made the transaction
+     * @param forList persons for whom the transaction was made
+     * @param amount of the transaction to add
+     */
+    void newGroupTransaction(String description, Person madeBy, Set<Person> forList, double amount);
+
+    /**
+     * Adds the person to the group.
+     *
+     * @param person to be added to the group
+     */
+    void addPerson(Person person);
+
+    /**
      * @param person to be deleted
      */
     void deletePerson(Person person);
@@ -37,6 +54,11 @@ public interface GroupController extends FinanceController {
     void deleteTransaction(GroupTransaction transaction);
 
     /**
+     * Performs group transactions that settle all debts.
+     */
+    void resolve();
+
+    /**
      * @return people saved in the database but not yet added to the group transaction group
      */
     ObservableList<Person> getPersonsToAdd();
@@ -47,29 +69,7 @@ public interface GroupController extends FinanceController {
     ObservableSet<Person> getGroup();
 
     /**
-     * Adds the person to the group.
-     *
-     * @param person to be added to the group
-     */
-    void addPerson(Person person);
-
-    /**
-     * Adds a new group transaction to the database.
-     *
-     * @param description of the transaction to add
-     * @param madeBy person who made the transaction
-     * @param forList persons for whom the transaction was made
-     * @param amount of the transaction to add
-     */
-    void newGroupTransaction(String description, Person madeBy, Set<Person> forList, double amount);
-
-    /**
      * @return a list of group transactions which, if carried out, resolve all debts
      */
     List<GroupTransaction> getResolvingTransactions();
-
-    /**
-     * Performs group transactions that settle all debts.
-     */
-    void resolve();
 }

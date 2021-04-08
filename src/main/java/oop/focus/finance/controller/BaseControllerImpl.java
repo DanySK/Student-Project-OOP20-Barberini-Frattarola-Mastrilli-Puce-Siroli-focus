@@ -2,8 +2,8 @@ package oop.focus.finance.controller;
 
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.finance.view.BaseView;
-import oop.focus.finance.view.BaseViewImpl;
+import oop.focus.finance.view.bases.BaseView;
+import oop.focus.finance.view.bases.BaseViewImpl;
 
 public class BaseControllerImpl implements BaseController {
 
@@ -14,12 +14,12 @@ public class BaseControllerImpl implements BaseController {
     }
 
     @Override
-    public final void changeView(final View view) {
-        this.view.changeView(view);
+    public final View getView() {
+        return this.view;
     }
 
     @Override
-    public final View getView() {
-        return this.view;
+    public final void changeView(final View view) {
+        this.view.changeView(view);
     }
 }

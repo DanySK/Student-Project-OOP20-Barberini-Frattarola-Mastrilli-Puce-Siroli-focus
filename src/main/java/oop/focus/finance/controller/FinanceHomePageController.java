@@ -14,31 +14,6 @@ import java.util.List;
 public interface FinanceHomePageController extends FinanceController {
 
     /**
-     * @return a list of all categories saved in the database
-     */
-    ObservableList<Category> getCategories();
-
-    /**
-     * @return a list of all accounts saved in the database
-     */
-    ObservableList<Account> getAccounts();
-
-    /**
-     * @return a list of all repetitions saved in the database
-     */
-    ObservableList<Repetition> getRepetitions();
-
-    /**
-     * @return a list of all quick transactions saved in the database
-     */
-    ObservableSet<QuickTransaction> getQuickTransactions();
-
-    /**
-     * @return a list of transactions performed today saved in the database
-     */
-    List<Transaction> getTodayTransactions();
-
-    /**
      * Creates a new transaction and saves it in the database.
      *
      * @param description of the transaction to add
@@ -71,4 +46,28 @@ public interface FinanceHomePageController extends FinanceController {
      */
     void doQuickTransaction(QuickTransaction quickTransaction);
 
+    /**
+     * @return a list of all categories saved in the database
+     */
+    ObservableList<Category> getCategories();
+
+    /**
+     * @return a list of all accounts saved in the database
+     */
+    ObservableList<Account> getAccounts();
+
+    /**
+     * @return a list of all repetitions saved in the database
+     */
+    ObservableList<Repetition> getRepetitions();
+
+    /**
+     * @return a list of all quick transactions saved in the database
+     */
+    ObservableSet<QuickTransaction> getQuickTransactions();
+
+    /**
+     * @return a list of transactions performed today saved in the database
+     */
+    List<Transaction> getTodayTransactions();
 }
