@@ -4,10 +4,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
+import oop.focus.calendar.view.CalendarView;
+import oop.focus.calendar.view.CalendarViewImpl;
 
 
 
@@ -15,22 +19,44 @@ public class CalendarControllerImpl implements CalendarController {
 
     //Classes
     private final CalendarSettingsController settingscontroller;
-    private final CalendarMonthView monthview;
+    private final CalendarMonthController monthcontroller;
+
+    //View
+    private HBox calendarpage;
 
     //Variables
     private final double optionwidth;
     private final double optionheight;
 
-    public CalendarControllerImpl(final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
+    /**
+     * Used for initialize the calendar controller.
+     * @param generalview
+     * @param optionwidth
+     * @param optionheight
+     * @param daywidth
+     * @param dayheight
+     */
+    public CalendarControllerImpl(final Pane generalview, final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
         this.optionwidth = optionwidth;
         this.optionheight = optionheight;
+        this.calendarpage = new HBox();
 
-        final CalendarMonthController monthcontroller = new CalendarMonthControllerImpl(daywidth, dayheight);
-        this.monthview = new CalendarMonthViewImpl(monthcontroller);
+        this.monthcontroller = new CalendarMonthControllerImpl(daywidth, dayheight);
+        final CalendarMonthView monthview = new CalendarMonthViewImpl(monthcontroller);
 
-        settingscontroller = new CalendarSettingsControllerImpl(monthcontroller, this.monthview);
+        settingscontroller = new CalendarSettingsControllerImpl(monthcontroller, monthview);
+
+        final CalendarView calendarview = new CalendarViewImpl(generalview, this);
+        calendarview.setCalendarBox();
     }
 
+    public final void setCalendarPage(final HBox calendarpage) {
+        this.calendarpage = calendarpage;
+    }
+
+    public final HBox getCalendarPage() {
+        return this.calendarpage;
+    }
 
 
     public final Button buildSettingsWindows() {
@@ -52,9 +78,9 @@ public class CalendarControllerImpl implements CalendarController {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(monthview.getMonthView());
+                    panelcolumn.getChildren().add(monthcontroller.getMonthView());
                 } else {
-                    panelcolumn.getChildren().add(monthview.getMonthView());
+                    panelcolumn.getChildren().add(monthcontroller.getMonthView());
                 }
             }
 
