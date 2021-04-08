@@ -41,4 +41,9 @@ public class CategoryImpl implements Category {
     public final int hashCode() {
         return Objects.hash(this.name);
     }
+
+    @Override
+    public final String toString() {
+        return "" + this.name;
+    }
 }

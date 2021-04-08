@@ -292,17 +292,14 @@ public class FinanceTest {
 
         // creo delle transazioni rapide
         this.financeManager.getQuickManager().add(new QuickTransactionImpl(-150,
-                new CategoryImpl(CATEGORY, ""),
-                new AccountImpl("Conto1", "", 0),
-                "TransazioneRapida1"));
+                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""),
+                new AccountImpl("Conto1", "", 0)));
         this.financeManager.getQuickManager().add(new QuickTransactionImpl(-300,
-                new CategoryImpl(CATEGORY, ""),
-                new AccountImpl("Conto1", "", 0),
-                "TransazioneRapida2"));
+                "TransazioneRapida2", new CategoryImpl(CATEGORY, ""),
+                new AccountImpl("Conto1", "", 0)));
         this.financeManager.getQuickManager().add(new QuickTransactionImpl(1000,
-                new CategoryImpl(CATEGORY, ""),
-                new AccountImpl("Conto1", "", 0),
-                "TransazioneRapida3"));
+                "TransazioneRapida3", new CategoryImpl(CATEGORY, ""),
+                new AccountImpl("Conto1", "", 0)));
 
         // controllo che siano il numero corretto
         assertEquals(numQui+3, this.financeManager.getQuickManager().getQuickTransactions().size());
@@ -315,17 +312,17 @@ public class FinanceTest {
 
         // eseguo alcune transazioni rapide
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida1"));
+                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida1"));
+                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida1"));
+                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida2"));
+                "TransazioneRapida2", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida2"));
+                "TransazioneRapida2", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(1000,
-                new CategoryImpl(CATEGORY, ""), account, "TransazioneRapida3"));
+                "TransazioneRapida3", new CategoryImpl(CATEGORY, ""), account));
 
         // controllo che le transazioni siano sei in più
         assertEquals(numTra+6, this.financeManager.getTransactionManager().getTransactions().size());
@@ -336,17 +333,14 @@ public class FinanceTest {
         // riporto tutto come da principio
         this.financeManager.removeAccount(new AccountImpl("Conto1", "", 0));
         this.financeManager.getQuickManager().remove(new QuickTransactionImpl(-150,
-                new CategoryImpl(CATEGORY, ""),
-                new AccountImpl("Conto1", "", 0),
-                "TransazioneRapida1"));
+                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""),
+                new AccountImpl("Conto1", "", 0)));
         this.financeManager.getQuickManager().remove(new QuickTransactionImpl(-300,
-                new CategoryImpl(CATEGORY, ""),
-                new AccountImpl("Conto1", "", 0),
-                "TransazioneRapida2"));
+                "TransazioneRapida2", new CategoryImpl(CATEGORY, ""),
+                new AccountImpl("Conto1", "", 0)));
         this.financeManager.getQuickManager().remove(new QuickTransactionImpl(1000,
-                new CategoryImpl(CATEGORY, ""),
-                new AccountImpl("Conto1", "", 0),
-                "TransazioneRapida3"));
+                "TransazioneRapida3", new CategoryImpl(CATEGORY, ""),
+                new AccountImpl("Conto1", "", 0)));
 
         // controllo che la rimozione sia andata a buon fine
         assertEquals(numAcc, this.financeManager.getAccountManager().getAccounts().size());
