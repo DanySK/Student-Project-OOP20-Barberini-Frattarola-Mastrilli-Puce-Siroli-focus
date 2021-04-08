@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane fx:id="newTransactionPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0"
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0"
       prefWidth="332.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="titleLabel" layoutY="-1.0" prefHeight="48.0" prefWidth="332.0"/>
    <Label fx:id="descriptionLabel" layoutX="21.0" layoutY="77.0" prefHeight="35.0" prefWidth="139.0"/>

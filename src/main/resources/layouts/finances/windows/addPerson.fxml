@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="newPersonPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="titleLabel" layoutY="-1.0" prefHeight="57.0" prefWidth="368.0" />
    <Button fx:id="cancelButton" layoutX="59.0" layoutY="343.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" />
    <Button fx:id="saveButton" layoutX="207.0" layoutY="343.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" />
