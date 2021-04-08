@@ -1,6 +1,7 @@
 package oop.focus.finance.controller;
 
 import oop.focus.common.View;
+import oop.focus.finance.model.FinanceManager;
 
 public interface BaseController extends FinanceController {
 
@@ -10,4 +11,9 @@ public interface BaseController extends FinanceController {
      * @param view to show
      */
     void changeView(View view);
+
+    /**
+     * @return manager of finance
+     */
+    FinanceManager getManager();
 }

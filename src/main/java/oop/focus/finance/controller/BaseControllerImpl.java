@@ -8,9 +8,11 @@ import oop.focus.finance.view.bases.BaseViewImpl;
 public class BaseControllerImpl implements BaseController {
 
     private final BaseView view;
+    private final FinanceManager manager;
 
     public BaseControllerImpl(final FinanceManager manager) {
-        this.view = new BaseViewImpl(this, manager);
+        this.manager = manager;
+        this.view = new BaseViewImpl(this, FXMLPaths.MAIN);
     }
 
     @Override
@@ -21,5 +23,10 @@ public class BaseControllerImpl implements BaseController {
     @Override
     public final void changeView(final View view) {
         this.view.changeView(view);
+    }
+
+    @Override
+    public final FinanceManager getManager() {
+        return this.manager;
     }
 }

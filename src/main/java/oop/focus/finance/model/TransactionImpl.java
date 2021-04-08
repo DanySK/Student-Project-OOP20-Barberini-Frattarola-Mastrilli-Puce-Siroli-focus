@@ -5,6 +5,7 @@ import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 public class TransactionImpl implements Transaction {
@@ -101,8 +102,9 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public final String getDateToString() {
+        DecimalFormat df = new DecimalFormat("#00");
         return "" + this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
-                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + this.date.get(DateTimeFieldType.hourOfDay())
-                + ":" + this.date.get(DateTimeFieldType.minuteOfHour());
+                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
+                + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
     }
 }
