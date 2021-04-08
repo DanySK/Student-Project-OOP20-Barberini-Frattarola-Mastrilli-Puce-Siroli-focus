@@ -19,6 +19,7 @@ import oop.focus.homepage.model.Person;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -64,12 +65,14 @@ public class GroupViewImpl implements Initializable, GroupView {
 
     @Override
     public final void showPeople(final ObservableSet<Person> group) {
-        final List<PersonView> personTiles = new ArrayList<>();
-        group.forEach(p -> personTiles.add(new PersonViewImpl(this.controller, p)));
+        final List<GenericTileView<Person>> personTiles = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.00");
+        group.forEach(p -> personTiles.add(new GenericTileViewImpl<>(p, p.getName(),
+                "E " + df.format((double) this.controller.getCredit(p) / 100))));
         final VBox box = new VBox();
         personTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         personTiles.forEach(t -> t.getRoot()
-                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deletePerson(t.getPerson())));
+                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.deletePerson(t.getElement())));
         this.groupMovementsScroll.setContent(box);
     }
 

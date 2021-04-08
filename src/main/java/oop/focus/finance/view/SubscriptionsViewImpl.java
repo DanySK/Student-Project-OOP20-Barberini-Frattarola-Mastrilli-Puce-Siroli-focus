@@ -14,6 +14,7 @@ import oop.focus.finance.model.Transaction;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -56,12 +57,14 @@ public class SubscriptionsViewImpl implements Initializable, SubscriptionsView {
 
     @Override
     public final void showSubscriptions(final List<Transaction> subscriptions) {
-        final List<SubscriptionView> subscriptionsTiles = new ArrayList<>();
-        subscriptions.forEach(t -> subscriptionsTiles.add(new SubscriptionViewImpl(t)));
+        final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#.00");
+        subscriptions.forEach(t -> subscriptionsTiles.add(new GenericTileViewImpl<>(t, t.getDescription(),
+                "E " + df.format((double) t.getAmount() / 100))));
         final VBox box = new VBox();
         subscriptionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         subscriptionsTiles.forEach(t -> t.getRoot()
-                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.stopSubscription(t.getSubscription())));
+                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.controller.stopSubscription(t.getElement())));
         this.subcriptionsScroll.setContent(box);
     }
 }
