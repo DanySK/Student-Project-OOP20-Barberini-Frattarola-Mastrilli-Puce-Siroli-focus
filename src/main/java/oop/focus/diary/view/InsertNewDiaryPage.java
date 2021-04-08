@@ -5,7 +5,7 @@ import javafx.scene.control.TitledPane;
 /**
  * The interface has methods to view diary's page, previously saved, inside the specific container.
  */
-public interface SingleTitledPaneDiary {
+public interface InsertNewDiaryPage {
     /**
      * Creates a new TitledPane, that represents a diary's page. TitledPane has as name the title of the page to save
      * and, as content, the content of that page.

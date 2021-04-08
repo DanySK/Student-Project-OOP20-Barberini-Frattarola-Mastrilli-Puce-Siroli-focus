@@ -13,7 +13,7 @@ import javafx.scene.layout.VBox;
 import oop.focus.diary.controller.UseControllerDiary;
 
 
-public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
+public class SingleTitledPaneDiaryImpl implements InsertNewDiaryPage {
     private final Button modify = new Button("Modify");
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
