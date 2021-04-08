@@ -1,8 +1,6 @@
 package oop.focus.statistics.controller;
 
-import oop.focus.db.DataSource;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.statistics.view.EventsInputView;
 import oop.focus.statistics.view.FinanceInputViewImpl;
 
 public class InputControllerFactoryImpl implements InputControllerFactory {
