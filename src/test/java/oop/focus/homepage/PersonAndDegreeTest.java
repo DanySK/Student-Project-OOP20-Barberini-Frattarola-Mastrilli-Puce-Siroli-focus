@@ -44,12 +44,12 @@ public class PersonAndDegreeTest {
      */
     @Test
     public void saveAndRemoveRelationshipTest() {
-    	this.relationship.add(ilaria.getDegreeOfKinship());
-    	this.relationship.add(elisa.getDegreeOfKinship());
-    	this.relationship.add(loris.getDegreeOfKinship());
+    	this.relationship.add(ilaria.getRelationships());
+    	this.relationship.add(elisa.getRelationships());
+    	this.relationship.add(loris.getRelationships());
     	
-    	assertEquals(this.relationship.getAll(), List.of(ilaria.getDegreeOfKinship(), elisa.getDegreeOfKinship(), loris.getDegreeOfKinship()));
+    	assertEquals(this.relationship.getAll(), List.of(ilaria.getRelationships(), elisa.getRelationships(), loris.getRelationships()));
     	this.relationship.remove("Zio");
-    	this.relationship.remove(ilaria.getDegreeOfKinship());
+    	this.relationship.remove(ilaria.getRelationships());
     }
 }

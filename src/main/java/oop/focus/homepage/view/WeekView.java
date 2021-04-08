@@ -20,8 +20,7 @@ import javafx.scene.layout.HBox;
 import oop.focus.calendar.controller.CalendarDayController;
 import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.model.DayImpl;
-import oop.focus.calendar.view.CalendarDaysViewImpl;
-import oop.focus.calendar.view.HoursViewImpl.Format;
+import oop.focus.calendar.model.Format;
 import oop.focus.homepage.controller.WeekController;
 
 public class WeekView implements View, Initializable {

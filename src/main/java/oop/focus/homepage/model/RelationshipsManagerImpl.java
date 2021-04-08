@@ -31,7 +31,7 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
 
     public final void addAll(final List<Person> personsList) {
         for (final Person person : personsList) {
-            this.add(person.getDegreeOfKinship());
+            this.add(person.getRelationships());
         }
     }
 

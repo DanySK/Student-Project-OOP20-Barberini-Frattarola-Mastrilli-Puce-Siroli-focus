@@ -20,7 +20,7 @@ public class PersonImpl implements Person {
         this.relationships = degree;
     }
 
-    public final String getDegreeOfKinship() {
+    public final String getRelationships() {
         return this.relationships;
     }
 

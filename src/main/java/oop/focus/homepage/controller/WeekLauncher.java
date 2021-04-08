@@ -1,6 +1,7 @@
 package oop.focus.homepage.controller;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.db.DataSourceImpl;
@@ -15,6 +16,7 @@ public class WeekLauncher extends Application {
         final WeekView week = new WeekView(controller);
         primaryStage.setScene(new Scene(week.getRoot()));
         primaryStage.show();
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
     public static final void main(final String... args) {

@@ -24,11 +24,5 @@ public class HotKeyGenerate {
             return this.factory.getActivityButton(hotKey.getName(), this.controller);
         }
     }
-/*
-    private void openNewEventView(ActionEvent event) {
-        View newEvent = new NewEventView(controller);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(newEvent.getRoot()));
-        stage.show();
-    }*/
+
 }

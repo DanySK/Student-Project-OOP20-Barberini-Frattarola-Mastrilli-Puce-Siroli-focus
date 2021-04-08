@@ -3,10 +3,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="paneNewEvent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="paneNewEvent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="newEvent" layoutX="155.0" layoutY="30.0" text="NUOVO EVENTO">
          <font>
@@ -16,14 +17,16 @@
       <Label fx:id="newEventName" layoutX="217.0" layoutY="65.0" text="Label" />
       <Label fx:id="startHour" layoutX="113.0" layoutY="132.0" text="Ora di inizio :" />
       <Label fx:id="endHour" layoutX="113.0" layoutY="192.0" text="Ora di fine :" />
-      <Button fx:id="deleteSelection" layoutX="26.0" layoutY="351.0" mnemonicParsing="false" onAction="#deleteSelection" prefHeight="25.0" prefWidth="78.0" text="CANCELLA" />
-      <Button fx:id="saveSelection" layoutX="379.0" layoutY="351.0" mnemonicParsing="false" onAction="#saveSelection" prefHeight="25.0" prefWidth="78.0" text="SALVA" />
-      <Button fx:id="back" layoutX="209.0" layoutY="351.0" mnemonicParsing="false" onAction="#backButtonPress" prefHeight="25.0" prefWidth="78.0" text="INDIETRO" />
+      <Button fx:id="deleteSelection" layoutX="25.0" layoutY="446.0" mnemonicParsing="false" onAction="#deleteSelection" prefHeight="25.0" prefWidth="78.0" text="CANCELLA" />
+      <Button fx:id="saveSelection" layoutX="389.0" layoutY="446.0" mnemonicParsing="false" onAction="#saveSelection" prefHeight="25.0" prefWidth="78.0" text="SALVA" />
+      <Button fx:id="back" layoutX="200.0" layoutY="446.0" mnemonicParsing="false" onAction="#backButtonPress" prefHeight="25.0" prefWidth="78.0" text="INDIETRO" />
       <ComboBox fx:id="startHourChoice" layoutX="239.0" layoutY="128.0" prefHeight="25.0" prefWidth="70.0" />
       <ComboBox fx:id="endHourChoice" layoutX="239.0" layoutY="188.0" prefHeight="25.0" prefWidth="70.0" />
       <ComboBox fx:id="startMinuteChoice" layoutX="365.0" layoutY="128.0" prefHeight="25.0" prefWidth="70.0" />
       <ComboBox fx:id="endMinuteChoice" layoutX="365.0" layoutY="188.0" prefHeight="25.0" prefWidth="70.0" />
       <Label fx:id="repetition" layoutX="113.0" layoutY="254.0" text="Ripetizioni :" />
       <ComboBox fx:id="repetitionChoice" layoutX="239.0" layoutY="250.0" prefHeight="25.0" prefWidth="119.0" />
+      <Label fx:id="persons" layoutX="113.0" layoutY="314.0" text="Persone :" />
+      <ListView fx:id="listOfPersons" layoutX="239.0" layoutY="314.0" prefHeight="99.0" prefWidth="206.0" />
    </children>
 </Pane>

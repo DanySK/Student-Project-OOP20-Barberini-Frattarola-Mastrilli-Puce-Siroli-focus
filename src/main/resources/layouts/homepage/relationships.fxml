@@ -7,12 +7,13 @@
 
 <AnchorPane fx:id="relationshipsPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="relationshipsTable" layoutX="78.0" layoutY="55.0" prefHeight="393.0" prefWidth="387.0">
+      <TableView fx:id="relationshipsTable" layoutX="78.0" layoutY="55.0" prefHeight="342.0" prefWidth="387.0" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="78.0" AnchorPane.rightAnchor="231.0" AnchorPane.topAnchor="55.0">
         <columns>
           <TableColumn fx:id="relationshipsColumn" prefWidth="386.40001220703124" text="Gradi di parentela" />
         </columns>
       </TableView>
-      <Button fx:id="addRelationships" layoutX="605.0" layoutY="54.0" mnemonicParsing="false" onAction="#addRelationships" text="AGGIUNGI" />
-      <Button fx:id="deleteRelationship" layoutX="605.0" layoutY="116.0" mnemonicParsing="false" onAction="#deleteRelationships" prefHeight="26.0" prefWidth="73.0" text="ELIMINA" />
+      <Button fx:id="addRelationships" layoutX="605.0" layoutY="54.0" mnemonicParsing="false" text="AGGIUNGI" AnchorPane.rightAnchor="17.400000000000006" AnchorPane.topAnchor="54.00000000000002" />
+      <Button fx:id="deleteRelationship" layoutX="168.0" layoutY="430.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="207.0" text="ELIMINA ELEMENTO SELEZIONATO" AnchorPane.bottomAnchor="61.6" AnchorPane.leftAnchor="167.8" AnchorPane.rightAnchor="321.0" />
+      <Button fx:id="goBack" layoutX="605.0" layoutY="106.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="INDIETRO" AnchorPane.bottomAnchor="385.6" AnchorPane.rightAnchor="17.399999999999977" />
    </children>
 </AnchorPane>

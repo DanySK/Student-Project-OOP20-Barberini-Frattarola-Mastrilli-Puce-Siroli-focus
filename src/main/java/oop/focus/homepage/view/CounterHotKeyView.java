@@ -32,8 +32,6 @@ public class CounterHotKeyView extends Pane implements HotKeyView {
 
     public final void setAction() {
         this.button.setOnAction(event -> {
-            //final int count = Integer.valueOf(this.getLabelValue()) + 1;
-            //this.label.setText(String.valueOf(count));
             this.controller.saveEvent(new EventImpl(this.label.getText(), LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE));
             this.label.setText(this.controller.getClickTime(new HotKeyImpl(this.button.getText(), HotKeyType.COUNTER)));
         });

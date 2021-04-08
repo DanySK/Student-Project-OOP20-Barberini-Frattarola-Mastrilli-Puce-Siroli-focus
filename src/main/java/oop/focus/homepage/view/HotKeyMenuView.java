@@ -105,12 +105,6 @@ public class HotKeyMenuView implements Initializable, View {
     }
 
     @FXML
-    public final void modifyClicked(final ActionEvent event) {
-        /*int i = tableHotKeyList.getSelectionModel().getSelectedIndex();
-        this.tableHotKeyList.getSelectionModel().setCellSelectionEnabled(true);*/
-    }
-
-    @FXML
     public final void goBack(final ActionEvent event) throws IOException {
         final HomePageBaseView base = new HomePageBaseView(this.controller);
         this.paneHotKeyView.getChildren().clear();

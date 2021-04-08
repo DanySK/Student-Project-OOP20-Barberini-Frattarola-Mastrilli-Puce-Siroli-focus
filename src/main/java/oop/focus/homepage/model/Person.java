@@ -9,7 +9,7 @@ public interface Person {
      *  This method is used for get the degree of kinship of the person.
      *  @return a String.
      */
-    String getDegreeOfKinship();
+    String getRelationships();
 
     /**
      *  This method is used for get the name of the person.

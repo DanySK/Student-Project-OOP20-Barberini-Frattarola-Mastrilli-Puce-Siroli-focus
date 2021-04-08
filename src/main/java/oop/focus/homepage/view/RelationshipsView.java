@@ -1,18 +1,16 @@
 package oop.focus.homepage.view;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import oop.focus.homepage.controller.PersonsController;
-import oop.focus.homepage.model.Person;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,14 +28,12 @@ public class RelationshipsView implements Initializable, View {
     private TableColumn<String, String> relationshipsColumn;
 
     @FXML
-    private Button addRelationships;
+    private Button addRelationships, goBack, deleteRelationship;
 
-    @FXML
-    private Button deleteRelationship;
-    private PersonsController controller;
+    private final PersonsController controller;
     private Parent root;
 
-    public RelationshipsView(PersonsController controller) {
+    public RelationshipsView(final PersonsController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/relationships.fxml"));
         loader.setController(this);
@@ -50,23 +46,42 @@ public class RelationshipsView implements Initializable, View {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        relationshipsColumn.setCellValueFactory(new PropertyValueFactory<String, String>("string"));
-        relationshipsColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+
+        this.relationshipsTable.setItems(this.controller.getDegree());
+
+        goBack.setOnAction(event -> this.goBack());
+        addRelationships.setOnAction(event -> this.addRelationships());
+        deleteRelationship.setOnAction(event -> this.deleteRelationships());
+    }
+
+    public final void goBack() {
+        final PersonsView persons = new PersonsView(this.controller);
+        this.relationshipsPane.getChildren().clear();
+        this.relationshipsPane.getChildren().add(persons.getRoot());
     }
 
     @FXML
-    public final void addRelationships(ActionEvent event) {
-
+    public final void addRelationships() {
+        final View newDegree = new AddNewRelationship(this.controller);
+        final Stage stage = new Stage();
+        stage.setScene(new Scene(newDegree.getRoot()));
+        stage.show();
     }
 
     @FXML
-    public final void deleteRelationships(ActionEvent event) {
+    public final void deleteRelationships() {
+        this.controller.deleteRelationship(relationshipsTable.getSelectionModel().getSelectedItem());
+        this.refreshTableView();
+    }
 
+    public final void refreshTableView() {
+        this.relationshipsTable.getItems().removeAll(relationshipsTable.getSelectionModel().getSelectedItems());
     }
 
     @Override
-    public Parent getRoot() {
+    public final Parent getRoot() {
         return this.root;
     }
 }

@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import oop.focus.homepage.model.Person;
+import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -13,9 +17,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import oop.focus.common.Repetition;
 import oop.focus.homepage.controller.HomePageController;
@@ -27,13 +28,16 @@ public class NewEventView implements Initializable, View {
     private Pane paneNewEvent;
 
     @FXML
-    private Label newEvent, newEventName, startHour, endHour, repetition;
+    private Label newEvent, newEventName, startHour, endHour, repetition, persons;
 
     @FXML
     private ComboBox<String> startHourChoice, repetitionChoice, endHourChoice, startMinuteChoice, endMinuteChoice;
 
     @FXML
     private Button back, saveSelection, deleteSelection;
+
+    @FXML
+    private ListView<Person> listOfPersons;
 
     private Parent root;
     private final HomePageController controller;
@@ -54,12 +58,19 @@ public class NewEventView implements Initializable, View {
     public final void initialize(final URL location, final ResourceBundle resources) {
         final ComboBoxFiller filler = new ComboBoxFiller();
 
+        this.fillTheList();
+
         this.endHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
         this.startHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
         this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
         this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
         this.repetitionChoice.setItems(filler.getRepetition());
 
+    }
+
+    public final void fillTheList() {
+        this.listOfPersons.setItems(FXCollections.observableArrayList(new PersonImpl("Sara", "cugina")));
+        this.listOfPersons.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML

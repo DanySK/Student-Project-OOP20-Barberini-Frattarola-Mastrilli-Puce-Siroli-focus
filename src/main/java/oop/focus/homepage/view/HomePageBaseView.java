@@ -14,13 +14,17 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import oop.focus.calendar.controller.CalendarDayController;
 import oop.focus.calendar.controller.CalendarDayControllerImpl;
+import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarMonthControllerImpl;
+import oop.focus.calendar.controller.CalendarSettingsControllerImpl;
 import oop.focus.calendar.model.DayImpl;
-import oop.focus.calendar.view.CalendarDaysView;
-import oop.focus.calendar.view.CalendarDaysViewImpl;
+import oop.focus.calendar.view.CalendarMonthView;
+import oop.focus.calendar.view.CalendarMonthViewImpl;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKey;
 
@@ -37,6 +41,9 @@ public class HomePageBaseView implements Initializable, View {
 
         @FXML
         private VBox vbox, calendarVBox;
+
+        @FXML
+        private HBox calendarHBox;
 
         private Parent root;
         private final HomePageController controller;
@@ -66,8 +73,11 @@ public class HomePageBaseView implements Initializable, View {
                 }
             });
 
+            this.setCalendar();
+
             final DayImpl day = new DayImpl(LocalDate.now());
             final CalendarDayController days = new CalendarDayControllerImpl(day, 20, 20);
+
             days.buildDay();
             days.getScroller().prefWidthProperty().bind(calendarVBox.widthProperty());
             days.getScroller().prefHeightProperty().bind(calendarVBox.heightProperty());
@@ -82,6 +92,14 @@ public class HomePageBaseView implements Initializable, View {
             hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
             scrollPane.setContent(vbox);
        }
+
+        private void setCalendar() {
+            final CalendarMonthController monthController = new CalendarMonthControllerImpl(calendarHBox.getWidth(), calendarHBox.getHeight());
+
+            monthController.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
+            monthController.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
+            this.calendarHBox.getChildren().add(monthController.getMonthView());
+        }
 
         public final Parent getRoot() {
             return this.root;

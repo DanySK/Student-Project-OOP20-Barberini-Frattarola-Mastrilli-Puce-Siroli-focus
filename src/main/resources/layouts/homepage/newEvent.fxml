@@ -15,7 +15,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="name" layoutX="142.0" layoutY="123.0" text="Nome :" AnchorPane.bottomAnchor="361.4" AnchorPane.leftAnchor="142.0" AnchorPane.rightAnchor="404.8" />
+      <Label fx:id="name" layoutX="142.0" layoutY="123.0" text="Nome :" />
       <Label fx:id="startDay" layoutX="100.0" layoutY="175.0" text="Giorno di inizio :" />
       <Label fx:id="endDay" layoutX="104.0" layoutY="224.0" text="Giorno di fine :" />
       <Label fx:id="startHour" layoutX="109.0" layoutY="273.0" text="Ora di inizio :" />
@@ -29,8 +29,8 @@
       <ComboBox fx:id="startMinuteComboBox" layoutX="383.0" layoutY="268.0" prefHeight="26.0" prefWidth="70.0" AnchorPane.rightAnchor="132.0" />
       <ComboBox fx:id="endMinuteComboBox" layoutX="383.0" layoutY="316.0" prefHeight="26.0" prefWidth="70.0" AnchorPane.rightAnchor="132.0" />
       <ComboBox fx:id="repetitionComboBox" layoutX="280.0" layoutY="359.0" prefHeight="26.0" prefWidth="174.0" AnchorPane.leftAnchor="280.0" AnchorPane.rightAnchor="132.0" />
-      <Button fx:id="save" layoutX="478.0" layoutY="455.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="78.0" text="SALVA" />
-      <Button fx:id="goBack" layoutX="25.0" layoutY="455.0" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" prefWidth="78.0" text="INDIETRO" />
-      <Button fx:id="delete" layoutX="267.0" layoutY="455.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="78.0" text="CANCELLA" />
+      <Button fx:id="save" layoutX="478.0" layoutY="455.0" mnemonicParsing="false" onAction="#save" prefHeight="26.0" prefWidth="78.0" text="SALVA" AnchorPane.bottomAnchor="20.6" AnchorPane.rightAnchor="29.599999999999994" />
+      <Button fx:id="goBack" layoutX="25.0" layoutY="455.0" mnemonicParsing="false" onAction="#goBack" prefHeight="26.0" prefWidth="78.0" text="INDIETRO" AnchorPane.bottomAnchor="20.6" AnchorPane.leftAnchor="25.0" />
+      <Button fx:id="delete" layoutX="267.0" layoutY="455.0" mnemonicParsing="false" onAction="#delete" prefHeight="26.0" prefWidth="78.0" text="CANCELLA" AnchorPane.bottomAnchor="20.6" />
    </children>
 </AnchorPane>

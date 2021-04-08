@@ -1,6 +1,5 @@
 package oop.focus.homepage.view;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -95,6 +94,18 @@ public class NewEventWeekView implements Initializable, View {
 
     @FXML
     public final void save(final ActionEvent event) {
+        if (!this.textFieldName.getText().isEmpty() && !this.repetitionComboBox.getSelectionModel().getSelectedItem().isEmpty()
+            && !this.endHourComboBox.getSelectionModel().getSelectedItem().isEmpty() && !this.endMinuteComboBox.getSelectionModel().getSelectedItem().isEmpty()
+            && !this.startMinuteComboBox.getSelectionModel().getSelectedItem().isEmpty() && !this.startHourComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
+            this.saveEvent(event);
+        } else {
+            final AllertGenerator allert = new AllertGenerator();
+            allert.showAllert();
+        }
+
+    }
+
+    public final void saveEvent(ActionEvent event) {
         final java.time.LocalDate start = this.datePickerStart.getValue();
         final LocalDate startDate = new LocalDate(start.getYear(), start.getMonthValue(), start.getDayOfMonth());
 
