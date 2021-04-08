@@ -11,7 +11,6 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.model.TransactionImpl;
-import oop.focus.finance.view.FinanceHomePageView;
 import oop.focus.finance.view.FinanceHomePageViewImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -23,12 +22,12 @@ import java.util.stream.Collectors;
 
 public class FinanceHomePageControllerImpl implements FinanceHomePageController {
 
-    private final FinanceHomePageView view;
+    private final View view;
     private final FinanceManager manager;
 
     public FinanceHomePageControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new FinanceHomePageViewImpl(this, manager);
+        this.view = new FinanceHomePageViewImpl(this);
     }
 
     @Override
