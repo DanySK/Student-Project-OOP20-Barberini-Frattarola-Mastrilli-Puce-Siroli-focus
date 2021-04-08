@@ -1,19 +1,13 @@
 package oop.focus.calendar.view;
 
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public interface CalendarSettingsView {
 
     /**
-     * Used for get the settings view.
-     * @return settings vbox
+     * Used for get the Settings Box view.
+     * @return vbox
      */
-    VBox getSettings();
+    VBox getSettingsBox();
 
-    /**
-     * Used for set the stage of the settings view.
-     * @param stage
-     */
-    void setWindow(Stage stage);
 }
