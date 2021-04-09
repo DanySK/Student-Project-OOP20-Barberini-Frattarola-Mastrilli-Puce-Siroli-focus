@@ -16,9 +16,9 @@ public class LauncherAll extends Application {
     private final CommonView commonView = new CommonView(new Dimension2D(this.width, this.height));
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        //final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
+        final String css = LauncherAll.class.getResource(PATH_MAIN_STYLE).toExternalForm();
         Scene scene = new Scene(this.commonView.getPane());
-        //scene.getStylesheets().add(css);
+        scene.getStylesheets().add(css);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

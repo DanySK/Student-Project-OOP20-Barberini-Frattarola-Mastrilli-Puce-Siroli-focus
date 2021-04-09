@@ -1,8 +1,11 @@
 package oop.focus.application;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -12,15 +15,20 @@ import java.util.Map;
 
 public class CommonView {
     private final BorderPane pane;
-    private final Map<Button, BorderPane> map;
+    //private final Map<Button, BorderPane> map;
     private final HBox box;
     public CommonView(final Dimension2D dim) {
         this.pane = new BorderPane();
-        this.map = new HashMap<>();
+        //this.map = new HashMap<>();
         this.pane.setPrefSize(dim.getWidth(), dim.getHeight());
         this.box = new HBox();
+        this.box.prefWidthProperty().bind(this.pane.widthProperty());
+        this.box.prefHeightProperty().bind(this.pane.heightProperty().multiply(0.15));
+        this.box.spacingProperty().bind(this.pane.widthProperty().multiply(0.07));
+        this.box.paddingProperty().setValue(new Insets(20));
+        this.box.setAlignment(Pos.CENTER);
         this.createButton();
-        this.setView();
+       // this.setView();
     }
     public BorderPane getPane() {
         return this.pane;
@@ -29,20 +37,22 @@ public class CommonView {
         for (var elem : Sections.values()) {
             Button button = new Button(elem.getName());
             this.box.getChildren().add(button);
-            this.box.setMinWidth(0.1* pane.getWidth());
-            this.box.setMinHeight(0.2 * pane.getHeight());
-            button.setMinHeight(0.1 * pane.getHeight());
-            button.setMinWidth(0.2 * pane.getWidth());
+            button.prefHeightProperty().bind(this.box.heightProperty());
+            button.prefWidthProperty().bind(this.box.widthProperty().multiply(0.2));
+            button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    CommonView.this.pane.setCenter(elem.getView());
+                }
+            });
             BorderPane borderPane = new BorderPane();
             borderPane.getStyleClass().add(elem.getStyle());
-            this.map.put(button, borderPane);
         }
+        this.pane.setTop(this.box);
+
     }
-    public void setView() {
-        box.setAlignment(Pos.CENTER);
-        box.setSpacing(pane.getHeight() * 0.01);
+    /*public void setView() {
         this.pane.setTop(box);
-       // BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
         if(!this.map.isEmpty()){
             for(var elem : this.map.keySet()) {
                 map.get(elem).setPrefWidth(0.08 * pane.getWidth());
@@ -52,5 +62,7 @@ public class CommonView {
             }
         }
     }
+
+     */
 
 }
