@@ -12,7 +12,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
 
     public SubscriptionsControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new SubscriptionsViewImpl(this, FXMLPaths.SUBS);
+        this.view = new SubscriptionsViewImpl(this);
         this.showSubscriptions();
     }
 

@@ -13,4 +13,10 @@ public interface FinanceWindow extends View {
      * Saves the changes in the database and closes the window.
      */
     void save();
+
+    /**
+     * It shows a pop-up on the screen indicating
+     * that some fields have not been filled in correctly.
+     */
+    void allert();
 }

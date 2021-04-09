@@ -33,18 +33,18 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     @FXML
     private Button peopleButton, groupTransactionsButton, newPersonButton, resolveButton, newGroupTransactionButton;
 
-    public GroupViewImpl(final GroupController controller, final FXMLPaths path) {
-        super(controller, path);
+    public GroupViewImpl(final GroupController controller) {
+        super(controller, FXMLPaths.GROUP);
     }
 
     @Override
     public final void populate() {
         this.peopleButton.setOnAction(event -> super.getX().showPeople());
         this.groupTransactionsButton.setOnAction(event -> super.getX().showTansactions());
-        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(super.getX(), FXMLPaths.ADDPERSON)));
+        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(super.getX())));
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
-                new NewGroupTransactionViewImpl(super.getX(), FXMLPaths.NEWGROUPMOV)));
-        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(super.getX(), FXMLPaths.RESOLVE)));
+                new NewGroupTransactionViewImpl(super.getX())));
+        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(super.getX())));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     @Override
     public final void showTransactions(final ObservableSet<GroupTransaction> transactions) {
         final List<GroupTransactionView> transactionTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t, FXMLPaths.GROUPTILE)));
+        transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
         final VBox box = new VBox();
         transactionTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionTiles.forEach(t -> t.getRoot()

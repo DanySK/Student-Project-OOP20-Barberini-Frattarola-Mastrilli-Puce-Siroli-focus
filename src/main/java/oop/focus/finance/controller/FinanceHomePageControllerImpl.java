@@ -27,7 +27,7 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     public FinanceHomePageControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new FinanceHomePageViewImpl(this, FXMLPaths.HOMEPAGE);
+        this.view = new FinanceHomePageViewImpl(this);
     }
 
     @Override

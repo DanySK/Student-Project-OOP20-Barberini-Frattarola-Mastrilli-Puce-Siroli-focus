@@ -22,7 +22,7 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
         stage.close();
     }
 
-    protected static boolean isNotNumeric(final String strNum) {
+    public static boolean isNotNumeric(final String strNum) {
         if (strNum == null) {
             return true;
         }
@@ -34,7 +34,8 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
         return false;
     }
 
-    protected final void allert() {
+    @Override
+    public final void allert() {
         final AllertGenerator allert = new AllertGenerator();
         allert.showAllert();
     }

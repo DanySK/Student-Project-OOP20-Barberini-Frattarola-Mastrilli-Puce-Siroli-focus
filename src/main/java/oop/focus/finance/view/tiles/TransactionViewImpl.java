@@ -14,8 +14,8 @@ public class TransactionViewImpl extends GenericView<Transaction> implements Ini
     @FXML
     private Label descriptionLabel, categoryLabel, dateLabel, amountLabel;
 
-    public TransactionViewImpl(final Transaction transaction, final FXMLPaths path) {
-        super(transaction, path);
+    public TransactionViewImpl(final Transaction transaction) {
+        super(transaction, FXMLPaths.MOVTILE);
     }
 
     @Override

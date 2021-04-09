@@ -24,7 +24,7 @@ public class TransactionsControllerImpl implements TransactionsController {
     public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
         this.manager = manager;
         this.predicate = predicate;
-        this.view = new TransactionsViewImpl(this, FXMLPaths.ALL);
+        this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
     }
 

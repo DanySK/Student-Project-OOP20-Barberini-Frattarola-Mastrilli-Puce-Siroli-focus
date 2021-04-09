@@ -12,7 +12,8 @@ public class BaseControllerImpl implements BaseController {
 
     public BaseControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new BaseViewImpl(this, FXMLPaths.MAIN);
+        this.view = new BaseViewImpl(this);
+        this.changeView(new TransactionsControllerImpl(manager, t -> true).getView());
     }
 
     @Override

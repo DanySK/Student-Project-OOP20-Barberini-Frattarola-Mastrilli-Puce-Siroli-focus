@@ -24,8 +24,8 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
     @FXML
     private Button cancelButton, saveButton, showButton;
 
-    public ResolveViewImpl(final GroupController groupController, final FXMLPaths path) {
-        super(groupController, path);
+    public ResolveViewImpl(final GroupController groupController) {
+        super(groupController, FXMLPaths.RESOLVE);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
 
     private void showResolvingTiles() {
         final List<GroupTransactionView> resolvingTiles = new ArrayList<>();
-        super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(new GroupTransactionViewImpl(t, FXMLPaths.GROUPTILE)));
+        super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(new GroupTransactionViewImpl(t)));
         final VBox box = new VBox();
         resolvingTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         this.resolveScroll.setContent(box);

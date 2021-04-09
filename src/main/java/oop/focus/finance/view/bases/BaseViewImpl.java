@@ -15,8 +15,8 @@ public class BaseViewImpl extends GenericView<BaseController> implements BaseVie
     @FXML
     private Pane mainPane;
 
-    public BaseViewImpl(final BaseController controller, final FXMLPaths path) {
-        super(controller, path);
+    public BaseViewImpl(final BaseController controller) {
+        super(controller, FXMLPaths.MAIN);
     }
 
     @Override

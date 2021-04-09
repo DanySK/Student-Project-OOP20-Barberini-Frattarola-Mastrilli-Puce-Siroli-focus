@@ -20,8 +20,8 @@ public class NewAccountViewImpl extends GenericWindow<TransactionsController> {
     @FXML
     private Button cancelButton, saveButton;
 
-    public NewAccountViewImpl(final TransactionsController transactionsController, final FXMLPaths path) {
-        super(transactionsController, path);
+    public NewAccountViewImpl(final TransactionsController transactionsController) {
+        super(transactionsController, FXMLPaths.NEWACCOUNT);
     }
 
     @Override

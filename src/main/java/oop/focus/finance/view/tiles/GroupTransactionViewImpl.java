@@ -13,8 +13,8 @@ public class GroupTransactionViewImpl extends GenericView<GroupTransaction> impl
     @FXML
     private Label personLabel, descriptionLabel, amountLabel;
 
-    public GroupTransactionViewImpl(final GroupTransaction transaction, final FXMLPaths path) {
-        super(transaction, path);
+    public GroupTransactionViewImpl(final GroupTransaction transaction) {
+        super(transaction, FXMLPaths.GROUPTILE);
     }
 
     @Override

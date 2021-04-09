@@ -32,8 +32,8 @@ public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageControl
     @FXML
     private Button cancelButton, saveButton;
 
-    public NewTransactionViewImpl(final FinanceHomePageController financeHomePageController, final FXMLPaths path) {
-        super(financeHomePageController, path);
+    public NewTransactionViewImpl(final FinanceHomePageController financeHomePageController) {
+        super(financeHomePageController, FXMLPaths.NEWMOVEMENT);
     }
 
     @Override

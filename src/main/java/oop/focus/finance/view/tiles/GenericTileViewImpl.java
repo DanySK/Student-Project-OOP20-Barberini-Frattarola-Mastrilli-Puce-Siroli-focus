@@ -1,52 +1,31 @@
 package oop.focus.finance.view.tiles;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.view.bases.GenericView;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class GenericTileViewImpl<X> implements Initializable, GenericTileView<X> {
+public class GenericTileViewImpl<X> extends GenericView<X> implements GenericTileView<X> {
 
     @FXML
     private Label descriptionLabel, amountLabel;
 
-    private final X element;
-    private final String description;
-    private final String amount;
-    private Parent root;
-
-    public GenericTileViewImpl(final X element, final String description, final String amount) {
-        this.element = element;
-        this.description = description;
-        this.amount = amount;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.GENERICTILE.getPath()));
-        loader.setController(this);
-        try {
-            this.root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public GenericTileViewImpl(final X x, final String description, final String amount) {
+        super(x, FXMLPaths.GENERICTILE);
+        this.setLabels(description, amount);
     }
 
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.descriptionLabel.setText(this.description);
-        this.amountLabel.setText(this.amount);
+    public final void setLabels(final String description, final String amount) {
+        this.descriptionLabel.setText(description);
+        this.amountLabel.setText(amount);
     }
+
+    @Override
+    protected void populate() { }
 
     @Override
     public final X getElement() {
-        return this.element;
-    }
-
-    @Override
-    public final Parent getRoot() {
-        return this.root;
+        return super.getX();
     }
 }

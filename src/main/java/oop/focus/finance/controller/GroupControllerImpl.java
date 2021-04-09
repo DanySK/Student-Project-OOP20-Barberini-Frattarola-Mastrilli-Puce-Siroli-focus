@@ -24,7 +24,7 @@ public class GroupControllerImpl implements GroupController {
 
     public GroupControllerImpl(final FinanceManager manager) {
         this.manager = manager.getGroupManager();
-        this.view = new GroupViewImpl(this, FXMLPaths.GROUP);
+        this.view = new GroupViewImpl(this);
         this.showPeople();
     }
 

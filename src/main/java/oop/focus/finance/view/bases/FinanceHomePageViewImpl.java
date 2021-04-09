@@ -30,8 +30,8 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
     @FXML
     private Button newMovememntButton;
 
-    public FinanceHomePageViewImpl(final FinanceHomePageController controller, final FXMLPaths path) {
-        super(controller, path);
+    public FinanceHomePageViewImpl(final FinanceHomePageController controller) {
+        super(controller, FXMLPaths.HOMEPAGE);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
     }
 
     private void showNewMovement() {
-        final FinanceWindow newTransaction = new NewTransactionViewImpl(super.getX(), FXMLPaths.NEWMOVEMENT);
+        final FinanceWindow newTransaction = new NewTransactionViewImpl(super.getX());
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newTransaction.getRoot()));
         stage.show();

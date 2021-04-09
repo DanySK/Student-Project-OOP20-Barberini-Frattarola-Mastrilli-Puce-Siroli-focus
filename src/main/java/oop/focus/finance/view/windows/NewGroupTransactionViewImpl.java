@@ -29,8 +29,8 @@ public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> 
 
     private MultiSelectorView<Person> multiSelector;
 
-    public NewGroupTransactionViewImpl(final GroupController groupController, final FXMLPaths path) {
-        super(groupController, path);
+    public NewGroupTransactionViewImpl(final GroupController groupController) {
+        super(groupController, FXMLPaths.NEWGROUPMOV);
     }
 
     @Override

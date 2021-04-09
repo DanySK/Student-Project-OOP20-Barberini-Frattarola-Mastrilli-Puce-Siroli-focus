@@ -20,8 +20,8 @@ public class AddPersonViewImpl extends GenericWindow<GroupController> {
     @FXML
     private Button newPersonButton, cancelButton, saveButton;
 
-    public AddPersonViewImpl(final GroupController groupController, final FXMLPaths path) {
-        super(groupController, path);
+    public AddPersonViewImpl(final GroupController groupController) {
+        super(groupController, FXMLPaths.ADDPERSON);
     }
 
     @Override
