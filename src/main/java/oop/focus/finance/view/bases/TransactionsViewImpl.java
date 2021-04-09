@@ -31,9 +31,9 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @FXML
     private ScrollPane transactionsScroll, accountsScroll;
     @FXML
-    private Label amountLabel;
+    private Label accountLabel, amountLabel;
     @FXML
-    private Button newAccountButton;
+    private Button newAccountButton, deleteButton;
 
     public TransactionsViewImpl(final TransactionsController controller) {
         super(controller, FXMLPaths.ALL);
@@ -41,14 +41,18 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
 
     @Override
     public final void populate() {
+        this.newAccountButton.setText("Crea Conto");
         this.newAccountButton.setOnAction(event -> this.showNewAccount());
+        this.deleteButton.setOnAction(event -> super.getX().deleteAccounts());
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
     }
 
     @Override
     public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
+        this.accountLabel.setText(super.getX().getAccountName());
         this.amountLabel.setText("E " + super.getX().getAmount(predicate));
+        this.deleteButton.setText("Elimina " + super.getX().getAccountName());
         final List<TransactionView> transactionsTiles = new ArrayList<>();
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         final VBox box = new VBox();

@@ -19,11 +19,13 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     private final TransactionsViewImpl view;
     private final FinanceManager manager;
-    private final Predicate<Transaction> predicate;
+    private Predicate<Account> accountPredicate;
+    private final Predicate<Transaction> transactionPredicate;
 
     public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
         this.manager = manager;
-        this.predicate = predicate;
+        this.transactionPredicate = predicate;
+        this.accountPredicate = (a -> true);
         this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
     }
@@ -35,12 +37,21 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     @Override
     public final void showTransactions(final Predicate<Account> predicate) {
+        this.accountPredicate = predicate;
         this.view.updateTransactions(this.filteredTransactions(predicate), predicate);
     }
 
     @Override
     public final void newAccount(final String name, final String color, final double amount) {
         this.manager.addAccount(new AccountImpl(name, color, (int) (amount * 100)));
+    }
+
+    @Override
+    public final String getAccountName() {
+        var filteredAccounts = this.getAccounts().stream()
+                .filter(this.accountPredicate)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return filteredAccounts.size() == 1 ? filteredAccounts.get(0).getName() : "Tutti i conti";
     }
 
     @Override
@@ -51,6 +62,14 @@ public class TransactionsControllerImpl implements TransactionsController {
     @Override
     public final void deleteTransaction(final Transaction transaction) {
         this.manager.removeTransaction(transaction);
+    }
+
+    @Override
+    public final void deleteAccounts() {
+        this.getAccounts().stream()
+                .filter(this.accountPredicate)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .forEach(this.manager::removeAccount);
     }
 
     @Override
@@ -69,7 +88,7 @@ public class TransactionsControllerImpl implements TransactionsController {
                         .filter(predicate).count() == 1 ? this.manager.getAccountManager().getAccounts().stream()
                         .filter(predicate)
                         .collect(Collectors.toList()).get(0) : t.getAccount()))
-                .filter(this.predicate)
+                .filter(this.transactionPredicate)
                 .collect(Collectors.toSet());
     }
 

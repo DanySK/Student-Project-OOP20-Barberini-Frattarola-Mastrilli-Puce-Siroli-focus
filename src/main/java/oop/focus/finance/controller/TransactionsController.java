@@ -25,6 +25,11 @@ public interface TransactionsController extends FinanceController {
     void newAccount(String name, String color, double amount);
 
     /**
+     * @return the account or accounts displayed name.
+     */
+    String getAccountName();
+
+    /**
      * @param predicate filter the account whose amount we want to see
      * @return returns the account amount indicated in the predicate
      */
@@ -35,6 +40,11 @@ public interface TransactionsController extends FinanceController {
      * @param transaction to e deleted
      */
     void deleteTransaction(Transaction transaction);
+
+    /**
+     * Delete the account or accounts displayed.
+     */
+    void deleteAccounts();
 
     /**
      * @return a ObservableSet of all accounts
