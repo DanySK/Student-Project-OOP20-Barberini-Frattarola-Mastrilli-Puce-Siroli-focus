@@ -9,6 +9,7 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.QuickTransaction;
+import oop.focus.finance.model.QuickTransactionImpl;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.model.TransactionImpl;
 import oop.focus.finance.view.bases.FinanceHomePageViewImpl;
@@ -54,6 +55,12 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
                 .sum() / 100;
+    }
+
+    @Override
+    public final void newQuickTransaction(final String description, final double amount, final Category category,
+                                    final Account account) {
+        this.manager.getQuickManager().add(new QuickTransactionImpl((int) (amount * 100), description, category, account));
     }
 
     @Override

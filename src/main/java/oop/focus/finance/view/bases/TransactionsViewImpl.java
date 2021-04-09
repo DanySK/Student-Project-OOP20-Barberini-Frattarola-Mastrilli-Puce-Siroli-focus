@@ -22,6 +22,7 @@ import oop.focus.finance.view.windows.FinanceWindow;
 import oop.focus.finance.view.windows.NewAccountViewImpl;
 import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -51,8 +52,9 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
 
     @Override
     public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
+        DecimalFormat df = new DecimalFormat("#0.00");
         this.accountLabel.setText(super.getX().getAccountName());
-        this.amountLabel.setText("E " + super.getX().getAmount(predicate));
+        this.amountLabel.setText("E " + df.format(super.getX().getAmount(predicate)));
         this.deleteButton.setText("Elimina " + super.getX().getAccountName());
         final List<TransactionView> transactionsTiles = new ArrayList<>();
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));

@@ -40,6 +40,16 @@ public interface FinanceHomePageController extends FinanceController {
     double getTotalAmount();
 
     /**
+     * Creates a new quick transaction and saves it in the database.
+     *
+     * @param description of the quick transaction to add
+     * @param amount of the quick transaction to add
+     * @param category of the quick transaction to add
+     * @param account of the quick transaction to add
+     */
+    void newQuickTransaction(String description, double amount, Category category, Account account);
+
+    /**
      * Do a quick transaction, then a new transaction is created with the current date as its date.
      *
      * @param quickTransaction - that is executed
