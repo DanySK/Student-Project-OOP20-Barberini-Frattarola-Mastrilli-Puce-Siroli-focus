@@ -76,6 +76,11 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
+    public final void reset() {
+        this.manager.reset();
+    }
+
+    @Override
     public final ObservableList<Person> getPersonsToAdd() {
         return new ObservableListWrapper<>(this.manager.getPersons().stream()
                 .filter(p -> !this.getGroup().contains(p))

@@ -59,6 +59,11 @@ public interface GroupController extends FinanceController {
     void resolve();
 
     /**
+     * If there are no more debts, delete the group and all transactions.
+     */
+    void reset();
+
+    /**
      * @return people saved in the database but not yet added to the group transaction group
      */
     ObservableList<Person> getPersonsToAdd();

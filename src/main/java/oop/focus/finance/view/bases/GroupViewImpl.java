@@ -39,16 +39,21 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
 
     @Override
     public final void populate() {
+        this.peopleButton.setText("Persone");
         this.peopleButton.setOnAction(event -> super.getX().showPeople());
+        this.groupTransactionsButton.setText("Transazioni");
         this.groupTransactionsButton.setOnAction(event -> super.getX().showTansactions());
-        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(super.getX())));
-        this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
-                new NewGroupTransactionViewImpl(super.getX())));
+        this.resolveButton.setText("Risolvi crediti/debiti");
         this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(super.getX())));
+        this.newGroupTransactionButton.setText("Crea transazione");
+        this.newGroupTransactionButton.setOnAction(event -> this.showWindow(new NewGroupTransactionViewImpl(super.getX())));
+
     }
 
     @Override
     public final void showPeople(final ObservableSet<Person> group) {
+        this.newPersonButton.setText("Aggiungi persona");
+        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(super.getX())));
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("#0.00");
         group.forEach(p -> personTiles.add(new GenericTileViewImpl<>(p, p.getName(),
@@ -62,6 +67,8 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
 
     @Override
     public final void showTransactions(final ObservableSet<GroupTransaction> transactions) {
+        this.newPersonButton.setText("Reset");
+        this.newPersonButton.setOnAction(event -> super.getX().reset());
         final List<GroupTransactionView> transactionTiles = new ArrayList<>();
         transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
         final VBox box = new VBox();
