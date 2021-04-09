@@ -1,7 +1,7 @@
 package oop.focus.finance;
 
-import oop.focus.finance.view.FinanceHomePageLauncher;
-import oop.focus.finance.view.FinanceLauncher;
+import oop.focus.finance.view.launchers.FinanceHomePageLauncher;
+import oop.focus.finance.view.launchers.FinanceLauncher;
 
 public final  class App {
 
