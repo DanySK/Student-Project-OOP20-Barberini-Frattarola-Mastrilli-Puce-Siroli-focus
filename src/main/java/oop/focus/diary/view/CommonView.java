@@ -13,7 +13,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.diary.controller.CounterControllerImpl;
-import oop.focus.diary.controller.UpdateView;
 
 import oop.focus.diary.controller.UseTotalTimeController;
 import org.joda.time.LocalTime;
