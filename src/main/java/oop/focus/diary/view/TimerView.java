@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import oop.focus.common.View;
 import oop.focus.diary.controller.ControllersFactoryImpl;
 import oop.focus.diary.controller.ControllersFactory;
 import oop.focus.diary.controller.CounterControllerImpl;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class TimerView implements Initializable {
+public class TimerView implements Initializable, View {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private static final  DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");
     private static final int MINUTES_GAP = 15;
@@ -103,17 +104,13 @@ public class TimerView implements Initializable {
             this.counterLabel.setText(this.otherTime.getText());
             this.startButton.setDisable(false);
         };
-
-        final Scene scene = new Scene(new InsertTimeTimerWindow(consumer).getRoot());
-
+        final Scene scene = new Scene((Parent) new InsertTimeTimerWindow(consumer).getRoot());
         final Stage window = new Stage();
         window.setScene(scene);
         window.show();
     }
 
-    public final Parent getRoot() {
-        return this.root;
-    }
+
     private void setProperties() {
         final GridPane grid = new GridPane();
         grid.addRow(0, this.nameEventLabel, this.chooseEvent, this.addEventButton, this.timeLabel);
@@ -193,6 +190,11 @@ public class TimerView implements Initializable {
                 this.startButton.setDisable(false);
             });
         }
+    }
+
+    @Override
+    public Node getRoot() {
+        return this.root;
     }
 }
 

@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.SetChangeListener;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.HPos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -77,7 +78,7 @@ public final class CommonView {
 
     }
     private static void openWindow(final Dimension2D dim) {
-        final Scene scene = new Scene(new InsertNewCounterNameImpl().getRoot());
+        final Scene scene = new Scene((Parent) new InsertNewCounterNameImpl().getRoot());
         final Stage window = new Stage();
         window.setScene(scene);
         window.show();

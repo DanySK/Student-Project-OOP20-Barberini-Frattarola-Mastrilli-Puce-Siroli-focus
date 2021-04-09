@@ -3,6 +3,7 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 
 import javafx.stage.Stage;
+import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UseTotalTimeController;
 
@@ -18,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InsertNewCounterNameImpl implements Initializable {
+public class InsertNewCounterNameImpl implements Initializable, View {
     @FXML
     private Label newEventNameLabel;
 
@@ -49,9 +51,7 @@ public class InsertNewCounterNameImpl implements Initializable {
         this.insertEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(0.3));
         this.insertEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(0.2));
     }
-    public final Parent getRoot() {
-        return this.root;
-    }
+
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
         this.newEventNameLabel.setText("Inserisci nome evento: ");
@@ -71,5 +71,10 @@ public class InsertNewCounterNameImpl implements Initializable {
         Stage stage = (Stage) this.insertEvent.getScene().getWindow();
         stage.close();
         return this.textField.getText();
+    }
+
+    @Override
+    public Node getRoot() {
+        return this.root;
     }
 }

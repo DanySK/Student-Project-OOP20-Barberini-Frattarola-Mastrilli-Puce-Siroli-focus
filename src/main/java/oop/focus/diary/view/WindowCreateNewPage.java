@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -17,10 +18,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UseControllerDiary;
 
-public class WindowCreateNewPage implements Initializable {
+public class WindowCreateNewPage implements Initializable, View {
 
     @FXML
     private Label insertTitleLabel;
@@ -43,9 +45,7 @@ public class WindowCreateNewPage implements Initializable {
             e.printStackTrace();
         }
     }
-    public Parent getRoot() {
-        return this.root;
-    }
+
     @FXML
     public final void createNewPage(final ActionEvent event) {
         if (!this.titleDiaryPage.getText().isEmpty() && !this.content.getText().isEmpty()) {
@@ -75,5 +75,9 @@ public class WindowCreateNewPage implements Initializable {
         this.create.setText("Crea");
     }
 
+    @Override
+    public Node getRoot() {
+        return this.root;
+    }
 }
 

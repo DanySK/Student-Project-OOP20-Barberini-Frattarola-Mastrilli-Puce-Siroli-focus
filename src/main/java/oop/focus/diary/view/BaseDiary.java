@@ -160,11 +160,11 @@ public class BaseDiary implements Initializable, View {
         this.toDoListLabel.setText("To Do List");
         this.diaryLabel.setText("Diario");
         this.addPage.setText("Aggiungi");
-        this.addPage.setOnMouseClicked(event -> openWindow(new WindowCreateNewPage().getRoot()));
+        this.addPage.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewPage().getRoot()));
         this.removePage.setText("Rimuovi");
         this.removePage.setDisable(true);
         this.addAnnotation.setText("Aggiungi");
-        this.addAnnotation.setOnMouseClicked(event -> openWindow(new WindowCreateNewAnnotation().getRoot()));
+        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation().getRoot()));
         this.removeAnnotation.setText("Rimuovi");
         this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty()).getAccordion());
         final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty());
@@ -172,7 +172,7 @@ public class BaseDiary implements Initializable, View {
         annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.setContent(annotationView.getListView());
         final DailyMoodViewImpl iconView = new DailyMoodViewImpl();
-        this.containerIcons.setTop(iconView.getGrid());
+        this.containerIcons.setTop(iconView.getRoot());
         this.containerIcons.setBottom(iconView.getButton());
         iconView.getButton().prefWidthProperty().bind(this.dailyMoodLabel.widthProperty().multiply(BUTTON_WIDTH));
         iconView.getButton().prefHeightProperty().bind(this.dailyMoodLabel.heightProperty());

@@ -2,15 +2,15 @@ package oop.focus.diary.view;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import oop.focus.common.View;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import java.io.File;
@@ -20,7 +20,7 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 
-public class DailyMoodViewImpl implements DailyMoodView {
+public class DailyMoodViewImpl implements DailyMoodView, View {
     private static final double ICON_DIM = 0.15;
     private static final double DARK_ICONS = -0.4;
     private static final double LIGHT_ICONS = 0.0;
@@ -96,11 +96,12 @@ public class DailyMoodViewImpl implements DailyMoodView {
         }
 
     @Override
-    public final GridPane getGrid() {
-        return this.grid;
-    }
-    @Override
     public final Button getButton() {
         return this.button;
+    }
+
+    @Override
+    public Node getRoot() {
+        return this.grid;
     }
 }

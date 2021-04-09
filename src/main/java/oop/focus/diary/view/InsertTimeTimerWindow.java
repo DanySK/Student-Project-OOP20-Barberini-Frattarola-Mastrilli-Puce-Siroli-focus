@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.converter.DateTimeStringConverter;
+import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -31,7 +33,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-public class InsertTimeTimerWindow implements Initializable {
+public class InsertTimeTimerWindow implements Initializable, View {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
 
     @FXML
@@ -61,9 +63,7 @@ public class InsertTimeTimerWindow implements Initializable {
         }
     }
 
-    public final Parent getRoot() {
-        return this.root;
-    }
+
 
     private void setTimeFormatter(final TextField field, final String string) {
         SimpleDateFormat format = new SimpleDateFormat(string);
@@ -91,5 +91,10 @@ public class InsertTimeTimerWindow implements Initializable {
             Stage stage = (Stage) this.pane.getScene().getWindow();
             stage.close();
         });
+    }
+
+    @Override
+    public Node getRoot() {
+        return this.root;
     }
 }

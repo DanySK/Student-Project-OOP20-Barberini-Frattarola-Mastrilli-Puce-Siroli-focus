@@ -2,12 +2,14 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.UseTDLController;
 
@@ -15,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WindowCreateNewAnnotation implements Initializable {
+public class WindowCreateNewAnnotation implements Initializable, View {
     @FXML
     private Button createButton;
 
@@ -35,9 +37,7 @@ public class WindowCreateNewAnnotation implements Initializable {
             e.printStackTrace();
         }
     }
-    public Parent getRoot() {
-        return this.root;
-    }
+
     private void createNewAnnotation() {
         if (!this.annotationTitle.getText().isEmpty()) {
             UseTDLController.getCF().addNote(this.annotationTitle.getText());
@@ -55,5 +55,10 @@ public class WindowCreateNewAnnotation implements Initializable {
         this.createButton.setText("Crea");
         this.titleLabel.setText("Aggiungi nota");
         this.createButton.setOnMouseClicked(event -> this.createNewAnnotation());
+    }
+
+    @Override
+    public Node getRoot() {
+        return this.root;
     }
 }

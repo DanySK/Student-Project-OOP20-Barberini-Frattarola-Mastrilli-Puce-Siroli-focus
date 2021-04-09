@@ -5,12 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import oop.focus.common.View;
 import oop.focus.diary.controller.ControllersFactoryImpl;
 import oop.focus.diary.controller.ControllersFactory;
 import oop.focus.diary.controller.CounterControllerImpl;
@@ -25,7 +27,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class StopwatchView implements  Initializable {
+public class StopwatchView implements  Initializable, View {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private static final double INSETS = 20;
     private static final double H_GAP_PERCENTAGE = 0.07;
@@ -88,9 +90,7 @@ public class StopwatchView implements  Initializable {
         grid.setPadding(new Insets(INSETS));
     }
 
-    public final Parent getRoot() {
-        return this.root;
-    }
+
     public final void initialize(final URL location, final ResourceBundle resources) {
         final ControllersFactory factory = new ControllersFactoryImpl();
         final CounterControllerImpl specificController = factory.createStopwatch();
@@ -118,5 +118,10 @@ public class StopwatchView implements  Initializable {
             this.chooseEvent.setDisable(false);
             this.addNewEvent.setDisable(false);
         });
+    }
+
+    @Override
+    public Node getRoot() {
+        return this.root;
     }
 }
