@@ -76,7 +76,7 @@ public class DataSourceImpl implements DataSource {
         return Objects.requireNonNullElseGet(this.persons, () -> new CachedDao<>(new ParserImpl<>("person", a -> new PersonImpl(a.remove(1),
                 this.relationship.getValue(Integer.parseInt(a.remove(1))).orElse("null")),
                 List.of(new Pair<>("name", Person::getName),
-                        new Pair<>("id_relationship", p -> this.relationship.getId(p.getDegreeOfKinship())
+                        new Pair<>("id_relationship", p -> this.relationship.getId(p.getRelationships())
                                 .orElse(NA).toString())))));
     }
     @Override
