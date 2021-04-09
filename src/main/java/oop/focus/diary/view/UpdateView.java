@@ -1,7 +1,8 @@
-package oop.focus.diary.controller;
+package oop.focus.diary.view;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import oop.focus.diary.controller.CounterControllerImpl;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 

@@ -10,18 +10,16 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.diary.controller.ControllerFactoryImpl;
+import oop.focus.diary.controller.ControllersFactoryImpl;
 import oop.focus.diary.controller.ControllersFactory;
 import oop.focus.diary.controller.CounterControllerImpl;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.UpdateView;
 import oop.focus.diary.controller.UseTotalTimeController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -139,7 +137,7 @@ public class TimerView implements Initializable {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        final ControllersFactory factory = new ControllerFactoryImpl();
+        final ControllersFactory factory = new ControllersFactoryImpl();
         this.specificController = factory.createTimer();
         final UpdateView connection = new UpdateView(this.specificController, this.counterLabel);
         this.modifyAllButtons(true);

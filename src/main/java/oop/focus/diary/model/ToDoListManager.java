@@ -28,7 +28,7 @@ public interface ToDoListManager {
     /**
      * Return all the annotation saved.
      * 
-     * @return  a list of all ToDoList's sections
+     * @return  a set of all ToDoList's sections
      */
     ObservableSet<ToDoAction> getAnnotations();
 }

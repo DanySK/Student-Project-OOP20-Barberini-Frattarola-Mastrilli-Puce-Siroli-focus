@@ -11,11 +11,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import oop.focus.diary.controller.ControllerFactoryImpl;
+import oop.focus.diary.controller.ControllersFactoryImpl;
 import oop.focus.diary.controller.ControllersFactory;
 import oop.focus.diary.controller.CounterControllerImpl;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.UpdateView;
 import oop.focus.diary.controller.UseTotalTimeController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -93,7 +92,7 @@ public class StopwatchView implements  Initializable {
         return this.root;
     }
     public final void initialize(final URL location, final ResourceBundle resources) {
-        final ControllersFactory factory = new ControllerFactoryImpl();
+        final ControllersFactory factory = new ControllersFactoryImpl();
         final CounterControllerImpl specificController = factory.createStopwatch();
         final UpdateView connection = new UpdateView(specificController, this.counterLabel);
         this.startButton.setDisable(true);
