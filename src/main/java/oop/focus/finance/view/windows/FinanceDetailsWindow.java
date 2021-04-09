@@ -3,9 +3,19 @@ package oop.focus.finance.view.windows;
 public interface FinanceDetailsWindow<X> {
 
     /**
-     * Method that allows you to modify the populate.
+     * Populates static labels of fxml file.
      */
-    void edits();
+    void populateStaticLabels();
+
+    /**
+     * Populates dynamic labels of fxml file.
+     */
+    void populateDynamicLabels();
+
+    /**
+     * Populates buttons of fxml file.
+     */
+    void populateButtons();
 
     /**
      * @return the window controller

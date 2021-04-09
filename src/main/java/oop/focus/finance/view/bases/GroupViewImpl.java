@@ -19,7 +19,9 @@ import oop.focus.finance.view.tiles.GroupTransactionViewImpl;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.finance.view.windows.AddPersonViewImpl;
+import oop.focus.finance.view.windows.GroupTransactionDetailsWindowImpl;
 import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
+import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
 import oop.focus.finance.view.windows.ResolveViewImpl;
 import oop.focus.homepage.model.Person;
 
@@ -61,7 +63,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         final VBox box = new VBox();
         personTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         personTiles.forEach(t -> t.getRoot()
-                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> super.getX().deletePerson(t.getElement())));
+                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showWindow(new PersonDetailsWindowImpl(super.getX(), t.getElement()))));
         this.groupMovementsScroll.setContent(box);
     }
 
@@ -74,7 +76,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         final VBox box = new VBox();
         transactionTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionTiles.forEach(t -> t.getRoot()
-                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> super.getX().deleteTransaction(t.getTransaction())));
+                .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
         this.groupMovementsScroll.setContent(box);
     }
 

@@ -1,40 +1,48 @@
 package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import oop.focus.common.Repetition;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.TransactionsController;
-import oop.focus.finance.model.Transaction;
+import oop.focus.finance.controller.GroupController;
+import oop.focus.finance.model.GroupTransaction;
 
 import java.text.DecimalFormat;
 
-public class TransactionDetailsWindowImpl extends GenericDetailsWindow<TransactionsController, Transaction> {
+public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<GroupController, GroupTransaction> {
 
     @FXML
     private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
             dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
+    @FXML
+    private Button deleteButton;
 
-    public TransactionDetailsWindowImpl(final TransactionsController controller, final Transaction transaction) {
+    public GroupTransactionDetailsWindowImpl(final GroupController controller, final GroupTransaction transaction) {
         super(controller, transaction, FXMLPaths.TRANSACTIONDETAILS);
+    }
+
+    @Override
+    public final void populateStaticLabels() {
+        this.titleLabel.setText("DETTAGLI TRANSAZIONE DI GRUPPO");
+        this.descriptionLabel.setText("Descrizione:");
+        this.categoryLabel.setText("Fatta da:");
+        this.dateLabel.setText("Per:");
+        this.amountLabel.setText("Importo:");
     }
 
     @Override
     public final void populateDynamicLabels() {
         this.dataDescriptionLabel.setText(super.getX().getDescription());
-        this.dataCategoryLabel.setText(super.getX().getCategory().getName());
-        this.dataDateLabel.setText(super.getX().getDateToString());
-        this.dataAccountLabel.setText(super.getX().getAccount().toString());
+        this.dataCategoryLabel.setText(super.getX().getMadeBy().getName());
+        this.dataDateLabel.setText(super.getX().getForList().toString());
         DecimalFormat df = new DecimalFormat("#.00");
         this.dataAmountLabel.setText("E " + df.format((double) super.getX().getAmount() / 100));
-        this.dataSubscriptionLabel.setText(super.getX().getRepetition().equals(Repetition.ONCE) ? "No"
-                : super.getX().getRepetition().getName());
     }
 
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler elminare la transazione?");
+        var result = super.confirm("Sicuro di voler elminare questa transazione di gruppo?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getController().deleteTransaction(super.getX());
         }
