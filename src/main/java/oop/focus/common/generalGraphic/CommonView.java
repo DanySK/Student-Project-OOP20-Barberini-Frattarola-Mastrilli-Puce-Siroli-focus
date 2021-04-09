@@ -1,5 +1,6 @@
 package oop.focus.common.generalGraphic;
 
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -10,16 +11,15 @@ import java.util.Map;
 
 
 public class CommonView {
-    BorderPane pane;
-    Map<Button, BorderPane> map;
-    Integer width;
-    Integer height;
-    HBox box;
-    public CommonView(Integer width, Integer height) {
+    private BorderPane pane;
+    private Map<Button, BorderPane> map;
+    private Integer width;
+    private Integer height;
+    private HBox box;
+    public CommonView(final Dimension2D dim) {
         this.pane = new BorderPane();
         this.map = new HashMap<>();
-        this.width = width;
-        this.height = height;
+        this.pane.setPrefSize(dim.getWidth(), dim.getHeight());
         this.box = new HBox();
         this.createButton();
         this.setView();
