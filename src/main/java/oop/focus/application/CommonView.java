@@ -11,11 +11,9 @@ import java.util.Map;
 
 
 public class CommonView {
-    private BorderPane pane;
-    private Map<Button, BorderPane> map;
-    private Integer width;
-    private Integer height;
-    private HBox box;
+    private final BorderPane pane;
+    private final Map<Button, BorderPane> map;
+    private final HBox box;
     public CommonView(final Dimension2D dim) {
         this.pane = new BorderPane();
         this.map = new HashMap<>();
@@ -31,10 +29,10 @@ public class CommonView {
         for (var elem : Sections.values()) {
             Button button = new Button(elem.getName());
             this.box.getChildren().add(button);
-            this.box.setMinWidth(0.1*width);
-            this.box.setMinHeight(0.2 *height);
-            button.setMinHeight(0.1 * width);
-            button.setMinWidth(0.2 * width);
+            this.box.setMinWidth(0.1* pane.getWidth());
+            this.box.setMinHeight(0.2 * pane.getHeight());
+            button.setMinHeight(0.1 * pane.getHeight());
+            button.setMinWidth(0.2 * pane.getWidth());
             BorderPane borderPane = new BorderPane();
             borderPane.getStyleClass().add(elem.getStyle());
             this.map.put(button, borderPane);
@@ -42,13 +40,13 @@ public class CommonView {
     }
     public void setView() {
         box.setAlignment(Pos.CENTER);
-        box.setSpacing(this.height * 0.01);
+        box.setSpacing(pane.getHeight() * 0.01);
         this.pane.setTop(box);
        // BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
         if(!this.map.isEmpty()){
             for(var elem : this.map.keySet()) {
-                map.get(elem).setPrefWidth(0.08 * this.width);
-                map.get(elem).setPrefHeight(0.08 * this.height);
+                map.get(elem).setPrefWidth(0.08 * pane.getWidth());
+                map.get(elem).setPrefHeight(0.08 * pane.getHeight());
                 elem.setOnMouseClicked(event -> pane.setCenter(map.get(elem)));
 
             }

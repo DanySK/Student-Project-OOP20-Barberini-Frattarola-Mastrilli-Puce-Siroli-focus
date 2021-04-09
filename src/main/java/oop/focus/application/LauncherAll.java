@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oop.focus.application.CommonView;
+
+import java.awt.*;
 
 
 public class LauncherAll extends Application {
     private static final String PATH_MAIN_STYLE = "/layouts/generalGraphics/GeneralStyle.css";
-    private final CommonView commonView = new CommonView(new Dimension2D(1000, 800));
+    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private final double width = this.screenSize.getWidth() * 0.7;
+    private final double height = this.screenSize.getHeight() * 0.7;
+    private final CommonView commonView = new CommonView(new Dimension2D(this.width, this.height));
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         //final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
