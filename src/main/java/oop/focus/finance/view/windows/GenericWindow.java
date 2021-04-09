@@ -5,7 +5,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.view.bases.GenericView;
-import oop.focus.homepage.view.AllertGenerator;
 
 public abstract class GenericWindow<X> extends GenericView<X> implements FinanceWindow {
 
@@ -32,11 +31,5 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
             return true;
         }
         return false;
-    }
-
-    @Override
-    public final void allert() {
-        final AllertGenerator allert = new AllertGenerator();
-        allert.showAllert();
     }
 }

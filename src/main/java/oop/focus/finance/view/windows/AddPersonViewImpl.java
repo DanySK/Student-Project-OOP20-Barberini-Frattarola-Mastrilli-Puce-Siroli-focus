@@ -25,7 +25,7 @@ public class AddPersonViewImpl extends GenericWindow<GroupController> {
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.titleLabel.setText("Nuova persona");
         this.selectLabel.setText("Seleziona la persona da aggiungere:");
         this.newPersonLabel.setText("Clicca qui invece per creare una nuova persona:");
@@ -45,7 +45,7 @@ public class AddPersonViewImpl extends GenericWindow<GroupController> {
     @Override
     public final void save() {
         if (this.personChoice.getValue() == null) {
-            super.allert();
+            super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().addPerson(this.personChoice.getValue());
             this.close();

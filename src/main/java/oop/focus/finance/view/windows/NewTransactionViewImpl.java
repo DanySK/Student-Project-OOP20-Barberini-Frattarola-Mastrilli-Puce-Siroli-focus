@@ -37,7 +37,7 @@ public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageControl
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.titleLabel.setText("Nuova transazione");
         this.descriptionLabel.setText("Descrizione:");
         this.amountLabel.setText("Importo:                E");
@@ -60,7 +60,7 @@ public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageControl
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.repetitionChioce.getValue() == null
                 || (this.dataPicker.getValue() != null && this.dataPicker.getValue().isAfter(LocalDate.now()))) {
-            super.allert();
+            super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().newTransaction(this.descriptionTextField.getText(),
                     Double.parseDouble(this.amountTextField.getText()), this.categoryChoice.getValue(),

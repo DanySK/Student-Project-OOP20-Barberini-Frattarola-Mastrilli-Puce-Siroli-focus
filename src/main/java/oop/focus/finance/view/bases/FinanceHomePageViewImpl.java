@@ -35,7 +35,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.populateFastAccounts();
         this.populateFastTransactions();
         this.populateFinanceHotKeys();

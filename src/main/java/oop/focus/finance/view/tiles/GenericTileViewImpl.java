@@ -22,7 +22,7 @@ public class GenericTileViewImpl<X> extends GenericView<X> implements GenericTil
     }
 
     @Override
-    protected void populate() { }
+    public void populate() { }
 
     @Override
     public final X getElement() {

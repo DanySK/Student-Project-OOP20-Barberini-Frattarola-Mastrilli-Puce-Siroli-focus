@@ -25,7 +25,7 @@ public class NewAccountViewImpl extends GenericWindow<TransactionsController> {
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.titleLabel.setText("Nuovo conto");
         this.nameLabel.setText("Nome:");
         this.amountLabel.setText("Importo:                E");
@@ -41,10 +41,10 @@ public class NewAccountViewImpl extends GenericWindow<TransactionsController> {
     public final void save() {
         if (this.nameTextfield.getText().isEmpty() || isNotNumeric(this.amountTextfield.getText())
                 || this.colorChoiche.getValue().isEmpty()) {
-            super.allert();
+            super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().newAccount(this.nameTextfield.getText(), this.colorChoiche.getValue(),
-                    Double.parseDouble(this.amountTextfield.getText()));
+                        Double.parseDouble(this.amountTextfield.getText()));
             this.close();
         }
     }

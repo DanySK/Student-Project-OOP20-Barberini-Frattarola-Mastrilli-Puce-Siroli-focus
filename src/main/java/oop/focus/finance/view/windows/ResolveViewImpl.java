@@ -2,6 +2,7 @@ package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -22,21 +23,20 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
     @FXML
     private ScrollPane resolveScroll;
     @FXML
-    private Button cancelButton, saveButton, showButton;
+    private Button cancelButton, saveButton;
 
     public ResolveViewImpl(final GroupController groupController) {
         super(groupController, FXMLPaths.RESOLVE);
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.resolveLabel.setText("Risolvi");
         this.cancelButton.setText("Cancella");
         this.saveButton.setText("Salva");
-        this.showButton.setText("Mostra");
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
-        this.showButton.setOnAction(event -> this.showResolvingTiles());
+        this.showResolvingTiles();
     }
 
     private void showResolvingTiles() {
@@ -49,7 +49,10 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
 
     @Override
     public final void save() {
-        super.getX().resolve();
+        var result = super.confirm("Sicuro di voler eseguire le transazioni risolutive?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            super.getX().resolve();
+        }
         this.close();
     }
 

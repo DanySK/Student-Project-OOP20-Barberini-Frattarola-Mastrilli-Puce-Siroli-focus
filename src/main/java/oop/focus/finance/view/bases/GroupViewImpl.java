@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -47,7 +48,6 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(super.getX())));
         this.newGroupTransactionButton.setText("Crea transazione");
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(new NewGroupTransactionViewImpl(super.getX())));
-
     }
 
     @Override
@@ -68,7 +68,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     @Override
     public final void showTransactions(final ObservableSet<GroupTransaction> transactions) {
         this.newPersonButton.setText("Reset");
-        this.newPersonButton.setOnAction(event -> super.getX().reset());
+        this.newPersonButton.setOnAction(event -> this.reset());
         final List<GroupTransactionView> transactionTiles = new ArrayList<>();
         transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
         final VBox box = new VBox();
@@ -82,5 +82,12 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) impl.getRoot()));
         stage.show();
+    }
+
+    private void reset() {
+        var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            super.getX().reset();
+        }
     }
 }

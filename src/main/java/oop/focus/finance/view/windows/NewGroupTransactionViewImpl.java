@@ -34,7 +34,7 @@ public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> 
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.titleLabel.setText("Nuova transazione di gruppo");
         this.descriptionLabel.setText("Descrizione:");
         this.madeByLabel.setText("Fatta da:");
@@ -53,7 +53,7 @@ public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> 
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null) {
-            super.allert();
+            super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
                     this.multiSelector.getSelected(), Double.parseDouble(this.amountTextField.getText()));

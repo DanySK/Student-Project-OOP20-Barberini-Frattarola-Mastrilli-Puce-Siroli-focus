@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -43,7 +44,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     public final void populate() {
         this.newAccountButton.setText("Crea Conto");
         this.newAccountButton.setOnAction(event -> this.showNewAccount());
-        this.deleteButton.setOnAction(event -> super.getX().deleteAccounts());
+        this.deleteButton.setOnAction(event -> this.deleteAccounts());
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
     }
@@ -57,7 +58,8 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         final VBox box = new VBox();
         transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
-        transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showDetails(t.getTransaction())));
+        transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> this.showDetails(t.getTransaction())));
         this.transactionsScroll.setContent(box);
     }
 
@@ -73,5 +75,12 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newAccount.getRoot()));
         stage.show();
+    }
+
+    private void deleteAccounts() {
+        var result = super.confirm("Sicuro di voler eliminare " + super.getX().getAccountName() + "?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            super.getX().deleteAccounts();
+        }
     }
 }

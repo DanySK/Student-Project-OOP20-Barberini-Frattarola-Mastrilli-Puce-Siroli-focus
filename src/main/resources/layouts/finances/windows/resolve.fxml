@@ -10,8 +10,7 @@
    <Label fx:id="resolveLabel" prefHeight="58.0" prefWidth="350.0" />
    <ScrollPane fx:id="resolveScroll" prefHeight="277.0" prefWidth="350.0" />
    <Pane prefHeight="64.0" prefWidth="350.0">
-      <Button fx:id="cancelButton" layoutX="28.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0"/>
-      <Button fx:id="saveButton" layoutX="229.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0"/>
-      <Button fx:id="showButton" layoutX="129.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0"/>
+      <Button fx:id="cancelButton" layoutX="28.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="118.0" />
+      <Button fx:id="saveButton" layoutX="197.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" />
    </Pane>
 </VBox>

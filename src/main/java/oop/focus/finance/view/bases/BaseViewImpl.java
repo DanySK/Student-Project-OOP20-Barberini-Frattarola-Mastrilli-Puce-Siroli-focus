@@ -26,7 +26,7 @@ public class BaseViewImpl extends GenericView<BaseController> implements BaseVie
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         final Node buttons = new ButtonsBoxImpl(super.getX());
         this.menuScroll.setContent(buttons);
     }

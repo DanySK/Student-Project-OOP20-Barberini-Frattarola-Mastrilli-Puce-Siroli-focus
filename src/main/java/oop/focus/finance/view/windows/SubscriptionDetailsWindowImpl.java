@@ -2,6 +2,7 @@ package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.SubscriptionsController;
@@ -27,7 +28,10 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
 
     @Override
     public final void save() {
-        super.getController().stopSubscription(super.getX());
+        var result = super.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            super.getController().stopSubscription(super.getX());
+        }
         this.close();
     }
 }

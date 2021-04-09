@@ -25,7 +25,7 @@ public abstract class GenericDetailsWindow<X> extends GenericWindow<Transaction>
     }
 
     @Override
-    protected final void populate() {
+    public final void populate() {
         this.populateStaticLabels();
         this.populateDynamicLabels();
         this.populateButtons();
