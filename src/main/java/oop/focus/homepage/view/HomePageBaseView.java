@@ -98,6 +98,8 @@ public class HomePageBaseView implements Initializable, View {
 
             monthController.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
             monthController.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
+            monthController.disableButton(true);
+
             this.calendarHBox.getChildren().add(monthController.getMonthView());
         }
 

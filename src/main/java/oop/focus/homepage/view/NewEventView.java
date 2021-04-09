@@ -44,6 +44,7 @@ public class NewEventView implements Initializable, View {
 
     public NewEventView(final HomePageController controller) {
         this.controller = controller;
+
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/addNewEvent.fxml"));
         loader.setController(this);
 

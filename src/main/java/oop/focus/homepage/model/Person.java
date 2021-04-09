@@ -21,5 +21,8 @@ public interface Person {
 
     void setRelationships(String newValue);
 
+    String toStringForName();
+
+    String toString();
 
 }

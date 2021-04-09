@@ -1,15 +1,13 @@
 package oop.focus.homepage.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import oop.focus.common.Repetition;
@@ -20,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import oop.focus.homepage.model.Person;
+import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -31,7 +31,7 @@ public class NewEventWeekView implements Initializable, View {
     private Label newEvent;
 
     @FXML
-    private Label name, startDay, endDay, startHour, endHour, repetition;
+    private Label name, startDay, endDay, startHour, endHour, repetition, persons;
 
     @FXML
     private DatePicker datePickerStart, datePickerEnd;
@@ -44,6 +44,9 @@ public class NewEventWeekView implements Initializable, View {
 
     @FXML
     private Button save, goBack, delete;
+
+    @FXML
+    private ListView<String> listOfPersons;
 
     private final WeekController controller;
     private Parent root;
@@ -63,6 +66,13 @@ public class NewEventWeekView implements Initializable, View {
     public final void initialize(final URL location, final ResourceBundle resources) {
         final ComboBoxFiller filler = new ComboBoxFiller();
         this.fillComboBox(filler);
+        this.fillTheList();
+    }
+
+    public final void fillTheList() {
+        ObservableList<Person> list = FXCollections.observableArrayList(new PersonImpl("Sara", "cugina"), new PersonImpl("Cristina", "mamma"));
+        list.forEach(p -> this.listOfPersons.getItems().add(p.toString()));
+        this.listOfPersons.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     private void fillComboBox(final ComboBoxFiller filler) {

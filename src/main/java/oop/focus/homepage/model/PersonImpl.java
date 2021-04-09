@@ -73,4 +73,12 @@ public class PersonImpl implements Person {
     public final void setRelationships(final String newValue) {
         this.relationships = newValue;
     }
+
+    public final String toString(){
+        return this.name + " " + this.relationships;
+    }
+
+    public final String toStringForName(){
+        return " " + this.name;
+    }
 }
