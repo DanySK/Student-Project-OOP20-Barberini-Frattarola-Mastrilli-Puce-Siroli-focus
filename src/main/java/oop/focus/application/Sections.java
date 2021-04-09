@@ -1,4 +1,4 @@
-package oop.focus.common.generalGraphic;
+package oop.focus.application;
 
 public enum Sections {
     /**

@@ -1,9 +1,10 @@
-package oop.focus.common.generalGraphic;
+package oop.focus.application;
 
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oop.focus.application.CommonView;
 
 
 public class LauncherAll extends Application {
