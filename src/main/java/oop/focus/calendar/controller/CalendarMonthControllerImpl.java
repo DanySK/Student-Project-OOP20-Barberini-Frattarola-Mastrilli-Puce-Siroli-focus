@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import oop.focus.calendar.model.CalendarLogic;
@@ -113,6 +114,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             counter++;
 
             final Button jb = new Button(" " + day.getNumber() + " ");
+            jb.setShape(new Circle(DIM));
             jb.setFont(Font.font(fontsize));
             jb.setAlignment(Pos.CENTER);
             jb.setOnAction(getDayView());

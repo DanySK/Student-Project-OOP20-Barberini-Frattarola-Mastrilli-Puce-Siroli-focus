@@ -1,12 +1,17 @@
 package oop.focus.calendar.view;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import oop.focus.calendar.controller.CalendarSettingsController;
 import oop.focus.calendar.model.Format;
 
@@ -29,6 +34,9 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     private VBox buildSettingsView() {
 
         final VBox container = new VBox();
+
+        container.setBackground(new Background(
+                new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 
         final GridPane settings = new GridPane();
 

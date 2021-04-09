@@ -47,6 +47,7 @@ public class CalendarViewImpl implements CalendarView {
         columnButton(buttoncolumn, "Mese", calendarcontroller.monthPanel(panelcolumn));
         columnButton(buttoncolumn, "Settimana", calendarcontroller.weekPanel(panelcolumn));
         columnButton(buttoncolumn, "Statistiche", calendarcontroller.statisticsPanel(panelcolumn));
+        buttoncolumn.getChildren().add(calendarcontroller.buildAddEventButton());
         buttoncolumn.getChildren().add(calendarcontroller.buildSettingsWindows());
 
         final HBox calendarpage = calendarcontroller.getCalendarPage();

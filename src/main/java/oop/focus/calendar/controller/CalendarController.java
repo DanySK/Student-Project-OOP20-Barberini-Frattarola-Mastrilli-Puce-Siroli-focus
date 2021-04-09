@@ -22,9 +22,15 @@ public interface CalendarController {
 
     /**
      * Used for build the Settings button and his window.
-     * @return settings button
+     * @return button
      */
     Button buildSettingsWindows();
+
+    /**
+     * Used for build the Add Event button and his window.
+     * @return button
+     */
+    Button buildAddEventButton();
 
     /**
      * Used for show the month panel.

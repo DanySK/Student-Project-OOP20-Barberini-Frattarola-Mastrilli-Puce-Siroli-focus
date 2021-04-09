@@ -81,7 +81,7 @@ public class EventViewImpl implements VBoxManager {
         final Label name = new Label(this.events.get(i).getName());
 
         panel.setBackground(new Background(
-                new BackgroundFill(Color.YELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         panel.setBorder(new Border(
                 new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
@@ -105,9 +105,7 @@ public class EventViewImpl implements VBoxManager {
     public final void buildVBox() {
         checkSpacing();
         final VBox vbox = new VBox();
-        vbox.setBackground(new Background(new BackgroundFill(Color.RED,
-                CornerRadii.EMPTY,
-                Insets.EMPTY)));
+        vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         for (int i = 0; i < this.events.size(); i++) {
             buildPanel(vbox, i);
         }

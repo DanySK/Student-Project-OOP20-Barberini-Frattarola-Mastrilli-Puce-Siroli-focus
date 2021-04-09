@@ -71,6 +71,17 @@ public class CalendarControllerImpl implements CalendarController {
         return settings;
     }
 
+    public final Button buildAddEventButton() {
+        final Button addevents = new Button("Aggiungi Evento");
+
+        final Stage addeventsstage = new Stage();
+        //addeventsstage.setScene(new Scene());
+        addevents.setOnAction((e) -> {
+            addeventsstage.show();
+        });
+        return addevents;
+    }
+
     public final EventHandler<ActionEvent> monthPanel(final VBox panelcolumn) {
         return new EventHandler<ActionEvent>() {
 
