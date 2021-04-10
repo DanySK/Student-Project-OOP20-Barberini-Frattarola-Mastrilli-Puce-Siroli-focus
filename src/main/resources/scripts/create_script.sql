@@ -104,18 +104,27 @@ create table if not exists ACCOUNT
 
 create table if not exists TRANSACTION
 (
-    ID          INT auto_increment
-        primary key,
-    DESCRIPTION VARCHAR(100),
-    ID_CATEGORY INT     not null,
-    DATE        DATE    not null,
-    ID_ACCOUT   INT     not null,
+    ID
+                INT
+        auto_increment
+        primary
+            key,
+    DESCRIPTION
+                VARCHAR(100),
+    ID_CATEGORY INT          not null,
+    DATE        VARCHAR(100) not null,
+    ID_ACCOUT   INT          not null,
     AMOUNT      INT,
-    TYPE        INT     not null,
-    IS_LAST     TINYINT not null,
-
+    TYPE        INT          not null,
+    IS_LAST     TINYINT      not null,
     constraint FK_7
-        foreign key (ID_CATEGORY) references CATEGORY (ID),
+        foreign key
+            (
+             ID_CATEGORY
+                ) references CATEGORY
+            (
+             ID
+                ),
     constraint FK_8
         foreign key (ID_ACCOUT) references ACCOUNT (ID)
             on delete cascade
