@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 
-import oop.focus.diary.controller.UseTDLController;
+import oop.focus.diary.controller.ToDoListControllerImpl;
 import oop.focus.diary.model.ToDoAction;
 
 
@@ -20,14 +20,16 @@ public class AnnotationViewImpl implements AnnotationView {
     private final ObservableList<CheckBox> checkBoxes;
     private final Button remove;
     private final ReadOnlyDoubleProperty height;
-    public AnnotationViewImpl(final Button remove, final ReadOnlyDoubleProperty height)  {
+    private final ToDoListControllerImpl controller;
+    public AnnotationViewImpl(final Button remove, final ReadOnlyDoubleProperty height, final ToDoListControllerImpl controller)  {
+        this.controller = controller;
         this.height = height;
         this.remove = remove;
         this.remove.setDisable(true);
         this.checkBoxes =  FXCollections.observableArrayList();
         this.listView = new ListView<>();
         this.updateTDLView();
-        UseTDLController.getCF().allAnnotations().addListener((ListChangeListener<ToDoAction>) c -> {
+       controller.allAnnotations().addListener((ListChangeListener<ToDoAction>) c -> {
             while (c.next()) {
                 if (c.wasAdded()) {
                     final ToDoAction change = c.getAddedSubList().get(0);
@@ -35,10 +37,10 @@ public class AnnotationViewImpl implements AnnotationView {
                 }
             }
         });
-        this.checkBoxes.forEach(a -> a.setOnAction(event -> UseTDLController.getCF().changeCheck(a.getText())));
+        this.checkBoxes.forEach(a -> a.setOnAction(event -> controller.changeCheck(a.getText())));
         this.remove.setOnMouseClicked(event -> {
             final String a = this.listView.getSelectionModel().getSelectedItem().getText();
-            UseTDLController.getCF().remove(a);
+            controller.remove(a);
             this.listView.getItems().clear();
             this.updateTDLView();
         });
@@ -60,7 +62,7 @@ public class AnnotationViewImpl implements AnnotationView {
     }
 
     private void updateTDLView() {
-        UseTDLController.getCF().allAnnotations().stream().map(this::createCheckBox).forEach(this.checkBoxes::add);
+        controller.allAnnotations().stream().map(this::createCheckBox).forEach(this.checkBoxes::add);
     }
 
 }

@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import oop.focus.common.View;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,8 +31,8 @@ public class DailyMoodViewImpl implements DailyMoodView, View {
     private final Button button;
     private final ObservableList<ImageView> images;
     private final DailyMoodControllerImpl controller;
-    public DailyMoodViewImpl() {
-        this.controller = new DailyMoodControllerImpl();
+    public DailyMoodViewImpl(final DailyMoodControllerImpl controller) {
+        this.controller = controller;
         this.grid = new GridPane();
         this.button = new Button("Modifica");
         this.images = FXCollections.observableArrayList();
@@ -101,7 +102,7 @@ public class DailyMoodViewImpl implements DailyMoodView, View {
     }
 
     @Override
-    public Node getRoot() {
+    public final Node getRoot() {
         return this.grid;
     }
 }

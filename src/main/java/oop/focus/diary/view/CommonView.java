@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.diary.controller.CounterControllerImpl;
 
-import oop.focus.diary.controller.UseTotalTimeController;
+import oop.focus.diary.controller.TotalTimeControllerImpl;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -70,28 +70,30 @@ public final class CommonView {
         box.setDisable(true);
     }
     public static void addStopTimer(final CounterControllerImpl specificController, final Button startButton,
-                                    final Button stopButton, final Label timeLabel, final ComboBox<String> chooseEvent, final DateTimeFormatter timeFormatter) {
+                                    final Button stopButton, final Label timeLabel, final ComboBox<String> chooseEvent,
+                                    final DateTimeFormatter timeFormatter, final TotalTimeControllerImpl controller) {
         specificController.stopTimer();
         startButton.setDisable(false);
         stopButton.setDisable(true);
-        timeLabel.setText(UseTotalTimeController.getTotalTimeController().getTotalTime(chooseEvent.getValue()).toString(timeFormatter));
+        timeLabel.setText(controller.getTotalTime(chooseEvent.getValue()).toString(timeFormatter));
 
     }
-    private static void openWindow(final Dimension2D dim) {
-        final Scene scene = new Scene((Parent) new InsertNewCounterNameImpl().getRoot());
+    private static void openWindow(final Dimension2D dim, final TotalTimeControllerImpl controller) {
+        final Scene scene = new Scene((Parent) new InsertNewCounterNameImpl(controller).getRoot());
         final Stage window = new Stage();
         window.setScene(scene);
         window.show();
     }
     public static void setConfig(final ComboBox<String> chooseEvent, final Label nameEventLabel, final Button startButton,
-                          final Button stopButton, final Button eventButton, final Button addNewEvent, final Dimension2D dim) {
-        chooseEvent.getItems().addAll(UseTotalTimeController.getTotalTimeController().getAllEvents());
+                                 final Button stopButton, final Button eventButton, final Button addNewEvent, final Dimension2D dim,
+                                 final TotalTimeControllerImpl controller) {
+        chooseEvent.getItems().addAll(controller.getAllEvents());
         nameEventLabel.setText("Inserisci evento");
         startButton.setText("Start");
         stopButton.setText("Stop");
         eventButton.setText("+");
-        addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(dim));
-        UseTotalTimeController.getTotalTimeController().getAllEvents().addListener((SetChangeListener<String>) change -> {
+        addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(dim, controller));
+       controller.getAllEvents().addListener((SetChangeListener<String>) change -> {
             if (change.wasAdded()) {
                 chooseEvent.getItems().add(change.getElementAdded());
                 chooseEvent.setValue(change.getElementAdded());

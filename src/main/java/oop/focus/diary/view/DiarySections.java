@@ -3,7 +3,7 @@ package oop.focus.diary.view;
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-
+/*
 public enum DiarySections {
     DIARY("Diario", "", new BaseDiary().getRoot()),
     STOPWATCH("Cronometro", "", new StopwatchView(new Dimension2D(1000, 400)).getRoot()),
@@ -28,3 +28,6 @@ public enum DiarySections {
         return this.view;
     }
 }
+
+
+ */

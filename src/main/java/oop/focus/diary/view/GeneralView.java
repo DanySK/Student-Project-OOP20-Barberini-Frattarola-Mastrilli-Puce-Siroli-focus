@@ -19,7 +19,7 @@ public class GeneralView implements View {
         this.setView(dim);
     }
     private void setView(Dimension2D dim) {
-        for(var elem : DiarySections.values()) {
+        /*for(var elem : DiarySections.values()) {
             Button b = new Button(elem.getName());
             b.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -27,6 +27,10 @@ public class GeneralView implements View {
                     pane.setCenter(elem.getView());
                 }
             });
+
+         */
+            Button b = new Button("ci");
+
             b.prefWidthProperty().bind(this.vBox.widthProperty());
             b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(0.3));
             this.vBox.getChildren().add(b);
@@ -37,7 +41,7 @@ public class GeneralView implements View {
 
             this.pane.setLeft(this.vBox);
         }
-    }
+
 
     @Override
     public Node getRoot() {

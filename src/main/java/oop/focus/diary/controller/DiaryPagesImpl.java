@@ -3,14 +3,13 @@ package oop.focus.diary.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 import javafx.collections.ObservableSet;
-import oop.focus.common.Linker;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.DiaryImpl;
 
 public class DiaryPagesImpl implements DiaryPages {
     private final DiaryDao diaryDao;
-    public DiaryPagesImpl() {
-        this.diaryDao = new DiaryDao();
+    public DiaryPagesImpl(final DiaryDao diaryDao) {
+        this.diaryDao = diaryDao;
     }
     @Override
     public final List<String> filesName() {

@@ -19,8 +19,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oop.focus.common.View;
+import oop.focus.diary.controller.DiaryPagesImpl;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.UseControllerDiary;
+
 
 public class WindowCreateNewPage implements Initializable, View {
 
@@ -36,7 +37,9 @@ public class WindowCreateNewPage implements Initializable, View {
     @FXML
     private Button create;
     private Parent root;
-    public WindowCreateNewPage() {
+    private final DiaryPagesImpl controller;
+    public WindowCreateNewPage(final DiaryPagesImpl controller) {
+        this.controller = controller;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_DIARY_PAGE.getPath()));
         loader.setController(this);
         try {
@@ -57,7 +60,7 @@ public class WindowCreateNewPage implements Initializable, View {
                 alert.setContentText("Il titolo della pagina di diario non deve avere caratteri speciali");
                 alert.showAndWait();
             } else {
-                UseControllerDiary.getCF().createPage(this.titleDiaryPage.getText(), this.content.getText());
+               controller.createPage(this.titleDiaryPage.getText(), this.content.getText());
                 Stage stage = (Stage) this.content.getScene().getWindow();
                 stage.close();
             }

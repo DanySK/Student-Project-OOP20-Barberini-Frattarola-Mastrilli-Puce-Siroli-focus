@@ -7,22 +7,21 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import oop.focus.diary.controller.DiaryPagesImpl;
-import oop.focus.diary.controller.UseControllerDiary;
 import oop.focus.diary.model.DiaryImpl;
 
 public class PagesViewImpl implements PagesView {
     private static final double TITLED_PANE_DIM = 0.474;
     private final Accordion pages;
-    private final DiaryPagesImpl cf;
     private String toRemove;
     private final Button remove;
     private final ObservableSet<DiaryImpl> set;
-
-    public PagesViewImpl(final Button rem, final ReadOnlyDoubleProperty width, final ReadOnlyDoubleProperty height) {
+    private final DiaryPagesImpl controller;
+    public PagesViewImpl(final Button rem, final ReadOnlyDoubleProperty width, final ReadOnlyDoubleProperty height,
+                         final DiaryPagesImpl controller) {
         this.remove = rem;
-        this.cf = UseControllerDiary.getCF();
+        this.controller = controller;
         System.out.println("qui");
-        this.set = this.cf.getObservableSet();
+        this.set = controller.getObservableSet();
         this.pages = new Accordion();
         this.insertPages();
         this.setProperties(width, height);
@@ -46,12 +45,12 @@ public class PagesViewImpl implements PagesView {
     }
 
     private void updateView(final String s) {
-        this.pages.getPanes().add(new SingleTitledPaneDiaryImpl().createTitledPane(s));
+        this.pages.getPanes().add(new SingleTitledPaneDiaryImpl(controller).createTitledPane(s));
     }
 
     private void insertPages() {
-        this.cf.filesName().forEach(this::updateView);
-        this.remove.setOnMouseClicked((EventHandler<Event>) event -> UseControllerDiary.getCF().removePage(this.toRemove));
+        controller.filesName().forEach(this::updateView);
+        this.remove.setOnMouseClicked((EventHandler<Event>) event -> controller.removePage(this.toRemove));
         this.pages.getPanes().forEach(e -> e.setOnMouseClicked((EventHandler<Event>) event -> {
             this.toRemove = e.getText();
             this.remove.setDisable(false);

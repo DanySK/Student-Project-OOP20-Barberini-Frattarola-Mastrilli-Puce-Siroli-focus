@@ -1,18 +1,16 @@
 package oop.focus.diary.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.model.ToDoAction;
 import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.diary.model.ToDoListManager;
-import oop.focus.diary.model.ToDoListManagerImpl;
 
 public class ToDoListControllerImpl implements ToDoListController {
     private final ToDoListManager manager;
     private final ObservableList<ToDoAction> toDoActions;
 
-    public ToDoListControllerImpl() {
-        this.manager = new ToDoListManagerImpl(new DataSourceImpl());
+    public ToDoListControllerImpl(final ToDoListManager manager) {
+        this.manager = manager;
         this.toDoActions = FXCollections.observableArrayList(this.manager.getAnnotations());
     }
     @Override

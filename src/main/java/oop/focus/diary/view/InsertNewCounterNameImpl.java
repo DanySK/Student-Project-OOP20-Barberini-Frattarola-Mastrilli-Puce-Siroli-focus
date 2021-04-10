@@ -14,13 +14,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.UseTotalTimeController;
+import oop.focus.diary.controller.TotalTimeControllerImpl;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InsertNewCounterNameImpl implements Initializable, View {
+    private static final double LABEL_SIZE = 0.3;
+    private static final double BUTTON_HEIGHT = 0.2;
+    private static final double TEXT_FIELD_WIDTH = 0.4;
     @FXML
     private Label newEventNameLabel;
 
@@ -33,7 +36,9 @@ public class InsertNewCounterNameImpl implements Initializable, View {
     @FXML
     private BorderPane pane;
     private Parent root;
-    public InsertNewCounterNameImpl() {
+    private final TotalTimeControllerImpl totalTimeController;
+    public InsertNewCounterNameImpl(final TotalTimeControllerImpl totalTimeController) {
+        this.totalTimeController = totalTimeController;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADD_EVENT_NAME_COUNTER.getPath()));
         loader.setController(this);
         try {
@@ -44,12 +49,12 @@ public class InsertNewCounterNameImpl implements Initializable, View {
         this.setProperties();
     }
     private void setProperties() {
-        this.newEventNameLabel.prefHeightProperty().bind(this.pane.heightProperty().multiply(0.3));
-        this.newEventNameLabel.prefWidthProperty().bind(this.pane.widthProperty().multiply(0.3));
-        this.textField.prefWidthProperty().bind(this.pane.widthProperty().multiply(0.4));
-        this.textField.prefHeightProperty().bind(this.pane.heightProperty().multiply(0.3));
-        this.insertEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(0.3));
-        this.insertEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(0.2));
+        this.newEventNameLabel.prefHeightProperty().bind(this.pane.heightProperty().multiply(LABEL_SIZE));
+        this.newEventNameLabel.prefWidthProperty().bind(this.pane.widthProperty().multiply(LABEL_SIZE));
+        this.textField.prefWidthProperty().bind(this.pane.widthProperty().multiply(TEXT_FIELD_WIDTH));
+        this.textField.prefHeightProperty().bind(this.pane.heightProperty().multiply(LABEL_SIZE));
+        this.insertEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(LABEL_SIZE));
+        this.insertEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(BUTTON_HEIGHT));
     }
 
     @Override
@@ -67,7 +72,7 @@ public class InsertNewCounterNameImpl implements Initializable, View {
             alert.setHeaderText("Inserire nome evento");
             alert.showAndWait();
         }
-        UseTotalTimeController.getTotalTimeController().addValue(this.textField.getText());
+        totalTimeController.addValue(this.textField.getText());
         Stage stage = (Stage) this.insertEvent.getScene().getWindow();
         stage.close();
         return this.textField.getText();

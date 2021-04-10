@@ -23,7 +23,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.FXMLPaths;
+import oop.focus.diary.controller.*;
+import oop.focus.diary.model.DailyMoodManager;
 
 
 public class BaseDiary implements Initializable, View {
@@ -67,7 +68,13 @@ public class BaseDiary implements Initializable, View {
     @FXML
     private BorderPane containerIcons;
     private Parent root;
-    public BaseDiary() {
+    private final ToDoListControllerImpl toDoListController;
+    private final DiaryPagesImpl diaryController;
+    private final DailyMoodControllerImpl manager;
+    public BaseDiary(final ToDoListControllerImpl toDoListController, final DiaryPagesImpl diaryController, final DailyMoodControllerImpl manager) {
+        this.toDoListController = toDoListController;
+        this.diaryController = diaryController;
+        this.manager = manager;
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.BASE_DIARY.getPath()));
         loader.setController(this);
         try {
@@ -160,18 +167,18 @@ public class BaseDiary implements Initializable, View {
         this.toDoListLabel.setText("To Do List");
         this.diaryLabel.setText("Diario");
         this.addPage.setText("Aggiungi");
-        this.addPage.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewPage().getRoot()));
+        this.addPage.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewPage(diaryController).getRoot()));
         this.removePage.setText("Rimuovi");
         this.removePage.setDisable(true);
         this.addAnnotation.setText("Aggiungi");
-        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation().getRoot()));
+        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.toDoListController).getRoot()));
         this.removeAnnotation.setText("Rimuovi");
-        this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty()).getAccordion());
-        final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty());
+        this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty(), this.diaryController).getAccordion());
+        final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty(), toDoListController);
         annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
         annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.setContent(annotationView.getListView());
-        final DailyMoodViewImpl iconView = new DailyMoodViewImpl();
+        final DailyMoodViewImpl iconView = new DailyMoodViewImpl(this.manager);
         this.containerIcons.setTop(iconView.getRoot());
         this.containerIcons.setBottom(iconView.getButton());
         iconView.getButton().prefWidthProperty().bind(this.dailyMoodLabel.widthProperty().multiply(BUTTON_WIDTH));

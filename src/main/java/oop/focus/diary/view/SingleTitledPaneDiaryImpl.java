@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import oop.focus.diary.controller.UseControllerDiary;
+import oop.focus.diary.controller.DiaryPagesImpl;
 
 
 public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
@@ -17,10 +17,12 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
     private TitledPane title;
-    public SingleTitledPaneDiaryImpl() {
+    private final DiaryPagesImpl controller;
+    public SingleTitledPaneDiaryImpl(final DiaryPagesImpl controller) {
+        this.controller = controller;
         this.newContent.setWrapText(true);
         this.modify.setOnMouseClicked((EventHandler<Event>) event -> {
-            UseControllerDiary.getCF().updatePage(this.title.getText(), this.newContent.getText());
+            controller.updatePage(this.title.getText(), this.newContent.getText());
             this.pane.setTop(this.createBox(this.title.getText()));
             this.modify.setDisable(true);
         });
@@ -28,13 +30,13 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
     private VBox createBox(final String s) {
         final VBox box = new VBox();
         final Label label = new Label();
-        label.setText(UseControllerDiary.getCF().getContentByName(s));
+        label.setText(controller.getContentByName(s));
         box.getChildren().add(label);
         return box;
     }
 
     @Override
-    public TitledPane createTitledPane(final String s) {
+    public final TitledPane createTitledPane(final String s) {
         this.title = new TitledPane();
         this.modify.setDisable(true);
         this.title.setText(s);
@@ -43,7 +45,7 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
         BorderPane.setAlignment(this.modify, Pos.TOP_CENTER);
         this.title.setContent(this.pane);
         this.title.getContent().setOnMouseClicked((EventHandler<Event>) event -> {
-            this.newContent.setText(UseControllerDiary.getCF().getContentByName(s));
+            this.newContent.setText(controller.getContentByName(s));
             this.pane.setTop(this.newContent);
             this.modify.setDisable(false);
         });
