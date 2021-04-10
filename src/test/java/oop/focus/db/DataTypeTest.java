@@ -274,7 +274,7 @@ public class DataTypeTest {
             assertEquals(initialSize + 1, all.size());
             assertEquals(Repetition.BIMONTHLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
             events.update(new EventImpl("Event1", today, today.plusDays(8), Repetition.HALF_YEARLY));
-            assertEquals(1, events.getAll().size());
+            assertEquals(initialSize + 1, events.getAll().size());
             assertEquals(Repetition.HALF_YEARLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
             events.delete(new EventImpl("NotExistingEvent", today, today.plusDays(8), Repetition.HALF_YEARLY));
             fail();

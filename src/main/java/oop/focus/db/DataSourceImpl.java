@@ -27,7 +27,6 @@ import oop.focus.homepage.model.HotKeyType;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -152,14 +151,14 @@ public class DataSourceImpl implements DataSource {
                 new CachedDao<>(new ParserImpl<>("transaction",
                         a -> new TransactionImpl(a.remove(1),
                                 this.categories.getValue(Integer.parseInt(a.remove(1))).orElse(null),
-                                new LocalDateTime(a.remove(1)),
+                                DF.parseLocalDateTime(a.remove(1)),
                                 this.accounts.getValue(Integer.parseInt(a.remove(1))).orElse(null),
                                 Integer.parseInt(a.remove(1)),
                                 Repetition.values()[Integer.parseInt(a.remove(1))],
                                 Integer.parseInt(a.remove(1)) == 0),
                         List.of(new Pair<>("description", Transaction::getDescription),
                                 new Pair<>("id_category", t -> String.valueOf(this.categories.getId(t.getCategory()).orElse(NA))),
-                                new Pair<>("date", t -> t.getDate().toString()),
+                                new Pair<>("date", t -> DF.print(t.getDate())),
                                 new Pair<>("id_account", t -> String.valueOf(this.accounts.getId(t.getAccount()).orElse(NA))),
                                 new Pair<>("amount", t -> String.valueOf(t.getAmount())),
                                 new Pair<>("type", t -> String.valueOf(t.getRepetition().ordinal())),

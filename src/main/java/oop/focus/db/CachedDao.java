@@ -15,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -94,17 +93,18 @@ public class CachedDao<X> implements SingleDao<X> {
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
-        this.cache = new ConcurrentHashMap<>();
+        this.cache = new HashMap<>();
         this.observable = FXCollections.observableSet(new HashSet<>());
         this.parser = parser;
         this.getAllFromSource();
     }
 
-    private void withNoParameters(final DbAction action, final int id) throws DaoAccessException {
+    private void withNoParameters() throws DaoAccessException {
         final Map<Integer, List<String>> values = new HashMap<>();
         try {
             var s = this.db.getConnection().createStatement();
-            var resultSet = s.executeQuery(action.getSyntax(this.parser.getTypeName(), this.parser.getFieldNames(), id));
+            var resultSet = s.executeQuery(DbAction.SELECT_ALL.getSyntax(this.parser.getTypeName(),
+                    this.parser.getFieldNames(), CachedDao.NO_ID));
             while (resultSet.next()) {
                 List<String> tmp = new ArrayList<>();
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
@@ -120,7 +120,8 @@ public class CachedDao<X> implements SingleDao<X> {
         }
 
         this.cache.putAll(values.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, v -> this.parser.create(v.getValue())))
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        v -> this.parser.create(v.getValue())))
                 .entrySet().stream().filter(e -> e.getValue().isPresent())
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().get())));
     }
@@ -157,7 +158,7 @@ public class CachedDao<X> implements SingleDao<X> {
 
     private void getAllFromSource() {
         try {
-            this.execute(() -> this.withNoParameters(DbAction.SELECT_ALL, NO_ID));
+            this.execute(this::withNoParameters);
             this.observable.addAll(this.cache.values());
         } catch (DaoAccessException e) {
             e.printStackTrace();

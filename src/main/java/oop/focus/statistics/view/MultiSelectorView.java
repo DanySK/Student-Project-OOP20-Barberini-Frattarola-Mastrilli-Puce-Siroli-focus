@@ -1,4 +1,5 @@
 package oop.focus.statistics.view;
+import javafx.application.Platform;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.geometry.Pos;
@@ -21,6 +22,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
     private final Map<CheckBox, X> checkBoxMap;
     private final Map<X, Boolean> selectedItems;
     private final Pane root;
+    private final ObservableSet<X> items;
     /**
      * Instantiates a new Multi selector view.
      * Changes on the input set will be auto updated on the view.
@@ -32,19 +34,21 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
         this.root = this.getBox();
         this.checkBoxMap = new HashMap<>();
         this.selectedItems = new HashMap<>();
-        items.forEach(a -> this.selectedItems.put(a, false));
-        items.forEach(a -> this.checkBoxMap.put(
+        this.items = items;
+        this.items.forEach(a -> this.selectedItems.put(a, false));
+        this.items.forEach(a -> this.checkBoxMap.put(
                 this.createBox(function.apply(a)), a));
         this.checkBoxMap.keySet().forEach(c -> this.root.getChildren().add(c));
         this.checkBoxMap.keySet().forEach(this::addListeners);
-        items.addListener((SetChangeListener<X>) change -> {
+        this.items.addListener((SetChangeListener<X>) change -> Platform.runLater(() -> {
+            System.out.println("Added");
             if (change.wasRemoved()) {
                 this.checkBoxMap.entrySet()
                         .stream()
                         .filter(a -> a.getValue().equals(change.getElementRemoved()))
                         .findFirst().ifPresent(p -> {
-                            this.checkBoxMap.remove(p.getKey());
-                            this.root.getChildren().remove(p.getKey());
+                    this.checkBoxMap.remove(p.getKey());
+                    this.root.getChildren().remove(p.getKey());
                 });
                 this.selectedItems.remove(change.getElementRemoved());
             } else if (change.wasAdded()) {
@@ -54,7 +58,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
                 this.addListeners(box);
                 this.selectedItems.put(change.getElementRemoved(), false);
             }
-        });
+        }));
     }
     /**
      * Create the box where the items will be shown.
