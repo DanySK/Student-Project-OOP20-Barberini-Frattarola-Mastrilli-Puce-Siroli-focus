@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.view.CalendarMonthView;
@@ -30,13 +29,12 @@ public class CalendarControllerImpl implements CalendarController {
 
     /**
      * Used for initialize the calendar controller.
-     * @param generalview
      * @param optionwidth
      * @param optionheight
      * @param daywidth
      * @param dayheight
      */
-    public CalendarControllerImpl(final Pane generalview, final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
+    public CalendarControllerImpl(final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
         this.optionwidth = optionwidth;
         this.optionheight = optionheight;
         this.calendarpage = new HBox();
@@ -46,7 +44,7 @@ public class CalendarControllerImpl implements CalendarController {
 
         settingscontroller = new CalendarSettingsControllerImpl(monthcontroller, monthview);
 
-        final CalendarView calendarview = new CalendarViewImpl(generalview, this);
+        final CalendarView calendarview = new CalendarViewImpl(this);
         calendarview.setCalendarBox();
     }
 
