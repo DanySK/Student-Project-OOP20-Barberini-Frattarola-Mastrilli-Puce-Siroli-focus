@@ -1,11 +1,12 @@
 package oop.focus.application;
 
 import javafx.application.Application;
-import javafx.geometry.Dimension2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 
 public class LauncherAll extends Application {
@@ -13,12 +14,14 @@ public class LauncherAll extends Application {
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final double width = this.screenSize.getWidth() * 0.7;
     private final double height = this.screenSize.getHeight() * 0.7;
-    private final CommonView commonView = new CommonView(new Dimension2D(this.width, this.height));
+    private final CommonView commonView = new CommonView();
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final String css = LauncherAll.class.getResource(PATH_MAIN_STYLE).toExternalForm();
-        Scene scene = new Scene(this.commonView.getPane());
+        Scene scene = new Scene((Parent) this.commonView.getRoot());
         scene.getStylesheets().add(css);
+        primaryStage.setHeight(height);
+        primaryStage.setWidth(width);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
