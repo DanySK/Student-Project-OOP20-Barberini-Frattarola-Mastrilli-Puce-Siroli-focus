@@ -9,9 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class CommonView {
     private final BorderPane pane;
@@ -49,20 +46,6 @@ public class CommonView {
             borderPane.getStyleClass().add(elem.getStyle());
         }
         this.pane.setTop(this.box);
-
     }
-    /*public void setView() {
-        this.pane.setTop(box);
-        if(!this.map.isEmpty()){
-            for(var elem : this.map.keySet()) {
-                map.get(elem).setPrefWidth(0.08 * pane.getWidth());
-                map.get(elem).setPrefHeight(0.08 * pane.getHeight());
-                elem.setOnMouseClicked(event -> pane.setCenter(map.get(elem)));
-
-            }
-        }
-    }
-
-     */
 
 }

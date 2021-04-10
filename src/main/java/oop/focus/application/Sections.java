@@ -2,14 +2,17 @@ package oop.focus.application;
 
 import javafx.scene.Node;
 import oop.focus.calendar.controller.CalendarControllerImpl;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.view.GeneralView;
 import oop.focus.finance.controller.BaseControllerImpl;
 import oop.focus.finance.model.FinanceManagerImpl;
+import oop.focus.homepage.model.EventManagerImpl;
+
 public enum Sections {
     /**
      * HomePage's section.
      */
-    HOMEPAGE("HomePage", "bg-1", new GeneralView().getRoot()),
+    HOMEPAGE("HomePage", "bg-1", new GeneralView(new DataSourceImpl(), new EventManagerImpl(new DataSourceImpl())).getRoot()),
     /**
      * Finance's section.
      */
@@ -17,7 +20,7 @@ public enum Sections {
     /**
      * Diary's section.
      */
-    DIARY("Diario", "", new GeneralView().getRoot()),
+    DIARY("Diario", "", new GeneralView(new DataSourceImpl(), new EventManagerImpl(new DataSourceImpl())).getRoot()),
     /**
      * Calendar's section.
      */
