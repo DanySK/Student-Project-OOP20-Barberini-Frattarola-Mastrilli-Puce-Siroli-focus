@@ -5,7 +5,9 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.view.GeneralView;
+import oop.focus.homepage.model.EventManagerImpl;
 
 public class GeneralLauncher extends Application {
     @Override

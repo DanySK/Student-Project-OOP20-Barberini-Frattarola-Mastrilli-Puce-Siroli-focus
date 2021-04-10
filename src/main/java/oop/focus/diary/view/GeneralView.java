@@ -1,50 +1,44 @@
 package oop.focus.diary.view;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
 
 public class GeneralView implements View {
-    private BorderPane pane;
-    private VBox vBox;
-    public GeneralView(Dimension2D dim) {
+    private static final double BUTTON_HEIGHT = 0.3;
+    private static final double VBOX_WIDTH = 0.2;
+    private static final double VBOX_SPACING = 0.01;
+    private static final double INSETS = 20;
+    private final BorderPane pane;
+    private final VBox vBox;
+
+    public GeneralView(final Dimension2D dim) {
         this.pane = new BorderPane();
         this.vBox = new VBox();
         this.setView(dim);
     }
-    private void setView(Dimension2D dim) {
-        /*for(var elem : DiarySections.values()) {
+    private void setView(final Dimension2D dim) {
+        for (var elem : DiarySections.values()) {
             Button b = new Button(elem.getName());
-            b.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    pane.setCenter(elem.getView());
-                }
-            });
-
-         */
-            Button b = new Button("ci");
-
+            b.setOnMouseClicked(event -> pane.setCenter(elem.getView()));
             b.prefWidthProperty().bind(this.vBox.widthProperty());
-            b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(0.3));
+            b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT));
             this.vBox.getChildren().add(b);
-            this.vBox.prefWidthProperty().bind(this.pane.widthProperty().multiply(0.2));
+            this.vBox.prefWidthProperty().bind(this.pane.widthProperty().multiply(VBOX_WIDTH));
             this.vBox.prefHeightProperty().bind(this.pane.heightProperty());
-            this.vBox.setPadding(new Insets(20));
-            this.vBox.spacingProperty().bind(this.pane.heightProperty().multiply(0.01));
-
+            this.vBox.setPadding(new Insets(INSETS));
+            this.vBox.spacingProperty().bind(this.pane.heightProperty().multiply(VBOX_SPACING));
             this.pane.setLeft(this.vBox);
+        }
         }
 
 
     @Override
-    public Node getRoot() {
+    public final Node getRoot() {
         return this.pane;
     }
 }

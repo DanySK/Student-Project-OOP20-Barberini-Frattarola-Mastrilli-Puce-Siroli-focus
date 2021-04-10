@@ -2,13 +2,10 @@ package oop.focus.application;
 
 import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
-import oop.focus.common.View;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.calendar.controller.CalendarControllerImpl;
 import oop.focus.diary.view.GeneralView;
 import oop.focus.finance.controller.BaseControllerImpl;
 import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.finance.view.bases.BaseViewImpl;
-
 public enum Sections {
     /**
      * HomePage's section.
@@ -17,7 +14,7 @@ public enum Sections {
     /**
      * Finance's section.
      */
-    FINANCE("Finanze", "",new BaseControllerImpl(new FinanceManagerImpl(new DataSourceImpl())).getView().getRoot()),
+    FINANCE("Finanze", "", new BaseControllerImpl(new FinanceManagerImpl(UseCommonController.getDataSource())).getView().getRoot()),
     /**
      * Diary's section.
      */
@@ -25,7 +22,7 @@ public enum Sections {
     /**
      * Calendar's section.
      */
-    CALENDAR("Calendario", "", new GeneralView(new Dimension2D(1000, 800)).getRoot());
+    CALENDAR("Calendario", "", new CalendarControllerImpl(300, 150, 200, 500).getCalendarPage());
 
 
     private final String name;
