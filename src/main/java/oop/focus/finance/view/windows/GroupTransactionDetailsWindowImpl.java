@@ -25,19 +25,23 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
     @Override
     public final void populateStaticLabels() {
         this.titleLabel.setText("DETTAGLI TRANSAZIONE DI GRUPPO");
-        this.descriptionLabel.setText("Descrizione:");
-        this.categoryLabel.setText("Fatta da:");
-        this.dateLabel.setText("Per:");
+        this.descriptionLabel.setText("Fatta da:");
+        this.categoryLabel.setText("Per:");
+        this.dateLabel.setText("Data:");
+        this.accountLabel.setText("Descrizione");
         this.amountLabel.setText("Importo:");
+        this.subscriptionLabel.setText("Importo a testa:");
     }
 
     @Override
     public final void populateDynamicLabels() {
-        this.dataDescriptionLabel.setText(super.getX().getDescription());
-        this.dataCategoryLabel.setText(super.getX().getMadeBy().getName());
-        this.dataDateLabel.setText(super.getX().getForList().toString());
+        this.dataAccountLabel.setText(super.getX().getDescription());
+        this.dataDescriptionLabel.setText(super.getX().getMadeBy().getName());
+        this.dataCategoryLabel.setText(super.getX().getForList().toString());
+        this.dataDateLabel.setText(super.getX().getDate().toString());
         DecimalFormat df = new DecimalFormat("#.00");
         this.dataAmountLabel.setText("E " + df.format((double) super.getX().getAmount() / 100));
+        this.dataSubscriptionLabel.setText("E " + df.format((double) super.getX().getAmount() / (super.getX().getForList().size() * 100)));
     }
 
     @Override

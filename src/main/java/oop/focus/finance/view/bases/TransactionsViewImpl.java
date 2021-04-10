@@ -24,6 +24,7 @@ import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -57,7 +58,9 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         this.amountLabel.setText("E " + df.format(super.getX().getAmount(predicate)));
         this.deleteButton.setText("Elimina " + super.getX().getAccountName());
         final List<TransactionView> transactionsTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
+        transactions.stream()
+                .sorted(Comparator.comparing(Transaction::getDate).reversed())
+                .forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         final VBox box = new VBox();
         transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,

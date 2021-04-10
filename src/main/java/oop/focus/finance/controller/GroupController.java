@@ -2,6 +2,7 @@ package oop.focus.finance.controller;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.homepage.model.Person;
 
@@ -62,6 +63,11 @@ public interface GroupController extends FinanceController {
      * If there are no more debts, delete the group and all transactions.
      */
     void reset();
+
+    /**
+     * @return finance manager
+     */
+    FinanceManager getManager();
 
     /**
      * @return people saved in the database but not yet added to the group transaction group

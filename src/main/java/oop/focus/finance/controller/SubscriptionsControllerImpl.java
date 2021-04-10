@@ -1,5 +1,7 @@
 package oop.focus.finance.controller;
 
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
@@ -10,10 +12,18 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     private final SubscriptionsViewImpl view;
     private final FinanceManager manager;
 
+    private final ObservableSet<Transaction> transactions;
+
     public SubscriptionsControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new SubscriptionsViewImpl(this);
         this.showSubscriptions();
+        this.transactions = this.manager.getTransactionManager().getTransactions();
+        this.addListeners();
+    }
+
+    private void addListeners() {
+        this.transactions.addListener((SetChangeListener<Transaction>) change -> this.showSubscriptions());
     }
 
     @Override

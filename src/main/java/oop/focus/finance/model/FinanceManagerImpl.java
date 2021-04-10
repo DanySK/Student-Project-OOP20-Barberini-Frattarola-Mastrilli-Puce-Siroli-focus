@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
  */
 public class FinanceManagerImpl implements FinanceManager {
 
+    private final DataSource db;
     private final AccountManager accounts;
     private final CategoryManager categories;
     private final TransactionManager transactions;
@@ -21,12 +22,13 @@ public class FinanceManagerImpl implements FinanceManager {
     private final ObservableSet<String> colors;
 
     public FinanceManagerImpl(final DataSource db) {
-        this.accounts = new AccountManagerImpl(db);
-        this.categories = new CategoryManagerImpl(db);
-        this.transactions = new TransactionManagerImpl(db);
-        this.quickTransactions = new QuickTransactionManagerImpl(db);
-        this.group = new GroupManagerImpl(db);
-        this.colors = db.getColors().getAll();
+        this.db = db;
+        this.accounts = new AccountManagerImpl(this.db);
+        this.categories = new CategoryManagerImpl(this.db);
+        this.transactions = new TransactionManagerImpl(this.db);
+        this.quickTransactions = new QuickTransactionManagerImpl(this.db);
+        this.group = new GroupManagerImpl(this.db);
+        this.colors = this.db.getColors().getAll();
     }
 
     @Override
@@ -96,6 +98,11 @@ public class FinanceManagerImpl implements FinanceManager {
         final var sub = this.transactions.getSubscriptions();
         this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
         sub.forEach(this.transactions::update);
+    }
+
+    @Override
+    public final DataSource getDb() {
+        return this.db;
     }
 
     @Override

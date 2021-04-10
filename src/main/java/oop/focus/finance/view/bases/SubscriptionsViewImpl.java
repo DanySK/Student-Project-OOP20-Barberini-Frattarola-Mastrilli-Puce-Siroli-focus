@@ -18,6 +18,7 @@ import oop.focus.finance.view.windows.SubscriptionDetailsWindowImpl;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> implements SubscriptionsView {
@@ -26,6 +27,8 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
     private ScrollPane subcriptionsScroll;
     @FXML
     private Label monthlyTransactionLabel, annualTransactionLabel;
+
+    private static final int GENERIC_PRICE = 12;
 
     public SubscriptionsViewImpl(final SubscriptionsController controller) {
         super(controller, FXMLPaths.SUBS);
@@ -41,7 +44,10 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
     public final void showSubscriptions(final List<Transaction> subscriptions) {
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("#0.00");
-        subscriptions.forEach(t -> subscriptionsTiles.add(new GenericTileViewImpl<>(t, t.getDescription(),
+        subscriptions.stream()
+                .sorted(Comparator.comparingInt(a -> a.getRepetition().getPerMonthFunction().apply(GENERIC_PRICE)))
+                .forEach(t -> subscriptionsTiles.add(new GenericTileViewImpl<>(t,
+                t.getDescription() + "      " + t.getRepetition().getName(),
                 "E " + df.format((double) t.getAmount() / 100))));
         final VBox box = new VBox();
         subscriptionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));

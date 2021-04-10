@@ -1,6 +1,7 @@
 package oop.focus.finance.model;
 
 import javafx.collections.ObservableSet;
+import oop.focus.db.DataSource;
 import org.joda.time.LocalDate;
 
 /**
@@ -71,6 +72,11 @@ public interface FinanceManager {
      * @param date until it is time to calculate
      */
     void generateRepeatedTransactions(LocalDate date);
+
+    /**
+     * @return the DataSource
+     */
+    DataSource getDb();
 
     /**
      * @return account manager

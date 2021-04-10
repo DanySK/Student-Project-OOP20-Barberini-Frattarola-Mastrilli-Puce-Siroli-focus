@@ -3,6 +3,7 @@ package oop.focus.finance.controller;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.AccountImpl;
@@ -19,8 +20,11 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     private final TransactionsViewImpl view;
     private final FinanceManager manager;
-    private Predicate<Account> accountPredicate;
     private final Predicate<Transaction> transactionPredicate;
+    private Predicate<Account> accountPredicate;
+
+    private final ObservableSet<Transaction> transactions;
+    private final ObservableSet<Account> acccounts;
 
     public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
         this.manager = manager;
@@ -28,6 +32,16 @@ public class TransactionsControllerImpl implements TransactionsController {
         this.accountPredicate = (a -> true);
         this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
+        this.transactions = this.manager.getTransactionManager().getTransactions();
+        this.acccounts = this.getAccounts();
+        this.addListeners();
+    }
+
+    private void addListeners() {
+        this.transactions.addListener((SetChangeListener<Transaction>) c ->
+                this.showTransactions(this.accountPredicate));
+        this.acccounts.addListener((SetChangeListener<Account>) c ->
+                this.view.populate());
     }
 
     @Override

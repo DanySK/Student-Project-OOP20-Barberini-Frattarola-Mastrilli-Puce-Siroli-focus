@@ -27,6 +27,7 @@ import oop.focus.homepage.model.Person;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class GroupViewImpl extends GenericView<GroupController> implements GroupView {
@@ -58,7 +59,9 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(super.getX())));
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("#0.00");
-        group.forEach(p -> personTiles.add(new GenericTileViewImpl<>(p, p.getName(),
+        group.stream()
+                .sorted(Comparator.comparing(Person::getName))
+                .forEach(p -> personTiles.add(new GenericTileViewImpl<>(p, p.getName(),
                 "E " + df.format((double) super.getX().getCredit(p) / 100))));
         final VBox box = new VBox();
         personTiles.forEach(t -> box.getChildren().add(t.getRoot()));
@@ -72,7 +75,9 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.setText("Reset");
         this.newPersonButton.setOnAction(event -> this.reset());
         final List<GroupTransactionView> transactionTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
+        transactions.stream()
+                .sorted(Comparator.comparing(GroupTransaction::getDate).reversed())
+                .forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
         final VBox box = new VBox();
         transactionTiles.forEach(t -> box.getChildren().add(t.getRoot()));
         transactionTiles.forEach(t -> t.getRoot()
@@ -89,7 +94,11 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     private void reset() {
         var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getX().reset();
+            try {
+                super.getX().reset();
+            } catch (Exception e) {
+                super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
+            }
         }
     }
 }

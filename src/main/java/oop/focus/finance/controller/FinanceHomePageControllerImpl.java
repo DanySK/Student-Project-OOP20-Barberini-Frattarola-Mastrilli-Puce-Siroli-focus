@@ -3,6 +3,7 @@ package oop.focus.finance.controller;
 import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
@@ -12,7 +13,8 @@ import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.QuickTransactionImpl;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.model.TransactionImpl;
-import oop.focus.finance.view.bases.FinanceHomePageViewImpl;
+import oop.focus.finance.view.bases.FinanceHomePageView;
+import oop.focus.finance.view.bases.FinanceHomePageViewViewImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
@@ -23,12 +25,26 @@ import java.util.stream.Collectors;
 
 public class FinanceHomePageControllerImpl implements FinanceHomePageController {
 
-    private final View view;
+    private final FinanceHomePageView view;
     private final FinanceManager manager;
+
+    private final ObservableSet<Account> accounts;
+    private final ObservableSet<Transaction> transaction;
+    private final ObservableSet<QuickTransaction> quickTransactions;
 
     public FinanceHomePageControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new FinanceHomePageViewImpl(this);
+        this.view = new FinanceHomePageViewViewImpl(this);
+        this.accounts = manager.getAccountManager().getAccounts();
+        this.transaction = manager.getTransactionManager().getTransactions();
+        this.quickTransactions = manager.getQuickManager().getQuickTransactions();
+        this.addListeners();
+    }
+
+    private void addListeners() {
+        this.accounts.addListener((SetChangeListener<Account>) change -> this.view.populateAccounts());
+        this.transaction.addListener((SetChangeListener<Transaction>) change -> this.view.populateRecentTransactions());
+        this.quickTransactions.addListener((SetChangeListener<QuickTransaction>) change -> this.view.populateQuickTransactions());
     }
 
     @Override
