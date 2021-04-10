@@ -26,6 +26,8 @@ public enum Sections {
      * Calendar's section.
      */
     CALENDAR("Calendario", "", new GeneralView(new Dimension2D(1000, 800)).getRoot());
+
+
     private final String name;
     private final String style;
     private final Node view;
