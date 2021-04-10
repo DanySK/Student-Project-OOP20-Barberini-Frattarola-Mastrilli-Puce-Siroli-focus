@@ -35,6 +35,11 @@ public class PagesViewImpl implements PagesView {
         });
     }
 
+    /**
+     * The method sets the dimension of the accordion, adapting them to dimensions in input.
+     * @param width the width of base pane.
+     * @param height the height of base pane.
+     */
     private void setProperties(final ReadOnlyDoubleProperty width, final ReadOnlyDoubleProperty height) {
        this.pages.prefWidthProperty().bind(width.multiply(TITLED_PANE_DIM));
        this.pages.prefHeightProperty().bind(height.multiply(TITLED_PANE_DIM));
@@ -44,10 +49,17 @@ public class PagesViewImpl implements PagesView {
         return this.pages;
     }
 
+    /**
+     * The method adds new Titled Pane to the accordion.
+     * @param s the title of new titled pane(which is also the title of the page to add)
+     */
     private void updateView(final String s) {
         this.pages.getPanes().add(new SingleTitledPaneDiaryImpl(controller).createTitledPane(s));
     }
 
+    /**
+     * The method can be used to add all pages' saved to the accordion.
+     */
     private void insertPages() {
         controller.filesName().forEach(this::updateView);
         this.remove.setOnMouseClicked((EventHandler<Event>) event -> controller.removePage(this.toRemove));

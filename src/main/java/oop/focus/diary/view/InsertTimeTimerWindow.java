@@ -1,35 +1,26 @@
 package oop.focus.diary.view;
 
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.converter.DateTimeStringConverter;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
@@ -54,7 +45,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
     private Parent root;
     public InsertTimeTimerWindow(final Consumer<String> consumer) {
         this.consumer = consumer;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TIMER_TIME.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TIMER_TIME.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -66,7 +57,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
 
 
     private void setTimeFormatter(final TextField field, final String string) {
-        SimpleDateFormat format = new SimpleDateFormat(string);
+        final SimpleDateFormat format = new SimpleDateFormat(string);
         try {
             field.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00")));
         } catch (ParseException e) {
@@ -75,7 +66,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
     }
 
     @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
+    public final void initialize(final URL location, final ResourceBundle resources) {
         this.separate0.setText(":");
         this.separate1.setText(":");
         this.save.setText("Salva");
@@ -84,17 +75,17 @@ public class InsertTimeTimerWindow implements Initializable, View {
         this.setTimeFormatter(this.seconds, "ss");
         this.save.setOnMouseClicked(event -> {
             String value;
-            LocalTime r = new LocalTime(Integer.parseInt(this.hours.getText()), Integer.parseInt(this.minutes.getText()),
+            final LocalTime r = new LocalTime(Integer.parseInt(this.hours.getText()), Integer.parseInt(this.minutes.getText()),
                     Integer.parseInt(this.seconds.getText()));
             value = r.toString(TIME_FORMATTER);
             this.consumer.accept(value);
-            Stage stage = (Stage) this.pane.getScene().getWindow();
+            final Stage stage = (Stage) this.pane.getScene().getWindow();
             stage.close();
         });
     }
 
     @Override
-    public Node getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 }

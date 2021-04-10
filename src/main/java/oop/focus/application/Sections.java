@@ -1,6 +1,5 @@
 package oop.focus.application;
 
-import javafx.geometry.Dimension2D;
 import javafx.scene.Node;
 import oop.focus.calendar.controller.CalendarControllerImpl;
 import oop.focus.diary.view.GeneralView;
@@ -10,7 +9,7 @@ public enum Sections {
     /**
      * HomePage's section.
      */
-    HOMEPAGE("HomePage", "bg-1", new GeneralView(new Dimension2D(1000, 800)).getRoot()),
+    HOMEPAGE("HomePage", "bg-1", new GeneralView().getRoot()),
     /**
      * Finance's section.
      */
@@ -18,7 +17,7 @@ public enum Sections {
     /**
      * Diary's section.
      */
-    DIARY("Diario", "", new GeneralView(new Dimension2D(1000, 800)).getRoot()),
+    DIARY("Diario", "", new GeneralView().getRoot()),
     /**
      * Calendar's section.
      */

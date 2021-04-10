@@ -3,7 +3,6 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -59,15 +58,13 @@ public class StopwatchView implements  Initializable, View {
     @FXML
     private Button addNewEvent;
     private Parent root;
-    private Dimension2D dim;
+
     private final TotalTimeControllerImpl totalTimeController;
     private final CounterControllerImpl specificController;
-    public StopwatchView(final Dimension2D dim, final TotalTimeControllerImpl totalTimeController,
-                         final CounterControllerImpl specificController) {
+    public StopwatchView(final TotalTimeControllerImpl totalTimeController, final CounterControllerImpl specificController) {
         this.totalTimeController = totalTimeController;
         this.specificController = specificController;
-        this.dim = dim;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.STOPWATCH.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.STOPWATCH.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -78,7 +75,7 @@ public class StopwatchView implements  Initializable, View {
 
     }
     private void setProperties() {
-        GridPane grid = new GridPane();
+        final GridPane grid = new GridPane();
         grid.addRow(0, this.nameEventLabel, this.chooseEvent, this.addNewEvent, this.timeLabel);
         grid.add(this.counterLabel, (grid.getColumnCount() - 2) / 2, 1, 2, 1);
         grid.add(this.startButton, 1, 2, 2, 1);
@@ -101,7 +98,7 @@ public class StopwatchView implements  Initializable, View {
         this.startButton.setDisable(true);
         this.stopButton.setDisable(true);
         CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addNewEvent,
-                this.addNewEvent, this.dim, totalTimeController);
+                this.addNewEvent, totalTimeController);
         this.counterLabel.setText(LocalTime.MIDNIGHT.toString(TIME_FORMATTER));
 
         this.chooseEvent.valueProperty().addListener((observable, oldValue, newValue) -> {

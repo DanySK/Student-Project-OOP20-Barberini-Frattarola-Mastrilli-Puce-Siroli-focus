@@ -27,6 +27,14 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
             this.modify.setDisable(true);
         });
     }
+
+    /**
+     * The method creates a new VBox, which is put as content in each titled pane.
+     * This VBox has a label(which represent the content of a diary's page), and a button, which pressed allows to
+     * modify the content of that diary's page.
+     * @param s the title of page's diary of which save the content
+     * @return  the new VBox created
+     */
     private VBox createBox(final String s) {
         final VBox box = new VBox();
         final Label label = new Label();

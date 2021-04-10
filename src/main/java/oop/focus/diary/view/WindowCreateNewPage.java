@@ -40,7 +40,7 @@ public class WindowCreateNewPage implements Initializable, View {
     private final DiaryPagesImpl controller;
     public WindowCreateNewPage(final DiaryPagesImpl controller) {
         this.controller = controller;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_DIARY_PAGE.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_DIARY_PAGE.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -52,20 +52,20 @@ public class WindowCreateNewPage implements Initializable, View {
     @FXML
     public final void createNewPage(final ActionEvent event) {
         if (!this.titleDiaryPage.getText().isEmpty() && !this.content.getText().isEmpty()) {
-            Pattern p = Pattern.compile("[^A-Za-z0-9 ]");
-            Matcher m = p.matcher(this.titleDiaryPage.getText());
+            final Pattern p = Pattern.compile("[^A-Za-z0-9 ]");
+            final Matcher m = p.matcher(this.titleDiaryPage.getText());
             if (m.find()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                final Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setContentText("Il titolo della pagina di diario non deve avere caratteri speciali");
                 alert.showAndWait();
             } else {
                controller.createPage(this.titleDiaryPage.getText(), this.content.getText());
-                Stage stage = (Stage) this.content.getScene().getWindow();
+                final Stage stage = (Stage) this.content.getScene().getWindow();
                 stage.close();
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setContentText("Inserire nome e contenuto della pagina di diario");
             alert.showAndWait();
@@ -79,7 +79,7 @@ public class WindowCreateNewPage implements Initializable, View {
     }
 
     @Override
-    public Node getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 }

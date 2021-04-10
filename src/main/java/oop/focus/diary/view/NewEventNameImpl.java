@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InsertNewCounterNameImpl implements Initializable, View {
+public class NewEventNameImpl implements Initializable, View, NewEventName {
     private static final double LABEL_SIZE = 0.3;
     private static final double BUTTON_HEIGHT = 0.2;
     private static final double TEXT_FIELD_WIDTH = 0.4;
@@ -37,9 +37,9 @@ public class InsertNewCounterNameImpl implements Initializable, View {
     private BorderPane pane;
     private Parent root;
     private final TotalTimeControllerImpl totalTimeController;
-    public InsertNewCounterNameImpl(final TotalTimeControllerImpl totalTimeController) {
+    public NewEventNameImpl(final TotalTimeControllerImpl totalTimeController) {
         this.totalTimeController = totalTimeController;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADD_EVENT_NAME_COUNTER.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADD_EVENT_NAME_COUNTER.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -58,28 +58,29 @@ public class InsertNewCounterNameImpl implements Initializable, View {
     }
 
     @Override
-    public void initialize(final URL location, final ResourceBundle resources) {
+    public final void initialize(final URL location, final ResourceBundle resources) {
         this.newEventNameLabel.setText("Inserisci nome evento: ");
         this.insertEvent.setDisable(true);
         this.insertEvent.setText("Crea");
         this.textField.setOnKeyPressed(event -> this.insertEvent.setDisable(false));
         this.insertEvent.setOnMouseClicked(event -> this.getText());
     }
-    public String getText() {
+    @Override
+    public final String getText() {
         if (this.textField.getText().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setHeaderText("Inserire nome evento");
             alert.showAndWait();
         }
         totalTimeController.addValue(this.textField.getText());
-        Stage stage = (Stage) this.insertEvent.getScene().getWindow();
+        final Stage stage = (Stage) this.insertEvent.getScene().getWindow();
         stage.close();
         return this.textField.getText();
     }
 
     @Override
-    public Node getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 }

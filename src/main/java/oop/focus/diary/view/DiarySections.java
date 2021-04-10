@@ -1,6 +1,6 @@
 package oop.focus.diary.view;
 
-import javafx.geometry.Dimension2D;
+
 import javafx.scene.Node;
 import oop.focus.diary.controller.UseDiaryControllers;
 
@@ -13,13 +13,13 @@ public enum DiarySections {
     /**
      *
      */
-    STOPWATCH("Cronometro", "", new StopwatchView(new Dimension2D(1000, 400),
-            UseDiaryControllers.getTotalTimeController(), UseDiaryControllers.getCounterControllerStop()).getRoot()),
+    STOPWATCH("Cronometro", "", new StopwatchView(UseDiaryControllers.getTotalTimeController(),
+            UseDiaryControllers.getCounterControllerStop()).getRoot()),
     /**
      *
      */
-    TIMER("Timer", "", new TimerView(new Dimension2D(1000, 400),
-            UseDiaryControllers.getTotalTimeController(), UseDiaryControllers.getCounterControllerTimer()).getRoot());
+    TIMER("Timer", "", new TimerView(UseDiaryControllers.getTotalTimeController(),
+            UseDiaryControllers.getCounterControllerTimer()).getRoot());
     private final String name;
     private final String style;
     private final Node view;

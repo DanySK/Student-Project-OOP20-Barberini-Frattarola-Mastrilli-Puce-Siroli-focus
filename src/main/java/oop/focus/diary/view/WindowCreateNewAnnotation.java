@@ -30,7 +30,7 @@ public class WindowCreateNewAnnotation implements Initializable, View {
     private final  ToDoListControllerImpl toDoListController;
     public WindowCreateNewAnnotation(final ToDoListControllerImpl toDoListController) {
         this.toDoListController = toDoListController;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TDL_ANNOTATION.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TDL_ANNOTATION.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -40,13 +40,16 @@ public class WindowCreateNewAnnotation implements Initializable, View {
         }
     }
 
+    /**
+     * The method (if the note is not saved yet), saves the annotation of ToDoList written by the user.
+     */
     private void createNewAnnotation() {
         if (!this.annotationTitle.getText().isEmpty()) {
            toDoListController.addNote(this.annotationTitle.getText());
-            Stage stage = (Stage) this.annotationTitle.getScene().getWindow();
+            final Stage stage = (Stage) this.annotationTitle.getScene().getWindow();
             stage.close();
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Errore");
             alert.setContentText("La nota non deve essere vuota");
             alert.showAndWait();
@@ -60,7 +63,7 @@ public class WindowCreateNewAnnotation implements Initializable, View {
     }
 
     @Override
-    public final  Node getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 }

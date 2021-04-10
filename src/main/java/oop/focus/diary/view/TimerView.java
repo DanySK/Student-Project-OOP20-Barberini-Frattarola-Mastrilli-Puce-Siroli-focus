@@ -4,7 +4,6 @@ package oop.focus.diary.view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -17,7 +16,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.*;
+import oop.focus.diary.controller.CounterControllerImpl;
+import oop.focus.diary.controller.FXMLPaths;
+import oop.focus.diary.controller.TotalTimeControllerImpl;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -79,10 +80,8 @@ public class TimerView implements Initializable, View {
     private List<Button> buttonList;
     private final CounterControllerImpl specificController;
     private Parent root;
-    private final Dimension2D dim;
     private final TotalTimeControllerImpl totalTimeController;
-    public TimerView(final Dimension2D dim, final TotalTimeControllerImpl totalTimeController,
-                     final CounterControllerImpl specificController) {
+    public TimerView(final TotalTimeControllerImpl totalTimeController, final CounterControllerImpl specificController) {
         this.totalTimeController = totalTimeController;
         this.specificController = specificController;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TIMER.getPath()));
@@ -94,7 +93,6 @@ public class TimerView implements Initializable, View {
         }
 
         this.setProperties();
-        this.dim = dim;
 
     }
     private void setTime() {
@@ -141,8 +139,7 @@ public class TimerView implements Initializable, View {
         this.modifyAllButtons(true);
         this.buttonList = List.of(this.timer1, this.timer2, this.timer3);
         CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton,
-                this.addEventButton,
-                this.addEventButton, this.dim, totalTimeController);
+                this.addEventButton, this.addEventButton, totalTimeController);
         this.otherTime.setText("Scegli");
         this.otherTime.setOnMouseClicked(event -> this.setTime());
         this.setTimeButtons();

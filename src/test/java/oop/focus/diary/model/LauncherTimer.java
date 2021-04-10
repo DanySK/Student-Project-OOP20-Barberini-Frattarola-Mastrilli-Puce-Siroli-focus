@@ -25,7 +25,7 @@ public class LauncherTimer extends Application {
         EventManager manager = new EventManagerImpl(dataSource);
         TotalTimeControllerImpl controller = new TotalTimeControllerImpl(manager);
         ControllersFactory f = new ControllersFactoryImpl(manager);
-        Scene scene = new Scene((Parent) new TimerView(dim, controller, f.createTimer()).getRoot());
+        Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
         primaryStage.setScene(scene);
         final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
         scene.getStylesheets().add(css);

@@ -37,7 +37,7 @@ public class DailyMoodViewImpl implements DailyMoodView, View {
         this.button = new Button("Modifica");
         this.images = FXCollections.observableArrayList();
         try {
-            Path iconsDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "icons");
+            final Path iconsDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "icons");
             for (final File elem : Objects.requireNonNull(iconsDir.toFile().listFiles())) {
                 this.images.add(new ImageView(new Image(new FileInputStream(elem))));
             }

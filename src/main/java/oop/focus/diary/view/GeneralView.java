@@ -1,6 +1,5 @@
 package oop.focus.diary.view;
 
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -16,14 +15,14 @@ public class GeneralView implements View {
     private final BorderPane pane;
     private final VBox vBox;
 
-    public GeneralView(final Dimension2D dim) {
+    public GeneralView() {
         this.pane = new BorderPane();
         this.vBox = new VBox();
-        this.setView(dim);
+        this.setView();
     }
-    private void setView(final Dimension2D dim) {
-        for (var elem : DiarySections.values()) {
-            Button b = new Button(elem.getName());
+    private void setView() {
+        for (final var elem : DiarySections.values()) {
+            final Button b = new Button(elem.getName());
             b.setOnMouseClicked(event -> pane.setCenter(elem.getView()));
             b.prefWidthProperty().bind(this.vBox.widthProperty());
             b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT));

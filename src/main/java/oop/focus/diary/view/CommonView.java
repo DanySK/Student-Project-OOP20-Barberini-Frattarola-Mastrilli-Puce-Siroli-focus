@@ -3,7 +3,6 @@ package oop.focus.diary.view;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.SetChangeListener;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -78,21 +77,21 @@ public final class CommonView {
         timeLabel.setText(controller.getTotalTime(chooseEvent.getValue()).toString(timeFormatter));
 
     }
-    private static void openWindow(final Dimension2D dim, final TotalTimeControllerImpl controller) {
-        final Scene scene = new Scene((Parent) new InsertNewCounterNameImpl(controller).getRoot());
+    private static void openWindow(final TotalTimeControllerImpl controller) {
+        final Scene scene = new Scene((Parent) new NewEventNameImpl(controller).getRoot());
         final Stage window = new Stage();
         window.setScene(scene);
         window.show();
     }
     public static void setConfig(final ComboBox<String> chooseEvent, final Label nameEventLabel, final Button startButton,
-                                 final Button stopButton, final Button eventButton, final Button addNewEvent, final Dimension2D dim,
+                                 final Button stopButton, final Button eventButton, final Button addNewEvent,
                                  final TotalTimeControllerImpl controller) {
         chooseEvent.getItems().addAll(controller.getAllEvents());
         nameEventLabel.setText("Inserisci evento");
         startButton.setText("Start");
         stopButton.setText("Stop");
         eventButton.setText("+");
-        addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(dim, controller));
+        addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(controller));
        controller.getAllEvents().addListener((SetChangeListener<String>) change -> {
             if (change.wasAdded()) {
                 chooseEvent.getItems().add(change.getElementAdded());

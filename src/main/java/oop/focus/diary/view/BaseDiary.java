@@ -2,10 +2,8 @@ package oop.focus.diary.view;
 
 import java.io.IOException;
 import java.net.URL;
-
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,8 +21,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.*;
-import oop.focus.diary.model.DailyMoodManager;
+import oop.focus.diary.controller.DailyMoodControllerImpl;
+import oop.focus.diary.controller.DiaryPagesImpl;
+import oop.focus.diary.controller.FXMLPaths;
+import oop.focus.diary.controller.ToDoListControllerImpl;
 
 
 public class BaseDiary implements Initializable, View {
@@ -75,7 +75,7 @@ public class BaseDiary implements Initializable, View {
         this.toDoListController = toDoListController;
         this.diaryController = diaryController;
         this.manager = manager;
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.BASE_DIARY.getPath()));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.BASE_DIARY.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -91,9 +91,9 @@ public class BaseDiary implements Initializable, View {
      * one that manages the left's part.
      */
     private void setProperties() {
-        HBox principalBox = new HBox();
-        principalBox.getChildren().add(this.setLeftVBox(principalBox));
-        principalBox.getChildren().add(this.setRightVBox());
+        final HBox principalBox = new HBox();
+        principalBox.getChildren().add(this.getLeftVBox(principalBox));
+        principalBox.getChildren().add(this.getRightVBox());
         this.pane.getChildren().add(principalBox);
         principalBox.prefWidthProperty().bind(this.pane.widthProperty());
         principalBox.prefHeightProperty().bind(this.pane.heightProperty());
@@ -105,13 +105,13 @@ public class BaseDiary implements Initializable, View {
      * @param principalBox  the box in which insert the VBox created
      * @return  the new VBox created
      */
-    private VBox setLeftVBox(final HBox principalBox) {
-        VBox leftVBox = new VBox();
+    private VBox getLeftVBox(final HBox principalBox) {
+        final VBox leftVBox = new VBox();
         leftVBox.getChildren().addAll(this.diaryLabel, this.containerDiaryLayout);
         leftVBox.prefWidthProperty().bind(principalBox.widthProperty().multiply(LEFT_VBOX_WIDTH));
         leftVBox.prefHeightProperty().bind(this.pane.heightProperty());
         leftVBox.setPadding(new Insets(INSETS));
-        HBox diaryButtons = new HBox(this.removePage, this.addPage);
+        final HBox diaryButtons = new HBox(this.removePage, this.addPage);
         diaryButtons.prefWidthProperty().bind(leftVBox.widthProperty());
         diaryButtons.setPadding(new Insets(INSETS));
         diaryButtons.setAlignment(Pos.CENTER);
@@ -131,11 +131,11 @@ public class BaseDiary implements Initializable, View {
      * The method manages the dimension of each single component too.
      * @return  the new VBox created.
      */
-    private VBox setRightVBox() {
-        VBox vBoxRight = new VBox();
+    private VBox getRightVBox() {
+        final VBox vBoxRight = new VBox();
         vBoxRight.getChildren().addAll(this.toDoListLabel, this.containerToDoList);
         vBoxRight.setPadding(new Insets(INSETS));
-        HBox tdlButton = new HBox(this.removeAnnotation, this.addAnnotation);
+        final HBox tdlButton = new HBox(this.removeAnnotation, this.addAnnotation);
         tdlButton.setPadding(new Insets(INSETS));
         tdlButton.setSpacing(INSETS);
         tdlButton.setAlignment(Pos.CENTER);

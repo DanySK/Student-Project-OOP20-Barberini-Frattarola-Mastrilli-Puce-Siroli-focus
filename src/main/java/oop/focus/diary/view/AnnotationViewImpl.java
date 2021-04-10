@@ -48,6 +48,11 @@ public class AnnotationViewImpl implements AnnotationView {
 
     }
 
+    /**
+     * The method creates a new Check Box, setting name and box's selection according to ToDoAction in input.
+     * @param action    the action of which is created check box
+     * @return  the check box created
+     */
     private CheckBox createCheckBox(final ToDoAction action) {
         final CheckBox box = new CheckBox(action.getAnnotation());
         box.prefHeightProperty().bind(this.height.multiply(CHECKBOX_HEIGHT));
