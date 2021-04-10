@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 
 public class CommonView {
     private final BorderPane pane;
-    //private final Map<Button, BorderPane> map;
+    
     private final HBox box;
     public CommonView(final Dimension2D dim) {
         this.pane = new BorderPane();

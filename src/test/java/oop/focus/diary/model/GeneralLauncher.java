@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import oop.focus.db.DataSourceImpl;
-import oop.focus.diary.view.GeneralView;
+import oop.focus.diary.view.GeneralDiaryView;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class GeneralLauncher extends Application {
@@ -17,7 +17,7 @@ public class GeneralLauncher extends Application {
         DataSourceImpl dataSource = new DataSourceImpl();
         EventManagerImpl eventManager = new EventManagerImpl(dataSource);
 
-    Scene scene = new Scene((Parent) new GeneralView(dataSource, eventManager).getRoot());
+    Scene scene = new Scene((Parent) new GeneralDiaryView(dataSource, eventManager).getRoot());
         primaryStage.setScene(scene);
 //    final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
 //        scene.getStylesheets().add(css);

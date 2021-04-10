@@ -11,7 +11,7 @@ import oop.focus.diary.controller.DiarySections;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
 import oop.focus.homepage.model.EventManagerImpl;
 
-public class GeneralView implements View {
+public class GeneralDiaryView implements View {
     private static final double BUTTON_HEIGHT = 0.3;
     private static final double VBOX_WIDTH = 0.2;
     private static final double VBOX_SPACING = 0.01;
@@ -19,7 +19,7 @@ public class GeneralView implements View {
     private final BorderPane pane;
     private final VBox vBox;
     private final DiarySectionsControllerImpl controller;
-    public GeneralView(final DataSourceImpl dataSource, final EventManagerImpl eventManager) {
+    public GeneralDiaryView(final DataSourceImpl dataSource, final EventManagerImpl eventManager) {
         this.controller = new DiarySectionsControllerImpl(dataSource, eventManager);
         this.pane = new BorderPane();
         this.vBox = new VBox();
