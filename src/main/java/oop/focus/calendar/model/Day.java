@@ -45,6 +45,14 @@ public interface Day {
     String getMonth();
 
     /**
+     * Can be used to get the number of the Month of the day.
+     *
+     * @return the number of the Month 
+     *
+     */
+    int getMonthNumber();
+
+    /**
      * Can be used to get the Year of the day.
      *
      * @return the number of the Year 

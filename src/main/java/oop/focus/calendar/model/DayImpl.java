@@ -72,6 +72,9 @@ public class DayImpl implements Day {
         return date.monthOfYear().getAsText(Locale.ITALY);
     }
 
+    public final int getMonthNumber() {
+        return date.getMonthOfYear();
+    }
 
     public final int getYear() {
         return date.getYear();
