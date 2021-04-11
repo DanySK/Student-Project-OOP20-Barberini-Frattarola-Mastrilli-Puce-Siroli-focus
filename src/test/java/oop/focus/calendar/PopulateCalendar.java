@@ -27,15 +27,17 @@ public class PopulateCalendar {
 
     @Test
     public void populateCalendar(){
-        this.eventi.addEvent(first);
-        this.eventi.addEvent(second);
-        this.eventi.addEvent(third);
-        this.eventi.addEvent(fourth);
-        this.eventi.addEvent(fifth);
-        this.eventi.addEvent(sixth);
-        this.eventi.addEvent(seventh);
-        this.eventi.addEvent(eight);
-        this.eventi.addEvent(ninth);
+        try {
+            this.eventi.addEvent(first);
+            this.eventi.addEvent(second);
+            this.eventi.addEvent(third);
+            this.eventi.addEvent(fourth);
+            this.eventi.addEvent(fifth);
+            this.eventi.addEvent(sixth);
+            this.eventi.addEvent(seventh);
+            this.eventi.addEvent(eight);
+            this.eventi.addEvent(ninth);
+        } catch (IllegalStateException ignored){}
     }
 
 
