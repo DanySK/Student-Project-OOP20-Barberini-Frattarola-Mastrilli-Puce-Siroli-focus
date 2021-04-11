@@ -27,6 +27,9 @@ public class DailyMoodControllerImpl implements DailyMoodController {
     public final Optional<Integer> getValueChosen() {
         return this.manager.getMoodByDate(LocalDate.now());
     }
+    public Optional<Integer> getValueByDate(LocalDate date) {
+        return this.manager.getMoodByDate(date);
+    }
     @Override
     public final void removeChoice() throws DaoAccessException {
         if (this.getValueChosen().isPresent()) {

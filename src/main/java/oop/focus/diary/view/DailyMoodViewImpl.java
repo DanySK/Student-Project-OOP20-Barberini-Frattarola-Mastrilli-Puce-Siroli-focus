@@ -95,7 +95,9 @@ public class DailyMoodViewImpl implements DailyMoodView, View {
                 elem.setEffect(blackout);
             }
         }
-
+    public ObservableList<ImageView> getImages() {
+        return this.images;
+    }
     @Override
     public final Button getButton() {
         return this.button;

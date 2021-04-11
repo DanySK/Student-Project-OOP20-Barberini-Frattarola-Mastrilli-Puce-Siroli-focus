@@ -1,6 +1,9 @@
 package oop.focus.diary.controller;
 
+import javafx.collections.ObservableList;
+import javafx.scene.image.ImageView;
 import oop.focus.db.exceptions.DaoAccessException;
+import org.joda.time.LocalDate;
 
 import java.util.Optional;
 
@@ -26,4 +29,5 @@ public interface DailyMoodController {
      * @throws DaoAccessException  if the mood can't be deleted
      */
     void removeChoice() throws DaoAccessException;
+    Optional<Integer> getValueByDate(LocalDate date);
 }
