@@ -7,6 +7,7 @@ import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
 import oop.focus.common.Controller;
+import oop.focus.db.DataSource;
 
 
 
@@ -72,5 +73,11 @@ public interface CalendarMonthController extends  Controller {
      * @param flag : true for disable or false for not
      */
     void disableButton(boolean flag);
+
+    /**
+     * Used for get the DataSource.
+     * @return DataSource
+     */
+    DataSource getDataSource();
 
 }
