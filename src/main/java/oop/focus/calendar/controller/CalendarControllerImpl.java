@@ -1,15 +1,10 @@
 package oop.focus.calendar.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+
 import oop.focus.calendar.view.CalendarView;
 import oop.focus.calendar.view.CalendarViewImpl;
+import oop.focus.common.View;
+import oop.focus.db.DataSourceImpl;
 
 
 
@@ -18,112 +13,36 @@ public class CalendarControllerImpl implements CalendarController {
     //Classes
     private final CalendarSettingsController settingscontroller;
     private final CalendarMonthController monthcontroller;
+    private final CalendarView calendarview;
 
-    //View
-    private HBox calendarpage;
-
-    //Variables
-    private final double optionwidth;
-    private final double optionheight;
+    //Constants
+    private static final double DAYWIDTH = 200;
+    private static final double DAYHEIGHT = 500;
 
     /**
      * Used for initialize the calendar controller.
-     * @param optionwidth
-     * @param optionheight
-     * @param daywidth
-     * @param dayheight
+     * @param datasource
      */
-    public CalendarControllerImpl(final double optionwidth, final double optionheight, final double daywidth, final double dayheight) {
-        this.optionwidth = optionwidth;
-        this.optionheight = optionheight;
-        this.calendarpage = new HBox();
+    public CalendarControllerImpl(final DataSourceImpl datasource) {
 
-        this.monthcontroller = new CalendarMonthControllerImpl(daywidth, dayheight);
+        this.monthcontroller = new CalendarMonthControllerImpl(datasource, DAYWIDTH, DAYHEIGHT);
 
         settingscontroller = new CalendarSettingsControllerImpl(monthcontroller);
 
-        final CalendarView calendarview = new CalendarViewImpl(this);
-        calendarview.setCalendarBox();
+        calendarview = new CalendarViewImpl(this);
+        calendarview.setCalendarPage(); 
     }
 
-    public final void setCalendarPage(final HBox calendarpage) {
-        this.calendarpage = calendarpage;
+    public final CalendarSettingsController getSettingsController() {
+        return settingscontroller;
     }
 
-    public final HBox getCalendarPage() {
-        return this.calendarpage;
+    public final CalendarMonthController getMonthController() {
+        return monthcontroller;
     }
 
-
-    public final Button buildSettingsWindows() {
-        final Button settings = new Button("IMPOSTAZIONI");
-
-        final Stage settingsstage = new Stage();
-        settingsstage.setScene(new Scene((Parent) settingscontroller.getView().getRoot(), optionwidth, optionheight));
-        settingscontroller.setWindow(settingsstage);
-        settings.setOnAction((e) -> {
-            settingsstage.show();
-        });
-        return settings;
-    }
-
-    public final Button buildAddEventButton() {
-        final Button addevents = new Button("Aggiungi Evento");
-
-        final Stage addeventsstage = new Stage();
-        //addeventsstage.setScene(new Scene());
-        addevents.setOnAction((e) -> {
-            addeventsstage.show();
-        });
-        return addevents;
-    }
-
-    public final EventHandler<ActionEvent> monthPanel(final VBox panelcolumn) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(monthcontroller.getView().getRoot());
-                } else {
-                    panelcolumn.getChildren().add(monthcontroller.getView().getRoot());
-                }
-            }
-
-        };
-    }
-
-    public final EventHandler<ActionEvent> weekPanel(final VBox panelcolumn) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-
-                } else {
-
-                }
-            }
-
-        };
-    }
-
-    public final EventHandler<ActionEvent> statisticsPanel(final VBox panelcolumn) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-
-                } else {
-
-                }
-            }
-
-        };
+    public final View getView() {
+        return calendarview;
     }
 
 

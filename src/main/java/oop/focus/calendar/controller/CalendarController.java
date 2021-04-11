@@ -1,55 +1,19 @@
 package oop.focus.calendar.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import oop.focus.common.Controller;
 
-public interface CalendarController {
+public interface CalendarController extends Controller {
 
     /**
-     * Used for set the Calendar Page.
-     * @param calendarpage : is the calendar page box
+     * Used for get the Settings Controller.
+     * @return CalendarSettingsController
      */
-    void setCalendarPage(HBox calendarpage);
+    CalendarSettingsController getSettingsController();
 
     /**
-     * Used for get the Calendar page.
-     * @return HBox
+     * Used for get the Month Controller.
+     * @return CalendarMonthController
      */
-    HBox getCalendarPage();
+    CalendarMonthController getMonthController();
 
-    /**
-     * Used for build the Settings button and his window.
-     * @return button
-     */
-    Button buildSettingsWindows();
-
-    /**
-     * Used for build the Add Event button and his window.
-     * @return button
-     */
-    Button buildAddEventButton();
-
-    /**
-     * Used for show the month panel.
-     * @param panelcolumn : column where we put the panel
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> monthPanel(VBox panelcolumn);
-
-    /**
-     * Used for show the week panel.
-     * @param panelcolumn : column where we put the panel
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> weekPanel(VBox panelcolumn);
-
-    /**
-     * Used for show the statistics panel.
-     * @param panelcolumn : column where we put the panel
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> statisticsPanel(VBox panelcolumn);
 }
