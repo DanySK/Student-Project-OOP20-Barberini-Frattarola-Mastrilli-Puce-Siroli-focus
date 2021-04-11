@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.DiarySections;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
@@ -20,8 +21,8 @@ public class GeneralDiaryView implements View {
     private final BorderPane pane;
     private final VBox vBox;
     private final DiarySectionsControllerImpl controller;
-    public GeneralDiaryView(final DataSourceImpl dataSource, final EventManagerImpl eventManager) {
-        this.controller = new DiarySectionsControllerImpl(dataSource, eventManager);
+    public GeneralDiaryView(final DataSource dataSource) {
+        this.controller = new DiarySectionsControllerImpl(dataSource);
         this.pane = new BorderPane();
         this.vBox = new VBox();
         this.setView();
@@ -30,7 +31,7 @@ public class GeneralDiaryView implements View {
         for (final var elem : DiarySections.values()) {
             final Button b = new Button(elem.getName());
             b.setOnMouseClicked(event -> {
-                pane.setCenter(getPane(elem));
+                pane.setCenter(getPane(elem, b));
                 setStyle(elem, pane);
             });
             b.prefWidthProperty().bind(this.vBox.widthProperty());
@@ -42,11 +43,18 @@ public class GeneralDiaryView implements View {
             this.vBox.spacingProperty().bind(this.pane.heightProperty().multiply(VBOX_SPACING));
             this.pane.setLeft(this.vBox);
         }
+        pane.setCenter(this.controller.getDiary());
+        pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
+        //setVBox();
        }
-    private Node getPane(final Enum<DiarySections> elem) {
+
+
+    private Node getPane(final Enum<DiarySections> elem, Button b) {
         if (elem.equals(DiarySections.DIARY)) {
+            b.getStyleClass().add("alice");
             return this.controller.getDiary();
         } else if (elem.equals(DiarySections.STOPWATCH)) {
+            b.setStyle(Style.STOPWATCH_STYLE.getPath());
             return this.controller.getStopwatch();
         }
         return this.controller.getTimer();
@@ -56,13 +64,19 @@ public class GeneralDiaryView implements View {
         if(elem.equals(DiarySections.DIARY)){
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
+           //setVBox();
         } else if (elem.equals(DiarySections.STOPWATCH)) {
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.STOPWATCH_STYLE.getPath());
+           // setVBox();
         } else {
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.TIMER_STYLE.getPath());
+        //    setVBox();
         }
+    }
+    private void setVBox() {
+        this.vBox.getChildren().forEach(a -> a.setStyle("-fx-background-color: #9efa89 ; -fx-font-size: 23"));
     }
     @Override
     public final Node getRoot() {

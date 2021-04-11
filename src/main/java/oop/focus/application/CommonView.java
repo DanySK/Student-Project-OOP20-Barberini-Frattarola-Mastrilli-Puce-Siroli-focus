@@ -45,6 +45,7 @@ public class CommonView implements View {
             pane.getStyleClass().add(elem.getStyle());
         }
         this.pane.setTop(this.box);
+        this.setHBox();
     }
 
     /**
@@ -62,7 +63,11 @@ public class CommonView implements View {
         }
         return this.commonControllers.getFinance();
     }
+    private void setHBox() {
+        this.box.getChildren().forEach(s -> s.setStyle(
+                "-fx-background-color: linear-gradient(#00ff66, #91eefd); -fx-background-radius : 50 50 50 50;  -fx-font-size : 23;    -fx-font-weight : bold "));
 
+    }
     @Override
     public final Node getRoot() {
         return this.pane;

@@ -1,15 +1,22 @@
 .root {
-	-fx-background-color:  #FFCC00;
+	-fx-background-color: #f3d56e;
 }
 
 .label{
 	-fx-background-color: FFFF00;
 	-fx-background-radius : 50 50 0 0 ;
 }
-
+/*
 .button{
-	-fx-background-color: FFFF00;
+	-fx-background-color: #f6b05d;
 	-fx-background-radius : 50 50 50 50 ;
 	-fx-font-size : 20;
 	-fx-font-weight : bold;
+}
+ */
+.scroll-pane {
+	-fx-background-color: #f6b05d;
+}
+.alice {
+	-fx-background-color: #000000;
 }
