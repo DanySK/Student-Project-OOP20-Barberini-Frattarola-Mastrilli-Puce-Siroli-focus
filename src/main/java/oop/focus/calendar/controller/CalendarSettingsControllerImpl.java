@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarSettingsView;
 import oop.focus.calendar.view.CalendarSettingsViewImpl;
 
@@ -18,7 +17,6 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     //Classes
     private final CalendarMonthController monthcontroller;
-    private final CalendarMonthView monthview;
 
     //View
     private Stage settingswindows;
@@ -34,9 +32,8 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
     private static final double ERRORWIDTH = 300;
     private static final double ERRORHEIGHT = 100;
 
-    public CalendarSettingsControllerImpl(final CalendarMonthController monthcontroller, final CalendarMonthView monthview) {
+    public CalendarSettingsControllerImpl(final CalendarMonthController monthcontroller) {
         this.monthcontroller = monthcontroller;
-        this.monthview = monthview;
 
         final CalendarSettingsView settingsview = new CalendarSettingsViewImpl(this);
         this.settingsbox = settingsview.getSettingsBox();
@@ -129,7 +126,7 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
         monthcontroller.setFormat(this.format);
         monthcontroller.setSpacing(this.spacing);
-        monthcontroller.updateView(monthview);
+        monthcontroller.updateView();
     }
 
 }

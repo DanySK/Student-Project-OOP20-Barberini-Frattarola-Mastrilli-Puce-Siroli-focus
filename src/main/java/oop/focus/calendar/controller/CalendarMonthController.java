@@ -3,25 +3,27 @@ package oop.focus.calendar.controller;
 
 import java.util.List;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.CalendarMonthView;
-import oop.focus.calendar.view.CalendarMonthViewImpl;
+import oop.focus.common.Controller;
 
 
 
 
-public interface CalendarMonthController {
+
+public interface CalendarMonthController extends  Controller {
 
     /**
-     * Used for build the grid with the days of the month.
-     * @return grid    Grid with the days
+     * Used for set the Format and the Spacing of the hoursbox of the day.
+     * @param daycontroller
      */
-    GridPane buildGridMonth();
+    void configureday(CalendarDayController daycontroller);
+
+    /**
+     * Used for set the List of the days (Month).
+     */
+    void setMonth();
 
     /**
      * 
@@ -31,38 +33,10 @@ public interface CalendarMonthController {
     List<DayImpl> getMonth();
 
     /**
-     * Used for set the month view.
-     * @param month view
+     * Used for get the logic of the calendar.
+     * @return CalendarLogic
      */
-    void setMonthView(VBox month);
-
-
-    /**
-     * Used for get the month view box.
-     * @return vbox
-     */
-    VBox getMonthView();
-
-    /**
-     * Is an EventHandler for change the month (next or previous one).
-     * @param monthview : the month view
-     * @param flag : true previous month, false next month
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> changeMonthButton(CalendarMonthViewImpl monthview, Boolean flag);
-
-    /**
-     * Used for update the view when there are changes.
-     * @param monthview
-     */
-    void updateView(CalendarMonthView monthview);
-
-
-    /**
-     * Used for disable all the button of the month grid.
-     * @param flag : true for disable or false for not
-     */
-    void disableButton(boolean flag);
+     CalendarLogic getCalendarLogic();
 
     /**
      * Used for set the font size of the texts.
@@ -77,15 +51,20 @@ public interface CalendarMonthController {
     double getFontSize();
 
     /**
-     * 
+     * Used for set the Format of the hoursbox.
      * @param format
      */
     void setFormat(Format format);
 
     /**
-     * 
+     * Used for set the Spacing of the hoursbox.
      * @param spacing
      */
     void setSpacing(double spacing);
+
+    /**
+     * Used for update the view of the month.
+     */
+    void updateView();
 
 }

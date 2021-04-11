@@ -7,8 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oop.focus.calendar.view.CalendarMonthView;
-import oop.focus.calendar.view.CalendarMonthViewImpl;
 import oop.focus.calendar.view.CalendarView;
 import oop.focus.calendar.view.CalendarViewImpl;
 
@@ -40,9 +38,8 @@ public class CalendarControllerImpl implements CalendarController {
         this.calendarpage = new HBox();
 
         this.monthcontroller = new CalendarMonthControllerImpl(daywidth, dayheight);
-        final CalendarMonthView monthview = new CalendarMonthViewImpl(monthcontroller);
 
-        settingscontroller = new CalendarSettingsControllerImpl(monthcontroller, monthview);
+        settingscontroller = new CalendarSettingsControllerImpl(monthcontroller);
 
         final CalendarView calendarview = new CalendarViewImpl(this);
         calendarview.setCalendarBox();
@@ -87,9 +84,9 @@ public class CalendarControllerImpl implements CalendarController {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(monthcontroller.getMonthView());
+                    panelcolumn.getChildren().add(monthcontroller.getView().getRoot());
                 } else {
-                    panelcolumn.getChildren().add(monthcontroller.getMonthView());
+                    panelcolumn.getChildren().add(monthcontroller.getView().getRoot());
                 }
             }
 
