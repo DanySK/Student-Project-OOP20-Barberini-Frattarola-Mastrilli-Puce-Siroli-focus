@@ -10,6 +10,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -122,7 +123,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
             final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, this.daywidth, this.dayheight);
             configureday(daycontroller);
             daycontroller.buildDay();
-            cells.put(jb, new Scene(daycontroller.getScroller(), daycontroller.getWidth(), daycontroller.getHeight()));
+            final ScrollPane daypane = new ScrollPane(daycontroller.getView().getRoot());
+            daypane.setFitToWidth(true);
+            cells.put(jb, new Scene(daypane, daycontroller.getWidth(), daycontroller.getHeight()));
             daysGrid.add(jb, counter, count);
 
         });

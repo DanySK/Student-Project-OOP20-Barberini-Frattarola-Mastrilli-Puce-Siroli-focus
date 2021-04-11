@@ -1,14 +1,14 @@
 package oop.focus.calendar.controller;
 
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.EventViewImpl;
 import oop.focus.calendar.view.HoursViewImpl;
+import oop.focus.common.Controller;
 
 
-public interface CalendarDayController {
+
+public interface CalendarDayController extends Controller {
 
     /**
      * Used for build the day view.
@@ -32,30 +32,6 @@ public interface CalendarDayController {
      * @return DayImpl
      */
     DayImpl getDay();
-
-    /**
-     * Used for set the day box in a scrollable panel.
-     * @param container : is the day box
-     */
-    void setScroller(VBox container);
-
-    /**
-     * Get an scrollable panel with all the object of the day.
-     * @return scrollable view of the day
-     */
-    ScrollPane getScroller();
-
-    /**
-     * Used for set the container panel of the day view.
-     * @param container : is the day box
-     */
-    void setContainer(VBox container);
-
-    /**
-     * Get the VBox with all the object of the day.
-     * @return VBox view of the day
-     */
-    VBox getContainer();
 
     /**
      * Get the width of the day view.
@@ -93,15 +69,11 @@ public interface CalendarDayController {
      */
     Format getFormat();
 
-    /**
-     * Used for get the string where are written the daily events.
-     * @return String
-     */
-    String getDailyEvent();
 
     /**
      * Add daily events.
+     * @return string
      */
-    void setDailyEvent();
+    String writeDailyEvent();
 
 }

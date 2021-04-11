@@ -1,13 +1,13 @@
 package oop.focus.calendar.controller;
 
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
+
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.EventViewImpl;
 import oop.focus.calendar.view.HoursViewImpl;
+import oop.focus.common.View;
 
 
 public class CalendarDayControllerImpl implements CalendarDayController {
@@ -18,9 +18,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
     private final DayImpl day;
 
     //View
-    private final CalendarDaysView dayviewlogic;
-    private ScrollPane scroller;
-    private VBox dayview;
+    private final CalendarDaysView calendardayview;
 
     //Variables
     private final double width;
@@ -39,17 +37,14 @@ public class CalendarDayControllerImpl implements CalendarDayController {
      * @param height  max height of the day view.
      */
     public CalendarDayControllerImpl(final DayImpl day, final double width, final double height) {
+        calendardayview = new CalendarDaysViewImpl(this);
 
-        dayviewlogic = new CalendarDaysViewImpl(this);
-
-        this.scroller = new ScrollPane();
-        this.dayview = new VBox();
-        this.dailyevents = "Attività giornaliere:\n";
 
         this.day = day;
         hoursbox = new HoursViewImpl();
         eventbox = new EventViewImpl(hoursbox, day);
 
+        this.dailyevents = "Attività giornaliere:\n";
         this.width = width;
         this.height = height;
         setSpacing(SPACING);
@@ -58,7 +53,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
 
     public final void buildDay() {
-        this.dayviewlogic.buildDay();
+        this.calendardayview.buildDay();
     }
 
     public final HoursViewImpl getHoursBox() {
@@ -73,36 +68,13 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         return this.day;
     }
 
-
-    public final void setScroller(final VBox container) {
-        this.scroller = new ScrollPane(container);
-        this.scroller.setFitToWidth(true);
-    }
-
-
-    public final ScrollPane getScroller() {
-        return this.scroller;
-    }
-
-
-    public final void setContainer(final VBox container) {
-        this.dayview = new VBox(container);
-    }
-
-
-    public final VBox getContainer() {
-        return this.dayview;
-    }
-
     public final double getWidth() {
         return this.width;
     }
 
-
     public final double getHeight() {
         return this.height;
     }
-
 
     public final void setSpacing(final double spacing) {
         this.spacing = spacing;
@@ -120,13 +92,15 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         return this.format;
     }
 
-    public final String getDailyEvent() {
+    public final String writeDailyEvent() {
+        this.day.getDailyEvents().forEach(e -> {
+            this.dailyevents += e.getName() + "\n";
+        });
         return this.dailyevents;
     }
 
-    public final void setDailyEvent() {
-        this.day.getDailyEvents().forEach(e -> {
-            dailyevents += e.getName() + "\n";
-        });
+
+    public final View getView() {
+        return calendardayview;
     }
 }

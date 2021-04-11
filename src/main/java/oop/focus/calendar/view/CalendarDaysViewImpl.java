@@ -2,6 +2,7 @@ package oop.focus.calendar.view;
 
 
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderStroke;
@@ -17,13 +18,23 @@ import oop.focus.calendar.controller.CalendarDayControllerImpl;
 
 
 
+
 public class CalendarDaysViewImpl implements CalendarDaysView {
 
     private final CalendarDayController daycontroller;
 
+    //View
+    private VBox daybox;
+
+    //Variables
+    private String dailyevents;
+
 
     public CalendarDaysViewImpl(final CalendarDayControllerImpl daycontroller) {
         this.daycontroller = daycontroller;
+
+        this.daybox = new VBox();
+
     }
 
     /*
@@ -57,9 +68,8 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         daily.setAlignment(Pos.CENTER);
         daily.setTextAlignment(TextAlignment.CENTER);
 
-        daycontroller.setDailyEvent();
-
-        daily.setText(daycontroller.getDailyEvent());
+        this.setDailyEvent();
+        daily.setText(this.getDailyEvent());
 
         daily.setBorder(new Border(new BorderStroke(Color.RED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         container.getChildren().add(daily);
@@ -89,9 +99,28 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         container.setBorder(new Border(new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         container.setAlignment(Pos.CENTER);
 
+        this.setContainer(container);
+    }
 
-        daycontroller.setContainer(container);
-        daycontroller.setScroller(container);
+    public final void setContainer(final VBox container) {
+        this.daybox = new VBox(container);
+    }
+
+
+    public final VBox getContainer() {
+        return this.daybox;
+    }
+
+    public final void setDailyEvent() {
+        this.dailyevents = daycontroller.writeDailyEvent();
+    }
+
+    public final String getDailyEvent() {
+        return this.dailyevents;
+    }
+
+    public final Node getRoot() {
+        return getContainer();
     }
 
 
