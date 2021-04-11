@@ -28,7 +28,7 @@ public interface CalendarMonthController extends  Controller {
     /**
      * 
      * Used to get the list with the days of the month.
-     * @return month
+     * @return List<DayImpl> : month
      */
     List<DayImpl> getMonth();
 
@@ -40,7 +40,7 @@ public interface CalendarMonthController extends  Controller {
 
     /**
      * Used for set the font size of the texts.
-     * @param fontsize
+     * @param fontsize : double
      */
     void setFontSize(double fontsize);
 
