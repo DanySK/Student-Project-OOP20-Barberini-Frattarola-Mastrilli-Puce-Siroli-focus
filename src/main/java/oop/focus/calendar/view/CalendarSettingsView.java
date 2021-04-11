@@ -20,4 +20,10 @@ public interface CalendarSettingsView extends View {
      * @param stage
      */
     void setWindow(Stage stage);
+
+    /**
+     * Used for set the windows error of settings.
+     * @param string
+     */
+    void windowsError(String string);
 }

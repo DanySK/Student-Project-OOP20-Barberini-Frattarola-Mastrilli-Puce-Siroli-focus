@@ -1,8 +1,6 @@
 package oop.focus.calendar.controller;
 
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
+
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarSettingsView;
@@ -23,8 +21,6 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
     //Costants
     private static final double SPACING = 50; 
     private static final double MINSPACING = 30;
-    private static final double ERRORWIDTH = 300;
-    private static final double ERRORHEIGHT = 100;
 
     public CalendarSettingsControllerImpl(final CalendarMonthController monthcontroller) {
         this.monthcontroller = monthcontroller;
@@ -53,26 +49,18 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
             try {
                 final double d = Double.parseDouble(spacing);
                 if (d < MINSPACING) {
-                    windowsError("ATTENZIONE:\nminimo valore concesso è 30");
+                    this.settingsview.windowsError("minimo valore concesso e' 30");
                     return false;
                 }  else {
                     this.setSpacing(d);
                     return true;
                 } 
             } catch (NumberFormatException nfe) {
-                windowsError("    ATTENZIONE:\ninserire dei numeri");
+                this.settingsview.windowsError("inserire dei numeri");
                 return false;
             }
         }
 
-    }
-
-    private void windowsError(final String string) {
-        final Stage windowserror = new Stage();
-        final Label error = new Label(string);
-        error.setAlignment(Pos.CENTER);
-        windowserror.setScene(new Scene(error, ERRORWIDTH, ERRORHEIGHT));
-        windowserror.show();
     }
 
 

@@ -70,7 +70,7 @@ public class CalendarViewImpl implements CalendarView {
         buttoncolumn.getChildren().add(buildAddEventButton());
         buttoncolumn.getChildren().add(buildSettingsWindows());
 
-
+        panelcolumn.getChildren().add(calendarcontroller.getMonthController().getView().getRoot());
 
         return calendarpage;
     }
@@ -158,8 +158,6 @@ public class CalendarViewImpl implements CalendarView {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
                     panelcolumn.getChildren().add(calendarcontroller.getMonthController().getView().getRoot());
-                } else {
-                    panelcolumn.getChildren().add(calendarcontroller.getMonthController().getView().getRoot());
                 }
             }
 
@@ -173,8 +171,6 @@ public class CalendarViewImpl implements CalendarView {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-
-                } else {
 
                 }
             }
@@ -190,8 +186,6 @@ public class CalendarViewImpl implements CalendarView {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
 
-                } else {
-
                 }
             }
 
@@ -205,8 +199,6 @@ public class CalendarViewImpl implements CalendarView {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-
-                } else {
 
                 }
             }

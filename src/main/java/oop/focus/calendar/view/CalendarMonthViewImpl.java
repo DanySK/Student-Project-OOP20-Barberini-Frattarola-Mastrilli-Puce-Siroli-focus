@@ -270,8 +270,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         this.monthinfo.setFont(Font.font(monthcontroller.getFontSize()));
         this.monthinfo.setAlignment(Pos.CENTER);
 
-        final Button next = new Button("next");
-        final Button previous = new Button("previous");
+        final Button next = new Button("prossimo");
+        final Button previous = new Button("precedente");
         next.setOnAction(changeMonthButton(this, false));
         previous.setOnAction(changeMonthButton(this, true));
 
@@ -357,10 +357,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     public final void setMonthInfo(final Label monthinfo, final String string) {
         monthinfo.setText(string);
-    }
-
-    public final void disableButton(final boolean flag) {
-        cells.forEach((button, day) -> button.setDisable(flag));
     }
 
 

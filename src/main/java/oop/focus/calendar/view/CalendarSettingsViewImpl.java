@@ -5,10 +5,12 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -73,7 +75,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
      * @param save : is the button that will save the changes
      */
     private void buildSpacingRow(final GridPane settings, final Button save) {
-        final Label spacinglabel = new Label("spaziatura ore");
+        final Label spacinglabel = new Label("spazio tra le ore");
 
         final TextField spacing = new TextField();
 
@@ -139,6 +141,14 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
     public final void setWindow(final Stage stage) {
         this.settingswindows = stage;
+    }
+
+    public final void windowsError(final String string) {
+        final Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText("Attenzione");
+        alert.setContentText(string);
+        alert.showAndWait();
     }
 
     public final Node getRoot() {
