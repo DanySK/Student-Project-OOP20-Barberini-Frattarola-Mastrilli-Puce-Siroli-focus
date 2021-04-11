@@ -112,9 +112,6 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         return monthview;
     }
 
-    public final void disableButton(final boolean flag) {
-        monthview.disableButton(flag);
-    }
 
     public final DataSource getDataSource() {
         return this.datasource;

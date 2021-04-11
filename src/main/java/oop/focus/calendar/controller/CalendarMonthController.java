@@ -68,11 +68,6 @@ public interface CalendarMonthController extends  Controller {
      */
     void updateView();
 
-    /**
-     * Used for disable all the button of the month grid.
-     * @param flag : true for disable or false for not
-     */
-    void disableButton(boolean flag);
 
     /**
      * Used for get the DataSource.
