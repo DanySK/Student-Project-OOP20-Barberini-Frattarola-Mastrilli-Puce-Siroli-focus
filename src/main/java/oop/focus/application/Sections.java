@@ -13,7 +13,7 @@ public enum Sections {
     /**
      * Diary's section.
      */
-    DIARY("Diario", ""),
+    DIARY("Diario", "bg-1"),
     /**
      * Calendar's section.
      */

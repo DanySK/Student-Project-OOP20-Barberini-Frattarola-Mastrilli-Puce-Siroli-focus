@@ -9,6 +9,7 @@ import oop.focus.common.View;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.DiarySections;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
+import oop.focus.diary.controller.Style;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class GeneralDiaryView implements View {
@@ -28,7 +29,10 @@ public class GeneralDiaryView implements View {
     private void setView() {
         for (final var elem : DiarySections.values()) {
             final Button b = new Button(elem.getName());
-            b.setOnMouseClicked(event -> pane.setCenter(getPane(elem)));
+            b.setOnMouseClicked(event -> {
+                pane.setCenter(getPane(elem));
+                setStyle(elem, pane);
+            });
             b.prefWidthProperty().bind(this.vBox.widthProperty());
             b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT));
             this.vBox.getChildren().add(b);
@@ -39,7 +43,7 @@ public class GeneralDiaryView implements View {
             this.pane.setLeft(this.vBox);
         }
        }
-    private Node getPane(final Enum elem) {
+    private Node getPane(final Enum<DiarySections> elem) {
         if (elem.equals(DiarySections.DIARY)) {
             return this.controller.getDiary();
         } else if (elem.equals(DiarySections.STOPWATCH)) {
@@ -48,6 +52,15 @@ public class GeneralDiaryView implements View {
         return this.controller.getTimer();
     }
 
+    private void setStyle(final Enum<DiarySections> elem,BorderPane pane) {
+        if(elem.equals(DiarySections.DIARY)){
+            pane.getStylesheets().clear();
+            pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
+        } else if (elem.equals(DiarySections.STOPWATCH)) {
+            pane.getStylesheets().clear();
+            pane.getStylesheets().add(Style.COUNTER_STYLE.getPath());
+        }
+    }
     @Override
     public final Node getRoot() {
         return this.pane;

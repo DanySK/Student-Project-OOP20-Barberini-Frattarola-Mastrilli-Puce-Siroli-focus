@@ -41,8 +41,8 @@ public class CommonView implements View {
             button.prefHeightProperty().bind(this.box.heightProperty());
             button.prefWidthProperty().bind(this.box.widthProperty().multiply(BUTTON_WIDTH));
             button.setOnMouseClicked(event -> pane.setCenter(getPane(elem)));
-            final BorderPane borderPane = new BorderPane();
-            borderPane.getStyleClass().add(elem.getStyle());
+            //final BorderPane borderPane = new BorderPane();
+            pane.getStyleClass().add(elem.getStyle());
         }
         this.pane.setTop(this.box);
     }

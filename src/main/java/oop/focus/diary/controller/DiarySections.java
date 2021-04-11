@@ -5,11 +5,11 @@ public enum DiarySections {
     /**
      *
      */
-    DIARY("Diario", ""),
+    DIARY("Diario", Style.DIARY_STYLE.getPath()),
     /**
      *
      */
-    STOPWATCH("Cronometro", ""),
+    STOPWATCH("Cronometro", Style.COUNTER_STYLE.getPath()),
     /**
      *
      */
