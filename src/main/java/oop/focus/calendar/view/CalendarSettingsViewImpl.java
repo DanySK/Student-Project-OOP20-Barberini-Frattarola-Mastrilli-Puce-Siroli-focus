@@ -94,16 +94,16 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     private void buildFormatRow(final GridPane settings) {
         final Label formatlabel = new Label("formato ore");
 
-        final ComboBox<Format> format = new ComboBox<>();
+        final ComboBox<String> format = new ComboBox<>();
 
         final Format normal = Format.NORMAL;
         final Format extended = Format.EXTENDED;
 
-        format.getItems().add(normal);
-        format.getItems().add(extended);
+        format.getItems().add(normal.getName());
+        format.getItems().add(extended.getName());
 
         format.setOnAction((e) -> {
-            settingscontroller.setFormat(format.getValue());
+            settingscontroller.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED);
         });
 
 
