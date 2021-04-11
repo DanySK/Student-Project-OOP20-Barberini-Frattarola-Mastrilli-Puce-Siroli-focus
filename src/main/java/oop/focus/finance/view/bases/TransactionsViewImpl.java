@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
@@ -22,19 +23,18 @@ import oop.focus.finance.view.windows.FinanceWindow;
 import oop.focus.finance.view.windows.NewAccountViewImpl;
 import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 
 public class TransactionsViewImpl extends GenericView<TransactionsController> implements TransactionsView {
 
     @FXML
-    private ScrollPane transactionsScroll, accountsScroll;
+    private ScrollPane accountsScroll;
     @FXML
-    private Label accountLabel, amountLabel;
+    private VBox transactionsVBox;
+    @FXML
+    private Label accountLabel, amountLabel, colorLabel;
     @FXML
     private Button newAccountButton, deleteButton;
 
@@ -44,7 +44,6 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
 
     @Override
     public final void populate() {
-        this.newAccountButton.setText("Crea Conto");
         this.newAccountButton.setOnAction(event -> this.showNewAccount());
         this.deleteButton.setOnAction(event -> this.deleteAccounts());
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
@@ -52,20 +51,17 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     }
 
     @Override
-    public final void updateTransactions(final Set<Transaction> transactions, final Predicate<Account> predicate) {
-        DecimalFormat df = new DecimalFormat("#0.00");
+    public final void updateTransactions(final List<Transaction> transactions, final Predicate<Account> predicate) {
         this.accountLabel.setText(super.getX().getAccountName());
-        this.amountLabel.setText("E " + df.format(super.getX().getAmount(predicate)));
+        this.amountLabel.setText(super.getX().getAmount(predicate));
+        this.colorLabel.setTextFill(Color.valueOf(super.getX().getColor(predicate)));
         this.deleteButton.setText("Elimina " + super.getX().getAccountName());
+        this.transactionsVBox.getChildren().clear();
         final List<TransactionView> transactionsTiles = new ArrayList<>();
-        transactions.stream()
-                .sorted(Comparator.comparing(Transaction::getDate).reversed())
-                .forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
-        final VBox box = new VBox();
-        transactionsTiles.forEach(t -> box.getChildren().add(t.getRoot()));
+        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
+        transactionsTiles.forEach(t -> this.transactionsVBox.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> this.showDetails(t.getTransaction())));
-        this.transactionsScroll.setContent(box);
     }
 
     private void showDetails(final Transaction transaction) {

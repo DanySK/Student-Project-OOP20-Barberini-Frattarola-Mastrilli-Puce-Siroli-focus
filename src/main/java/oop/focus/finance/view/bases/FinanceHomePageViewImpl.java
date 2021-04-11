@@ -5,13 +5,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.FinanceHomePageController;
 import oop.focus.finance.model.Account;
-import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
@@ -19,21 +17,19 @@ import oop.focus.finance.view.windows.FinanceWindow;
 import oop.focus.finance.view.windows.NewQuickTransactionViewImpl;
 import oop.focus.finance.view.windows.NewTransactionViewImpl;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
-public class FinanceHomePageViewViewImpl extends GenericView<FinanceHomePageController> implements FinanceHomePageView {
+public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageController> implements FinanceHomePageView {
 
     @FXML
-    private ScrollPane accountsScroll, movementsScroll, financeHotKeyScroll;
+    private VBox accountsVBox, movementsVBox, financeHotKeyVBox;
     @FXML
-    private Label amountLabel, accountLabel, movementsLabel;
+    private Label amountLabel;
     @FXML
     private Button newMovememntButton, newQuickTransactionButton;
 
-    public FinanceHomePageViewViewImpl(final FinanceHomePageController controller) {
+    public FinanceHomePageViewImpl(final FinanceHomePageController controller) {
         super(controller, FXMLPaths.HOMEPAGE);
     }
 
@@ -47,46 +43,31 @@ public class FinanceHomePageViewViewImpl extends GenericView<FinanceHomePageCont
 
     @Override
     public final void populateAccounts() {
-        this.amountLabel.setText("E " + super.getX().getTotalAmount());
-        this.accountLabel.setText("Saldo totale");
+        this.amountLabel.setText(super.getX().getTotalAmount());
+        this.accountsVBox.getChildren().clear();
         final List<GenericTileView<Account>> fastAccountTiles = new ArrayList<>();
-        DecimalFormat df = new DecimalFormat("#0.00");
-        super.getX().getAccounts().stream()
-                .sorted(Comparator.comparing(Account::getName))
-                .forEach(a -> fastAccountTiles.add(new GenericTileViewImpl<>(a, a.getName(),
-                "E " + df.format((double) super.getX().getAmount(a) / 100))));
-        final VBox box = new VBox();
-        fastAccountTiles.forEach(t -> box.getChildren().add(t.getRoot()));
-        this.accountsScroll.setContent(box);
+        super.getX().getSortedAccounts().forEach(a -> fastAccountTiles.add(
+                new GenericTileViewImpl<>(a, a.getName(), super.getX().getAmount(a))));
+        fastAccountTiles.forEach(t -> this.accountsVBox.getChildren().add(t.getRoot()));
     }
 
     @Override
     public final void populateRecentTransactions() {
-        this.movementsLabel.setText("Transazioni di oggi");
-        this.newMovememntButton.setText("Nuova Transazione");
+        this.movementsVBox.getChildren().clear();
         final List<GenericTileView<Transaction>> fastTransactionTiles = new ArrayList<>();
-        DecimalFormat df = new DecimalFormat("#0.00");
-        super.getX().getTodayTransactions().stream()
-                .sorted(Comparator.comparing(Transaction::getDate).reversed())
-                .forEach(t -> fastTransactionTiles.add(new GenericTileViewImpl<>(t,
-                t.getDescription(), "E " + df.format((double) t.getAmount() / 100))));
-        final VBox box = new VBox();
-        fastTransactionTiles.forEach(t -> box.getChildren().add(t.getRoot()));
-        this.movementsScroll.setContent(box);
+        super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
+                new GenericTileViewImpl<>(t, t.getDescription(), super.getX().format(t.getAmount()))));
+        fastTransactionTiles.forEach(t -> this.movementsVBox.getChildren().add(t.getRoot()));
     }
 
     @Override
     public final void populateQuickTransactions() {
-        this.newQuickTransactionButton.setText("Nuova Transazione Rapida");
+        this.financeHotKeyVBox.getChildren().clear();
         final List<FinanceMenuButton<FinanceHomePageController>> financeHotKeyButtons = new ArrayList<>();
-        super.getX().getQuickTransactions().stream()
-                .sorted(Comparator.comparing(QuickTransaction::getDescription))
-                .forEach(qt -> financeHotKeyButtons.add(
+        super.getX().getSortedQuickTransactions().forEach(qt -> financeHotKeyButtons.add(
                 new FinanceMenuButtonImpl<>(qt.getDescription(), c -> c.doQuickTransaction(qt))));
-        final VBox box = new VBox();
-        financeHotKeyButtons.forEach(b -> box.getChildren().add(b.getButton()));
+        financeHotKeyButtons.forEach(b -> this.financeHotKeyVBox.getChildren().add(b.getButton()));
         financeHotKeyButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(super.getX())));
-        this.financeHotKeyScroll.setContent(box);
         this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionViewImpl(super.getX())));
     }
 
