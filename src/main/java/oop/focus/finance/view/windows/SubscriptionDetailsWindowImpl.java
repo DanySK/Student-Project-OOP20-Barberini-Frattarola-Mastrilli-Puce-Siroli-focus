@@ -13,8 +13,8 @@ import java.text.DecimalFormat;
 public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<SubscriptionsController, Transaction> {
 
     @FXML
-    private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
-            dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
+    private Label titleLabel, dateLabel, dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel,
+            dataAmountLabel, dataSubscriptionLabel;
     @FXML
     private Button deleteButton, closeButton;
 
@@ -25,12 +25,7 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
     @Override
     public final void populateStaticLabels() {
         this.titleLabel.setText("DETTAGLI ABBONAMENTO");
-        this.descriptionLabel.setText("Descrizione:");
-        this.categoryLabel.setText("Categoria");
         this.dateLabel.setText("Data e ora ultimo rinnovo:");
-        this.accountLabel.setText("Conto");
-        this.amountLabel.setText("Importo:");
-        this.subscriptionLabel.setText("Abbonamento:");
     }
 
     @Override
@@ -38,9 +33,9 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
         this.dataDescriptionLabel.setText(super.getX().getDescription());
         this.dataCategoryLabel.setText(super.getX().getCategory().getName());
         this.dataDateLabel.setText(super.getX().getDateToString());
-        this.dataAccountLabel.setText(super.getX().getAccount().toString());
+        this.dataAccountLabel.setText(super.getX().getAccount().getName());
         DecimalFormat df = new DecimalFormat("#.00");
-        this.dataAmountLabel.setText("E " + df.format((double) super.getX().getAmount() / 100));
+        this.dataAmountLabel.setText("" + df.format((double) super.getX().getAmount() / 100));
         this.dataSubscriptionLabel.setText(super.getX().getRepetition().getName());
     }
 

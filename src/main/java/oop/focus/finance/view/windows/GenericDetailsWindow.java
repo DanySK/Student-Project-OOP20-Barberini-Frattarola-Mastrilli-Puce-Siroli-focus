@@ -2,14 +2,10 @@ package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 
 public abstract class GenericDetailsWindow<X, Y> extends GenericWindow<Y> implements FinanceDetailsWindow<X> {
 
-    @FXML
-    private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
-            dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
     @FXML
     private Button closeButton, deleteButton;
 
@@ -31,15 +27,7 @@ public abstract class GenericDetailsWindow<X, Y> extends GenericWindow<Y> implem
      * Populates static labels of fxml file.
      */
     @Override
-    public void populateStaticLabels() {
-        this.titleLabel.setText("DETTAGLI TRANSAZIONE");
-        this.descriptionLabel.setText("Descrizione:");
-        this.categoryLabel.setText("Categoria");
-        this.dateLabel.setText("Data e ora:");
-        this.accountLabel.setText("Conto");
-        this.amountLabel.setText("Importo:");
-        this.subscriptionLabel.setText("Abbonamento:");
-    }
+    public void populateStaticLabels() { }
 
     /**
      * Populates buttons of fxml file.

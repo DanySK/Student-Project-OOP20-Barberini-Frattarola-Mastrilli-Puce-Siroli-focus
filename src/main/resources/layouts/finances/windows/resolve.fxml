@@ -5,12 +5,16 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="resolveLabel" prefHeight="58.0" prefWidth="350.0" />
+   <Label fx:id="resolveLabel" alignment="CENTER" prefHeight="58.0" prefWidth="350.0" text="RISOLVI">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
    <ScrollPane fx:id="resolveScroll" prefHeight="277.0" prefWidth="350.0" />
    <Pane prefHeight="64.0" prefWidth="350.0">
-      <Button fx:id="cancelButton" layoutX="28.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="118.0" />
-      <Button fx:id="saveButton" layoutX="197.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" />
+      <Button fx:id="cancelButton" layoutX="28.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="118.0" text="Chiudi" />
+      <Button fx:id="saveButton" layoutX="197.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Salva" />
    </Pane>
 </VBox>

@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.ComboBox?>
 <Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="368.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="titleLabel" layoutY="-1.0" prefHeight="57.0" prefWidth="368.0" />
-   <Button fx:id="cancelButton" layoutX="59.0" layoutY="343.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" />
-   <Button fx:id="saveButton" layoutX="207.0" layoutY="343.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" />
-   <ComboBox fx:id="personChoice" layoutX="109.0" layoutY="135.0" prefWidth="150.0" />
-   <Label fx:id="selectLabel" layoutX="88.0" layoutY="101.0"/>
-   <Label fx:id="newPersonLabel" layoutX="53.0" layoutY="219.0" prefHeight="17.0" prefWidth="262.0"/>
-   <Button fx:id="newPersonButton" layoutX="133.0" layoutY="258.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0"/>
+   <Label fx:id="titleLabel" alignment="CENTER" layoutY="-1.0" prefHeight="57.0" prefWidth="368.0" text="AGGIUNGI UNA PERSONA AL GRUPPO">
+      <font>
+         <Font name="System Bold" size="14.0" />
+      </font></Label>
+   <Button fx:id="cancelButton" layoutX="59.0" layoutY="343.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" text="Chiudi" />
+   <Button fx:id="saveButton" layoutX="207.0" layoutY="343.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" text="Salva" />
+   <ChoiceBox fx:id="personChoice" layoutX="109.0" layoutY="135.0" prefWidth="150.0" />
+   <Label fx:id="selectLabel" alignment="CENTER" layoutX="88.0" layoutY="101.0" text="Seleziona la persona da aggiungere" textAlignment="CENTER" />
+   <Label fx:id="newPersonLabel" alignment="CENTER" layoutX="53.0" layoutY="226.0" prefHeight="17.0" prefWidth="262.0" text="Clicca qui invece per creare una nuova persona" textAlignment="CENTER" />
+   <Button fx:id="newPersonButton" layoutX="132.0" layoutY="263.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="101.0" text="Nuova persona" />
    <Separator layoutX="45.0" layoutY="189.0" prefHeight="3.0" prefWidth="278.0" />
 </Pane>

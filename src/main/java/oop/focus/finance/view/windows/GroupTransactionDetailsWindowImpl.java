@@ -7,14 +7,16 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
+import oop.focus.homepage.model.Person;
 
 import java.text.DecimalFormat;
+import java.util.stream.Collectors;
 
 public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<GroupController, GroupTransaction> {
 
     @FXML
-    private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
-            dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
+    private Label titleLabel, categoryLabel, accountLabel, subscriptionLabel, dataDescriptionLabel, dataCategoryLabel,
+            dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel, secondEuroLabel;
     @FXML
     private Button deleteButton;
 
@@ -25,23 +27,21 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
     @Override
     public final void populateStaticLabels() {
         this.titleLabel.setText("DETTAGLI TRANSAZIONE DI GRUPPO");
-        this.descriptionLabel.setText("Fatta da:");
-        this.categoryLabel.setText("Per:");
-        this.dateLabel.setText("Data:");
-        this.accountLabel.setText("Descrizione");
-        this.amountLabel.setText("Importo:");
+        this.categoryLabel.setText("Fatta da:");
+        this.accountLabel.setText("Per:");
         this.subscriptionLabel.setText("Importo a testa:");
+        this.secondEuroLabel.setVisible(true);
     }
 
     @Override
     public final void populateDynamicLabels() {
-        this.dataAccountLabel.setText(super.getX().getDescription());
-        this.dataDescriptionLabel.setText(super.getX().getMadeBy().getName());
-        this.dataCategoryLabel.setText(super.getX().getForList().toString());
-        this.dataDateLabel.setText(super.getX().getDate().toString());
+        this.dataDescriptionLabel.setText(super.getX().getDescription());
+        this.dataCategoryLabel.setText(super.getX().getMadeBy().getName());
+        this.dataDateLabel.setText(super.getX().getDateToString());
+        this.dataAccountLabel.setText(super.getX().getForList().stream().map(Person::getName).collect(Collectors.joining(", ")));
         DecimalFormat df = new DecimalFormat("#.00");
-        this.dataAmountLabel.setText("E " + df.format((double) super.getX().getAmount() / 100));
-        this.dataSubscriptionLabel.setText("E " + df.format((double) super.getX().getAmount() / (super.getX().getForList().size() * 100)));
+        this.dataAmountLabel.setText("" + df.format((double) super.getX().getAmount() / 100));
+        this.dataSubscriptionLabel.setText("" + df.format((double) super.getX().getAmount() / (super.getX().getForList().size() * 100)));
     }
 
     @Override

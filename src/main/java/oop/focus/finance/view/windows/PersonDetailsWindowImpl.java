@@ -12,7 +12,7 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
 
     @FXML
     private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
-            dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
+            dataDescriptionLabel, dataCategoryLabel, firstEuroLabel;
     @FXML
     private Button deleteButton;
 
@@ -25,6 +25,11 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
         this.titleLabel.setText("DETTAGLI DI " + super.getX().getName());
         this.descriptionLabel.setText("Nome:");
         this.categoryLabel.setText("Parentela:");
+        this.dateLabel.setVisible(false);
+        this.accountLabel.setVisible(false);
+        this.amountLabel.setVisible(false);
+        this.subscriptionLabel.setVisible(false);
+        this.firstEuroLabel.setVisible(false);
     }
 
     @Override

@@ -13,8 +13,8 @@ import java.text.DecimalFormat;
 public class TransactionDetailsWindowImpl extends GenericDetailsWindow<TransactionsController, Transaction> {
 
     @FXML
-    private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
-            dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
+    private Label dataDescriptionLabel, dataCategoryLabel, dataDateLabel,
+            dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
 
     public TransactionDetailsWindowImpl(final TransactionsController controller, final Transaction transaction) {
         super(controller, transaction, FXMLPaths.TRANSACTIONDETAILS);
@@ -27,7 +27,7 @@ public class TransactionDetailsWindowImpl extends GenericDetailsWindow<Transacti
         this.dataDateLabel.setText(super.getX().getDateToString());
         this.dataAccountLabel.setText(super.getX().getAccount().toString());
         DecimalFormat df = new DecimalFormat("#.00");
-        this.dataAmountLabel.setText("E " + df.format((double) super.getX().getAmount() / 100));
+        this.dataAmountLabel.setText("" + df.format((double) super.getX().getAmount() / 100));
         this.dataSubscriptionLabel.setText(super.getX().getRepetition().equals(Repetition.ONCE) ? "No"
                 : super.getX().getRepetition().getName());
     }

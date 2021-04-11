@@ -31,9 +31,6 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
 
     @Override
     public final void populate() {
-        this.resolveLabel.setText("Risolvi");
-        this.cancelButton.setText("Cancella");
-        this.saveButton.setText("Salva");
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
         this.showResolvingTiles();

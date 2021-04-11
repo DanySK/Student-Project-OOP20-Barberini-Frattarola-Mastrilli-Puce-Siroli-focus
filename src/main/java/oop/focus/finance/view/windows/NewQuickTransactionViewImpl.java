@@ -15,9 +15,9 @@ import oop.focus.finance.model.Category;
 public class NewQuickTransactionViewImpl extends GenericWindow<FinanceHomePageController> {
 
     @FXML
-    private Label titleLabel, descriptionLabel, amountLabel, categoryLabel, repetitionLabel, dateLabel, accountLabel;
+    private Label titleLabel, repetitionLabel, dateLabel;
     @FXML
-    private TextField descriptionTextField, amountTextField;
+    private TextField descriptionTextField, amountTextField, hoursTextField, minutesTextField;
     @FXML
     private DatePicker dataPicker;
     @FXML
@@ -35,15 +35,13 @@ public class NewQuickTransactionViewImpl extends GenericWindow<FinanceHomePageCo
 
     @Override
     public final void populate() {
-        this.titleLabel.setText("Nuova transazione rapida");
-        this.descriptionLabel.setText("Descrizione:");
-        this.amountLabel.setText("Importo:                E");
-        this.categoryLabel.setText("Categoria:");
-        this.accountLabel.setText("Conto:");
-        this.cancelButton.setText("Cancella");
-        this.saveButton.setText("Salva");
+        this.titleLabel.setText("NUOVA TRANSAZIONE RAPIDA");
+        this.dateLabel.setVisible(false);
         this.dataPicker.setVisible(false);
+        this.repetitionLabel.setVisible(false);
         this.repetitionChioce.setVisible(false);
+        this.hoursTextField.setVisible(false);
+        this.minutesTextField.setVisible(false);
         this.categoryChoice.setItems(super.getX().getCategories());
         this.accountChoice.setItems(super.getX().getAccounts());
         this.cancelButton.setOnAction(event -> this.close());
@@ -56,9 +54,8 @@ public class NewQuickTransactionViewImpl extends GenericWindow<FinanceHomePageCo
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
-            super.getX().newQuickTransaction(this.descriptionTextField.getText(),
-                    Double.parseDouble(this.amountTextField.getText()), this.categoryChoice.getValue(),
-                    this.accountChoice.getValue());
+            super.getX().newQuickTransaction(this.descriptionTextField.getText(), this.amountTextField.getText(),
+                    this.categoryChoice.getValue(), this.accountChoice.getValue());
             this.close();
         }
     }
