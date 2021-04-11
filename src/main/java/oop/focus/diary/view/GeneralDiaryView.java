@@ -58,7 +58,10 @@ public class GeneralDiaryView implements View {
             pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
         } else if (elem.equals(DiarySections.STOPWATCH)) {
             pane.getStylesheets().clear();
-            pane.getStylesheets().add(Style.COUNTER_STYLE.getPath());
+            pane.getStylesheets().add(Style.STOPWATCH_STYLE.getPath());
+        } else {
+            pane.getStylesheets().clear();
+            pane.getStylesheets().add(Style.TIMER_STYLE.getPath());
         }
     }
     @Override

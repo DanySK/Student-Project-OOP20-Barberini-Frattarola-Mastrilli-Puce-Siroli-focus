@@ -9,11 +9,11 @@ public enum DiarySections {
     /**
      *
      */
-    STOPWATCH("Cronometro", Style.COUNTER_STYLE.getPath()),
+    STOPWATCH("Cronometro", Style.STOPWATCH_STYLE.getPath()),
     /**
      *
      */
-    TIMER("Timer", "");
+    TIMER("Timer", Style.TIMER_STYLE.getPath());
     private final String name;
     private final String style;
 

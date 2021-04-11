@@ -8,7 +8,11 @@ public enum Style {
     /**
      *
      */
-    COUNTER_STYLE(Costants.DIARY + "counterStyle.css");
+    STOPWATCH_STYLE(Costants.DIARY + "stopwatchStyle.css"),
+    /**
+     *
+     */
+    TIMER_STYLE(Costants.DIARY + "timerStyle.css");
     private final String path;
 
     Style(final String path) {

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -85,6 +86,7 @@ public class StopwatchView implements  Initializable, View {
                 LABEL_HEIGHT_PERCENTAGE);
         CommonView.setDimButton(List.of(this.startButton, this.stopButton), this.pane, BUTTON_WIDTH_PERCENTAGE,
                 LABEL_HEIGHT_PERCENTAGE);
+
         this.chooseEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(COMBO_BOX_HEIGHT));
         this.chooseEvent.prefWidthProperty().bind(this.pane.widthProperty().multiply(COMBO_BOX_WIDTH));
         this.addNewEvent.prefHeightProperty().bind(this.pane.heightProperty().multiply(ADD_EVENT_BUTTON_DIM));

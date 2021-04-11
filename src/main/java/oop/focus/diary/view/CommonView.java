@@ -4,13 +4,17 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.SetChangeListener;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import oop.focus.diary.controller.CounterControllerImpl;
 
@@ -33,6 +37,9 @@ public final class CommonView {
         node.forEach(s -> {
             s.prefWidthProperty().bind(pane.widthProperty().multiply(LABEL_WIDTH_PERCENTAGE));
             s.prefHeightProperty().bind(pane.heightProperty().multiply(labelHeightPercentage));
+            s.setAlignment(Pos.CENTER);
+
+
         });
     }
     public static void setDimButton(final List<Button> button, final Pane pane, final double buttonWidthPercentage,
@@ -87,10 +94,15 @@ public final class CommonView {
                                  final Button stopButton, final Button eventButton, final Button addNewEvent,
                                  final TotalTimeControllerImpl controller) {
         chooseEvent.getItems().addAll(controller.getAllEvents());
+        nameEventLabel.setAlignment(Pos.CENTER);
         nameEventLabel.setText("Inserisci evento");
+        nameEventLabel.setWrapText(true);
         startButton.setText("Start");
+        startButton.setWrapText(true);
         stopButton.setText("Stop");
+        stopButton.setWrapText(true);
         eventButton.setText("+");
+        eventButton.setWrapText(true);
         addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(controller));
        controller.getAllEvents().addListener((SetChangeListener<String>) change -> {
             if (change.wasAdded()) {
