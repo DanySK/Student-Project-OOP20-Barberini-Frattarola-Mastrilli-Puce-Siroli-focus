@@ -26,7 +26,7 @@ public class CommonControllersImpl implements CommonControllers {
     }
     @Override
     public final Node getCalendar() {
-        return new CalendarControllerImpl(300, 150, 200, 500).getCalendarPage();
+        return new CalendarControllerImpl(dataSource).getView().getRoot();
     }
 
 }
