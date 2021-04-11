@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 
-public class LineChartApp extends Application {
+public class FinanceApp extends Application {
 
     String color1 = "123455";
     String color2 = "234562";
@@ -31,7 +31,6 @@ public class LineChartApp extends Application {
 
     @Override
     public final void start(final Stage primaryStage) {
-        //LineChartView lineChartView = new LineChartView(new Dimension2D(500, 300));
         var db = new DataSourceImpl();
         try {
             db.getColors().save(this.color1);
@@ -53,6 +52,12 @@ public class LineChartApp extends Application {
 
         Controller controller = new FinanceStatistics(manager);
         primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));
+        try {
+            primaryStage.getScene().getStylesheets()
+                    .add(this.getClass().getResource("/styles/statistics.css").toExternalForm());
+        } catch (Exception e) {
+            //create
+        }
         primaryStage.show();
         /*this.createData(manager::removeAccount, manager);
         try {
@@ -80,28 +85,23 @@ public class LineChartApp extends Application {
         var r = new Random();
         manager.addTransaction(new TransactionImpl("TransactionT11",
                 this.c1,
-                new LocalDateTime(2020, 1, 1, 0, 0, 0),
+                new LocalDateTime(2020, 1, 1, 0, 1, 0),
                 ac1, r.nextInt(100000), Repetition.BIMONTHLY));
 
         manager.addTransaction(new TransactionImpl("TransactionT12",
                 this.c2,
-                new LocalDateTime(2020, 1, 1, 0, 0, 0),
+                new LocalDateTime(2020, 1, 1, 0, 1, 0),
                 ac1, -r.nextInt(100000), Repetition.BIMONTHLY));
 
         manager.addTransaction(new TransactionImpl("Transaction21",
                 this.c3,
-                new LocalDateTime(2020, 1, 1, 0, 0, 0),
+                new LocalDateTime(2020, 1, 1, 0, 1, 0),
                 ac1, r.nextInt(100000), Repetition.BIMONTHLY));
 
         manager.addTransaction(new TransactionImpl("Transaction22",
                 this.c4,
                 new LocalDateTime(2020, 1, 1, 0, 0, 0),
                 ac1, r.nextInt(100000), Repetition.MONTHLY));
-
-       /* manager.getTransactionManager().getTransactions().stream().map(Transaction::getCategory)
-                .map(Category::getColor).forEach(System.out::println);
-
-        */
         manager.generateRepeatedTransactions(new LocalDate(2021, 1, 1));
     }
 

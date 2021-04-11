@@ -48,11 +48,17 @@ public abstract class AbstractInputController<X> implements InputController<X> {
      */
     protected abstract void createView();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public abstract void updateInput(X input);
 }

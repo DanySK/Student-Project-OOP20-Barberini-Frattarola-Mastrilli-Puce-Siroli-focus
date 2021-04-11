@@ -1,5 +1,6 @@
 package oop.focus.statistics.controller;
 
+import oop.focus.db.DataSource;
 import oop.focus.finance.model.FinanceManager;
 
 /**
@@ -15,4 +16,15 @@ public interface InputControllerFactory {
      */
     InputController<FinanceInput> financeInputController(StatisticController<FinanceInput> controller,
                                                          FinanceManager manager);
+
+    /**
+     * Creates an input controller that uses {@link EventsInput} as input type.
+     *
+     * @param controller the controller to notify when the input changes.
+     * @param dataSource the data source to retrieve data.
+     * @return the abstract input controller
+     */
+    InputController<EventsInput> eventsInputController(StatisticController<EventsInput> controller,
+                                                       DataSource dataSource);
+
 }
