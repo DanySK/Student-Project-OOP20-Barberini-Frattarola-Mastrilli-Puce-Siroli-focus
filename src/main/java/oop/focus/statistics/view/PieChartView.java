@@ -3,46 +3,71 @@ package oop.focus.statistics.view;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.util.Pair;
-import oop.focus.common.View;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
-public class PieChartView implements View {
-    private static final double SPACING = 20;
+/**
+ * The type Pie chart represents a pies chart.
+ * The chart content is populated by pie slices
+ * based on input data set on the PieChart.
+ */
+public class PieChartView implements SingleValueChart {
+    private static final double SPACING = 0.02;
+    private static final double XRATIO = 0.02;
+    private static final double YRATIO = 0.02;
+    private static final double TICK_RATIO = 0.01;
+    private static final String PIE_COLOR_STYLE = "-fx-pie-color: #%s;";
     private final Pane container;
     private final ObservableList<PieChart.Data> data;
     private final PieChart pieChart;
-    private final NumberFormat format = new DecimalFormat("#.#E0");
+    private final NumberFormat format = new DecimalFormat("#.##");
     private final Label title;
 
+    /**
+     * Instantiates a new Pie chart view.
+     */
     public PieChartView() {
-        VBox vBox = new VBox(SPACING);
-        vBox.setAlignment(Pos.TOP_CENTER);
-        this.container = vBox;
-        this.title = new Label("Titolo");
+        this.container = this.createBox();
+        this.title = new Label();
         this.data = FXCollections.observableArrayList();
         this.pieChart = new PieChart(this.data);
         this.container.getChildren().addAll(this.title, this.pieChart);
+        this.pieChart.setLabelLineLength(ViewFactoryImpl.SCREEN_BOUNDS.getHeight() * TICK_RATIO);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Pane getRoot() {
+        return this.container;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final void updateData(final List<Pair<String, Double>> items) {
         this.data.clear();
-        items.forEach(i -> this.data.add(new PieChart.Data(i.getKey(), i.getValue())));
+        double sum = items.stream().map(Pair::getValue).mapToDouble(Double::doubleValue).sum();
+        items.forEach(i -> this.data.add(new PieChart.Data(i.getKey()
+                + this.percentage(i.getValue(), sum),
+                i.getValue())));
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final void setColors(final List<String> colors) {
         int ind = 0;
         for (String c : colors) {
-            String style = "-fx-pie-color: #" + c + ";";
-            System.out.println(style);
+            String style = String.format(PIE_COLOR_STYLE, c);
             this.pieChart.getData().get(ind++).getNode().setStyle(style);
         }
         Platform.runLater(() -> {
@@ -56,18 +81,25 @@ public class PieChartView implements View {
                     }
                 }
                 for (var n : this.pieChart.lookupAll("." + colorClass)) {
-                    n.setStyle("-fx-pie-color: #" + colors.get(i));
+                    n.setStyle(String.format(PIE_COLOR_STYLE, colors.get(i)));
                 }
             }
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final void setTitle(final String name) {
         this.title.setText(name);
     }
 
-    @Override
-    public final Pane getRoot() {
-        return this.container;
+    private String percentage(final Double value, final double sum) {
+        return " " + this.format.format((value / sum) * 100) + "%";
+    }
+
+    private Pane createBox() {
+        return ViewFactory.verticalWithPadding(SPACING, XRATIO, YRATIO);
     }
 }

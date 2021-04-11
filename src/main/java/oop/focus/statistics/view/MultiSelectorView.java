@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
  * @param <X> the type parameter
  */
 public class MultiSelectorView<X> implements MultiSelector<X> {
+
     private final Map<CheckBox, X> checkBoxMap;
     private final Map<X, Boolean> selectedItems;
     private final Pane root;
@@ -36,12 +37,14 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
         this.selectedItems = new HashMap<>();
         this.items = items;
         this.items.forEach(a -> this.selectedItems.put(a, false));
-        this.items.forEach(a -> this.checkBoxMap.put(
-                this.createBox(function.apply(a)), a));
+        this.items.forEach(a -> this.checkBoxMap.put(this.createBox(function.apply(a)), a));
         this.checkBoxMap.keySet().forEach(c -> this.root.getChildren().add(c));
         this.checkBoxMap.keySet().forEach(this::addListeners);
+        this.addListener(function);
+    }
+
+    private void addListener(final Function<X, String> function) {
         this.items.addListener((SetChangeListener<X>) change -> Platform.runLater(() -> {
-            System.out.println("Added");
             if (change.wasRemoved()) {
                 this.checkBoxMap.entrySet()
                         .stream()
@@ -60,8 +63,9 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
             }
         }));
     }
+
     /**
-     * Create the box where the items will be shown.
+     * Creates the box where the items will be shown.
      *
      * @param name the string representation of the element.
      * @return the check box.
@@ -71,6 +75,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
         c.setAlignment(Pos.CENTER);
         return c;
     }
+
     /**
      * Creates the box that will contain all the check boxes.
      *
@@ -78,13 +83,21 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
      */
     protected Pane getBox() {
         var v = new VBox();
-        v.setAlignment(Pos.TOP_CENTER);
+        v.setAlignment(Pos.TOP_LEFT);
         return v;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         return new ScrollPane(this.root);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Set<X> getSelected() {
         return this.selectedItems.entrySet().stream()
