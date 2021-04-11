@@ -21,9 +21,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     //Classes
     private final CalendarLogic calendarlogic;
     private final CalendarMonthView monthview;
+    private final DataSource datasource;
 
     //Variables
-
     private Format format;
     private double spacing;
     private double fontsize;
@@ -47,11 +47,26 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
         this.fontsize = DEFAULTFONTSIZE;
+        calendarlogic = new CalendarLogicImpl(datasource);
+        this.month = calendarlogic.getMonth();
+        this.datasource = datasource;
+        monthview = new CalendarMonthViewImpl(type, this, daywidth, dayheight);
+    }
 
+    /**
+     * Used for Initialize the month controller (DIARY/HOMEPAGE).
+     * @param type : type of calendar to build
+     * @param datasource
+     */
+    public CalendarMonthControllerImpl(final CalendarType type, final DataSource datasource) {
+        this.format = Format.NORMAL;
+        this.spacing = SPACING;
+        this.fontsize = DEFAULTFONTSIZE;
+        this.datasource = datasource;
         calendarlogic = new CalendarLogicImpl(datasource);
         this.month = calendarlogic.getMonth();
 
-        monthview = new CalendarMonthViewImpl(type, this, daywidth, dayheight);
+        monthview = new CalendarMonthViewImpl(type, this);
     }
 
     public final void configureday(final CalendarDayController daycontroller) {
@@ -100,5 +115,9 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     public final void disableButton(final boolean flag) {
         monthview.disableButton(flag);
     }
+
+    public final DataSource getDataSource() {
+        return this.datasource;
+    } 
 
 }
