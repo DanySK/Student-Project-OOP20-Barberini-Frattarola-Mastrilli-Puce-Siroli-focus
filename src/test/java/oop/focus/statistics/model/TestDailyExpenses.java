@@ -40,8 +40,8 @@ public class TestDailyExpenses {
                 ac1, -250, Repetition.ONCE));
 
 
-        assertEquals(List.of(-250, -250, 250), data.get()
-                .stream().map(Pair::getValue).collect(Collectors.toList()));
+        assertEquals(List.of(-250, -250, 250).stream().sorted().collect(Collectors.toList()), data.get()
+                .stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
 
         this.financeManager.removeAccount(ac1);
         this.financeManager.removeAccount(ac2);

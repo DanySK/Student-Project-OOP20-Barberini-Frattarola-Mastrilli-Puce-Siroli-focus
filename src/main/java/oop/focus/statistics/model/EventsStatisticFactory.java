@@ -23,7 +23,6 @@ public interface EventsStatisticFactory {
      * @return the DataCreator
      */
     DataCreator<Event, Pair<LocalDate, Integer>> eventTimePerDay(String eventName);
-
     /**
      * Creates a DataCreator that maps each event with a given name that occurred between
      * a start date (inclusive) and and an end date (inclusive),
@@ -36,5 +35,5 @@ public interface EventsStatisticFactory {
      * @param end       the end date
      * @return the DataCreator
      */
-    DataCreator<Event, Pair<LocalDate, Integer>> boundedEventTimePerDay(String eventName, LocalDate start, LocalDate end);
+    DataCreator<LocalDate, Pair<LocalDate, Integer>> eventTimePerDay(String eventName, LocalDate start, LocalDate end);
 }

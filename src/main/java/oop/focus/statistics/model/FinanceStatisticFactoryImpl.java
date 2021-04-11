@@ -89,8 +89,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                                 .mapToInt(Transaction::getAmount).sum()))));
     }
 
-    public static <X> List<Pair<String, Double>> collectData(final Stream<Pair<X, Integer>> data) {
-        return data.map(p -> new Pair<>(p.getKey().toString(), (double) p.getValue() / 100))
+    public static <X> List<Pair<String, Double>> collectData(final Stream<Pair<X, Integer>> data,
+                                                             final Function<Integer, Double> fun) {
+        return data.map(p -> new Pair<>(p.getKey().toString(), fun.apply(p.getValue())))
                 .collect(Collectors.toList());
     }
 

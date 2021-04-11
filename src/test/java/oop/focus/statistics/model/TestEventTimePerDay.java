@@ -189,20 +189,20 @@ public class TestEventTimePerDay {
     public void testBounded(){
         var events = this.dataSource.getEvents();
         String evtName = "evt1";
-        LocalDateTime s1 = new LocalDateTime(2018,2,1,7,45);
-        LocalDateTime f1 = new LocalDateTime(2018,2,1,9,45);
-        LocalDateTime s2 = new LocalDateTime(2018,2,3,22,30);
-        LocalDateTime f2 = new LocalDateTime(2018,2,4,0,30);
-        LocalDateTime s3 = new LocalDateTime(2018,2,2,23,0);
-        LocalDateTime f3 = new LocalDateTime(2018,2,3,4,0);
+        LocalDateTime s1 = new LocalDateTime(2018, 2, 1, 7, 45);
+        LocalDateTime f1 = new LocalDateTime(2018, 2, 1, 9, 45);
+        LocalDateTime s2 = new LocalDateTime(2018, 2, 3, 22, 30);
+        LocalDateTime f2 = new LocalDateTime(2018, 2, 4, 0, 30);
+        LocalDateTime s3 = new LocalDateTime(2018, 2, 2, 23, 0);
+        LocalDateTime f3 = new LocalDateTime(2018, 2, 3, 4, 0);
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
-        var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        var start = new LocalDate(2018, 2 , 1);
-        var end = new LocalDate(2018,2,3);
-        //assertEquals(evt1.getStartDate(), evt2.getStartDate());
+        var evt3 = new EventImpl(evtName, s3, f3, Repetition.WEEKLY);
+        var start = new LocalDate(2018, 2, 1);
+        var end = new LocalDate(2018, 2, 3);
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.boundedEventTimePerDay("evt1",start,end);
+        var dataset = factory.eventTimePerDay("evt1",
+                start, end);
         try {
             events.save(evt1);
             events.save(evt2);
@@ -212,9 +212,9 @@ public class TestEventTimePerDay {
             e.printStackTrace();
         }
         var data = dataset.get();
-        //System.out.println(data);
+        System.out.println(data);
         assertEquals(3, data.size());
-        assertEquals(List.of(2 * 60, 60, 4 * 60).stream().sorted().collect(Collectors.toList()),
+        assertEquals(List.of(2 * 60, 60, 330).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
 
         try {
