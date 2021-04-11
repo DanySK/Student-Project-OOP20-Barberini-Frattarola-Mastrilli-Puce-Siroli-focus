@@ -2,7 +2,7 @@ package oop.focus.diary.model;
 
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
 /**
@@ -11,7 +11,7 @@ import oop.focus.db.exceptions.DaoAccessException;
 
 public class ToDoListManagerImpl implements ToDoListManager {
     private final Dao<ToDoAction> dsi;
-    public ToDoListManagerImpl(final DataSourceImpl dsi) {
+    public ToDoListManagerImpl(final DataSource dsi) {
         this.dsi = dsi.getToDoList();
     }
     @Override

@@ -2,7 +2,7 @@ package oop.focus.diary.model;
 
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDate;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 public class DailyMoodManagerImpl implements DailyMoodManager {
     private final Dao<DailyMood> dm;
-    public DailyMoodManagerImpl(final DataSourceImpl dsi) {
+    public DailyMoodManagerImpl(final DataSource dsi) {
         this.dm = dsi.getDailyMoods();
     }
     @Override
