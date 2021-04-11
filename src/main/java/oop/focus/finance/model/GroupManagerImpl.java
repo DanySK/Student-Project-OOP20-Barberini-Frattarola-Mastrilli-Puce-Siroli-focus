@@ -5,7 +5,7 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.model.Person;
-import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,7 +85,7 @@ public class GroupManagerImpl implements GroupManager {
             final var creditor = this.getCreditor(map);
             final var debtor = this.getDebtor(map);
             final var amount = this.calculateAmount(map);
-            ret.add(new GroupTransactionImpl("Auto", debtor, List.of(creditor), amount, LocalDate.now()));
+            ret.add(new GroupTransactionImpl("Auto", debtor, List.of(creditor), amount, LocalDateTime.now()));
             map.replace(creditor, map.get(creditor) - amount);
             map.replace(debtor, map.get(debtor) + amount);
         }

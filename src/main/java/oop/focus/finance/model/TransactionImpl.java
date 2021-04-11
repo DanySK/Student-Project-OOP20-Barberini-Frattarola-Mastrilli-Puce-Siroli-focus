@@ -82,6 +82,14 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
+    public final String getDateToString() {
+        DecimalFormat df = new DecimalFormat("#00");
+        return "" + this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
+                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
+                + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
+    }
+
+    @Override
     public final boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -98,13 +106,5 @@ public class TransactionImpl implements Transaction {
     @Override
     public final int hashCode() {
         return Objects.hash(this.description, this.category, this.date, this.account, this.amount, this.repetition);
-    }
-
-    @Override
-    public final String getDateToString() {
-        DecimalFormat df = new DecimalFormat("#00");
-        return "" + this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
-                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
-                + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
     }
 }

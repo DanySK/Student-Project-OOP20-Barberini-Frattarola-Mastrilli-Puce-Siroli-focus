@@ -27,6 +27,7 @@ import oop.focus.homepage.model.HotKeyType;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -175,7 +176,7 @@ public class DataSourceImpl implements DataSource {
                             .map(i -> this.getPersons().getValue(i.getValue()).orElse(null))
                             .filter(Objects::nonNull).collect(Collectors.toList()),
                     Integer.parseInt(a.remove(0)),
-                    new LocalDate(a.remove(0)));
+                    new LocalDateTime(a.remove(0)));
         },
                 List.of(new Pair<>("description", GroupTransaction::getDescription),
                         new Pair<>("id_person", t -> String.valueOf(this.persons.getId(t.getMadeBy()).orElse(NA))),

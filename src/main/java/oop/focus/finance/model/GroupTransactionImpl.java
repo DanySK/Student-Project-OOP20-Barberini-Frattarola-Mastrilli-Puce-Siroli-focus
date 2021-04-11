@@ -1,8 +1,10 @@
 package oop.focus.finance.model;
 
 import oop.focus.homepage.model.Person;
-import org.joda.time.LocalDate;
+import org.joda.time.DateTimeFieldType;
+import org.joda.time.LocalDateTime;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,10 +17,10 @@ public class GroupTransactionImpl implements GroupTransaction {
     private final Person madeBy;
     private final List<Person> forList;
     private final int amount;
-    private final LocalDate date;
+    private final LocalDateTime date;
 
     public GroupTransactionImpl(final String description, final Person madeBy, final List<Person> forList,
-                                final int amount, final LocalDate date) {
+                                final int amount, final LocalDateTime date) {
         this.description = description;
         this.madeBy = madeBy;
         this.forList = forList;
@@ -47,8 +49,16 @@ public class GroupTransactionImpl implements GroupTransaction {
     }
 
     @Override
-    public final LocalDate getDate() {
+    public final LocalDateTime getDate() {
         return this.date;
+    }
+
+    @Override
+    public final String getDateToString() {
+        DecimalFormat df = new DecimalFormat("#00");
+        return "" + this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
+                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
+                + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
     }
 
     @Override

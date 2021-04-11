@@ -435,9 +435,9 @@ public class DataTypeTest {
             cats.save(cat2);
             List<GroupTransaction> vars = List.of(
                     new GroupTransactionImpl("Transaction1", p1, List.of(p2, p3),
-                            300, new LocalDate(2020, 1, 1)),
+                            300, new LocalDateTime(2020, 1, 1, 0, 0, 0)),
                     new GroupTransactionImpl("Transaction2", p2, List.of(p1, p3),
-                            250, new LocalDate(2020, 1, 1)));
+                            250, new LocalDateTime(2020, 1, 1, 0, 0, 0)));
             for (var v : vars) {
                 transactions.save(v);
             }
@@ -452,12 +452,12 @@ public class DataTypeTest {
             fail();
         }
         final var t = new GroupTransactionImpl("Transaction1", p1, List.of(p2, p3),
-                300, new LocalDate(2020, 1, 1));
+                300, new LocalDateTime(2020, 1, 1, 0, 0, 0));
         try {
             transactions.save(t);
             assertEquals(2, all.stream().filter(a -> a.equals(t)).findFirst().orElseThrow().getForList().size());
             transactions.update(new GroupTransactionImpl("Transaction1", p1, List.of(p2),
-                    300, new LocalDate(2020, 1, 1)));
+                    300, new LocalDateTime(2020, 1, 1, 0, 0, 0)));
             fail();
         }catch (IllegalArgumentException e) {
             // success
