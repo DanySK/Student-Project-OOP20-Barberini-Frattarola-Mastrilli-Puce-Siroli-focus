@@ -381,29 +381,29 @@ public class FinanceTest {
 
         // aggiungo alcune transazioni di gruppo
         final GroupTransactionImpl transazione1 = new GroupTransactionImpl("Transazione1",
-                persona1, List.of(persona1, persona3), 500, new LocalDate());
+                persona1, List.of(persona1, persona3), 500, new LocalDateTime());
         final GroupTransactionImpl transazione2 = new GroupTransactionImpl("Transazione2",
-                persona2, List.of(persona1, persona2), 1000, new LocalDate());
+                persona2, List.of(persona1, persona2), 1000, new LocalDateTime());
         final GroupTransactionImpl transazione3 = new GroupTransactionImpl("Transazione3",
-                persona2, List.of(persona1, persona3), 300, new LocalDate());
+                persona2, List.of(persona1, persona3), 300, new LocalDateTime());
         final GroupTransactionImpl transazione4 = new GroupTransactionImpl("Transazione4",
-                persona1, List.of(persona1), 300, new LocalDate());
+                persona1, List.of(persona1), 300, new LocalDateTime());
         final GroupTransactionImpl transazione5 = new GroupTransactionImpl("Transazione5",
-                persona3, List.of(persona2), 100, new LocalDate());
+                persona3, List.of(persona2), 100, new LocalDateTime());
         final GroupTransactionImpl transazione6 = new GroupTransactionImpl("Transazion6",
-                persona1, List.of(persona1, persona2, persona3), 600, new LocalDate());
+                persona1, List.of(persona1, persona2, persona3), 600, new LocalDateTime());
         final GroupTransactionImpl transazione7 = new GroupTransactionImpl("Transazione7",
-                persona3, List.of(persona1, persona2), 200, new LocalDate());
+                persona3, List.of(persona1, persona2), 200, new LocalDateTime());
         final GroupTransactionImpl transazione8 = new GroupTransactionImpl("Transazione8",
-                persona2, List.of(persona1, persona2), 400, new LocalDate());
+                persona2, List.of(persona1, persona2), 400, new LocalDateTime());
         final GroupTransactionImpl transazione9 = new GroupTransactionImpl("Transazione9",
-                persona3, List.of(persona1, persona3), 500, new LocalDate());
+                persona3, List.of(persona1, persona3), 500, new LocalDateTime());
         final GroupTransactionImpl transazione10 = new GroupTransactionImpl("Transazione10",
-                persona4, List.of(persona1), 100, new LocalDate());
+                persona4, List.of(persona1), 100, new LocalDateTime());
         final GroupTransactionImpl transazione11 = new GroupTransactionImpl("Transazione11",
-                persona5, List.of(persona1), 150, new LocalDate());
+                persona5, List.of(persona1), 150, new LocalDateTime());
         final GroupTransactionImpl transazione12 = new GroupTransactionImpl("Transazione12",
-                persona1, List.of(persona1, persona3), 200, new LocalDate());
+                persona1, List.of(persona1, persona3), 200, new LocalDateTime());
         this.financeManager.getGroupManager().addTransaction(transazione1);
         this.financeManager.getGroupManager().addTransaction(transazione2);
         this.financeManager.getGroupManager().addTransaction(transazione3);
