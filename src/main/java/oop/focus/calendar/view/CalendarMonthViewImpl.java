@@ -1,14 +1,11 @@
 package oop.focus.calendar.view;
 
 
-
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.joda.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -18,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,11 +25,6 @@ import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.controller.CalendarMonthController;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.model.DayImpl;
-import oop.focus.diary.controller.DailyMoodControllerImpl;
-import oop.focus.diary.model.DailyMoodManagerImpl;
-import oop.focus.diary.view.DailyMoodView;
-import oop.focus.diary.view.DailyMoodViewImpl;
-
 
 
 
@@ -202,15 +193,18 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     private void diaryCalendar(final GridPane daysGrid, final DayImpl day) throws IOException {
-        final LocalDate localday = new LocalDate(day.getYear(), day.getMonthNumber(), day.getNumber());
-        final DailyMoodControllerImpl moodcontroller = new DailyMoodControllerImpl(new DailyMoodManagerImpl(monthcontroller.getDataSource()));
-        final DailyMoodView moodview = new DailyMoodViewImpl(moodcontroller);
-       if (moodcontroller.getValueByDate(localday).isPresent()) {
-           final ImageView jb = moodview.getImages().get(moodcontroller.getValueByDate(localday).get());
-           jb.fitWidthProperty().bind(daysGrid.widthProperty().multiply(0.1));
-           jb.fitHeightProperty().bind(daysGrid.heightProperty().multiply(0.1));
-           daysGrid.add(jb, counter, count);
-        }
+        final Button jb = new Button(" " + day.getNumber() + " ");
+        jb.setFont(Font.font(monthcontroller.getFontSize()));
+        jb.setAlignment(Pos.CENTER);
+        jb.setOnAction(getDayView());
+        jb.setPrefSize(DIM, DIM);
+        final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, this.daywidth, this.dayheight);
+        monthcontroller.configureday(daycontroller);
+        daycontroller.buildDay();
+        final ScrollPane daypane = new ScrollPane(daycontroller.getView().getRoot());
+        daypane.setFitToWidth(true);
+        cells.put(jb, new Scene(daypane, daycontroller.getWidth(), daycontroller.getHeight()));
+        daysGrid.add(jb, counter, count);
     }
 
     /**
