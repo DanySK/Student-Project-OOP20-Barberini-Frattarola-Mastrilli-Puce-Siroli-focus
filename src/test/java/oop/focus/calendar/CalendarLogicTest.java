@@ -10,11 +10,12 @@ import org.junit.Test;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 
 public class CalendarLogicTest {
 
-	private DataSourceImpl datasource;
+	private DataSource datasource;
 	private CalendarLogic manager;
     private LocalDate today;
 	

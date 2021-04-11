@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.joda.time.LocalDate;
 
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 
 public class CalendarLogicImpl implements CalendarLogic {
 
     //Classes
     private DayImpl day;
-    private final DataSourceImpl datasource;
+    private final DataSource datasource;
 
     //Variables
     private final LocalDate today;
@@ -27,7 +27,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     private static final int DAYSINWEEK = 7;
 
 
-    public CalendarLogicImpl(final DataSourceImpl datasource) {
+    public CalendarLogicImpl(final DataSource datasource) {
         this.datasource = datasource;
         today = new LocalDate();
         this.current = this.today;

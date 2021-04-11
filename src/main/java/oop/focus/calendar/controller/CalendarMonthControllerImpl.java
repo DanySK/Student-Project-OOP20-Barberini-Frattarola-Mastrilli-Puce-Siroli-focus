@@ -10,7 +10,7 @@ import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
 import oop.focus.common.View;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 
 
 
@@ -36,7 +36,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     private static final int DEFAULTFONTSIZE = 18;
 
 
-    public CalendarMonthControllerImpl(final DataSourceImpl datasource, final double daywidth, final double dayheight) {
+    public CalendarMonthControllerImpl(final DataSource datasource, final double daywidth, final double dayheight) {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
         this.fontsize = DEFAULTFONTSIZE;

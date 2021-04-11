@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
 import oop.focus.calendar.controller.CalendarControllerImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 
 
@@ -20,7 +21,7 @@ public class CalendarPageViewTest extends Application {
     public final void start(final Stage primaryStage) {
 
     	//final HBox test = new HBox();
-    	final DataSourceImpl datasource = new DataSourceImpl();
+    	final DataSource datasource = new DataSourceImpl();
         final CalendarController pagecontroller = new CalendarControllerImpl(datasource);
         //test.getChildren().add(pagecontroller.getCalendarPage());
         primaryStage.setScene(new Scene((Parent) pagecontroller.getView().getRoot(), WIDTH, HEIGHT));
