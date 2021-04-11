@@ -2,6 +2,7 @@ package oop.focus.finance.controller;
 
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
+import oop.focus.common.Controller;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.homepage.model.Person;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-public interface GroupController extends FinanceController {
+public interface GroupController extends Controller {
 
     /**
      * Adds a new group transaction to the database.

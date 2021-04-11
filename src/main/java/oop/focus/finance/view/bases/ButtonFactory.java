@@ -11,8 +11,7 @@ import java.util.function.Predicate;
 public interface ButtonFactory {
 
     /**
-     *
-     * @param controller of transactions
+     * @param controller of finance
      * @param name of the button
      * @param predicate filter the transactions we want to view
      * @param manager finance manager
@@ -22,7 +21,15 @@ public interface ButtonFactory {
                                       Predicate<Transaction> predicate, FinanceManager manager);
 
     /**
-     * @param controller of subscriptions
+     * @param controller of finance
+     * @param name of the button
+     * @param manager of finance
+     * @return a FinanceMenuButton that has as its action the visualization of finance statistic
+     */
+    FinanceMenuButton<BaseController> getStatistics(BaseController controller, String name, FinanceManager manager);
+
+    /**
+     * @param controller of finance
      * @param name of the button
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of SubscriptionsView
@@ -38,15 +45,16 @@ public interface ButtonFactory {
     FinanceMenuButton<BaseController> getGroupTransactions(BaseController controller, String name, FinanceManager manager);
 
     /**
-     * @param controller of finance
+     * @param controller of transactions
      * @param account whose transactions we want to see
      * @return a FinanceMenuButton that has as its action the visualization of account's transactions
      */
     FinanceMenuButton<TransactionsController> getAccountTransactions(TransactionsController controller, Account account);
 
     /**
-     * @param controller of finance
+     * @param controller of transactions
      * @return a FinanceMenuButton that has as its action the visualization of every transactions
      */
     FinanceMenuButton<TransactionsController> getAccountTransactions(TransactionsController controller);
+
 }

@@ -1,12 +1,13 @@
 package oop.focus.finance.controller;
 
 import javafx.collections.ObservableSet;
+import oop.focus.common.Controller;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 
 import java.util.function.Predicate;
 
-public interface TransactionsController extends FinanceController {
+public interface TransactionsController extends Controller {
 
     /**
      * Notify view to show account's transactions, sorted by time.

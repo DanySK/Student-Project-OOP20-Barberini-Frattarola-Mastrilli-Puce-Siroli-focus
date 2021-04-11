@@ -1,9 +1,10 @@
 package oop.focus.finance.controller;
 
+import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 
-public interface BaseController extends FinanceController {
+public interface BaseController extends Controller {
 
     /**
      * Change the view to show in BaseView.

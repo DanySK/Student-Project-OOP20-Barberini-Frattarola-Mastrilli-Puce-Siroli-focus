@@ -1,8 +1,9 @@
 package oop.focus.finance.controller;
 
+import oop.focus.common.Controller;
 import oop.focus.finance.model.Transaction;
 
-public interface SubscriptionsController extends FinanceController {
+public interface SubscriptionsController extends Controller {
 
     /**
      * @return the average monthly expense on subscriptions

@@ -1,6 +1,7 @@
 package oop.focus.finance.controller;
 
 import javafx.collections.ObservableList;
+import oop.focus.common.Controller;
 import oop.focus.common.Repetition;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
@@ -10,7 +11,7 @@ import oop.focus.finance.model.Transaction;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface FinanceHomePageController extends FinanceController {
+public interface FinanceHomePageController extends Controller {
 
     /**
      * Creates a new transaction and saves it in the database.
