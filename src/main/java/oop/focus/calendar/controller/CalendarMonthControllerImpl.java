@@ -5,6 +5,7 @@ package oop.focus.calendar.controller;
 import java.util.List;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
+import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarMonthView;
@@ -35,8 +36,14 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     private static final double SPACING = 50; 
     private static final int DEFAULTFONTSIZE = 18;
 
-
-    public CalendarMonthControllerImpl(final DataSource datasource, final double daywidth, final double dayheight) {
+    /**
+     * Used for Initialize the month controller.
+     * @param type : type of calendar to build
+     * @param datasource
+     * @param daywidth : is the width of the day windows
+     * @param dayheight : is the height of the day windows
+     */
+    public CalendarMonthControllerImpl(final CalendarType type, final DataSource datasource, final double daywidth, final double dayheight) {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
         this.fontsize = DEFAULTFONTSIZE;
@@ -44,7 +51,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         calendarlogic = new CalendarLogicImpl(datasource);
         this.month = calendarlogic.getMonth();
 
-        monthview = new CalendarMonthViewImpl(this, daywidth, dayheight);
+        monthview = new CalendarMonthViewImpl(type, this, daywidth, dayheight);
     }
 
     public final void configureday(final CalendarDayController daycontroller) {

@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import oop.focus.calendar.model.CalendarType;
 import oop.focus.common.View;
 
 
@@ -12,9 +13,10 @@ public interface CalendarMonthView extends View {
 
     /**
      * Used for build the grid with the days of the month.
+     * @param type : type fo calendar you need
      * @return grid    Grid with the days
      */
-    GridPane buildGridMonth();
+    GridPane buildGridMonth(CalendarType type);
 
     /**
      * Is an EventHandler for change the month (next or previous one).

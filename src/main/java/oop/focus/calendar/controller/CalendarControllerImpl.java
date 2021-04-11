@@ -1,6 +1,7 @@
 package oop.focus.calendar.controller;
 
 
+import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.view.CalendarView;
 import oop.focus.calendar.view.CalendarViewImpl;
 import oop.focus.common.View;
@@ -25,7 +26,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     public CalendarControllerImpl(final DataSource datasource) {
 
-        this.monthcontroller = new CalendarMonthControllerImpl(datasource, DAYWIDTH, DAYHEIGHT);
+        this.monthcontroller = new CalendarMonthControllerImpl(CalendarType.NORMAL, datasource, DAYWIDTH, DAYHEIGHT);
 
         settingscontroller = new CalendarSettingsControllerImpl(monthcontroller);
 

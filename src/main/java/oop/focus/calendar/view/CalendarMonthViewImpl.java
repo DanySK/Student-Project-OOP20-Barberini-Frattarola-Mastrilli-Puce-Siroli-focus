@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarDayController;
 import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.model.DayImpl;
 
 
@@ -44,7 +45,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private final double dayheight;
     private int counter;     // count the days in a row
     private int count;     // count the rows
-
+    private final CalendarType type;
 
     //Lists
     private Map<Button, Scene> cells;
@@ -57,18 +58,21 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
 
     /**
-     * Used for Initialize the month controller.
+     * Used for Initialize the month view.
+     * @param type : type of calendar to build
      * @param monthcontroller
      * @param daywidth : is the width of the day windows
      * @param dayheight : is the height of the day windows
      */
-    public CalendarMonthViewImpl(final CalendarMonthController monthcontroller, final double daywidth, final double dayheight) {
+    public CalendarMonthViewImpl(final CalendarType type, final CalendarMonthController monthcontroller, final double daywidth, final double dayheight) {
+        this.type = type;
         cells  = new HashMap<>();
         this.daywidth = daywidth;
         this.dayheight = dayheight;
         this.monthinfo = new Label();
         this.monthcontroller = monthcontroller;
     }
+
 
     /**
      * Build the calendar month view.
@@ -84,7 +88,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
         container.getChildren().add(buildTopPanel(container));
 
-        container.getChildren().add(buildGridMonth());
+        container.getChildren().add(buildGridMonth(type));
 
         container.setPadding(new Insets(BORDER, BORDER, BORDER, BORDER));
 
@@ -94,7 +98,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     }
 
-    public final GridPane buildGridMonth() {
+    public final GridPane buildGridMonth(final CalendarType type) {
 
         final GridPane daysGrid = new GridPane();
 
@@ -134,6 +138,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
             }
             counter++;
 
+            if (type.equals(CalendarType.NORMAL)) {
             final Button jb = new Button(" " + day.getNumber() + " ");
             jb.setFont(Font.font(monthcontroller.getFontSize()));
             jb.setAlignment(Pos.CENTER);
@@ -146,7 +151,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
             daypane.setFitToWidth(true);
             cells.put(jb, new Scene(daypane, daycontroller.getWidth(), daycontroller.getHeight()));
             daysGrid.add(jb, counter, count);
-
+            } else if (type.equals(CalendarType.DIARY)) {
+                System.out.println("DIARIO");
+            } else if (type.equals(CalendarType.HOMEPAGE)) {
+                System.out.println("HOMEPAGE");
+            }
         });
 
         daysGrid.setAlignment(Pos.CENTER);
@@ -273,7 +282,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         monthcontroller.getCalendarLogic().generateMonth();
         monthcontroller.setMonth();
         this.monthbox.getChildren().remove(this.monthbox.getChildren().size() - 1);
-        this.monthbox.getChildren().add(buildGridMonth());
+        this.monthbox.getChildren().add(buildGridMonth(type));
         this.setMonthInfo(monthview.getMonthInfo(), monthcontroller.getMonth().get(0).getYear() + "   " + monthcontroller.getMonth().get(0).getMonth());
     }
 
