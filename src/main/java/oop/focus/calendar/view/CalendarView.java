@@ -41,6 +41,13 @@ public interface CalendarView extends View {
     EventHandler<ActionEvent> weekPanel(VBox panelcolumn);
 
     /**
+     * Used for show the person panel.
+     * @param panelcolumn : column where we put the panel
+     * @return EventHandler
+     */
+    EventHandler<ActionEvent> personPanel(VBox panelcolumn);
+
+    /**
      * Used for show the statistics panel.
      * @param panelcolumn : column where we put the panel
      * @return EventHandler

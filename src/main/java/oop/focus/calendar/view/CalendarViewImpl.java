@@ -65,6 +65,7 @@ public class CalendarViewImpl implements CalendarView {
 
         columnButton(buttoncolumn, "Mese", monthPanel(panelcolumn));
         columnButton(buttoncolumn, "Settimana", weekPanel(panelcolumn));
+        columnButton(buttoncolumn, "Persone", personPanel(panelcolumn));
         columnButton(buttoncolumn, "Statistiche", statisticsPanel(panelcolumn));
         buttoncolumn.getChildren().add(buildAddEventButton());
         buttoncolumn.getChildren().add(buildSettingsWindows());
@@ -166,6 +167,22 @@ public class CalendarViewImpl implements CalendarView {
     }
 
     public final EventHandler<ActionEvent> weekPanel(final VBox panelcolumn) {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                if (panelcolumn.getChildren().size() != 0) {
+                    panelcolumn.getChildren().remove(0);
+
+                } else {
+
+                }
+            }
+
+        };
+    }
+
+    public final EventHandler<ActionEvent> personPanel(final VBox panelcolumn) {
         return new EventHandler<ActionEvent>() {
 
             @Override
