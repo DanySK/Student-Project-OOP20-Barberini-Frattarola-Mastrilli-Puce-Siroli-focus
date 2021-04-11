@@ -2,7 +2,7 @@ package oop.focus.statistics.controller;
 
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.statistics.view.ViewFactory;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.List;
 
@@ -23,16 +23,23 @@ public class FinanceStatistics implements StatisticController<FinanceInput> {
      */
     public FinanceStatistics(final FinanceManager manager) {
         this.statisticController = new FinanceStatisticsController(manager);
-        AbstractInputController<FinanceInput> inputController = new InputControllerFactoryImpl().financeInputController(this, manager);
-        this.statisticsView = new ViewFactory()
-                .createVertical(List.of(inputController.getView(), this.statisticController.getView()));
+        AbstractInputController<FinanceInput> inputController = new InputControllerFactoryImpl()
+                .financeInputController(this, manager);
+        this.statisticsView = new ViewFactoryImpl()
+                .createHorizontal(List.of(this.statisticController.getView(), inputController.getView()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.statisticsView;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void updateInput(final FinanceInput input) {
         if (!input.equals(this.actualInput)) {

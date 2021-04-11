@@ -29,7 +29,6 @@ import oop.focus.homepage.model.PersonImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

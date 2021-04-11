@@ -3,7 +3,7 @@ package oop.focus.statistics.controller;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.statistics.view.ViewFactory;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ public class FinanceStatisticsController implements StatisticController<FinanceI
 
     private final List<ChartController<FinanceInput>> charts;
     private final View content;
-
     /**
      * Instantiates a new Finance statistics controller and creates the associated view.
      *
@@ -25,19 +24,25 @@ public class FinanceStatisticsController implements StatisticController<FinanceI
      */
     public FinanceStatisticsController(final FinanceManager manager) {
         this.charts = new ArrayList<>();
-        var pieFactory = new FinancePieChartFactory();
-        var lineFactory = new FinanceLineChartFactory();
+        var pieFactory = new FinanceSingleValueChartFactoryImpl();
+        var lineFactory = new FinanceMultiValueChartFactoryImpl();
         this.charts.add(lineFactory.periodExpenses(manager));
         this.charts.add(pieFactory.balances(manager));
-        this.content = new ViewFactory().createVertical(this.charts.stream()
+        this.content = new ViewFactoryImpl().createVerticalAutoResizing(this.charts.stream()
                 .map(Controller::getView).collect(Collectors.toList()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.content;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void updateInput(final FinanceInput input) {
         this.charts.forEach(a -> a.updateInput(input));
