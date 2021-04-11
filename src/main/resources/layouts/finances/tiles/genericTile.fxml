@@ -3,8 +3,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="descriptionLabel" prefHeight="50" prefWidth="423.0"/>
-   <Label fx:id="amountLabel" prefHeight="50" prefWidth="182.0"/>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label prefHeight="50.0" prefWidth="28.0" />
+   <Label fx:id="descriptionLabel" prefHeight="50" prefWidth="423.0" />
+   <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="61.0" text="€  " />
+   <Label fx:id="amountLabel" prefHeight="50" prefWidth="182.0" />
 </HBox>

@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50" prefWidth="400.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <VBox prefHeight="90" prefWidth="380.0">
-      <Label fx:id="descriptionLabel" prefHeight="30" prefWidth="430.0" />
-      <HBox prefHeight="40" prefWidth="427.0">
-         <ImageView fx:id="colorImage" fitHeight="20" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-         <Label fx:id="categoryLabel" prefHeight="20" prefWidth="139.0" />
-         <Label fx:id="dateLabel" prefHeight="20" prefWidth="139.0" />
-      </HBox>
+   <Label fx:id="colorLabel" alignment="CENTER" prefHeight="50.0" prefWidth="40.0" text="●">
+      <font>
+         <Font name="System Bold" size="30.0" />
+      </font>
+   </Label>
+   <VBox prefHeight="50.0" prefWidth="177.0">
+      <Label fx:id="descriptionLabel" alignment="BOTTOM_LEFT" prefHeight="33.0" prefWidth="176.0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="categoryLabel" prefHeight="25.0" prefWidth="180.0" />
    </VBox>
-   <Label fx:id="amountLabel" prefHeight="50" prefWidth="175.0" />
+   <Label fx:id="dateLabel" prefHeight="50.0" prefWidth="103.0" />
+   <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="21.0" text="€  " />
+   <Label fx:id="amountLabel" prefHeight="50" prefWidth="63.0" />
 </HBox>

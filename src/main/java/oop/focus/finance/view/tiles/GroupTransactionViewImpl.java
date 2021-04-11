@@ -5,13 +5,15 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.bases.GenericView;
+import oop.focus.homepage.model.Person;
 
 import java.text.DecimalFormat;
+import java.util.stream.Collectors;
 
 public class GroupTransactionViewImpl extends GenericView<GroupTransaction> implements GroupTransactionView {
 
     @FXML
-    private Label personLabel, descriptionLabel, amountLabel;
+    private Label madeByLabel, forListLabel, descriptionLabel, amountLabel;
 
     public GroupTransactionViewImpl(final GroupTransaction transaction) {
         super(transaction, FXMLPaths.GROUPTILE);
@@ -19,14 +21,23 @@ public class GroupTransactionViewImpl extends GenericView<GroupTransaction> impl
 
     @Override
     public final void populate() {
-        this.personLabel.setText(super.getX().getMadeBy().getName() + " - > " + super.getX().getForList());
+        this.madeByLabel.setText(super.getX().getMadeBy().getName());
+        this.forListLabel.setText(this.getForListNames());
         this.descriptionLabel.setText(super.getX().getDescription());
-        DecimalFormat df = new DecimalFormat("#0.00");
-        this.amountLabel.setText("E " + df.format((double) super.getX().getAmount() / 100));
+        this.amountLabel.setText(this.format(super.getX().getAmount()));
     }
 
     @Override
     public final GroupTransaction getTransaction() {
         return super.getX();
+    }
+
+    private String getForListNames() {
+        return super.getX().getForList().stream().map(Person::getName).collect(Collectors.joining(", "));
+    }
+
+    private String format(final int amount) {
+        DecimalFormat df = new DecimalFormat("#0.00");
+        return df.format((double) amount / 100);
     }
 }

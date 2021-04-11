@@ -4,7 +4,10 @@
 <?import javafx.scene.layout.HBox?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="personLabel" prefHeight="50" prefWidth="275.0" text="*Nome*" />
-   <Label fx:id="descriptionLabel" prefHeight="50" prefWidth="201.0" text="*Descrizione*" />
-   <Label fx:id="amountLabel" prefHeight="50" prefWidth="73.0" text="€ *13, 50*" />
+   <Label fx:id="descriptionLabel" alignment="CENTER" prefHeight="50" prefWidth="162.0" />
+   <Label fx:id="madeByLabel" alignment="CENTER_RIGHT" prefHeight="50" prefWidth="111.0" />
+   <Label alignment="CENTER" prefHeight="55.0" prefWidth="28.0" text="-&gt;" />
+   <Label fx:id="forListLabel" prefHeight="50" prefWidth="196.0" />
+   <Label alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="28.0" text="€  " />
+   <Label fx:id="amountLabel" prefHeight="50" prefWidth="95.0" />
 </HBox>
