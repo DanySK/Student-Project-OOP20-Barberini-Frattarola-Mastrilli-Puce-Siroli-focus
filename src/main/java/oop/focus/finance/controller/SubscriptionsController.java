@@ -7,17 +7,17 @@ public interface SubscriptionsController extends FinanceController {
     /**
      * @return the average monthly expense on subscriptions
      */
-    double getYearlyExpense();
+    String getYearlyExpense();
 
     /**
      * @return the average yearly expense on subscriptions
      */
-    double getMonthlyExpense();
+    String getMonthlyExpense();
 
     /**
-     * Show subscriptions in view.
+     * Show subscriptions in view, sorted by tipe of repetition.
      */
-    void showSubscriptions();
+    void showSortedSubscriptions();
 
     /**
      * Stop repeating a subscription.
@@ -25,4 +25,10 @@ public interface SubscriptionsController extends FinanceController {
      * @param subscription to be stopped
      */
     void stopSubscription(Transaction subscription);
+
+    /**
+     * @param transaction of which we want to see the amount
+     * @return formatted transaction's amount
+     */
+    String getTransactionAmount(Transaction transaction);
 }

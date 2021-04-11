@@ -1,7 +1,5 @@
 package oop.focus.finance.controller;
 
-import com.sun.javafx.collections.ObservableListWrapper;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
@@ -11,7 +9,9 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.TransactionsViewImpl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -52,12 +52,28 @@ public class TransactionsControllerImpl implements TransactionsController {
     @Override
     public final void showTransactions(final Predicate<Account> predicate) {
         this.accountPredicate = predicate;
-        this.view.updateTransactions(this.filteredTransactions(predicate), predicate);
+        this.view.updateTransactions(this.filteredTransactions(predicate).stream()
+                .sorted(Comparator.comparing(Transaction::getDate).reversed())
+                .collect(Collectors.toList()), predicate);
     }
 
     @Override
     public final void newAccount(final String name, final String color, final double amount) {
         this.manager.addAccount(new AccountImpl(name, color, (int) (amount * 100)));
+    }
+
+    @Override
+    public final void deleteAccounts() {
+        this.getAccounts().stream()
+                .filter(this.accountPredicate)
+                .collect(Collectors.toCollection(ArrayList::new))
+                .forEach(this.manager::removeAccount);
+        this.showTransactions(a -> true);
+    }
+
+    @Override
+    public final void deleteTransaction(final Transaction transaction) {
+        this.manager.removeTransaction(transaction);
     }
 
     @Override
@@ -69,21 +85,14 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
-    public final double getAmount(final Predicate<Account> predicate) {
-        return this.filteredAmount(predicate);
+    public final String getAmount(final Predicate<Account> predicate) {
+        return this.format(this.filteredAmount(predicate));
     }
 
     @Override
-    public final void deleteTransaction(final Transaction transaction) {
-        this.manager.removeTransaction(transaction);
-    }
-
-    @Override
-    public final void deleteAccounts() {
-        this.getAccounts().stream()
-                .filter(this.accountPredicate)
-                .collect(Collectors.toCollection(ArrayList::new))
-                .forEach(this.manager::removeAccount);
+    public final String getColor(final Predicate<Account> predicate) {
+        var list = this.getAccounts().stream().filter(predicate).collect(Collectors.toList());
+        return list.size() == 1 ? list.get(0).getColor() : "ffffff";
     }
 
     @Override
@@ -91,26 +100,25 @@ public class TransactionsControllerImpl implements TransactionsController {
         return this.manager.getAccountManager().getAccounts();
     }
 
-    @Override
-    public final ObservableList<String> getColors() {
-        return new ObservableListWrapper<>(new ArrayList<>(this.manager.getColors()));
-    }
-
     private Set<Transaction> filteredTransactions(final Predicate<Account> predicate) {
         return this.manager.getTransactionManager().getTransactions().stream()
                 .filter(t -> t.getAccount().equals(this.manager.getAccountManager().getAccounts().stream()
                         .filter(predicate).count() == 1 ? this.manager.getAccountManager().getAccounts().stream()
-                        .filter(predicate)
-                        .collect(Collectors.toList()).get(0) : t.getAccount()))
+                        .filter(predicate).collect(Collectors.toList()).get(0) : t.getAccount()))
                 .filter(this.transactionPredicate)
                 .collect(Collectors.toSet());
     }
 
-    private double filteredAmount(final Predicate<Account> predicate) {
-        return (double) this.manager.getAccountManager().getAccounts().stream()
+    private int filteredAmount(final Predicate<Account> predicate) {
+        return this.manager.getAccountManager().getAccounts().stream()
                 .filter(predicate)
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
-                .sum() / 100;
+                .sum();
+    }
+
+    private String format(final int amount) {
+        final DecimalFormat f = new DecimalFormat("#0.00");
+        return f.format((double) amount / 100);
     }
 }

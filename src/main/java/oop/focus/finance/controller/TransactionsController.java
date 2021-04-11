@@ -1,6 +1,5 @@
 package oop.focus.finance.controller;
 
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
@@ -10,7 +9,7 @@ import java.util.function.Predicate;
 public interface TransactionsController extends FinanceController {
 
     /**
-     * Notify view to show account's transactions.
+     * Notify view to show account's transactions, sorted by time.
      * @param predicate whose transactions we want to see
      */
     void showTransactions(Predicate<Account> predicate);
@@ -25,15 +24,10 @@ public interface TransactionsController extends FinanceController {
     void newAccount(String name, String color, double amount);
 
     /**
-     * @return the account or accounts displayed name.
+     * Delete the account or accounts displayed.
+     * Show all accounts view.
      */
-    String getAccountName();
-
-    /**
-     * @param predicate filter the account whose amount we want to see
-     * @return returns the account amount indicated in the predicate
-     */
-    double getAmount(Predicate<Account> predicate);
+    void deleteAccounts();
 
     /**
      * Delete a transaction.
@@ -42,17 +36,24 @@ public interface TransactionsController extends FinanceController {
     void deleteTransaction(Transaction transaction);
 
     /**
-     * Delete the account or accounts displayed.
+     * @return the account or accounts displayed name.
      */
-    void deleteAccounts();
+    String getAccountName();
+
+    /**
+     * @param predicate filter the account whose amount we want to see
+     * @return returns the account amount indicated in the predicate
+     */
+    String getAmount(Predicate<Account> predicate);
+
+    /**
+     * @param predicate whose color we want to return
+     * @return the color of the account passing the predicate, returns white if the satisfied accounts are more than one
+     */
+    String getColor(Predicate<Account> predicate);
 
     /**
      * @return a ObservableSet of all accounts
      */
     ObservableSet<Account> getAccounts();
-
-    /**
-     * @return colors saved in the database
-     */
-    ObservableList<String> getColors();
 }
