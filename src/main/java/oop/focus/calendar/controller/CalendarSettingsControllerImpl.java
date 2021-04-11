@@ -1,26 +1,20 @@
 package oop.focus.calendar.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarSettingsView;
 import oop.focus.calendar.view.CalendarSettingsViewImpl;
+import oop.focus.common.View;
 
 
 public class CalendarSettingsControllerImpl implements CalendarSettingsController {
 
     //Classes
     private final CalendarMonthController monthcontroller;
-
-    //View
-    private Stage settingswindows;
-    private final VBox settingsbox;
+    private final CalendarSettingsView settingsview;
 
     //Variables
     private Format format;
@@ -35,8 +29,7 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
     public CalendarSettingsControllerImpl(final CalendarMonthController monthcontroller) {
         this.monthcontroller = monthcontroller;
 
-        final CalendarSettingsView settingsview = new CalendarSettingsViewImpl(this);
-        this.settingsbox = settingsview.getSettingsBox();
+        settingsview = new CalendarSettingsViewImpl(this);
         this.format = Format.NORMAL;
         this.spacing = SPACING;
     }
@@ -92,41 +85,19 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
         return this.spacing;
     }
 
-    public final void setWindow(final Stage stage) {
-        this.settingswindows = stage;
-    }
 
-
-    public final VBox getSettings() {
-        return this.settingsbox;
-    }
-
-    public final EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                 if (!checkSpacing(spacing.getText())) {
-                     spacing.setText(String.valueOf(getSpacing()));
-                 }
-                 if (format == null) {
-                     format = Format.NORMAL;
-                 }
-                 updateView();
-                 settingswindows.close();
-           }
-
-        };
-    }
-
-    /**
-     * Used for update all the view that are connected with the settings.
-     */
-    private void updateView() {
-
+    public final void updateView() {
         monthcontroller.setFormat(this.format);
         monthcontroller.setSpacing(this.spacing);
         monthcontroller.updateView();
+    }
+
+    public final void setWindow(final Stage stage) {
+        settingsview.setWindow(stage);
+    }
+
+    public final View getView() {
+        return settingsview;
     }
 
 }

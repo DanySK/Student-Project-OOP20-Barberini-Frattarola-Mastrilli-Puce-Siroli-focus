@@ -1,7 +1,10 @@
 package oop.focus.calendar.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -12,6 +15,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarSettingsController;
 import oop.focus.calendar.model.Format;
 
@@ -21,9 +25,13 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     //Classes
     private final CalendarSettingsController settingscontroller;
 
+    //View
+    private Stage settingswindows;
+    private final VBox settingsbox;
 
     public CalendarSettingsViewImpl(final CalendarSettingsController controller) {
         this.settingscontroller = controller;
+        this.settingsbox = buildSettingsView();
     }
 
 
@@ -72,7 +80,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         settings.add(spacinglabel, 0, 0);
         settings.add(spacing, 1, 0);
 
-        save.setOnAction(settingscontroller.saveOnAction(spacing));
+        save.setOnAction(saveOnAction(spacing));
 
     }
  
@@ -111,8 +119,30 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         settings.setHgap(10);
     }
 
-    public final VBox getSettingsBox() {
-        return buildSettingsView();
+    public final EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
+        return new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(final ActionEvent event) {
+                 if (!settingscontroller.checkSpacing(spacing.getText())) {
+                     spacing.setText(String.valueOf(settingscontroller.getSpacing()));
+                 }
+                 if (settingscontroller.getFormat() == null) {
+                     settingscontroller.setFormat(Format.NORMAL);
+                 }
+                 settingscontroller.updateView();
+                 settingswindows.close();
+           }
+
+        };
+    }
+
+    public final void setWindow(final Stage stage) {
+        this.settingswindows = stage;
+    }
+
+    public final Node getRoot() {
+        return this.settingsbox;
     }
 
 }

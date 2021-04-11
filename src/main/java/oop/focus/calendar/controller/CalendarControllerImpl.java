@@ -2,6 +2,7 @@ package oop.focus.calendar.controller;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -58,7 +59,7 @@ public class CalendarControllerImpl implements CalendarController {
         final Button settings = new Button("IMPOSTAZIONI");
 
         final Stage settingsstage = new Stage();
-        settingsstage.setScene(new Scene(settingscontroller.getSettings(), optionwidth, optionheight));
+        settingsstage.setScene(new Scene((Parent) settingscontroller.getView().getRoot(), optionwidth, optionheight));
         settingscontroller.setWindow(settingsstage);
         settings.setOnAction((e) -> {
             settingsstage.show();

@@ -1,14 +1,12 @@
 package oop.focus.calendar.controller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
+
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
+import oop.focus.common.Controller;
 
 
-public interface CalendarSettingsController {
+public interface CalendarSettingsController extends Controller {
 
     /**
      * Used for set the format of the hours.
@@ -42,23 +40,16 @@ public interface CalendarSettingsController {
      */
     double getSpacing();
 
-
-    /**
-     * Used for get the settings box.
-     * @return vbox
-     */
-    VBox getSettings();
-
     /**
      * Used for set the stage of the settings view.
      * @param stage
      */
     void setWindow(Stage stage);
 
+
     /**
-     * Get the EventHandler of the save button.
-     * @param spacing : TextField where is written the spacing to save
-     * @return EventHandler
+     * Used for update all the view that are connected with the settings.
      */
-    EventHandler<ActionEvent> saveOnAction(TextField spacing);
+    void updateView();
+
 }
