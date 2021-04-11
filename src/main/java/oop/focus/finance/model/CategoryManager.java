@@ -10,6 +10,7 @@ public interface CategoryManager {
 
     /**
      * Adds a category and saves it in the database.
+     * If the color of category doesn't exist, saves it in the database too.
      * 
      * @param category that is saved
      */

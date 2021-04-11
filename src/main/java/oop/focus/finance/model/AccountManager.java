@@ -10,6 +10,7 @@ public interface AccountManager {
 
     /**
      * Adds an account and saves it in the database.
+     * If the color of account doesn't exist, saves it in the database too.
      * 
      * @param account that is saved
      */
