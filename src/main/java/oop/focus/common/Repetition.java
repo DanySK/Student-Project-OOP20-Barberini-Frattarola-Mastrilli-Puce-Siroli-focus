@@ -91,6 +91,17 @@ public enum Repetition {
         return this.name;
     }
 
+    public static Repetition getRepetition(final String name) {
+        final Repetition[] repetitions = Repetition.values();
+        Repetition repetition = null;
+        for (final Repetition rep : repetitions) {
+            if (rep.getName() == name) {
+                repetition = rep;
+            }
+        }
+        return repetition;
+    }
+
     private static class Costants {
 
         public static final double DAYS_PER_MONTH = 30.42;
