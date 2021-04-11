@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.joda.time.LocalDate;
 
+import oop.focus.db.DataSourceImpl;
+
 public class CalendarLogicImpl implements CalendarLogic {
 
     //Classes
     private DayImpl day;
+    private final DataSourceImpl datasource;
 
     //Variables
     private final LocalDate today;
@@ -24,7 +27,8 @@ public class CalendarLogicImpl implements CalendarLogic {
     private static final int DAYSINWEEK = 7;
 
 
-    public CalendarLogicImpl() {
+    public CalendarLogicImpl(final DataSourceImpl datasource) {
+        this.datasource = datasource;
         today = new LocalDate();
         this.current = this.today;
         this.week = new ArrayList<>();
@@ -34,9 +38,9 @@ public class CalendarLogicImpl implements CalendarLogic {
 
 
     public final DayImpl getDay(final LocalDate day) {
-        if (!this.week.contains(new DayImpl(day))) {
-            if (!this.month.contains(new DayImpl(day))) {
-                if (!this.year.contains(new DayImpl(day))) {
+        if (!this.week.contains(new DayImpl(day, datasource))) {
+            if (!this.month.contains(new DayImpl(day, datasource))) {
+                if (!this.year.contains(new DayImpl(day, datasource))) {
                     return generateDay(day);
                 }
                 return filter(this.year, day);
@@ -62,10 +66,10 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     public final DayImpl generateDay(final LocalDate day) {
         if (this.day == null) {
-            this.day = new DayImpl(today);
+            this.day = new DayImpl(today, datasource);
             return this.day;
         }
-        this.day = new DayImpl(day);
+        this.day = new DayImpl(day, datasource);
         return this.day;
     }
 
@@ -97,7 +101,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     public final List<DayImpl> generate(final int numberofdays, final LocalDate startingday) {
         final List<DayImpl> time = new ArrayList<>();
         for (int i = 0; i < numberofdays; i++) {
-            time.add(new DayImpl(startingday.plusDays(i)));
+            time.add(new DayImpl(startingday.plusDays(i), datasource));
         }
         return time;
     }

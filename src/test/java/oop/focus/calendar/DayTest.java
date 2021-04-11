@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import oop.focus.calendar.model.DayImpl;
+import oop.focus.db.DataSourceImpl;
 
 
 public class DayTest {
@@ -27,13 +28,13 @@ public class DayTest {
 
     @Before
     public void initDay() {
-
+    	final DataSourceImpl datasource = new DataSourceImpl();
         this.date = new LocalDate(YEAR, 3, 26);
         this.date2 = new LocalDate(YEAR, 4, 10);
         this.date3 = new LocalDate(YEAR, 2, 14);
-        day = new DayImpl(date);
-        day2 = new DayImpl(date2);
-        day3 = new DayImpl(date3);
+        day = new DayImpl(date, datasource);
+        day2 = new DayImpl(date2, datasource);
+        day3 = new DayImpl(date3, datasource);
 
     }
 

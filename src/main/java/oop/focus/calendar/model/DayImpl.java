@@ -8,10 +8,14 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import oop.focus.common.Repetition;
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
 //import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 //import oop.focus.homepage.model.ManagerEventImpl;
 import oop.focus.homepage.model.EventImpl;
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 
 public class DayImpl implements Day {
 
@@ -29,10 +33,10 @@ public class DayImpl implements Day {
     private final LocalDate date;
     private final List<Event> events;
     private final List<Event> dailyevents;
-    //private final DataSourceImpl datasource = new DataSourceImpl();
-    //private final ManagerEventImpl manager = new ManagerEventImpl(datasource);
+    private final EventManager manager;
 
-    public DayImpl(final LocalDate date) {
+    public DayImpl(final LocalDate date, final DataSourceImpl datasource) {
+        this.manager = new EventManagerImpl(datasource);
         events = new ArrayList<>();
         dailyevents = new ArrayList<>();
         this.date = date;
