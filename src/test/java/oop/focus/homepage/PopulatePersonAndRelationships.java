@@ -2,20 +2,28 @@ package oop.focus.homepage;
 
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.model.*;
+import oop.focus.homepage.model.Person;
+import oop.focus.homepage.model.PersonImpl;
+import oop.focus.homepage.model.PersonsManager;
+import oop.focus.homepage.model.PersonsManagerImpl;
+import oop.focus.homepage.model.RelationshipsManager;
+import oop.focus.homepage.model.RelationshipsManagerImpl;
+
 import org.junit.Test;
 
 public class PopulatePersonAndRelationships {
-    private DataSourceImpl dsi = new DataSourceImpl();
-    private RelationshipsManager relationships = new RelationshipsManagerImpl(dsi);
-    private PersonsManager persons = new PersonsManagerImpl(dsi);
+
+    private final DataSource dsi = new DataSourceImpl();
+    private final RelationshipsManager relationships = new RelationshipsManagerImpl(dsi);
+    private final PersonsManager persons = new PersonsManagerImpl(dsi);
 
     @Test
     public void populatePerson(){
-        Person first = new PersonImpl("Alice", "Sorella");
-        Person second = new PersonImpl("Loris", "Padre");
-        Person third = new PersonImpl("Cristina", "Mamma");
-        Person fourth = new PersonImpl("Mario", "Zio");
+        final Person first = new PersonImpl("Alice", "Sorella");
+        final Person second = new PersonImpl("Loris", "Padre");
+        final Person third = new PersonImpl("Cristina", "Mamma");
+        final Person fourth = new PersonImpl("Mario", "Zio");
+
         this.persons.addPerson(first);
         this.persons.addPerson(second);
         this.persons.addPerson(third);
@@ -24,11 +32,12 @@ public class PopulatePersonAndRelationships {
 
     @Test
     public void populateDegree(){
-        String padre = new String("Padre");
-        String madre = new String("Mamma");
-        String sorella = new String("Sorella");
-        String zio = new String("Zio");
-        String cugino = new String("cugino");
-        String cugina = new String("cugina");
+
+        this.relationships.add("Padre");
+        this.relationships.add("Mamma");
+        this.relationships.add("Sorella");
+        this.relationships.add("Zio");
+        this.relationships.add("cugino");
+        this.relationships.add("cugina");
     }
 }

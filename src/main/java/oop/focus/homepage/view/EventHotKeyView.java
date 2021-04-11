@@ -1,4 +1,5 @@
 package oop.focus.homepage.view;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -23,9 +24,9 @@ public class EventHotKeyView extends Pane implements HotKeyView {
 
     public final void setAction() {
         this.button.setOnAction(event -> {
-            final View newEvent = new NewEventView(this.controller);
+            final GenericAddView newEvent = new NewEventViewImpl(this.controller);
             final Stage stage = new Stage();
-            stage.setScene(new Scene(newEvent.getRoot()));
+            stage.setScene(new Scene((Parent) newEvent.getRoot()));
             stage.show();
         });
     }

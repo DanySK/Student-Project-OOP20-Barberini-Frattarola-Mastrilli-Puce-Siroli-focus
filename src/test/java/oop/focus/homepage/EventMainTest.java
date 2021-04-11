@@ -9,6 +9,7 @@ import org.joda.time.LocalDateTime;
 
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 
@@ -30,7 +31,7 @@ public class EventMainTest {
         final Event thirteenth = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
         final Event fourteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
 
-        final DataSourceImpl dsi = new DataSourceImpl();
+        final DataSource dsi = new DataSourceImpl();
         final EventManager manager = new EventManagerImpl(dsi);
 
         //cerco di aggiungere 14 eventi di cui sono validi solo first, second, fourth, eight, ninth , tenth, eleventh, twelve, thirteenth.

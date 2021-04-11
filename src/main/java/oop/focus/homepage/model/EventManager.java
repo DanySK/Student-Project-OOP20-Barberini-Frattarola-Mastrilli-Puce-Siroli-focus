@@ -124,6 +124,8 @@ public interface EventManager {
      */
     List<Event> takeOnlyDailyEvent(List<Event> eventsList);
 
+    List<Event> takeOnlyHotKeyEvent(List<Event> eventsList);
+
     /**
      * This method is used to know if a timer can start.
      * @param date represents the date and time to check if a timer can be started.

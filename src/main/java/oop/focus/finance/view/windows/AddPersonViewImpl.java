@@ -1,6 +1,7 @@
 package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -10,9 +11,11 @@ import javafx.stage.Stage;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
-import oop.focus.homepage.controller.PersonsController;
+import oop.focus.week.controller.PersonsController;
 import oop.focus.homepage.model.Person;
-import oop.focus.homepage.view.PersonsView;
+import oop.focus.week.controller.PersonsControllerImpl;
+import oop.focus.week.view.PersonsView;
+import oop.focus.week.view.PersonsViewImpl;
 
 public class AddPersonViewImpl extends GenericWindow<GroupController> {
 
@@ -39,10 +42,10 @@ public class AddPersonViewImpl extends GenericWindow<GroupController> {
     }
 
     private void newPerson() {
-        final PersonsController controller = new PersonsController((DataSourceImpl) super.getX().getManager().getDb());
-        final PersonsView persons = new PersonsView(controller);
+        final PersonsController controller = new PersonsControllerImpl((DataSourceImpl) super.getX().getManager().getDb());
+        final PersonsView persons = new PersonsViewImpl(controller);
         final Stage stage = new Stage();
-        stage.setScene(new Scene(persons.getRoot()));
+        stage.setScene(new Scene((Parent) persons.getRoot()));
         stage.show();
         this.close();
     }

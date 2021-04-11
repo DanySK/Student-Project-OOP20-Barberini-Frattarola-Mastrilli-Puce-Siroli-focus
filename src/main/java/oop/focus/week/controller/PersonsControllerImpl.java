@@ -1,27 +1,28 @@
-package oop.focus.homepage.controller;
+package oop.focus.week.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonsManager;
 import oop.focus.homepage.model.PersonsManagerImpl;
 import oop.focus.homepage.model.RelationshipsManager;
 import oop.focus.homepage.model.RelationshipsManagerImpl;
-import oop.focus.homepage.view.PersonsView;
+import oop.focus.week.view.PersonsView;
+import oop.focus.week.view.PersonsViewImpl;
 
-public class PersonsController {
+public class PersonsControllerImpl implements PersonsController {
 
     private final PersonsView view;
-    private final DataSourceImpl dsi;
+    private final DataSource dsi;
     private final PersonsManager person;
     private final RelationshipsManager relationships;
 
-    public PersonsController(final DataSourceImpl dsi) {
+    public PersonsControllerImpl(final DataSource dsi) {
         this.dsi = dsi;
         this.person = new PersonsManagerImpl(this.dsi);
         this.relationships = new RelationshipsManagerImpl(this.dsi);
-        this.view = new PersonsView(this);
+        this.view = new PersonsViewImpl(this);
     }
 
     public final void addPerson(final Person person) {
@@ -33,7 +34,7 @@ public class PersonsController {
     }
 
     public final void addRelationship(final String relationship) {
-        this.relationships.remove(relationship);
+        this.relationships.add(relationship);
     }
 
     public final void deleteRelationship(final String relationship) {

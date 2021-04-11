@@ -1,7 +1,7 @@
 package oop.focus.homepage;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import java.util.List;
 import java.util.Set;
@@ -14,12 +14,13 @@ import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 
 public class EventTest {
 
-	private final DataSourceImpl dsi = new DataSourceImpl();
+	private final DataSource dsi = new DataSourceImpl();
     private final EventManager eventi = new EventManagerImpl(dsi);
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
@@ -78,7 +79,7 @@ public class EventTest {
     public void durationInMinutes() {
  
     	this.eventi.addEvent(ninth);
-    	assertTrue(!this.eventi.getEventsWithDuration().contains(ninth));
+    	assertFalse(this.eventi.getEventsWithDuration().contains(ninth));
 
     	this.eventi.removeEvent(ninth);
     }

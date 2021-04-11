@@ -1,7 +1,7 @@
 package oop.focus.homepage.model;
 
 import oop.focus.db.Dao;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDateTime;
 
@@ -22,7 +22,7 @@ public class HotKeyManagerImpl implements HotKeyManager {
      * @param dsi is the DataSource.
      * @param manager is the manager of events.
      */
-    public HotKeyManagerImpl(final DataSourceImpl dsi, final EventManager manager) {
+    public HotKeyManagerImpl(final DataSource dsi, final EventManager manager) {
         this.sd = dsi.getHotKeys();
         this.manager = manager;
     }

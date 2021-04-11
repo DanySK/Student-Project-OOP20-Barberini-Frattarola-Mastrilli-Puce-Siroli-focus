@@ -1,8 +1,10 @@
-package oop.focus.homepage.view;
+package oop.focus.week.view;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -10,11 +12,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import oop.focus.homepage.controller.PersonsController;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import oop.focus.week.controller.FXMLPaths;
+import oop.focus.week.controller.PersonsController;
+import javafx.scene.Node;
+import oop.focus.homepage.view.AllertGenerator;
+import oop.focus.homepage.view.GenericAddView;
 
-public class AddNewRelationship implements Initializable, View {
+public class AddNewRelationship implements GenericAddView {
 
     @FXML
     private AnchorPane newRelatioshipPane;
@@ -35,12 +39,12 @@ public class AddNewRelationship implements Initializable, View {
     private Button back;
 
     private final PersonsController controller;
-    private Parent root;
+    private Node root;
  
     public AddNewRelationship(final PersonsController controller) {
         this.controller = controller;
 
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/addNewRelationship.fxml"));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWRELATIONSHIP.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -52,32 +56,47 @@ public class AddNewRelationship implements Initializable, View {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.back.setOnAction(event -> this.goBack());
-        this.delete.setOnAction(event -> this.delete());
-        this.save.setOnAction(event -> this.save());
+        this.back.setOnAction(event -> {
+			try {
+				this.goBack(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+
+        this.delete.setOnAction(event -> this.delete(event));
+
+        this.save.setOnAction(event -> {
+			try {
+				this.save(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
     }
 
-    private void save() {
+    public final void save(final ActionEvent event) throws IOException {
         if (!this.nameTextField.getText().isEmpty()) {
             this.controller.addRelationship(this.nameTextField.getText());
-            this.goBack();
+            this.goBack(event);
         } else {
             final AllertGenerator allert = new AllertGenerator();
+            allert.checkFieldsFilled();
             allert.showAllert();
         }
     }
 
-    private void delete() {
+    public final void delete(final ActionEvent event) {
         this.nameTextField.setText(" ");
     }
 
-    private void goBack() {
+    public final void goBack(final ActionEvent event) throws IOException {
         final Stage stage = (Stage) this.newRelatioshipPane.getScene().getWindow();
         stage.close();
     }
 
     @Override
-    public final Parent getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 }

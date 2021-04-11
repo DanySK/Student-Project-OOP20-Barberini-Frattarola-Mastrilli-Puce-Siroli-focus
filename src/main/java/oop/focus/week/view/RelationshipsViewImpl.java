@@ -1,8 +1,8 @@
-package oop.focus.homepage.view;
+package oop.focus.week.view;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,14 +10,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import oop.focus.homepage.controller.PersonsController;
+import oop.focus.week.controller.FXMLPaths;
+import oop.focus.week.controller.PersonsController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import oop.focus.common.View;
 
 
-public class RelationshipsView implements Initializable, View {
+public class RelationshipsViewImpl implements RelationshipsView {
     @FXML
     private AnchorPane relationshipsPane;
 
@@ -31,11 +33,11 @@ public class RelationshipsView implements Initializable, View {
     private Button addRelationships, goBack, deleteRelationship;
 
     private final PersonsController controller;
-    private Parent root;
+    private Node root;
 
-    public RelationshipsView(final PersonsController controller) {
+    public RelationshipsViewImpl(final PersonsController controller) {
         this.controller = controller;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/relationships.fxml"));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.RELATIONSHIPS.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
@@ -57,7 +59,7 @@ public class RelationshipsView implements Initializable, View {
     }
 
     public final void goBack() {
-        final PersonsView persons = new PersonsView(this.controller);
+        final PersonsView persons = new PersonsViewImpl(this.controller);
         this.relationshipsPane.getChildren().clear();
         this.relationshipsPane.getChildren().add(persons.getRoot());
     }
@@ -66,7 +68,7 @@ public class RelationshipsView implements Initializable, View {
     public final void addRelationships() {
         final View newDegree = new AddNewRelationship(this.controller);
         final Stage stage = new Stage();
-        stage.setScene(new Scene(newDegree.getRoot()));
+        stage.setScene(new Scene((Parent) newDegree.getRoot()));
         stage.show();
     }
 
@@ -81,7 +83,7 @@ public class RelationshipsView implements Initializable, View {
     }
 
     @Override
-    public final Parent getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 }

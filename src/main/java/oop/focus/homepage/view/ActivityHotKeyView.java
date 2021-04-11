@@ -1,7 +1,5 @@
 package oop.focus.homepage.view;
 
-import oop.focus.homepage.model.HotKeyImpl;
-import oop.focus.homepage.model.HotKeyType;
 import org.joda.time.LocalDateTime;
 
 import javafx.scene.control.CheckBox;
@@ -18,8 +16,18 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
     public ActivityHotKeyView(final String name, final HomePageController controller) {
         this.controller = controller;
         this.checkBox = new CheckBox(name);
+        this.initSelection();
+
         this.setAction();
         this.getChildren().add(this.checkBox);
+    }
+
+    private void initSelection() {
+        if (this.controller.getActivitySelected(this.checkBox.getText())) {
+            this.checkBox.setSelected(false);
+        } else {
+            this.checkBox.setSelected(true);
+        }
     }
 
     public final CheckBox getCheckBox() {
@@ -28,10 +36,9 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
 
     public final void setAction() {
         this.checkBox.setOnAction(event -> {
-            if (this.controller.getActivitySelected(new HotKeyImpl(this.checkBox.getText(), HotKeyType.ACTIVITY))) {
+            if (!this.checkBox.isSelected()) {
                 this.checkBox.setSelected(true);
                 this.controller.saveEvent(new EventImpl(this.checkBox.getText(), LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE));
-
             }
        });
     }

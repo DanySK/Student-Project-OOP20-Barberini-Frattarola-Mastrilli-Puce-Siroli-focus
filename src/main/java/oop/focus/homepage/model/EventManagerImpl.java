@@ -1,7 +1,7 @@
 package oop.focus.homepage.model;
 
 import oop.focus.db.Dao;
-import oop.focus.db.DataSourceImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.common.Repetition;
 import org.joda.time.LocalDate;
@@ -29,13 +29,13 @@ public class EventManagerImpl implements EventManager {
      * This is the class constructor.
      * @param dsi is the DataSource.
      */
-    public EventManagerImpl(final DataSourceImpl dsi) {
+    public EventManagerImpl(final DataSource dsi) {
         this.time = new TimePropertyImpl();
         this.events = dsi.getEvents();
     }
 
     public final void addEvent(final Event event) {
-        if (this.isHotKey(event) || this.time.getValidity(event) && this.time.getHourDuration(event) && this.getAnswer(event) || !this.isAdequate(event) || !this.time.getHourDuration(event)) {
+        if (this.isAdequate(event) || this.time.getValidity(event) && this.time.getHourDuration(event) && this.getAnswer(event) || !this.time.getHourDuration(event)) {
             if (!this.events.getAll().contains(event)) {
                 try {
                     this.events.save(event);
@@ -46,10 +46,6 @@ public class EventManagerImpl implements EventManager {
         } else {
             throw new IllegalStateException();
         }
-    }
-
-    private boolean isHotKey(final Event event) {
-        return event.getStart().isEqual(event.getEnd());
     }
 
     public final void addEventsSet(final Set<Event> eventsSet) {
@@ -148,9 +144,7 @@ public class EventManagerImpl implements EventManager {
      * @return true if the event was saved after a hot key has been clicked false otherwise.
      */
     private boolean isAdequate(final Event event) {
-        return event.getStartHour().getHourOfDay() == event.getEndHour().getHourOfDay() 
-        && event.getStartHour().getMinuteOfHour() == event.getEndHour().getMinuteOfHour()
-        && event.getStartHour().getSecondOfMinute() == event.getEndHour().getSecondOfMinute();
+        return event.getStart().isEqual(event.getEnd());
     }
 
     public final List<Event> orderByHour(final List<Event> eventsList) {
@@ -178,6 +172,10 @@ public class EventManagerImpl implements EventManager {
 
     public final List<Event> takeOnlyDailyEvent(final List<Event> eventsList) {
         return eventsList.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
+    }
+
+    public final List<Event> takeOnlyHotKeyEvent(final List<Event> eventsList) {
+        return eventsList.stream().filter(e -> this.isAdequate(e)).collect(Collectors.toList());
     }
 
     public final boolean timerCanStart(final LocalDateTime date) {

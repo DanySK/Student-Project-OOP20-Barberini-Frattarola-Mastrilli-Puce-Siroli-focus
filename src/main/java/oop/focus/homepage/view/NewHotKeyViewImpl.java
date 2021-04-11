@@ -6,19 +6,19 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
 
-public class NewHotKeyView implements Initializable, View {
+public class NewHotKeyViewImpl implements GenericAddView {
 
     @FXML
     private Pane paneNewHotKey;
@@ -36,11 +36,11 @@ public class NewHotKeyView implements Initializable, View {
     private ComboBox<String> categoryComboBox;
 
     private final HomePageController controller;
-    private Parent root;
+    private Node root;
 
-    public NewHotKeyView(final HomePageController controller) {
+    public NewHotKeyViewImpl(final HomePageController controller) {
         this.controller = controller;
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/addNewHotKey.fxml"));
+        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWHOTKEY.getPath()));
         loader.setController(this);
 
         try {
@@ -52,6 +52,7 @@ public class NewHotKeyView implements Initializable, View {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+    	this.setButtonOnAction();
         final ComboBoxFiller comboBox = new ComboBoxFiller();
         this.categoryComboBox.setItems(comboBox.getHotKey());
     }
@@ -69,18 +70,39 @@ public class NewHotKeyView implements Initializable, View {
     }
 
     @FXML
-    public final void saveHotKey(final ActionEvent event) throws IOException {
+    public final void save(final ActionEvent event) throws IOException {
         final String name = nameTextField.getText();
-        if (!categoryComboBox.getSelectionModel().isEmpty() && !name.isEmpty()) {
+        if (categoryComboBox.getSelectionModel().isEmpty() || name.isEmpty()) {
+            final AllertGenerator allert = new AllertGenerator();
+            allert.checkFieldsFilled();
+            allert.showAllert();
+        } else {
             this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
             this.goBack(event);
-        } else {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.showAllert();
         }
     }
 
-    public final Parent getRoot() {
+    public final Node getRoot() {
         return this.root;
+    }
+
+    public final void setButtonOnAction() {
+    	this.goBackButton.setOnAction(event -> {
+			try {
+				this.goBack(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+
+    	this.deleteButton.setOnAction(event -> this.delete(event));
+
+    	this.saveHotKeyButton.setOnAction(event -> {
+			try {
+				this.save(event);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
     }
 }

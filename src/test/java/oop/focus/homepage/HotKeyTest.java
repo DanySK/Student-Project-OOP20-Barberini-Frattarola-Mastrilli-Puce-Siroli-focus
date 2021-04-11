@@ -1,5 +1,6 @@
 package oop.focus.homepage;
 
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 import oop.focus.homepage.model.Event;
@@ -24,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 
 public class HotKeyTest {
 
-	private final DataSourceImpl dsi = new DataSourceImpl();
+	private final DataSource dsi = new DataSourceImpl();
 	private final EventManager manager = new EventManagerImpl(dsi);
 	private final HotKeyManager hotKeyTrackers = new HotKeyManagerImpl(dsi, manager);
 

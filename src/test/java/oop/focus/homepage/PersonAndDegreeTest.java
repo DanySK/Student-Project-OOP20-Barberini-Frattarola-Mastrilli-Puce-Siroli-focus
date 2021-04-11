@@ -9,11 +9,12 @@ import oop.focus.homepage.model.PersonsManager;
 import oop.focus.homepage.model.PersonsManagerImpl;
 import oop.focus.homepage.model.RelationshipsManager;
 import oop.focus.homepage.model.RelationshipsManagerImpl;
+import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 
 public class PersonAndDegreeTest {
 	
-	private final DataSourceImpl dsi = new DataSourceImpl();
+	private final DataSource dsi = new DataSourceImpl();
     private final PersonsManager persons = new PersonsManagerImpl(dsi);
     private final RelationshipsManager relationship = new RelationshipsManagerImpl(dsi);
     private final Person sara = new PersonImpl("Sara", "Cugina");
