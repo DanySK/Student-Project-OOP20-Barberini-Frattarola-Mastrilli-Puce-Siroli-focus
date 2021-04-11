@@ -82,11 +82,20 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
             }
         });
 
-        tableHotKeyList.setEditable(false);
-        tableHotKeyList.setItems(this.controller.getHotKey());
+        this.populate();
     }
 
-    @FXML
+    public final void populate() {
+    	this.populateTableView();
+    }
+
+    private void populateTableView() {
+		this.tableHotKeyList.setEditable(false);
+		this.tableHotKeyList.getItems().clear();
+		this.tableHotKeyList.setItems(this.controller.getHotKey());
+	}
+
+	@FXML
     public final void addNewHotKey(final ActionEvent event) throws IOException {
         final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller);
         final Stage stage = new Stage();

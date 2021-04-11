@@ -13,4 +13,6 @@ public interface HotKeyMenuView extends Initializable, View {
     void deletSelectedRowItem(ActionEvent event);
 
     void goBack(ActionEvent event) throws IOException;
+
+    void populate();
 }

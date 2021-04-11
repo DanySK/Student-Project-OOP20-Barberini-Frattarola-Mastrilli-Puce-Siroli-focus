@@ -90,13 +90,13 @@ public class AddNewPersonView implements GenericAddView {
     }
 
     public final void save(final ActionEvent event) throws IOException {
-        if (!this.nameTextField.getText().isEmpty() && !this.degreeComboBox.getSelectionModel().getSelectedItem().isEmpty()) {
+        if (!this.nameTextField.getText().isEmpty() && !this.degreeComboBox.getSelectionModel().isEmpty()) {
             this.controller.addPerson(new PersonImpl(this.nameTextField.getText(), this.degreeComboBox.getSelectionModel().getSelectedItem()));
             this.goBack(event);
         } else {
-        final AllertGenerator allert = new AllertGenerator();
-        allert.checkFieldsFilled();
-        allert.showAllert();
+           final AllertGenerator allert = new AllertGenerator();
+           allert.checkFieldsFilled();
+           allert.showAllert();
         }
     }
 

@@ -5,6 +5,8 @@ import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDateTime;
 
+import javafx.collections.ObservableSet;
+
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +49,7 @@ public class HotKeyManagerImpl implements HotKeyManager {
         }
     }
 
-    public final Set<HotKey> getAll() {
+    public final ObservableSet<HotKey> getAll() {
         return this.sd.getAll();
     }
 

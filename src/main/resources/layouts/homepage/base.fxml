@@ -14,10 +14,6 @@
       </ScrollPane>
       <Button fx:id="modifyButton" layoutX="541.0" layoutY="64.0" mnemonicParsing="false" text="MODIFICA" />
       <VBox fx:id="calendarHBox" layoutX="38.0" layoutY="32.0" prefHeight="218.0" prefWidth="321.0" />
-      <ScrollPane fx:id="scroller" layoutX="38.0" layoutY="309.0" prefHeight="281.0" prefWidth="200.0">
-         <content>
-            <VBox fx:id="vBoxCalendar" prefHeight="272.0" prefWidth="198.0" />
-         </content>
-      </ScrollPane>
+      <ScrollPane fx:id="scroller" layoutX="38.0" layoutY="309.0" prefHeight="281.0" prefWidth="200.0" />
    </children>
 </Pane>

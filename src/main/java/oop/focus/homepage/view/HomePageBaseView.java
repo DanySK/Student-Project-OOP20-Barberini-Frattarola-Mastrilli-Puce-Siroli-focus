@@ -9,4 +9,6 @@ import oop.focus.common.View;
 public interface HomePageBaseView extends Initializable, View {
 
     void modifyClicked(ActionEvent event) throws IOException;
+
+    void setDay();
 }

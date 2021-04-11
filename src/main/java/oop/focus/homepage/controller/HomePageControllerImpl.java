@@ -2,9 +2,12 @@ package oop.focus.homepage.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.scene.Parent;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
+import oop.focus.finance.model.Account;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
@@ -14,6 +17,8 @@ import oop.focus.homepage.model.HotKeyManager;
 import oop.focus.homepage.model.HotKeyManagerImpl;
 import oop.focus.homepage.view.HomePageBaseView;
 import oop.focus.homepage.view.HomePageBaseViewImpl;
+import oop.focus.homepage.view.HotKeyMenuView;
+import oop.focus.homepage.view.HotKeyMenuViewImpl;
 
 import org.joda.time.LocalDate;
 
@@ -27,14 +32,24 @@ public class HomePageControllerImpl implements HomePageController {
     private final HotKeyManager hotKeyManager;
     private final DataSource dsi;
 
+    private final ObservableSet<HotKey> hotKeys;
+
     public HomePageControllerImpl(final DataSource dsi) {
+
         this.dsi = dsi;
         this.eventManager = new EventManagerImpl(dsi);
         this.hotKeyManager = new HotKeyManagerImpl(dsi, eventManager);
         this.view = new HomePageBaseViewImpl(this);
+        this.hotKeys = hotKeyManager.getAll();
+
+        //this.addListener();
     }
 
-    public final Parent getView() {
+    public final void addListener() {
+    	//this.accounts.addListener((SetChangeListener<Account>) change -> this.view.populateAccounts());
+    }
+
+	public final Parent getView() {
         return (Parent) this.view.getRoot();
     }
 

@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.joda.time.LocalDateTime;
 
+import javafx.collections.ObservableSet;
+
 /**
  * This is the interface that models the handling of hot keys of all categories.
  */
@@ -35,7 +37,7 @@ public interface HotKeyManager {
      * This method is used to get the set of all the hot keys(of all categories).
      * @return a set of hot keys.
      */
-    Set<HotKey> getAll();
+    ObservableSet<HotKey> getAll();
 
     /**
      * This method is used to get the category of a specific hot key.
