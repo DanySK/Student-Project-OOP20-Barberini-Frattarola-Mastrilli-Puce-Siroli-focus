@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-
-import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class DayImpl implements Day {
-
+/*
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
     private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
     private final Event test = new EventImpl("Ginnastica", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
@@ -26,22 +22,23 @@ public class DayImpl implements Day {
     private final Event dailytest1 = new EventImpl("Lavoro", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
     private final Event dailytest2 = new EventImpl("Allenamento", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
     private final Event dailytest3 = new EventImpl("Sport", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
-
+*/
     private final LocalDate date;
     private final List<Event> events;
     private final List<Event> dailyevents;
-    private final EventManager manager;
+
 
     public DayImpl(final LocalDate date, final DataSource datasource) {
-        this.manager = new EventManagerImpl(datasource);
+        final EventManager manager = new EventManagerImpl(datasource);
         events = new ArrayList<>();
         dailyevents = new ArrayList<>();
         this.date = date;
-        subito();
-        //final List<Event> temp = null; //manager.findByDate(date);
-        //this.events.addAll(temp);
+        //subito();
+        final List<Event> temp = manager.findByDate(date);
+        this.events.addAll(manager.takeOnly(temp));
+        this.dailyevents.addAll(manager.takeOnlyDailyEvent(temp));
     }
-
+/*
     private void subito() {
         this.events.add(first);
         this.events.add(second);
@@ -54,7 +51,7 @@ public class DayImpl implements Day {
         this.dailyevents.add(dailytest2);
         this.dailyevents.add(dailytest3);
     }
- 
+ */
 
     public final int getNumber() {
         return  date.getDayOfMonth();
