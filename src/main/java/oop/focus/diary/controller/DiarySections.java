@@ -9,11 +9,16 @@ public enum DiarySections {
     /**
      *
      */
+    MOOD_CALENDAR("Statistiche umore", Style.MOOD_CALENDAR_STYLE.getPath()),
+    /**
+     *
+     */
     STOPWATCH("Cronometro", Style.STOPWATCH_STYLE.getPath()),
     /**
      *
      */
     TIMER("Timer", Style.TIMER_STYLE.getPath());
+
     private final String name;
     private final String style;
 

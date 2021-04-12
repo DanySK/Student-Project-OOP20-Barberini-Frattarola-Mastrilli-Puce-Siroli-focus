@@ -24,4 +24,5 @@ public interface DiarySectionsController {
      * @return  the root of timer's section
      */
     Node getTimer();
+    Node getMoodCalendar();
 }

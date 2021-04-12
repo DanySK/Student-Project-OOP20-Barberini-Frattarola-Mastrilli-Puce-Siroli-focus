@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -18,7 +17,7 @@ public class LauncherAll extends Application {
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final String css = LauncherAll.class.getResource(PATH_MAIN_STYLE).toExternalForm();
-        Scene scene = new Scene((Parent) this.commonView.getRoot());
+        final Scene scene = new Scene((Parent) this.commonView.getRoot());
         scene.getStylesheets().add(css);
         primaryStage.setHeight(height);
         primaryStage.setWidth(width);

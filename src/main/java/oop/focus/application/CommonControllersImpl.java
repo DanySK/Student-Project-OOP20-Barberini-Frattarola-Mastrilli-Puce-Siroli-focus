@@ -7,25 +7,29 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.view.GeneralDiaryView;
 import oop.focus.finance.controller.BaseControllerImpl;
 import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.homepage.model.EventManagerImpl;
 
 
 public class CommonControllersImpl implements CommonControllers {
-    private final DataSource dataSource;
+    public GeneralDiaryView generalDiaryView;
+    public BaseControllerImpl baseController;
+    public CalendarControllerImpl calendarController;
     public CommonControllersImpl() {
-        this.dataSource = new DataSourceImpl();
+        DataSource dataSource = new DataSourceImpl();
+        this.generalDiaryView = new GeneralDiaryView(dataSource);
+        this.baseController = new BaseControllerImpl(new FinanceManagerImpl(dataSource));
+        this.calendarController = new CalendarControllerImpl(dataSource);
     }
     @Override
     public final Node getDiary() {
-        return new GeneralDiaryView(this.dataSource).getRoot();
+        return this.generalDiaryView.getRoot();
     }
     @Override
     public final Node getFinance() {
-        return new BaseControllerImpl(new FinanceManagerImpl(this.dataSource)).getView().getRoot();
+        return this.baseController.getView().getRoot();
     }
     @Override
     public final Node getCalendar() {
-        return new CalendarControllerImpl(dataSource).getView().getRoot();
+        return this.calendarController.getView().getRoot();
     }
 
 }

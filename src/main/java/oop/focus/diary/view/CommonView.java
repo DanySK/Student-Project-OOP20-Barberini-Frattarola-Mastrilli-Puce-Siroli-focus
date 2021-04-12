@@ -38,8 +38,6 @@ public final class CommonView {
             s.prefWidthProperty().bind(pane.widthProperty().multiply(LABEL_WIDTH_PERCENTAGE));
             s.prefHeightProperty().bind(pane.heightProperty().multiply(labelHeightPercentage));
             s.setAlignment(Pos.CENTER);
-
-
         });
     }
     public static void setDimButton(final List<Button> button, final Pane pane, final double buttonWidthPercentage,
@@ -104,7 +102,7 @@ public final class CommonView {
         eventButton.setText("+");
         eventButton.setWrapText(true);
         addNewEvent.setOnMouseClicked(event -> CommonView.openWindow(controller));
-       controller.getAllEvents().addListener((SetChangeListener<String>) change -> {
+        controller.getAllEvents().addListener((SetChangeListener<String>) change -> {
             if (change.wasAdded()) {
                 chooseEvent.getItems().add(change.getElementAdded());
                 chooseEvent.setValue(change.getElementAdded());

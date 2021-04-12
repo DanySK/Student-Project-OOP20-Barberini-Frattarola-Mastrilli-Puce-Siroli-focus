@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -95,8 +96,8 @@ public class DailyMoodViewImpl implements DailyMoodView, View {
                 elem.setEffect(blackout);
             }
         }
-    public ObservableList<ImageView> getImages() {
-        return this.images;
+    public List<ImageView> getImages() {
+        return  this.images.subList(0, this.images.size()-1);
     }
     @Override
     public final Button getButton() {

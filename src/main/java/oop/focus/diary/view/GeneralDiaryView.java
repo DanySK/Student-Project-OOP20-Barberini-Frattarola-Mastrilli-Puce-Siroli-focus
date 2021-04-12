@@ -7,11 +7,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.DiarySections;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
 import oop.focus.diary.controller.Style;
-import oop.focus.homepage.model.EventManagerImpl;
 
 public class GeneralDiaryView implements View {
     private static final double BUTTON_HEIGHT = 0.3;
@@ -31,8 +29,9 @@ public class GeneralDiaryView implements View {
         for (final var elem : DiarySections.values()) {
             final Button b = new Button(elem.getName());
             b.setOnMouseClicked(event -> {
-                pane.setCenter(getPane(elem, b));
                 setStyle(elem, pane);
+                pane.setCenter(getPane(elem, b));
+
             });
             b.prefWidthProperty().bind(this.vBox.widthProperty());
             b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT));
@@ -56,6 +55,8 @@ public class GeneralDiaryView implements View {
         } else if (elem.equals(DiarySections.STOPWATCH)) {
             b.setStyle(Style.STOPWATCH_STYLE.getPath());
             return this.controller.getStopwatch();
+        } else if(elem.equals(DiarySections.MOOD_CALENDAR)) {
+            return this.controller.getMoodCalendar();
         }
         return this.controller.getTimer();
     }
@@ -69,7 +70,12 @@ public class GeneralDiaryView implements View {
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.STOPWATCH_STYLE.getPath());
            // setVBox();
-        } else {
+        } else if (elem.equals(DiarySections.MOOD_CALENDAR)) {
+            pane.getStylesheets().clear();
+            //pane.getStylesheets().add(Style.MOOD_CALENDAR_STYLE.getPath());
+            controller.getCalendarMonthController().setFontSize(30);
+        }
+        else {
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.TIMER_STYLE.getPath());
         //    setVBox();

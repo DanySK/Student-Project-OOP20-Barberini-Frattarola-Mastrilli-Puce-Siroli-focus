@@ -2,14 +2,20 @@ package oop.focus.diary.model;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.Optional;
 
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
-
+import oop.focus.homepage.model.Event;
+import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
-
+import org.joda.time.LocalDateTime;
 import org.junit.Test;
+
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 public class ComputeTotalTimeOfEventTest {
@@ -30,9 +36,11 @@ public class ComputeTotalTimeOfEventTest {
         System.out.println("Secondi = " + this.csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
         assertEquals(Optional.empty(), this.csc.computePeriod("correre"));
+        this.me.removeEvent(this.me.findByName(str).stream().iterator().next());
+
     }
-/*
-/*
+
+
     @Test
     public void testAlarmSound() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
         timer.createCounter("test2");
@@ -43,11 +51,11 @@ public class ComputeTotalTimeOfEventTest {
         if(sound.isPlaying()){
             sound.stopSound();
         }
-
+        this.me.removeEvent(this.me.findByName("test2").stream().findAny().get());
     }
 
- */
-/*
+
+
     @Test
     public void testStopwatch() throws InterruptedException {
         final String cuc = "test3";
@@ -58,6 +66,7 @@ public class ComputeTotalTimeOfEventTest {
         stopwatch.stopCounter();
         Thread.sleep(1000);
         System.out.println("Sec = " +csc.computePeriod(cuc).get().getSeconds());
+        this.me.removeEvent(this.me.findByName("test3").stream().findAny().get());
     }
 
 
@@ -82,6 +91,8 @@ public class ComputeTotalTimeOfEventTest {
         //si verifica che, in totale, sono state dedicate 6 ore in totale.
         System.out.println(csc.computePeriod(str).get().getHours()+
                 ":"+ csc.computePeriod(str).get().getMinutes() +":" +csc.computePeriod(str).get().getSeconds() );
+        this.me.removeEvent(this.me.findByName(str).stream().findAny().get());
+        this.me.removeEvent(this.me.findByName(pal).stream().findAny().get());
     }
 
     @Test
@@ -91,46 +102,20 @@ public class ComputeTotalTimeOfEventTest {
         Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20, 30), new LocalDateTime(2021, 9, 27, 01, 30), Repetition.ONCE);
         me.addEvent(third);
         //verifica la durata dell'evento progetto
-        System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"
+        System.out.println("Test 7 :" +csc.computePeriod(prog).get().getHours() + ":"
                 +csc.computePeriod(prog).get().getMinutes() + ":"+csc.computePeriod(prog).get().getSeconds());
         //nuovo evento progetto, dalla durata di 21 ore
-        third = new EventImpl("progetto", new LocalDateTime(2021, 9, 26, 21, 30), new LocalDateTime(2021, 9, 27, 18, 30), Repetition.ONCE);
+        third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 21, 30), new LocalDateTime(2021, 9, 27, 18, 30), Repetition.ONCE);
         me.addEvent(third);
         //verifica la durata totale del progetto : 26 ore
-        System.out.println("Test 3 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() +
+        System.out.println("Test 7 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() +
                 ":"+csc.computePeriod(prog).get().getSeconds());
-    }
-/*
-    @Test
-    public void testTimerEnds() throws InterruptedException {
-        final String corsa = "test8";
-        this.me.addEvent(new EventImpl("test9", new LocalDateTime(2021, 03, 19, 11, 9), new LocalDateTime(2021, 03, 19, 11,20), Repetition.ONCE));
-        System.out.println( "test " + new LocalDateTime().toLocalTime());
-        timer.createCounter("corsa");
-        timer.setStarterValue(50);
-        timer.startCounter();
-        Thread.sleep(60_000);
-        System.out.println("test");
-        System.out.println("Test 2 :"+csc.computePeriod(corsa).get().getHours()+
-                ":"+ csc.computePeriod(corsa).get().getMinutes() +":" +csc.computePeriod(corsa).get().getSeconds() );
-
-
+        this.me.removeEvent(this.me.findByName(prog).stream().findAny().get());
     }
 
 
 
-    @Test (expected =  IllegalStateException.class)
-    public void testCompatibilityTimerWithEvents()   {
-        //creazione dell'evento
-        this.me.addEvent(new EventImpl("test10", new LocalDateTime(2021, 03, 19, 22, 34),
-                new LocalDateTime(2021, 03, 19, 22, 37), Repetition.ONCE));
-        //il timer viene fatto partire alle 22:35(un minuto dopo l'inizio di un altro evento e si verifica l'eccezione)
-        timer.createCounter("test11");
-        timer.setStarterValue(5);
-        timer.startCounter();
-    }
 
-    */
 
 
 }

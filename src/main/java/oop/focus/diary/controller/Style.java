@@ -12,7 +12,11 @@ public enum Style {
     /**
      *
      */
-    TIMER_STYLE(Costants.DIARY + "timerStyle.css");
+    TIMER_STYLE(Costants.DIARY + "timerStyle.css"),
+    /**
+     *
+     */
+    MOOD_CALENDAR_STYLE(Costants.DIARY + "moodCalendarStyle.css");
     private final String path;
 
     Style(final String path) {

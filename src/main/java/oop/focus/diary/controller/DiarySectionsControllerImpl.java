@@ -1,6 +1,9 @@
 package oop.focus.diary.controller;
 
 import javafx.scene.Node;
+import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarMonthControllerImpl;
+import oop.focus.calendar.model.CalendarType;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
@@ -18,9 +21,11 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
     private Node diary;
     private Node stopwatch;
     private Node timer;
+    private final CalendarMonthController calendarMonthController;
     public DiarySectionsControllerImpl(final DataSource dataSource) {
         this.dataSource = dataSource;
         this.eventManager = new EventManagerImpl(dataSource);
+        this.calendarMonthController = new CalendarMonthControllerImpl(CalendarType.DIARY, this.dataSource);
         this.totalTimeController = new TotalTimeControllerImpl(eventManager);
         this.diary = new BaseDiary(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
                 new DiaryPagesImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource))).
@@ -40,5 +45,11 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
     @Override
     public final Node getTimer() {
         return this.timer;
+    }
+    public Node getMoodCalendar() {
+        return this.calendarMonthController.getView().getRoot();
+    }
+    public CalendarMonthController getCalendarMonthController() {
+        return this.calendarMonthController;
     }
 }

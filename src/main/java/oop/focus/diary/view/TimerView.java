@@ -138,7 +138,7 @@ public class TimerView implements Initializable, View {
         final UpdateView connection = new UpdateView(this.specificController, this.counterLabel);
         this.modifyAllButtons(true);
         this.buttonList = List.of(this.timer1, this.timer2, this.timer3);
-        this.stopButton.setDisable(true);
+        this.stopButton.setDisable(true  );
         CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton,
                 this.addEventButton, this.addEventButton, totalTimeController);
         this.otherTime.setText("Scegli");

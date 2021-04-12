@@ -11,7 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import oop.focus.common.View;
 import oop.focus.diary.controller.CounterControllerImpl;
 import oop.focus.diary.controller.FXMLPaths;
@@ -77,7 +79,15 @@ public class StopwatchView implements  Initializable, View {
     }
     private void setProperties() {
         final GridPane grid = new GridPane();
-        grid.addRow(0, this.nameEventLabel, this.chooseEvent, this.addNewEvent, this.timeLabel);
+        VBox box = new VBox();
+        box.getChildren().add(this.nameEventLabel);
+        box.getChildren().add(this.chooseEvent);
+        box.setPadding(new Insets(INSETS));
+        VBox boxTime = new VBox();
+        boxTime.getChildren().add(new Label("Tempo totale:"));
+        boxTime.getChildren().add(this.timeLabel);
+        grid.addRow(0, box, this.addNewEvent, boxTime);
+
         grid.add(this.counterLabel, (grid.getColumnCount() - 2) / 2, 1, 2, 1);
         grid.add(this.startButton, 1, 2, 2, 1);
         grid.add(this.stopButton, 2, 2, 2, 1);
