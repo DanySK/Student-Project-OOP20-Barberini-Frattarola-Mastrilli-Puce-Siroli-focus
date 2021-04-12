@@ -7,7 +7,6 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.SubscriptionsViewImpl;
 
-import java.text.DecimalFormat;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
@@ -41,13 +40,13 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     }
 
     @Override
-    public final String getYearlyExpense() {
-        return this.format(this.manager.getTransactionManager().yearlyExpense());
+    public final double getYearlyExpense() {
+        return (double) this.manager.getTransactionManager().yearlyExpense() / 100;
     }
 
     @Override
-    public final String getMonthlyExpense() {
-        return this.format(this.manager.getTransactionManager().monthlyExpense());
+    public final double getMonthlyExpense() {
+        return (double) this.manager.getTransactionManager().monthlyExpense() / 100;
     }
 
     @Override
@@ -63,12 +62,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     }
 
     @Override
-    public final String getTransactionAmount(final Transaction t) {
-        return this.format(t.getAmount());
-    }
-
-    private String format(final int amount) {
-        final DecimalFormat f = new DecimalFormat("#0.00");
-        return f.format((double) amount / 100);
+    public final double getTransactionAmount(final Transaction t) {
+        return (double) t.getAmount() / 100;
     }
 }

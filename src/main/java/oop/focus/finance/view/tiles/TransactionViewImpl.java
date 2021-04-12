@@ -8,8 +8,6 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.GenericView;
 
-import java.text.DecimalFormat;
-
 public class TransactionViewImpl extends GenericView<Transaction> implements Initializable, TransactionView {
 
     @FXML
@@ -25,8 +23,7 @@ public class TransactionViewImpl extends GenericView<Transaction> implements Ini
         this.categoryLabel.setText(super.getX().getCategory().getName());
         this.colorLabel.setTextFill(Color.valueOf(super.getX().getCategory().getColor()));
         this.dateLabel.setText(super.getX().getDateToString());
-        DecimalFormat df = new DecimalFormat("#0.00");
-        this.amountLabel.setText("" + df.format((double) super.getX().getAmount() / 100));
+        this.amountLabel.setText(this.format((double) super.getX().getAmount() / 100));
     }
 
     @Override

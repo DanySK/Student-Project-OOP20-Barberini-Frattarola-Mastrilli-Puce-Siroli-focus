@@ -20,13 +20,13 @@ public interface FinanceHomePageController extends Controller {
      * @param amount of the transaction to add
      * @param category of the transaction to add
      * @param account of the transaction to add
-     * @param date of the transaction to add
-     * @param hours of the transaction to add
-     * @param minutes of the transaction to add
+     * @param date of the transaction to add (default today)
+     * @param hours of the transaction to add (default current hour)
+     * @param minutes of the transaction to add (default current minutes)
      * @param repetition of the transaction to add
      */
-    void newTransaction(String description, String amount, Category category, Account account,
-                        LocalDate date, String hours, String minutes, Repetition repetition);
+    void newTransaction(String description, double amount, Category category, Account account,
+                        LocalDate date, int hours, int minutes, Repetition repetition);
 
     /**
      * Creates a new quick transaction and saves it in the database.
@@ -36,7 +36,7 @@ public interface FinanceHomePageController extends Controller {
      * @param category of the quick transaction to add
      * @param account of the quick transaction to add
      */
-    void newQuickTransaction(String description, String amount, Category category, Account account);
+    void newQuickTransaction(String description, double amount, Category category, Account account);
 
     /**
      * Do a quick transaction, then a new transaction is created with the current date as its date.
@@ -47,22 +47,14 @@ public interface FinanceHomePageController extends Controller {
 
     /**
      * @param account whose amount we want to know
-     * @return account's current amount formatted
+     * @return account's current amount in euro
      */
-    String getAmount(Account account);
+    double getAmount(Account account);
 
     /**
-     * @return the total amount of all accounts formatted
+     * @return the total amount of all accounts in euro
      */
-    String getTotalAmount();
-
-    /**
-     * Formats an amount in cents in a string in euros.
-     *
-     * @param amount in cents
-     * @return a formatted version of amount
-     */
-    String format(int amount);
+    double getTotalAmount();
 
     /**
      * @return a list of transactions performed today saved in the database sorted by time

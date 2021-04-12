@@ -43,11 +43,11 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
 
     @Override
     public final void populateAccounts() {
-        this.amountLabel.setText(super.getX().getTotalAmount());
+        this.amountLabel.setText(this.format(super.getX().getTotalAmount()));
         this.accountsVBox.getChildren().clear();
         final List<GenericTileView<Account>> fastAccountTiles = new ArrayList<>();
         super.getX().getSortedAccounts().forEach(a -> fastAccountTiles.add(
-                new GenericTileViewImpl<>(a, a.getName(), super.getX().getAmount(a))));
+                new GenericTileViewImpl<>(a, a.getName(), this.format(super.getX().getAmount(a)))));
         fastAccountTiles.forEach(t -> this.accountsVBox.getChildren().add(t.getRoot()));
     }
 
@@ -56,7 +56,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         this.movementsVBox.getChildren().clear();
         final List<GenericTileView<Transaction>> fastTransactionTiles = new ArrayList<>();
         super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
-                new GenericTileViewImpl<>(t, t.getDescription(), super.getX().format(t.getAmount()))));
+                new GenericTileViewImpl<>(t, t.getDescription(), this.format(t.getAmount()))));
         fastTransactionTiles.forEach(t -> this.movementsVBox.getChildren().add(t.getRoot()));
     }
 

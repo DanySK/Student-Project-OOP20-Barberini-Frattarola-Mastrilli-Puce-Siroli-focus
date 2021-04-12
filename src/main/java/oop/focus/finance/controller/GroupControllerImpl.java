@@ -14,7 +14,6 @@ import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -49,15 +48,13 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet, final String amount,
-                                          final java.time.LocalDate date, final String hours, final String minutes) {
-        LocalDateTime d = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
+    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet, final double amount,
+                                          final java.time.LocalDate date, final int hours, final int minutes) {
+        LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
                 date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
-                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(),
-                hours.isEmpty() ? LocalDateTime.now().getHourOfDay() : Integer.parseInt(hours),
-                minutes.isEmpty() ? LocalDateTime.now().getMinuteOfHour() : Integer.parseInt(minutes), 0);
+                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
         this.manager.getGroupManager().addTransaction(new GroupTransactionImpl(description, madeBy,
-                new ArrayList<>(forSet), (int) (Double.parseDouble(amount) * 100), d));
+                new ArrayList<>(forSet), (int) (amount * 100), formattedDate));
     }
 
     @Override
@@ -86,8 +83,8 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    public final String getCredit(final Person person) {
-        return this.format(this.manager.getGroupManager().getCredit(person));
+    public final double getCredit(final Person person) {
+        return (double) this.manager.getGroupManager().getCredit(person) / 100;
     }
 
     @Override
@@ -146,10 +143,5 @@ public class GroupControllerImpl implements GroupController {
         ObservableList<Person> list = FXCollections.observableArrayList();
         Linker.setToList(this.getGroup(), list);
         return list;
-    }
-
-    private String format(final int amount) {
-        final DecimalFormat f = new DecimalFormat("#0.00");
-        return f.format((double) amount / 100);
     }
 }

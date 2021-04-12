@@ -37,15 +37,15 @@ public interface TransactionsController extends Controller {
     void deleteTransaction(Transaction transaction);
 
     /**
-     * @return the account or accounts displayed name.
-     */
-    String getAccountName();
-
-    /**
      * @param predicate filter the account whose amount we want to see
      * @return returns the account amount indicated in the predicate
      */
-    String getAmount(Predicate<Account> predicate);
+    double getAmount(Predicate<Account> predicate);
+
+    /**
+     * @return the account or accounts displayed name.
+     */
+    String getAccountName();
 
     /**
      * @param predicate whose color we want to return

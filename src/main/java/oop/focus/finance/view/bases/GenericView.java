@@ -9,6 +9,7 @@ import oop.focus.finance.controller.FXMLPaths;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -64,4 +65,11 @@ public abstract class GenericView<X> implements Initializable, FinanceView<X> {
         alert.setContentText("Premi ok per confermare.");
         return alert.showAndWait();
     }
+
+    @Override
+    public final String format(final double amount) {
+        final DecimalFormat f = new DecimalFormat("#0.00");
+        return f.format(amount);
+    }
+
 }

@@ -11,6 +11,7 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.FinanceHomePageController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
+import org.joda.time.LocalDateTime;
 
 public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageController> {
 
@@ -60,9 +61,14 @@ public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageControl
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             try {
-                super.getX().newTransaction(this.descriptionTextField.getText(), this.amountTextField.getText(),
+                super.getX().newTransaction(this.descriptionTextField.getText(),
+                        Double.parseDouble(this.amountTextField.getText()),
                         this.categoryChoice.getValue(), this.accountChoice.getValue(), this.dataPicker.getValue(),
-                        this.hoursTextField.getText(), this.minutesTextField.getText(), this.repetitionChioce.getValue());
+                        this.hoursTextField.getText().isEmpty() ? LocalDateTime.now().getHourOfDay()
+                                : Integer.parseInt(this.hoursTextField.getText()),
+                        this.minutesTextField.getText().isEmpty() ? LocalDateTime.now().getMinuteOfHour()
+                                : Integer.parseInt(this.minutesTextField.getText()),
+                        this.repetitionChioce.getValue());
             } catch (Exception e) {
                 super.allert("Non posso eseguire una transazione in una data futura.");
             }

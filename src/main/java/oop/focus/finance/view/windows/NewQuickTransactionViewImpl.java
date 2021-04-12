@@ -54,7 +54,8 @@ public class NewQuickTransactionViewImpl extends GenericWindow<FinanceHomePageCo
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
-            super.getX().newQuickTransaction(this.descriptionTextField.getText(), this.amountTextField.getText(),
+            super.getX().newQuickTransaction(this.descriptionTextField.getText(),
+                    Double.parseDouble(this.amountTextField.getText()),
                     this.categoryChoice.getValue(), this.accountChoice.getValue());
             this.close();
         }

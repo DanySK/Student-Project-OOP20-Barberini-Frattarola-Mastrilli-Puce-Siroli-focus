@@ -24,7 +24,6 @@ import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
 import oop.focus.finance.view.windows.ResolveViewImpl;
 import oop.focus.homepage.model.Person;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +52,8 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(super.getX())));
         this.groupMovementsVBox.getChildren().clear();
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
-        DecimalFormat df = new DecimalFormat("#0.00");
         super.getX().getSortedGroup().forEach(p -> personTiles.add(
-                new GenericTileViewImpl<>(p, p.getName(), super.getX().getCredit(p))));
+                new GenericTileViewImpl<>(p, p.getName(), this.format(super.getX().getCredit(p)))));
         personTiles.forEach(t -> this.groupMovementsVBox.getChildren().add(t.getRoot()));
         personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
                         this.showWindow(new PersonDetailsWindowImpl(super.getX(), t.getElement()))));

@@ -8,7 +8,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.week.controller.PersonsController;
@@ -42,7 +41,7 @@ public class AddPersonViewImpl extends GenericWindow<GroupController> {
     }
 
     private void newPerson() {
-        final PersonsController controller = new PersonsControllerImpl((DataSourceImpl) super.getX().getManager().getDb());
+        final PersonsController controller = new PersonsControllerImpl(super.getX().getManager().getDb());
         final PersonsView persons = new PersonsViewImpl(controller);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) persons.getRoot()));

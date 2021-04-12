@@ -31,4 +31,12 @@ public interface FinanceView<X> extends View {
      * @return the result
      */
     Optional<ButtonType> confirm(String message);
+
+    /**
+     * Formats an amount in a formatted a string.
+     *
+     * @param amount in euro
+     * @return a formatted version of amount
+     */
+    String format(double amount);
 }

@@ -31,8 +31,8 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
 
     @Override
     public final void populate() {
-        this.annualTransactionLabel.setText(super.getX().getYearlyExpense());
-        this.monthlyTransactionLabel.setText(super.getX().getMonthlyExpense());
+        this.annualTransactionLabel.setText(this.format(super.getX().getYearlyExpense()));
+        this.monthlyTransactionLabel.setText(this.format(super.getX().getMonthlyExpense()));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription() + "      " + t.getRepetition().getName(),
-                super.getX().getTransactionAmount(t))));
+                this.format(super.getX().getTransactionAmount(t)))));
         subscriptionsTiles.forEach(t -> this.subcriptionsVBox.getChildren().add(t.getRoot()));
         subscriptionsTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showDetails(t.getElement())));

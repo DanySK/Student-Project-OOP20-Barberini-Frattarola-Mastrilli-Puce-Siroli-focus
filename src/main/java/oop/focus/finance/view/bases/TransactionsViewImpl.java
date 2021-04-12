@@ -19,7 +19,6 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.TransactionView;
 import oop.focus.finance.view.tiles.TransactionViewImpl;
-import oop.focus.finance.view.windows.FinanceWindow;
 import oop.focus.finance.view.windows.NewAccountViewImpl;
 import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 
@@ -44,7 +43,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
 
     @Override
     public final void populate() {
-        this.newAccountButton.setOnAction(event -> this.showNewAccount());
+        this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountViewImpl(super.getX())));
         this.deleteButton.setOnAction(event -> this.deleteAccounts());
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
@@ -53,7 +52,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @Override
     public final void updateTransactions(final List<Transaction> transactions, final Predicate<Account> predicate) {
         this.accountLabel.setText(super.getX().getAccountName());
-        this.amountLabel.setText(super.getX().getAmount(predicate));
+        this.amountLabel.setText(this.format(super.getX().getAmount(predicate)));
         this.colorLabel.setTextFill(Color.valueOf(super.getX().getColor(predicate)));
         this.deleteButton.setText("Elimina " + super.getX().getAccountName());
         this.transactionsVBox.getChildren().clear();
@@ -61,20 +60,12 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         transactionsTiles.forEach(t -> this.transactionsVBox.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> this.showDetails(t.getTransaction())));
+                event -> this.showWindow(new TransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
     }
 
-    private void showDetails(final Transaction transaction) {
-        final View details = new TransactionDetailsWindowImpl(super.getX(), transaction);
+    private void showWindow(final View view) {
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) details.getRoot()));
-        stage.show();
-    }
-
-    private void showNewAccount() {
-        final FinanceWindow newAccount = new NewAccountViewImpl(super.getX());
-        final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) newAccount.getRoot()));
+        stage.setScene(new Scene((Parent) view.getRoot()));
         stage.show();
     }
 

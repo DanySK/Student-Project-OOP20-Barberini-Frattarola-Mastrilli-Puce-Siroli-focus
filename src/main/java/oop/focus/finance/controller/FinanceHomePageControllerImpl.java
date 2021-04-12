@@ -20,7 +20,6 @@ import oop.focus.finance.view.bases.FinanceHomePageViewImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -60,22 +59,20 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
     }
 
     @Override
-    public final void newTransaction(final String description, final String amount, final Category category, final Account account,
-                               final java.time.LocalDate date, final String hours, final String minutes, final Repetition repetition) {
-        LocalDateTime d = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
+    public final void newTransaction(final String description, final double amount, final Category category, final Account account,
+                               final java.time.LocalDate date, final int hours, final int minutes, final Repetition repetition) {
+        LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
                 date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
-                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(),
-                hours.isEmpty() ? LocalDateTime.now().getHourOfDay() : Integer.parseInt(hours),
-                minutes.isEmpty() ? LocalDateTime.now().getMinuteOfHour() : Integer.parseInt(minutes), 0);
-        this.manager.addTransaction(new TransactionImpl(description, category, d, account,
-                (int) (Double.parseDouble(amount) * 100), repetition));
+                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
+        this.manager.addTransaction(new TransactionImpl(description, category, formattedDate, account,
+                (int) (amount * 100), repetition));
     }
 
     @Override
-    public final void newQuickTransaction(final String description, final String amount, final Category category,
+    public final void newQuickTransaction(final String description, final double amount, final Category category,
                                           final Account account) {
-        this.manager.getQuickManager().add(new QuickTransactionImpl((int) (Double.parseDouble(amount) * 100),
-                description, category, account));
+        this.manager.getQuickManager().add(new QuickTransactionImpl((int) amount * 100, description,
+                category, account));
     }
 
     @Override
@@ -84,22 +81,16 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
     }
 
     @Override
-    public final String getAmount(final Account account) {
-        return this.format(this.manager.getAmount(account));
+    public final double getAmount(final Account account) {
+        return (double) this.manager.getAmount(account) / 100;
     }
 
     @Override
-    public final String getTotalAmount() {
-        return this.format(this.getAccounts().stream()
+    public final double getTotalAmount() {
+        return (double) this.getAccounts().stream()
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
-                .sum());
-    }
-
-    @Override
-    public final String format(final int amount) {
-        final DecimalFormat f = new DecimalFormat("#0.00");
-        return f.format((double) amount / 100);
+                .sum() / 100;
     }
 
     @Override

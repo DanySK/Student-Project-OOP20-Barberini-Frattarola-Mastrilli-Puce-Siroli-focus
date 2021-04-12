@@ -9,7 +9,6 @@ import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.homepage.model.Person;
 
-import java.text.DecimalFormat;
 import java.util.stream.Collectors;
 
 public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<GroupController, GroupTransaction> {
@@ -38,10 +37,9 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
         this.dataDescriptionLabel.setText(super.getX().getDescription());
         this.dataCategoryLabel.setText(super.getX().getMadeBy().getName());
         this.dataDateLabel.setText(super.getX().getDateToString());
-        this.dataAccountLabel.setText(super.getX().getForList().stream().map(Person::getName).collect(Collectors.joining(", ")));
-        DecimalFormat df = new DecimalFormat("#.00");
-        this.dataAmountLabel.setText("" + df.format((double) super.getX().getAmount() / 100));
-        this.dataSubscriptionLabel.setText("" + df.format((double) super.getX().getAmount() / (super.getX().getForList().size() * 100)));
+        this.dataAccountLabel.setText(this.getFormattedForList());
+        this.dataAmountLabel.setText(this.format((double) super.getX().getAmount() / 100));
+        this.dataSubscriptionLabel.setText(this.format(this.getAmountPerPerson()));
     }
 
     @Override
@@ -51,5 +49,13 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
             super.getController().deleteTransaction(super.getX());
         }
         this.close();
+    }
+
+    private double getAmountPerPerson() {
+        return (double) super.getX().getAmount() / (super.getX().getForList().size() * 100);
+    }
+
+    private String getFormattedForList() {
+        return super.getX().getForList().stream().map(Person::getName).collect(Collectors.joining(", "));
     }
 }

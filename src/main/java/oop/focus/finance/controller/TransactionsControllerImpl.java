@@ -9,7 +9,6 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.TransactionsViewImpl;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Set;
@@ -77,16 +76,16 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
+    public final double getAmount(final Predicate<Account> predicate) {
+        return (double) this.filteredAmount(predicate) / 100;
+    }
+
+    @Override
     public final String getAccountName() {
         var filteredAccounts = this.getAccounts().stream()
                 .filter(this.accountPredicate)
                 .collect(Collectors.toCollection(ArrayList::new));
         return filteredAccounts.size() == 1 ? filteredAccounts.get(0).getName() : "Tutti i conti";
-    }
-
-    @Override
-    public final String getAmount(final Predicate<Account> predicate) {
-        return this.format(this.filteredAmount(predicate));
     }
 
     @Override
@@ -115,10 +114,5 @@ public class TransactionsControllerImpl implements TransactionsController {
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
                 .sum();
-    }
-
-    private String format(final int amount) {
-        final DecimalFormat f = new DecimalFormat("#0.00");
-        return f.format((double) amount / 100);
     }
 }

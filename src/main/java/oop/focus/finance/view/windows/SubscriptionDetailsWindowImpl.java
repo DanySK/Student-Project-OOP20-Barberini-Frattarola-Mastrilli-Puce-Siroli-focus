@@ -8,8 +8,6 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
 
-import java.text.DecimalFormat;
-
 public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<SubscriptionsController, Transaction> {
 
     @FXML
@@ -34,8 +32,7 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
         this.dataCategoryLabel.setText(super.getX().getCategory().getName());
         this.dataDateLabel.setText(super.getX().getDateToString());
         this.dataAccountLabel.setText(super.getX().getAccount().getName());
-        DecimalFormat df = new DecimalFormat("#.00");
-        this.dataAmountLabel.setText("" + df.format((double) super.getX().getAmount() / 100));
+        this.dataAmountLabel.setText(this.format((double) super.getX().getAmount() / 100));
         this.dataSubscriptionLabel.setText(super.getX().getRepetition().getName());
     }
 

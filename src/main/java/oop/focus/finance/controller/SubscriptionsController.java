@@ -8,12 +8,12 @@ public interface SubscriptionsController extends Controller {
     /**
      * @return the average monthly expense on subscriptions
      */
-    String getYearlyExpense();
+    double getYearlyExpense();
 
     /**
      * @return the average yearly expense on subscriptions
      */
-    String getMonthlyExpense();
+    double getMonthlyExpense();
 
     /**
      * Show subscriptions in view, sorted by tipe of repetition.
@@ -31,5 +31,5 @@ public interface SubscriptionsController extends Controller {
      * @param transaction of which we want to see the amount
      * @return formatted transaction's amount
      */
-    String getTransactionAmount(Transaction transaction);
+    double getTransactionAmount(Transaction transaction);
 }

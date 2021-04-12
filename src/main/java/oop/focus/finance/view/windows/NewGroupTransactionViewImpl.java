@@ -11,6 +11,7 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.homepage.model.Person;
 import oop.focus.statistics.view.MultiSelectorView;
+import org.joda.time.LocalDateTime;
 
 public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> {
 
@@ -58,8 +59,12 @@ public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> 
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
-                    this.multiSelector.getSelected(), this.amountTextField.getText(), this.dataPicker.getValue(),
-                    this.hoursTextField.getText(), this.minutesTextField.getText());
+                    this.multiSelector.getSelected(), Double.parseDouble(this.amountTextField.getText()),
+                    this.dataPicker.getValue(),
+                    this.hoursTextField.getText().isEmpty() ? LocalDateTime.now().getHourOfDay()
+                            : Integer.parseInt(this.hoursTextField.getText()),
+                    this.minutesTextField.getText().isEmpty() ? LocalDateTime.now().getMinuteOfHour()
+                            : Integer.parseInt(this.minutesTextField.getText()));
             this.close();
         }
     }

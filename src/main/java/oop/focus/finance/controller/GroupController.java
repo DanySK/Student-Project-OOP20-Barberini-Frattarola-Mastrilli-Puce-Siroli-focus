@@ -21,11 +21,11 @@ public interface GroupController extends Controller {
      * @param forSet persons for whom the transaction was made
      * @param amount  of the transaction to add
      * @param date of the transaction to add (dafult today)
-     * @param hours at which the transaction was made (default 00)
-     * @param minutes at which the transaction was made (default 00)
+     * @param hours at which the transaction was made (default current hours)
+     * @param minutes at which the transaction was made (default current minutes)
      */
-    void newGroupTransaction(String description, Person madeBy, Set<Person> forSet, String amount,
-                             LocalDate date, String hours, String minutes);
+    void newGroupTransaction(String description, Person madeBy, Set<Person> forSet, double amount,
+                             LocalDate date, int hours, int minutes);
 
     /**
      * Adds the person to the group.
@@ -56,9 +56,9 @@ public interface GroupController extends Controller {
 
     /**
      * @param person whose credits I want to know
-     * @return returns person's credits
+     * @return returns person's credits in euro
      */
-    String getCredit(Person person);
+    double getCredit(Person person);
 
     /**
      * Performs group transactions that settle all debts.

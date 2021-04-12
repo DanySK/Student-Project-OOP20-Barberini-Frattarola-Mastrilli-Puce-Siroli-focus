@@ -37,11 +37,10 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
     }
 
     private void showResolvingTiles() {
+        this.resolveVBox.getChildren().clear();
         final List<GroupTransactionView> resolvingTiles = new ArrayList<>();
         super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(new GroupTransactionViewImpl(t)));
-        final VBox box = new VBox();
-        resolvingTiles.forEach(t -> box.getChildren().add(t.getRoot()));
-        this.resolveScroll.setContent(box);
+        resolvingTiles.forEach(t -> this.resolveVBox.getChildren().add(t.getRoot()));
     }
 
     @Override
