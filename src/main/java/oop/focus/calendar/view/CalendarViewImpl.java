@@ -2,18 +2,13 @@ package oop.focus.calendar.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarControllerImpl;
 
@@ -87,8 +82,6 @@ public class CalendarViewImpl implements CalendarView {
         buttoncolumn.setAlignment(Pos.CENTER);
         buttoncolumn.setSpacing(GAP);
 
-        buttoncolumn.setBackground(new Background(
-                new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
 
@@ -102,8 +95,6 @@ public class CalendarViewImpl implements CalendarView {
 
         panelcolumn.setAlignment(Pos.CENTER);
 
-        panelcolumn.setBackground(new Background(
-                new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
 
@@ -143,7 +134,7 @@ public class CalendarViewImpl implements CalendarView {
         final Button addevents = new Button("Aggiungi Evento");
 
         final Stage addeventsstage = new Stage();
-        //addeventsstage.setScene(new Scene());
+        addeventsstage.setScene(new Scene((Parent) calendarcontroller.getNewEvent().getRoot()));
         addevents.setOnAction((e) -> {
             addeventsstage.show();
         });
@@ -158,6 +149,8 @@ public class CalendarViewImpl implements CalendarView {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
                     panelcolumn.getChildren().add(calendarcontroller.getMonthController().getView().getRoot());
+                } else {
+                    panelcolumn.getChildren().add(calendarcontroller.getMonthController().getView().getRoot());
                 }
             }
 
@@ -171,7 +164,9 @@ public class CalendarViewImpl implements CalendarView {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-
+                    panelcolumn.getChildren().add(calendarcontroller.getWeek().getRoot());
+                } else {
+                    panelcolumn.getChildren().add(calendarcontroller.getWeek().getRoot());
                 }
             }
 
@@ -199,7 +194,9 @@ public class CalendarViewImpl implements CalendarView {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-
+                    panelcolumn.getChildren().add(calendarcontroller.getStatisticsController().getView().getRoot());
+                } else {
+                    panelcolumn.getChildren().add(calendarcontroller.getStatisticsController().getView().getRoot());
                 }
             }
 
