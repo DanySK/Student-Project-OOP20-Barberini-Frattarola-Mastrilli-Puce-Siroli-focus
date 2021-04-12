@@ -12,7 +12,7 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     //Classes
     private DayImpl day;
-    private final DataSource datasource;
+    private final DataSource dataSource;
 
     //Variables
     private final LocalDate today;
@@ -24,11 +24,14 @@ public class CalendarLogicImpl implements CalendarLogic {
     private List<DayImpl> year;
 
     //Costants
-    private static final int DAYSINWEEK = 7;
+    private static final int DAYS_IN_WEEK = 7;
 
-
-    public CalendarLogicImpl(final DataSource datasource) {
-        this.datasource = datasource;
+    /**
+     * Used for Initialize the calendar logic.
+     * @param dataSource
+     */
+    public CalendarLogicImpl(final DataSource dataSource) {
+        this.dataSource = dataSource;
         today = new LocalDate();
         this.current = this.today;
         this.week = new ArrayList<>();
@@ -38,9 +41,9 @@ public class CalendarLogicImpl implements CalendarLogic {
 
 
     public final DayImpl getDay(final LocalDate day) {
-        if (!this.week.contains(new DayImpl(day, datasource))) {
-            if (!this.month.contains(new DayImpl(day, datasource))) {
-                if (!this.year.contains(new DayImpl(day, datasource))) {
+        if (!this.week.contains(new DayImpl(day, dataSource))) {
+            if (!this.month.contains(new DayImpl(day, dataSource))) {
+                if (!this.year.contains(new DayImpl(day, dataSource))) {
                     return generateDay(day);
                 }
                 return filter(this.year, day);
@@ -52,9 +55,9 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     /**
      * Used for find an specific day in a list.
-     * @param time : list
+     * @param time : list with the days
      * @param day : day that we are searching
-     * @return the day
+     * @return DayImpl : the day
      */
     private DayImpl filter(final List<DayImpl> time, final LocalDate day) {
         final DayImpl temp = this.generateDay(day);
@@ -66,10 +69,10 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     public final DayImpl generateDay(final LocalDate day) {
         if (this.day == null) {
-            this.day = new DayImpl(today, datasource);
+            this.day = new DayImpl(today, dataSource);
             return this.day;
         }
-        this.day = new DayImpl(day, datasource);
+        this.day = new DayImpl(day, dataSource);
         return this.day;
     }
 
@@ -98,10 +101,10 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> generate(final int numberofdays, final LocalDate startingday) {
+    public final List<DayImpl> generate(final int numberOfDays, final LocalDate startingDate) {
         final List<DayImpl> time = new ArrayList<>();
-        for (int i = 0; i < numberofdays; i++) {
-            time.add(new DayImpl(startingday.plusDays(i), datasource));
+        for (int i = 0; i < numberOfDays; i++) {
+            time.add(new DayImpl(startingDate.plusDays(i), dataSource));
         }
         return time;
     }
@@ -113,7 +116,7 @@ public class CalendarLogicImpl implements CalendarLogic {
         this.generateYear();
         }
         this.week.clear();
-        for (int i = 0; i < DAYSINWEEK; i++) {
+        for (int i = 0; i < DAYS_IN_WEEK; i++) {
             this.week.add(this.getDay(this.current.minusDays(this.current.getDayOfWeek() - 1).plusDays(i)));
         }
         return this.week;
@@ -136,9 +139,9 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     public final void changeWeek(final boolean change) {
         if (change) { //previous
-            this.current = this.current.minusDays(DAYSINWEEK);
+            this.current = this.current.minusDays(DAYS_IN_WEEK);
         } else { //next
-            this.current = this.current.plusDays(DAYSINWEEK);
+            this.current = this.current.plusDays(DAYS_IN_WEEK);
         }
         this.week = generateWeek();
     }

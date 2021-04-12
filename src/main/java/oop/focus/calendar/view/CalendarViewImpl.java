@@ -16,58 +16,58 @@ import oop.focus.calendar.controller.CalendarControllerImpl;
 public class CalendarViewImpl implements CalendarView {
 
     //Classes
-    private final CalendarControllerImpl calendarcontroller;
+    private final CalendarControllerImpl calendarController;
 
     //View
-    private HBox calendarpage;
+    private HBox calendarPage;
 
     //Variables
-    private final double optionwidth;
-    private final double optionheight;
+    private final double settingsWidth;
+    private final double settingsHeight;
 
     //Costants
-    private static final double WIDTHBUTTONPANEL = 0.2; 
-    private static final double WIDTHPANEL = 0.8;
-    private static final double WIDTHBUTTON = 0.7;
+    private static final double WIDTH_BUTTON_PANEL = 0.2; 
+    private static final double WIDTH_PANEL = 0.8;
+    private static final double WIDTH_BUTTON = 0.7;
     private static final double GAP = 20;
-    private static final double OPTIONWIDTH = 300;
-    private static final double OPTIONHEIGHT = 150;
+    private static final double SETTING_WIDTH = 300;
+    private static final double SETTING_HEIGHT = 150;
 
 
     public CalendarViewImpl(final CalendarControllerImpl calendarcontroller) {
-        this.calendarcontroller = calendarcontroller;
-        this.calendarpage = new HBox();
-        this.optionwidth = OPTIONWIDTH;
-        this.optionheight = OPTIONHEIGHT;
+        this.calendarController = calendarcontroller;
+        this.calendarPage = new HBox();
+        this.settingsWidth = SETTING_WIDTH;
+        this.settingsHeight = SETTING_HEIGHT;
     }
 
     /**
-     * Used for get the calendar page.
+     * Used for build the calendar page box.
      * @return HBox
      */
     private HBox buildCalendarPage() {
 
-        final VBox buttoncolumn = new VBox();
-        final VBox panelcolumn = new VBox();
+        final VBox buttonColumn = new VBox();
+        final VBox panelColumn = new VBox();
 
-        calendarpage.getChildren().add(buttoncolumn);
-        calendarpage.getChildren().add(panelcolumn);
-
-
-        configureButtonColumn(buttoncolumn);
-        configurePanelColumn(panelcolumn);
+        calendarPage.getChildren().add(buttonColumn);
+        calendarPage.getChildren().add(panelColumn);
 
 
-        columnButton(buttoncolumn, "Mese", addPanel(panelcolumn, calendarcontroller.getMonthController().getView().getRoot()));
-        columnButton(buttoncolumn, "Settimana", addPanel(panelcolumn, calendarcontroller.getWeek().getRoot()));
-        columnButton(buttoncolumn, "Persone", addPanel(panelcolumn, calendarcontroller.getPerson().getRoot()));
-        columnButton(buttoncolumn, "Statistiche", addPanel(panelcolumn, calendarcontroller.getStatisticsController().getView().getRoot()));
-        buttoncolumn.getChildren().add(buildAddEventButton());
-        buttoncolumn.getChildren().add(buildSettingsWindows());
+        configureButtonColumn(buttonColumn);
+        configurePanelColumn(panelColumn);
 
-        panelcolumn.getChildren().add(calendarcontroller.getMonthController().getView().getRoot());
 
-        return calendarpage;
+        columnButton(buttonColumn, "Mese", addPanel(panelColumn, calendarController.getMonthController().getView().getRoot()));
+        columnButton(buttonColumn, "Settimana", addPanel(panelColumn, calendarController.getWeek().getRoot()));
+        columnButton(buttonColumn, "Persone", addPanel(panelColumn, calendarController.getPerson().getRoot()));
+        columnButton(buttonColumn, "Statistiche", addPanel(panelColumn, calendarController.getStatisticsController().getView().getRoot()));
+        buttonColumn.getChildren().add(buildAddEventButton());
+        buttonColumn.getChildren().add(buildSettingsWindows());
+
+        panelColumn.getChildren().add(calendarController.getMonthController().getView().getRoot());
+
+        return calendarPage;
     }
 
 
@@ -76,8 +76,8 @@ public class CalendarViewImpl implements CalendarView {
      * @param buttoncolumn : column box to configure
      */
     private void configureButtonColumn(final VBox buttoncolumn) {
-        buttoncolumn.prefWidthProperty().bind(calendarpage.widthProperty().multiply(WIDTHBUTTONPANEL));
-        buttoncolumn.prefHeightProperty().bind(calendarpage.heightProperty());
+        buttoncolumn.prefWidthProperty().bind(calendarPage.widthProperty().multiply(WIDTH_BUTTON_PANEL));
+        buttoncolumn.prefHeightProperty().bind(calendarPage.heightProperty());
 
         buttoncolumn.setAlignment(Pos.CENTER);
         buttoncolumn.setSpacing(GAP);
@@ -90,8 +90,8 @@ public class CalendarViewImpl implements CalendarView {
      * @param panelcolumn : column box to configure
      */
     private void configurePanelColumn(final VBox panelcolumn) {
-        panelcolumn.prefWidthProperty().bind(calendarpage.widthProperty().multiply(WIDTHPANEL));
-        panelcolumn.prefHeightProperty().bind(calendarpage.heightProperty());
+        panelcolumn.prefWidthProperty().bind(calendarPage.widthProperty().multiply(WIDTH_PANEL));
+        panelcolumn.prefHeightProperty().bind(calendarPage.heightProperty());
 
         panelcolumn.setAlignment(Pos.CENTER);
 
@@ -108,49 +108,49 @@ public class CalendarViewImpl implements CalendarView {
         final Button button = new Button(string);
         button.setPrefHeight(GAP * 2);
         button.setAlignment(Pos.CENTER);
-        button.prefWidthProperty().bind(buttoncolumn.widthProperty().multiply(WIDTHBUTTON));
+        button.prefWidthProperty().bind(buttoncolumn.widthProperty().multiply(WIDTH_BUTTON));
         buttoncolumn.getChildren().add(button);
         button.setOnAction(openthispanel);
     }
 
     public final void setCalendarPage() {
-        this.calendarpage = buildCalendarPage();
+        this.calendarPage = buildCalendarPage();
     }
 
 
     public final Button buildSettingsWindows() {
         final Button settings = new Button("IMPOSTAZIONI");
 
-        final Stage settingsstage = new Stage();
-        settingsstage.setScene(new Scene((Parent) calendarcontroller.getSettingsController().getView().getRoot(), optionwidth, optionheight));
-        calendarcontroller.getSettingsController().setWindow(settingsstage);
+        final Stage settingsStage = new Stage();
+        settingsStage.setScene(new Scene((Parent) calendarController.getSettingsController().getView().getRoot(), settingsWidth, settingsHeight));
+        calendarController.getSettingsController().setWindow(settingsStage);
         settings.setOnAction((e) -> {
-            settingsstage.show();
+            settingsStage.show();
         });
         return settings;
     }
 
     public final Button buildAddEventButton() {
-        final Button addevents = new Button("Aggiungi Evento");
+        final Button addEvents = new Button("Aggiungi Evento");
 
         final Stage addeventsstage = new Stage();
-        addeventsstage.setScene(new Scene((Parent) calendarcontroller.getNewEvent().getRoot()));
-        addevents.setOnAction((e) -> {
+        addeventsstage.setScene(new Scene((Parent) calendarController.getNewEvent().getRoot()));
+        addEvents.setOnAction((e) -> {
             addeventsstage.show();
         });
-        return addevents;
+        return addEvents;
     }
 
-    public final EventHandler<ActionEvent> addPanel(final VBox panelcolumn, final Node root) {
+    public final EventHandler<ActionEvent> addPanel(final VBox panelColumn, final Node root) {
         return new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(root);
+                if (panelColumn.getChildren().size() != 0) {
+                    panelColumn.getChildren().remove(0);
+                    panelColumn.getChildren().add(root);
                 } else {
-                    panelcolumn.getChildren().add(root);
+                    panelColumn.getChildren().add(root);
                 }
             }
 
@@ -159,7 +159,7 @@ public class CalendarViewImpl implements CalendarView {
 
 
     public final Node getRoot() {
-        return this.calendarpage;
+        return this.calendarPage;
     }
 
 }

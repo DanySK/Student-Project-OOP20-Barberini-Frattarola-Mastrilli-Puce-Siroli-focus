@@ -21,40 +21,43 @@ import oop.focus.calendar.controller.CalendarDayControllerImpl;
 
 public class CalendarDaysViewImpl implements CalendarDaysView {
 
-    private final CalendarDayController daycontroller;
+    //Classes
+    private final CalendarDayController dayController;
 
     //View
-    private VBox daybox;
+    private VBox dayBox;
 
     //Variables
-    private String dailyevents;
+    private String dailyEvents;
 
 
-    public CalendarDaysViewImpl(final CalendarDayControllerImpl daycontroller) {
-        this.daycontroller = daycontroller;
-
-        this.daybox = new VBox();
-
+    /**
+     * Used for Initialize days view.
+     * @param dayController : controller of the day
+     */
+    public CalendarDaysViewImpl(final CalendarDayControllerImpl dayController) {
+        this.dayController = dayController;
+        this.dayBox = new VBox();
     }
 
     /*
      * used for configure the day view and build the third (from the top) box 
      * that is composed by the EventView and HoursView
      */
-    private void configureDay(final HBox myhbox) {
+    private void configureDay(final HBox myHBox) {
 
-        daycontroller.getHoursBox().setFormat(daycontroller.getFormat());
-        daycontroller.getHoursBox().setSpacing(daycontroller.getSpacing());
+        dayController.getHoursBox().setFormat(dayController.getFormat());
+        dayController.getHoursBox().setSpacing(dayController.getSpacing());
 
-        daycontroller.getHoursBox().buildVBox();
-        daycontroller.getEventBox().buildVBox();
+        dayController.getHoursBox().buildVBox();
+        dayController.getEventBox().buildVBox();
 
-        daycontroller.getHoursBox().getVBox().prefWidthProperty().bind(myhbox.widthProperty().divide(2));
-        daycontroller.getEventBox().getVBox().prefWidthProperty().bind(myhbox.widthProperty());
+        dayController.getHoursBox().getVBox().prefWidthProperty().bind(myHBox.widthProperty().divide(2));
+        dayController.getEventBox().getVBox().prefWidthProperty().bind(myHBox.widthProperty());
 
-        myhbox.getChildren().add(daycontroller.getHoursBox().getVBox());
-        myhbox.getChildren().add(daycontroller.getEventBox().getVBox());
-        myhbox.setAlignment(Pos.CENTER);
+        myHBox.getChildren().add(dayController.getHoursBox().getVBox());
+        myHBox.getChildren().add(dayController.getEventBox().getVBox());
+        myHBox.setAlignment(Pos.CENTER);
     }
 
 
@@ -80,13 +83,13 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         //container is used for contain all the component of the day
         final VBox container = new VBox();
         //myhbox is used for contain the HoursBox and EventBox
-        final HBox myhbox = new HBox();
+        final HBox myHBox = new HBox();
 
-        configureDay(myhbox);
+        configureDay(myHBox);
 
 
-        final Label nameDay = new Label(daycontroller.getDay().getName());
-        final Label numberDay = new Label(" " + daycontroller.getDay().getNumber() + " ");
+        final Label nameDay = new Label(dayController.getDay().getName());
+        final Label numberDay = new Label(" " + dayController.getDay().getNumber() + " ");
         nameDay.setAlignment(Pos.CENTER);
         numberDay.setAlignment(Pos.CENTER);
         container.getChildren().add(nameDay);
@@ -95,7 +98,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         final Label daily = new Label();
         configureDailyEvent(container, daily);
 
-        container.getChildren().add(myhbox);
+        container.getChildren().add(myHBox);
         container.setBorder(new Border(new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         container.setAlignment(Pos.CENTER);
 
@@ -103,20 +106,19 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
     }
 
     public final void setContainer(final VBox container) {
-        this.daybox = new VBox(container);
+        this.dayBox = new VBox(container);
     }
 
-
     public final VBox getContainer() {
-        return this.daybox;
+        return this.dayBox;
     }
 
     public final void setDailyEvent() {
-        this.dailyevents = daycontroller.writeDailyEvent();
+        this.dailyEvents = dayController.writeDailyEvent();
     }
 
     public final String getDailyEvent() {
-        return this.dailyevents;
+        return this.dailyEvents;
     }
 
     public final Node getRoot() {

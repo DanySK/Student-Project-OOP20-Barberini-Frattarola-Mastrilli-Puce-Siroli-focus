@@ -25,21 +25,21 @@ import oop.focus.calendar.model.Format;
 public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
     //Classes
-    private final CalendarSettingsController settingscontroller;
+    private final CalendarSettingsController settingsController;
 
     //View
-    private Stage settingswindows;
-    private final VBox settingsbox;
+    private Stage settingsWindows;
+    private final VBox settingsBox;
 
     public CalendarSettingsViewImpl(final CalendarSettingsController controller) {
-        this.settingscontroller = controller;
-        this.settingsbox = buildSettingsView();
+        this.settingsController = controller;
+        this.settingsBox = buildSettingsView();
     }
 
 
     /**
      * Used for build the settings view.
-     * @return vbox
+     * @return VBox
      */
     private VBox buildSettingsView() {
 
@@ -75,11 +75,11 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
      * @param save : is the button that will save the changes
      */
     private void buildSpacingRow(final GridPane settings, final Button save) {
-        final Label spacinglabel = new Label("spazio tra le ore");
+        final Label spacingLabel = new Label("spazio tra le ore");
 
         final TextField spacing = new TextField();
 
-        settings.add(spacinglabel, 0, 0);
+        settings.add(spacingLabel, 0, 0);
         settings.add(spacing, 1, 0);
 
         save.setOnAction(saveOnAction(spacing));
@@ -92,7 +92,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
      * @param settings : is the place where the row will be put
      */
     private void buildFormatRow(final GridPane settings) {
-        final Label formatlabel = new Label("formato ore");
+        final Label formatLabel = new Label("formato ore");
 
         final ComboBox<String> format = new ComboBox<>();
 
@@ -103,11 +103,11 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         format.getItems().add(extended.getName());
 
         format.setOnAction((e) -> {
-            settingscontroller.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED);
+            settingsController.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED);
         });
 
 
-        settings.add(formatlabel, 0, 1);
+        settings.add(formatLabel, 0, 1);
         settings.add(format, 1, 1);
     }
 
@@ -126,21 +126,21 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
             @Override
             public void handle(final ActionEvent event) {
-                 if (!settingscontroller.checkSpacing(spacing.getText())) {
-                     spacing.setText(String.valueOf(settingscontroller.getSpacing()));
+                 if (!settingsController.checkSpacing(spacing.getText())) {
+                     spacing.setText(String.valueOf(settingsController.getSpacing()));
                  }
-                 if (settingscontroller.getFormat() == null) {
-                     settingscontroller.setFormat(Format.NORMAL);
+                 if (settingsController.getFormat() == null) {
+                     settingsController.setFormat(Format.NORMAL);
                  }
-                 settingscontroller.updateView();
-                 settingswindows.close();
+                 settingsController.updateView();
+                 settingsWindows.close();
            }
 
         };
     }
 
     public final void setWindow(final Stage stage) {
-        this.settingswindows = stage;
+        this.settingsWindows = stage;
     }
 
     public final void windowsError(final String string) {
@@ -152,7 +152,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     }
 
     public final Node getRoot() {
-        return this.settingsbox;
+        return this.settingsBox;
     }
 
 }

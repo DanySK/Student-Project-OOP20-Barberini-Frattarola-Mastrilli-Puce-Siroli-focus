@@ -12,10 +12,10 @@ public class HoursViewImpl implements HoursView, VBoxManager {
 
 
     //View
-    private VBox myvbox;
+    private VBox myVBox;
 
     //Variables
-    private int hoursformat;
+    private int hoursFormat;
     private boolean flag = true;
     private double spacing;
 
@@ -23,7 +23,7 @@ public class HoursViewImpl implements HoursView, VBoxManager {
 
 
     public HoursViewImpl() {
-        this.hoursformat = Format.NORMAL.getNumber();
+        this.hoursFormat = Format.NORMAL.getNumber();
     }
 
 
@@ -39,69 +39,69 @@ public class HoursViewImpl implements HoursView, VBoxManager {
 
 
     public final void setFormat(final Format format) {
-        hoursformat = format.getNumber();
+        hoursFormat = format.getNumber();
     }
 
 
     public final int getFormat() {
-        return hoursformat;
+        return hoursFormat;
     }
 
 
     public final double getY(final int hour) {
-        if (this.hoursformat == Format.NORMAL.getNumber()) {
-            return this.myvbox.getChildren().get(hour).getLayoutY();
+        if (this.hoursFormat == Format.NORMAL.getNumber()) {
+            return this.myVBox.getChildren().get(hour).getLayoutY();
         } else {
-            return this.myvbox.getChildren().get(hour * 2).getLayoutY();
+            return this.myVBox.getChildren().get(hour * 2).getLayoutY();
         }
     }
 
 
     public final VBox getVBox() {
-        if (this.myvbox == null) {
+        if (this.myVBox == null) {
             buildVBox();
         }
-        return this.myvbox;
+        return this.myVBox;
     }
 
     /**
      * Used for configure the hours label.
      * @param label to configure
-     * @param vbox where put the label
+     * @param vBox where put the label
      * @param i index
      */
-    private void buildLabel(final Label label, final VBox vbox, final int i) {
+    private void buildLabel(final Label label, final VBox vBox, final int i) {
         label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
         label.setPrefHeight(spacing);
         label.setTextAlignment(TextAlignment.CENTER);
         label.alignmentProperty().set(Pos.CENTER);
-        label.prefWidthProperty().bind(vbox.prefWidthProperty());
-        vbox.getChildren().add(label);
+        label.prefWidthProperty().bind(vBox.prefWidthProperty());
+        vBox.getChildren().add(label);
     }
 
 
     public final void buildVBox() {
-        final VBox vbox = new VBox();
+        final VBox vBox = new VBox();
 
-        if (this.hoursformat == Format.NORMAL.getNumber()) {
-            for (int i = 0; i <= hoursformat; i++) { 
+        if (this.hoursFormat == Format.NORMAL.getNumber()) {
+            for (int i = 0; i <= hoursFormat; i++) { 
                     final Label label = new Label(i + ":00");
-                    buildLabel(label, vbox, i);
+                    buildLabel(label, vBox, i);
             }
         } else {
-            for (int i = 0; i <= hoursformat; i++) { 
+            for (int i = 0; i <= hoursFormat; i++) { 
                 if (flag) {
                     final Label label = new Label(i / 2 + ":00");
-                    buildLabel(label, vbox, i);
+                    buildLabel(label, vBox, i);
                     flag = false;
                 } else {
                     final Label label = new Label(i / 2 + ":30");
-                    buildLabel(label, vbox, i);
+                    buildLabel(label, vBox, i);
                     flag = true;
                 }
             } 
         }
-        this.myvbox = vbox;
+        this.myVBox = vBox;
     }
 
 

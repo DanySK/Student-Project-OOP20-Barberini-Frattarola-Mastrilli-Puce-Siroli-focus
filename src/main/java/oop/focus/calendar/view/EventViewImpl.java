@@ -28,17 +28,17 @@ public class EventViewImpl implements VBoxManager {
     private final HoursViewImpl hours;
 
     //View
-    private VBox myvbox;
+    private VBox myVBox;
 
     //Variables
     private double spacing;
-    private double inserteventsduration;
+    private double insertEventsDuration;
 
     //List
     private final List<Event> events;
 
     //Constants
-    private static final double MINUTESINHOUR = 60;
+    private static final double MINUTES_IN_HOURS = 60;
 
 
     public EventViewImpl(final HoursViewImpl hours, final DayImpl day) {
@@ -58,17 +58,17 @@ public class EventViewImpl implements VBoxManager {
 
 
     public final double getY(final int i) {
-        final double spaceforminute = this.spacing / MINUTESINHOUR;
+        final double spaceforminute = this.spacing / MINUTES_IN_HOURS;
         final double minutestotalspace = spaceforminute * this.events.get(i).getStartHour().getMinuteOfHour();
         return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutestotalspace;
     }
 
 
     public final VBox getVBox() {
-        if (this.myvbox == null) {
+        if (this.myVBox == null) {
             buildVBox();
         }
-        return this.myvbox;
+        return this.myVBox;
     }
 
     /**
@@ -88,15 +88,15 @@ public class EventViewImpl implements VBoxManager {
         panel.getChildren().add(name);
 
         if (i != 0) {
-        panel.setTranslateY(this.getY(i) - inserteventsduration);
+        panel.setTranslateY(this.getY(i) - insertEventsDuration);
         } else {
         panel.setTranslateY(this.getY(i));
         }
 
         final double durationeventinhours = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
         final double durationeventinminutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
-        panel.setPrefHeight((this.spacing / MINUTESINHOUR) * (durationeventinminutes + durationeventinhours * MINUTESINHOUR));
-        inserteventsduration += (this.spacing / MINUTESINHOUR) * (durationeventinminutes + durationeventinhours * MINUTESINHOUR);
+        panel.setPrefHeight((this.spacing / MINUTES_IN_HOURS) * (durationeventinminutes + durationeventinhours * MINUTES_IN_HOURS));
+        insertEventsDuration += (this.spacing / MINUTES_IN_HOURS) * (durationeventinminutes + durationeventinhours * MINUTES_IN_HOURS);
 
         vbox.getChildren().add(panel);
     }
@@ -109,7 +109,7 @@ public class EventViewImpl implements VBoxManager {
         for (int i = 0; i < this.events.size(); i++) {
             buildPanel(vbox, i);
         }
-        this.myvbox = vbox;
+        this.myVBox = vbox;
     }
 
 

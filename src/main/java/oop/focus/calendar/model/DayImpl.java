@@ -14,17 +14,21 @@ public class DayImpl implements Day {
 
     private final LocalDate date;
     private final List<Event> events;
-    private final List<Event> dailyevents;
+    private final List<Event> dailyEvents;
 
-
-    public DayImpl(final LocalDate date, final DataSource datasource) {
-        final EventManager manager = new EventManagerImpl(datasource);
+    /**
+     * Used for Initialize the Day.
+     * @param date : date of the day
+     * @param dataSource
+     */
+    public DayImpl(final LocalDate date, final DataSource dataSource) {
+        final EventManager manager = new EventManagerImpl(dataSource);
         events = new ArrayList<>();
-        dailyevents = new ArrayList<>();
+        dailyEvents = new ArrayList<>();
         this.date = date;
         final List<Event> temp = manager.findByDate(date);
         this.events.addAll(manager.takeOnly(temp));
-        this.dailyevents.addAll(manager.takeOnlyDailyEvent(temp));
+        this.dailyEvents.addAll(manager.takeOnlyDailyEvent(temp));
     }
 
     public final int getNumber() {
@@ -60,7 +64,7 @@ public class DayImpl implements Day {
     }
 
     public final List<Event> getDailyEvents() {
-        return  this.dailyevents;
+        return  this.dailyEvents;
     }
 
 
