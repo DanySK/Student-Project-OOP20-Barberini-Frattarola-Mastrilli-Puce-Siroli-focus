@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import oop.focus.common.Controller;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.NewAccountControllerImpl;
+import oop.focus.finance.controller.NewTransactionControllerImpl;
 import oop.focus.finance.controller.TransactionDetailsControllerImpl;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
@@ -35,7 +36,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @FXML
     private Label accountLabel, amountLabel, colorLabel;
     @FXML
-    private Button newAccountButton, deleteButton;
+    private Button newAccountButton, deleteButton, newTransactionButton;
 
     public TransactionsViewImpl(final TransactionsController controller) {
         super(controller, FXMLPaths.ALL);
@@ -45,6 +46,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     public final void populate() {
         this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountControllerImpl(super.getX().getManager())));
         this.deleteButton.setOnAction(event -> this.deleteAccounts());
+        this.newTransactionButton.setOnAction(event -> this.showWindow(new NewTransactionControllerImpl(super.getX().getManager())));
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
     }

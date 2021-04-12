@@ -25,12 +25,20 @@
          <Label fx:id="amountLabel" prefHeight="73.0" prefWidth="216.0" />
       </HBox>
       <ScrollPane fx:id="transactionsScroll" prefHeight="282.0" prefWidth="467.0">
-         <VBox fx:id="transactionsVBox" prefHeight="73.0" prefWidth="465.0"/>
+         <VBox fx:id="transactionsVBox" prefHeight="73.0" prefWidth="465.0" />
       </ScrollPane>
-      <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="467.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </Button>
+      <HBox prefHeight="47.0" prefWidth="467.0">
+         <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="237.0">
+            <opaqueInsets>
+               <Insets/>
+            </opaqueInsets>
+         </Button>
+         <Button fx:id="newTransactionButton" mnemonicParsing="false" prefHeight="46.0" prefWidth="237.0"
+                 text="Nuova Transazione">
+            <opaqueInsets>
+               <Insets/>
+            </opaqueInsets>
+         </Button>
+      </HBox>
    </VBox>
 </HBox>

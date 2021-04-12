@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.Controller;
@@ -12,6 +13,7 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.FinanceHomePageController;
 import oop.focus.finance.controller.NewQuickTransactionControllerImpl;
 import oop.focus.finance.controller.NewTransactionControllerImpl;
+import oop.focus.finance.controller.TransactionDetailsControllerImpl;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
@@ -58,6 +60,8 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription(), this.format((double) t.getAmount() / 100))));
         fastTransactionTiles.forEach(t -> this.movementsVBox.getChildren().add(t.getRoot()));
+        fastTransactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
+                event -> this.show(new TransactionDetailsControllerImpl(super.getX().getManager(), t.getElement()))));
     }
 
     @Override
