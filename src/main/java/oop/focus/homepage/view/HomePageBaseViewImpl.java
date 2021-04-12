@@ -93,7 +93,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
 
             final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController, calendarHBox.getWidth(), calendarHBox.getHeight());
 
-            monthController.disableButton(true);
+            //monthController.disableButton(true);
 
             month.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
             month.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
@@ -106,7 +106,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         }
 
         public final void modifyClicked(final ActionEvent event) throws IOException {
-            final HotKeyMenuView menu = new HotKeyMenuViewImpl(this.controller);
+            final HotKeyMenuView menu = new HotKeyMenuViewImpl(new HotKeyControllerImpl(this.controller));
             this.paneCalendarHomePage.getChildren().clear();
             this.paneCalendarHomePage.getChildren().add(menu.getRoot());
         }

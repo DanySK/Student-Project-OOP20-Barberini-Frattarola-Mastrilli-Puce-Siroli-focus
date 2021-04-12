@@ -42,10 +42,10 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     @FXML
     private TableColumn<HotKey, String> nome, tipo;
 
-    private final HomePageController controller;
+    private final HotKeyControllerImpl controller;
     private Node root;
 
-    public HotKeyMenuViewImpl(final HomePageController controller) {
+    public HotKeyMenuViewImpl(final HotKeyControllerImpl controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.HOTKEYMENU.getPath()));
         loader.setController(this);
@@ -97,7 +97,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
 	@FXML
     public final void addNewHotKey(final ActionEvent event) throws IOException {
-        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller);
+        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller.getController());
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newHotKey.getRoot()));
         stage.show();
@@ -117,7 +117,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     @FXML
     public final void goBack(final ActionEvent event) throws IOException {
-        final HomePageBaseView base = new HomePageBaseViewImpl(this.controller);
+        final HomePageBaseView base = new HomePageBaseViewImpl(this.controller.getController());
         this.paneHotKeyView.getChildren().clear();
         this.paneHotKeyView.getChildren().add(base.getRoot());
     }

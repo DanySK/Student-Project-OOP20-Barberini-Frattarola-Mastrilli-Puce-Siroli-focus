@@ -6,6 +6,7 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.model.HotKeyManager;
 
 public interface HomePageController {
 
@@ -28,6 +29,8 @@ public interface HomePageController {
     void refreshDailyEvents();
 
     boolean canBeAdded(Event event);
+
+    HotKeyManager getHotKeyManager();
 
     DataSourceImpl getDsi();
 }

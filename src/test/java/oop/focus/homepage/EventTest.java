@@ -103,9 +103,13 @@ public class EventTest {
 
     @Test
     public void findByDateTest() {
-    	this.eventi.addEventsSet(Set.of(first, third, eight));
+        try {
+            this.eventi.addEvent(first);
+            this.eventi.addEvent(third);
+            this.eventi.addEvent(eight);
+        }catch(IllegalStateException ignored){}
  
-        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 25)), List.of(first, third, eight));
+        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(first, third));
         this.eventi.removeEvent(first);
         this.eventi.removeEvent(third);
         this.eventi.removeEvent(eight);

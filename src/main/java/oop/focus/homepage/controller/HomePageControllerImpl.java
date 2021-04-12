@@ -93,6 +93,10 @@ public class HomePageControllerImpl implements HomePageController {
 
     }
 
+    public final HotKeyManager getHotKeyManager() {
+    	return this.hotKeyManager;
+    }
+
     public final void refreshDailyEvents() {
         this.eventManager.generateRepeatedEvents(LocalDate.now());
     }
