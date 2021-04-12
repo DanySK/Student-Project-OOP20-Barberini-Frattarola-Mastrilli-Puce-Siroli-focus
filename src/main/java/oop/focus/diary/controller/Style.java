@@ -29,6 +29,6 @@ public enum Style {
 
     private static class Costants {
 
-        public static final String DIARY = "/layouts/diary/";
+        public static final String DIARY = "/styles/";
     }
 }
