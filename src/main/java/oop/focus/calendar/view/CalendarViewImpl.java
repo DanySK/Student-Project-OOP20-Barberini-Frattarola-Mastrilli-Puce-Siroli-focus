@@ -58,10 +58,10 @@ public class CalendarViewImpl implements CalendarView {
         configurePanelColumn(panelcolumn);
 
 
-        columnButton(buttoncolumn, "Mese", monthPanel(panelcolumn));
-        columnButton(buttoncolumn, "Settimana", weekPanel(panelcolumn));
-        columnButton(buttoncolumn, "Persone", personPanel(panelcolumn));
-        columnButton(buttoncolumn, "Statistiche", statisticsPanel(panelcolumn));
+        columnButton(buttoncolumn, "Mese", addPanel(panelcolumn, calendarcontroller.getMonthController().getView().getRoot()));
+        columnButton(buttoncolumn, "Settimana", addPanel(panelcolumn, calendarcontroller.getWeek().getRoot()));
+        columnButton(buttoncolumn, "Persone", addPanel(panelcolumn, calendarcontroller.getPerson().getRoot()));
+        columnButton(buttoncolumn, "Statistiche", addPanel(panelcolumn, calendarcontroller.getStatisticsController().getView().getRoot()));
         buttoncolumn.getChildren().add(buildAddEventButton());
         buttoncolumn.getChildren().add(buildSettingsWindows());
 
@@ -141,7 +141,7 @@ public class CalendarViewImpl implements CalendarView {
         return addevents;
     }
 
-    public final EventHandler<ActionEvent> monthPanel(final VBox panelcolumn) {
+    public final EventHandler<ActionEvent> addPanel(final VBox panelcolumn, final Node root) {
         return new EventHandler<ActionEvent>() {
 
             @Override
@@ -157,53 +157,6 @@ public class CalendarViewImpl implements CalendarView {
         };
     }
 
-    public final EventHandler<ActionEvent> weekPanel(final VBox panelcolumn) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(calendarcontroller.getWeek().getRoot());
-                } else {
-                    panelcolumn.getChildren().add(calendarcontroller.getWeek().getRoot());
-                }
-            }
-
-        };
-    }
-
-    public final EventHandler<ActionEvent> personPanel(final VBox panelcolumn) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(calendarcontroller.getPerson().getRoot());
-                } else {
-                    panelcolumn.getChildren().add(calendarcontroller.getPerson().getRoot());
-                }
-            }
-
-        };
-    }
-
-    public final EventHandler<ActionEvent> statisticsPanel(final VBox panelcolumn) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (panelcolumn.getChildren().size() != 0) {
-                    panelcolumn.getChildren().remove(0);
-                    panelcolumn.getChildren().add(calendarcontroller.getStatisticsController().getView().getRoot());
-                } else {
-                    panelcolumn.getChildren().add(calendarcontroller.getStatisticsController().getView().getRoot());
-                }
-            }
-
-        };
-    }
 
     public final Node getRoot() {
         return this.calendarpage;

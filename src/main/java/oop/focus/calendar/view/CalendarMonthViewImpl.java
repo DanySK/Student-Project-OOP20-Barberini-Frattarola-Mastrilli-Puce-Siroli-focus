@@ -73,6 +73,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         cells  = new HashMap<>();
         this.monthinfo = new Label();
         this.monthcontroller = monthcontroller;
+        setMonthView(buildMonthView());
     }
 
 
@@ -330,7 +331,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     public final VBox getMonthView() {
-        setMonthView(buildMonthView());
+        monthcontroller.updateView();
         return monthbox;
     }
 

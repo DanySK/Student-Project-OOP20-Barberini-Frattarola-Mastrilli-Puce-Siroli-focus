@@ -2,6 +2,7 @@ package oop.focus.calendar.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
@@ -27,30 +28,11 @@ public interface CalendarView extends View {
     Button buildAddEventButton();
 
     /**
-     * Used for show the month panel.
+     * Used for show the dedicated panel.
      * @param panelcolumn : column where we put the panel
+     * @param root
      * @return EventHandler
      */
-    EventHandler<ActionEvent> monthPanel(VBox panelcolumn);
+    EventHandler<ActionEvent> addPanel(VBox panelcolumn, Node root);
 
-    /**
-     * Used for show the week panel.
-     * @param panelcolumn : column where we put the panel
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> weekPanel(VBox panelcolumn);
-
-    /**
-     * Used for show the person panel.
-     * @param panelcolumn : column where we put the panel
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> personPanel(VBox panelcolumn);
-
-    /**
-     * Used for show the statistics panel.
-     * @param panelcolumn : column where we put the panel
-     * @return EventHandler
-     */
-    EventHandler<ActionEvent> statisticsPanel(VBox panelcolumn);
 }
