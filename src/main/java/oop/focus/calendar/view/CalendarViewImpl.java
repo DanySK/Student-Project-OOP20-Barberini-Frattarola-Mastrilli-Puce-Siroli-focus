@@ -180,7 +180,9 @@ public class CalendarViewImpl implements CalendarView {
             public void handle(final ActionEvent event) {
                 if (panelcolumn.getChildren().size() != 0) {
                     panelcolumn.getChildren().remove(0);
-
+                    panelcolumn.getChildren().add(calendarcontroller.getPerson().getRoot());
+                } else {
+                    panelcolumn.getChildren().add(calendarcontroller.getPerson().getRoot());
                 }
             }
 

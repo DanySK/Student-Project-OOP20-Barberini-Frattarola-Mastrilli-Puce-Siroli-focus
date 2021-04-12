@@ -7,9 +7,13 @@ import oop.focus.calendar.view.CalendarViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.statistics.controller.EventsStatistics;
+import oop.focus.week.controller.PersonsController;
+import oop.focus.week.controller.PersonsControllerImpl;
 import oop.focus.week.controller.WeekController;
 import oop.focus.week.controller.WeekControllerImpl;
 import oop.focus.week.view.AddNewEventWeekView;
+import oop.focus.week.view.PersonsView;
+import oop.focus.week.view.PersonsViewImpl;
 import oop.focus.week.view.WeekView;
 import oop.focus.week.view.WeekViewImpl;
 
@@ -21,10 +25,12 @@ public class CalendarControllerImpl implements CalendarController {
     private final CalendarSettingsController settingscontroller;
     private final CalendarMonthController monthcontroller;
 
-    private final EventsStatistics statisticspage;
+    private final EventsStatistics statisticscontroller;
 
     private final AddNewEventWeekView newevent;
     private final WeekView week;
+    private final PersonsView personsview;
+
     private final CalendarView calendarview;
 
 
@@ -38,11 +44,14 @@ public class CalendarControllerImpl implements CalendarController {
 
         settingscontroller = new CalendarSettingsControllerImpl(monthcontroller);
 
-        this.statisticspage  = new EventsStatistics(datasource);
+        this.statisticscontroller  = new EventsStatistics(datasource);
 
         final WeekController weekcontroller = new  WeekControllerImpl(datasource);
         this.week = new WeekViewImpl(weekcontroller);
         this.newevent = new AddNewEventWeekView(weekcontroller, this.week, this.monthcontroller);
+
+        final PersonsController personcontroller = new PersonsControllerImpl(datasource);
+        personsview = new PersonsViewImpl(personcontroller);
 
         calendarview = new CalendarViewImpl(this);
         calendarview.setCalendarPage(); 
@@ -57,11 +66,15 @@ public class CalendarControllerImpl implements CalendarController {
     }
 
     public final EventsStatistics getStatisticsController() {
-        return this.statisticspage;
+        return this.statisticscontroller;
     }
 
     public final WeekView getWeek() {
         return this.week;
+    }
+
+    public final PersonsView getPerson() {
+        return this.personsview;
     }
 
     public final AddNewEventWeekView getNewEvent() {
