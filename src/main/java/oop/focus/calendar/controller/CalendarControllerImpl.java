@@ -16,9 +16,6 @@ public class CalendarControllerImpl implements CalendarController {
     private final CalendarMonthController monthcontroller;
     private final CalendarView calendarview;
 
-    //Constants
-    private static final double DAYWIDTH = 200;
-    private static final double DAYHEIGHT = 500;
 
     /**
      * Used for initialize the calendar controller.
@@ -26,7 +23,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     public CalendarControllerImpl(final DataSource datasource) {
 
-        this.monthcontroller = new CalendarMonthControllerImpl(CalendarType.NORMAL, datasource, DAYWIDTH, DAYHEIGHT);
+        this.monthcontroller = new CalendarMonthControllerImpl(CalendarType.NORMAL, datasource);
 
         settingscontroller = new CalendarSettingsControllerImpl(monthcontroller);
 

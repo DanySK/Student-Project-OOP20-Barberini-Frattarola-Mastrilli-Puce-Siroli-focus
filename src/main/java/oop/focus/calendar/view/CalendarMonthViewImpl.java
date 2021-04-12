@@ -47,8 +47,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private VBox monthbox;
 
     //Variables
-    private final double daywidth;
-    private final double dayheight;
     private int counter;     // count the days in a row
     private int count;     // count the rows
     private final CalendarType type;
@@ -62,36 +60,22 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private static final int GAP = 10;
     private static final int DIM = 100;
     private static final double MOODFONT = 1.5;
+    private static final double DAYWIDTH = 200;
+    private static final double DAYHEIGHT = 500;
 
     /**
      * Used for Initialize the month view.
-     * @param type : type of calendar to build
-     * @param monthcontroller
-     * @param daywidth : is the width of the day windows
-     * @param dayheight : is the height of the day windows
-     */
-    public CalendarMonthViewImpl(final CalendarType type, final CalendarMonthController monthcontroller, final double daywidth, final double dayheight) {
-        this.type = type;
-        cells  = new HashMap<>();
-        this.daywidth = daywidth;
-        this.dayheight = dayheight;
-        this.monthinfo = new Label();
-        this.monthcontroller = monthcontroller;
-    }
-
-    /**
-     * Used for Initialize the month view (DIARY/HOMEPAGE).
      * @param type : type of calendar to build
      * @param monthcontroller
      */
     public CalendarMonthViewImpl(final CalendarType type, final CalendarMonthController monthcontroller) {
         this.type = type;
         cells  = new HashMap<>();
-        this.daywidth = 0;
-        this.dayheight = 0;
         this.monthinfo = new Label();
         this.monthcontroller = monthcontroller;
     }
+
+
 
 
     /**
@@ -183,7 +167,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setAlignment(Pos.CENTER);
         jb.setOnAction(getDayView());
         jb.setPrefSize(DIM, DIM);
-        final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, this.daywidth, this.dayheight);
+        final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, DAYWIDTH, DAYHEIGHT);
         monthcontroller.configureday(daycontroller);
         daycontroller.buildDay();
         final ScrollPane daypane = new ScrollPane(daycontroller.getView().getRoot());

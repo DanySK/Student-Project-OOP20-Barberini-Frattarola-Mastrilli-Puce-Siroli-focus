@@ -40,34 +40,17 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
      * Used for Initialize the month controller.
      * @param type : type of calendar to build
      * @param datasource
-     * @param daywidth : is the width of the day windows
-     * @param dayheight : is the height of the day windows
-     */
-    public CalendarMonthControllerImpl(final CalendarType type, final DataSource datasource, final double daywidth, final double dayheight) {
-        this.format = Format.NORMAL;
-        this.spacing = SPACING;
-        this.fontsize = DEFAULTFONTSIZE;
-        calendarlogic = new CalendarLogicImpl(datasource);
-        this.month = calendarlogic.getMonth();
-        this.datasource = datasource;
-        monthview = new CalendarMonthViewImpl(type, this, daywidth, dayheight);
-    }
-
-    /**
-     * Used for Initialize the month controller (DIARY/HOMEPAGE).
-     * @param type : type of calendar to build
-     * @param datasource
      */
     public CalendarMonthControllerImpl(final CalendarType type, final DataSource datasource) {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
         this.fontsize = DEFAULTFONTSIZE;
-        this.datasource = datasource;
         calendarlogic = new CalendarLogicImpl(datasource);
         this.month = calendarlogic.getMonth();
-
+        this.datasource = datasource;
         monthview = new CalendarMonthViewImpl(type, this);
     }
+
 
     public final void configureday(final CalendarDayController daycontroller) {
         daycontroller.setFormat(this.format);
