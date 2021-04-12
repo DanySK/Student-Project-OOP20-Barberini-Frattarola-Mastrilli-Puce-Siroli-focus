@@ -8,26 +8,23 @@ import javafx.stage.Stage;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.ControllersFactory;
 import oop.focus.diary.controller.ControllersFactoryImpl;
+import oop.focus.diary.controller.Style;
 import oop.focus.diary.controller.TotalTimeControllerImpl;
 import oop.focus.diary.view.TimerView;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class LauncherTimer extends Application {
-    private static final String PATH_MAIN_STYLE = "/layouts/diary/diaryStyle.css";
-
-
-
     @Override
     public final void start(final Stage primaryStage) throws Exception {
-        Dimension2D dim = new Dimension2D(1400, 900);
-        DataSourceImpl dataSource = new DataSourceImpl();
-        EventManager manager = new EventManagerImpl(dataSource);
-        TotalTimeControllerImpl controller = new TotalTimeControllerImpl(manager);
-        ControllersFactory f = new ControllersFactoryImpl(manager);
-        Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
+        final Dimension2D dim = new Dimension2D(1400, 900);
+        final DataSourceImpl dataSource = new DataSourceImpl();
+        final EventManager manager = new EventManagerImpl(dataSource);
+        final TotalTimeControllerImpl controller = new TotalTimeControllerImpl(manager);
+        final ControllersFactory f = new ControllersFactoryImpl(manager);
+        final Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
         primaryStage.setScene(scene);
-        final String css = LauncherDiary.class.getResource(PATH_MAIN_STYLE).toExternalForm();
+        final String css = LauncherDiary.class.getResource(Style.TIMER_STYLE.getPath()).toExternalForm();
         scene.getStylesheets().add(css);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());
