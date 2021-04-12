@@ -106,7 +106,8 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         }
 
         public final void modifyClicked(final ActionEvent event) throws IOException {
-            final HotKeyMenuView menu = new HotKeyMenuViewImpl(new HotKeyControllerImpl(this.controller));
+            final HotKeyControllerImpl menuController = new HotKeyControllerImpl(this.controller.getDsi());
+            final HotKeyMenuView menu = new HotKeyMenuViewImpl(menuController);
             this.paneCalendarHomePage.getChildren().clear();
             this.paneCalendarHomePage.getChildren().add(menu.getRoot());
         }

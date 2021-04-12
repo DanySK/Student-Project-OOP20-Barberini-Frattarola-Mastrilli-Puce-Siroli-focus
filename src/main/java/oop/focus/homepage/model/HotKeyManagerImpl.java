@@ -28,7 +28,7 @@ public class HotKeyManagerImpl implements HotKeyManager {
         this.sd = dsi.getHotKeys();
         this.manager = manager;
     }
-
+//valuta se togliete
     public final void action(final HotKey hotKey, final LocalDateTime start, final LocalDateTime end) {
         this.manager.addEvent(hotKey.createEvent(start, end));
     }

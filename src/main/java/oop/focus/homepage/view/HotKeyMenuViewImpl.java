@@ -20,7 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
-import oop.focus.homepage.controller.HomePageController;
+import oop.focus.homepage.controller.HomePageControllerImpl;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
@@ -62,7 +62,16 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.setButtonAction();
 
-        nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
+        this.populate();
+    }
+
+    public final void populate() {
+
+        this.populateTableView();
+    }
+
+    private void populateTableView() {
+    	nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
         nome.setCellFactory(TextFieldTableCell.forTableColumn());
         nome.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
             @Override
@@ -82,22 +91,14 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
             }
         });
 
-        this.populate();
+        this.tableHotKeyList.setEditable(false);
+        this.tableHotKeyList.getItems().clear();
+        this.tableHotKeyList.setItems(this.controller.getHotKey());
     }
 
-    public final void populate() {
-    	this.populateTableView();
-    }
-
-    private void populateTableView() {
-		this.tableHotKeyList.setEditable(false);
-		this.tableHotKeyList.getItems().clear();
-		this.tableHotKeyList.setItems(this.controller.getHotKey());
-	}
-
-	@FXML
+    @FXML
     public final void addNewHotKey(final ActionEvent event) throws IOException {
-        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller.getController());
+        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newHotKey.getRoot()));
         stage.show();
@@ -117,7 +118,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     @FXML
     public final void goBack(final ActionEvent event) throws IOException {
-        final HomePageBaseView base = new HomePageBaseViewImpl(this.controller.getController());
+        final HomePageBaseView base = new HomePageBaseViewImpl(new HomePageControllerImpl(this.controller.getDsi()));
         this.paneHotKeyView.getChildren().clear();
         this.paneHotKeyView.getChildren().add(base.getRoot());
     }

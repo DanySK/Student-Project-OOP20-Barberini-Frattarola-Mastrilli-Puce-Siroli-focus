@@ -1,5 +1,7 @@
 package oop.focus.homepage;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
@@ -37,51 +39,21 @@ public class HotKeyTest {
 		final HotKey first = new HotKeyImpl("Discoteca", HotKeyType.EVENT);
 		final HotKey second = new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY);
 		final HotKey third = new HotKeyImpl("Bere", HotKeyType.COUNTER);
-		
+
+		ObservableSet<HotKey> set;
 		this.hotKeyTrackers.add(first);
-		assertEquals(this.hotKeyTrackers.getAll(), List.of(first));
-		this.hotKeyTrackers.addAll(Set.of(second, third));
-		assertEquals(this.hotKeyTrackers.getAll(), List.of(first, second, third));
+		this.hotKeyTrackers.add(second);
+		this.hotKeyTrackers.add(third);
+
+		 set = FXCollections.observableSet(first, second, third);
+		assertEquals(this.hotKeyTrackers.getAll(), set);
+
 		this.hotKeyTrackers.remove(first);
-		assertEquals(this.hotKeyTrackers.getAll(), List.of(second, third));
-		this.hotKeyTrackers.removeAll(Set.of(second, third));
-		assertEquals(this.hotKeyTrackers.getAll(), List.of());
-	}
+		this.hotKeyTrackers.remove(second);
+		this.hotKeyTrackers.remove(third);
 
-	/**
-	 * Each hot key when clicked creates a new event that must be stored in the database. 
-	 * This test verifies that the event is created correctly.
-	 */
-	@Test
-	public void createEventTest() {
-		final HotKey activity = new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY);
-		final HotKey counter = new HotKeyImpl("Bere", HotKeyType.COUNTER);
-		final HotKey event = new HotKeyImpl("Discoteca", HotKeyType.EVENT);
-
-		final Event activityEvent = new EventImpl("Allenamento", LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
-		final Event counterEvent = new EventImpl("Acqua", LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE);
-        final Event eventHotKey = new EventImpl("Discoteca", LocalDate.now().toLocalDateTime(new LocalTime(15, 00)), LocalDate.now().toLocalDateTime(new LocalTime(16, 00)), Repetition.ONCE);
-
-        this.hotKeyTrackers.addAll(Set.of(activity, counter));
-
-        this.hotKeyTrackers.action(event, LocalDate.now().toLocalDateTime(new LocalTime(15, 00)), LocalDate.now().toLocalDateTime(new LocalTime(16, 00)));
-		assertEquals(this.hotKeyTrackers.getEventsHotKey(), List.of(eventHotKey));
-
-		this.hotKeyTrackers.action(activity, LocalDateTime.now(), LocalDateTime.now());
-		assertEquals(this.hotKeyTrackers.getEventsHotKey(), List.of(eventHotKey, activityEvent));
-        //provo a cliccare due volte sullo stesso bottone attività
-		try {
-			this.hotKeyTrackers.action(activity, LocalDateTime.now(), LocalDateTime.now());
-		} catch (IllegalStateException ignored) {}
-
-		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
-		assertEquals(this.hotKeyTrackers.getEventsHotKey(), List.of(eventHotKey, activityEvent, counterEvent));
-
-		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
-		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
-		this.hotKeyTrackers.action(counter, LocalDateTime.now(), LocalDateTime.now());
-		assertEquals(this.hotKeyTrackers.getClickCount(counter.getName()), 4);
-
+		set = FXCollections.emptyObservableSet();
+		assertEquals(this.hotKeyTrackers.getAll(), set);
 	}
 
 	/**
@@ -93,14 +65,17 @@ public class HotKeyTest {
 		final HotKey second = new HotKeyImpl("Addominali", HotKeyType.ACTIVITY);
 		final HotKey third = new HotKeyImpl("Lavare i denti", HotKeyType.COUNTER);
 		
-
-		this.hotKeyTrackers.addAll(Set.of(first, second, third));
+        this.hotKeyTrackers.add(first);
+        this.hotKeyTrackers.add(second);
+        this.hotKeyTrackers.add(third);
 
 		assertEquals(this.hotKeyTrackers.getCategory(first), HotKeyType.EVENT);
 		assertEquals(this.hotKeyTrackers.getCategory(second), HotKeyType.ACTIVITY);
 		assertEquals(this.hotKeyTrackers.getCategory(third), HotKeyType.COUNTER);
 
-		this.hotKeyTrackers.removeAll(Set.of(first, second, third));
+		this.hotKeyTrackers.remove(first);
+		this.hotKeyTrackers.remove(second);
+		this.hotKeyTrackers.remove(third);
 	}
-	
+
 }

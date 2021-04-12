@@ -14,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
-import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
 
@@ -35,10 +34,10 @@ public class NewHotKeyViewImpl implements GenericAddView {
     @FXML
     private ComboBox<String> categoryComboBox;
 
-    private final HomePageController controller;
+    private final HotKeyControllerImpl controller;
     private Node root;
 
-    public NewHotKeyViewImpl(final HomePageController controller) {
+    public NewHotKeyViewImpl(final HotKeyControllerImpl controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWHOTKEY.getPath()));
         loader.setController(this);
@@ -52,7 +51,7 @@ public class NewHotKeyViewImpl implements GenericAddView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-    	this.setButtonOnAction();
+        this.setButtonOnAction();
         final ComboBoxFiller comboBox = new ComboBoxFiller();
         this.categoryComboBox.setItems(comboBox.getHotKey());
     }
@@ -87,22 +86,22 @@ public class NewHotKeyViewImpl implements GenericAddView {
     }
 
     public final void setButtonOnAction() {
-    	this.goBackButton.setOnAction(event -> {
-			try {
-				this.goBack(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+        this.goBackButton.setOnAction(event -> {
+            try {
+                this.goBack(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
-    	this.deleteButton.setOnAction(event -> this.delete(event));
+        this.deleteButton.setOnAction(event -> this.delete(event));
 
-    	this.saveHotKeyButton.setOnAction(event -> {
-			try {
-				this.save(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+        this.saveHotKeyButton.setOnAction(event -> {
+            try {
+                this.save(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

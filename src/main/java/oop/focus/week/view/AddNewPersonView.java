@@ -66,22 +66,22 @@ public class AddNewPersonView implements GenericAddView {
         this.degreeComboBox.setItems(this.controller.getDegree());
 
         save.setOnAction(event -> {
-			try {
-				this.save(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+            try {
+                this.save(event);
+            } catch (IOException e) {
+                 e.printStackTrace();
+            }
+        });
 
         delete.setOnAction(event -> this.delete(event));
 
         back.setOnAction(event -> {
-			try {
-				this.goBack(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+            try {
+                this.goBack(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public final void goBack(final ActionEvent event) throws IOException {

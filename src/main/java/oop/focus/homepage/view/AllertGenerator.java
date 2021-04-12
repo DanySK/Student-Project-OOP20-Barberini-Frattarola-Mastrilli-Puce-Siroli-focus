@@ -8,7 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 
 public class AllertGenerator {
 
-    final Alert alert;
+    private final Alert alert;
 
     public AllertGenerator() {
         alert = new Alert(AlertType.ERROR);
@@ -25,21 +25,20 @@ public class AllertGenerator {
         }
     }
 
-    public final void checkFieldsFilled(){
+    public final void checkFieldsFilled() {
         alert.setHeaderText("I campi non sono stati riempiti correttamente!");
     }
 
-    public final void invalidEntry(){
+    public final void invalidEntry() {
         alert.setHeaderText("Hai inserito un orario o una data non valida");
     }
 
-    public final void createAllert(int headerTextChoice) {
-
-        switch (headerTextChoice){
+    public final void createAllert(final int headerTextChoice) {
+        switch (headerTextChoice) {
             case 1 :
                 this.checkFieldsFilled();
                 break;
-            case 2 :
+            default :
                 this.invalidEntry();
         }
         this.showAllert();

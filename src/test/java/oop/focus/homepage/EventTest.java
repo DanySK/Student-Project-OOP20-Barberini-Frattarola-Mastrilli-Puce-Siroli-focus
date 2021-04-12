@@ -35,38 +35,34 @@ public class EventTest {
 
     @Test
     public void addingAndRemovingEventTest() {
-        //cerco di aggiungere questi eventi , vengono aggiunti tutti tranne fourth, fifth, sixth.
 
+        for(Event e : this.eventi.getAll()){
+            System.out.println(e.getName());
+        }
         this.eventi.addEvent(first);
         assertEquals(this.eventi.getEvents(), Set.of(first));
 
         this.eventi.removeEvent(first);
 
         this.eventi.addEvent(second);
-        assertEquals(this.eventi.getEvents(), Set.of(first, second));
+        assertEquals(this.eventi.getEvents(), Set.of(second));
         this.eventi.removeEvent(second);
 
         this.eventi.addEvent(third);
-        assertEquals(this.eventi.getEvents(), Set.of(first, second, third));
+        assertEquals(this.eventi.getEvents(), Set.of(third));
         this.eventi.removeEvent(third);
-
-        try {
-            this.eventi.addEvent(fourth);
-        } catch (IllegalStateException ignored) {}
-
-        assertEquals(this.eventi.getEvents(), Set.of(first, second, third));
 
         try{
         	this.eventi.addEvent(fifth);
         } catch (IllegalStateException ignored) {}
 
-        assertEquals(this.eventi.getEvents(), Set.of(first, second, third));
+        assertEquals(this.eventi.getEvents(), Set.of());
 
         try{
         	this.eventi.addEvent(sixth);
         } catch (IllegalStateException ignored) {}
         //verifico che gli eventi vengano aggiunti correttamente.
-        assertEquals(this.eventi.getEvents(), Set.of(first, second, third));
+        assertEquals(this.eventi.getEvents(), Set.of());
 
         this.eventi.addEvent(seventh);
         //controllo che gli eventi vegano correttamente suddivisi tra giornalieri e non.
@@ -80,7 +76,6 @@ public class EventTest {
  
     	this.eventi.addEvent(ninth);
     	assertFalse(this.eventi.getEventsWithDuration().contains(ninth));
-
     	this.eventi.removeEvent(ninth);
     }
 
@@ -109,7 +104,10 @@ public class EventTest {
             this.eventi.addEvent(eight);
         }catch(IllegalStateException ignored){}
  
-        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(first, third));
+        assertEquals(this.eventi.findByDate(new LocalDate(2021, 9, 26)), List.of(first, eight, third));
+        for(Event e : this.eventi.findByDate(new LocalDate(2021, 9, 26))){
+            System.out.println(e.getName());
+        }
         this.eventi.removeEvent(first);
         this.eventi.removeEvent(third);
         this.eventi.removeEvent(eight);
