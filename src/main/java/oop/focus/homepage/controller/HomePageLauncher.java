@@ -19,6 +19,8 @@ public class HomePageLauncher extends Application {
         final HomePageController controller = new HomePageControllerImpl(dsi);
         final HomePageBaseView home = new HomePageBaseViewImpl(controller);
         primaryStage.setScene(new Scene((Parent) home.getRoot()));
+        primaryStage.setWidth(1000);
+        primaryStage.setHeight(800);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
 

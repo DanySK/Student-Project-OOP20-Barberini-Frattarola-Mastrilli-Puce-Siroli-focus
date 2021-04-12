@@ -42,7 +42,7 @@ public class CalendarControllerImpl implements CalendarController {
 
         final WeekController weekcontroller = new  WeekControllerImpl(datasource);
         this.week = new WeekViewImpl(weekcontroller);
-        this.newevent = new AddNewEventWeekView(weekcontroller);
+        this.newevent = new AddNewEventWeekView(weekcontroller, this.week, this.monthcontroller);
 
         calendarview = new CalendarViewImpl(this);
         calendarview.setCalendarPage(); 

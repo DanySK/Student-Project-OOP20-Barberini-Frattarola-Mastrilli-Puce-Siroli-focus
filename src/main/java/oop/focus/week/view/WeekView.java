@@ -10,5 +10,5 @@ public interface WeekView extends Initializable, View {
 
     void nextWeek(ActionEvent event);
 
-    void addNewEvent(ActionEvent event);
+    void setWeekDays();
 }

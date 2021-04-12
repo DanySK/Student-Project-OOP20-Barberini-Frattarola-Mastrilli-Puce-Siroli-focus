@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import oop.focus.calendar.controller.CalendarMonthController;
 import oop.focus.homepage.model.Event;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -63,9 +64,13 @@ public class AddNewEventWeekView implements GenericAddView {
     private ObservableList<Person> list;
     private Node root;
     private final WeekController controller;
+    private final WeekView weekView;
+    private final CalendarMonthController monthController;
 
-    public AddNewEventWeekView(final WeekController controller) {
+    public AddNewEventWeekView(final WeekController controller, final WeekView weekView, final CalendarMonthController monthController) {
 		this.controller = controller;
+		this.weekView = weekView;
+        this.monthController = monthController;
 
 		final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWEVENT.getPath()));
         loader.setController(this);
@@ -110,6 +115,9 @@ public class AddNewEventWeekView implements GenericAddView {
                 && !this.choiceEndMinute.getSelectionModel().isEmpty() && !String.valueOf(this.datePickerStart.getValue()).isEmpty()
                 && !String.valueOf(this.datePickerEnd.getValue()).isEmpty() && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent(event);
+            this.weekView.setWeekDays();
+            this.monthController.updateView();
+            this.goBack(event);
         } else {
             final AllertGenerator allert = new AllertGenerator();
             allert.createAllert(1);

@@ -43,9 +43,6 @@ public class WeekViewImpl implements WeekView {
     @FXML
     private Button lastWeek;
 
-    @FXML
-    private Button newEvent;
-
     private Node root;
     private LocalDate startWeek;
     private final WeekController controller;
@@ -63,6 +60,7 @@ public class WeekViewImpl implements WeekView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+
         final LocalDate today = LocalDate.now();
         this.startWeek = today.minusDays(today.getDayOfWeek() - 1);
         this.setWeekDays();
@@ -70,17 +68,8 @@ public class WeekViewImpl implements WeekView {
     }
 
     public final void setButtonAction() {
-        this.newEvent.setOnAction(event -> this.addNewEvent(event));
         this.nextWeek.setOnAction(event -> this.nextWeek(event));
         this.lastWeek.setOnAction(event -> this.lastWeek(event));
-    }
-
-    @FXML
-    public final void addNewEvent(final ActionEvent event) {
-        final AddNewEventWeekView newEvent = new AddNewEventWeekView(this.controller);
-        final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) newEvent.getRoot()));
-        stage.show();
     }
 
     @FXML
@@ -89,7 +78,7 @@ public class WeekViewImpl implements WeekView {
         this.setWeekDays();
     }
 
-    private void setWeekDays() {
+    public final void setWeekDays() {
         LocalDate date = this.startWeek;
         final HBox hbox = new HBox();
 

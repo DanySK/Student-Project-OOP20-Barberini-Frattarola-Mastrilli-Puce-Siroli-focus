@@ -47,7 +47,7 @@ public class PersonAndDegreeTest {
    /**
      * This test is use to save and remove relationships from the database.
      */
-    @Test
+    /*@Test
     public void saveAndRemoveRelationshipTest() {
     	this.relationship.add(ilaria.getRelationships());
     	this.relationship.add(elisa.getRelationships());
@@ -57,6 +57,6 @@ public class PersonAndDegreeTest {
     	this.relationship.remove(ilaria.getRelationships());
     	this.relationship.remove(elisa.getRelationships());
     	this.relationship.remove(loris.getRelationships());
-    }
+    }*/
 
 }

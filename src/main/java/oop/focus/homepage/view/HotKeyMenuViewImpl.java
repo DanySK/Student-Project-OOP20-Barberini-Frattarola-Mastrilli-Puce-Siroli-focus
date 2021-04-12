@@ -32,9 +32,6 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     private Pane paneHotKeyView;
 
     @FXML
-    private VBox vboxHotKeyList;
-
-    @FXML
     private Button addHotKeyButton, deleteElement, goBackButton;
 
     @FXML
@@ -56,7 +53,13 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.setProprieties();
+    }
 
+    private void setProprieties() {
+        this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.75));
+        this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.60));
+        this.deleteElement.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.3));
     }
 
     @Override
