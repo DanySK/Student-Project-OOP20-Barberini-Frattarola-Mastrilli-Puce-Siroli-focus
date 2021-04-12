@@ -3,8 +3,6 @@ package oop.focus.diary.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import oop.focus.db.DataSourceImpl;
 import org.junit.Test;
 
@@ -14,18 +12,20 @@ public class ToDoListManagerImplTest {
     @Test
     public void test() {
         final ToDoActionImpl prova = new ToDoActionImpl("test1", false);
-        tdlm.addAnnotation(prova);
+        this.tdlm.addAnnotation(prova);
         final ToDoActionImpl prova2 = new ToDoActionImpl("test2", false);
-        tdlm.addAnnotation(prova2);
+        this.tdlm.addAnnotation(prova2);
         final ToDoActionImpl prova3 = new ToDoActionImpl("test3", true);
-        tdlm.addAnnotation(prova3);
-        tdlm.getAnnotations().forEach(s -> System.out.println(s.getAnnotation() +" "+ s.isDone()));
-        //assertEquals(prova.getAnnotation(), "cucinare");
-        //assertFalse(tdlm.getAnnotations().stream().filter(x -> x.equals(prova2)).iterator().next().isDone());
-        tdlm.changeBoxStatus(prova2);
-        tdlm.getAnnotations().forEach(s -> System.out.println(s.getAnnotation() +" "+ s.isDone()));
-        tdlm.removeAnnotation(prova);
-        tdlm.getAnnotations().forEach(s -> System.out.println(s.getAnnotation()+ " " +s.isDone()));
+        this.tdlm.addAnnotation(prova3);
+        this.tdlm.getAnnotations().forEach(s -> System.out.println(s.getAnnotation() +" "+ s.isDone()));
+        assertEquals(prova.getAnnotation(), "test1");
+        assertFalse(prova2.isDone());
+        this.tdlm.changeBoxStatus(prova2);
+        this.tdlm.getAnnotations().forEach(s -> System.out.println(s.getAnnotation() +" "+ s.isDone()));
+        this.tdlm.removeAnnotation(prova);
+        this.tdlm.getAnnotations().forEach(s -> System.out.println(s.getAnnotation()+ " " +s.isDone()));
+        this.tdlm.removeAnnotation(prova2);
+        this.tdlm.removeAnnotation(prova3);
      }
     @Test (expected = IllegalArgumentException.class)
     public void testException() {

@@ -22,7 +22,7 @@ public class DiaryDaoTest {
     public void testUpdate() {
         this.dsd.save(this.diario5);
         this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " " + a.getContent()));
-        this.dsd.update(new DiaryImpl("bbbbb", "prova1"));
+        this.dsd.update(new DiaryImpl("bbbbb", "prova1prova1"));
         this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " " + a.getContent()));
         this.dsd.delete(this.diario5);
     }
