@@ -8,12 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.GroupController;
+import oop.focus.finance.controller.NewGroupTransactionController;
 import oop.focus.homepage.model.Person;
 import oop.focus.statistics.view.MultiSelectorView;
 import org.joda.time.LocalDateTime;
 
-public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> {
+public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransactionController> {
 
     private static final int MAX_HOURS = 23;
     private static final int MAX_MINUTES = 59;
@@ -33,8 +33,8 @@ public class NewGroupTransactionViewImpl extends GenericWindow<GroupController> 
 
     private MultiSelectorView<Person> multiSelector;
 
-    public NewGroupTransactionViewImpl(final GroupController groupController) {
-        super(groupController, FXMLPaths.NEWGROUPMOV);
+    public NewGroupTransactionViewImpl(final NewGroupTransactionController controller) {
+        super(controller, FXMLPaths.NEWGROUPMOV);
     }
 
     @Override

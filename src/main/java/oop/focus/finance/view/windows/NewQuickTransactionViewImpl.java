@@ -8,11 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import oop.focus.common.Repetition;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.FinanceHomePageController;
+import oop.focus.finance.controller.NewQuickTransactionController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 
-public class NewQuickTransactionViewImpl extends GenericWindow<FinanceHomePageController> {
+public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransactionController> {
 
     @FXML
     private Label titleLabel, repetitionLabel, dateLabel;
@@ -29,8 +29,8 @@ public class NewQuickTransactionViewImpl extends GenericWindow<FinanceHomePageCo
     @FXML
     private Button cancelButton, saveButton;
 
-    public NewQuickTransactionViewImpl(final FinanceHomePageController financeHomePageController) {
-        super(financeHomePageController, FXMLPaths.NEWMOVEMENT);
+    public NewQuickTransactionViewImpl(final NewQuickTransactionController controller) {
+        super(controller, FXMLPaths.NEWMOVEMENT);
     }
 
     @Override

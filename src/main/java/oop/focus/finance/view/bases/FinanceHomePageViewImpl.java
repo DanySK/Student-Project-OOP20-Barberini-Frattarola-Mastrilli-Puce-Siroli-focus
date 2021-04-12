@@ -7,15 +7,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import oop.focus.common.Controller;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.FinanceHomePageController;
+import oop.focus.finance.controller.NewQuickTransactionControllerImpl;
+import oop.focus.finance.controller.NewTransactionControllerImpl;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
-import oop.focus.finance.view.windows.FinanceWindow;
-import oop.focus.finance.view.windows.NewQuickTransactionViewImpl;
-import oop.focus.finance.view.windows.NewTransactionViewImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         this.populateAccounts();
         this.populateRecentTransactions();
         this.populateQuickTransactions();
-        this.newMovememntButton.setOnAction(event -> this.show(new NewTransactionViewImpl(super.getX())));
+        this.newMovememntButton.setOnAction(event -> this.show(new NewTransactionControllerImpl(super.getX().getManager())));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         this.movementsVBox.getChildren().clear();
         final List<GenericTileView<Transaction>> fastTransactionTiles = new ArrayList<>();
         super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
-                new GenericTileViewImpl<>(t, t.getDescription(), this.format(t.getAmount()))));
+                new GenericTileViewImpl<>(t, t.getDescription(), this.format((double) t.getAmount() / 100))));
         fastTransactionTiles.forEach(t -> this.movementsVBox.getChildren().add(t.getRoot()));
     }
 
@@ -68,12 +68,12 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
                 new FinanceMenuButtonImpl<>(qt.getDescription(), c -> c.doQuickTransaction(qt))));
         financeHotKeyButtons.forEach(b -> this.financeHotKeyVBox.getChildren().add(b.getButton()));
         financeHotKeyButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(super.getX())));
-        this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionViewImpl(super.getX())));
+        this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionControllerImpl(super.getX().getManager())));
     }
 
-    private void show(final FinanceWindow view) {
+    private void show(final Controller controller) {
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) view.getRoot()));
+        stage.setScene(new Scene((Parent) controller.getView().getRoot()));
         stage.show();
     }
 }

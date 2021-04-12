@@ -7,14 +7,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.GroupController;
+import oop.focus.finance.controller.ResolveController;
 import oop.focus.finance.view.tiles.GroupTransactionView;
 import oop.focus.finance.view.tiles.GroupTransactionViewImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResolveViewImpl extends GenericWindow<GroupController> {
+public class ResolveViewImpl extends GenericWindow<ResolveController> {
 
     @FXML
     private VBox resolveVBox;
@@ -25,8 +25,8 @@ public class ResolveViewImpl extends GenericWindow<GroupController> {
     @FXML
     private Button cancelButton, saveButton;
 
-    public ResolveViewImpl(final GroupController groupController) {
-        super(groupController, FXMLPaths.RESOLVE);
+    public ResolveViewImpl(final ResolveController controller) {
+        super(controller, FXMLPaths.RESOLVE);
     }
 
     @Override

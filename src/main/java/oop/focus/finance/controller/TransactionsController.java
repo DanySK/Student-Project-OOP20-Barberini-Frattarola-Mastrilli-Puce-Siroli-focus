@@ -3,7 +3,7 @@ package oop.focus.finance.controller;
 import javafx.collections.ObservableSet;
 import oop.focus.common.Controller;
 import oop.focus.finance.model.Account;
-import oop.focus.finance.model.Transaction;
+import oop.focus.finance.model.FinanceManager;
 
 import java.util.function.Predicate;
 
@@ -16,25 +16,10 @@ public interface TransactionsController extends Controller {
     void showTransactions(Predicate<Account> predicate);
 
     /**
-     * Save the account in the database.
-     *
-     * @param name of the account to save
-     * @param amount of the account to save
-     * @param color of the account to save
-     */
-    void newAccount(String name, String color, double amount);
-
-    /**
      * Delete the account or accounts displayed.
      * Show all accounts view.
      */
     void deleteAccounts();
-
-    /**
-     * Delete a transaction.
-     * @param transaction to e deleted
-     */
-    void deleteTransaction(Transaction transaction);
 
     /**
      * @param predicate filter the account whose amount we want to see
@@ -57,4 +42,9 @@ public interface TransactionsController extends Controller {
      * @return a ObservableSet of all accounts
      */
     ObservableSet<Account> getAccounts();
+
+    /**
+     * @return manager of finance
+     */
+    FinanceManager getManager();
 }

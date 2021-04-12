@@ -12,15 +12,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import oop.focus.common.View;
+import oop.focus.common.Controller;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.controller.NewAccountControllerImpl;
+import oop.focus.finance.controller.TransactionDetailsControllerImpl;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.TransactionView;
 import oop.focus.finance.view.tiles.TransactionViewImpl;
-import oop.focus.finance.view.windows.NewAccountViewImpl;
-import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
 
     @Override
     public final void populate() {
-        this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountViewImpl(super.getX())));
+        this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountControllerImpl(super.getX().getManager())));
         this.deleteButton.setOnAction(event -> this.deleteAccounts());
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
@@ -60,12 +60,12 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         transactionsTiles.forEach(t -> this.transactionsVBox.getChildren().add(t.getRoot()));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> this.showWindow(new TransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
+                event -> this.showWindow(new TransactionDetailsControllerImpl(super.getX().getManager(), t.getTransaction()))));
     }
 
-    private void showWindow(final View view) {
+    private void showWindow(final Controller controller) {
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) view.getRoot()));
+        stage.setScene(new Scene((Parent) controller.getView().getRoot()));
         stage.show();
     }
 

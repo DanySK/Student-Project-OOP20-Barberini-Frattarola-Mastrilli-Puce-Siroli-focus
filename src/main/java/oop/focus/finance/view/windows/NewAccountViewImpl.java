@@ -8,10 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
 
-import oop.focus.finance.controller.TransactionsController;
+import oop.focus.finance.controller.NewAccountController;
 
 
-public class NewAccountViewImpl extends GenericWindow<TransactionsController> {
+public class NewAccountViewImpl extends GenericWindow<NewAccountController> {
 
     private static final int RGB_MAX_VALUE = 255;
 
@@ -24,8 +24,8 @@ public class NewAccountViewImpl extends GenericWindow<TransactionsController> {
     @FXML
     private Button cancelButton, saveButton;
 
-    public NewAccountViewImpl(final TransactionsController transactionsController) {
-        super(transactionsController, FXMLPaths.NEWACCOUNT);
+    public NewAccountViewImpl(final NewAccountController controller) {
+        super(controller, FXMLPaths.NEWACCOUNT);
     }
 
     @Override

@@ -4,7 +4,6 @@ import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
-import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.TransactionsViewImpl;
@@ -57,22 +56,12 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
-    public final void newAccount(final String name, final String color, final double amount) {
-        this.manager.addAccount(new AccountImpl(name, color, (int) (amount * 100)));
-    }
-
-    @Override
     public final void deleteAccounts() {
         this.getAccounts().stream()
                 .filter(this.accountPredicate)
                 .collect(Collectors.toCollection(ArrayList::new))
                 .forEach(this.manager::removeAccount);
         this.showTransactions(a -> true);
-    }
-
-    @Override
-    public final void deleteTransaction(final Transaction transaction) {
-        this.manager.removeTransaction(transaction);
     }
 
     @Override
@@ -97,6 +86,11 @@ public class TransactionsControllerImpl implements TransactionsController {
     @Override
     public final ObservableSet<Account> getAccounts() {
         return this.manager.getAccountManager().getAccounts();
+    }
+
+    @Override
+    public final FinanceManager getManager() {
+        return this.manager;
     }
 
     private Set<Transaction> filteredTransactions(final Predicate<Account> predicate) {

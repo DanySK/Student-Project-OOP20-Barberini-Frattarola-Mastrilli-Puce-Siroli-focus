@@ -1,23 +1,14 @@
 package oop.focus.finance.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
-import oop.focus.common.Linker;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.finance.view.bases.GroupViewImpl;
 import oop.focus.homepage.model.Person;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupControllerImpl implements GroupController {
@@ -32,7 +23,7 @@ public class GroupControllerImpl implements GroupController {
         this.manager = manager;
         this.view = new GroupViewImpl(this);
         this.showPeople();
-        this.group = this.getGroup();
+        this.group = this.manager.getGroupManager().getGroup();
         this.groupTransactions = this.manager.getGroupManager().getTransactions();
         this.addListeners();
     }
@@ -45,31 +36,6 @@ public class GroupControllerImpl implements GroupController {
     @Override
     public final View getView() {
         return this.view;
-    }
-
-    @Override
-    public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet, final double amount,
-                                          final java.time.LocalDate date, final int hours, final int minutes) {
-        LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
-                date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
-                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
-        this.manager.getGroupManager().addTransaction(new GroupTransactionImpl(description, madeBy,
-                new ArrayList<>(forSet), (int) (amount * 100), formattedDate));
-    }
-
-    @Override
-    public final void addPerson(final Person person) {
-        this.manager.getGroupManager().addPerson(person);
-    }
-
-    @Override
-    public final void deletePerson(final Person person) {
-        this.manager.getGroupManager().removePerson(person);
-    }
-
-    @Override
-    public final void deleteTransaction(final GroupTransaction transaction) {
-        this.manager.getGroupManager().removeTransaction(transaction);
     }
 
     @Override
@@ -88,11 +54,6 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
-    public final void resolve() {
-        this.manager.getGroupManager().resolve().forEach(this.manager.getGroupManager()::addTransaction);
-    }
-
-    @Override
     public final void reset() {
         this.manager.getGroupManager().reset();
     }
@@ -106,42 +67,13 @@ public class GroupControllerImpl implements GroupController {
 
     @Override
     public final List<Person> getSortedGroup() {
-        return this.getGroup().stream()
+        return this.manager.getGroupManager().getGroup().stream()
                 .sorted(Comparator.comparing(Person::getName))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public final List<GroupTransaction> getResolvingTransactions() {
-        return this.manager.getGroupManager().resolve();
-    }
-
-    @Override
-    public final ObservableList<Person> getPersonsToAdd() {
-        return this.manager.getGroupManager().getPersons().stream()
-                .filter(p -> !this.getGroup().contains(p))
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-    }
-
-    @Override
-    public final ObservableSet<Person> getGroup() {
-        return this.manager.getGroupManager().getGroup();
-    }
-
-    @Override
-    public final ObservableSet<Person> getPersons() {
-        return this.manager.getGroupManager().getPersons();
-    }
-
-    @Override
     public final FinanceManager getManager() {
         return this.manager;
-    }
-
-    @Override
-    public final ObservableList<Person> getGroupList() {
-        ObservableList<Person> list = FXCollections.observableArrayList();
-        Linker.setToList(this.getGroup(), list);
-        return list;
     }
 }

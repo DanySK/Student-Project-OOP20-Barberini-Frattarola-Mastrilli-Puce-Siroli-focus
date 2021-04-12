@@ -9,11 +9,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.controller.SubscriptionDetailsControllerImpl;
 import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
-import oop.focus.finance.view.windows.SubscriptionDetailsWindowImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
     }
 
     private void showDetails(final Transaction subscription) {
-        final View details = new SubscriptionDetailsWindowImpl(super.getX(), subscription);
+        final View details = new SubscriptionDetailsControllerImpl(super.getX().getManager(), subscription).getView();
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) details.getRoot()));
         stage.show();

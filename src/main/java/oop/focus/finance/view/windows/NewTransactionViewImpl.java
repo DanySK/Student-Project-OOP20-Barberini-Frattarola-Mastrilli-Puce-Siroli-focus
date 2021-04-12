@@ -8,12 +8,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import oop.focus.common.Repetition;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.FinanceHomePageController;
+import oop.focus.finance.controller.NewTransactionController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import org.joda.time.LocalDateTime;
 
-public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageController> {
+public class NewTransactionViewImpl extends GenericWindow<NewTransactionController> {
 
     private static final int MAX_HOURS = 23;
     private static final int MAX_MINUTES = 59;
@@ -33,8 +33,8 @@ public class NewTransactionViewImpl extends GenericWindow<FinanceHomePageControl
     @FXML
     private Button cancelButton, saveButton;
 
-    public NewTransactionViewImpl(final FinanceHomePageController financeHomePageController) {
-        super(financeHomePageController, FXMLPaths.NEWMOVEMENT);
+    public NewTransactionViewImpl(final NewTransactionController controller) {
+        super(controller, FXMLPaths.NEWMOVEMENT);
     }
 
     @Override
