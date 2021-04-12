@@ -14,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
+import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
 
@@ -34,11 +35,13 @@ public class NewHotKeyViewImpl implements GenericAddView {
     @FXML
     private ComboBox<String> categoryComboBox;
 
-    private final HotKeyControllerImpl controller;
+    private final HotKeyController controller;
+    private final HotKeyMenuView menuView;
     private Node root;
 
-    public NewHotKeyViewImpl(final HotKeyControllerImpl controller) {
+    public NewHotKeyViewImpl(final HotKeyController controller, final HotKeyMenuView hotKeyMenuView) {
         this.controller = controller;
+        this.menuView = hotKeyMenuView;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWHOTKEY.getPath()));
         loader.setController(this);
 
@@ -77,6 +80,7 @@ public class NewHotKeyViewImpl implements GenericAddView {
             allert.showAllert();
         } else {
             this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
+            this.menuView.populateTableView();
             this.goBack(event);
         }
     }

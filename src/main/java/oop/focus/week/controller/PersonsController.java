@@ -1,6 +1,7 @@
 package oop.focus.week.controller;
 
 import javafx.collections.ObservableList;
+import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
 
 public interface PersonsController {
@@ -9,12 +10,10 @@ public interface PersonsController {
 
     void deletePerson(Person person);
 
-    void addRelationship(String relationship);
+    ObservableList<Person> getPersons();
 
-    void deleteRelationship(String relationship);
+    DataSource getDsi();
 
     ObservableList<String> getDegree();
-
-    ObservableList<Person> getPersons();
 
 }

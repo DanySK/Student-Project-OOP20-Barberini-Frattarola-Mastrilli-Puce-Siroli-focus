@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import oop.focus.calendar.model.Format;
+import oop.focus.homepage.controller.HotKeyControllerImpl;
 import org.joda.time.LocalDate;
 
 import javafx.collections.ObservableList;
@@ -89,12 +90,9 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
        }
 
         private void setCalendar() {
-            final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi(), calendarHBox.getWidth(), calendarHBox.getHeight());
+            final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi());
 
-            final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController, calendarHBox.getWidth(), calendarHBox.getHeight());
-
-            //monthController.disableButton(true);
-
+            final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController);
             month.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
             month.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
 

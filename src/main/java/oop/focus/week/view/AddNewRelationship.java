@@ -17,6 +17,7 @@ import oop.focus.week.controller.PersonsController;
 import javafx.scene.Node;
 import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.homepage.view.GenericAddView;
+import oop.focus.week.controller.RelationshipsControllerImpl;
 
 public class AddNewRelationship implements GenericAddView {
 
@@ -38,11 +39,13 @@ public class AddNewRelationship implements GenericAddView {
     @FXML
     private Button back;
 
-    private final PersonsController controller;
+    private final RelationshipsControllerImpl controller;
+    RelationshipsViewImpl relationshipsView;
     private Node root;
  
-    public AddNewRelationship(final PersonsController controller) {
+    public AddNewRelationship(final RelationshipsControllerImpl controller, final RelationshipsViewImpl relationshipsView) {
         this.controller = controller;
+        this.relationshipsView = relationshipsView;
 
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWRELATIONSHIP.getPath()));
         loader.setController(this);
@@ -78,6 +81,7 @@ public class AddNewRelationship implements GenericAddView {
     public final void save(final ActionEvent event) throws IOException {
         if (!this.nameTextField.getText().isEmpty()) {
             this.controller.addRelationship(this.nameTextField.getText());
+            this.relationshipsView.populateTableView();
             this.goBack(event);
         } else {
             final AllertGenerator allert = new AllertGenerator();

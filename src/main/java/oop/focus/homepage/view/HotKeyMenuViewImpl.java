@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageControllerImpl;
+import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
@@ -42,10 +43,10 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     @FXML
     private TableColumn<HotKey, String> nome, tipo;
 
-    private final HotKeyControllerImpl controller;
+    private final HotKeyController controller;
     private Node root;
 
-    public HotKeyMenuViewImpl(final HotKeyControllerImpl controller) {
+    public HotKeyMenuViewImpl(final HotKeyController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.HOTKEYMENU.getPath()));
         loader.setController(this);
@@ -70,8 +71,8 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.populateTableView();
     }
 
-    private void populateTableView() {
-    	nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
+    public final void populateTableView() {
+        nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
         nome.setCellFactory(TextFieldTableCell.forTableColumn());
         nome.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
             @Override
@@ -93,12 +94,12 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
         this.tableHotKeyList.setEditable(false);
         this.tableHotKeyList.getItems().clear();
-        this.tableHotKeyList.setItems(this.controller.getHotKey());
+        this.tableHotKeyList.setItems(this.controller.getSortedHotKey());
     }
 
     @FXML
     public final void addNewHotKey(final ActionEvent event) throws IOException {
-        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller);
+        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller, this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newHotKey.getRoot()));
         stage.show();

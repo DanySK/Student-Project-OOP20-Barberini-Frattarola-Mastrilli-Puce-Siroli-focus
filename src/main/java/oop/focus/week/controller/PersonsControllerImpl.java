@@ -32,20 +32,16 @@ public class PersonsControllerImpl implements PersonsController {
     public final void deletePerson(final Person person) {
         this.person.removePerson(person);
     }
-
-    public final void addRelationship(final String relationship) {
-        this.relationships.add(relationship);
-    }
-
-    public final void deleteRelationship(final String relationship) {
-        this.relationships.remove(relationship);
-    }
-
-    public final ObservableList<String> getDegree() {
-        return FXCollections.observableArrayList(this.relationships.getAll());
-    }
-
     public final ObservableList<Person> getPersons() {
         return FXCollections.observableArrayList(this.person.getPersons());
+    }
+
+    public final DataSource getDsi() {
+        return this.dsi;
+    }
+
+    @Override
+    public final ObservableList<String> getDegree() {
+        return FXCollections.observableArrayList(this.relationships.getAll());
     }
 }

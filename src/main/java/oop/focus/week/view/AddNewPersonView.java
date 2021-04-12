@@ -47,11 +47,15 @@ public class AddNewPersonView implements GenericAddView {
 
     @FXML
     private Label newPerson;
+
     private PersonsController controller;
+    PersonsView personsView;
     private Node root;
 
-    public AddNewPersonView(final PersonsController controller) {
+    public AddNewPersonView(final PersonsController controller, final PersonsView personsView) {
         this.controller = controller;
+        this.personsView = personsView;
+
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWPERSON.getPath()));
         loader.setController(this);
         try {
@@ -92,6 +96,7 @@ public class AddNewPersonView implements GenericAddView {
     public final void save(final ActionEvent event) throws IOException {
         if (!this.nameTextField.getText().isEmpty() && !this.degreeComboBox.getSelectionModel().isEmpty()) {
             this.controller.addPerson(new PersonImpl(this.nameTextField.getText(), this.degreeComboBox.getSelectionModel().getSelectedItem()));
+            this.personsView.populateTableView();
             this.goBack(event);
         } else {
            final AllertGenerator allert = new AllertGenerator();

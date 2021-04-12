@@ -18,6 +18,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.AnchorPane;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
+import oop.focus.week.controller.RelationshipsControllerImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,6 +66,14 @@ public class PersonsViewImpl implements PersonsView {
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
 
+        this.populateTableView();
+
+        this.add.setOnAction(event -> this.add());
+        this.delete.setOnAction(event -> this.delete());
+        this.degreeOfKinsip.setOnAction(event -> goToDegree());
+    }
+
+    public final void populateTableView(){
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         name.setCellFactory(TextFieldTableCell.forTableColumn());
         name.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
@@ -84,15 +93,14 @@ public class PersonsViewImpl implements PersonsView {
                 person.setRelationships(event.getNewValue());
             }
         });
-        this.tableViewPersons.setItems(this.controller.getPersons());
 
-        this.add.setOnAction(event -> this.add());
-        this.delete.setOnAction(event -> this.delete());
-        this.degreeOfKinsip.setOnAction(event -> goToDegree());
+        this.tableViewPersons.setEditable(false);
+        this.tableViewPersons.getItems().clear();
+        this.tableViewPersons.setItems(this.controller.getPersons());
     }
 
     public final void goToDegree() {
-        final RelationshipsView relationship = new RelationshipsViewImpl(this.controller);
+        final RelationshipsView relationship = new RelationshipsViewImpl(new RelationshipsControllerImpl(this.controller.getDsi()));
         this.panePersons.getChildren().clear();
         this.panePersons.getChildren().add(relationship.getRoot());
     }
@@ -109,7 +117,7 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     public final void add() {
-        final AddNewPersonView newPerson = new AddNewPersonView(this.controller);
+        final AddNewPersonView newPerson = new AddNewPersonView(this.controller, this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newPerson.getRoot()));
         stage.show();

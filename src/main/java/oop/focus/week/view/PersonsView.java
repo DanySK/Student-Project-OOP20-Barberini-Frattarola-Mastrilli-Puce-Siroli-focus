@@ -9,5 +9,7 @@ public interface PersonsView extends Initializable, View {
 
     void delete();
 
-    void add(); 
+    void add();
+
+    void populateTableView();
 }

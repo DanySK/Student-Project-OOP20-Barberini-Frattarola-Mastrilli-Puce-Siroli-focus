@@ -8,4 +8,6 @@ public interface RelationshipsView extends Initializable, View {
     void addRelationships();
 
     void deleteRelationships();
+
+    void populateTableView();
 }

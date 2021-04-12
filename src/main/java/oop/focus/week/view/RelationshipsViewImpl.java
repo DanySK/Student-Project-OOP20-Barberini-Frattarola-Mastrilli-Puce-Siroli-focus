@@ -17,6 +17,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import oop.focus.common.View;
+import oop.focus.week.controller.PersonsControllerImpl;
+import oop.focus.week.controller.RelationshipsControllerImpl;
 
 
 public class RelationshipsViewImpl implements RelationshipsView {
@@ -32,10 +34,10 @@ public class RelationshipsViewImpl implements RelationshipsView {
     @FXML
     private Button addRelationships, goBack, deleteRelationship;
 
-    private final PersonsController controller;
+    private final RelationshipsControllerImpl controller;
     private Node root;
 
-    public RelationshipsViewImpl(final PersonsController controller) {
+    public RelationshipsViewImpl(final RelationshipsControllerImpl controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.RELATIONSHIPS.getPath()));
         loader.setController(this);
@@ -49,24 +51,27 @@ public class RelationshipsViewImpl implements RelationshipsView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
-
-        this.relationshipsTable.setItems(this.controller.getDegree());
+        this.populateTableView();
 
         goBack.setOnAction(event -> this.goBack());
         addRelationships.setOnAction(event -> this.addRelationships());
         deleteRelationship.setOnAction(event -> this.deleteRelationships());
     }
 
+    public final void populateTableView() {
+        relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+        this.relationshipsTable.setItems(this.controller.getDegree());
+    }
+
     public final void goBack() {
-        final PersonsView persons = new PersonsViewImpl(this.controller);
+        final PersonsView persons = new PersonsViewImpl(new PersonsControllerImpl(this.controller.getDsi()));
         this.relationshipsPane.getChildren().clear();
         this.relationshipsPane.getChildren().add(persons.getRoot());
     }
 
     @FXML
     public final void addRelationships() {
-        final View newDegree = new AddNewRelationship(this.controller);
+        final View newDegree = new AddNewRelationship(this.controller, this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newDegree.getRoot()));
         stage.show();
