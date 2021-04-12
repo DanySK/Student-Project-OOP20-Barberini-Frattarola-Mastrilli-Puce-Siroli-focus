@@ -29,6 +29,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
     //Costants
     private static final double SPACING = 50; 
+    private static final String SEP = System.lineSeparator();
 
     /**
      * 
@@ -44,7 +45,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         hoursbox = new HoursViewImpl();
         eventbox = new EventViewImpl(hoursbox, day);
 
-        this.dailyevents = "Attività giornaliere:\n";
+        this.dailyevents = "Attività giornaliere:" + SEP;
         this.width = width;
         this.height = height;
         setSpacing(SPACING);
@@ -94,7 +95,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
     public final String writeDailyEvent() {
         this.day.getDailyEvents().forEach(e -> {
-            this.dailyevents += e.getName() + "\n";
+            this.dailyevents += e.getName() + SEP;
         });
         return this.dailyevents;
     }

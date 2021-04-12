@@ -11,18 +11,7 @@ import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class DayImpl implements Day {
-/*
-    private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
-    private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
-    private final Event test = new EventImpl("Ginnastica", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
-    private final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 14, 00), new LocalDateTime(2021, 9, 26, 17, 30), Repetition.ONCE);
-    private final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
-    private final Event five = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 22, 45), new LocalDateTime(2021, 9, 26, 23, 30), Repetition.ONCE);
 
-    private final Event dailytest1 = new EventImpl("Lavoro", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
-    private final Event dailytest2 = new EventImpl("Allenamento", new LocalDateTime(2021, 9, 26, 11, 00), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
-    private final Event dailytest3 = new EventImpl("Sport", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 12, 00), Repetition.ONCE);
-*/
     private final LocalDate date;
     private final List<Event> events;
     private final List<Event> dailyevents;
@@ -33,25 +22,10 @@ public class DayImpl implements Day {
         events = new ArrayList<>();
         dailyevents = new ArrayList<>();
         this.date = date;
-        //subito();
         final List<Event> temp = manager.findByDate(date);
         this.events.addAll(manager.takeOnly(temp));
         this.dailyevents.addAll(manager.takeOnlyDailyEvent(temp));
     }
-/*
-    private void subito() {
-        this.events.add(first);
-        this.events.add(second);
-        this.events.add(test);
-        this.events.add(third);
-        this.events.add(four);
-        this.events.add(five);
-
-        this.dailyevents.add(dailytest1);
-        this.dailyevents.add(dailytest2);
-        this.dailyevents.add(dailytest3);
-    }
- */
 
     public final int getNumber() {
         return  date.getDayOfMonth();
