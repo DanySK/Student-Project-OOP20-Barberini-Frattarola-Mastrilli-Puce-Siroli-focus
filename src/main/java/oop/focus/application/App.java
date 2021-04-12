@@ -9,15 +9,15 @@ import java.awt.Toolkit;
 
 
 public class App extends Application {
-    private static final String PATH_MAIN_STYLE = "/layouts/generalGraphics/GeneralStyle.css";
+    private static final String PATH_MAIN_STYLE = "/styles/GeneralStyle.css";
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final double width = this.screenSize.getWidth() * 0.7;
     private final double height = this.screenSize.getHeight() * 0.7;
-    private final CommonView commonView = new CommonView();
+    private final GeneralController controller = new GeneralController();
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final String css = App.class.getResource(PATH_MAIN_STYLE).toExternalForm();
-        final Scene scene = new Scene((Parent) this.commonView.getRoot());
+        final Scene scene = new Scene((Parent) this.controller.getView().getRoot());
         scene.getStylesheets().add(css);
         primaryStage.setHeight(height);
         primaryStage.setWidth(width);

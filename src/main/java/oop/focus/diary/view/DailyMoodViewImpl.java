@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
 
-
+//dailymoodsection
 public class DailyMoodViewImpl implements DailyMoodView, View {
     private static final double ICON_DIM = 0.15;
     private static final double DARK_ICONS = -0.4;
