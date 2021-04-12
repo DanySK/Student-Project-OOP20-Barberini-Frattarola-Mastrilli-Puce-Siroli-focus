@@ -51,6 +51,6 @@ public class AccountImpl implements Account {
 
     @Override
     public final String toString() {
-        return "" + this.name;
+        return this.name;
     }
 }

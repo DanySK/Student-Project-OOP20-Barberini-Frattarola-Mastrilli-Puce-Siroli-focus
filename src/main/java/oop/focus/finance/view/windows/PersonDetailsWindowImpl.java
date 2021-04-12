@@ -52,11 +52,11 @@ public class PersonDetailsWindowImpl extends GenericWindow<DetailsController<Per
 
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler elminare " + super.getX().getElement().getName() + "?");
+        final var result = super.confirm("Sicuro di voler elminare " + super.getX().getElement().getName() + "?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 super.getX().deleteElement(super.getX().getElement());
-            } catch (Exception e) {
+            } catch (IllegalStateException e) {
                 super.allert("Non e' possibile eliminare " + super.getX().getElement().getName()
                         + " perche' ha ancora dei debiti.");
             }

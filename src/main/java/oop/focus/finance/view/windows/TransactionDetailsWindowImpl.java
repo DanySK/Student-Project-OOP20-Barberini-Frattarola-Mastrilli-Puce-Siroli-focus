@@ -46,7 +46,7 @@ public class TransactionDetailsWindowImpl extends GenericWindow<DetailsControlle
 
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler elminare la transazione?");
+        final var result = super.confirm("Sicuro di voler elminare la transazione?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getX().deleteElement(super.getX().getElement());
         }

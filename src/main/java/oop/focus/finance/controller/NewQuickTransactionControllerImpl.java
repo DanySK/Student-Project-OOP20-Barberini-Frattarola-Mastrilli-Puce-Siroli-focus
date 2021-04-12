@@ -34,14 +34,14 @@ public class NewQuickTransactionControllerImpl implements NewQuickTransactionCon
 
     @Override
     public final ObservableList<Category> getCategories() {
-        ObservableList<Category> list = FXCollections.observableArrayList();
+        final ObservableList<Category> list = FXCollections.observableArrayList();
         Linker.setToList(this.manager.getCategoryManager().getCategories(), list);
         return list;
     }
 
     @Override
     public final ObservableList<Account> getAccounts() {
-        ObservableList<Account> list = FXCollections.observableArrayList();
+        final ObservableList<Account> list = FXCollections.observableArrayList();
         Linker.setToList(this.manager.getAccountManager().getAccounts(), list);
         return list;
     }

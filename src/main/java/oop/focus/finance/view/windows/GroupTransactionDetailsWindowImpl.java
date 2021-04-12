@@ -56,7 +56,7 @@ public class GroupTransactionDetailsWindowImpl extends GenericWindow<DetailsCont
 
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler elminare questa transazione di gruppo?");
+        final var result = super.confirm("Sicuro di voler elminare questa transazione di gruppo?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getX().deleteElement(super.getX().getElement());
         }

@@ -10,6 +10,7 @@ import oop.focus.finance.view.bases.TransactionsViewImpl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class TransactionsControllerImpl implements TransactionsController {
     public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
         this.manager = manager;
         this.transactionPredicate = predicate;
-        this.accountPredicate = (a -> true);
+        this.accountPredicate = a -> true;
         this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
         this.transactions = this.manager.getTransactionManager().getTransactions();
@@ -71,7 +72,7 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     @Override
     public final String getAccountName() {
-        var filteredAccounts = this.getAccounts().stream()
+        final List<Account> filteredAccounts = this.getAccounts().stream()
                 .filter(this.accountPredicate)
                 .collect(Collectors.toCollection(ArrayList::new));
         return filteredAccounts.size() == 1 ? filteredAccounts.get(0).getName() : "Tutti i conti";
@@ -79,7 +80,7 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     @Override
     public final String getColor(final Predicate<Account> predicate) {
-        var list = this.getAccounts().stream().filter(predicate).collect(Collectors.toList());
+        final List<Account> list = this.getAccounts().stream().filter(predicate).collect(Collectors.toList());
         return list.size() == 1 ? list.get(0).getColor() : "ffffff";
     }
 

@@ -34,7 +34,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     @Override
     public final void newTransaction(final String description, final double amount, final Category category, final Account account,
                                      final java.time.LocalDate date, final int hours, final int minutes, final Repetition repetition) {
-        LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
+        final LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
                 date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
                 date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
         this.manager.addTransaction(new TransactionImpl(description, category, formattedDate, account,
@@ -43,7 +43,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
 
     @Override
     public final ObservableList<Category> getCategories() {
-        ObservableList<Category> list = FXCollections.observableArrayList();
+        final ObservableList<Category> list = FXCollections.observableArrayList();
         Linker.setToList(this.manager.getCategoryManager().getCategories(), list);
         return list;
     }
@@ -55,7 +55,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
 
     @Override
     public final ObservableList<Account> getAccounts() {
-        ObservableList<Account> list = FXCollections.observableArrayList();
+        final ObservableList<Account> list = FXCollections.observableArrayList();
         Linker.setToList(this.manager.getAccountManager().getAccounts(), list);
         return list;
     }

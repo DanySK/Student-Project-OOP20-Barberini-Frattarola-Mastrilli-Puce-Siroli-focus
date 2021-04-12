@@ -34,7 +34,7 @@ public class NewGroupTransactionControllerImpl implements NewGroupTransactionCon
     @Override
     public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet, final double amount,
                                           final java.time.LocalDate date, final int hours, final int minutes) {
-        LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
+        final LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
                 date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
                 date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
         this.manager.getGroupManager().addTransaction(new GroupTransactionImpl(description, madeBy,
@@ -43,7 +43,7 @@ public class NewGroupTransactionControllerImpl implements NewGroupTransactionCon
 
     @Override
     public final ObservableList<Person> getGroupList() {
-        ObservableList<Person> list = FXCollections.observableArrayList();
+        final ObservableList<Person> list = FXCollections.observableArrayList();
         Linker.setToList(this.getGroup(), list);
         return list;
     }

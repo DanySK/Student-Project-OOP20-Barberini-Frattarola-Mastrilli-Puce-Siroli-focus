@@ -37,7 +37,7 @@ public class GroupTransactionViewImpl extends GenericView<GroupTransaction> impl
     }
 
     private String format(final int amount) {
-        DecimalFormat df = new DecimalFormat("#0.00");
+        final DecimalFormat df = new DecimalFormat("#0.00");
         return df.format((double) amount / 100);
     }
 }

@@ -50,7 +50,7 @@ public class SubscriptionDetailsWindowImpl extends GenericWindow<DetailsControll
 
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
+        final var result = super.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getX().deleteElement(super.getX().getElement());
         }

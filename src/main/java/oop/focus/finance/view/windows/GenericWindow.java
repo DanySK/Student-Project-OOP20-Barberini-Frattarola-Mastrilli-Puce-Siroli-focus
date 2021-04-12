@@ -26,7 +26,7 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
             return true;
         }
         try {
-            double d = Double.parseDouble(strNum);
+            final double d = Double.parseDouble(strNum);
         } catch (NumberFormatException nfe) {
             return true;
         }

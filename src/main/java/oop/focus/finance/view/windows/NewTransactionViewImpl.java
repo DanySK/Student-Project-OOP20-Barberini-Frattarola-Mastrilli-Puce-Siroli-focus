@@ -52,12 +52,12 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.repetitionChioce.getValue() == null
-                || (!this.hoursTextField.getText().isEmpty() && (isNotNumeric(this.hoursTextField.getText())
+                || !this.hoursTextField.getText().isEmpty() && (isNotNumeric(this.hoursTextField.getText())
                     || Integer.parseInt(this.hoursTextField.getText()) < 0
-                    || Integer.parseInt(this.hoursTextField.getText()) > MAX_HOURS))
-                || (!this.minutesTextField.getText().isEmpty() && (isNotNumeric(this.minutesTextField.getText())
-                    || (Integer.parseInt(this.hoursTextField.getText()) < 0
-                    || Integer.parseInt(this.hoursTextField.getText()) > MAX_MINUTES)))) {
+                    || Integer.parseInt(this.hoursTextField.getText()) > MAX_HOURS)
+                || !this.minutesTextField.getText().isEmpty() && (isNotNumeric(this.minutesTextField.getText())
+                    || Integer.parseInt(this.hoursTextField.getText()) < 0
+                    || Integer.parseInt(this.hoursTextField.getText()) > MAX_MINUTES)) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             try {
@@ -69,7 +69,7 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
                         this.minutesTextField.getText().isEmpty() ? LocalDateTime.now().getMinuteOfHour()
                                 : Integer.parseInt(this.minutesTextField.getText()),
                         this.repetitionChioce.getValue());
-            } catch (Exception e) {
+            } catch (UnsupportedOperationException e) {
                 super.allert("Non posso eseguire una transazione in una data futura.");
             }
             this.close();

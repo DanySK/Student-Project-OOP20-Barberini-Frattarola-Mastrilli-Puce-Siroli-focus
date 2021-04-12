@@ -83,8 +83,8 @@ public class TransactionImpl implements Transaction {
 
     @Override
     public final String getDateToString() {
-        DecimalFormat df = new DecimalFormat("#00");
-        return "" + this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
+        final DecimalFormat df = new DecimalFormat("#00");
+        return this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
                 + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
                 + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
     }

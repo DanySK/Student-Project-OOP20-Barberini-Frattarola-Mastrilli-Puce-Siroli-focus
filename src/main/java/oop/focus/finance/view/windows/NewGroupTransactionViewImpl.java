@@ -50,12 +50,12 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null
-                || (!this.hoursTextField.getText().isEmpty() && (isNotNumeric(this.hoursTextField.getText())
+                || !this.hoursTextField.getText().isEmpty() && (isNotNumeric(this.hoursTextField.getText())
                 || Integer.parseInt(this.hoursTextField.getText()) < 0
-                || Integer.parseInt(this.hoursTextField.getText()) > MAX_HOURS))
-                || (!this.minutesTextField.getText().isEmpty() && (isNotNumeric(this.minutesTextField.getText())
-                || (Integer.parseInt(this.hoursTextField.getText()) < 0
-                || Integer.parseInt(this.hoursTextField.getText()) > MAX_MINUTES)))) {
+                || Integer.parseInt(this.hoursTextField.getText()) > MAX_HOURS)
+                || !this.minutesTextField.getText().isEmpty() && (isNotNumeric(this.minutesTextField.getText())
+                || Integer.parseInt(this.hoursTextField.getText()) < 0
+                || Integer.parseInt(this.hoursTextField.getText()) > MAX_MINUTES)) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),

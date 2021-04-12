@@ -78,11 +78,11 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     }
 
     private void reset() {
-        var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
+        final var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 super.getX().reset();
-            } catch (Exception e) {
+            } catch (IllegalStateException e) {
                 super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }

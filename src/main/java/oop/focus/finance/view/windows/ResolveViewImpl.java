@@ -45,7 +45,7 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
 
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler eseguire le transazioni risolutive?");
+        final var result = super.confirm("Sicuro di voler eseguire le transazioni risolutive?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getX().resolve();
         }

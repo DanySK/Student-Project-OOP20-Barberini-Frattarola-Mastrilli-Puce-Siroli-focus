@@ -44,6 +44,6 @@ public class CategoryImpl implements Category {
 
     @Override
     public final String toString() {
-        return "" + this.name;
+        return this.name;
     }
 }
