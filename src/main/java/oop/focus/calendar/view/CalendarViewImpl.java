@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
-
+import static java.util.Objects.nonNull;
 
 public class CalendarViewImpl implements CalendarView {
 
@@ -146,7 +146,7 @@ public class CalendarViewImpl implements CalendarView {
 
             @Override
             public void handle(final ActionEvent event) {
-                if (panelColumn.getChildren().size() != 0) {
+                if (nonNull(panelColumn.getChildren())) {
                     panelColumn.getChildren().remove(0);
                     panelColumn.getChildren().add(root);
                 } else {

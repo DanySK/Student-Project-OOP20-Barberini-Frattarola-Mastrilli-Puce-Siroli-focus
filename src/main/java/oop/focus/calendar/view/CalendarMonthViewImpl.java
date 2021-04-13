@@ -7,9 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import static java.util.Objects.nonNull;
 import org.joda.time.LocalDate;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -340,6 +339,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
 
     public final void updateView(final CalendarMonthView monthInfo) {
+        if (nonNull(dayWindows)) {
+            dayWindows.close();
+        }
         cells  = new HashMap<>();
         monthController.getCalendarLogic().generateMonth();
         monthController.setMonth();
