@@ -2,7 +2,6 @@ package oop.focus.calendar.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
@@ -33,11 +32,6 @@ public interface CalendarMonthView extends View {
      */
     void updateView(CalendarMonthView monthView);
 
-    /**
-     * Used for get the month info label (years and name).
-     * @return Label
-     */
-    Label getMonthInfo();
 
     /**
      * Used for set the month view.

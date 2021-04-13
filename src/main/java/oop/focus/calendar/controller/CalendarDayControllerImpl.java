@@ -8,6 +8,7 @@ import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.EventViewImpl;
 import oop.focus.calendar.view.HoursView;
 import oop.focus.calendar.view.HoursViewImpl;
+import oop.focus.calendar.view.VBoxManager;
 import oop.focus.common.View;
 
 
@@ -15,7 +16,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
     //Classes
     private final HoursView hoursBox;
-    private final EventViewImpl eventBox;
+    private final VBoxManager eventBox;
     private final Day day;
 
     //View
@@ -62,7 +63,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         return this.hoursBox;
     }
 
-    public final EventViewImpl getEventBox() {
+    public final VBoxManager getEventBox() {
         return this.eventBox;
     }
 

@@ -369,7 +369,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         monthController.setMonth();
         this.monthBox.getChildren().remove(this.monthBox.getChildren().size() - 1);
         this.monthBox.getChildren().add(buildGridMonth());
-        this.setMonthInfo(monthInfo.getMonthInfo(), monthController.getMonth().get(0).getYear() + "   " + monthController.getMonth().get(0).getMonth());
+        this.setMonthInfo(this.monthInfo, monthController.getMonth().get(0).getYear() + "   " + monthController.getMonth().get(0).getMonth());
     }
 
     public final void setMonthView(final VBox month) {
@@ -381,10 +381,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         return monthBox;
     }
 
-    public final Label getMonthInfo() {
-        return this.monthInfo;
-    }
-
 
     public final void setMonthInfo(final Label monthInfo, final String string) {
         monthInfo.setText(string);
@@ -392,7 +388,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
 
     public final Node getRoot() {
-        return getMonthView();
+        return this.getMonthView();
     }
 
 }

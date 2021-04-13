@@ -2,8 +2,8 @@ package oop.focus.calendar.controller;
 
 import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.EventViewImpl;
 import oop.focus.calendar.view.HoursView;
+import oop.focus.calendar.view.VBoxManager;
 import oop.focus.common.Controller;
 
 
@@ -27,9 +27,9 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for get the event box.
-     * @return EventViewImpl
+     * @return VBoxManager
      */
-    EventViewImpl getEventBox();
+    VBoxManager getEventBox();
 
     /**
      * Used for get the day.
