@@ -52,7 +52,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     }
 
 
-    public final void configureday(final CalendarDayController dayController) {
+    public final void configureDay(final CalendarDayController dayController) {
         dayController.setFormat(this.format);
         dayController.setSpacing(this.spacing);
     }

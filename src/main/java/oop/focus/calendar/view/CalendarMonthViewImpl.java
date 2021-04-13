@@ -20,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -35,6 +36,10 @@ import oop.focus.calendar.model.Day;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.view.DailyMoodViewImpl;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+
 
 
 
@@ -60,10 +65,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private static final int BORDER = 20;
     private static final int TABLE_DAYS = 7;
     private static final int GAP = 10;
-    private static final int DIM = 100;
+    private static final int DIM = 200;
     private static final double MOOD_FONT = 1.5;
     private static final double DAY_WIDTH = 200;
     private static final double DAY_HEIGHT = 500;
+    private static final double CORNER_RADIUS = 10;
 
     /**
      * Used for Initialize the month view.
@@ -177,15 +183,18 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setAlignment(Pos.CENTER);
         jb.setOnAction(getDayView());
         jb.setPrefSize(DIM, DIM);
+        jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+        } else {
+            jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
-        final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, DAY_WIDTH, DAY_HEIGHT);
-        monthController.configureday(daycontroller);
-        daycontroller.buildDay();
-        final ScrollPane daypane = new ScrollPane(daycontroller.getView().getRoot());
-        daypane.setFitToWidth(true);
-        cells.put(jb, new Scene(daypane, daycontroller.getWidth(), daycontroller.getHeight()));
+        final CalendarDayController dayController = new CalendarDayControllerImpl(day, DAY_WIDTH, DAY_HEIGHT);
+        monthController.configureDay(dayController);
+        dayController.buildDay();
+        final ScrollPane dayPane = new ScrollPane(dayController.getView().getRoot());
+        dayPane.setFitToWidth(true);
+        cells.put(jb, new Scene(dayPane, dayController.getWidth(), dayController.getHeight()));
         daysGrid.add(jb, counter, count);
     }
 
@@ -200,8 +209,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setFont(Font.font(monthController.getFontSize()));
         jb.setAlignment(Pos.CENTER);
         jb.setPrefSize(DIM, DIM);
+        jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+        } else {
+            jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
         daysGrid.add(jb, counter, count);
     }
@@ -217,13 +229,13 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         final VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
         container.setPrefSize(DIM, DIM);
-        final Label daynumber = new Label(" " + day.getNumber() + " ");
-        daynumber.setFont(Font.font(monthController.getFontSize() / MOOD_FONT));
-        container.getChildren().add(daynumber);
-        final LocalDate localday = new LocalDate(day.getYear(), day.getMonthNumber(), day.getNumber());
+        final Label dayNumber = new Label(" " + day.getNumber() + " ");
+        dayNumber.setFont(Font.font(monthController.getFontSize() / MOOD_FONT));
+        container.getChildren().add(dayNumber);
+        final LocalDate localDay = new LocalDate(day.getYear(), day.getMonthNumber(), day.getNumber());
         final DailyMoodControllerImpl moodcontroller = new DailyMoodControllerImpl(new DailyMoodManagerImpl(monthController.getDataSource()));
-        if (moodcontroller.getValueByDate(localday).isPresent()) {
-            final Optional<Integer> index = moodcontroller.getValueByDate(localday);
+        if (moodcontroller.getValueByDate(localDay).isPresent()) {
+            final Optional<Integer> index = moodcontroller.getValueByDate(localDay);
             if (index.isPresent()) {
                 //jb.fitWidthProperty().bind(container.widthProperty().divide(2));
                 //jb.fitHeightProperty().bind(container.heightProperty().divide(2));

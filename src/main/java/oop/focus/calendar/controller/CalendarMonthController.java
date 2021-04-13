@@ -22,7 +22,7 @@ public interface CalendarMonthController extends  Controller {
      * Used for set the Format and the Spacing of the hoursbox of the day.
      * @param dayController
      */
-    void configureday(CalendarDayController dayController);
+    void configureDay(CalendarDayController dayController);
 
     /**
      * Used for set the List of the days (Month).
