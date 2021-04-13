@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.joda.time.LocalDate;
 
@@ -18,7 +19,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -31,7 +31,6 @@ import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.model.Day;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
-import oop.focus.diary.view.DailyMoodView;
 import oop.focus.diary.view.DailyMoodViewImpl;
 
 
@@ -214,12 +213,13 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         container.getChildren().add(daynumber);
         final LocalDate localday = new LocalDate(day.getYear(), day.getMonthNumber(), day.getNumber());
         final DailyMoodControllerImpl moodcontroller = new DailyMoodControllerImpl(new DailyMoodManagerImpl(monthController.getDataSource()));
-        final DailyMoodView moodview = new DailyMoodViewImpl(moodcontroller);
-       if (moodcontroller.getValueByDate(localday).isPresent()) {
-           final ImageView jb = moodview.getImages().get(moodcontroller.getValueByDate(localday).get());
-           jb.fitWidthProperty().bind(container.widthProperty().divide(2));
-           jb.fitHeightProperty().bind(container.heightProperty().divide(2));
-           container.getChildren().add(jb);
+        if (moodcontroller.getValueByDate(localday).isPresent()) {
+            final Optional<Integer> index = moodcontroller.getValueByDate(localday);
+            if (index.isPresent()) {
+                //jb.fitWidthProperty().bind(container.widthProperty().divide(2));
+                //jb.fitHeightProperty().bind(container.heightProperty().divide(2));
+                container.getChildren().add(new DailyMoodViewImpl(index.get()).getRoot());
+            }
         }
         daysGrid.add(container, counter, count);
     }
