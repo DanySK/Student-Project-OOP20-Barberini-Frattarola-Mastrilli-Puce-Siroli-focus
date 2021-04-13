@@ -1,7 +1,4 @@
 package oop.focus.diary.controller;
-
-import javafx.collections.ObservableList;
-import javafx.scene.image.ImageView;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDate;
 

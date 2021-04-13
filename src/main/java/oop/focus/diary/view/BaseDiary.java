@@ -178,12 +178,16 @@ public class BaseDiary implements Initializable, View {
         annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
         annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.setContent(annotationView.getListView());
-        final DailyMoodViewImpl iconView = new DailyMoodViewImpl(this.manager);
-        this.containerIcons.setTop(iconView.getRoot());
-        this.containerIcons.setBottom(iconView.getButton());
-        iconView.getButton().prefWidthProperty().bind(this.dailyMoodLabel.widthProperty().multiply(BUTTON_WIDTH));
-        iconView.getButton().prefHeightProperty().bind(this.dailyMoodLabel.heightProperty());
-        BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
+       this.containerIcons.setCenter(this.manager.getView().getRoot());
+       // VBox vBox = new VBox(iconView.getRoot());
+        //vBox.setPrefSize(100, 50);
+        //this.containerIcons.setTop(vBox);
+
+   //     vBox.prefWidthProperty().bind(this.dailyMoodLabel.widthProperty().divide(2));
+       // this.containerIcons.setBottom(iconView.getButton());
+        //iconView.getRoot().prefWidth(this.dailyMoodLabel.widthProperty().multiply(BUTTON_WIDTH).get());
+        //iconView.getRoot().prefHeight(this.dailyMoodLabel.heightProperty().get());
+       // BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
     }
 
     @Override

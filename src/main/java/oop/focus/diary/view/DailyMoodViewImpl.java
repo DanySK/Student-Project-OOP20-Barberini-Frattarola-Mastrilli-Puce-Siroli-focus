@@ -1,111 +1,50 @@
 package oop.focus.diary.view;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
+
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
 import oop.focus.common.View;
-import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.diary.controller.DailyMoodControllerImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
-//dailymoodsection
-public class DailyMoodViewImpl implements DailyMoodView, View {
-    private static final double ICON_DIM = 0.15;
-    private static final double DARK_ICONS = -0.4;
-    private static final double LIGHT_ICONS = 0.0;
-    private static final int GRID_GAP = 5;
+public class DailyMoodViewImpl implements View, DailyMoodView {
+    private static final double ICON_DIM = 80;
     private static final String SEP = File.separator;
-    private final GridPane grid;
-    private final Button button;
-    private final ObservableList<ImageView> images;
-    private final DailyMoodControllerImpl controller;
-    public DailyMoodViewImpl(final DailyMoodControllerImpl controller) {
-        this.controller = controller;
-        this.grid = new GridPane();
-        this.button = new Button("Modifica");
-        this.images = FXCollections.observableArrayList();
+    private final Map<Integer, ImageView> map;
+    private final AnchorPane pane;
+    private final Integer value;
+    public DailyMoodViewImpl(final Integer value) {
+        this.pane = new AnchorPane();
+        this.value = value;
+        this.map = new HashMap<>();
         try {
+            int i = 0;
             final Path iconsDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "icons");
             for (final File elem : Objects.requireNonNull(iconsDir.toFile().listFiles())) {
-                this.images.add(new ImageView(new Image(new FileInputStream(elem))));
+                this.map.put(i, new ImageView(new Image(new FileInputStream(elem))));
+                i++;
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setGrid();
-        this.setBrightness();
-        this.images.forEach(s -> s.setOnMouseClicked(new EventHandler<>() {
-            @Override
-            public void handle(final MouseEvent event) {
-                try {
-                    DailyMoodViewImpl.this.controller.addDailyMood(DailyMoodViewImpl.this.images.indexOf(s));
-                    DailyMoodViewImpl.this.setBrightness();
-                } catch (DaoAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        }));
-        this.button.setOnMouseClicked(event -> {
-            try {
-                this.controller.removeChoice();
-                this.setBrightness();
-            } catch (DaoAccessException e) {
-                e.printStackTrace();
-            }
-        });
-
     }
-    private void setGrid() {
-        int index = 0;
-        this.grid.setVgap(GRID_GAP);
-        this.grid.setHgap(GRID_GAP);
-        this.grid.setAlignment(Pos.CENTER);
-        for (final var elem : this.images) {
-            elem.fitHeightProperty().bind(this.grid.widthProperty().multiply(ICON_DIM));
-            elem.fitWidthProperty().bind(elem.fitHeightProperty());
-            this.grid.add(elem, index, 0);
-            index++;
-        }
+    public Set<ImageView> getIcons() {
+        return new HashSet<>(this.map.values());
     }
-
-    private void setBrightness() {
-        for (final var elem : this.images) {
-            final ColorAdjust blackout = new ColorAdjust();
-            if (this.controller.getValueChosen().isPresent()) {
-                if (this.images.indexOf(elem) != this.controller.getValueChosen().get()) {
-                    elem.setDisable(true);
-                    blackout.setBrightness(DARK_ICONS);
-                }
-            } else  {
-                elem.setDisable(false);
-                blackout.setBrightness(LIGHT_ICONS);
-            }
-                elem.setEffect(blackout);
-            }
-        }
-    public List<ImageView> getImages() {
-        return  this.images.subList(0, this.images.size()-1);
-    }
-    @Override
-    public final Button getButton() {
-        return this.button;
-    }
-
     @Override
     public final Node getRoot() {
-        return this.grid;
+        this.pane.getChildren().add(this.map.get(value));
+        this.map.get(value).setFitWidth(ICON_DIM);
+        this.map.get(value).setFitHeight(ICON_DIM);
+        return this.pane;
     }
 }

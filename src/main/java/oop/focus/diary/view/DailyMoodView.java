@@ -5,17 +5,13 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * This interface can be used to set the icons in the appropriate grid and the "modify" button.
  */
 public interface DailyMoodView {
 
-    /**
-     * Returns the "modify" button, which pressed deletes today's daily mood(if present)
-     * and allows to select another mood.
-     * @return  the "modify" button
-     */
-    Button getButton();
-    List<ImageView> getImages();
+    Set<ImageView> getIcons();
+
 }

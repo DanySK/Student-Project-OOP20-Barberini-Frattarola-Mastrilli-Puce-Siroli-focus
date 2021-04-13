@@ -5,7 +5,6 @@ import oop.focus.calendar.controller.CalendarMonthController;
 import oop.focus.calendar.controller.CalendarMonthControllerImpl;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.db.DataSource;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.ToDoListManagerImpl;
