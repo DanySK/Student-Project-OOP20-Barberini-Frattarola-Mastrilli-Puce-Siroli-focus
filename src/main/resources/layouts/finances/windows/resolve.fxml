@@ -12,7 +12,9 @@
       <font>
          <Font name="System Bold" size="14.0" />
       </font></Label>
-   <ScrollPane fx:id="resolveScroll" prefHeight="277.0" prefWidth="350.0" />
+   <ScrollPane fx:id="resolveScroll" prefHeight="277.0" prefWidth="350.0">
+      <VBox fx:id="resolveVBox" prefHeight="18.0" prefWidth="347.0"/>
+   </ScrollPane>
    <Pane prefHeight="64.0" prefWidth="350.0">
       <Button fx:id="cancelButton" layoutX="28.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="118.0" text="Chiudi" />
       <Button fx:id="saveButton" layoutX="197.0" layoutY="15.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="125.0" text="Salva" />
