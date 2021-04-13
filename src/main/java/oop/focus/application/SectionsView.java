@@ -11,6 +11,7 @@ public class SectionsView implements View {
         this.pane = new Pane();
     }
     public final void setPane(final Controller controller) {
+        this.pane.getChildren().clear();
         this.pane.getChildren().add(controller.getView().getRoot());
     }
     @Override
