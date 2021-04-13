@@ -31,12 +31,16 @@ public class PopulateEventAndHotKey {
         final Event third =new EventImpl("Gita", new LocalDateTime(2021, 9,26,9,30), new LocalDateTime(2021, 9,27,10,30), Repetition.ONCE);
         final Event fourth = new EventImpl("Bere", new LocalDateTime(2021, 4,10,9,30), new LocalDateTime(2021, 4,10,9,30), Repetition.ONCE);
         final Event fifth = new EventImpl("Bere", new LocalDateTime(2021, 8,10,9,30), new LocalDateTime(2021, 8,10,9,30), Repetition.ONCE);
+        final Event sixth = new EventImpl("Giornata", new LocalDateTime(2021, 4, 12, 23, 10), new LocalDateTime(2021, 4, 14, 16, 00), Repetition.ONCE);
+        final Event seventh = new EventImpl("normale", new LocalDateTime(2021, 4, 12, 23, 10), new LocalDateTime(2021, 4, 12, 23, 45), Repetition.ONCE);
 
         this.event.addEvent(first);
         this.event.addEvent(second);
         this.event.addEvent(third);
         this.event.addEvent(fourth);
         this.event.addEvent(fifth);
+        this.event.addEvent(sixth);
+        this.event.addEvent(seventh);
     }
 
     @Test

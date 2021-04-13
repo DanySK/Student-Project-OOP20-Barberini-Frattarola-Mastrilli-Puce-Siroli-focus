@@ -21,7 +21,7 @@ public enum FXMLPaths {
     /**
      *
      */
-    RELATIONSHIPS(Constants.WEEK + "relationships.fxml"),
+    RELATIONSHIPS(Constants.WEEK + "relationship.fxml"),
     /**
      *
      */

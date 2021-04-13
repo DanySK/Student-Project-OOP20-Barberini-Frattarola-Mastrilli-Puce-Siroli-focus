@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
+import oop.focus.week.view.AddNewPersonView;
 import oop.focus.week.view.PersonsView;
 import oop.focus.week.view.PersonsViewImpl;
 
@@ -17,8 +18,7 @@ public class PersonLauncher extends Application {
 
         final DataSource dsi = new DataSourceImpl();
         final PersonsController controller = new PersonsControllerImpl(dsi);
-        final PersonsView persons = new PersonsViewImpl(controller);
-        primaryStage.setScene(new Scene((Parent) persons.getRoot()));
+        primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }

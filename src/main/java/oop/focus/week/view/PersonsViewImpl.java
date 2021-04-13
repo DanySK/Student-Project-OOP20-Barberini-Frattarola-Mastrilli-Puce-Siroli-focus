@@ -1,5 +1,6 @@
 package oop.focus.week.view;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,6 +19,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.AnchorPane;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
+import oop.focus.week.controller.RelationshipsController;
 import oop.focus.week.controller.RelationshipsControllerImpl;
 
 import java.io.IOException;
@@ -56,6 +58,7 @@ public class PersonsViewImpl implements PersonsView {
 
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.PERSONS.getPath()));
         loader.setController(this);
+
         try {
             this.root = loader.load();
         } catch (final IOException e) {
@@ -63,14 +66,30 @@ public class PersonsViewImpl implements PersonsView {
         }
     }
 
+    private void setProperty() {
+        this.tableViewPersons.prefWidthProperty().bind(this.panePersons.widthProperty().multiply(0.50));
+        this.tableViewPersons.prefHeightProperty().bind(this.panePersons.heightProperty().multiply(0.8));
+        this.name.prefWidthProperty().bind(this.tableViewPersons.widthProperty().divide(2));
+        this.relationship.prefWidthProperty().bind(this.tableViewPersons.widthProperty().divide(2));
+    }
+
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-
+        this.setProperty();
         this.populateTableView();
+        this.setButtonOnAction();
+    }
 
-        this.add.setOnAction(event -> this.add());
-        this.delete.setOnAction(event -> this.delete());
-        this.degreeOfKinsip.setOnAction(event -> goToDegree());
+    private final void setButtonOnAction() {
+        this.add.setOnAction(event -> this.add(event));
+        this.delete.setOnAction(event -> this.delete(event));
+        this.degreeOfKinsip.setOnAction(event -> {
+            try {
+                this.goToDegree(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public final void populateTableView(){
@@ -99,13 +118,13 @@ public class PersonsViewImpl implements PersonsView {
         this.tableViewPersons.setItems(this.controller.getPersons());
     }
 
-    public final void goToDegree() {
-        final RelationshipsView relationship = new RelationshipsViewImpl(new RelationshipsControllerImpl(this.controller.getDsi()));
+    public final void goToDegree(final ActionEvent event) throws IOException {
+        final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi());
         this.panePersons.getChildren().clear();
-        this.panePersons.getChildren().add(relationship.getRoot());
+        this.panePersons.getChildren().add(relationshipsController.getView().getRoot());
     }
 
-    public final void delete() {
+    public final void delete(final ActionEvent event) {
         final String name = this.tableViewPersons.getSelectionModel().getSelectedItem().getName();
         final String degree = tableViewPersons.getSelectionModel().getSelectedItem().getRelationships();
         this.controller.deletePerson(new PersonImpl(name, degree));
@@ -116,7 +135,7 @@ public class PersonsViewImpl implements PersonsView {
         this.tableViewPersons.getItems().removeAll(tableViewPersons.getSelectionModel().getSelectedItems());
     }
 
-    public final void add() {
+    public final void add(final ActionEvent event) {
         final AddNewPersonView newPerson = new AddNewPersonView(this.controller, this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newPerson.getRoot()));

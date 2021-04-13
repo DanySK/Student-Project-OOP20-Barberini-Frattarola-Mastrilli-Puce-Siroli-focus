@@ -133,6 +133,9 @@ public class AddNewEventWeekView implements GenericAddView {
 		this.choiceEndHour.getSelectionModel().clearSelection();
 		this.choiceEndMinute.getSelectionModel().clearSelection();
 
+		this.datePickerStart.setValue(null);
+		this.datePickerEnd.setValue(null);
+
 		this.repetitionChoice.getSelectionModel().clearSelection();
 	}
 

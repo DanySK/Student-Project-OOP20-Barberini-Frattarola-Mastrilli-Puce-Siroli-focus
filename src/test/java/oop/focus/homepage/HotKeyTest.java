@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class HotKeyTest {
 
@@ -40,20 +41,18 @@ public class HotKeyTest {
 		final HotKey second = new HotKeyImpl("Allenamento", HotKeyType.ACTIVITY);
 		final HotKey third = new HotKeyImpl("Bere", HotKeyType.COUNTER);
 
-		ObservableSet<HotKey> set;
 		this.hotKeyTrackers.add(first);
 		this.hotKeyTrackers.add(second);
 		this.hotKeyTrackers.add(third);
 
-		 set = FXCollections.observableSet(first, second, third);
-		assertEquals(this.hotKeyTrackers.getAll(), set);
+		assertTrue(this.hotKeyTrackers.getAll().contains(first));
+		assertTrue(this.hotKeyTrackers.getAll().contains(second));
+		assertTrue(this.hotKeyTrackers.getAll().contains(third));
+
 
 		this.hotKeyTrackers.remove(first);
 		this.hotKeyTrackers.remove(second);
 		this.hotKeyTrackers.remove(third);
-
-		set = FXCollections.emptyObservableSet();
-		assertEquals(this.hotKeyTrackers.getAll(), set);
 	}
 
 	/**

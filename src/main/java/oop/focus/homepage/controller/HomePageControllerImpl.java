@@ -3,6 +3,7 @@ package oop.focus.homepage.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
+import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
@@ -34,8 +35,8 @@ public class HomePageControllerImpl implements HomePageController {
         this.view = new HomePageBaseViewImpl(this);
     }
 
-    public final Parent getView() {
-        return (Parent) this.view.getRoot();
+    public final View getView() {
+        return this.view;
     }
 
     public final ObservableList<Event> getEvents() {

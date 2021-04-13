@@ -18,8 +18,8 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="save" layoutX="326.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="SALVA" AnchorPane.rightAnchor="26.399999999999977" />
+      <Button fx:id="save" layoutX="326.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="SALVA" AnchorPane.bottomAnchor="32.6" AnchorPane.rightAnchor="26.399999999999977" />
       <Button fx:id="back" layoutX="26.0" layoutY="20.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="INDIETRO" AnchorPane.leftAnchor="26.0" />
-      <Button fx:id="delete" layoutX="38.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="CANCELLA" AnchorPane.leftAnchor="26.0" />
+      <Button fx:id="delete" layoutX="38.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="CANCELLA" AnchorPane.bottomAnchor="32.6" AnchorPane.leftAnchor="26.0" />
    </children>
 </AnchorPane>

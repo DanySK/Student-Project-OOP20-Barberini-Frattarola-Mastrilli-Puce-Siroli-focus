@@ -2,6 +2,7 @@ package oop.focus.week.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonsManager;
@@ -38,6 +39,10 @@ public class PersonsControllerImpl implements PersonsController {
 
     public final DataSource getDsi() {
         return this.dsi;
+    }
+
+    public final View getView(){
+        return this.view;
     }
 
     @Override

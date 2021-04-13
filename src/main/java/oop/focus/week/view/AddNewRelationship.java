@@ -17,6 +17,7 @@ import oop.focus.week.controller.PersonsController;
 import javafx.scene.Node;
 import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.homepage.view.GenericAddView;
+import oop.focus.week.controller.RelationshipsController;
 import oop.focus.week.controller.RelationshipsControllerImpl;
 
 public class AddNewRelationship implements GenericAddView {
@@ -39,11 +40,11 @@ public class AddNewRelationship implements GenericAddView {
     @FXML
     private Button back;
 
-    private final RelationshipsControllerImpl controller;
-    RelationshipsViewImpl relationshipsView;
+    private final RelationshipsController controller;
+    private final RelationshipsView relationshipsView;
     private Node root;
  
-    public AddNewRelationship(final RelationshipsControllerImpl controller, final RelationshipsViewImpl relationshipsView) {
+    public AddNewRelationship(final RelationshipsController controller, final RelationshipsView relationshipsView) {
         this.controller = controller;
         this.relationshipsView = relationshipsView;
 

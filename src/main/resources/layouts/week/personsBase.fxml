@@ -14,7 +14,7 @@
         </columns>
       </TableView>
       <Button fx:id="delete" layoutX="92.0" layoutY="409.0" mnemonicParsing="false" text="ELIMINA ELEMENTO SELEZIONATO" AnchorPane.bottomAnchor="51.4" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="304.8" />
-      <Button fx:id="add" layoutX="489.0" layoutY="43.0" mnemonicParsing="false" text="AGGIUNGI" AnchorPane.rightAnchor="38.200000000000045" AnchorPane.topAnchor="43.0" />
-      <Button fx:id="degreeOfKinsip" layoutX="430.0" layoutY="99.0" mnemonicParsing="false" text="GRADI DI PARENTELA" AnchorPane.bottomAnchor="361.4" AnchorPane.rightAnchor="38.0" />
+      <Button fx:id="add" layoutX="489.0" layoutY="43.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="132.0" text="AGGIUNGI" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="43.0" />
+      <Button fx:id="degreeOfKinsip" layoutX="430.0" layoutY="107.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="132.0" text="GRADI DI PARENTELA" AnchorPane.bottomAnchor="333.0" AnchorPane.rightAnchor="38.0" />
    </children>
 </AnchorPane>

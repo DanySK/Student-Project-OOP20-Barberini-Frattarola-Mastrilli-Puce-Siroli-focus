@@ -1,6 +1,7 @@
 package oop.focus.week.controller;
 
 import javafx.collections.ObservableList;
+import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
 
@@ -15,5 +16,7 @@ public interface PersonsController {
     DataSource getDsi();
 
     ObservableList<String> getDegree();
+
+    View getView();
 
 }

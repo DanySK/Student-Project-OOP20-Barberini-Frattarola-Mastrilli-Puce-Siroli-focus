@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import oop.focus.calendar.model.Format;
+import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.controller.HotKeyControllerImpl;
 import org.joda.time.LocalDate;
 
@@ -62,10 +63,22 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            this.setProprietes();
         }
 
-        @Override
+    private void setProprietes() {
+            this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.15));
+            this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.5));
+            this.scroller.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
+            this.scrollPane.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
+            this.scrollPane.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.8));
+            this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
+            this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
+            this.calendarHBox.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.3));
+            this.calendarHBox.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.5));
+        }
+
+    @Override
         public final void initialize(final URL location, final ResourceBundle resources) {
             this.controller.refreshDailyEvents();
 
@@ -92,10 +105,10 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         private void setCalendar() {
             final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi());
 
+            monthController.setFontSize(12);
             final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController);
             month.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
             month.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
-
             this.calendarHBox.getChildren().add(month.getMonthView());
         }
 
@@ -104,10 +117,9 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         }
 
         public final void modifyClicked(final ActionEvent event) throws IOException {
-            final HotKeyControllerImpl menuController = new HotKeyControllerImpl(this.controller.getDsi());
-            final HotKeyMenuView menu = new HotKeyMenuViewImpl(menuController);
+            final HotKeyController menuController = new HotKeyControllerImpl(this.controller.getDsi());
             this.paneCalendarHomePage.getChildren().clear();
-            this.paneCalendarHomePage.getChildren().add(menu.getRoot());
+            this.paneCalendarHomePage.getChildren().add(menuController.getView().getRoot());
         }
 
     @Override

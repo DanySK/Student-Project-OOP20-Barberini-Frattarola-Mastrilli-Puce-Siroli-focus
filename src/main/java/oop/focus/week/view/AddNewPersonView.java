@@ -1,6 +1,7 @@
 package oop.focus.week.view;
 
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.week.controller.FXMLPaths;
 import oop.focus.week.controller.PersonsController;
@@ -31,7 +33,7 @@ public class AddNewPersonView implements GenericAddView {
     private Button delete;
 
     @FXML
-    private AnchorPane newPersonPane;
+    private Pane newPersonPane;
 
     @FXML
     private Label name;
@@ -63,12 +65,30 @@ public class AddNewPersonView implements GenericAddView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-
+        this.setProperty();
     }
+
+    private void setProperty() {
+        this.newPerson.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(0.1));
+        this.newPerson.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(0.8));
+        this.newPerson.setAlignment(Pos.CENTER);
+
+        this.degree.setAlignment(Pos.CENTER);
+        this.name.setAlignment(Pos.CENTER);
+
+        this.degreeComboBox.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(0.4));
+        this.degreeComboBox.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(0.05));
+
+        this.nameTextField.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(0.4));
+        this.nameTextField.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(0.05));
+
+        this.save.setAlignment(Pos.CENTER_RIGHT);
+        this.delete.setAlignment(Pos.BOTTOM_LEFT);
+    }
+
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.degreeComboBox.setItems(this.controller.getDegree());
-
         save.setOnAction(event -> {
             try {
                 this.save(event);
