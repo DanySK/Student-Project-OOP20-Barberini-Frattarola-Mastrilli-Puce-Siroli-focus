@@ -1,11 +1,12 @@
 package oop.focus.calendar.controller;
 
 
-import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.view.CalendarDaysViewImpl;
 import oop.focus.calendar.view.EventViewImpl;
+import oop.focus.calendar.view.HoursView;
 import oop.focus.calendar.view.HoursViewImpl;
 import oop.focus.common.View;
 
@@ -13,39 +14,39 @@ import oop.focus.common.View;
 public class CalendarDayControllerImpl implements CalendarDayController {
 
     //Classes
-    private final HoursViewImpl hoursbox;
-    private final EventViewImpl eventbox;
-    private final DayImpl day;
+    private final HoursView hoursBox;
+    private final EventViewImpl eventBox;
+    private final Day day;
 
     //View
-    private final CalendarDaysView calendardayview;
+    private final CalendarDaysView calendarDayView;
 
     //Variables
     private final double width;
     private final double height;
     private double spacing;
     private Format format;
-    private String dailyevents;
+    private String dailyEvents;
 
     //Costants
     private static final double SPACING = 50; 
     private static final String SEP = System.lineSeparator();
 
     /**
-     * 
+     * Used for Initialize the day controller.
      * @param day    date of the day that we want build
      * @param width  max width of the day view.
      * @param height  max height of the day view.
      */
-    public CalendarDayControllerImpl(final DayImpl day, final double width, final double height) {
-        calendardayview = new CalendarDaysViewImpl(this);
+    public CalendarDayControllerImpl(final Day day, final double width, final double height) {
+        this.calendarDayView = new CalendarDaysViewImpl(this);
 
 
         this.day = day;
-        hoursbox = new HoursViewImpl();
-        eventbox = new EventViewImpl(hoursbox, day);
+        this.hoursBox = new HoursViewImpl();
+        this.eventBox = new EventViewImpl(hoursBox, day);
 
-        this.dailyevents = "Attività giornaliere:" + SEP;
+        this.dailyEvents = "Attività giornaliere:" + SEP;
         this.width = width;
         this.height = height;
         setSpacing(SPACING);
@@ -54,18 +55,18 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
 
     public final void buildDay() {
-        this.calendardayview.buildDay();
+        this.calendarDayView.buildDay();
     }
 
-    public final HoursViewImpl getHoursBox() {
-        return this.hoursbox;
+    public final HoursView getHoursBox() {
+        return this.hoursBox;
     }
 
     public final EventViewImpl getEventBox() {
-        return this.eventbox;
+        return this.eventBox;
     }
 
-    public final DayImpl getDay() {
+    public final Day getDay() {
         return this.day;
     }
 
@@ -95,13 +96,13 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
     public final String writeDailyEvent() {
         this.day.getDailyEvents().forEach(e -> {
-            this.dailyevents += e.getName() + SEP;
+            this.dailyEvents += e.getName() + SEP;
         });
-        return this.dailyevents;
+        return this.dailyEvents;
     }
 
 
     public final View getView() {
-        return calendardayview;
+        return this.calendarDayView;
     }
 }

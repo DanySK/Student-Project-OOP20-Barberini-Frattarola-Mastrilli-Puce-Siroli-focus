@@ -1,13 +1,17 @@
 package oop.focus.calendar.controller;
 
-import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.EventViewImpl;
-import oop.focus.calendar.view.HoursViewImpl;
+import oop.focus.calendar.view.HoursView;
 import oop.focus.common.Controller;
 
 
-
+/**
+ * Interface that models a day Controller.
+ * Is used for set and get the format and the the spacing,
+ * for get the daily events and write them in a string.
+ */
 public interface CalendarDayController extends Controller {
 
     /**
@@ -17,9 +21,9 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for get the hours box.
-     * @return HoursViewImpl
+     * @return HoursView
      */
-    HoursViewImpl getHoursBox();
+    HoursView getHoursBox();
 
     /**
      * Used for get the event box.
@@ -29,9 +33,9 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for get the day.
-     * @return DayImpl
+     * @return Day
      */
-    DayImpl getDay();
+    Day getDay();
 
     /**
      * Get the width of the day view.

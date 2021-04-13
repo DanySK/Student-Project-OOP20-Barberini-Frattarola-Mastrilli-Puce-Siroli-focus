@@ -11,8 +11,8 @@ import oop.focus.common.View;
 public class CalendarSettingsControllerImpl implements CalendarSettingsController {
 
     //Classes
-    private final CalendarMonthController monthcontroller;
-    private final CalendarSettingsView settingsview;
+    private final CalendarMonthController monthController;
+    private final CalendarSettingsView settingsView;
 
     //Variables
     private Format format;
@@ -20,12 +20,15 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     //Costants
     private static final double SPACING = 50; 
-    private static final double MINSPACING = 30;
+    private static final double MIN_SPACING = 30;
 
-    public CalendarSettingsControllerImpl(final CalendarMonthController monthcontroller) {
-        this.monthcontroller = monthcontroller;
-
-        settingsview = new CalendarSettingsViewImpl(this);
+    /**
+     * Used for Initialize the settings controller.
+     * @param monthController : controller of the month
+     */
+    public CalendarSettingsControllerImpl(final CalendarMonthController monthController) {
+        this.monthController = monthController;
+        this.settingsView = new CalendarSettingsViewImpl(this);
         this.format = Format.NORMAL;
         this.spacing = SPACING;
     }
@@ -48,15 +51,15 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
         } else {
             try {
                 final double d = Double.parseDouble(spacing);
-                if (d < MINSPACING) {
-                    this.settingsview.windowsError("minimo valore concesso e' 30");
+                if (d < MIN_SPACING) {
+                    this.settingsView.windowsError("minimo valore concesso e' 30");
                     return false;
                 }  else {
                     this.setSpacing(d);
                     return true;
                 } 
             } catch (NumberFormatException nfe) {
-                this.settingsview.windowsError("inserire dei numeri");
+                this.settingsView.windowsError("inserire dei numeri");
                 return false;
             }
         }
@@ -75,17 +78,17 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
 
     public final void updateView() {
-        monthcontroller.setFormat(this.format);
-        monthcontroller.setSpacing(this.spacing);
-        monthcontroller.updateView();
+        this.monthController.setFormat(this.format);
+        this.monthController.setSpacing(this.spacing);
+        this.monthController.updateView();
     }
 
     public final void setWindow(final Stage stage) {
-        settingsview.setWindow(stage);
+        this.settingsView.setWindow(stage);
     }
 
     public final View getView() {
-        return settingsview;
+        return this.settingsView;
     }
 
 }

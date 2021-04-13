@@ -15,7 +15,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
 import oop.focus.homepage.model.Event;
 
@@ -25,7 +25,7 @@ import oop.focus.homepage.model.Event;
 public class EventViewImpl implements VBoxManager {
 
     //Classes
-    private final HoursViewImpl hours;
+    private final HoursView hours;
 
     //View
     private VBox myVBox;
@@ -41,8 +41,8 @@ public class EventViewImpl implements VBoxManager {
     private static final double MINUTES_IN_HOURS = 60;
 
 
-    public EventViewImpl(final HoursViewImpl hours, final DayImpl day) {
-        events = new ArrayList<>(day.getEvents());
+    public EventViewImpl(final HoursView hours, final Day day) {
+        this.events = new ArrayList<>(day.getEvents());
         this.hours = hours;
     }
 

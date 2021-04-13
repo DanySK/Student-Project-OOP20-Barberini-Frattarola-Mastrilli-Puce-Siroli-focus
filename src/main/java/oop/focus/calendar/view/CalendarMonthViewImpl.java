@@ -28,7 +28,7 @@ import oop.focus.calendar.controller.CalendarDayController;
 import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.controller.CalendarMonthController;
 import oop.focus.calendar.model.CalendarType;
-import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Day;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.view.DailyMoodView;
@@ -108,7 +108,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         final GridPane daysGrid = new GridPane();
 
 
-        final DayImpl firstDay = monthController.getMonth().get(0);
+        final Day firstDay = monthController.getMonth().get(0);
 
         counter = 0;
         count = 0;
@@ -169,7 +169,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @param daysGrid : grid where put the day
      * @param day : the day from where start to build the calendar
      */
-    private void normalCalendar(final GridPane daysGrid, final DayImpl day) {
+    private void normalCalendar(final GridPane daysGrid, final Day day) {
         final Button jb = new Button(" " + day.getNumber() + " ");
         jb.setFont(Font.font(monthController.getFontSize()));
         jb.setAlignment(Pos.CENTER);
@@ -190,7 +190,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @param daysGrid : grid where put the day
      * @param day : the day from where start to build the calendar
      */
-    private void homepageCalendar(final GridPane daysGrid, final DayImpl day) {
+    private void homepageCalendar(final GridPane daysGrid, final Day day) {
         final Label jb = new Label(" " + day.getNumber() + " ");
         jb.setFont(Font.font(monthController.getFontSize()));
         jb.setAlignment(Pos.CENTER);
@@ -205,7 +205,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @param daysGrid : grid where put the day
      * @param day : the day from where start to build the calendar
      */
-    private void diaryCalendar(final GridPane daysGrid, final DayImpl day) throws IOException {
+    private void diaryCalendar(final GridPane daysGrid, final Day day) throws IOException {
         final VBox container = new VBox();
         container.setAlignment(Pos.CENTER);
         container.setPrefSize(DIM, DIM);
@@ -325,7 +325,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
 
-    public final EventHandler<ActionEvent> changeMonthButton(final CalendarMonthViewImpl monthView, final Boolean flag) {
+    public final EventHandler<ActionEvent> changeMonthButton(final CalendarMonthView monthView, final Boolean flag) {
         return new EventHandler<ActionEvent>() {
 
             @Override

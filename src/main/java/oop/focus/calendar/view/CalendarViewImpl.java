@@ -10,13 +10,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oop.focus.calendar.controller.CalendarControllerImpl;
+import oop.focus.calendar.controller.CalendarController;
 
 
 public class CalendarViewImpl implements CalendarView {
 
     //Classes
-    private final CalendarControllerImpl calendarController;
+    private final CalendarController calendarController;
 
     //View
     private HBox calendarPage;
@@ -34,7 +34,7 @@ public class CalendarViewImpl implements CalendarView {
     private static final double SETTING_HEIGHT = 150;
 
 
-    public CalendarViewImpl(final CalendarControllerImpl calendarcontroller) {
+    public CalendarViewImpl(final CalendarController calendarcontroller) {
         this.calendarController = calendarcontroller;
         this.calendarPage = new HBox();
         this.settingsWidth = SETTING_WIDTH;

@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import oop.focus.calendar.controller.CalendarDayController;
-import oop.focus.calendar.controller.CalendarDayControllerImpl;
 
 
 
@@ -35,7 +34,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * Used for Initialize days view.
      * @param dayController : controller of the day
      */
-    public CalendarDaysViewImpl(final CalendarDayControllerImpl dayController) {
+    public CalendarDaysViewImpl(final CalendarDayController dayController) {
         this.dayController = dayController;
         this.dayBox = new VBox();
     }

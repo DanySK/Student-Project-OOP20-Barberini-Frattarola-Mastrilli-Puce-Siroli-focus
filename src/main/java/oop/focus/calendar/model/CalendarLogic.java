@@ -14,34 +14,34 @@ public interface CalendarLogic {
     /**
      * Used for get an Day from a list.
      * @param day : date of the day that we want to generate
-     * @return  DayImpl : all the information about a day
+     * @return  Day : all the information about a day
      */
-    DayImpl getDay(LocalDate day);
+    Day getDay(LocalDate day);
 
     /**
      * Used for build a day from a date.
      * @param day : date of the day that we want to generate
-     * @return DayImpl : an generated day
+     * @return Day : an generated day
      */
-    DayImpl generateDay(LocalDate day);
+    Day generateDay(LocalDate day);
 
     /**
      * Used for get the week list.
      * @return a list of 7 days
      */
-    List<DayImpl> getWeek();
+    List<Day> getWeek();
 
     /**
      * Used for get the month list.
      * @return a list of x days
      */
-    List<DayImpl> getMonth();
+    List<Day> getMonth();
 
     /**
      * Used for get the year list.
      * @return a list of 365 days
      */
-    List<DayImpl> getYear();
+    List<Day> getYear();
 
     /**
      * Used for generate one of the Calendar List.
@@ -49,25 +49,25 @@ public interface CalendarLogic {
      * @param startingDate : is the date of the day from it start to generate the calendar
      * @return List<DayImpl> : a generated list of number number of days.
      */
-    List<DayImpl> generate(int numberOfDays, LocalDate startingDate);
+    List<Day> generate(int numberOfDays, LocalDate startingDate);
 
     /**
      * Generate a list of 7 day.
      * @return Set of 7 generated days 
      */
-    List<DayImpl> generateWeek();
+    List<Day> generateWeek();
 
     /**
      * Generate a list of x day.
      * @return Set of x generated days 
      */
-    List<DayImpl> generateMonth();
+    List<Day> generateMonth();
 
     /**
      * Generate a list of 365 day.
      * @return Set of 365 generated days 
      */
-    List<DayImpl> generateYear();
+    List<Day> generateYear();
 
     /**
      * Used for change week.

@@ -6,6 +6,10 @@ import oop.focus.week.view.AddNewEventWeekView;
 import oop.focus.week.view.PersonsView;
 import oop.focus.week.view.WeekView;
 
+/**
+ * Interface that models a Calendar Controller.
+ * Is used for get the controller of all the component of the calendar page.
+ */
 public interface CalendarController extends Controller {
 
     /**
@@ -21,25 +25,25 @@ public interface CalendarController extends Controller {
     CalendarMonthController getMonthController();
 
     /**
-    * Used for get the Statistics Page Controller.
+    * Used for get the Statistics Controller.
     * @return EventsStatistics
     */
    EventsStatistics getStatisticsController();
 
    /**
-    * 
+    * Used for get the Week Controller.
     * @return WeekView
     */
    WeekView getWeek();
 
    /**
-    *
+    * Used for get the New Event Controller.
     * @return AddNewEventWeekView
     */
    AddNewEventWeekView getNewEvent();
 
    /**
-    * 
+    * Used for get the Person Controller.
     * @return PersonsView
     */
    PersonsView getPerson();

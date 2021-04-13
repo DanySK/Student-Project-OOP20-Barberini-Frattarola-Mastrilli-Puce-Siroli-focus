@@ -25,7 +25,7 @@ public interface CalendarMonthView extends View {
      * @param flag : true previous month, false next month
      * @return EventHandler
      */
-    EventHandler<ActionEvent> changeMonthButton(CalendarMonthViewImpl monthView, Boolean flag);
+    EventHandler<ActionEvent> changeMonthButton(CalendarMonthView monthView, Boolean flag);
 
     /**
      * Used for update the view when there are changes.

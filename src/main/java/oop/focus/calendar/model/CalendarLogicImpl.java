@@ -11,7 +11,7 @@ import oop.focus.db.DataSource;
 public class CalendarLogicImpl implements CalendarLogic {
 
     //Classes
-    private DayImpl day;
+    private Day day;
     private final DataSource dataSource;
 
     //Variables
@@ -19,9 +19,9 @@ public class CalendarLogicImpl implements CalendarLogic {
     private LocalDate current;
 
     //List
-    private List<DayImpl> week;
-    private List<DayImpl> month;
-    private List<DayImpl> year;
+    private List<Day> week;
+    private List<Day> month;
+    private List<Day> year;
 
     //Costants
     private static final int DAYS_IN_WEEK = 7;
@@ -40,7 +40,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final DayImpl getDay(final LocalDate day) {
+    public final Day getDay(final LocalDate day) {
         if (!this.week.contains(new DayImpl(day, dataSource))) {
             if (!this.month.contains(new DayImpl(day, dataSource))) {
                 if (!this.year.contains(new DayImpl(day, dataSource))) {
@@ -59,15 +59,15 @@ public class CalendarLogicImpl implements CalendarLogic {
      * @param day : day that we are searching
      * @return DayImpl : the day
      */
-    private DayImpl filter(final List<DayImpl> time, final LocalDate day) {
-        final DayImpl temp = this.generateDay(day);
-        final List<DayImpl> dayset = time.stream()
+    private Day filter(final List<Day> time, final LocalDate day) {
+        final Day temp = this.generateDay(day);
+        final List<Day> dayset = time.stream()
                 .filter(e -> e.equals(temp)).collect(Collectors.toList());
         return dayset.get(0);
     }
 
 
-    public final DayImpl generateDay(final LocalDate day) {
+    public final Day generateDay(final LocalDate day) {
         if (this.day == null) {
             this.day = new DayImpl(today, dataSource);
             return this.day;
@@ -77,7 +77,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> getWeek() {
+    public final List<Day> getWeek() {
         if (this.week.isEmpty()) {
             this.week = generateWeek();
         }
@@ -85,7 +85,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> getMonth() {
+    public final List<Day> getMonth() {
         if (this.month.isEmpty()) {
             this.month = generateMonth();
         }
@@ -93,7 +93,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> getYear() {
+    public final List<Day> getYear() {
         if (this.year.isEmpty()) {
             this.year = generateYear();
         }
@@ -101,8 +101,8 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> generate(final int numberOfDays, final LocalDate startingDate) {
-        final List<DayImpl> time = new ArrayList<>();
+    public final List<Day> generate(final int numberOfDays, final LocalDate startingDate) {
+        final List<Day> time = new ArrayList<>();
         for (int i = 0; i < numberOfDays; i++) {
             time.add(new DayImpl(startingDate.plusDays(i), dataSource));
         }
@@ -110,7 +110,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> generateWeek() {
+    public final List<Day> generateWeek() {
         this.getDay(this.current).getNumber();
         if (this.year.isEmpty()) {
         this.generateYear();
@@ -123,14 +123,14 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
 
-    public final List<DayImpl> generateMonth() {
+    public final List<Day> generateMonth() {
         final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), 1);
         this.month = generate(day.dayOfMonth().getMaximumValue(), day);
         return this.month;
     }
 
 
-    public final List<DayImpl> generateYear() {
+    public final List<Day> generateYear() {
         final LocalDate day = new LocalDate(this.current.getYear(), 1, 1);
         this.year = generate(day.dayOfYear().getMaximumValue(), day);
         return this.year;

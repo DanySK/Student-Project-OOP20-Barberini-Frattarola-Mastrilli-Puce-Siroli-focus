@@ -8,7 +8,7 @@ import oop.focus.calendar.model.Format;
 
 
 
-public class HoursViewImpl implements HoursView, VBoxManager {
+public class HoursViewImpl implements HoursView {
 
 
     //View

@@ -7,7 +7,7 @@ import oop.focus.calendar.model.Format;
  * and is composed by an spacing (the space between two hours)
  * and an format (format of the hours Normal ( 0, 1,  2) or Extended (0, 0.30, 1, 1.30))
  */
-public interface HoursView {
+public interface HoursView extends VBoxManager {
 
     /**
      * Get the current spacing between two number.

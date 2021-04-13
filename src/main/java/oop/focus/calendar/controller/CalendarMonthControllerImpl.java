@@ -6,7 +6,7 @@ import java.util.List;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.CalendarType;
-import oop.focus.calendar.model.DayImpl;
+import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarMonthView;
 import oop.focus.calendar.view.CalendarMonthViewImpl;
@@ -19,54 +19,54 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
 
 
     //Classes
-    private final CalendarLogic calendarlogic;
-    private final CalendarMonthView monthview;
-    private final DataSource datasource;
+    private final CalendarLogic calendarLogic;
+    private final CalendarMonthView monthView;
+    private final DataSource dataSource;
 
     //Variables
     private Format format;
     private double spacing;
-    private double fontsize;
+    private double fontSize;
 
     //List
-    private List<DayImpl> month;
+    private List<Day> month;
 
 
     //Costants
     private static final double SPACING = 50; 
-    private static final int DEFAULTFONTSIZE = 18;
+    private static final int DEFAULT_FONT_SIZE = 18;
 
     /**
      * Used for Initialize the month controller.
      * @param type : type of calendar to build
-     * @param datasource
+     * @param dataSource
      */
-    public CalendarMonthControllerImpl(final CalendarType type, final DataSource datasource) {
+    public CalendarMonthControllerImpl(final CalendarType type, final DataSource dataSource) {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
-        this.fontsize = DEFAULTFONTSIZE;
-        calendarlogic = new CalendarLogicImpl(datasource);
-        this.month = calendarlogic.getMonth();
-        this.datasource = datasource;
-        monthview = new CalendarMonthViewImpl(type, this);
+        this.fontSize = DEFAULT_FONT_SIZE;
+        calendarLogic = new CalendarLogicImpl(dataSource);
+        this.month = calendarLogic.getMonth();
+        this.dataSource = dataSource;
+        monthView = new CalendarMonthViewImpl(type, this);
     }
 
 
-    public final void configureday(final CalendarDayController daycontroller) {
-        daycontroller.setFormat(this.format);
-        daycontroller.setSpacing(this.spacing);
+    public final void configureday(final CalendarDayController dayController) {
+        dayController.setFormat(this.format);
+        dayController.setSpacing(this.spacing);
     }
 
     public final CalendarLogic getCalendarLogic() {
-        return calendarlogic;
+        return this.calendarLogic;
     }
 
-    public final void setFontSize(final double fontsize) {
-        this.fontsize = fontsize;
+    public final void setFontSize(final double fontSize) {
+        this.fontSize = fontSize;
     }
 
     public final double getFontSize() {
-        return this.fontsize;
+        return this.fontSize;
     }
 
     public final void setFormat(final Format format) {
@@ -79,25 +79,25 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     }
 
 
-    public final List<DayImpl> getMonth() {
+    public final List<Day> getMonth() {
         return this.month;
     }
 
     public final void setMonth() {
-        this.month = this.calendarlogic.getMonth();
+        this.month = this.calendarLogic.getMonth();
     }
 
     public final void updateView() {
-        monthview.updateView(monthview);
+        this.monthView.updateView(this.monthView);
     }
 
     public final View getView() {
-        return monthview;
+        return this.monthView;
     }
 
 
     public final DataSource getDataSource() {
-        return this.datasource;
+        return this.dataSource;
     } 
 
 }
