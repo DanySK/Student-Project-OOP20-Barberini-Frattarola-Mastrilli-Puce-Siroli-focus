@@ -4,6 +4,7 @@ import javafx.collections.ObservableSet;
 import oop.focus.common.Controller;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
+import oop.focus.finance.model.Transaction;
 
 import java.util.function.Predicate;
 
@@ -14,6 +15,12 @@ public interface TransactionsController extends Controller {
      * @param predicate whose transactions we want to see
      */
     void showTransactions(Predicate<Account> predicate);
+
+    /**
+     * Delete a transaction.
+     * @param transaction to e deleted
+     */
+    void deleteTransaction(Transaction transaction);
 
     /**
      * Delete the account or accounts displayed.

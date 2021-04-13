@@ -9,19 +9,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import oop.focus.common.Controller;
-import oop.focus.finance.controller.AddPersonControllerImpl;
-import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.GroupController;
-import oop.focus.finance.controller.GroupTransactionDetailsControllerImpl;
-import oop.focus.finance.controller.NewGroupTransactionControllerImpl;
-import oop.focus.finance.controller.PersonDetailsControllerImpl;
-import oop.focus.finance.controller.ResolveControllerImpl;
+import oop.focus.common.View;
+import oop.focus.finance.controller.*;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.tiles.GroupTransactionView;
 import oop.focus.finance.view.tiles.GroupTransactionViewImpl;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
+import oop.focus.finance.view.windows.AddPersonViewImpl;
+import oop.focus.finance.view.windows.GroupTransactionDetailsWindowImpl;
+import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
+import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
+import oop.focus.finance.view.windows.ResolveViewImpl;
 import oop.focus.homepage.model.Person;
 
 import java.util.ArrayList;
@@ -42,21 +41,24 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     public final void populate() {
         this.peopleButton.setOnAction(event -> super.getX().showPeople());
         this.groupTransactionsButton.setOnAction(event -> super.getX().showTansactions());
-        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveControllerImpl(super.getX().getManager())));
-        this.newGroupTransactionButton.setOnAction(event -> this.showWindow(new NewGroupTransactionControllerImpl(super.getX().getManager())));
+        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(
+                new ResolveControllerImpl(super.getX().getManager()))));
+        this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
+                new NewGroupTransactionViewImpl(new NewGroupTransactionControllerImpl(super.getX().getManager()))));
     }
 
     @Override
     public final void showPeople(final ObservableSet<Person> group) {
         this.newPersonButton.setText("Aggiungi persona al gruppo");
-        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonControllerImpl(super.getX().getManager())));
+        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(
+                new AddPersonControllerImpl(super.getX().getManager()))));
         this.groupMovementsVBox.getChildren().clear();
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         super.getX().getSortedGroup().forEach(p -> personTiles.add(
                 new GenericTileViewImpl<>(p, p.getName(), this.format(super.getX().getCredit(p)))));
-        personTiles.forEach(p -> this.groupMovementsVBox.getChildren().add(p.getRoot()));
-        personTiles.forEach(p -> p.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                        this.showWindow(new PersonDetailsControllerImpl(super.getX().getManager(), p.getElement()))));
+        personTiles.forEach(t -> this.groupMovementsVBox.getChildren().add(t.getRoot()));
+        personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
+                        this.showWindow(new PersonDetailsWindowImpl(super.getX(), t.getElement()))));
     }
 
     @Override
@@ -68,21 +70,21 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
         transactionTiles.forEach(t -> this.groupMovementsVBox.getChildren().add(t.getRoot()));
         transactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                        this.showWindow(new GroupTransactionDetailsControllerImpl(super.getX().getManager(), t.getTransaction()))));
+                        this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
     }
 
-    private void showWindow(final Controller controller) {
+    private void showWindow(final View impl) {
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) controller.getView().getRoot()));
+        stage.setScene(new Scene((Parent) impl.getRoot()));
         stage.show();
     }
 
     private void reset() {
-        final var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
+        var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 super.getX().reset();
-            } catch (IllegalStateException e) {
+            } catch (Exception e) {
                 super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }

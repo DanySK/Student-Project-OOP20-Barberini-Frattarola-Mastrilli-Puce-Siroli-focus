@@ -22,6 +22,13 @@ public interface SubscriptionsController extends Controller {
     void showSortedSubscriptions();
 
     /**
+     * Stop repeating a subscription.
+     *
+     * @param subscription to be stopped
+     */
+    void stopSubscription(Transaction subscription);
+
+    /**
      * @param transaction of which we want to see the amount
      * @return formatted transaction's amount
      */

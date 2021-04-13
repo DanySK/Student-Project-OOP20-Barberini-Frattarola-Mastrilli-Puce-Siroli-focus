@@ -66,6 +66,11 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     @Override
+    public final void deleteTransaction(final Transaction transaction) {
+        this.manager.removeTransaction(transaction);
+    }
+
+    @Override
     public final double getAmount(final Predicate<Account> predicate) {
         return (double) this.filteredAmount(predicate) / 100;
     }

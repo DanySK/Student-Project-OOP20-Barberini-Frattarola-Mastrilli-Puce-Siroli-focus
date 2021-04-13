@@ -9,11 +9,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.Controller;
+import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.FinanceHomePageController;
 import oop.focus.finance.controller.NewQuickTransactionControllerImpl;
 import oop.focus.finance.controller.NewTransactionControllerImpl;
-import oop.focus.finance.controller.TransactionDetailsControllerImpl;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
@@ -40,7 +40,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         this.populateAccounts();
         this.populateRecentTransactions();
         this.populateQuickTransactions();
-        this.newMovememntButton.setOnAction(event -> this.show(new NewTransactionControllerImpl(super.getX().getManager())));
+        this.newMovememntButton.setOnAction(event -> this.show(new NewTransactionControllerImpl(super.getX().getManager()).getView()));
     }
 
     @Override
@@ -60,8 +60,6 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription(), this.format((double) t.getAmount() / 100))));
         fastTransactionTiles.forEach(t -> this.movementsVBox.getChildren().add(t.getRoot()));
-        fastTransactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> this.show(new TransactionDetailsControllerImpl(super.getX().getManager(), t.getElement()))));
     }
 
     @Override
@@ -72,12 +70,12 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
                 new FinanceMenuButtonImpl<>(qt.getDescription(), c -> c.doQuickTransaction(qt))));
         financeHotKeyButtons.forEach(b -> this.financeHotKeyVBox.getChildren().add(b.getButton()));
         financeHotKeyButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(super.getX())));
-        this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionControllerImpl(super.getX().getManager())));
+        this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionControllerImpl(super.getX().getManager()).getView()));
     }
 
-    private void show(final Controller controller) {
+    private void show(final View view) {
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) controller.getView().getRoot()));
+        stage.setScene(new Scene((Parent) view.getRoot()));
         stage.show();
     }
 }

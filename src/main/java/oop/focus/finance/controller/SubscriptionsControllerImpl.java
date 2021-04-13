@@ -57,6 +57,11 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     }
 
     @Override
+    public final void stopSubscription(final Transaction subscription) {
+        this.manager.getTransactionManager().stopRepeat(subscription);
+    }
+
+    @Override
     public final double getTransactionAmount(final Transaction t) {
         return (double) t.getAmount() / 100;
     }

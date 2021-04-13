@@ -1,54 +1,39 @@
 package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import oop.focus.common.Repetition;
-import oop.focus.finance.controller.DetailsController;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Transaction;
 
-public class TransactionDetailsWindowImpl extends GenericWindow<DetailsController<Transaction>> {
+public class TransactionDetailsWindowImpl extends GenericDetailsWindow<TransactionsController, Transaction> {
 
     @FXML
     private Label dataDescriptionLabel, dataCategoryLabel, dataDateLabel,
             dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
-    @FXML
-    private Button deleteButton, closeButton;
 
-    public TransactionDetailsWindowImpl(final DetailsController<Transaction> controller) {
-        super(controller, FXMLPaths.TRANSACTIONDETAILS);
+    public TransactionDetailsWindowImpl(final TransactionsController controller, final Transaction transaction) {
+        super(controller, transaction, FXMLPaths.TRANSACTIONDETAILS);
     }
 
     @Override
-    public final void populate() {
-        this.populateDynamicLabels();
-        this.populateButtons();
-    }
-
-    private void populateDynamicLabels() {
-        this.dataDescriptionLabel.setText(super.getX().getElement().getDescription());
-        this.dataCategoryLabel.setText(super.getX().getElement().getCategory().getName());
-        this.dataDateLabel.setText(super.getX().getElement().getDateToString());
-        this.dataAccountLabel.setText(super.getX().getElement().getAccount().toString());
-        this.dataAmountLabel.setText(this.format((double) super.getX().getElement().getAmount() / 100));
-        this.dataSubscriptionLabel.setText(super.getX().getElement().getRepetition().equals(Repetition.ONCE) ? "No"
-                : super.getX().getElement().getRepetition().getName());
-    }
-
-    private void populateButtons() {
-        this.deleteButton.setText("Elimina");
-        this.closeButton.setText("Chiudi");
-        this.deleteButton.setOnAction(event -> this.save());
-        this.closeButton.setOnAction(event -> this.close());
+    public final void populateDynamicLabels() {
+        this.dataDescriptionLabel.setText(super.getX().getDescription());
+        this.dataCategoryLabel.setText(super.getX().getCategory().getName());
+        this.dataDateLabel.setText(super.getX().getDateToString());
+        this.dataAccountLabel.setText(super.getX().getAccount().toString());
+        this.dataAmountLabel.setText(this.format((double) super.getX().getAmount() / 100));
+        this.dataSubscriptionLabel.setText(super.getX().getRepetition().equals(Repetition.ONCE) ? "No"
+                : super.getX().getRepetition().getName());
     }
 
     @Override
     public final void save() {
-        final var result = super.confirm("Sicuro di voler elminare la transazione?");
+        var result = super.confirm("Sicuro di voler elminare la transazione?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getX().deleteElement(super.getX().getElement());
+            super.getController().deleteTransaction(super.getX());
         }
         this.close();
     }

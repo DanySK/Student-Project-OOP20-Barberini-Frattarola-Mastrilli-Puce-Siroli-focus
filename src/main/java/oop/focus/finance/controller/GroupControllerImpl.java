@@ -39,6 +39,16 @@ public class GroupControllerImpl implements GroupController {
     }
 
     @Override
+    public final void deletePerson(final Person person) {
+        this.manager.getGroupManager().removePerson(person);
+    }
+
+    @Override
+    public final void deleteTransaction(final GroupTransaction transaction) {
+        this.manager.getGroupManager().removeTransaction(transaction);
+    }
+
+    @Override
     public final void showTansactions() {
         this.view.showTransactions(this.manager.getGroupManager().getTransactions());
     }

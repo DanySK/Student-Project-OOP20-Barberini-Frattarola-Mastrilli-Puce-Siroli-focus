@@ -10,6 +10,16 @@ import java.util.List;
 public interface GroupController extends Controller {
 
     /**
+     * @param transaction to be deleted
+     */
+    void deleteTransaction(GroupTransaction transaction);
+
+    /**
+     * @param person to be deleted
+     */
+    void deletePerson(Person person);
+
+    /**
      * Show group transactions in view.
      */
     void showTansactions();
