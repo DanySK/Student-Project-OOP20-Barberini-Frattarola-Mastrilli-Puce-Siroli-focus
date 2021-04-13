@@ -29,10 +29,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    INSERT_TDL_ANNOTATION(Costants.DIARY + "windowAddAnnotation.fxml");
+    INSERT_TDL_ANNOTATION(Costants.DIARY + "windowAddAnnotation.fxml"),
     /**
      *
      */
+    REMOVE_TDL_ANNOTATION(Costants.DIARY + "windowRemoveAnnotation.fxml");
     private final String path;
 
     FXMLPaths(final String path) {

@@ -48,21 +48,21 @@ public class GeneralDiaryView implements View {
        }
 
 
-    private Node getPane(final Enum<DiarySections> elem, Button b) {
+    private Node getPane(final Enum<DiarySections> elem, final Button b) {
         if (elem.equals(DiarySections.DIARY)) {
             b.getStyleClass().add("alice");
             return this.controller.getDiary();
         } else if (elem.equals(DiarySections.STOPWATCH)) {
             b.setStyle(Style.STOPWATCH_STYLE.getPath());
             return this.controller.getStopwatch();
-        } else if(elem.equals(DiarySections.MOOD_CALENDAR)) {
+        } else if (elem.equals(DiarySections.MOOD_CALENDAR)) {
             return this.controller.getMoodCalendar();
         }
         return this.controller.getTimer();
     }
 
-    private void setStyle(final Enum<DiarySections> elem,BorderPane pane) {
-        if(elem.equals(DiarySections.DIARY)){
+    private void setStyle(final Enum<DiarySections> elem, final BorderPane pane) {
+        if (elem.equals(DiarySections.DIARY)) {
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
            //setVBox();
@@ -74,16 +74,15 @@ public class GeneralDiaryView implements View {
             pane.getStylesheets().clear();
             //pane.getStylesheets().add(Style.MOOD_CALENDAR_STYLE.getPath());
             controller.getCalendarMonthController().setFontSize(30);
-        }
-        else {
+        } else {
             pane.getStylesheets().clear();
             pane.getStylesheets().add(Style.TIMER_STYLE.getPath());
         //    setVBox();
         }
     }
-    private void setVBox() {
-        this.vBox.getChildren().forEach(a -> a.setStyle("-fx-background-color: #9efa89 ; -fx-font-size: 23"));
-    }
+   // private void setVBox() {
+   //     this.vBox.getChildren().forEach(a -> a.setStyle("-fx-background-color: #9efa89 ; -fx-font-size: 23"));
+   // }
     @Override
     public final Node getRoot() {
         return this.pane;

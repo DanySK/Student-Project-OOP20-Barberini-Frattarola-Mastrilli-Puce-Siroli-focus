@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.ToDoListControllerImpl;
+import oop.focus.diary.controller.ToDoListController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,14 +27,13 @@ public class WindowCreateNewAnnotation implements Initializable, View {
     @FXML
     private TextField annotationTitle;
     private Parent root;
-    private final  ToDoListControllerImpl toDoListController;
-    public WindowCreateNewAnnotation(final ToDoListControllerImpl toDoListController) {
+    private final  ToDoListController toDoListController;
+    public WindowCreateNewAnnotation(final ToDoListController toDoListController) {
         this.toDoListController = toDoListController;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TDL_ANNOTATION.getPath()));
         loader.setController(this);
         try {
             this.root = loader.load();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

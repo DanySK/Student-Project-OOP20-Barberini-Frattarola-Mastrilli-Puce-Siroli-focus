@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +25,7 @@ import oop.focus.common.View;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.controller.DiaryPagesImpl;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.ToDoListControllerImpl;
+import oop.focus.diary.controller.ToDoListController;
 
 
 public class BaseDiary implements Initializable, View {
@@ -68,10 +69,10 @@ public class BaseDiary implements Initializable, View {
     @FXML
     private BorderPane containerIcons;
     private Parent root;
-    private final ToDoListControllerImpl toDoListController;
+    private final ToDoListController toDoListController;
     private final DiaryPagesImpl diaryController;
     private final DailyMoodControllerImpl manager;
-    public BaseDiary(final ToDoListControllerImpl toDoListController, final DiaryPagesImpl diaryController, final DailyMoodControllerImpl manager) {
+    public BaseDiary(final ToDoListController toDoListController, final DiaryPagesImpl diaryController, final DailyMoodControllerImpl manager) {
         this.toDoListController = toDoListController;
         this.diaryController = diaryController;
         this.manager = manager;
@@ -171,13 +172,14 @@ public class BaseDiary implements Initializable, View {
         this.removePage.setText("Rimuovi");
         this.removePage.setDisable(true);
         this.addAnnotation.setText("Aggiungi");
-        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.toDoListController).getRoot()));
+          this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.toDoListController).getRoot()));
         this.removeAnnotation.setText("Rimuovi");
+        this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowRemoveAnnotation(toDoListController).getRoot()));
         this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty(), this.diaryController).getAccordion());
-        final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty(), toDoListController);
-        annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
-        annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
-        this.containerToDoList.setContent(annotationView.getListView());
+       // final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty(), toDoListController);
+       // annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
+       // annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
+        this.containerToDoList.setContent(toDoListController.getView().getRoot());
        this.containerIcons.setCenter(this.manager.getView().getRoot());
        // VBox vBox = new VBox(iconView.getRoot());
         //vBox.setPrefSize(100, 50);

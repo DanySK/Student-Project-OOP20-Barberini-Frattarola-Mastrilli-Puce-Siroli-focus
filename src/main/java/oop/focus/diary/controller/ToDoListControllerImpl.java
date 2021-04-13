@@ -1,28 +1,32 @@
 package oop.focus.diary.controller;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import oop.focus.common.View;
 import oop.focus.diary.model.ToDoAction;
 import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.diary.model.ToDoListManager;
+import oop.focus.diary.view.AnnotationViewImpl;
 
 public class ToDoListControllerImpl implements ToDoListController {
     private final ToDoListManager manager;
-    private final ObservableList<ToDoAction> toDoActions;
-
+    private final ObservableSet<ToDoAction> toDoActions;
+    private final View content;
     public ToDoListControllerImpl(final ToDoListManager manager) {
         this.manager = manager;
-        this.toDoActions = FXCollections.observableArrayList(this.manager.getAnnotations());
+        this.toDoActions = FXCollections.observableSet();
+        this.toDoActions.addAll(this.manager.getAnnotations());
+        this.content = new AnnotationViewImpl(this);
     }
     @Override
-    public final ObservableList<ToDoAction> allAnnotations() {
+    public final ObservableSet<ToDoAction> allAnnotations() {
         return this.toDoActions;
     }
     @Override
     public final void addNote(final String annotation) {
-        if (this.allAnnotations().stream().noneMatch(a -> a.getAnnotation().equals(annotation))) {
+        if (this.toDoActions.stream().noneMatch(a -> a.getAnnotation().equals(annotation))) {
             final ToDoAction ac = new ToDoActionImpl(annotation, false);
-            this.toDoActions.add(ac);
             this.manager.addAnnotation(ac);
+            this.toDoActions.add(ac);
         }
     }
 
@@ -47,5 +51,10 @@ public class ToDoListControllerImpl implements ToDoListController {
     public final void remove(final String a) {
         this.manager.removeAnnotation(this.findTDAbyString(a));
         this.toDoActions.remove(this.findTDAbyString(a));
+    }
+
+    @Override
+    public final View getView() {
+        return this.content;
     }
 }

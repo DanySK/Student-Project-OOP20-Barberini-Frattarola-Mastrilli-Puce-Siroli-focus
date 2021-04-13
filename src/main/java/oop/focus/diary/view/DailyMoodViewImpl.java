@@ -37,13 +37,14 @@ public class DailyMoodViewImpl implements View, DailyMoodView {
             e.printStackTrace();
         }
     }
-    public Set<ImageView> getIcons() {
+    public final Set<ImageView> getIcons() {
         return new HashSet<>(this.map.values());
     }
     @Override
     public final Node getRoot() {
         this.pane.getChildren().add(this.map.get(value));
         this.map.get(value).setFitWidth(ICON_DIM);
+        this.map.get(value).setPreserveRatio(true);
         this.map.get(value).setFitHeight(ICON_DIM);
         return this.pane;
     }
