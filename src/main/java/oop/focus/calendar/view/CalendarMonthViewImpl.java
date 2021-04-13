@@ -18,9 +18,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarDayController;
@@ -173,6 +177,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setAlignment(Pos.CENTER);
         jb.setOnAction(getDayView());
         jb.setPrefSize(DIM, DIM);
+        if (!day.getEvents().isEmpty()) {
+            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
         final CalendarDayController daycontroller = new CalendarDayControllerImpl(day, DAY_WIDTH, DAY_HEIGHT);
         monthController.configureday(daycontroller);
         daycontroller.buildDay();
@@ -193,6 +200,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setFont(Font.font(monthController.getFontSize()));
         jb.setAlignment(Pos.CENTER);
         jb.setPrefSize(DIM, DIM);
+        if (!day.getEvents().isEmpty()) {
+            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        }
         daysGrid.add(jb, counter, count);
     }
 
