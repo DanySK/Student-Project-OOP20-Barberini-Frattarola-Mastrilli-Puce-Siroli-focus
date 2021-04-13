@@ -1,23 +1,32 @@
 package oop.focus.diary.controller;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
+import oop.focus.common.View;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.DiaryImpl;
+import oop.focus.diary.view.PagesViewImpl;
 
 public class DiaryPagesImpl implements DiaryPages {
     private final DiaryDao diaryDao;
+    private final View content;
+    private final ObservableSet<DiaryImpl> set;
+
     public DiaryPagesImpl(final DiaryDao diaryDao) {
         this.diaryDao = diaryDao;
-    }
-    @Override
-    public final List<String> filesName() {
-        return this.diaryDao.getAll().stream().map(DiaryImpl::getName).collect(Collectors.toList());
+        this.set = FXCollections.observableSet();
+        this.set.addAll(this.diaryDao.getAll());
+        this.content = new PagesViewImpl(this);
     }
     @Override
     public final ObservableSet<DiaryImpl> getObservableSet() {
-         return this.diaryDao.getAll();
+         return this.set;
+     }
+     @Override
+     public final Set<String> getFileName() {
+        return this.set.stream().map(DiaryImpl::getName).collect(Collectors.toSet());
      }
     @Override
     public final String getContentByName(final String fileName) {
@@ -29,21 +38,32 @@ public class DiaryPagesImpl implements DiaryPages {
 
     @Override
     public final void updatePage(final String name, final String content) {
-        if (this.filesName().contains(name)) {
+        if (this.getFileName().contains(name)) {
             this.diaryDao.update(new DiaryImpl(content, name));
             System.out.println(content);
         }
     }
-    @Override
-    public final void removePage(final String name) {
-        if (this.filesName().contains(name)) {
-            this.diaryDao.delete(new DiaryImpl(this.getContentByName(name), name));
-        }
-    }
+
     @Override
     public final void createPage(final String name, final String content) {
-        this.diaryDao.save(new DiaryImpl(content, name));
-        this.diaryDao.getAll().forEach(s -> System.out.println(s.getName()));
+        final DiaryImpl diary = new DiaryImpl(content, name);
+        if (!this.set.contains(diary)) {
+            this.diaryDao.save(diary);
+            this.set.add(diary);
+        }
     }
 
+    @Override
+    public final View getView() {
+        return this.content;
+    }
+
+    @Override
+    public final void remove(final String a) {
+        if (this.getFileName().contains(a)) {
+            final DiaryImpl diary = new DiaryImpl(this.getContentByName(a), a);
+            this.diaryDao.delete(diary);
+            this.set.remove(diary);
+        }
+    }
 }

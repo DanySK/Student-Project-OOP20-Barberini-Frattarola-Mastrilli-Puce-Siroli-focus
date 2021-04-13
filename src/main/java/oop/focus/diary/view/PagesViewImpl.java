@@ -1,31 +1,23 @@
 package oop.focus.diary.view;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
-import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
+import oop.focus.common.View;
 import oop.focus.diary.controller.DiaryPagesImpl;
 import oop.focus.diary.model.DiaryImpl;
 
-public class PagesViewImpl implements PagesView {
+public class PagesViewImpl implements View {
     private static final double TITLED_PANE_DIM = 0.474;
     private final Accordion pages;
-    private String toRemove;
-    private final Button remove;
-    private final ObservableSet<DiaryImpl> set;
+
     private final DiaryPagesImpl controller;
-    public PagesViewImpl(final Button rem, final ReadOnlyDoubleProperty width, final ReadOnlyDoubleProperty height,
-                         final DiaryPagesImpl controller) {
-        this.remove = rem;
+    public PagesViewImpl(final DiaryPagesImpl controller) {
         this.controller = controller;
-        System.out.println("qui");
-        this.set = controller.getObservableSet();
         this.pages = new Accordion();
         this.insertPages();
-        this.setProperties(width, height);
-        this.set.addListener((SetChangeListener<DiaryImpl>) change -> {
+        //this.setProperties(width, height);
+        controller.getObservableSet().addListener((SetChangeListener<DiaryImpl>) change -> {
             if (change.wasAdded()) {
                 this.updateView(change.getElementAdded().getName());
             } else if (change.wasRemoved()) {
@@ -44,30 +36,24 @@ public class PagesViewImpl implements PagesView {
        this.pages.prefWidthProperty().bind(width.multiply(TITLED_PANE_DIM));
        this.pages.prefHeightProperty().bind(height.multiply(TITLED_PANE_DIM));
     }
-    @Override
-    public final Accordion getAccordion() {
-        return this.pages;
-    }
-
     /**
      * The method adds new Titled Pane to the accordion.
      * @param s the title of new titled pane(which is also the title of the page to add)
      */
     private void updateView(final String s) {
-        this.pages.getPanes().add(new SingleTitledPaneDiaryImpl(controller).createTitledPane(s));
+        this.pages.getPanes().add(new SingleTitledPaneDiaryImpl(this.controller).createTitledPane(s));
     }
 
     /**
      * The method can be used to add all pages' saved to the accordion.
      */
     private void insertPages() {
-        controller.filesName().forEach(this::updateView);
-        this.remove.setOnMouseClicked((EventHandler<Event>) event -> controller.removePage(this.toRemove));
-        this.pages.getPanes().forEach(e -> e.setOnMouseClicked((EventHandler<Event>) event -> {
-            this.toRemove = e.getText();
-            this.remove.setDisable(false);
-        }));
+        this.controller.getFileName().forEach(this::updateView);
+    }
 
+    @Override
+    public final Node getRoot() {
+        return this.pages;
     }
 }
 

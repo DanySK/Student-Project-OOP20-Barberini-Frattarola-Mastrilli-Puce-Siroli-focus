@@ -3,17 +3,12 @@ package oop.focus.diary.controller;
 import javafx.collections.ObservableSet;
 import oop.focus.diary.model.DiaryImpl;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * This interface models a controller of pages' diary, saved as a file.
  */
-public interface DiaryPages {
-    /**
-     * The method returns a list with all files' names.
-     * @return  a list of all files saved
-     */
-    List<String> filesName();
+public interface DiaryPages extends RemoveControllers {
 
     /**
      * The list return an observable set with all diary saved(a diary is formed by title and content).
@@ -39,7 +34,7 @@ public interface DiaryPages {
      * The method removes the diary's page whose title is the string in input.
      * @param name  the title of page to remove
      */
-    void removePage(String name);
+  //  void removePage(String name);
 
     /**
      * The method creates a new diary's page whose name and content are specified.
@@ -47,4 +42,9 @@ public interface DiaryPages {
      * @param content   the content of the page to insert
      */
     void createPage(String name, String content);
+    /**
+     * The method returns a list with all files' names.
+     * @return  a list of all files saved
+     */
+    Set<String> getFileName();
 }

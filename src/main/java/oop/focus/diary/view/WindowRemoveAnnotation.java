@@ -2,27 +2,27 @@ package oop.focus.diary.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import oop.focus.common.Linker;
 import oop.focus.common.View;
+import oop.focus.diary.controller.RemoveControllers;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.SingleCheckBoxController;
-import oop.focus.diary.controller.ToDoListController;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WindowRemoveAnnotation implements View, Initializable {
+public class WindowRemoveAnnotation<X> implements View, Initializable {
 
     @FXML
     private Pane pane;
@@ -31,16 +31,16 @@ public class WindowRemoveAnnotation implements View, Initializable {
     private Label removeLabel;
 
     @FXML
-    private ListView<CheckBox> listView;
+    private ListView<X> listView;
 
     @FXML
     private Button deleteButton;
-    private final ToDoListController controller;
-    private SingleCheckBoxController checkBoxController;
-    private ObservableList<CheckBox> checkBoxes;
+    private final RemoveControllers controller;
     private Parent root;
-    public WindowRemoveAnnotation(final ToDoListController controller) {
+    private final ObservableMap<X, String> map;
+    public WindowRemoveAnnotation(final RemoveControllers controller, final ObservableMap<X, String> map) {
         this.controller = controller;
+        this.map = map;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.REMOVE_TDL_ANNOTATION.getPath()));
         loader.setController(this);
         try {
@@ -57,17 +57,17 @@ public class WindowRemoveAnnotation implements View, Initializable {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.checkBoxController = new SingleCheckBoxController();
-        this.checkBoxes = FXCollections.observableArrayList();
+        final ObservableList<X> observableList = FXCollections.observableArrayList();
         this.removeLabel.setText("Seleziona annotazioni da rimuovere");
         this.deleteButton.setText("Elimina");
-        controller.allAnnotations().stream().map(s -> this.checkBoxController.createCheckBox(s)).forEach(this.checkBoxes::add);
-        this.listView.setItems(this.checkBoxes);
+        Linker.setToList(FXCollections.observableSet(this.map.keySet()), observableList);
+        this.listView.setItems(observableList);
         this.deleteButton.setOnMouseClicked(event -> {
-            System.out.println(listView.getSelectionModel().getSelectedItem().getText() + "Vi");
-            controller.remove(listView.getSelectionModel().getSelectedItem().getText());
-            final Stage stage = (Stage) pane.getScene().getWindow();
+            this.controller.remove(this.map.get(this.listView.getSelectionModel().getSelectedItem()));
+            final Stage stage = (Stage) this.pane.getScene().getWindow();
             stage.close();
         });
+
+
     }
 }

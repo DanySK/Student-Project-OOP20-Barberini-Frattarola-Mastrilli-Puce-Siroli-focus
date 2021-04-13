@@ -22,9 +22,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.DailyMoodControllerImpl;
-import oop.focus.diary.controller.DiaryPagesImpl;
+import oop.focus.diary.controller.DailyMoodController;
+import oop.focus.diary.controller.DiaryPages;
 import oop.focus.diary.controller.FXMLPaths;
+import oop.focus.diary.controller.RemovePageController;
+import oop.focus.diary.controller.RemoveTDLController;
 import oop.focus.diary.controller.ToDoListController;
 
 
@@ -40,10 +42,7 @@ public class BaseDiary implements Initializable, View {
     private Pane pane;
 
     @FXML
-    private Label toDoListLabel;
-
-    @FXML
-    private Label diaryLabel;
+    private Label toDoListLabel, diaryLabel;
 
     @FXML
     private ScrollPane containerDiaryLayout;
@@ -70,9 +69,9 @@ public class BaseDiary implements Initializable, View {
     private BorderPane containerIcons;
     private Parent root;
     private final ToDoListController toDoListController;
-    private final DiaryPagesImpl diaryController;
-    private final DailyMoodControllerImpl manager;
-    public BaseDiary(final ToDoListController toDoListController, final DiaryPagesImpl diaryController, final DailyMoodControllerImpl manager) {
+    private final DiaryPages diaryController;
+    private final DailyMoodController manager;
+    public BaseDiary(final ToDoListController toDoListController, final DiaryPages diaryController, final DailyMoodController manager) {
         this.toDoListController = toDoListController;
         this.diaryController = diaryController;
         this.manager = manager;
@@ -168,19 +167,19 @@ public class BaseDiary implements Initializable, View {
         this.toDoListLabel.setText("To Do List");
         this.diaryLabel.setText("Diario");
         this.addPage.setText("Aggiungi");
-        this.addPage.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewPage(diaryController).getRoot()));
+        this.addPage.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewPage(this.diaryController).getRoot()));
         this.removePage.setText("Rimuovi");
-        this.removePage.setDisable(true);
+        this.removePage.setOnMouseClicked(event -> openWindow((Parent) new RemovePageController(this.diaryController).getView().getRoot()));
         this.addAnnotation.setText("Aggiungi");
-          this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.toDoListController).getRoot()));
+        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.toDoListController).getRoot()));
         this.removeAnnotation.setText("Rimuovi");
-        this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowRemoveAnnotation(toDoListController).getRoot()));
-        this.containerDiaryLayout.setContent(new PagesViewImpl(this.removePage, this.pane.widthProperty(), this.pane.heightProperty(), this.diaryController).getAccordion());
+        this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.toDoListController).getView().getRoot()));
+        this.containerDiaryLayout.setContent(this.diaryController.getView().getRoot());
        // final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty(), toDoListController);
        // annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
        // annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
-        this.containerToDoList.setContent(toDoListController.getView().getRoot());
-       this.containerIcons.setCenter(this.manager.getView().getRoot());
+        this.containerToDoList.setContent(this.toDoListController.getView().getRoot());
+        this.containerIcons.setCenter(this.manager.getView().getRoot());
        // VBox vBox = new VBox(iconView.getRoot());
         //vBox.setPrefSize(100, 50);
         //this.containerIcons.setTop(vBox);

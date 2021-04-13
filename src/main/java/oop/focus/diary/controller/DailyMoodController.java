@@ -1,4 +1,5 @@
 package oop.focus.diary.controller;
+import oop.focus.common.Controller;
 import oop.focus.db.exceptions.DaoAccessException;
 import org.joda.time.LocalDate;
 
@@ -7,7 +8,7 @@ import java.util.Optional;
 /**
  * The interface can be used to add, remove or change the value of DailyMood Section.
  */
-public interface DailyMoodController {
+public interface DailyMoodController extends Controller {
     /**
      * The method saves the daily mood chosen, setting as day today itself.
      * @param value    the value of mood to save

@@ -1,6 +1,5 @@
 package oop.focus.diary.controller;
 
-import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.diary.model.DailyMood;
@@ -11,7 +10,7 @@ import org.joda.time.LocalDate;
 
 import java.util.Optional;
 
-public class DailyMoodControllerImpl implements DailyMoodController, Controller {
+public class DailyMoodControllerImpl implements DailyMoodController {
     private final DailyMoodManager manager;
     private DailyMood dailyMood;
 

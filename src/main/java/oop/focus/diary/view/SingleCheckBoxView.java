@@ -11,13 +11,13 @@ public class SingleCheckBoxView implements View {
     public SingleCheckBoxView() {
         this.box = new CheckBox();
     }
-    public CheckBox createCheckBox(final ToDoAction action) {
+    public final CheckBox createCheckBox(final ToDoAction action) {
         this.box = new CheckBox(action.getAnnotation());
         box.setSelected(action.isDone());
         return box;
     }
     @Override
-    public Node getRoot() {
+    public final Node getRoot() {
         return null;
     }
 }
