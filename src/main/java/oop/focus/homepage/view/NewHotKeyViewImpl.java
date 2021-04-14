@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -24,7 +25,7 @@ public class NewHotKeyViewImpl implements GenericAddView {
     private Pane paneNewHotKey;
 
     @FXML
-    private Label newHotKeyName, newHotKeyCategory;
+    private Label newHotKeyName, newHotKeyCategory, labelAddNew, labelHotKey;
 
     @FXML
     private TextField nameTextField;
@@ -50,6 +51,20 @@ public class NewHotKeyViewImpl implements GenericAddView {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        this.setProperty();
+    }
+
+    private void setProperty() {
+        this.labelAddNew.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.5));
+        this.labelAddNew.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(0.05));
+        this.labelAddNew.setAlignment(Pos.CENTER);
+
+        this.labelHotKey.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.5));
+        this.labelHotKey.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(0.05));
+        this.labelHotKey.setAlignment(Pos.CENTER);
+
+        this.categoryComboBox.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.3));
+        this.nameTextField.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.3));
     }
 
     @Override

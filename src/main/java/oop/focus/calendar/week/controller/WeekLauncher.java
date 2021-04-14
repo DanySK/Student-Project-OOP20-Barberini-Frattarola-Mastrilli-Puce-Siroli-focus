@@ -1,4 +1,4 @@
-package oop.focus.week.controller;
+package oop.focus.calendar.week.controller;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.week.view.WeekView;
-import oop.focus.week.view.WeekViewImpl;
 
 public class WeekLauncher extends Application {
 
@@ -16,8 +14,7 @@ public class WeekLauncher extends Application {
     public final void start(final Stage primaryStage) throws Exception {
         final DataSource dsi = new DataSourceImpl();
         final WeekController controller = new WeekControllerImpl(dsi);
-        final WeekView week = new WeekViewImpl(controller);
-        primaryStage.setScene(new Scene((Parent) week.getRoot()));
+        primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }

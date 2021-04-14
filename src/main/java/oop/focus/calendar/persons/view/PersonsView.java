@@ -1,4 +1,4 @@
-package oop.focus.week.view;
+package oop.focus.calendar.persons.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -8,11 +8,11 @@ import java.io.IOException;
 
 public interface PersonsView extends Initializable, View {
 
-    void goToDegree(final ActionEvent event) throws IOException;
+    void goToDegree(ActionEvent event) throws IOException;
 
-    void delete(final ActionEvent event);
+    void delete(ActionEvent event);
 
-    void add(final ActionEvent event);
+    void add(ActionEvent event);
 
     void populateTableView();
 }

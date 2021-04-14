@@ -1,24 +1,29 @@
-package oop.focus.week.view;
+package oop.focus.calendar.persons.view;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.week.controller.FXMLPaths;
+import oop.focus.db.exceptions.DaoAccessException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import oop.focus.calendar.persons.controller.PersonsController;
+import oop.focus.calendar.persons.controller.PersonsControllerImpl;
+import oop.focus.calendar.persons.controller.RelationshipsController;
+import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.common.View;
-import oop.focus.week.controller.PersonsController;
-import oop.focus.week.controller.PersonsControllerImpl;
-import oop.focus.week.controller.RelationshipsController;
 
 
 public class RelationshipsViewImpl implements RelationshipsView {
@@ -47,17 +52,18 @@ public class RelationshipsViewImpl implements RelationshipsView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-
+        this.setProperty();
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.populateTableView();
-        this.setProperty();
         this.setButtonOnAction();
     }
 
     private void setProperty() {
+        //this.relationshipsPane.setPrefSize(this.controller.getWidth(), this.controller.getHeight());
+
         this.relationshipsTable.prefWidthProperty().bind(this.relationshipsPane.widthProperty().multiply(0.65));
         this.relationshipsTable.prefHeightProperty().bind(this.relationshipsPane.heightProperty().multiply(0.8));
         this.relationshipsColumn.prefWidthProperty().bind(this.relationshipsTable.widthProperty());
@@ -90,8 +96,33 @@ public class RelationshipsViewImpl implements RelationshipsView {
 
     @FXML
     public final void deleteRelationships() {
-        this.controller.deleteRelationship(relationshipsTable.getSelectionModel().getSelectedItem());
-        this.refreshTableView();
+        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+        alert.setTitle("Conferma eliminazione");
+        alert.setHeaderText("Sei sicuro di volere eliminare questa persona?");
+
+        final Optional<ButtonType> result = alert.showAndWait();
+
+        if (!result.isPresent() || result.get() != ButtonType.OK) {
+            alert.close();
+        } else {
+            this.deleteItem();
+        }
+    }
+
+    private void deleteItem() {
+        try {
+            this.controller.deleteRelationship(relationshipsTable.getSelectionModel().getSelectedItem());
+            this.refreshTableView();
+        } catch (DaoAccessException e) {
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Impossibile eliminare la parentela poichè è utilizzata da una o più persone!");
+            final Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+                alert.close();
+            }
+        }
     }
 
     public final void refreshTableView() {

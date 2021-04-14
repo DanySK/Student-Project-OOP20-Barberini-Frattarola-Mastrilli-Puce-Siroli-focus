@@ -1,4 +1,4 @@
-package oop.focus.week.controller;
+package oop.focus.calendar.persons.controller;
 
 import javafx.collections.ObservableList;
 import oop.focus.common.View;

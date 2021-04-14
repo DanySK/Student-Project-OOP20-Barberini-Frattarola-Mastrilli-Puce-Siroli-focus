@@ -87,6 +87,7 @@ public interface EventManager {
      */
     Set<Event> getEventsWithDuration();
 
+    List<Event> getFutureEvent(LocalDate date);
     /**
      * This method is used to obtain all the events that respect are generate after clicking hot keys.
      * @return list of event that are generate after clicking hot keys.

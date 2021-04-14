@@ -1,5 +1,6 @@
 package oop.focus.homepage.view;
 
+import oop.focus.homepage.model.HotKeyType;
 import org.joda.time.LocalDateTime;
 
 import javafx.scene.control.CheckBox;
@@ -17,6 +18,7 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
         this.controller = controller;
         this.checkBox = new CheckBox(name);
         this.initSelection();
+        this.checkBox.setStyle("-fx-background-color:" + HotKeyType.EVENT.getColor() + ";");
 
         this.setAction();
         this.getChildren().add(this.checkBox);

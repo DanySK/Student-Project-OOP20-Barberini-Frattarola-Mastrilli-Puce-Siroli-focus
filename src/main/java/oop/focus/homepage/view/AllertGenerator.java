@@ -33,7 +33,7 @@ public class AllertGenerator {
         alert.setHeaderText("Hai inserito un orario o una data non valida");
     }
 
-    public final void createAllert(final int headerTextChoice) {
+    public final void createWarningAllert(final int headerTextChoice) {
         switch (headerTextChoice) {
             case 1 :
                 this.checkFieldsFilled();
@@ -43,4 +43,5 @@ public class AllertGenerator {
         }
         this.showAllert();
     }
+
 }

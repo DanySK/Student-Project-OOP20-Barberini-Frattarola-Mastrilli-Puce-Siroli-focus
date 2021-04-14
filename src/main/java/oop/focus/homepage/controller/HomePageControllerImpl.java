@@ -26,12 +26,14 @@ public class HomePageControllerImpl implements HomePageController {
     private final HomePageBaseView view;
     private final EventManager eventManager;
     private final HotKeyManager hotKeyManager;
+    private String nameEvent;
     private final DataSource dsi;
 
     public HomePageControllerImpl(final DataSource dsi) {
         this.dsi = dsi;
         this.eventManager = new EventManagerImpl(dsi);
         this.hotKeyManager = new HotKeyManagerImpl(dsi, eventManager);
+        this.nameEvent = " ";
         this.view = new HomePageBaseViewImpl(this);
     }
 
@@ -95,4 +97,11 @@ public class HomePageControllerImpl implements HomePageController {
         return (DataSourceImpl) this.dsi;
     }
 
+    public final void setText(final String text){
+        this.nameEvent = text;
+    }
+
+    public final String getText(){
+        return this.nameEvent;
+    }
 }

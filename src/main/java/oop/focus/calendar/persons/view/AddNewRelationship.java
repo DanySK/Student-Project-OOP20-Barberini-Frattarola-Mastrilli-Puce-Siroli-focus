@@ -1,4 +1,4 @@
-package oop.focus.week.view;
+package oop.focus.calendar.persons.view;
 
 import java.io.IOException;
 import java.net.URL;
@@ -7,18 +7,17 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import oop.focus.week.controller.FXMLPaths;
-import oop.focus.week.controller.PersonsController;
 import javafx.scene.Node;
+import oop.focus.calendar.persons.controller.RelationshipsController;
+import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.homepage.view.GenericAddView;
-import oop.focus.week.controller.RelationshipsController;
-import oop.focus.week.controller.RelationshipsControllerImpl;
 
 public class AddNewRelationship implements GenericAddView {
 
@@ -26,7 +25,7 @@ public class AddNewRelationship implements GenericAddView {
     private AnchorPane newRelatioshipPane;
 
     @FXML
-    private Label name;
+    private Label name, newDegree;
 
     @FXML
     private TextField nameTextField;
@@ -55,28 +54,38 @@ public class AddNewRelationship implements GenericAddView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+        this.setProperty();
+    }
 
+    private void setProperty() {
+        this.newDegree.prefHeightProperty().bind(this.newRelatioshipPane.heightProperty().multiply(Constants.LABEL_HEIGHT));
+        this.newDegree.prefWidthProperty().bind(this.newRelatioshipPane.widthProperty().multiply(Constants.LABEL_WIDTH));
+
+        this.newDegree.setAlignment(Pos.CENTER);
+
+        this.nameTextField.prefWidthProperty().bind(this.newRelatioshipPane.widthProperty().multiply(Constants.FIELD_WIDTH));
+        this.nameTextField.prefHeightProperty().bind(this.newRelatioshipPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.back.setOnAction(event -> {
-			try {
-				this.goBack(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+            try {
+                this.goBack(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
 
         this.delete.setOnAction(event -> this.delete(event));
 
         this.save.setOnAction(event -> {
-			try {
-				this.save(event);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		});
+            try {
+                this.save(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public final void save(final ActionEvent event) throws IOException {
@@ -104,4 +113,12 @@ public class AddNewRelationship implements GenericAddView {
     public final Node getRoot() {
         return this.root;
     }
+
+    private static final class Constants {
+        private static final double FIELD_WIDTH = 0.4;
+        private static final double FIELD_HEIGHT = 0.05;
+        private static final double LABEL_WIDTH = 0.6;
+        private static final double LABEL_HEIGHT = 0.1;
+    }
+
 }

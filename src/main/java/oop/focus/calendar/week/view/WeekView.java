@@ -1,4 +1,4 @@
-package oop.focus.week.view;
+package oop.focus.calendar.week.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;

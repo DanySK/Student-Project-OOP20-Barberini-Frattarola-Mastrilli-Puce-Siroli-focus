@@ -1,9 +1,12 @@
 package oop.focus.homepage;
 
-import java.util.List;
-import java.util.Set;
 
 import oop.focus.homepage.model.EventManager;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
@@ -15,7 +18,6 @@ import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 
-import static org.junit.Assert.*;
 
 public class EventTest {
 
@@ -41,7 +43,7 @@ public class EventTest {
 
         this.eventi.addEvent(second);
 
-        for (Event e : this.eventi.getEvents()){
+        for (final Event e : this.eventi.getEvents()){
             System.out.println(e.getName());
         }
         assertTrue(this.eventi.getEvents().contains(first));
@@ -75,7 +77,7 @@ public class EventTest {
     @Test
     public void findEventsTest() {
         this.eventi.addEvent(sixth);
-        for (Event e : this.eventi.getAll()){
+        for (final Event e : this.eventi.getAll()){
             System.out.println(e.getName());
         }
         assertTrue(this.eventi.getDailyEvents().contains(sixth));

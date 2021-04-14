@@ -1,4 +1,4 @@
-package oop.focus.week.view;
+package oop.focus.calendar.persons.view;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -10,10 +10,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.week.controller.FXMLPaths;
-import oop.focus.week.controller.PersonsController;
+import oop.focus.calendar.persons.controller.FXMLPaths;
+import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.homepage.model.PersonImpl;
 import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.homepage.view.GenericAddView;
@@ -23,6 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddNewPersonView implements GenericAddView {
+
     @FXML
     private Button save;
 
@@ -33,7 +33,7 @@ public class AddNewPersonView implements GenericAddView {
     private Button delete;
 
     @FXML
-    private Pane newPersonPane;
+    private AnchorPane newPersonPane;
 
     @FXML
     private Label name;
@@ -50,8 +50,8 @@ public class AddNewPersonView implements GenericAddView {
     @FXML
     private Label newPerson;
 
-    private PersonsController controller;
-    PersonsView personsView;
+    private final PersonsController controller;
+    private final PersonsView personsView;
     private Node root;
 
     public AddNewPersonView(final PersonsController controller, final PersonsView personsView) {
@@ -69,21 +69,18 @@ public class AddNewPersonView implements GenericAddView {
     }
 
     private void setProperty() {
-        this.newPerson.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(0.1));
-        this.newPerson.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(0.8));
+        this.newPerson.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.LABEL_HEIGHT));
+        this.newPerson.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.LABEL_WIDTH));
         this.newPerson.setAlignment(Pos.CENTER);
 
         this.degree.setAlignment(Pos.CENTER);
         this.name.setAlignment(Pos.CENTER);
 
-        this.degreeComboBox.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(0.4));
-        this.degreeComboBox.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(0.05));
+        this.degreeComboBox.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
+        this.degreeComboBox.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
 
-        this.nameTextField.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(0.4));
-        this.nameTextField.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(0.05));
-
-        this.save.setAlignment(Pos.CENTER_RIGHT);
-        this.delete.setAlignment(Pos.BOTTOM_LEFT);
+        this.nameTextField.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
+        this.nameTextField.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
     }
 
     @Override
@@ -133,5 +130,12 @@ public class AddNewPersonView implements GenericAddView {
     @Override
     public final Node getRoot() {
         return this.root;
+    }
+
+    private static final class Constants {
+        private static final double FIELD_WIDTH = 0.4;
+        private static final double FIELD_HEIGHT = 0.05;
+        private static final double LABEL_WIDTH = 0.8;
+        private static final double LABEL_HEIGHT = 0.1;
     }
 }

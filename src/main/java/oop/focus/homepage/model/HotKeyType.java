@@ -10,15 +10,15 @@ public enum HotKeyType {
     /**
      * The event hot key is represented from the pink color, the Italian translation of its category and has as identification number the number one.
      */
-    EVENT("Rosa", "Evento"),
+    EVENT("#eb34b4", "Evento"),
     /**
      * The activity hot key is represented from the purple color, the Italian translation of its category and has as identification number the number two.
      */ 
-    ACTIVITY("Viola", "Attività"),
+    ACTIVITY("#8634eb", "Attività"),
     /**
      * The counter hot key is represented from the blue color, the Italian translation of its category and has as identification number the number three.
      */
-    COUNTER("Blu", "Contatore");
+    COUNTER("#42f5d7", "Contatore");
 
     private String color;
     private String type;

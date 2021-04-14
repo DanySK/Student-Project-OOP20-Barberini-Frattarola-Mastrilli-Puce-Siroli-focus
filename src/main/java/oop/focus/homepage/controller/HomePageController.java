@@ -34,4 +34,8 @@ public interface HomePageController {
     HotKeyManager getHotKeyManager();
 
     DataSourceImpl getDsi();
+
+    void setText(String text);
+
+    String getText();
 }

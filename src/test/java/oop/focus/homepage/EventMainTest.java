@@ -1,6 +1,8 @@
 package oop.focus.homepage;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
@@ -16,7 +18,7 @@ import oop.focus.common.Repetition;
 public class EventMainTest {
 
         public static void main(final String... args) {
-	    final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
+	    /*final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
         final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
         final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 7, 30), new LocalDateTime(2021, 9, 25, 18, 30), Repetition.ONCE);
         final Event fourth = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
@@ -30,12 +32,62 @@ public class EventMainTest {
         final Event twelfth = new EventImpl("Uscita", new LocalDateTime(2021, 9, 26, 7, 30), new LocalDateTime(2021, 9, 26, 8, 30), Repetition.ONCE);
         final Event thirteenth = new EventImpl("Addominali", new LocalDateTime(2021, 9, 26, 17, 15), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
         final Event fourteenth = new EventImpl("Bere", LocalDateTime.now(),  LocalDateTime.now(), Repetition.ONCE);
-
+*/
         final DataSource dsi = new DataSourceImpl();
         final EventManager manager = new EventManagerImpl(dsi);
 
+        final Event provaUno = new EventImpl("Occhiali", new LocalDateTime(2021, 4, 14, 16, 00), new LocalDateTime(2021, 4, 14, 17, 00), Repetition.ONCE);
+        final Event provaDue = new EventImpl("Prova", new LocalDateTime(2021, 4, 13, 11, 00), new LocalDateTime(2021, 4, 13, 13, 00), Repetition.DAILY);
+        final Event month = new EventImpl("ProvaMese", new LocalDateTime(2021, 3, 14, 12, 00), new LocalDateTime(2021, 3, 14, 13, 00), Repetition.MONTHLY);
+        final Event weekly = new EventImpl("ProvaSettimana", new LocalDateTime(2021, 4, 7, 11, 00), new LocalDateTime(2021, 4, 7, 12, 00), Repetition.WEEKLY);
+
+        try {
+                manager.addEvent(provaUno);
+        } catch (IllegalStateException ignored){}
+        try{
+                manager.addEvent(provaDue);
+        } catch (IllegalStateException ignored){}
+        try{
+                manager.addEvent(month);
+        } catch (IllegalStateException ignored){}
+
+        try{
+                manager.addEvent(weekly);
+        } catch (IllegalStateException ignored){}
+
+        for (Event e : manager.findByDate(new LocalDate(2021, 4, 14))) {
+                System.out.println(e.getName());
+        }
+
+        final List<Event> listOfEvents = manager.findByDate(new LocalDate(2021, 4, 14));
+        List<Event> eventsToShow = manager.getFutureEvent(new LocalDate(2021, 4, 14));
+
+        for (Event e : eventsToShow){
+                System.out.println(e.getName());
+        }
+
+        System.out.println(" ");
+        eventsToShow.stream().forEach(e -> {
+                if (!listOfEvents.contains(e)){
+                        listOfEvents.add(e);
+                }
+        });
+
+        for (Event e : listOfEvents){
+                System.out.println(e.getName());
+        }
+
+        manager.removeEvent(provaUno);
+        manager.removeEvent(provaDue);
+        manager.removeEvent(month);
+
+        final Event daily = new EventImpl("Daily", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 28, 11, 00), Repetition.MONTHLY);
+        manager.addEvent(daily);
+        for (Event e : manager.findByDate(new LocalDate(2021, 10, 26))) {
+                System.out.println(e.getName());
+        }
         //cerco di aggiungere 14 eventi di cui sono validi solo first, second, fourth, eight, ninth , tenth, eleventh, twelve, thirteenth.
-        manager.addEvent(first);
+  /*      manager.addEvent(first);
         manager.addEvent(second);
         try{
         	manager.addEvent(third);
@@ -121,6 +173,7 @@ public class EventMainTest {
         System.out.println(" " + manager.getClosestEvent(new LocalDateTime(2021, 9, 26, 19, 28)));
 
         System.out.println(" ");
+*/
 
 	}
 }

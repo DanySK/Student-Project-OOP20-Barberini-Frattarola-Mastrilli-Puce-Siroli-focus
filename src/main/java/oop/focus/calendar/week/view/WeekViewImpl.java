@@ -1,4 +1,4 @@
-package oop.focus.week.view;
+package oop.focus.calendar.week.view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,6 +8,7 @@ import org.joda.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,9 +19,9 @@ import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.view.CalendarDaysView;
+import oop.focus.calendar.week.controller.FXMLPaths;
+import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.week.controller.FXMLPaths;
-import oop.focus.week.controller.WeekController;
 
 public class WeekViewImpl implements WeekView {
 
@@ -52,11 +53,15 @@ public class WeekViewImpl implements WeekView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+        this.setProperty();
+    }
+
+    private void setProperty() {
+        this.thisWeek.setAlignment(Pos.CENTER);
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-
         final LocalDate today = LocalDate.now();
         this.startWeek = today.minusDays(today.getDayOfWeek() - 1);
         this.setWeekDays();

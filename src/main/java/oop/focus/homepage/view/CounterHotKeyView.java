@@ -21,6 +21,7 @@ public class CounterHotKeyView extends Pane implements HotKeyView {
         this.controller = controller;
         this.label = new Label();
         this.button = new Button(buttonName);
+        this.button.setStyle("-fx-background-color:" + HotKeyType.COUNTER.getColor() + ";");
         this.setAction();
         this.label.setText(this.controller.getClickTime(new HotKeyImpl(this.button.getText(), HotKeyType.COUNTER)));
         this.getChildren().addAll(this.button, this.label);

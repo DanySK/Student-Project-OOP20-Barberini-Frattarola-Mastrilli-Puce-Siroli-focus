@@ -60,11 +60,30 @@ public class EventManagerImpl implements EventManager {
 
 
     public final List<Event> findByDate(final LocalDate date) {
-       return this.events.getAll().stream().filter(e -> {
+        return this.events.getAll().stream().filter(e -> {
             return e.getStartDate().equals(date) || e.getEndDate().equals(date) 
             || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
         }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
+    }
 
+    public final List<Event> getFutureEvent(final LocalDate date) {
+        List<Event> eventsToShow = new ArrayList<>();
+
+        for (Event event : this.getAll()) {
+            if (!event.getRipetition().equals(Repetition.ONCE)) {
+                LocalDate startDate = event.getStartDate();
+                LocalDate endDate = event.getEndDate();
+
+                while (startDate.isBefore(date) && endDate.isBefore(date)) {
+                    startDate = event.getRipetition().getNextRenewalFunction().apply(startDate);
+                    endDate = event.getRipetition().getNextRenewalFunction().apply(endDate);
+                }
+                if (startDate.equals(date) || endDate.equals(date) || startDate.isBefore(date) && endDate.isAfter(date)) {
+                    eventsToShow.add(new EventImpl(event.getName(), startDate.toLocalDateTime(event.getStartHour()), endDate.toLocalDateTime(event.getEndHour()), event.getRipetition()));
+                }
+            }
+        }
+        return eventsToShow;
     }
 
     public final Set<Event> findByHour(final LocalTime hour) {

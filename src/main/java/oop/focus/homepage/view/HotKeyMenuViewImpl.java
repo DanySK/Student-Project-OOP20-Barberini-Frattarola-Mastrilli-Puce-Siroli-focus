@@ -2,6 +2,7 @@ package oop.focus.homepage.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,11 +11,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -56,9 +55,20 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     private void setProprieties() {
-        this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.75));
-        this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.60));
-        this.deleteElement.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.3));
+        this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.7));
+        this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.7));
+
+        this.nome.prefWidthProperty().bind(this.tableHotKeyList.widthProperty().divide(2));
+        this.tipo.prefWidthProperty().bind(this.tableHotKeyList.widthProperty().divide(2));
+
+        this.deleteElement.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.5));
+        this.deleteElement.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
+
+        this.goBackButton.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.15));
+        this.goBackButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
+
+        this.addHotKeyButton.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.15));
+        this.addHotKeyButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
     }
 
     @Override
@@ -109,6 +119,20 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     @FXML
     public final void deletSelectedRowItem(final ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma eliminazione");
+        alert.setHeaderText("Sei sicuro di volere eliminare questo tasto rapido?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(!result.isPresent() || result.get() != ButtonType.OK) {
+            alert.close();
+        } else {
+            this.deleteItem();
+        }
+    }
+
+    private void deleteItem() {
         final HotKeyType type = tableHotKeyList.getSelectionModel().getSelectedItem().getType();
         final String name = tableHotKeyList.getSelectionModel().getSelectedItem().getName();
         this.controller.deleteHotKey(new HotKeyImpl(name, type));

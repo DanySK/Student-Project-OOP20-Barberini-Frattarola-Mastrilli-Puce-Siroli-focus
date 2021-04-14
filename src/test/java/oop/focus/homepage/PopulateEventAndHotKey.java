@@ -33,14 +33,34 @@ public class PopulateEventAndHotKey {
         final Event fifth = new EventImpl("Bere", new LocalDateTime(2021, 8,10,9,30), new LocalDateTime(2021, 8,10,9,30), Repetition.ONCE);
         final Event sixth = new EventImpl("Giornata", new LocalDateTime(2021, 4, 12, 23, 10), new LocalDateTime(2021, 4, 14, 16, 00), Repetition.ONCE);
         final Event seventh = new EventImpl("normale", new LocalDateTime(2021, 4, 12, 23, 10), new LocalDateTime(2021, 4, 12, 23, 45), Repetition.ONCE);
+        final Event eight = new EventImpl("Prova", new LocalDateTime(2021, 4, 7, 12, 00), new LocalDateTime(2021, 4, 7, 13, 00), Repetition.WEEKLY);
+        try {
+            this.event.addEvent(first);
+        } catch (IllegalStateException ignored) {}
+        try{
+            this.event.addEvent(second);
+        } catch (IllegalStateException ignored) {}
+        try{
+            this.event.addEvent(third);
+        } catch (IllegalStateException ignored) {}
+        try{
+            this.event.addEvent(fourth);
+        } catch (IllegalStateException ignored) {}
+        try{
+            this.event.addEvent(fifth);
+        } catch (IllegalStateException ignored) {}
+        try{
+            this.event.addEvent(sixth);
+        } catch (IllegalStateException ignored) {}
 
-        this.event.addEvent(first);
-        this.event.addEvent(second);
-        this.event.addEvent(third);
-        this.event.addEvent(fourth);
-        this.event.addEvent(fifth);
-        this.event.addEvent(sixth);
-        this.event.addEvent(seventh);
+        try{
+            this.event.addEvent(seventh);
+        }catch (IllegalStateException ignored) {}
+
+        try{
+            this.event.addEvent(eight);
+        } catch (IllegalStateException ignored) {}
+
     }
 
     @Test

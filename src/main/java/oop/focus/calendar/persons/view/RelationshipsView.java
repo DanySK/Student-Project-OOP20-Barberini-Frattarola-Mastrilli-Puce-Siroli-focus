@@ -1,4 +1,4 @@
-package oop.focus.week.view;
+package oop.focus.calendar.persons.view;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
