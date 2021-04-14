@@ -30,7 +30,7 @@ public class CalendarControllerImpl implements CalendarController {
     private final WeekController weekController;
     private final NewEventController newEventController;
     private final PersonsController personController;
-    private final CalendarView calendarview;
+    private final CalendarView calendarView;
 
 
     /**
@@ -50,8 +50,8 @@ public class CalendarControllerImpl implements CalendarController {
 
         personController = new PersonsControllerImpl(dataSource);
 
-        calendarview = new CalendarViewImpl(this);
-        calendarview.setCalendarPage(); 
+        calendarView = new CalendarViewImpl(this);
+        calendarView.setCalendarPage(); 
     }
 
     public final CalendarSettingsController getSettingsController() {
@@ -79,7 +79,7 @@ public class CalendarControllerImpl implements CalendarController {
     }
 
     public final View getView() {
-        return this.calendarview;
+        return this.calendarView;
     }
 
 
