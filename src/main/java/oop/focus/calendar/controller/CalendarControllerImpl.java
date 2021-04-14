@@ -38,7 +38,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     public CalendarControllerImpl(final DataSource dataSource) {
 
-        this.monthController = new CalendarMonthControllerImpl(CalendarType.DIARY, dataSource);
+        this.monthController = new CalendarMonthControllerImpl(CalendarType.NORMAL, dataSource);
 
         settingsController = new CalendarSettingsControllerImpl(monthController);
 
