@@ -17,6 +17,7 @@ public class AccountButtonsImpl extends VBox {
         controller.getAccounts().stream()
                 .sorted(Comparator.comparing(Account::getName))
                 .forEach(a -> acccountButtons.add(factory.getAccountTransactions(controller, a)));
+        acccountButtons.forEach(b -> b.getButton().setPrefWidth(130));
         acccountButtons.forEach(b -> this.getChildren().add(b.getButton()));
         acccountButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(controller)));
     }

@@ -2,13 +2,9 @@
 
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="mainBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainBorderPane" maxHeight="10000.0" maxWidth="10000.0" minHeight="190.0" minWidth="400.0" prefHeight="400.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <right>
-      <ScrollPane fx:id="menuScroll" prefHeight="400.0" prefWidth="131.0" BorderPane.alignment="CENTER" />
+      <ScrollPane fx:id="menuScroll" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="133.0" BorderPane.alignment="CENTER" />
    </right>
-   <center>
-      <Pane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
 </BorderPane>

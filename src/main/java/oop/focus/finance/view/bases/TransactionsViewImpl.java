@@ -9,10 +9,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.NewAccountControllerImpl;
@@ -31,11 +31,13 @@ import java.util.function.Predicate;
 public class TransactionsViewImpl extends GenericView<TransactionsController> implements TransactionsView {
 
     @FXML
+    private BorderPane mainPane;
+    @FXML
     private ScrollPane accountsScroll;
     @FXML
     private VBox transactionsVBox;
     @FXML
-    private Label accountLabel, amountLabel, colorLabel;
+    private Label accountLabel, amountLabel, colorLabel, currencyLabel;
     @FXML
     private Button newAccountButton, deleteButton, newTransactionButton;
 
@@ -45,11 +47,24 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
 
     @Override
     public final void populate() {
-        this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountControllerImpl(super.getX().getManager()).getView()));
+        this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountControllerImpl(
+                super.getX().getManager()).getView()));
         this.deleteButton.setOnAction(event -> this.deleteAccounts());
-        this.newTransactionButton.setOnAction(event -> this.showWindow(new NewTransactionControllerImpl(super.getX().getManager()).getView()));
+        this.newTransactionButton.setOnAction(event -> this.showWindow(new NewTransactionControllerImpl(
+                super.getX().getManager()).getView()));
         final Node accountsButtons = new AccountButtonsImpl(super.getX());
         this.accountsScroll.setContent(accountsButtons);
+        this.setPref();
+    }
+
+    private void setPref() {
+        this.colorLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.accountLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.currencyLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.amountLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.deleteButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.newTransactionButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.accountsScroll.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
     }
 
     @Override

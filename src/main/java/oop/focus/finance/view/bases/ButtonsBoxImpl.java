@@ -17,6 +17,7 @@ public class ButtonsBoxImpl extends VBox {
         menuButtons.add(factory.getStatistics(controller, "Statistiche", controller.getManager()));
         menuButtons.add(factory.getSubscriptions(controller, "Abbonamenti", controller.getManager()));
         menuButtons.add(factory.getGroupTransactions(controller, "Gruppo", controller.getManager()));
+        menuButtons.forEach(b -> b.getButton().setPrefWidth(130));
         menuButtons.forEach(b -> this.getChildren().add(b.getButton()));
         menuButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(controller)));
     }
