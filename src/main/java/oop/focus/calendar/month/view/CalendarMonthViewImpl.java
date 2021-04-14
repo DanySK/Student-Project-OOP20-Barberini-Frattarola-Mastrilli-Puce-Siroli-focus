@@ -167,7 +167,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
                 homepageCalendar(daysGrid, day);
             }
         });
-
         daysGrid.setAlignment(Pos.CENTER);
         daysGrid.setHgap(GAP);
         daysGrid.setVgap(GAP);
@@ -231,21 +230,19 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      */
     private void diaryCalendar(final GridPane daysGrid, final Day day) throws IOException {
         final VBox container = new VBox();
-        container.setAlignment(Pos.CENTER);
-        container.setPrefSize(DIM, DIM);
         final Label dayNumber = new Label(" " + day.getNumber() + " ");
         dayNumber.setFont(Font.font(monthController.getFontSize() / MOOD_FONT));
         container.getChildren().add(dayNumber);
         final LocalDate localDay = new LocalDate(day.getYear(), day.getMonthNumber(), day.getNumber());
-        final DailyMoodControllerImpl moodcontroller = new DailyMoodControllerImpl(new DailyMoodManagerImpl(monthController.getDataSource()));
-        if (moodcontroller.getValueByDate(localDay).isPresent()) {
-            final Optional<Integer> index = moodcontroller.getValueByDate(localDay);
+        final DailyMoodControllerImpl moodController = new DailyMoodControllerImpl(new DailyMoodManagerImpl(monthController.getDataSource()));
+        if (moodController.getValueByDate(localDay).isPresent()) {
+            final Optional<Integer> index = moodController.getValueByDate(localDay);
             if (index.isPresent()) {
-                //jb.fitWidthProperty().bind(container.widthProperty().divide(2));
-                //jb.fitHeightProperty().bind(container.heightProperty().divide(2));
                 container.getChildren().add(new DailyMoodViewImpl(index.get()).getRoot());
             }
         }
+        container.setAlignment(Pos.CENTER);
+        container.setPrefSize(DIM, DIM);
         daysGrid.add(container, counter, count);
     }
 
