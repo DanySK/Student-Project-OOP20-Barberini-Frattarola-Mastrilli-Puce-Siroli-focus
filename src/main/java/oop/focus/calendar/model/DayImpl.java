@@ -27,6 +27,12 @@ public class DayImpl implements Day {
         dailyEvents = new ArrayList<>();
         this.date = date;
         final List<Event> temp = manager.findByDate(date);
+        final List<Event> future = manager.getFutureEvent(date);
+        future.stream().forEach(e -> {
+            if (!temp.contains(e)) {
+                temp.add(e);
+            }
+        });
         this.events.addAll(manager.takeOnly(temp));
         this.dailyEvents.addAll(manager.takeOnlyDailyEvent(temp));
     }
