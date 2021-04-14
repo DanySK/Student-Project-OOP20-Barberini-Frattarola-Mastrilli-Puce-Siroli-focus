@@ -78,8 +78,8 @@ public class ComputeTotalTimeOfEventTest {
         final String pal = "test6";
         Event first = new EventImpl(str, new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
         final Event second = new EventImpl(pal, new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 10, 00), Repetition.ONCE);
-        me.addEvent(first);
-        me.addEvent(second);
+        me. saveTimer(first);
+        me.saveTimer(second);
         //stampa tempo dedicato allo shopping e alla palestra
         System.out.println(csc.computePeriod(str).get().getHours() +":"+ csc.computePeriod(str).get().getMinutes() +
                 ":" +csc.computePeriod(str).get().getSeconds());
@@ -87,7 +87,7 @@ public class ComputeTotalTimeOfEventTest {
                 ":" +csc.computePeriod(pal).get().getSeconds());
         //si crea un'altro evento "shopping", in un altro giorno e dalla durata di 5 ore
         first = new EventImpl(str, new LocalDateTime(2021, 9, 27, 10, 30), new LocalDateTime(2021, 9, 27, 15, 30), Repetition.ONCE);
-        me.addEvent(first);
+        me.saveTimer(first);
         //si verifica che, in totale, sono state dedicate 6 ore in totale.
         System.out.println(csc.computePeriod(str).get().getHours()+
                 ":"+ csc.computePeriod(str).get().getMinutes() +":" +csc.computePeriod(str).get().getSeconds() );
@@ -100,7 +100,7 @@ public class ComputeTotalTimeOfEventTest {
         final String prog = "test7";
         //creato evento progetto, dalla durata di 5 ore
         Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20, 30), new LocalDateTime(2021, 9, 27, 01, 30), Repetition.ONCE);
-        this.me.addEvent(third);
+        this.me.saveTimer(third);
         //verifica la durata dell'evento progetto
         System.out.println("Test 7 :" + this.csc.computePeriod(prog).get().getHours() + ":"
                 +csc.computePeriod(prog).get().getMinutes() + ":"+csc.computePeriod(prog).get().getSeconds());

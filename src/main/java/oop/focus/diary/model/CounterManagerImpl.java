@@ -85,7 +85,7 @@ public class CounterManagerImpl implements CounterManager {
         if (this.finalCounter.isPresent() && this.finalCounter.get().equals(0)) {
             this.sound.playSound();
         }
-        this.me.addEvent(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
+        this.me.saveTimer(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
     }
     @Override
     public final boolean isPlaying() {
