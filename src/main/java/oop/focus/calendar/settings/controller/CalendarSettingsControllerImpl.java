@@ -1,10 +1,11 @@
-package oop.focus.calendar.controller;
+package oop.focus.calendar.settings.controller;
 
 
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.CalendarSettingsView;
-import oop.focus.calendar.view.CalendarSettingsViewImpl;
+import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.calendar.settings.view.CalendarSettingsView;
+import oop.focus.calendar.settings.view.CalendarSettingsViewImpl;
 import oop.focus.common.View;
 
 

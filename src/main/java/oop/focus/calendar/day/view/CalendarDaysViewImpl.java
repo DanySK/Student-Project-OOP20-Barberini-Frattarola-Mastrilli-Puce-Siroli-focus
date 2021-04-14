@@ -1,4 +1,4 @@
-package oop.focus.calendar.view;
+package oop.focus.calendar.day.view;
 
 
 import javafx.geometry.Pos;
@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import oop.focus.calendar.controller.CalendarDayController;
+import oop.focus.calendar.day.controller.CalendarDayController;
 
 
 

@@ -2,19 +2,18 @@ package oop.focus.calendar.controller;
 
 
 import oop.focus.calendar.model.CalendarType;
+import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
-import oop.focus.calendar.persons.view.PersonsView;
-import oop.focus.calendar.persons.view.PersonsViewImpl;
+import oop.focus.calendar.settings.controller.CalendarSettingsController;
+import oop.focus.calendar.settings.controller.CalendarSettingsControllerImpl;
 import oop.focus.calendar.view.CalendarView;
 import oop.focus.calendar.view.CalendarViewImpl;
 import oop.focus.calendar.week.controller.NewEventController;
 import oop.focus.calendar.week.controller.NewEventControllerImpl;
 import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.calendar.week.controller.WeekControllerImpl;
-import oop.focus.calendar.week.view.NewEventWeekViewImpl;
-import oop.focus.calendar.week.view.WeekView;
-import oop.focus.calendar.week.view.WeekViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.statistics.controller.EventsStatistics;
@@ -25,63 +24,58 @@ import oop.focus.statistics.controller.EventsStatistics;
 public class CalendarControllerImpl implements CalendarController {
 
     //Classes
-    private final CalendarSettingsController settingscontroller;
-    private final CalendarMonthController monthcontroller;
-
-    private final EventsStatistics statisticscontroller;
-
-    private final NewEventController newevent;
-    private final WeekView week;
-    private final PersonsView personsview;
-
+    private final CalendarSettingsController settingsController;
+    private final CalendarMonthController monthController;
+    private final EventsStatistics statisticsController;
+    private final WeekController weekController;
+    private final NewEventController newEventController;
+    private final PersonsController personController;
     private final CalendarView calendarview;
 
 
     /**
      * Used for initialize the calendar controller.
-     * @param datasource
+     * @param dataSource
      */
-    public CalendarControllerImpl(final DataSource datasource) {
+    public CalendarControllerImpl(final DataSource dataSource) {
 
-        this.monthcontroller = new CalendarMonthControllerImpl(CalendarType.NORMAL, datasource);
+        this.monthController = new CalendarMonthControllerImpl(CalendarType.NORMAL, dataSource);
 
-        settingscontroller = new CalendarSettingsControllerImpl(monthcontroller);
+        settingsController = new CalendarSettingsControllerImpl(monthController);
 
-        this.statisticscontroller  = new EventsStatistics(datasource);
+        this.statisticsController  = new EventsStatistics(dataSource);
 
-        final WeekController weekcontroller = new WeekControllerImpl(datasource);
-        this.week = new WeekViewImpl(weekcontroller);
-        this.newevent = new NewEventControllerImpl(datasource,weekcontroller,  this.monthcontroller);
+        weekController = new WeekControllerImpl(dataSource);
+        this.newEventController = new NewEventControllerImpl(dataSource, weekController, this.monthController);
 
-        final PersonsController personcontroller = new PersonsControllerImpl(datasource);
-        personsview = new PersonsViewImpl(personcontroller);
+        personController = new PersonsControllerImpl(dataSource);
 
         calendarview = new CalendarViewImpl(this);
         calendarview.setCalendarPage(); 
     }
 
     public final CalendarSettingsController getSettingsController() {
-        return this.settingscontroller;
+        return this.settingsController;
     }
 
     public final CalendarMonthController getMonthController() {
-        return this.monthcontroller;
+        return this.monthController;
     }
 
     public final EventsStatistics getStatisticsController() {
-        return this.statisticscontroller;
+        return this.statisticsController;
     }
 
-    public final WeekView getWeek() {
-        return this.week;
+    public final WeekController getWeekController() {
+        return this.weekController;
     }
 
-    public final PersonsView getPerson() {
-        return this.personsview;
+    public final PersonsController getPersonController() {
+        return this.personController;
     }
 
-    public final NewEventController getNewEvent() {
-        return this.newevent;
+    public final NewEventController getNewEventController() {
+        return this.newEventController;
     }
 
     public final View getView() {

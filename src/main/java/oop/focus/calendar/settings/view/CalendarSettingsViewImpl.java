@@ -1,4 +1,4 @@
-package oop.focus.calendar.view;
+package oop.focus.calendar.settings.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,8 +18,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import oop.focus.calendar.controller.CalendarSettingsController;
 import oop.focus.calendar.model.Format;
+import oop.focus.calendar.settings.controller.CalendarSettingsController;
 
 
 public class CalendarSettingsViewImpl implements CalendarSettingsView {

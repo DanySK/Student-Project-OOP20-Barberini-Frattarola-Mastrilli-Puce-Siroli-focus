@@ -1,6 +1,6 @@
 package oop.focus.calendar.week.controller;
 
-import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.view.NewEventWeekViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;

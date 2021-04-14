@@ -1,9 +1,9 @@
-package oop.focus.calendar.controller;
+package oop.focus.calendar.day.controller;
 
+import oop.focus.calendar.day.view.HoursView;
+import oop.focus.calendar.day.view.VBoxManager;
 import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.HoursView;
-import oop.focus.calendar.view.VBoxManager;
 import oop.focus.common.Controller;
 
 

@@ -1,14 +1,14 @@
-package oop.focus.calendar.controller;
+package oop.focus.calendar.day.controller;
 
 
+import oop.focus.calendar.day.view.CalendarDaysView;
+import oop.focus.calendar.day.view.CalendarDaysViewImpl;
+import oop.focus.calendar.day.view.EventViewImpl;
+import oop.focus.calendar.day.view.HoursView;
+import oop.focus.calendar.day.view.HoursViewImpl;
+import oop.focus.calendar.day.view.VBoxManager;
 import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.CalendarDaysView;
-import oop.focus.calendar.view.CalendarDaysViewImpl;
-import oop.focus.calendar.view.EventViewImpl;
-import oop.focus.calendar.view.HoursView;
-import oop.focus.calendar.view.HoursViewImpl;
-import oop.focus.calendar.view.VBoxManager;
 import oop.focus.common.View;
 
 
@@ -47,7 +47,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         this.hoursBox = new HoursViewImpl();
         this.eventBox = new EventViewImpl(hoursBox, day);
 
-        this.dailyEvents = "Attività giornaliere:" + SEP;
+        this.dailyEvents = "Attivita' giornaliere:" + SEP;
         this.width = width;
         this.height = height;
         setSpacing(SPACING);

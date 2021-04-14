@@ -25,7 +25,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.week.controller.FXMLPaths;

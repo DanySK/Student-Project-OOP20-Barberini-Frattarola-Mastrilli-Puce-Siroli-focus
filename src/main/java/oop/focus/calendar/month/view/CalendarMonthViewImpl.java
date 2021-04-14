@@ -1,4 +1,4 @@
-package oop.focus.calendar.view;
+package oop.focus.calendar.month.view;
 
 
 import java.io.IOException;
@@ -28,11 +28,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import oop.focus.calendar.controller.CalendarDayController;
-import oop.focus.calendar.controller.CalendarDayControllerImpl;
-import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.day.controller.CalendarDayController;
+import oop.focus.calendar.day.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.model.Day;
+import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.view.DailyMoodViewImpl;

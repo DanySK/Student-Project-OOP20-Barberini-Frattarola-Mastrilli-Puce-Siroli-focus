@@ -1,4 +1,4 @@
-package oop.focus.calendar.controller;
+package oop.focus.calendar.settings.controller;
 
 
 import javafx.stage.Stage;

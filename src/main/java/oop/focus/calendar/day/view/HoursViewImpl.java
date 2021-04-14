@@ -1,4 +1,4 @@
-package oop.focus.calendar.view;
+package oop.focus.calendar.day.view;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

@@ -1,4 +1,4 @@
-package oop.focus.calendar.view;
+package oop.focus.calendar.settings.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

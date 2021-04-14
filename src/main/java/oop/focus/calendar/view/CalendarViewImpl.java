@@ -59,8 +59,8 @@ public class CalendarViewImpl implements CalendarView {
 
 
         columnButton(buttonColumn, "Mese", addPanel(panelColumn, calendarController.getMonthController().getView().getRoot()));
-        columnButton(buttonColumn, "Settimana", addPanel(panelColumn, calendarController.getWeek().getRoot()));
-        columnButton(buttonColumn, "Persone", addPanel(panelColumn, calendarController.getPerson().getRoot()));
+        columnButton(buttonColumn, "Settimana", addPanel(panelColumn, calendarController.getWeekController().getView().getRoot()));
+        columnButton(buttonColumn, "Persone", addPanel(panelColumn, calendarController.getPersonController().getView().getRoot()));
         columnButton(buttonColumn, "Statistiche", addPanel(panelColumn, calendarController.getStatisticsController().getView().getRoot()));
         buttonColumn.getChildren().add(buildAddEventButton());
         buttonColumn.getChildren().add(buildSettingsWindows());
@@ -134,7 +134,7 @@ public class CalendarViewImpl implements CalendarView {
         final Button addEvents = new Button("Aggiungi Evento");
 
         final Stage addeventsstage = new Stage();
-        addeventsstage.setScene(new Scene((Parent) calendarController.getNewEvent().getView().getRoot()));
+        addeventsstage.setScene(new Scene((Parent) calendarController.getNewEventController().getView().getRoot()));
         addEvents.setOnAction((e) -> {
             addeventsstage.show();
         });

@@ -1,15 +1,17 @@
-package oop.focus.calendar.controller;
+package oop.focus.calendar.month.controller;
 
 
 
 import java.util.List;
+
+import oop.focus.calendar.day.controller.CalendarDayController;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
-import oop.focus.calendar.view.CalendarMonthView;
-import oop.focus.calendar.view.CalendarMonthViewImpl;
+import oop.focus.calendar.month.view.CalendarMonthView;
+import oop.focus.calendar.month.view.CalendarMonthViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 

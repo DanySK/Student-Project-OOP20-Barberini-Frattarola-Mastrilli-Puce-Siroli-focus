@@ -1,4 +1,4 @@
-package oop.focus.calendar.view;
+package oop.focus.calendar.day.view;
 import oop.focus.calendar.model.Format;
 
 /**
