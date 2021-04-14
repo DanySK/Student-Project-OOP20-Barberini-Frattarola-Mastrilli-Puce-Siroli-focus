@@ -11,10 +11,4 @@ public interface NewEventController {
     DataSource getDsi();
 
     View getView();
-
-    boolean isCompatible(Event eventToSave);
-
-    boolean itIsValid(Event event);
-
-    //void updateView();
 }

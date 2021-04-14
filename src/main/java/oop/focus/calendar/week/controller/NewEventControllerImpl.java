@@ -1,6 +1,6 @@
 package oop.focus.calendar.week.controller;
 
-import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.view.NewEventWeekViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
@@ -44,13 +44,4 @@ public class NewEventControllerImpl implements NewEventController {
     public final View getView() {
         return this.view;
     }
-
-    public boolean isCompatible(Event eventToSave) {
-        return this.eventManager.getAnswer(eventToSave);
-    }
-
-    public final boolean itIsValid(final Event event) {
-        return this.timeProperty.getValidity(event);
-    }
-
 }
