@@ -8,13 +8,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import oop.focus.calendar.persons.controller.PersonsController;
+import oop.focus.calendar.persons.controller.PersonsControllerImpl;
+import oop.focus.calendar.persons.view.PersonsView;
+import oop.focus.calendar.persons.view.PersonsViewImpl;
 import oop.focus.finance.controller.AddPersonController;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.week.controller.PersonsController;
 import oop.focus.homepage.model.Person;
-import oop.focus.week.controller.PersonsControllerImpl;
-import oop.focus.week.view.PersonsView;
-import oop.focus.week.view.PersonsViewImpl;
 
 public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
 
@@ -42,9 +42,8 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
 
     private void newPerson() {
         final PersonsController controller = new PersonsControllerImpl(super.getX().getDb());
-        final PersonsView persons = new PersonsViewImpl(controller);
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) persons.getRoot()));
+        stage.setScene(new Scene((Parent) controller.getView().getRoot()));
         stage.show();
         this.close();
     }

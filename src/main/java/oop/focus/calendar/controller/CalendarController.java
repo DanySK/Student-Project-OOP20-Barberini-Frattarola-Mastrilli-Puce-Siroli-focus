@@ -1,10 +1,11 @@
 package oop.focus.calendar.controller;
 
+import oop.focus.calendar.persons.view.PersonsView;
+import oop.focus.calendar.week.controller.NewEventController;
+import oop.focus.calendar.week.view.NewEventWeekViewImpl;
+import oop.focus.calendar.week.view.WeekView;
 import oop.focus.common.Controller;
 import oop.focus.statistics.controller.EventsStatistics;
-import oop.focus.week.view.AddNewEventWeekView;
-import oop.focus.week.view.PersonsView;
-import oop.focus.week.view.WeekView;
 
 /**
  * Interface that models a Calendar Controller.
@@ -40,7 +41,7 @@ public interface CalendarController extends Controller {
     * Used for get the New Event Controller.
     * @return AddNewEventWeekView
     */
-   AddNewEventWeekView getNewEvent();
+   NewEventController getNewEvent();
 
    /**
     * Used for get the Person Controller.

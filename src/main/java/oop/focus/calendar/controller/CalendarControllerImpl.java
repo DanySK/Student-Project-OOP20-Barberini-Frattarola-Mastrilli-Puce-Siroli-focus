@@ -2,20 +2,23 @@ package oop.focus.calendar.controller;
 
 
 import oop.focus.calendar.model.CalendarType;
+import oop.focus.calendar.persons.controller.PersonsController;
+import oop.focus.calendar.persons.controller.PersonsControllerImpl;
+import oop.focus.calendar.persons.view.PersonsView;
+import oop.focus.calendar.persons.view.PersonsViewImpl;
 import oop.focus.calendar.view.CalendarView;
 import oop.focus.calendar.view.CalendarViewImpl;
+import oop.focus.calendar.week.controller.NewEventController;
+import oop.focus.calendar.week.controller.NewEventControllerImpl;
+import oop.focus.calendar.week.controller.WeekController;
+import oop.focus.calendar.week.controller.WeekControllerImpl;
+import oop.focus.calendar.week.view.NewEventWeekViewImpl;
+import oop.focus.calendar.week.view.WeekView;
+import oop.focus.calendar.week.view.WeekViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.statistics.controller.EventsStatistics;
-import oop.focus.week.controller.PersonsController;
-import oop.focus.week.controller.PersonsControllerImpl;
-import oop.focus.week.controller.WeekController;
-import oop.focus.week.controller.WeekControllerImpl;
-import oop.focus.week.view.AddNewEventWeekView;
-import oop.focus.week.view.PersonsView;
-import oop.focus.week.view.PersonsViewImpl;
-import oop.focus.week.view.WeekView;
-import oop.focus.week.view.WeekViewImpl;
+
 
 
 
@@ -27,7 +30,7 @@ public class CalendarControllerImpl implements CalendarController {
 
     private final EventsStatistics statisticscontroller;
 
-    private final AddNewEventWeekView newevent;
+    private final NewEventController newevent;
     private final WeekView week;
     private final PersonsView personsview;
 
@@ -46,9 +49,9 @@ public class CalendarControllerImpl implements CalendarController {
 
         this.statisticscontroller  = new EventsStatistics(datasource);
 
-        final WeekController weekcontroller = new  WeekControllerImpl(datasource);
+        final WeekController weekcontroller = new WeekControllerImpl(datasource);
         this.week = new WeekViewImpl(weekcontroller);
-        this.newevent = new AddNewEventWeekView(weekcontroller, this.week, this.monthcontroller);
+        this.newevent = new NewEventControllerImpl(datasource,weekcontroller,  this.monthcontroller);
 
         final PersonsController personcontroller = new PersonsControllerImpl(datasource);
         personsview = new PersonsViewImpl(personcontroller);
@@ -77,7 +80,7 @@ public class CalendarControllerImpl implements CalendarController {
         return this.personsview;
     }
 
-    public final AddNewEventWeekView getNewEvent() {
+    public final NewEventController getNewEvent() {
         return this.newevent;
     }
 

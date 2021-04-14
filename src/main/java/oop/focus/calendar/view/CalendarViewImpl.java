@@ -134,7 +134,7 @@ public class CalendarViewImpl implements CalendarView {
         final Button addEvents = new Button("Aggiungi Evento");
 
         final Stage addeventsstage = new Stage();
-        addeventsstage.setScene(new Scene((Parent) calendarController.getNewEvent().getRoot()));
+        addeventsstage.setScene(new Scene((Parent) calendarController.getNewEvent().getView().getRoot()));
         addEvents.setOnAction((e) -> {
             addeventsstage.show();
         });
