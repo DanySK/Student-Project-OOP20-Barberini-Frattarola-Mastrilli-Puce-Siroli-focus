@@ -11,19 +11,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
+import oop.focus.common.View;
+
 import static java.util.Objects.nonNull;
 
-public class CalendarViewImpl implements CalendarView {
+public class CalendarViewImpl implements View {
 
     //Classes
     private final CalendarController calendarController;
 
     //View
-    private HBox calendarPage;
-
-    //Variables
-    private final double settingsWidth;
-    private final double settingsHeight;
+    private final HBox calendarPage;
 
     //Costants
     private static final double WIDTH_BUTTON_PANEL = 0.2; 
@@ -32,20 +30,21 @@ public class CalendarViewImpl implements CalendarView {
     private static final double GAP = 20;
     private static final double SETTING_WIDTH = 300;
     private static final double SETTING_HEIGHT = 150;
+    private static final double EVENT_WIDTH = 700;
+    private static final double EVENT_HEIGHT = 600;
 
 
     public CalendarViewImpl(final CalendarController calendarcontroller) {
         this.calendarController = calendarcontroller;
         this.calendarPage = new HBox();
-        this.settingsWidth = SETTING_WIDTH;
-        this.settingsHeight = SETTING_HEIGHT;
+        buildCalendarPage();
     }
 
     /**
      * Used for build the calendar page box.
      * @return HBox
      */
-    private HBox buildCalendarPage() {
+    private void buildCalendarPage() {
 
         final VBox buttonColumn = new VBox();
         final VBox panelColumn = new VBox();
@@ -62,12 +61,11 @@ public class CalendarViewImpl implements CalendarView {
         columnButton(buttonColumn, "Settimana", addPanel(panelColumn, calendarController.getWeekController().getView().getRoot()));
         columnButton(buttonColumn, "Persone", addPanel(panelColumn, calendarController.getPersonController().getView().getRoot()));
         columnButton(buttonColumn, "Statistiche", addPanel(panelColumn, calendarController.getStatisticsController().getView().getRoot()));
-        buttonColumn.getChildren().add(buildAddEventButton());
-        buttonColumn.getChildren().add(buildSettingsWindows());
+        buttonColumn.getChildren().add(buildButtonWindows("IMPOSTAZIONI", calendarController.getSettingsController().getView(), SETTING_WIDTH, SETTING_HEIGHT));
+        buttonColumn.getChildren().add(buildButtonWindows("AGGIUNGI EVENTO", calendarController.getNewEventController().getView(), EVENT_WIDTH, EVENT_HEIGHT));
 
         panelColumn.getChildren().add(calendarController.getMonthController().getView().getRoot());
 
-        return calendarPage;
     }
 
 
@@ -100,48 +98,48 @@ public class CalendarViewImpl implements CalendarView {
 
     /**
      * Used for create the button to put in the button column (the left one of the view).
-     * @param buttoncolumn : where the button will be
+     * @param buttonColumn : where the button will be
      * @param string : name of the button
-     * @param openthispanel : is the EventHandler that open a panel
+     * @param openThisPanel : is the EventHandler that open a panel
      */
-    private void columnButton(final VBox buttoncolumn, final String string, final EventHandler<ActionEvent> openthispanel) {
+    private void columnButton(final VBox buttonColumn, final String string, final EventHandler<ActionEvent> openThisPanel) {
         final Button button = new Button(string);
         button.setPrefHeight(GAP * 2);
         button.setAlignment(Pos.CENTER);
-        button.prefWidthProperty().bind(buttoncolumn.widthProperty().multiply(WIDTH_BUTTON));
-        buttoncolumn.getChildren().add(button);
-        button.setOnAction(openthispanel);
+        button.prefWidthProperty().bind(buttonColumn.widthProperty().multiply(WIDTH_BUTTON));
+        buttonColumn.getChildren().add(button);
+        button.setOnAction(openThisPanel);
     }
 
-    public final void setCalendarPage() {
-        this.calendarPage = buildCalendarPage();
-    }
+    /**
+     * Used for build the button for open window.
+     * @param name : String with the name of the button
+     * @param view : controller of the windows to open
+     * @param widht : width of the window
+     * @param height : height of the window
+     * @return Button
+     */
+    private Button buildButtonWindows(final String name, final View view, final double width, final double height) {
+        final Button button = new Button(name);
 
-
-    public final Button buildSettingsWindows() {
-        final Button settings = new Button("IMPOSTAZIONI");
-
-        final Stage settingsStage = new Stage();
-        settingsStage.setScene(new Scene((Parent) calendarController.getSettingsController().getView().getRoot(), settingsWidth, settingsHeight));
-        calendarController.getSettingsController().setWindow(settingsStage);
-        settings.setOnAction((e) -> {
-            settingsStage.show();
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) view.getRoot(), width, height));
+        if ("IMPOSTAZIONI".equalsIgnoreCase(name)) {
+        calendarController.getSettingsController().setWindow(stage);
+        }
+        button.setOnAction((e) -> {
+            stage.show();
         });
-        return settings;
+        return button;
     }
 
-    public final Button buildAddEventButton() {
-        final Button addEvents = new Button("Aggiungi Evento");
-
-        final Stage addeventsstage = new Stage();
-        addeventsstage.setScene(new Scene((Parent) calendarController.getNewEventController().getView().getRoot()));
-        addEvents.setOnAction((e) -> {
-            addeventsstage.show();
-        });
-        return addEvents;
-    }
-
-    public final EventHandler<ActionEvent> addPanel(final VBox panelColumn, final Node root) {
+    /**
+     * Used for show the panel of the button that we have clicked.
+     * @param panelColumn : column where we put the panel
+     * @param root : root of the panel
+     * @return EventHandler
+     */
+    private EventHandler<ActionEvent> addPanel(final VBox panelColumn, final Node root) {
         return new EventHandler<ActionEvent>() {
 
             @Override

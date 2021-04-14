@@ -8,7 +8,6 @@ import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.settings.controller.CalendarSettingsController;
 import oop.focus.calendar.settings.controller.CalendarSettingsControllerImpl;
-import oop.focus.calendar.view.CalendarView;
 import oop.focus.calendar.view.CalendarViewImpl;
 import oop.focus.calendar.week.controller.NewEventController;
 import oop.focus.calendar.week.controller.NewEventControllerImpl;
@@ -30,7 +29,7 @@ public class CalendarControllerImpl implements CalendarController {
     private final WeekController weekController;
     private final NewEventController newEventController;
     private final PersonsController personController;
-    private final CalendarView calendarView;
+    private final View calendarView;
 
 
     /**
@@ -50,8 +49,7 @@ public class CalendarControllerImpl implements CalendarController {
 
         personController = new PersonsControllerImpl(dataSource);
 
-        calendarView = new CalendarViewImpl(this);
-        calendarView.setCalendarPage(); 
+        this.calendarView = new CalendarViewImpl(this);
     }
 
     public final CalendarSettingsController getSettingsController() {
