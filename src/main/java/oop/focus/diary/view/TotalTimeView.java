@@ -1,5 +1,6 @@
 package oop.focus.diary.view;
 
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -21,7 +22,14 @@ public class TotalTimeView implements View {
 
     }
     public final void setLabel(final LocalTime localTime) {
-        this.label.setText(localTime.toString(TIME_FORMATTER));
+        Platform.runLater(() -> {
+            this.label.setText(localTime.toString(TIME_FORMATTER));
+        });
+    }
+    public final void updateValue(final LocalTime localTime) {
+        Platform.runLater(() -> {
+            this.label.setText(localTime.toString(TIME_FORMATTER));
+        });
     }
     @Override
     public final Node getRoot() {

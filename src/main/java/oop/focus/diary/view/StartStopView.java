@@ -25,10 +25,17 @@ public class StartStopView implements View {
     public StartStopView(final CounterControllerImpl controller) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
-        this.start.setOnMouseClicked(event -> controller.startTimer());
+        this.start.setOnMouseClicked(event -> {
+            controller.startTimer();
+            this.start.setDisable(true);
+        });
         this.stop.setDisable(true);
         this.start.setDisable(true);
-        this.stop.setOnMouseClicked(event -> controller.stopTimer());
+        this.stop.setOnMouseClicked(event -> {
+            controller.stopSound();
+            controller.stopTimer();
+            this.start.setDisable(false);
+        });
         this.counterLabel = new Label(LocalTime.MIDNIGHT.toString(TIME_FORMATTER));
     }
     public final void disableButton(final boolean disable) {

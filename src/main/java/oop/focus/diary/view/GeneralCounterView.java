@@ -10,6 +10,7 @@ public class GeneralCounterView implements View {
     private final GridPane gridPane;
     public GeneralCounterView(final List<List<Node>> list) {
         this.gridPane = new GridPane();
+        gridPane.setGridLinesVisible(true);
         int index = 0;
         for (final List<Node> l : list) {
             for (final Node node : l) {

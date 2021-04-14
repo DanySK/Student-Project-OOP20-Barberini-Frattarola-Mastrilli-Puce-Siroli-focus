@@ -23,7 +23,7 @@ public class ComputeTotalTimeOfEventTest {
     private final CounterManager timer = new CounterManagerImpl(this.me, true);
     private final CounterManager stopwatch = new CounterManagerImpl(this.me, false);
     private final TotalTimeEvent csc = new TotalTimeEventImpl(this.me);
-/*
+
     @Test
     public void testTimer() throws InterruptedException {
         final String str = "test1";
@@ -31,26 +31,26 @@ public class ComputeTotalTimeOfEventTest {
         this.timer.setChangeListener(System.out::println);
         //il timer relativo all'attività studio è settata a 5 sec
         this.timer.setStarterValue(5);
+        //this.timer.setFinishListener(s -> s.timer.createEvent());
         this.timer.startCounter();
         Thread.sleep(6000);
+
         System.out.println("Secondi = " + this.csc.computePeriod(str).get().getSeconds());
         //verifica che il tempo dedicato ad un'altra attività sia vuoto
         assertEquals(Optional.empty(), this.csc.computePeriod("correre"));
-        this.me.removeEvent(this.me.findByName(str).stream().iterator().next());
+        this.me.removeEvent(this.me.findByName(str).stream().findAny().get());
 
     }
-*/
-/*
+
+
     @Test
-    public void testAlarmSound() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
+    public void testAlarmSound() throws InterruptedException {
         timer.createCounter("test2");
+        timer.setChangeListener(System.out::println);
         timer.setStarterValue(3);
         timer.startCounter();
         Thread.sleep(8000);
-        final Sound sound = new SoundImpl();
-        if(sound.isPlaying()){
-            sound.stopSound();
-        }
+        System.out.println("Secondi = " + this.csc.computePeriod("test2").get().getSeconds());
         this.me.removeEvent(this.me.findByName("test2").stream().findAny().get());
     }
 
@@ -100,17 +100,12 @@ public class ComputeTotalTimeOfEventTest {
         final String prog = "test7";
         //creato evento progetto, dalla durata di 5 ore
         Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20, 30), new LocalDateTime(2021, 9, 27, 01, 30), Repetition.ONCE);
-        me.addEvent(third);
+        this.me.addEvent(third);
         //verifica la durata dell'evento progetto
-        System.out.println("Test 7 :" +csc.computePeriod(prog).get().getHours() + ":"
+        System.out.println("Test 7 :" + this.csc.computePeriod(prog).get().getHours() + ":"
                 +csc.computePeriod(prog).get().getMinutes() + ":"+csc.computePeriod(prog).get().getSeconds());
         //nuovo evento progetto, dalla durata di 21 ore
-        third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 21, 30), new LocalDateTime(2021, 9, 27, 18, 30), Repetition.ONCE);
-        me.addEvent(third);
-        //verifica la durata totale del progetto : 26 ore
-        System.out.println("Test 7 :" +csc.computePeriod(prog).get().getHours() + ":"+csc.computePeriod(prog).get().getMinutes() +
-                ":"+csc.computePeriod(prog).get().getSeconds());
-        this.me.removeEvent(this.me.findByName(prog).stream().findAny().get());
+
     }
 
 
@@ -118,7 +113,7 @@ public class ComputeTotalTimeOfEventTest {
 
 
 
- */
+
 
 }
 

@@ -45,6 +45,7 @@ public class CounterManagerImpl implements CounterManager {
         }
         this.counter.addFinishListener(integer -> {
            this.finalCounter = Optional.of(integer);
+           this.createEvent();
         });
 
     }
@@ -68,7 +69,7 @@ public class CounterManagerImpl implements CounterManager {
     @Override
     public final void stopCounter() {
         this.counter.stopCounter();
-        this.createEvent();
+        //this.createEvent();
     }
     @Override
     public final void setStarterValue(final Integer value) {

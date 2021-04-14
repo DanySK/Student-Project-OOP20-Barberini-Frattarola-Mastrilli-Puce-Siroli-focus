@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.DateTimeStringConverter;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
+import oop.focus.diary.controller.InsertTimeTimerController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -41,10 +42,12 @@ public class InsertTimeTimerWindow implements Initializable, View {
     private Label separate0;
     @FXML
     private Label separate1;
-    private final Consumer<String> consumer;
+
     private Parent root;
-    public InsertTimeTimerWindow(final Consumer<String> consumer) {
-        this.consumer = consumer;
+    private String value;
+    private InsertTimeTimerController controller;
+    public InsertTimeTimerWindow(InsertTimeTimerController controller) {
+        this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TIMER_TIME.getPath()));
         loader.setController(this);
         try {
@@ -74,15 +77,14 @@ public class InsertTimeTimerWindow implements Initializable, View {
         this.setTimeFormatter(this.minutes, "mm");
         this.setTimeFormatter(this.seconds, "ss");
         this.save.setOnMouseClicked(event -> {
-            String value;
             final LocalTime r = new LocalTime(Integer.parseInt(this.hours.getText()), Integer.parseInt(this.minutes.getText()),
                     Integer.parseInt(this.seconds.getText()));
-            value = r.toString(TIME_FORMATTER);
-            this.consumer.accept(value);
+            this.controller.setNewValue(r);
             final Stage stage = (Stage) this.pane.getScene().getWindow();
             stage.close();
         });
     }
+
 
     @Override
     public final Node getRoot() {
