@@ -185,6 +185,14 @@ public class EventManagerImpl implements EventManager {
         }
     }
 
+    public final void saveTimer(final Event event) {
+        try {
+            this.events.save(event);
+        } catch (DaoAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
     public final List<Event> takeOnly(final List<Event> eventsList) {
         return eventsList.stream().filter(e -> this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
     }
