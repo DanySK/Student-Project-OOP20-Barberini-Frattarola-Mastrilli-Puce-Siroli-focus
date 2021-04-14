@@ -28,7 +28,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
-
+/*
 public class TimerView implements Initializable, View {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private static final  DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");
@@ -202,3 +202,6 @@ public class TimerView implements Initializable, View {
     }
 }
 
+
+
+ */

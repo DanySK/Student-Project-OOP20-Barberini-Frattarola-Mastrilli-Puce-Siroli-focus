@@ -13,8 +13,8 @@ import javafx.scene.layout.BorderPane;
 
 import javafx.stage.Stage;
 import oop.focus.common.View;
+import oop.focus.diary.controller.EventCounterController;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.TotalTimeControllerImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,9 +36,9 @@ public class NewEventNameImpl implements Initializable, View, NewEventName {
     @FXML
     private BorderPane pane;
     private Parent root;
-    private final TotalTimeControllerImpl totalTimeController;
-    public NewEventNameImpl(final TotalTimeControllerImpl totalTimeController) {
-        this.totalTimeController = totalTimeController;
+    private final EventCounterController controller;
+    public NewEventNameImpl(final EventCounterController controller) {
+        this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADD_EVENT_NAME_COUNTER.getPath()));
         loader.setController(this);
         try {
@@ -73,7 +73,7 @@ public class NewEventNameImpl implements Initializable, View, NewEventName {
             alert.setHeaderText("Inserire nome evento");
             alert.showAndWait();
         }
-        totalTimeController.addValue(this.textField.getText());
+        this.controller.addEvent(this.textField.getText());
         final Stage stage = (Stage) this.insertEvent.getScene().getWindow();
         stage.close();
         return this.textField.getText();

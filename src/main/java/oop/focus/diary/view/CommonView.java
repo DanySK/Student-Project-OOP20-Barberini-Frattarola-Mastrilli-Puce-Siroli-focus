@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * This class has method that can be used by two different classes: StopwatchView and TimerView.
  */
-public final class CommonView {
+/*public final class CommonView {
     private static final double LABEL_WIDTH_PERCENTAGE = 0.25;
 
     private CommonView() {
@@ -112,3 +112,6 @@ public final class CommonView {
         });
     }
 }
+
+
+ */

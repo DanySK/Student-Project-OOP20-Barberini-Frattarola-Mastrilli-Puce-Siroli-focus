@@ -1,10 +1,9 @@
 package oop.focus.diary.controller;
 
-import javafx.collections.FXCollections;
-
-import javafx.collections.ObservableSet;
+import oop.focus.common.View;
 import oop.focus.diary.model.TotalTimeEvent;
 import oop.focus.diary.model.TotalTimeEventImpl;
+import oop.focus.diary.view.TotalTimeView;
 import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalTime;
 
@@ -12,27 +11,26 @@ import org.joda.time.LocalTime;
  * Immutable implementation of TotalTimeController.
  */
 public class TotalTimeControllerImpl implements TotalTimeController {
+
+    private final TotalTimeView totalTimeView;
     private final EventManager eventManager;
-    private final ObservableSet<String> set = FXCollections.observableSet();
-    public TotalTimeControllerImpl(final EventManager em) {
-        this.eventManager = em;
-        this.eventManager.getAll().forEach(s -> this.set.add(s.getName()));
+    public TotalTimeControllerImpl(final EventManager eventManager) {
+        this.totalTimeView = new TotalTimeView();
+        this.eventManager = eventManager;
     }
-    @Override
-    public final ObservableSet<String> getAllEvents() {
-        return this.set;
-    }
-    @Override
-    public final void addValue(final String text) {
-        this.set.add(text);
-    }
-    @Override
-    public final LocalTime getTotalTime(final String event) {
+
+    public final void setTotalTime(final String event) {
         System.out.println(event);
         final TotalTimeEvent totalTimeEvent = new TotalTimeEventImpl(this.eventManager);
         if (totalTimeEvent.computePeriod(event).isPresent()) {
-            return LocalTime.MIDNIGHT.plus(totalTimeEvent.computePeriod(event).get());
+            this.totalTimeView.setLabel(LocalTime.MIDNIGHT.plus(totalTimeEvent.computePeriod(event).get()));
+        } else {
+            this.totalTimeView.setLabel(LocalTime.MIDNIGHT);
         }
-        return LocalTime.MIDNIGHT;
+    }
+
+    @Override
+    public final View getView() {
+        return this.totalTimeView;
     }
 }

@@ -4,8 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
+  import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -26,7 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/*
 public class StopwatchView implements  Initializable, View {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private static final double INSETS = 20;
@@ -62,10 +61,10 @@ public class StopwatchView implements  Initializable, View {
     private Button addNewEvent;
     private Parent root;
 
-    private final TotalTimeControllerImpl totalTimeController;
-    private final CounterControllerImpl specificController;
+   // private final TotalTimeControllerImpl totalTimeController;
+/*    private final CounterControllerImpl specificController;
     public StopwatchView(final TotalTimeControllerImpl totalTimeController, final CounterControllerImpl specificController) {
-        this.totalTimeController = totalTimeController;
+       // this.totalTimeController = totalTimeController;
         this.specificController = specificController;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.STOPWATCH.getPath()));
         loader.setController(this);
@@ -106,19 +105,24 @@ public class StopwatchView implements  Initializable, View {
 
 
     public final void initialize(final URL location, final ResourceBundle resources) {
-        final UpdateView connection = new UpdateView(specificController, this.counterLabel);
+        this.nameEventLabel.setText("Seleziona evento");
+        chooseEvent.getItems().addAll(specificController.getAllEvents());
+        this.chooseEvent.valueProperty().addListener((observable, oldValue, newValue) -> {
+            this.specificController.updateCounter(newValue);
+            this.specificController.setStarter(newValue, LocalTime.MIDNIGHT);
+            this.startButton.setDisable(false);
+        }
+        );
+        this.addNewEvent.setText("+");
+
+       /* final UpdateView connection = new UpdateView(specificController, this.counterLabel);
         this.startButton.setDisable(true);
         this.stopButton.setDisable(true);
         CommonView.setConfig(this.chooseEvent, this.nameEventLabel, this.startButton, this.stopButton, this.addNewEvent,
                 this.addNewEvent, totalTimeController);
         this.counterLabel.setText(LocalTime.MIDNIGHT.toString(TIME_FORMATTER));
 
-        this.chooseEvent.valueProperty().addListener((observable, oldValue, newValue) -> {
-            this.timeLabel.setText(totalTimeController.getTotalTime(newValue).toString(TIME_FORMATTER));
-            specificController.setStarter(newValue, LocalTime.MIDNIGHT);
-            this.startButton.setDisable(false);
-            }
-        );
+
         this.startButton.setOnMouseClicked(event -> {
             CommonView.addStartListener(specificController, connection, this.startButton, this.stopButton,
                     this.chooseEvent);
@@ -133,10 +137,14 @@ public class StopwatchView implements  Initializable, View {
             this.chooseEvent.setDisable(false);
             this.addNewEvent.setDisable(false);
         });
-    }
 
+        */
+//    }
+/*
     @Override
     public final Node getRoot() {
         return this.root;
     }
 }
+
+ */

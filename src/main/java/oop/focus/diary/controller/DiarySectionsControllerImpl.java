@@ -9,8 +9,6 @@ import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.ToDoListManagerImpl;
 import oop.focus.diary.view.BaseDiary;
-import oop.focus.diary.view.StopwatchView;
-import oop.focus.diary.view.TimerView;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class DiarySectionsControllerImpl implements DiarySectionsController {
@@ -29,9 +27,9 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
         this.diary = new BaseDiary(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
                 new DiaryPagesImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource))).
                 getRoot();
-        this.stopwatch = new StopwatchView(totalTimeController,
-                new CounterControllerImpl(eventManager, false)).getRoot();
-        this.timer = new TimerView(totalTimeController, new CounterControllerImpl(eventManager, true)).getRoot();
+       // this.stopwatch = new StopwatchView(totalTimeController,
+        //        new CounterControllerImpl(eventManager, false)).getRoot();
+       // this.timer = new TimerView(totalTimeController, new CounterControllerImpl(eventManager, true)).getRoot();
     }
     @Override
     public final Node getDiary() {

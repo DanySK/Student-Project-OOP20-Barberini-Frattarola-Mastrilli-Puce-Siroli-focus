@@ -1,13 +1,14 @@
 package oop.focus.diary.controller;
 
 import javafx.collections.ObservableList;
+import oop.focus.common.Controller;
 import org.joda.time.LocalTime;
 
 
 /**
  * This interface has methods to start or stop a counter(which could be a timer or a stopwatch).
  */
-public interface CounterController {
+public interface CounterController extends Controller {
     /**
      * The method return an observable list with values of counter, updated whenever one second has passed.
      * @return  a list of localTime, representing counter's values
@@ -43,4 +44,6 @@ public interface CounterController {
      * @return  true if alarm is playing, false otherwise
      */
     boolean isPlaying();
+    void disableButton(boolean disable);
+
 }

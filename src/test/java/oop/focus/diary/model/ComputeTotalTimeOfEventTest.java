@@ -23,7 +23,7 @@ public class ComputeTotalTimeOfEventTest {
     private final CounterManager timer = new CounterManagerImpl(this.me, true);
     private final CounterManager stopwatch = new CounterManagerImpl(this.me, false);
     private final TotalTimeEvent csc = new TotalTimeEventImpl(this.me);
-
+/*
     @Test
     public void testTimer() throws InterruptedException {
         final String str = "test1";
@@ -39,8 +39,8 @@ public class ComputeTotalTimeOfEventTest {
         this.me.removeEvent(this.me.findByName(str).stream().iterator().next());
 
     }
-
-
+*/
+/*
     @Test
     public void testAlarmSound() throws InterruptedException, UnsupportedAudioFileException, IOException, LineUnavailableException {
         timer.createCounter("test2");
@@ -117,6 +117,8 @@ public class ComputeTotalTimeOfEventTest {
 
 
 
+
+ */
 
 }
 

@@ -7,10 +7,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.ControllersFactory;
-import oop.focus.diary.controller.ControllersFactoryImpl;
+
 import oop.focus.diary.controller.Style;
 import oop.focus.diary.controller.TotalTimeControllerImpl;
-import oop.focus.diary.view.TimerView;
+
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 
@@ -20,12 +20,12 @@ public class LauncherTimer extends Application {
         final Dimension2D dim = new Dimension2D(1400, 900);
         final DataSourceImpl dataSource = new DataSourceImpl();
         final EventManager manager = new EventManagerImpl(dataSource);
-        final TotalTimeControllerImpl controller = new TotalTimeControllerImpl(manager);
-        final ControllersFactory f = new ControllersFactoryImpl(manager);
-        final Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
-        primaryStage.setScene(scene);
+       // final TotalTimeControllerImpl controller = new TotalTimeControllerImpl(manager, this);
+        //final ControllersFactory f = new ControllersFactoryImpl(manager);
+        //final Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
+        //primaryStage.setScene(scene);
         final String css = LauncherDiary.class.getResource(Style.TIMER_STYLE.getPath()).toExternalForm();
-        scene.getStylesheets().add(css);
+        //scene.getStylesheets().add(css);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());
         primaryStage.show();
