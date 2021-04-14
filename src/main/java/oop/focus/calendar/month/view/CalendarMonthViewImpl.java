@@ -51,7 +51,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     //View
     private final Label monthInfo;
     private Stage dayWindows;
-    private VBox monthBox;
+    private final VBox monthBox;
 
     //Variables
     private int counter;     // count the days in a row
@@ -81,7 +81,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         cells  = new HashMap<>();
         this.monthInfo = new Label();
         this.monthController = monthcontroller;
-        setMonthView(buildMonthView());
+        this.monthBox = buildMonthView();
     }
 
 
@@ -111,7 +111,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     }
 
-    public final GridPane buildGridMonth() {
+    /**
+     * Used for build the grid with the days of the month.
+     * @return grid    Grid with the days
+     */
+    private GridPane buildGridMonth() {
 
         final GridPane daysGrid = new GridPane();
 
@@ -190,8 +194,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
             jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
         final CalendarDayController dayController = new CalendarDayControllerImpl(day, DAY_WIDTH, DAY_HEIGHT);
-        monthController.configureDay(dayController);
         dayController.buildDay();
+        monthController.configureDay(dayController);
         final ScrollPane dayPane = new ScrollPane(dayController.getView().getRoot());
         dayPane.setFitToWidth(true);
         cells.put(jb, new Scene(dayPane, dayController.getWidth(), dayController.getHeight()));
@@ -346,7 +350,13 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
 
-    public final EventHandler<ActionEvent> changeMonthButton(final CalendarMonthView monthView, final Boolean flag) {
+    /**
+     * Is an EventHandler for change the month (next or previous one).
+     * @param monthView : the month view
+     * @param flag : true previous month, false next month
+     * @return EventHandler
+     */
+    private EventHandler<ActionEvent> changeMonthButton(final CalendarMonthView monthView, final Boolean flag) {
         return new EventHandler<ActionEvent>() {
 
             @Override
@@ -372,17 +382,17 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         this.setMonthInfo(this.monthInfo, monthController.getMonth().get(0).getYear() + "   " + monthController.getMonth().get(0).getMonth());
     }
 
-    public final void setMonthView(final VBox month) {
-        this.monthBox = month;
-    }
-
     public final VBox getMonthView() {
-        monthController.updateView();
-        return monthBox;
+        this.monthController.updateView();
+        return this.monthBox;
     }
 
 
-    public final void setMonthInfo(final Label monthInfo, final String string) {
+    /**
+     * Used for set the month view.
+     * @param month : the box that will contain all the object of the month view
+     */
+    private void setMonthInfo(final Label monthInfo, final String string) {
         monthInfo.setText(string);
     }
 

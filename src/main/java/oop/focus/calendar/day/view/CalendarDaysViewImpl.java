@@ -104,7 +104,12 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         this.setContainer(container);
     }
 
-    public final void setContainer(final VBox container) {
+
+    /**
+     * Used for set the container panel of the day view.
+     * @param container : is the day box
+     */
+    private void setContainer(final VBox container) {
         this.dayBox = new VBox(container);
     }
 
@@ -112,7 +117,10 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         return this.dayBox;
     }
 
-    public final void setDailyEvent() {
+    /**
+     * Used for set the string where are written the daily events.
+     */
+    private void setDailyEvent() {
         this.dailyEvents = dayController.writeDailyEvent();
     }
 

@@ -121,7 +121,12 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         settings.setHgap(10);
     }
 
-    public final EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
+    /**
+     * Get the EventHandler of the save button.
+     * @param spacing : TextField where is written the spacing to save
+     * @return EventHandler
+     */
+    private EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
         return new EventHandler<ActionEvent>() {
 
             @Override
