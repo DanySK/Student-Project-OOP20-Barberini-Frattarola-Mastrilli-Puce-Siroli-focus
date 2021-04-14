@@ -18,19 +18,11 @@ public class RelationshipsControllerImpl implements RelationshipsController {
     private final DataSource dsi;
     private final RelationshipsManager relationships;
     private final RelationshipsView view;
-    private double windowWidth;
-    private double windowHeight;
 
     public RelationshipsControllerImpl(final DataSource dsi) {
         this.dsi = dsi;
         this.relationships = new RelationshipsManagerImpl(this.dsi);
         this.view = new RelationshipsViewImpl(this);
-        this.windowHeight = 0;
-        this.windowWidth = 0;
-    }
-
-    public final DataSource getDsi() {
-        return this.dsi;
     }
 
     public final void addRelationship(final String relationship) {
@@ -48,28 +40,11 @@ public class RelationshipsControllerImpl implements RelationshipsController {
         return list;
     }
 
+    public final DataSource getDsi() {
+        return this.dsi;
+    }
+
     public final View getView() {
         return this.view;
     }
-
-    @Override
-    public final void setWidth(final double width) {
-        this.windowWidth = width;
-    }
-
-    @Override
-    public final void setHeight(final double height) {
-        this.windowHeight = height;
-    }
-
-    @Override
-    public final double getWidth() {
-        return this.windowWidth;
-    }
-
-    @Override
-    public final double getHeight() {
-        return this.windowHeight;
-    }
-
 }

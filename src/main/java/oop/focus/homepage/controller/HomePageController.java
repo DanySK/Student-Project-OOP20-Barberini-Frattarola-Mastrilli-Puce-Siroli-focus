@@ -11,31 +11,32 @@ import oop.focus.homepage.model.HotKeyManager;
 
 public interface HomePageController {
 
-    View getView();
+    boolean canBeAdded(Event event);
+
+    void deleteHotKey(HotKeyImpl hotKeyImpl);
+
+    boolean getActivitySelected(String hotKeyName);
+
+    String getClickTime(HotKey hotKey);
+
+    DataSourceImpl getDsi();
 
     ObservableList<Event> getEvents();
 
     ObservableList<HotKey> getHotKey();
- 
-    void saveHotKey(HotKey hotKey);
-
-    void deleteHotKey(HotKeyImpl hotKeyImpl);
-
-    void saveEvent(Event eventImpl);
-
-    String getClickTime(HotKey hotKey);
-
-    boolean getActivitySelected(String hotKeyName);
-
-    void refreshDailyEvents();
-
-    boolean canBeAdded(Event event);
 
     HotKeyManager getHotKeyManager();
 
-    DataSourceImpl getDsi();
+    View getView();
+
+    String getText();
+
+    void refreshDailyEvents();
+
+    void saveEvent(Event eventImpl);
+
+    void saveHotKey(HotKey hotKey);
 
     void setText(String text);
 
-    String getText();
 }

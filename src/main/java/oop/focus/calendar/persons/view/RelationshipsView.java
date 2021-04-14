@@ -10,7 +10,8 @@ public interface RelationshipsView extends Initializable, View {
 
     void deleteRelationships();
 
+    Node getRoot();
+
     void populateTableView();
 
-    Node getRoot();
 }

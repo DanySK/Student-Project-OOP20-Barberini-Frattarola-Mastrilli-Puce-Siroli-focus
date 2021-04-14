@@ -1,6 +1,6 @@
 package oop.focus.calendar.week.controller;
 
-import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarMonthController;
 import oop.focus.calendar.week.view.NewEventWeekViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
@@ -30,19 +30,27 @@ public class NewEventControllerImpl implements NewEventController {
     }
 
     public final void addNewEvent(final Event event) {
-        this.eventManager.addEvent(event);
+        try{
+            this.eventManager.addEvent(event);
+        } catch (IllegalStateException e){
+            throw new IllegalStateException();
+        }
     }
 
     public final DataSource getDsi() {
         return this.dsi;
     }
 
+    public final View getView() {
+        return this.view;
+    }
+
+    public boolean isCompatible(Event eventToSave) {
+        return this.eventManager.getAnswer(eventToSave);
+    }
+
     public final boolean itIsValid(final Event event) {
         return this.timeProperty.getValidity(event);
     }
 
-
-    public final View getView() {
-        return this.view;
-    }
 }

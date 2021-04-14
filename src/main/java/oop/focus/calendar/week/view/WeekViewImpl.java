@@ -14,11 +14,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
-import oop.focus.calendar.day.controller.CalendarDayController;
-import oop.focus.calendar.day.controller.CalendarDayControllerImpl;
-import oop.focus.calendar.day.view.CalendarDaysView;
+import oop.focus.calendar.controller.CalendarDayController;
+import oop.focus.calendar.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
+import oop.focus.calendar.view.CalendarDaysView;
 import oop.focus.calendar.week.controller.FXMLPaths;
 import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.db.DataSourceImpl;
@@ -56,10 +56,6 @@ public class WeekViewImpl implements WeekView {
         this.setProperty();
     }
 
-    private void setProperty() {
-        this.thisWeek.setAlignment(Pos.CENTER);
-    }
-
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         final LocalDate today = LocalDate.now();
@@ -68,9 +64,15 @@ public class WeekViewImpl implements WeekView {
         this.setButtonAction();
     }
 
-    public final void setButtonAction() {
-        this.nextWeek.setOnAction(event -> this.nextWeek(event));
-        this.lastWeek.setOnAction(event -> this.lastWeek(event));
+    private void setProperty() {
+        this.thisWeek.setAlignment(Pos.CENTER);
+        //this.weekDaysScroller.prefWidthProperty().bind(this.weekDaysPane.prefWidthProperty().multiply(0.8));
+        //this.weekDaysScroller.prefHeightProperty().bind(this.weekDaysPane.prefHeightProperty().multiply(0.7));
+    }
+
+    @Override
+    public final Node getRoot() {
+        return this.root;
     }
 
     @FXML
@@ -79,7 +81,28 @@ public class WeekViewImpl implements WeekView {
         this.setWeekDays();
     }
 
+    @FXML
+    public final void nextWeek(final ActionEvent event) {
+        this.startWeek = this.startWeek.plusDays(Constants.DAYS_PER_WEEK);
+        this.setWeekDays();
+    }
+
+    public final void setButtonAction() {
+        this.nextWeek.setOnAction(event -> this.nextWeek(event));
+        this.lastWeek.setOnAction(event -> this.lastWeek(event));
+    }
+
+    private void setLabelText() {
+        if (this.startWeek.isEqual(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek() - 1))){
+            this.thisWeek.setText("SETTIMANA CORRENTE");
+        } else {
+            this.thisWeek.setText(startWeek.toString() + " - " + startWeek.plusDays(Constants.FIND_FINAL));
+        }
+    }
+
     public final void setWeekDays() {
+        this.setLabelText();
+
         LocalDate date = this.startWeek;
         final HBox hbox = new HBox();
 
@@ -99,18 +122,8 @@ public class WeekViewImpl implements WeekView {
         this.weekDaysScroller.setContent(hbox);
     }
 
-    @FXML
-    public final void nextWeek(final ActionEvent event) {
-        this.startWeek = this.startWeek.plusDays(Constants.DAYS_PER_WEEK);
-        this.setWeekDays();
-    }
-
-    @Override
-    public final Node getRoot() {
-        return this.root;
-    }
-
     private class Constants {
+        private static final int FIND_FINAL = 6;
         private static final int DAYS_PER_WEEK = 7;
         private static final int SPACING = 50;
     }

@@ -39,19 +39,10 @@ public class PersonsViewImpl implements PersonsView {
     private TableView<Person> tableViewPersons;
 
     @FXML
-    private TableColumn<Person, String> name;
+    private TableColumn<Person, String> name, relationship;
 
     @FXML
-    private TableColumn<Person, String> relationship;
-
-    @FXML
-    private Button delete;
-
-    @FXML
-    private Button add;
-
-    @FXML
-    private Button degreeOfKinsip;
+    private Button delete, add, degreeOfKinsip;
 
     private final PersonsController controller;
     private Node root;
@@ -83,16 +74,44 @@ public class PersonsViewImpl implements PersonsView {
         this.setButtonOnAction();
     }
 
-    private void setButtonOnAction() {
-        this.add.setOnAction(event -> this.add(event));
-        this.delete.setOnAction(event -> this.delete(event));
-        this.degreeOfKinsip.setOnAction(event -> {
-            try {
-                this.goToDegree(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public final void add(final ActionEvent event) {
+        final AddNewPersonView newPerson = new AddNewPersonView(this.controller, this);
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) newPerson.getRoot()));
+        stage.show();
+    }
+
+    public final void delete(final ActionEvent event) {
+        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma eliminazione");
+        alert.setHeaderText("Sei sicuro di volere eliminare questa persona?");
+
+        final Optional<ButtonType> result = alert.showAndWait();
+
+        if (!result.isPresent() || result.get() != ButtonType.OK) {
+            alert.close();
+        } else {
+            this.deleteItem();
+        }
+    }
+
+    private void deleteItem() {
+        final String name = this.tableViewPersons.getSelectionModel().getSelectedItem().getName();
+        final String degree = tableViewPersons.getSelectionModel().getSelectedItem().getRelationships();
+        this.controller.deletePerson(new PersonImpl(name, degree));
+        this.refreshTableView();
+    }
+
+    @Override
+    public final Node getRoot() {
+        return this.root;
+    }
+
+    public final void goToDegree(final ActionEvent event) throws IOException {
+        final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi());
+
+        this.panePersons.getChildren().clear();
+        this.panePersons.getChildren().add(relationshipsController.getView().getRoot());
     }
 
     public final void populateTableView() {
@@ -121,51 +140,20 @@ public class PersonsViewImpl implements PersonsView {
         this.tableViewPersons.setItems(this.controller.getPersons());
     }
 
-    public final void goToDegree(final ActionEvent event) throws IOException {
-        final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi());
-
-        relationshipsController.setWidth(this.panePersons.getWidth());
-        relationshipsController.setHeight(this.panePersons.getHeight());
-
-        this.panePersons.getChildren().clear();
-        this.panePersons.getChildren().add(relationshipsController.getView().getRoot());
-    }
-
-    public final void delete(final ActionEvent event) {
-        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma eliminazione");
-        alert.setHeaderText("Sei sicuro di volere eliminare questa persona?");
-
-        final Optional<ButtonType> result = alert.showAndWait();
-
-        if (!result.isPresent() || result.get() != ButtonType.OK) {
-            alert.close();
-        } else {
-            this.deleteItem();
-        }
-    }
-
-    private void deleteItem() {
-        final String name = this.tableViewPersons.getSelectionModel().getSelectedItem().getName();
-        final String degree = tableViewPersons.getSelectionModel().getSelectedItem().getRelationships();
-        this.controller.deletePerson(new PersonImpl(name, degree));
-        this.refreshTableView();
+    private void setButtonOnAction() {
+        this.add.setOnAction(event -> this.add(event));
+        this.delete.setOnAction(event -> this.delete(event));
+        this.degreeOfKinsip.setOnAction(event -> {
+            try {
+                this.goToDegree(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public final void refreshTableView() {
         this.tableViewPersons.getItems().removeAll(tableViewPersons.getSelectionModel().getSelectedItems());
-    }
-
-    public final void add(final ActionEvent event) {
-        final AddNewPersonView newPerson = new AddNewPersonView(this.controller, this);
-        final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) newPerson.getRoot()));
-        stage.show();
-    }
-
-    @Override
-    public final Node getRoot() {
-        return this.root;
     }
 
     private static final class Constants {

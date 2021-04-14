@@ -38,6 +38,14 @@ public class PersonsControllerImpl implements PersonsController {
         this.person.removePerson(person);
     }
 
+    public final ObservableList<String> getDegree() {
+        return FXCollections.observableArrayList(this.relationships.getAll());
+    }
+
+    public final DataSource getDsi() {
+        return this.dsi;
+    }
+
     public final ObservableList<Person> getPersons() {
         final ObservableList<Person> list = FXCollections.observableArrayList();
         List<Person> arrayList = this.person.getPersons().stream().collect(Collectors.toList());
@@ -46,16 +54,7 @@ public class PersonsControllerImpl implements PersonsController {
         return list;
     }
 
-    public final DataSource getDsi() {
-        return this.dsi;
-    }
-
     public final View getView() {
         return this.view;
-    }
-
-    @Override
-    public final ObservableList<String> getDegree() {
-        return FXCollections.observableArrayList(this.relationships.getAll());
     }
 }

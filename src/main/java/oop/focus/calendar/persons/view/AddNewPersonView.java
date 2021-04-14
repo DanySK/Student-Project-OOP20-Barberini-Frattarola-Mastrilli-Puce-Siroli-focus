@@ -24,22 +24,13 @@ import java.util.ResourceBundle;
 public class AddNewPersonView implements GenericAddView {
 
     @FXML
-    private Button save;
-
-    @FXML
-    private Button back;
-
-    @FXML
-    private Button delete;
+    private Button save, back, delete;
 
     @FXML
     private AnchorPane newPersonPane;
 
     @FXML
-    private Label name;
-
-    @FXML
-    private Label degree;
+    private Label name, degree, newPerson;
 
     @FXML
     private TextField nameTextField;
@@ -47,8 +38,6 @@ public class AddNewPersonView implements GenericAddView {
     @FXML
     private ComboBox<String> degreeComboBox;
 
-    @FXML
-    private Label newPerson;
 
     private final PersonsController controller;
     private final PersonsView personsView;
@@ -68,6 +57,28 @@ public class AddNewPersonView implements GenericAddView {
         this.setProperty();
     }
 
+    @Override
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        this.degreeComboBox.setItems(this.controller.getDegree());
+        save.setOnAction(event -> {
+            try {
+                this.save(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        delete.setOnAction(event -> this.delete(event));
+
+        back.setOnAction(event -> {
+            try {
+                this.goBack(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     private void setProperty() {
         this.newPerson.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.LABEL_HEIGHT));
         this.newPerson.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.LABEL_WIDTH));
@@ -83,26 +94,14 @@ public class AddNewPersonView implements GenericAddView {
         this.nameTextField.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
     }
 
+    public final void delete(final ActionEvent event) {
+        this.degreeComboBox.getSelectionModel().clearSelection();
+        this.nameTextField.setText(" ");
+    }
+
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.degreeComboBox.setItems(this.controller.getDegree());
-        save.setOnAction(event -> {
-            try {
-                this.save(event);
-            } catch (IOException e) {
-                 e.printStackTrace();
-            }
-        });
-
-        delete.setOnAction(event -> this.delete(event));
-
-        back.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+    public final Node getRoot() {
+        return this.root;
     }
 
     public final void goBack(final ActionEvent event) throws IOException {
@@ -120,16 +119,6 @@ public class AddNewPersonView implements GenericAddView {
            allert.checkFieldsFilled();
            allert.showAllert();
         }
-    }
-
-    public final void delete(final ActionEvent event) {
-        this.degreeComboBox.getSelectionModel().clearSelection();
-        this.nameTextField.setText(" ");
-    }
-
-    @Override
-    public final Node getRoot() {
-        return this.root;
     }
 
     private static final class Constants {

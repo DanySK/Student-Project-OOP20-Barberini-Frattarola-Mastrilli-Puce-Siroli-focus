@@ -7,21 +7,13 @@ import oop.focus.db.exceptions.DaoAccessException;
 
 public interface RelationshipsController {
 
-    DataSource getDsi();
-
     void addRelationship(String relationship);
 
     void deleteRelationship(String relationship) throws DaoAccessException;
 
     ObservableList<String> getDegree();
 
+    DataSource getDsi();
+
     View getView();
-
-    void setWidth(double width);
-
-    void setHeight(double height);
-
-    double getWidth();
-
-    double getHeight();
 }

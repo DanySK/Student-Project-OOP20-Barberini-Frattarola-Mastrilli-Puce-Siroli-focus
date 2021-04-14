@@ -16,7 +16,7 @@ public class AllertGenerator {
 
     public final void showAllert() {
 
-        alert.setTitle("Error");
+        alert.setTitle("Errore");
         alert.setContentText("Riempire correttamente i campi o tornare indietro");
 
         final Optional<ButtonType> result = alert.showAndWait();

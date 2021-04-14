@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="weekDaysPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="618.0" prefWidth="796.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fx:id="weekDaysScroller" layoutX="41.0" layoutY="104.0" prefHeight="445.0" prefWidth="708.0" AnchorPane.bottomAnchor="69.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="104.0" />
+      <ScrollPane fx:id="weekDaysScroller" layoutX="41.0" layoutY="104.0" prefHeight="445.0" prefWidth="708.0" AnchorPane.bottomAnchor="68.39999999999998" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="47.0" AnchorPane.topAnchor="104.0" />
       <Label fx:id="thisWeek" layoutX="270.0" layoutY="40.0" text="SETTIMANA CORRENTE" AnchorPane.leftAnchor="270.0" AnchorPane.rightAnchor="275.6">
          <font>
             <Font size="24.0" />

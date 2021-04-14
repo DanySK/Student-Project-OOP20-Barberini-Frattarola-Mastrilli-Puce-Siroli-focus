@@ -57,16 +57,6 @@ public class AddNewRelationship implements GenericAddView {
         this.setProperty();
     }
 
-    private void setProperty() {
-        this.newDegree.prefHeightProperty().bind(this.newRelatioshipPane.heightProperty().multiply(Constants.LABEL_HEIGHT));
-        this.newDegree.prefWidthProperty().bind(this.newRelatioshipPane.widthProperty().multiply(Constants.LABEL_WIDTH));
-
-        this.newDegree.setAlignment(Pos.CENTER);
-
-        this.nameTextField.prefWidthProperty().bind(this.newRelatioshipPane.widthProperty().multiply(Constants.FIELD_WIDTH));
-        this.nameTextField.prefHeightProperty().bind(this.newRelatioshipPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
-    }
-
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.back.setOnAction(event -> {
@@ -88,6 +78,31 @@ public class AddNewRelationship implements GenericAddView {
         });
     }
 
+    private void setProperty() {
+        this.newDegree.prefHeightProperty().bind(this.newRelatioshipPane.heightProperty().multiply(Constants.LABEL_HEIGHT));
+        this.newDegree.prefWidthProperty().bind(this.newRelatioshipPane.widthProperty().multiply(Constants.LABEL_WIDTH));
+
+        this.newDegree.setAlignment(Pos.CENTER);
+
+        this.nameTextField.prefWidthProperty().bind(this.newRelatioshipPane.widthProperty().multiply(Constants.FIELD_WIDTH));
+        this.nameTextField.prefHeightProperty().bind(this.newRelatioshipPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
+    }
+
+
+    public final void delete(final ActionEvent event) {
+        this.nameTextField.setText(" ");
+    }
+
+    @Override
+    public final Node getRoot() {
+        return this.root;
+    }
+
+    public final void goBack(final ActionEvent event) throws IOException {
+        final Stage stage = (Stage) this.newRelatioshipPane.getScene().getWindow();
+        stage.close();
+    }
+
     public final void save(final ActionEvent event) throws IOException {
         if (!this.nameTextField.getText().isEmpty()) {
             this.controller.addRelationship(this.nameTextField.getText());
@@ -99,21 +114,6 @@ public class AddNewRelationship implements GenericAddView {
             allert.showAllert();
         }
     }
-
-    public final void delete(final ActionEvent event) {
-        this.nameTextField.setText(" ");
-    }
-
-    public final void goBack(final ActionEvent event) throws IOException {
-        final Stage stage = (Stage) this.newRelatioshipPane.getScene().getWindow();
-        stage.close();
-    }
-
-    @Override
-    public final Node getRoot() {
-        return this.root;
-    }
-
     private static final class Constants {
         private static final double FIELD_WIDTH = 0.4;
         private static final double FIELD_HEIGHT = 0.05;

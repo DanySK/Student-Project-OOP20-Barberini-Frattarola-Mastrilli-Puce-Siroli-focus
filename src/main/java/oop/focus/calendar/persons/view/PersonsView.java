@@ -8,11 +8,11 @@ import java.io.IOException;
 
 public interface PersonsView extends Initializable, View {
 
-    void goToDegree(ActionEvent event) throws IOException;
+    void add(ActionEvent event);
 
     void delete(ActionEvent event);
 
-    void add(ActionEvent event);
+    void goToDegree(ActionEvent event) throws IOException;
 
     void populateTableView();
 }

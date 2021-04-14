@@ -69,29 +69,27 @@ public class RelationshipsViewImpl implements RelationshipsView {
         this.relationshipsColumn.prefWidthProperty().bind(this.relationshipsTable.widthProperty());
     }
 
-    private void setButtonOnAction() {
-        this.goBack.setOnAction(event -> this.goBack());
-        this.addRelationship.setOnAction(event -> this.addRelationships());
-        this.deleteRelationship.setOnAction(event -> this.deleteRelationships());
-    }
-
-    public final void populateTableView() {
-        relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
-        this.relationshipsTable.setItems(this.controller.getDegree());
-    }
-
-    public final void goBack() {
-        final PersonsController personsController = new PersonsControllerImpl(this.controller.getDsi());
-        this.relationshipsPane.getChildren().clear();
-        this.relationshipsPane.getChildren().add(personsController.getView().getRoot());
-    }
-
     @FXML
     public final void addRelationships() {
         final View newDegree = new AddNewRelationship(this.controller, this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newDegree.getRoot()));
         stage.show();
+    }
+
+    private void deleteItem() {
+        try {
+            this.controller.deleteRelationship(relationshipsTable.getSelectionModel().getSelectedItem());
+            this.refreshTableView();
+        } catch (DaoAccessException e) {
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Impossibile eliminare la parentela poichè è utilizzata da una o più persone!");
+            final Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+                alert.close();
+            }
+        }
     }
 
     @FXML
@@ -110,27 +108,30 @@ public class RelationshipsViewImpl implements RelationshipsView {
         }
     }
 
-    private void deleteItem() {
-        try {
-            this.controller.deleteRelationship(relationshipsTable.getSelectionModel().getSelectedItem());
-            this.refreshTableView();
-        } catch (DaoAccessException e) {
-            final Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Impossibile eliminare la parentela poichè è utilizzata da una o più persone!");
-            final Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-                alert.close();
-            }
-        }
+    @Override
+    public final Node getRoot() {
+        return this.root;
+    }
+
+    public final void goBack() {
+        final PersonsController personsController = new PersonsControllerImpl(this.controller.getDsi());
+        this.relationshipsPane.getChildren().clear();
+        this.relationshipsPane.getChildren().add(personsController.getView().getRoot());
+    }
+
+    public final void populateTableView() {
+        relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+        this.relationshipsTable.setItems(this.controller.getDegree());
+    }
+
+    private void setButtonOnAction() {
+        this.goBack.setOnAction(event -> this.goBack());
+        this.addRelationship.setOnAction(event -> this.addRelationships());
+        this.deleteRelationship.setOnAction(event -> this.deleteRelationships());
     }
 
     public final void refreshTableView() {
         this.relationshipsTable.getItems().removeAll(relationshipsTable.getSelectionModel().getSelectedItems());
     }
 
-    @Override
-    public final Node getRoot() {
-        return this.root;
-    }
 }

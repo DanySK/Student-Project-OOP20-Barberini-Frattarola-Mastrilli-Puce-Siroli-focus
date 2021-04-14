@@ -77,6 +77,15 @@ public class NewEventViewImpl implements NewEventView {
         this.fillTheComboBox();
     }
 
+    @FXML
+    public final void delete(final ActionEvent event) {
+        this.repetitionChoice.getSelectionModel().clearSelection();
+        this.startHourChoice.getSelectionModel().clearSelection();
+        this.endHourChoice.getSelectionModel().clearSelection();
+        this.startMinuteChoice.getSelectionModel().clearSelection();
+        this.endMinuteChoice.getSelectionModel().clearSelection();
+    }
+
     private void fillTheComboBox() {
         final ComboBoxFiller filler = new ComboBoxFiller();
         this.endHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
@@ -84,35 +93,6 @@ public class NewEventViewImpl implements NewEventView {
         this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
         this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
         this.repetitionChoice.setItems(filler.getRepetition());
-    }
-
-    private void setProperty() {
-        this.newEvent.setAlignment(Pos.CENTER);
-        this.newEvent.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.1));
-        this.newEvent.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));
-
-        this.newEventName.setAlignment(Pos.CENTER);
-        this.newEventName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.1));
-        this.newEventName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));
-
-    }
-
-    public final void setButtonOnAction() {
-        this.back.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        this.saveSelection.setOnAction(event -> {
-            try {
-                this.save(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        this.deleteSelection.setOnAction(event -> this.delete(event));
     }
 
     public final void fillTheList() {
@@ -126,24 +106,26 @@ public class NewEventViewImpl implements NewEventView {
         this.listOfPersons.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    @Override
+    public final Node getRoot() {
+        return this.root;
+    }
+
     @FXML
     public final void goBack(final ActionEvent event) throws IOException {
         final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
         stage.close();
     }
 
-    @FXML
-    public final void delete(final ActionEvent event) {
-        this.repetitionChoice.getSelectionModel().clearSelection();
-        this.startHourChoice.getSelectionModel().clearSelection();
-        this.endHourChoice.getSelectionModel().clearSelection();
-        this.startMinuteChoice.getSelectionModel().clearSelection();
-        this.endMinuteChoice.getSelectionModel().clearSelection();
-    }
+    private void setProperty() {
+        this.newEvent.setAlignment(Pos.CENTER);
+        this.newEvent.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.1));
+        this.newEvent.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));
 
-    @Override
-    public final Node getRoot() {
-        return this.root;
+        this.newEventName.setAlignment(Pos.CENTER);
+        this.newEventName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.1));
+        this.newEventName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));
+
     }
 
     @FXML
@@ -152,7 +134,6 @@ public class NewEventViewImpl implements NewEventView {
                 && !this.startMinuteChoice.getSelectionModel().isEmpty() && !this.endMinuteChoice.getSelectionModel().isEmpty()
                 && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent(event);
-            this.goBack(event);
         } else {
             final AllertGenerator allert = new AllertGenerator();
             allert.createWarningAllert(1);
@@ -172,13 +153,31 @@ public class NewEventViewImpl implements NewEventView {
 
         final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), Repetition.getRepetition(this.repetitionChoice.getSelectionModel().getSelectedItem()), finalList);
 
-        if (this.controller.canBeAdded(eventToSave)) {
+        try{
             this.controller.saveEvent(eventToSave);
             this.goBack(event);
-        } else {
+        } catch (IllegalStateException e){
             final AllertGenerator allert = new AllertGenerator();
             allert.createWarningAllert(2);
         }
+    }
+
+    public final void setButtonOnAction() {
+        this.back.setOnAction(event -> {
+            try {
+                this.goBack(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        this.saveSelection.setOnAction(event -> {
+            try {
+                this.save(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        this.deleteSelection.setOnAction(event -> this.delete(event));
     }
 
     public final void setText(final String eventName) {

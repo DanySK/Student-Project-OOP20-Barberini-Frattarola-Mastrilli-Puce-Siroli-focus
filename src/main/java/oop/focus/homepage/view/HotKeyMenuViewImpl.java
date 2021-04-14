@@ -54,6 +54,13 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.setProprieties();
     }
 
+    @Override
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        this.setButtonAction();
+
+        this.populate();
+    }
+
     private void setProprieties() {
         this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.7));
         this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.7));
@@ -71,11 +78,45 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.addHotKeyButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
     }
 
-    @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.setButtonAction();
+    @FXML
+    public final void addNewHotKey(final ActionEvent event) throws IOException {
+        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller, this);
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) newHotKey.getRoot()));
+        stage.show();
+    }
 
-        this.populate();
+    private void deleteItem() {
+        final HotKeyType type = tableHotKeyList.getSelectionModel().getSelectedItem().getType();
+        final String name = tableHotKeyList.getSelectionModel().getSelectedItem().getName();
+        this.controller.deleteHotKey(new HotKeyImpl(name, type));
+        this.refreshTableView();
+    }
+
+    @FXML
+    public final void deletSelectedRowItem(final ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma eliminazione");
+        alert.setHeaderText("Sei sicuro di volere eliminare questo tasto rapido?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if(!result.isPresent() || result.get() != ButtonType.OK) {
+            alert.close();
+        } else {
+            this.deleteItem();
+        }
+    }
+
+    public final Node getRoot() {
+        return this.root;
+    }
+
+    @FXML
+    public final void goBack(final ActionEvent event) throws IOException {
+        final HomePageBaseView base = new HomePageBaseViewImpl(new HomePageControllerImpl(this.controller.getDsi()));
+        this.paneHotKeyView.getChildren().clear();
+        this.paneHotKeyView.getChildren().add(base.getRoot());
     }
 
     public final void populate() {
@@ -107,47 +148,6 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.tableHotKeyList.setEditable(false);
         this.tableHotKeyList.getItems().clear();
         this.tableHotKeyList.setItems(this.controller.getSortedHotKey());
-    }
-
-    @FXML
-    public final void addNewHotKey(final ActionEvent event) throws IOException {
-        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller, this);
-        final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) newHotKey.getRoot()));
-        stage.show();
-    }
-
-    @FXML
-    public final void deletSelectedRowItem(final ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Conferma eliminazione");
-        alert.setHeaderText("Sei sicuro di volere eliminare questo tasto rapido?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if(!result.isPresent() || result.get() != ButtonType.OK) {
-            alert.close();
-        } else {
-            this.deleteItem();
-        }
-    }
-
-    private void deleteItem() {
-        final HotKeyType type = tableHotKeyList.getSelectionModel().getSelectedItem().getType();
-        final String name = tableHotKeyList.getSelectionModel().getSelectedItem().getName();
-        this.controller.deleteHotKey(new HotKeyImpl(name, type));
-        this.refreshTableView();
-    }
-
-    public final Node getRoot() {
-        return this.root;
-    }
-
-    @FXML
-    public final void goBack(final ActionEvent event) throws IOException {
-        final HomePageBaseView base = new HomePageBaseViewImpl(new HomePageControllerImpl(this.controller.getDsi()));
-        this.paneHotKeyView.getChildren().clear();
-        this.paneHotKeyView.getChildren().add(base.getRoot());
     }
 
     private void refreshTableView() {

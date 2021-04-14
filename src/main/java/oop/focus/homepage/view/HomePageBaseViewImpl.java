@@ -66,18 +66,6 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.setProprietes();
         }
 
-    private void setProprietes() {
-            this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.15));
-            this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.5));
-            this.scroller.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
-            this.scrollPane.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
-            this.scrollPane.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.8));
-            this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
-            this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
-            this.calendarHBox.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.3));
-            this.calendarHBox.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.5));
-        }
-
     @Override
         public final void initialize(final URL location, final ResourceBundle resources) {
             this.controller.refreshDailyEvents();
@@ -102,6 +90,16 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             scrollPane.setContent(vbox);
        }
 
+        public final Node getRoot() {
+        return this.root;
+    }
+
+        public final void modifyClicked(final ActionEvent event) throws IOException {
+            final HotKeyController menuController = new HotKeyControllerImpl(this.controller.getDsi());
+            this.paneCalendarHomePage.getChildren().clear();
+            this.paneCalendarHomePage.getChildren().add(menuController.getView().getRoot());
+        }
+
         private void setCalendar() {
             final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi());
 
@@ -112,33 +110,37 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.calendarHBox.getChildren().add(month.getMonthView());
         }
 
-        public final Node getRoot() {
-            return this.root;
+        @Override
+        public final void setDay() {
+            final VBox vBoxCalendar = new VBox();
+
+            final DayImpl day = new DayImpl(LocalDate.now(), this.controller.getDsi());
+            final CalendarDayControllerImpl days = new CalendarDayControllerImpl(day, vBoxCalendar.getWidth(), vBoxCalendar.getHeight());
+
+            days.setFormat(Format.NORMAL);
+            days.buildDay();
+            days.setSpacing(100);
+
+            final CalendarDaysView daysView = (CalendarDaysView) days.getView();
+            daysView.getContainer().prefWidthProperty().bind(vBoxCalendar.widthProperty());
+
+            vBoxCalendar.getChildren().add(daysView.getContainer());
+
+            vBoxCalendar.prefWidthProperty().bind(this.scroller.widthProperty());
+            this.scroller.setContent(vBoxCalendar);
         }
 
-        public final void modifyClicked(final ActionEvent event) throws IOException {
-            final HotKeyController menuController = new HotKeyControllerImpl(this.controller.getDsi());
-            this.paneCalendarHomePage.getChildren().clear();
-            this.paneCalendarHomePage.getChildren().add(menuController.getView().getRoot());
+        private void setProprietes() {
+            this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.15));
+            this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.5));
+            this.scroller.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
+            this.scrollPane.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
+            this.scrollPane.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.8));
+            this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
+            this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
+            this.calendarHBox.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.3));
+            this.calendarHBox.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.5));
         }
 
-    @Override
-    public final void setDay() {
-        final VBox vBoxCalendar = new VBox();
 
-        final DayImpl day = new DayImpl(LocalDate.now(), this.controller.getDsi());
-        final CalendarDayControllerImpl days = new CalendarDayControllerImpl(day, vBoxCalendar.getWidth(), vBoxCalendar.getHeight());
-
-        days.setFormat(Format.NORMAL);
-        days.buildDay();
-        days.setSpacing(100);
-
-        final CalendarDaysView daysView = (CalendarDaysView) days.getView();
-        daysView.getContainer().prefWidthProperty().bind(vBoxCalendar.widthProperty());
-
-        vBoxCalendar.getChildren().add(daysView.getContainer());
-
-        vBoxCalendar.prefWidthProperty().bind(this.scroller.widthProperty());
-        this.scroller.setContent(vBoxCalendar);
-    }
 }

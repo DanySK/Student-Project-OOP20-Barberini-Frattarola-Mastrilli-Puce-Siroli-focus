@@ -2,18 +2,17 @@ package oop.focus.homepage.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKeyImpl;
@@ -54,6 +53,13 @@ public class NewHotKeyViewImpl implements GenericAddView {
         this.setProperty();
     }
 
+    @Override
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        this.setButtonOnAction();
+        final ComboBoxFiller comboBox = new ComboBoxFiller();
+        this.categoryComboBox.setItems(comboBox.getHotKey());
+    }
+
     private void setProperty() {
         this.labelAddNew.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.5));
         this.labelAddNew.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(0.05));
@@ -67,17 +73,14 @@ public class NewHotKeyViewImpl implements GenericAddView {
         this.nameTextField.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.3));
     }
 
-    @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.setButtonOnAction();
-        final ComboBoxFiller comboBox = new ComboBoxFiller();
-        this.categoryComboBox.setItems(comboBox.getHotKey());
-    }
-
     @FXML
     public final void delete(final ActionEvent event) {
         this.nameTextField.setText(" ");
         this.categoryComboBox.getSelectionModel().clearSelection();
+    }
+
+    public final Node getRoot() {
+        return this.root;
     }
 
     @FXML
@@ -94,15 +97,23 @@ public class NewHotKeyViewImpl implements GenericAddView {
             allert.checkFieldsFilled();
             allert.showAllert();
         } else {
-            this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
-            this.menuView.populateTableView();
-            this.goBack(event);
+            try {
+                this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
+                this.menuView.populateTableView();
+                this.goBack(event);
+            } catch (IllegalStateException e) {
+                final Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Errore");
+                alert.setContentText("Il tasto inserito è già presente!");
+
+                final Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+                    alert.close();
+                }
+            }
         }
     }
 
-    public final Node getRoot() {
-        return this.root;
-    }
 
     public final void setButtonOnAction() {
         this.goBackButton.setOnAction(event -> {

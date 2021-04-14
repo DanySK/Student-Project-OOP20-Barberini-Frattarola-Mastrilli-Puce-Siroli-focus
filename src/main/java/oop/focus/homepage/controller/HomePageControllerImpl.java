@@ -37,8 +37,32 @@ public class HomePageControllerImpl implements HomePageController {
         this.view = new HomePageBaseViewImpl(this);
     }
 
-    public final View getView() {
-        return this.view;
+    public final boolean canBeAdded(final Event event) {
+        return event.getStartHour().isBefore(event.getEndHour());
+    }
+
+    public final void deleteHotKey(final HotKeyImpl hotKeyImpl) {
+        this.hotKeyManager.remove(hotKeyImpl);
+    }
+
+    public final boolean getActivitySelected(final String hotKeyName) {
+        List<Event> list = this.eventManager.getHotKeyEvents();
+        list = list.stream().filter(e -> {
+            return e.getName().equals(hotKeyName) && e.getStartDate().isEqual(LocalDate.now());
+        }).collect(Collectors.toList());
+        return list.isEmpty();
+
+    }
+
+    public final String getClickTime(final HotKey hotKey) {
+        final List<Event> list = this.eventManager.getHotKeyEvents();
+        return String.valueOf(list.stream().filter(e -> {
+            return e.getName().equals(hotKey.getName()) && e.getStartDate().isEqual(LocalDate.now());
+        }).count());
+    }
+
+    public final DataSourceImpl getDsi() {
+        return (DataSourceImpl) this.dsi;
     }
 
     public final ObservableList<Event> getEvents() {
@@ -53,55 +77,37 @@ public class HomePageControllerImpl implements HomePageController {
         return list;
     }
 
-    public final void saveHotKey(final HotKey hotKey) {
-        this.hotKeyManager.add(hotKey);
-    }
-
-    public final void deleteHotKey(final HotKeyImpl hotKeyImpl) {
-        this.hotKeyManager.remove(hotKeyImpl);
-    }
-
-    public final void saveEvent(final Event eventImpl) {
-        this.eventManager.addEvent(eventImpl);
-    }
-
-    public final String getClickTime(final HotKey hotKey) {
-        final List<Event> list = this.eventManager.getHotKeyEvents();
-        return String.valueOf(list.stream().filter(e -> {
-            return e.getName().equals(hotKey.getName()) && e.getStartDate().isEqual(LocalDate.now());
-        }).count());
-    }
-
-    public final boolean getActivitySelected(final String hotKeyName) {
-        List<Event> list = this.eventManager.getHotKeyEvents();
-        list = list.stream().filter(e -> {
-            return e.getName().equals(hotKeyName) && e.getStartDate().isEqual(LocalDate.now());
-        }).collect(Collectors.toList());
-        return list.isEmpty();
-
-    }
-
     public final HotKeyManager getHotKeyManager() {
         return this.hotKeyManager;
     }
 
+    public final String getText(){
+        return this.nameEvent;
+    }
+
+    public final View getView() {
+        return this.view;
+    }
+
     public final void refreshDailyEvents() {
-        this.eventManager.generateRepeatedEvents(LocalDate.now());
+        //this.eventManager.generateRepeatedEvents(LocalDate.now());
     }
 
-    public final boolean canBeAdded(final Event event) {
-        return event.getStartHour().isBefore(event.getEndHour());
+    public final void saveEvent(final Event eventImpl) {
+        try{
+            this.eventManager.addEvent(eventImpl);
+        } catch (IllegalStateException e){
+            throw new IllegalStateException();
+        }
     }
 
-    public final DataSourceImpl getDsi() {
-        return (DataSourceImpl) this.dsi;
+    public final void saveHotKey(final HotKey hotKey) {
+        this.hotKeyManager.add(hotKey);
     }
 
     public final void setText(final String text){
         this.nameEvent = text;
     }
 
-    public final String getText(){
-        return this.nameEvent;
-    }
+
 }

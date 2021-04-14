@@ -11,11 +11,11 @@ public interface PersonsController {
 
     void deletePerson(Person person);
 
-    ObservableList<Person> getPersons();
+    ObservableList<String> getDegree();
 
     DataSource getDsi();
 
-    ObservableList<String> getDegree();
+    ObservableList<Person> getPersons();
 
     View getView();
 

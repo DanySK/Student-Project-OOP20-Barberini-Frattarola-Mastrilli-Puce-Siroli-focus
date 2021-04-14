@@ -25,12 +25,11 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarMonthController;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.week.controller.FXMLPaths;
 import oop.focus.calendar.week.controller.NewEventController;
-import oop.focus.calendar.week.controller.NewEventControllerImpl;
 import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
@@ -41,67 +40,25 @@ import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.homepage.view.ComboBoxFiller;
 import oop.focus.homepage.view.GenericAddView;
 
-public class NewEventWeekViewImpl implements GenericAddView {
+public class NewEventWeekViewImpl implements NewEventWeekView {
 
     @FXML
     private Pane paneNewEvent;
 
     @FXML
-    private Label newEvent;
+    private Label newEvent, name, startDate, endDate, startHour, endHour, repetition, persons;
 
     @FXML
-    private Label name;
+    private Button delete, add;
 
     @FXML
-    private Label startDate;
+    private ComboBox<String> choiceEndHour, choiceStartHour, choiceStartMinute, choiceEndMinute, repetitionChoice;
 
     @FXML
-    private Label endDate;
-
-    @FXML
-    private Label startHour;
-
-    @FXML
-    private Label endHour;
-
-    @FXML
-    private Label repetition;
-
-    @FXML
-    private Button goBack;
-
-    @FXML
-    private Button delete;
-
-    @FXML
-    private Button add;
-
-    @FXML
-    private ComboBox<String> choiceEndHour;
-
-    @FXML
-    private ComboBox<String> choiceStartHour;
-
-    @FXML
-    private ComboBox<String> choiceStartMinute;
-
-    @FXML
-    private ComboBox<String> choiceEndMinute;
-
-    @FXML
-    private DatePicker datePickerEnd;
-
-    @FXML
-    private DatePicker datePickerStart;
+    private DatePicker datePickerEnd, datePickerStart;
 
     @FXML
     private TextField textFieldName;
-
-    @FXML
-    private ComboBox<String> repetitionChoice;
-
-    @FXML
-    private Label persons;
 
     @FXML
     private ListView<String> listOfPersons;
@@ -128,15 +85,22 @@ public class NewEventWeekViewImpl implements GenericAddView {
         }
     }
 
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        this.setProperty();
+        this.fillComboBoxes();
+        this.fillTheList();
+        this.setButtonAction();
+    }
+
     private void setProperty() {
         this.newEvent.setAlignment(Pos.CENTER);
-        this.newEvent.prefHeightProperty().bind(this.paneNewEvent.heightProperty().multiply(0.1));
-        this.newEvent.prefWidthProperty().bind(this.paneNewEvent.widthProperty().multiply(0.6));
+        this.newEvent.prefHeightProperty().bind(this.paneNewEvent.heightProperty().multiply(Constants.LABEL_HEIGHT));
+        this.newEvent.prefWidthProperty().bind(this.paneNewEvent.widthProperty().multiply(Constants.LABEL_WIDTH));
 
         this.repetition.setAlignment(Pos.CENTER_LEFT);
 
-        this.textFieldName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.3));
-        this.textFieldName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
+        this.textFieldName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(Constants.TEXT_FIELF_WIDTH));
+        this.textFieldName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(Constants.TEXT_FIELD_HEIGHT));
 /*
         this.choiceEndHour.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
         this.choiceEndHour.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.15));
@@ -150,14 +114,6 @@ public class NewEventWeekViewImpl implements GenericAddView {
         this.textFieldName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));*/
     }
 
-
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.setProperty();
-        this.fillComboBoxes();
-        this.fillTheList();
-        this.setButtonAction();
-    }
-
     public final void setButtonAction() {
         this.add.setOnAction(event -> {
             try {
@@ -168,31 +124,6 @@ public class NewEventWeekViewImpl implements GenericAddView {
         });
 
         this.delete.setOnAction(event -> this.delete(event));
-
-        this.goBack.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
-
-    public final void save(final ActionEvent event) throws IOException {
-        if (!this.textFieldName.getText().isEmpty() && !this.choiceStartHour.getSelectionModel().isEmpty()
-                && !this.choiceStartMinute.getSelectionModel().isEmpty() && !this.choiceEndHour.getSelectionModel().isEmpty()
-                && !this.choiceEndMinute.getSelectionModel().isEmpty() && !String.valueOf(this.datePickerStart.getValue()).isEmpty()
-                && !String.valueOf(this.datePickerEnd.getValue()).isEmpty() && !this.repetitionChoice.getSelectionModel().isEmpty()) {
-            this.saveEvent(event);
-
-            this.weekController.getView().setWeekDays();
-            this.monthController.updateView();
-
-            this.goBack(event);
-        } else {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.createWarningAllert(1);
-        }
     }
 
     public final void delete(final ActionEvent event) {
@@ -210,9 +141,14 @@ public class NewEventWeekViewImpl implements GenericAddView {
         this.repetitionChoice.getSelectionModel().clearSelection();
     }
 
-    public final void goBack(final ActionEvent event) throws IOException {
-        final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
-        stage.close();
+    public final void fillComboBoxes() {
+        final ComboBoxFiller fullComboBoxes = new ComboBoxFiller();
+
+        this.choiceStartHour.setItems(fullComboBoxes.getHourAndMinute(Constants.HOUR_PER_DAYS));
+        this.choiceEndHour.setItems(fullComboBoxes.getHourAndMinute(Constants.HOUR_PER_DAYS));
+        this.choiceStartMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
+        this.choiceEndMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
+        this.repetitionChoice.setItems(fullComboBoxes.getRepetition());
     }
 
     public final void fillTheList() {
@@ -227,18 +163,25 @@ public class NewEventWeekViewImpl implements GenericAddView {
 
     }
 
-    public final void fillComboBoxes() {
-        final ComboBoxFiller fullComboBoxes = new ComboBoxFiller();
-	
-        this.choiceStartHour.setItems(fullComboBoxes.getHourAndMinute(Constants.HOUR_PER_DAYS));
-        this.choiceEndHour.setItems(fullComboBoxes.getHourAndMinute(Constants.HOUR_PER_DAYS));
-        this.choiceStartMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
-        this.choiceEndMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
-        this.repetitionChoice.setItems(fullComboBoxes.getRepetition());
-    }
-
     public final Node getRoot() {
        return this.root;
+    }
+
+    public final void save(final ActionEvent event) throws IOException {
+        if (!this.textFieldName.getText().isEmpty() && !this.choiceStartHour.getSelectionModel().isEmpty()
+                && !this.choiceStartMinute.getSelectionModel().isEmpty() && !this.choiceEndHour.getSelectionModel().isEmpty()
+                && !this.choiceEndMinute.getSelectionModel().isEmpty() && !String.valueOf(this.datePickerStart.getValue()).isEmpty()
+                && !String.valueOf(this.datePickerEnd.getValue()).isEmpty() && !this.repetitionChoice.getSelectionModel().isEmpty()) {
+            this.saveEvent(event);
+
+            this.weekController.getView().setWeekDays();
+            this.monthController.updateView();
+
+            //this.delete(event);
+        } else {
+            final AllertGenerator allert = new AllertGenerator();
+            allert.createWarningAllert(1);
+        }
     }
 
     public final void saveEvent(final ActionEvent event) throws IOException {
@@ -258,11 +201,10 @@ public class NewEventWeekViewImpl implements GenericAddView {
         });
 
         final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), Repetition.getRepetition(this.repetitionChoice.getSelectionModel().getSelectedItem()), finalList);
-
-        if (this.controller.itIsValid(eventToSave)) {
+        try{
             this.controller.addNewEvent(eventToSave);
-            this.goBack(event);
-        } else {
+            this.delete(event);
+        } catch (IllegalStateException e){
             final AllertGenerator allert = new AllertGenerator();
             allert.createWarningAllert(2);
         }
@@ -271,5 +213,9 @@ public class NewEventWeekViewImpl implements GenericAddView {
     private static class Constants {
         public static final int HOUR_PER_DAYS = 24;
         public static final int MINUTE_PER_DAY = 60;
+        public static final double LABEL_HEIGHT = 0.1;
+        public static final double LABEL_WIDTH = 0.6;
+        public static final double TEXT_FIELD_HEIGHT = 0.05;
+        public static final double TEXT_FIELF_WIDTH = 0.3;
     }
 }

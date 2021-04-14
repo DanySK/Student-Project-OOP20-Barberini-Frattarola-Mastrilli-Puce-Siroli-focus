@@ -7,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.view.HomePageBaseView;
-import oop.focus.homepage.view.HomePageBaseViewImpl;
 
 public class HomePageLauncher extends Application {
 
@@ -18,7 +16,8 @@ public class HomePageLauncher extends Application {
         final DataSource dsi = new DataSourceImpl();
 
         final HomePageController controller = new HomePageControllerImpl(dsi);
-        primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));
+        final Scene scene = new Scene((Parent) controller.getView().getRoot());
+        primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
 

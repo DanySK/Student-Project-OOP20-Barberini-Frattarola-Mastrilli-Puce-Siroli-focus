@@ -5,9 +5,9 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oop.focus.calendar.controller.CalendarMonthController;
+import oop.focus.calendar.controller.CalendarMonthControllerImpl;
 import oop.focus.calendar.model.CalendarType;
-import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 
