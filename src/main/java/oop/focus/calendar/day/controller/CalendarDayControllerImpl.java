@@ -47,7 +47,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         this.hoursBox = new HoursViewImpl();
         this.eventBox = new EventViewImpl(hoursBox, day);
 
-        this.dailyEvents = "Attivita' giornaliere:" + SEP;
+        this.dailyEvents = " Attivita' giornaliere: " + SEP;
         this.width = width;
         this.height = height;
         setSpacing(SPACING);

@@ -25,11 +25,4 @@ public interface CalendarDaysView extends View {
     VBox getContainer();
 
 
-    /**
-     * Used for get the string where are written the daily events.
-     * @return String
-     */
-    String getDailyEvent();
-
-
 }

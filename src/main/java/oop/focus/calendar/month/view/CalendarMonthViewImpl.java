@@ -193,8 +193,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
             jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
         final CalendarDayController dayController = new CalendarDayControllerImpl(day, DAY_WIDTH, DAY_HEIGHT);
-        dayController.buildDay();
         monthController.configureDay(dayController);
+        dayController.buildDay();
         final ScrollPane dayPane = new ScrollPane(dayController.getView().getRoot());
         dayPane.setFitToWidth(true);
         cells.put(jb, new Scene(dayPane, dayController.getWidth(), dayController.getHeight()));

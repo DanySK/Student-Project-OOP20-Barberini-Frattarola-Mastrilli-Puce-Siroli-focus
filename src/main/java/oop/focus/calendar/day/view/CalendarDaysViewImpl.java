@@ -124,7 +124,11 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         this.dailyEvents = dayController.writeDailyEvent();
     }
 
-    public final String getDailyEvent() {
+    /**
+     * Used for get the string where are written the daily events.
+     * @return String
+     */
+    private String getDailyEvent() {
         return this.dailyEvents;
     }
 
