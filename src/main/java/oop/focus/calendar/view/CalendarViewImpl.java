@@ -53,8 +53,8 @@ public class CalendarViewImpl implements View {
         calendarPage.getChildren().add(panelColumn);
 
 
-        configureButtonColumn(buttonColumn);
-        configurePanelColumn(panelColumn);
+        configureColumn(buttonColumn, WIDTH_BUTTON_PANEL);
+        configureColumn(panelColumn, WIDTH_PANEL);
 
 
         columnButton(buttonColumn, "Mese", addPanel(panelColumn, calendarController.getMonthController().getView().getRoot()));
@@ -70,28 +70,16 @@ public class CalendarViewImpl implements View {
 
 
     /**
-     * Used for configure the button column box.
-     * @param buttoncolumn : column box to configure
+     * Used for configure the columns box.
+     * @param column : column box to configure
      */
-    private void configureButtonColumn(final VBox buttoncolumn) {
-        buttoncolumn.prefWidthProperty().bind(calendarPage.widthProperty().multiply(WIDTH_BUTTON_PANEL));
-        buttoncolumn.prefHeightProperty().bind(calendarPage.heightProperty());
-
-        buttoncolumn.setAlignment(Pos.CENTER);
-        buttoncolumn.setSpacing(GAP);
-
-    }
-
-
-    /**
-     * Used for configure the panel column box.
-     * @param panelcolumn : column box to configure
-     */
-    private void configurePanelColumn(final VBox panelcolumn) {
-        panelcolumn.prefWidthProperty().bind(calendarPage.widthProperty().multiply(WIDTH_PANEL));
-        panelcolumn.prefHeightProperty().bind(calendarPage.heightProperty());
-
-        panelcolumn.setAlignment(Pos.CENTER);
+    private void configureColumn(final VBox column, final double width) {
+        column.prefWidthProperty().bind(calendarPage.widthProperty().multiply(width));
+        column.prefHeightProperty().bind(calendarPage.heightProperty());
+        column.setAlignment(Pos.CENTER);
+        if (width == WIDTH_BUTTON_PANEL) {
+        column.setSpacing(GAP);
+        }
 
     }
 
