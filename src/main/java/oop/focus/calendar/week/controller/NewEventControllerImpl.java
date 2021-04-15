@@ -30,9 +30,9 @@ public class NewEventControllerImpl implements NewEventController {
     }
 
     public final void addNewEvent(final Event event) {
-        try{
+        try {
             this.eventManager.addEvent(event);
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             throw new IllegalStateException();
         }
     }

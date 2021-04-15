@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
-import oop.focus.db.DataSource;
 
 public class GeneralHomePageView implements View, Initializable {
 

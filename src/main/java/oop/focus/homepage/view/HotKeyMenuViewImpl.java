@@ -11,10 +11,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
@@ -95,13 +99,13 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     @FXML
     public final void deletSelectedRowItem(final ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma eliminazione");
         alert.setHeaderText("Sei sicuro di volere eliminare questo tasto rapido?");
 
-        Optional<ButtonType> result = alert.showAndWait();
+        final Optional<ButtonType> result = alert.showAndWait();
 
-        if(!result.isPresent() || result.get() != ButtonType.OK) {
+        if (!result.isPresent() || result.get() != ButtonType.OK) {
             alert.close();
         } else {
             this.deleteItem();

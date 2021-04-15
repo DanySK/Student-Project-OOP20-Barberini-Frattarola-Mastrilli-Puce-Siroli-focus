@@ -29,6 +29,7 @@ import oop.focus.calendar.model.DayImpl;
 import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKey;
+import oop.focus.statistics.view.ViewFactory;
 
 public class HomePageBaseViewImpl implements HomePageBaseView {
 
@@ -132,12 +133,16 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
 
         private void setProprietes() {
             this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.15));
+
             this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.5));
             this.scroller.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
+
             this.scrollPane.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
             this.scrollPane.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.8));
+
             this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
             this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
+
             this.calendarHBox.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.3));
             this.calendarHBox.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.5));
         }
