@@ -2,8 +2,6 @@ package oop.focus.homepage.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
-import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
@@ -81,11 +79,11 @@ public class HomePageControllerImpl implements HomePageController {
         return this.hotKeyManager;
     }
 
-    public final String getText(){
+    public final String getText() {
         return this.nameEvent;
     }
 
-    public final View getView() {
+    public final HomePageBaseView getView() {
         return this.view;
     }
 
@@ -94,9 +92,9 @@ public class HomePageControllerImpl implements HomePageController {
     }
 
     public final void saveEvent(final Event eventImpl) {
-        try{
+        try {
             this.eventManager.addEvent(eventImpl);
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             throw new IllegalStateException();
         }
     }
@@ -105,9 +103,7 @@ public class HomePageControllerImpl implements HomePageController {
         this.hotKeyManager.add(hotKey);
     }
 
-    public final void setText(final String text){
+    public final void setText(final String text) {
         this.nameEvent = text;
     }
-
-
 }

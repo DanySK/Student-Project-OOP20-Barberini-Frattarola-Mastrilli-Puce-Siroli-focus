@@ -14,7 +14,5 @@ public interface HotKeyMenuView extends Initializable, View {
 
     void goBack(ActionEvent event) throws IOException;
 
-    void populate();
-
     void populateTableView();
 }

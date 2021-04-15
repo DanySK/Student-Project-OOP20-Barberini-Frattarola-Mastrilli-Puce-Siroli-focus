@@ -90,9 +90,10 @@ public interface EventManager {
     /**
      * 
      * @param date
-     * @return
+     * @return a list of event.
      */
     List<Event> getFutureEvent(LocalDate date);
+
     /**
      * This method is used to obtain all the events that respect are generate after clicking hot keys.
      * @return list of event that are generate after clicking hot keys.
@@ -117,6 +118,7 @@ public interface EventManager {
     void removeEvent(Event event);
 
     void saveTimer(Event event);
+
     /**
      * This method is used to get only the events that have a duration less then 24 hours.
      * @param eventsList is the list of events from which to take only events with a duration of less than 24 hours.

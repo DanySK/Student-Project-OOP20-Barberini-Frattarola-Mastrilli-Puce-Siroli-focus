@@ -1,11 +1,10 @@
 package oop.focus.homepage.controller;
 
 import javafx.collections.ObservableList;
-import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
+import oop.focus.homepage.view.HotKeyMenuView;
 
 public interface HotKeyController {
 
@@ -13,7 +12,7 @@ public interface HotKeyController {
 
     DataSource getDsi();
 
-    View getView();
+    HotKeyMenuView getView();
 
     ObservableList<HotKey> getSortedHotKey();
 

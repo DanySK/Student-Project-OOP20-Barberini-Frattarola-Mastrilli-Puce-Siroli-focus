@@ -2,6 +2,7 @@ package oop.focus.calendar.persons.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import oop.focus.calendar.persons.view.AddNewPersonView;
 import oop.focus.calendar.persons.view.RelationshipsView;
 import oop.focus.calendar.persons.view.RelationshipsViewImpl;
 import oop.focus.common.View;
@@ -19,10 +20,10 @@ public class RelationshipsControllerImpl implements RelationshipsController {
     private final RelationshipsManager relationships;
     private final RelationshipsView view;
 
-    public RelationshipsControllerImpl(final DataSource dsi) {
+    public RelationshipsControllerImpl(final DataSource dsi, final AddNewPersonView personView) {
         this.dsi = dsi;
         this.relationships = new RelationshipsManagerImpl(this.dsi);
-        this.view = new RelationshipsViewImpl(this);
+        this.view = new RelationshipsViewImpl(this, personView);
     }
 
     public final void addRelationship(final String relationship) {

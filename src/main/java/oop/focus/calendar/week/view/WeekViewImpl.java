@@ -1,8 +1,15 @@
 package oop.focus.calendar.week.view;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
-import javafx.scene.layout.AnchorPane;
+
+import javafx.geometry.Insets;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Window;
+import oop.focus.statistics.view.ViewFactory;
+import oop.focus.statistics.view.ViewFactoryImpl;
 import org.joda.time.LocalDate;
 
 import javafx.event.ActionEvent;
@@ -13,7 +20,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import oop.focus.calendar.day.controller.CalendarDayController;
 import oop.focus.calendar.day.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.day.view.CalendarDaysView;
@@ -26,10 +32,10 @@ import oop.focus.db.DataSourceImpl;
 public class WeekViewImpl implements WeekView {
 
     @FXML
-    private AnchorPane weekDaysPane;
+    private VBox weekDaysPane;
 
     @FXML
-    private ScrollPane weekDaysScroller;
+    private Button lastWeek;
 
     @FXML
     private Label thisWeek;
@@ -38,7 +44,8 @@ public class WeekViewImpl implements WeekView {
     private Button nextWeek;
 
     @FXML
-    private Button lastWeek;
+    private ScrollPane weekDaysScroller;
+
 
     private Node root;
     private LocalDate startWeek;
@@ -53,25 +60,16 @@ public class WeekViewImpl implements WeekView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-        this.setProperty();
+        this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.weekDaysPane.getChildren())).getRoot();
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+
         final LocalDate today = LocalDate.now();
         this.startWeek = today.minusDays(today.getDayOfWeek() - 1);
         this.setWeekDays();
         this.setButtonAction();
-    }
-
-    private void setProperty() {
-        this.thisWeek.setAlignment(Pos.CENTER);
-
-        this.weekDaysScroller.prefWidthProperty().bind(this.weekDaysPane.widthProperty().multiply(0.95));
-        this.weekDaysScroller.prefHeightProperty().bind(this.weekDaysPane.heightProperty().multiply(0.8));
-
-        this.thisWeek.prefHeightProperty().bind(this.weekDaysPane.heightProperty().multiply(0.1));
-        this.thisWeek.prefWidthProperty().bind(this.weekDaysPane.widthProperty().multiply(0.3));
 
     }
 
@@ -98,7 +96,7 @@ public class WeekViewImpl implements WeekView {
     }
 
     private void setLabelText() {
-        if (this.startWeek.isEqual(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek() - 1))){
+        if (this.startWeek.isEqual(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek() - 1))) {
             this.thisWeek.setText("SETTIMANA CORRENTE");
         } else {
             this.thisWeek.setText(startWeek.toString() + " - " + startWeek.plusDays(Constants.FIND_FINAL));

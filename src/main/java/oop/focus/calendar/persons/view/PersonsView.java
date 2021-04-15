@@ -12,7 +12,5 @@ public interface PersonsView extends Initializable, View {
 
     void delete(ActionEvent event);
 
-    void goToDegree(ActionEvent event) throws IOException;
-
     void populateTableView();
 }

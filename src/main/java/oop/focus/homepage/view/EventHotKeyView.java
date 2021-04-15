@@ -1,4 +1,5 @@
 package oop.focus.homepage.view;
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

@@ -41,11 +41,13 @@ public class AddNewRelationship implements GenericAddView {
 
     private final RelationshipsController controller;
     private final RelationshipsView relationshipsView;
+    private final AddNewPersonView personView;
     private Node root;
  
-    public AddNewRelationship(final RelationshipsController controller, final RelationshipsView relationshipsView) {
+    public AddNewRelationship(final RelationshipsController controller, final AddNewPersonView personView) {
         this.controller = controller;
-        this.relationshipsView = relationshipsView;
+        this.relationshipsView = (RelationshipsView) this.controller.getView();
+        this.personView = personView;
 
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWRELATIONSHIP.getPath()));
         loader.setController(this);
@@ -107,6 +109,7 @@ public class AddNewRelationship implements GenericAddView {
         if (!this.nameTextField.getText().isEmpty()) {
             this.controller.addRelationship(this.nameTextField.getText());
             this.relationshipsView.populateTableView();
+            this.personView.fillComboBoxDegree();
             this.goBack(event);
         } else {
             final AllertGenerator allert = new AllertGenerator();

@@ -11,4 +11,6 @@ public interface HomePageBaseView extends Initializable, View {
     void modifyClicked(ActionEvent event) throws IOException;
 
     void setDay();
+
+    void fullVBoxHotKey();
 }

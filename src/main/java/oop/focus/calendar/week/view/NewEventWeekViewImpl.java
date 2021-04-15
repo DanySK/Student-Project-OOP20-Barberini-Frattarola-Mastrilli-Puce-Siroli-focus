@@ -199,10 +199,10 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         });
 
         final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), Repetition.getRepetition(this.repetitionChoice.getSelectionModel().getSelectedItem()), finalList);
-        try{
+        try {
             this.controller.addNewEvent(eventToSave);
             this.delete(event);
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             final AllertGenerator allert = new AllertGenerator();
             allert.createWarningAllert(2);
         }

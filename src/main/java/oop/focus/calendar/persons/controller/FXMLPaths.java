@@ -6,7 +6,7 @@ public enum FXMLPaths {
     /**
      * 
      */
-    PERSONS(Constants.PERSONS + "personsBase.fxml"),
+    PERSONS(Constants.PERSONS + "view.fxml"),
     /**
      *
      */

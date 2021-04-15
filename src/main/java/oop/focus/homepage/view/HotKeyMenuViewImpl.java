@@ -19,19 +19,20 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
-import oop.focus.homepage.controller.HomePageControllerImpl;
+import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     @FXML
-    private Pane paneHotKeyView;
+    private AnchorPane paneHotKeyView;
 
     @FXML
     private Button addHotKeyButton, deleteElement, goBackButton;
@@ -43,10 +44,12 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     private TableColumn<HotKey, String> nome, tipo;
 
     private final HotKeyController controller;
+    private final HomePageController controllerHomePage;
     private Node root;
 
-    public HotKeyMenuViewImpl(final HotKeyController controller) {
+    public HotKeyMenuViewImpl(final HotKeyController controller, HomePageController homePageController) {
         this.controller = controller;
+        this.controllerHomePage = homePageController;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.HOTKEYMENU.getPath()));
         loader.setController(this);
 
@@ -55,17 +58,10 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.setProprieties();
+        this.setProperties();
     }
 
-    @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.setButtonAction();
-
-        this.populate();
-    }
-
-    private void setProprieties() {
+    private void setProperties() {
         this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.7));
         this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.7));
 
@@ -82,9 +78,15 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.addHotKeyButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
     }
 
+    @Override
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        this.setButtonAction();
+        this.populateTableView();
+    }
+
     @FXML
     public final void addNewHotKey(final ActionEvent event) throws IOException {
-        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller, this);
+        final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller, this.controllerHomePage);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newHotKey.getRoot()));
         stage.show();
@@ -118,14 +120,8 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     @FXML
     public final void goBack(final ActionEvent event) throws IOException {
-        final HomePageBaseView base = new HomePageBaseViewImpl(new HomePageControllerImpl(this.controller.getDsi()));
-        this.paneHotKeyView.getChildren().clear();
-        this.paneHotKeyView.getChildren().add(base.getRoot());
-    }
-
-    public final void populate() {
-
-        this.populateTableView();
+        final Stage stage = (Stage) this.root.getScene().getWindow();
+        stage.close();
     }
 
     public final void populateTableView() {
@@ -175,6 +171,13 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
             }
         });
 
+    }
+
+    private static class Constants {
+        private static final double TABLE_SIZE = 0.7;
+        private static final double PREF_BUTTON_WIDTH = 0.15;
+        private static final double PREF_BUTTON_HEIGHT = 0.05;
+        private static final double DELETE_BUTTON_WIDTH = 0.5;
     }
 }
 

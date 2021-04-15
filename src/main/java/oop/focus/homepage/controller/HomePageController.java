@@ -1,13 +1,12 @@
 package oop.focus.homepage.controller;
 
 import javafx.collections.ObservableList;
-import javafx.scene.Parent;
-import oop.focus.common.View;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyManager;
+import oop.focus.homepage.view.HomePageBaseView;
 
 public interface HomePageController {
 
@@ -27,7 +26,7 @@ public interface HomePageController {
 
     HotKeyManager getHotKeyManager();
 
-    View getView();
+    HomePageBaseView getView();
 
     String getText();
 

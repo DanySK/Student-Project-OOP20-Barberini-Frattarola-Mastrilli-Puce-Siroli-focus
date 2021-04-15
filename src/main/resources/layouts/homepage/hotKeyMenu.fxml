@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="paneHotKeyView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="430.0" prefWidth="681.0">
+         <children>
+            <TableView fx:id="tableHotKeyList" prefHeight="430.0" prefWidth="370.0">
+              <columns>
+                <TableColumn fx:id="nome" prefWidth="184.8000144958496" text="nome" />
+                <TableColumn fx:id="tipo" prefWidth="184.00001525878906" text="tipo" />
+              </columns>
+               <HBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </HBox.margin>
+            </TableView>
+            <VBox alignment="CENTER" prefHeight="430.0" prefWidth="231.0">
+               <children>
+                  <Button fx:id="goBackButton" mnemonicParsing="false" text="INDIETRO" />
+                  <Button fx:id="addHotKeyButton" mnemonicParsing="false" text="AGGIUNGI" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="75.0" prefWidth="710.0">
+         <children>
+            <Button fx:id="deleteElement" mnemonicParsing="false" text="ELIMINA L'ELELEMENTO SELEZIONATO" />
+         </children>
+      </VBox>
+   </children>
+</VBox>

@@ -119,12 +119,12 @@ public class NewEventViewImpl implements NewEventView {
 
     private void setProperty() {
         this.newEvent.setAlignment(Pos.CENTER);
-        this.newEvent.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.1));
-        this.newEvent.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));
+        this.newEvent.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(Constants.PREF_HEIGHT));
+        this.newEvent.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(Constants.PREF_WIDTH));
 
         this.newEventName.setAlignment(Pos.CENTER);
-        this.newEventName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.1));
-        this.newEventName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));
+        this.newEventName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(Constants.PREF_HEIGHT));
+        this.newEventName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(Constants.PREF_WIDTH));
 
     }
 
@@ -153,10 +153,10 @@ public class NewEventViewImpl implements NewEventView {
 
         final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), Repetition.getRepetition(this.repetitionChoice.getSelectionModel().getSelectedItem()), finalList);
 
-        try{
+        try {
             this.controller.saveEvent(eventToSave);
             this.goBack(event);
-        } catch (IllegalStateException e){
+        } catch (IllegalStateException e) {
             final AllertGenerator allert = new AllertGenerator();
             allert.createWarningAllert(2);
         }
@@ -187,6 +187,8 @@ public class NewEventViewImpl implements NewEventView {
     private static class Constants {
          public static final int HOUR_PER_DAY = 24;
          public static final int MINUTE_PER_HOUR = 60;
+         private static final double PREF_WIDTH = 0.6;
+         private static final double PREF_HEIGHT = 0.1;
     }
 
 }

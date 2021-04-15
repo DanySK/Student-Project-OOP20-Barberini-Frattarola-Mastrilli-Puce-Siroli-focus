@@ -66,26 +66,6 @@ public class EventManagerImpl implements EventManager {
         }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
     }
 
-    public final List<Event> getFutureEvent(final LocalDate date) {
-        List<Event> eventsToShow = new ArrayList<>();
-
-        for (Event event : this.getAll()) {
-            if (!event.getRipetition().equals(Repetition.ONCE)) {
-                LocalDate startDate = event.getStartDate();
-                LocalDate endDate = event.getEndDate();
-
-                while (startDate.isBefore(date) && endDate.isBefore(date)) {
-                    startDate = event.getRipetition().getNextRenewalFunction().apply(startDate);
-                    endDate = event.getRipetition().getNextRenewalFunction().apply(endDate);
-                }
-                if (startDate.equals(date) || endDate.equals(date) || startDate.isBefore(date) && endDate.isAfter(date)) {
-                    eventsToShow.add(new EventImpl(event.getName(), startDate.toLocalDateTime(event.getStartHour()), endDate.toLocalDateTime(event.getEndHour()), event.getRipetition()));
-                }
-            }
-        }
-        return eventsToShow;
-    }
-
     public final Set<Event> findByHour(final LocalTime hour) {
         return this.events.getAll().stream().filter(e -> e.getStartHour().equals(hour)).collect(Collectors.toSet());
     }
@@ -94,21 +74,11 @@ public class EventManagerImpl implements EventManager {
         return this.events.getAll().stream().filter(e -> e.getName().equals(name)).collect(Collectors.toSet());
     }
 
-    public final void generateRepeatedEvents(final LocalDate date) {
-        this.generateListOfNextEvent(date).forEach(this::addEvent);
-    }
-
     public final List<Event> generateListOfNextEvent(final LocalDate date) {
          return this.events.getAll().stream()
                .flatMap(e -> this.generateNext(e, date).stream()).collect(Collectors.toList());
     }
 
-   /**
-    * This method is used from the generateListOfNextEvent to generate the next event.
-    * @param event is the event to find the next repeat date.
-    * @param date is the date on which we take events.
-    * @return a list of event that repeat them self.
-    */
     private List<Event> generateNext(final Event event, final LocalDate date) {
         if (event.getRipetition().equals(Repetition.ONCE) || new LocalDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth())
                .isBefore(new LocalDate(event.getNextRenewal().getStartDate()))) {
@@ -118,6 +88,14 @@ public class EventManagerImpl implements EventManager {
         final var newEvent = event.getNextRenewal();
         return Stream.concat(List.of(newEvent).stream(),
                this.generateNext(newEvent, date).stream()).collect(Collectors.toList());
+    }
+
+    public final void generateRepeatedEvents(final LocalDate date) {
+        this.generateListOfNextEvent(date).forEach(this::addEvent);
+    }
+
+    public final Set<Event> getAll() {
+        return this.events.getAll();
     }
 
     public final boolean getAnswer(final Event event) {
@@ -135,10 +113,6 @@ public class EventManagerImpl implements EventManager {
         return Optional.empty();
     }
 
-    public final Set<Event> getAll() {
-        return this.events.getAll();
-    }
-
     public final Set<Event> getDailyEvents() {
         return this.events.getAll().stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toSet());
     }
@@ -153,15 +127,30 @@ public class EventManagerImpl implements EventManager {
         return this.getEvents().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
     }
 
+    public final List<Event> getFutureEvent(final LocalDate date) {
+        final List<Event> eventsToShow = new ArrayList<>();
+
+        for (final Event event : this.getAll()) {
+            if (!event.getRipetition().equals(Repetition.ONCE)) {
+                LocalDate startDate = event.getStartDate();
+                LocalDate endDate = event.getEndDate();
+
+                while (startDate.isBefore(date) && endDate.isBefore(date)) {
+                    startDate = event.getRipetition().getNextRenewalFunction().apply(startDate);
+                    endDate = event.getRipetition().getNextRenewalFunction().apply(endDate);
+                }
+                if (startDate.equals(date) || endDate.equals(date) || startDate.isBefore(date) && endDate.isAfter(date)) {
+                    eventsToShow.add(new EventImpl(event.getName(), startDate.toLocalDateTime(event.getStartHour()), endDate.toLocalDateTime(event.getEndHour()), event.getRipetition()));
+                }
+            }
+        }
+        return eventsToShow;
+    }
+
     public final List<Event> getHotKeyEvents() {
         return this.events.getAll().stream().filter(e -> this.isAdequate(e)).collect(Collectors.toList());
     }
 
-    /**
-     * This method is used to not accept events that were saved when a hot key was clicked.
-     * @param event is the event on which to check.
-     * @return true if the event was saved after a hot key has been clicked false otherwise.
-     */
     private boolean isAdequate(final Event event) {
         return event.getStart().isEqual(event.getEnd());
     }

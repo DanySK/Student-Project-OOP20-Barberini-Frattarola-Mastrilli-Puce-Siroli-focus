@@ -9,16 +9,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.controller.FXMLPaths;
+import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
 
-public class NewHotKeyViewImpl implements GenericAddView {
+public class NewHotKeyViewImpl implements  GenericAddView {
 
     @FXML
     private Pane paneNewHotKey;
@@ -36,12 +41,16 @@ public class NewHotKeyViewImpl implements GenericAddView {
     private ComboBox<String> categoryComboBox;
 
     private final HotKeyController controller;
+    private final HomePageController homePageController;
     private final HotKeyMenuView menuView;
+    private final HomePageBaseView homePageBaseView;
     private Node root;
 
-    public NewHotKeyViewImpl(final HotKeyController controller, final HotKeyMenuView hotKeyMenuView) {
+    public NewHotKeyViewImpl(final HotKeyController controller, HomePageController controllerHomePage) {
         this.controller = controller;
-        this.menuView = hotKeyMenuView;
+        this.homePageController = controllerHomePage;
+        this.menuView = this.controller.getView();
+        this.homePageBaseView = this.homePageController.getView();
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWHOTKEY.getPath()));
         loader.setController(this);
 
@@ -61,16 +70,16 @@ public class NewHotKeyViewImpl implements GenericAddView {
     }
 
     private void setProperty() {
-        this.labelAddNew.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.5));
-        this.labelAddNew.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(0.05));
+        this.labelAddNew.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(Constants.LABEL_WIDTH));
+        this.labelAddNew.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(Constants.LABEL_HEIGHT));
         this.labelAddNew.setAlignment(Pos.CENTER);
 
-        this.labelHotKey.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.5));
-        this.labelHotKey.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(0.05));
+        this.labelHotKey.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(Constants.LABEL_WIDTH));
+        this.labelHotKey.prefHeightProperty().bind(this.paneNewHotKey.heightProperty().multiply(Constants.LABEL_HEIGHT));
         this.labelHotKey.setAlignment(Pos.CENTER);
 
-        this.categoryComboBox.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.3));
-        this.nameTextField.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(0.3));
+        this.categoryComboBox.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(Constants.PREF_WIDTH));
+        this.nameTextField.prefWidthProperty().bind(this.paneNewHotKey.widthProperty().multiply(Constants.PREF_WIDTH));
     }
 
     @FXML
@@ -100,6 +109,7 @@ public class NewHotKeyViewImpl implements GenericAddView {
             try {
                 this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
                 this.menuView.populateTableView();
+                this.homePageBaseView.fullVBoxHotKey();
                 this.goBack(event);
             } catch (IllegalStateException e) {
                 final Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -134,4 +144,10 @@ public class NewHotKeyViewImpl implements GenericAddView {
             }
         });
     }
+
+    private static class Constants {
+        public static final double PREF_WIDTH  = 0.3;
+        private static final double LABEL_WIDTH = 0.5;
+        private static final double LABEL_HEIGHT = 0.05;
+   }
 }

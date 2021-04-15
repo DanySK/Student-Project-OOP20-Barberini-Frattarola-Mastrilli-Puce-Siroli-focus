@@ -3,11 +3,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.calendar.month.view.CalendarMonthView;
 import oop.focus.calendar.month.view.CalendarMonthViewImpl;
+import oop.focus.calendar.persons.view.AddNewPersonView;
+import oop.focus.calendar.persons.view.AddNewPersonViewImpl;
 import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.controller.HotKeyControllerImpl;
 import org.joda.time.LocalDate;
@@ -29,7 +34,6 @@ import oop.focus.calendar.model.DayImpl;
 import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKey;
-import oop.focus.statistics.view.ViewFactory;
 
 public class HomePageBaseViewImpl implements HomePageBaseView {
 
@@ -82,13 +86,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.setCalendar();
             this.setDay();
 
-            final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
-
-            vbox.setSpacing(10);
-            vbox.setPadding(new Insets(10));
-            final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
-            hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
-            scrollPane.setContent(vbox);
+            this.fullVBoxHotKey();
        }
 
         public final Node getRoot() {
@@ -96,15 +94,15 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
     }
 
         public final void modifyClicked(final ActionEvent event) throws IOException {
-            final HotKeyController menuController = new HotKeyControllerImpl(this.controller.getDsi());
-            this.paneCalendarHomePage.getChildren().clear();
-            this.paneCalendarHomePage.getChildren().add(menuController.getView().getRoot());
+            final HotKeyController menuController = new HotKeyControllerImpl(this.controller);
+            final Stage stage = new Stage();
+            stage.setScene(new Scene((Parent) menuController.getView().getRoot()));
+            stage.show();
         }
 
         private void setCalendar() {
             final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi());
-
-            monthController.setFontSize(12);
+            monthController.setFontSize(Constants.FONT_SIZE);
             final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController);
             month.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
             month.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
@@ -131,21 +129,41 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.scroller.setContent(vBoxCalendar);
         }
 
-        private void setProprietes() {
-            this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.15));
+    @Override
+    public void fullVBoxHotKey() {
+        final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
 
-            this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.5));
-            this.scroller.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
+        vbox.setSpacing(Constants.SPACING_HOT_KEY);
+        vbox.setPadding(new Insets(Constants.SPACING_HOT_KEY));
+        final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
+        hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
+        scrollPane.setContent(vbox);
+    }
 
-            this.scrollPane.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.3));
-            this.scrollPane.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.8));
+    private void setProprietes() {
+            this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(Constants.BUTTON_WIDTH));
+
+            this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(Constants.PREF_HEIGHT));
+            this.scroller.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(Constants.PREF_WIDTH));
+
+            this.scrollPane.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(Constants.PREF_WIDTH));
+            this.scrollPane.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(Constants.SCROLLER_HEIGHT));
 
             this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
             this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
 
-            this.calendarHBox.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(0.3));
+            this.calendarHBox.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(Constants.PREF_HEIGHT));
             this.calendarHBox.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(0.5));
         }
 
+
+        private static class Constants {
+            private static final int FONT_SIZE = 12;
+            private static final int SPACING_HOT_KEY = 10;
+            private static final double PREF_WIDTH = 0.3;
+            private static final double PREF_HEIGHT = 0.5;
+            private static final double SCROLLER_HEIGHT = 0.8;
+            private static final double BUTTON_WIDTH = 0.15;
+        }
 
 }

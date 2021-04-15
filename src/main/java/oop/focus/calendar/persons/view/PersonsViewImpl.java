@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,16 +17,15 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import oop.focus.calendar.persons.controller.PersonsController;
-import oop.focus.calendar.persons.controller.RelationshipsController;
-import oop.focus.calendar.persons.controller.RelationshipsControllerImpl;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -33,16 +33,16 @@ import java.util.ResourceBundle;
 public class PersonsViewImpl implements PersonsView {
 
     @FXML
-    private AnchorPane panePersons;
+    private VBox panePersons;
 
     @FXML
     private TableView<Person> tableViewPersons;
 
     @FXML
-    private TableColumn<Person, String> name, relationship;
+    private TableColumn<Person, String> name, relationships;
 
     @FXML
-    private Button delete, add, degreeOfKinsip;
+    private Button delete, add;
 
     private final PersonsController controller;
     private Node root;
@@ -58,14 +58,8 @@ public class PersonsViewImpl implements PersonsView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-        this.setProperty();
-    }
+        this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.panePersons.getChildren())).getRoot();
 
-    private void setProperty() {
-        this.tableViewPersons.prefWidthProperty().bind(this.panePersons.widthProperty().multiply(Constants.TABLE_WIDTH));
-        this.tableViewPersons.prefHeightProperty().bind(this.panePersons.heightProperty().multiply(Constants.TABLE_HEIGHT));
-        this.name.prefWidthProperty().bind(this.tableViewPersons.widthProperty().divide(2));
-        this.relationship.prefWidthProperty().bind(this.tableViewPersons.widthProperty().divide(2));
     }
 
     @Override
@@ -75,7 +69,7 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     public final void add(final ActionEvent event) {
-        final AddNewPersonView newPerson = new AddNewPersonView(this.controller, this);
+        final AddNewPersonView newPerson = new AddNewPersonViewImpl(this.controller, this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newPerson.getRoot()));
         stage.show();
@@ -107,13 +101,6 @@ public class PersonsViewImpl implements PersonsView {
         return this.root;
     }
 
-    public final void goToDegree(final ActionEvent event) throws IOException {
-        final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi());
-
-        this.panePersons.getChildren().clear();
-        this.panePersons.getChildren().add(relationshipsController.getView().getRoot());
-    }
-
     public final void populateTableView() {
         name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
         name.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -125,9 +112,9 @@ public class PersonsViewImpl implements PersonsView {
             }
         });
 
-        relationship.setCellValueFactory(new PropertyValueFactory<Person, String>("relationships"));
-        relationship.setCellFactory(TextFieldTableCell.forTableColumn());
-        relationship.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
+        relationships.setCellValueFactory(new PropertyValueFactory<Person, String>("relationships"));
+        relationships.setCellFactory(TextFieldTableCell.forTableColumn());
+        relationships.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
             @Override
             public void handle(final CellEditEvent<Person, String> event) {
                 final Person person = event.getRowValue();
@@ -143,13 +130,6 @@ public class PersonsViewImpl implements PersonsView {
     private void setButtonOnAction() {
         this.add.setOnAction(event -> this.add(event));
         this.delete.setOnAction(event -> this.delete(event));
-        this.degreeOfKinsip.setOnAction(event -> {
-            try {
-                this.goToDegree(event);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     public final void refreshTableView() {
@@ -160,4 +140,5 @@ public class PersonsViewImpl implements PersonsView {
         private static final double TABLE_WIDTH = 0.50;
         private static final double TABLE_HEIGHT = 0.8;
     }
+
 }

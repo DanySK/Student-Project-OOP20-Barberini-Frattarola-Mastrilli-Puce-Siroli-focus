@@ -74,11 +74,11 @@ public class PersonImpl implements Person {
         this.relationships = newValue;
     }
 
-    public final String toString(){
+    public final String toString() {
         return this.name + " " + this.relationships;
     }
 
-    public final String toStringForName(){
+    public final String toStringForName() {
         return " " + this.name;
     }
 }

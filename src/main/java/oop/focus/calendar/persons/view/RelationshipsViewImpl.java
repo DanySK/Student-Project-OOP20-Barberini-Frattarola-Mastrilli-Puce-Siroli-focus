@@ -10,12 +10,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.db.exceptions.DaoAccessException;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -24,11 +27,13 @@ import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.common.View;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 
 public class RelationshipsViewImpl implements RelationshipsView {
+
     @FXML
-    private Pane relationshipsPane;
+    private AnchorPane relationshipsPane;
 
     @FXML
     private TableView<String> relationshipsTable;
@@ -40,10 +45,13 @@ public class RelationshipsViewImpl implements RelationshipsView {
     private Button addRelationship, goBack, deleteRelationship;
 
     private final RelationshipsController controller;
+    private final AddNewPersonView personView;
     private Node root;
 
-    public RelationshipsViewImpl(final RelationshipsController controller) {
+    public RelationshipsViewImpl(final RelationshipsController controller, final AddNewPersonView personView) {
         this.controller = controller;
+        this.personView = personView;
+
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.RELATIONSHIPS.getPath()));
         loader.setController(this);
 
@@ -55,12 +63,6 @@ public class RelationshipsViewImpl implements RelationshipsView {
         this.setProperty();
     }
 
-    @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.populateTableView();
-        this.setButtonOnAction();
-    }
-
     private void setProperty() {
         //this.relationshipsPane.setPrefSize(this.controller.getWidth(), this.controller.getHeight());
 
@@ -69,9 +71,15 @@ public class RelationshipsViewImpl implements RelationshipsView {
         this.relationshipsColumn.prefWidthProperty().bind(this.relationshipsTable.widthProperty());
     }
 
+    @Override
+    public final void initialize(final URL location, final ResourceBundle resources) {
+        this.populateTableView();
+        this.setButtonOnAction();
+    }
+
     @FXML
     public final void addRelationships() {
-        final View newDegree = new AddNewRelationship(this.controller, this);
+        final View newDegree = new AddNewRelationship(this.controller, this.personView);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newDegree.getRoot()));
         stage.show();
@@ -114,9 +122,8 @@ public class RelationshipsViewImpl implements RelationshipsView {
     }
 
     public final void goBack() {
-        final PersonsController personsController = new PersonsControllerImpl(this.controller.getDsi());
-        this.relationshipsPane.getChildren().clear();
-        this.relationshipsPane.getChildren().add(personsController.getView().getRoot());
+        final Stage stage = (Stage) this.root.getScene().getWindow();
+        stage.close();
     }
 
     public final void populateTableView() {
