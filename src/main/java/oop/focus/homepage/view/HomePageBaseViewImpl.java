@@ -11,8 +11,6 @@ import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.calendar.month.view.CalendarMonthView;
 import oop.focus.calendar.month.view.CalendarMonthViewImpl;
-import oop.focus.calendar.persons.view.AddNewPersonView;
-import oop.focus.calendar.persons.view.AddNewPersonViewImpl;
 import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.controller.HotKeyControllerImpl;
 import org.joda.time.LocalDate;
@@ -129,18 +127,18 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.scroller.setContent(vBoxCalendar);
         }
 
-    @Override
-    public void fullVBoxHotKey() {
-        final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
+        @Override
+        public final void fullVBoxHotKey() {
+            final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
 
-        vbox.setSpacing(Constants.SPACING_HOT_KEY);
-        vbox.setPadding(new Insets(Constants.SPACING_HOT_KEY));
-        final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
-        hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
-        scrollPane.setContent(vbox);
-    }
+            vbox.setSpacing(Constants.SPACING_HOT_KEY);
+            vbox.setPadding(new Insets(Constants.SPACING_HOT_KEY));
+            final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
+            hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
+            scrollPane.setContent(vbox);
+        }
 
-    private void setProprietes() {
+        private void setProprietes() {
             this.modifyButton.prefWidthProperty().bind(this.paneCalendarHomePage.widthProperty().multiply(Constants.BUTTON_WIDTH));
 
             this.scroller.prefHeightProperty().bind(this.paneCalendarHomePage.heightProperty().multiply(Constants.PREF_HEIGHT));
