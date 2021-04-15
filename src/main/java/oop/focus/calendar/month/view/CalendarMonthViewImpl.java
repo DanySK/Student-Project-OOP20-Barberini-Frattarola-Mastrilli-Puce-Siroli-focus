@@ -70,6 +70,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private static final double DAY_WIDTH = 200;
     private static final double DAY_HEIGHT = 500;
     private static final double CORNER_RADIUS = 10;
+    private static final String COLOR = "fc8282";
 
     /**
      * Used for Initialize the month view.
@@ -188,7 +189,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setPrefSize(DIM, DIM);
         jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.setBackground(new Background(new BackgroundFill(Color.valueOf(COLOR), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         } else {
             jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
@@ -214,7 +215,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setPrefSize(DIM, DIM);
         jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.setBackground(new Background(new BackgroundFill(Color.valueOf(COLOR), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         } else {
             jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
