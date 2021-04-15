@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="667.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="pane" prefHeight="667.0" prefWidth="980.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="addAnnotation" layoutX="775.0" layoutY="336.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="129.0" textFill="#a6371e">
          <font>
@@ -48,4 +48,4 @@
       </Label>
       <BorderPane fx:id="containerIcons" layoutX="568.0" layoutY="478.0" prefHeight="170.0" prefWidth="381.0" />
    </children>
-</Pane>
+</BorderPane>

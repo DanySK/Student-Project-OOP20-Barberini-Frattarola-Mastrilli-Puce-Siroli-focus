@@ -18,7 +18,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
@@ -31,15 +30,14 @@ import oop.focus.diary.controller.ToDoListController;
 
 
 public class BaseDiary implements Initializable, View {
-    private static final double LEFT_VBOX_WIDTH = 0.55;
     private static final double DIARY_LABEL_HEIGHT = 0.1;
-    private static final double TDL_LABEL_HEIGHT = 0.25;
+    private static final double TDL_LABEL_HEIGHT = 0.1;
     private static final double CONTAINER_DIARY_HEIGHT = 0.7;
     private static final double CONTAINER_TDL_HEIGHT = 0.4;
     private static final double BUTTON_WIDTH = 0.3;
     private static final int INSETS = 20;
     @FXML
-    private Pane pane;
+    private BorderPane pane;
 
     @FXML
     private Label toDoListLabel, diaryLabel;
@@ -92,23 +90,19 @@ public class BaseDiary implements Initializable, View {
      */
     private void setProperties() {
         final HBox principalBox = new HBox();
-        principalBox.getChildren().add(this.getLeftVBox(principalBox));
+        principalBox.getChildren().add(this.getLeftVBox());
         principalBox.getChildren().add(this.getRightVBox());
-        this.pane.getChildren().add(principalBox);
-        principalBox.prefWidthProperty().bind(this.pane.widthProperty());
-        principalBox.prefHeightProperty().bind(this.pane.heightProperty());
+        this.pane.setCenter(principalBox);
     }
 
     /**
      * The method creates a new VBox, filled by the components that manage the diary(two buttons, a label and
      * the container of pages' diary). The method manages the dimension of each single component too.
-     * @param principalBox  the box in which insert the VBox created
      * @return  the new VBox created
      */
-    private VBox getLeftVBox(final HBox principalBox) {
+    private VBox getLeftVBox() {
         final VBox leftVBox = new VBox();
         leftVBox.getChildren().addAll(this.diaryLabel, this.containerDiaryLayout);
-        leftVBox.prefWidthProperty().bind(principalBox.widthProperty().multiply(LEFT_VBOX_WIDTH));
         leftVBox.prefHeightProperty().bind(this.pane.heightProperty());
         leftVBox.setPadding(new Insets(INSETS));
         final HBox diaryButtons = new HBox(this.removePage, this.addPage);
@@ -142,7 +136,7 @@ public class BaseDiary implements Initializable, View {
         vBoxRight.getChildren().add(tdlButton);
         vBoxRight.getChildren().addAll(this.dailyMoodLabel, this.containerIcons);
         VBox.setMargin(this.dailyMoodLabel, new Insets(INSETS));
-        this.toDoListLabel.prefHeightProperty().bind(this.containerToDoList.heightProperty().multiply(TDL_LABEL_HEIGHT));
+        this.toDoListLabel.prefHeightProperty().bind(vBoxRight.heightProperty().multiply(TDL_LABEL_HEIGHT));
         this.toDoListLabel.prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.prefHeightProperty().bind(this.pane.heightProperty().multiply(CONTAINER_TDL_HEIGHT));
         this.dailyMoodLabel.prefWidthProperty().bind(this.toDoListLabel.widthProperty());
@@ -175,20 +169,8 @@ public class BaseDiary implements Initializable, View {
         this.removeAnnotation.setText("Rimuovi");
         this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.toDoListController).getView().getRoot()));
         this.containerDiaryLayout.setContent(this.diaryController.getView().getRoot());
-       // final AnnotationViewImpl annotationView = new AnnotationViewImpl(this.removeAnnotation, this.containerDiaryLayout.heightProperty(), toDoListController);
-       // annotationView.getListView().prefHeightProperty().bind(this.containerDiaryLayout.heightProperty());
-       // annotationView.getListView().prefWidthProperty().bind(this.containerToDoList.widthProperty());
         this.containerToDoList.setContent(this.toDoListController.getView().getRoot());
         this.containerIcons.setCenter(this.manager.getView().getRoot());
-       // VBox vBox = new VBox(iconView.getRoot());
-        //vBox.setPrefSize(100, 50);
-        //this.containerIcons.setTop(vBox);
-
-   //     vBox.prefWidthProperty().bind(this.dailyMoodLabel.widthProperty().divide(2));
-       // this.containerIcons.setBottom(iconView.getButton());
-        //iconView.getRoot().prefWidth(this.dailyMoodLabel.widthProperty().multiply(BUTTON_WIDTH).get());
-        //iconView.getRoot().prefHeight(this.dailyMoodLabel.heightProperty().get());
-       // BorderPane.setAlignment(iconView.getButton(), Pos.TOP_CENTER);
     }
 
     @Override
