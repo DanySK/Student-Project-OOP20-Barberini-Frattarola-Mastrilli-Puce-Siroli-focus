@@ -1,9 +1,11 @@
 package oop.focus.application;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
@@ -12,15 +14,16 @@ import java.util.Map;
 
 public class UpperView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
-    private static final Double BUTTONS_HEIGHT = 0.1;
-    private final HBox hBox;
+    private static final Double BUTTONS_HEIGHT = 0.3;
+    private static final Double INSETS = 0.01;
+    private final Pane hBox;
     private final Map<Button, Controller> map;
     private final Sections controller;
     private final SectionsController sectionsController;
     public UpperView(final SectionsController sectionsController) {
         this.map = new HashMap<>();
         this.hBox = new HBox();
-        this.controller = new Sections();
+        this.controller = new SectionsImpl();
         this.sectionsController = sectionsController;
         this.setButtons();
     }
@@ -30,12 +33,13 @@ public class UpperView implements View {
             this.hBox.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
+        this.hBox.getChildren().forEach(s -> HBox.setMargin(s, new Insets(SCREEN_BOUNDS.getWidth() * INSETS)));
         this.map.keySet().forEach(s -> s.setPrefWidth(SCREEN_BOUNDS.getWidth() / this.map.keySet().size()));
         this.map.keySet().forEach(s -> s.setPrefHeight(SCREEN_BOUNDS.getHeight() * BUTTONS_HEIGHT));
         this.setOnPress();
     }
     private void setOnPress() {
-        this.hBox.getChildren().forEach(s -> s.setOnMouseClicked(event -> this.sectionsController.setPane(this.map.get(s))));
+        this.hBox.getChildren().forEach(s -> s.setOnMouseClicked(event -> this.sectionsController.update(this.map.get(s))));
     }
     @Override
     public final Node getRoot() {

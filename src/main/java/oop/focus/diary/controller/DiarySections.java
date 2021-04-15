@@ -1,40 +1,37 @@
 package oop.focus.diary.controller;
 
+import javafx.util.Pair;
+import oop.focus.application.Sections;
+import oop.focus.calendar.model.CalendarType;
+import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
+import oop.focus.common.Controller;
+import oop.focus.db.DataSource;
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 
-public enum DiarySections {
-    /**
-     *
-     */
-    DIARY("Diario", Style.DIARY_STYLE.getPath()),
-    /**
-     *
-     */
-    MOOD_CALENDAR("Statistiche umore", Style.MOOD_CALENDAR_STYLE.getPath()),
-    /**
-     *
-     */
-    STOPWATCH("Cronometro", Style.STOPWATCH_STYLE.getPath()),
-    /**
-     *
-     */
-    TIMER("Timer", Style.TIMER_STYLE.getPath());
+import java.util.ArrayList;
+import java.util.List;
 
-    private final String name;
-    private final String style;
+public class DiarySections implements Sections {
+    private final List<Pair<Controller, String>> list;
+    private final DataSource dataSource;
+    private final EventManager eventManager;
 
-    DiarySections(final String name, final String style) {
-        this.name = name;
-        this.style = style;
+    public DiarySections(final DataSource dataSource)  {
+        this.list = new ArrayList<>();
+        this.dataSource = dataSource;
+        this.eventManager = new EventManagerImpl(dataSource);
+        this.putControllers();
     }
-    public String getName() {
-        return this.name;
+    private void putControllers() {
+        this.list.add(new Pair<>(new BaseDiaryController(this.dataSource), "Diario"));
+        this.list.add(new Pair<>(new CalendarMonthControllerImpl(CalendarType.DIARY, this.dataSource), "Statistiche umore"));
+        this.list.add(new Pair<>(new CounterGeneralControllerImpl(this.eventManager, false),
+                "Cronometro"));
+        this.list.add(new Pair<>(new CounterGeneralControllerImpl(this.eventManager, true),
+                "Timer"));
     }
-
-    public String getStyle() {
-        return this.style;
+    public final List<Pair<Controller, String>> getList() {
+        return this.list;
     }
-
-
 }
-
-
