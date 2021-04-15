@@ -7,13 +7,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.finance.controller.*;
+import oop.focus.finance.controller.AddPersonControllerImpl;
+import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.controller.GroupController;
+import oop.focus.finance.controller.NewGroupTransactionControllerImpl;
+import oop.focus.finance.controller.ResolveControllerImpl;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.view.tiles.GroupTransactionView;
-import oop.focus.finance.view.tiles.GroupTransactionViewImpl;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.finance.view.windows.AddPersonViewImpl;
@@ -25,9 +30,12 @@ import oop.focus.homepage.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GroupViewImpl extends GenericView<GroupController> implements GroupView {
 
+    @FXML
+    private BorderPane mainPane;
     @FXML
     private VBox groupMovementsVBox;
     @FXML
@@ -45,6 +53,15 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
                 new ResolveControllerImpl(super.getX().getManager()))));
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
                 new NewGroupTransactionViewImpl(new NewGroupTransactionControllerImpl(super.getX().getManager()))));
+        this.setPref();
+    }
+
+    private void setPref() {
+        this.peopleButton.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
+        this.groupTransactionsButton.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
+        this.newPersonButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.resolveButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.newGroupTransactionButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
     }
 
     @Override
@@ -66,11 +83,14 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.setText("Reset");
         this.newPersonButton.setOnAction(event -> this.reset());
         this.groupMovementsVBox.getChildren().clear();
-        final List<GroupTransactionView> transactionTiles = new ArrayList<>();
-        super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(new GroupTransactionViewImpl(t)));
+        final List<GenericTileView<GroupTransaction>> transactionTiles = new ArrayList<>();
+        super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(
+                new GenericTileViewImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
+                        + this.getForListNames(t.getForList()), this.format(t.getAmount()))));
         transactionTiles.forEach(t -> this.groupMovementsVBox.getChildren().add(t.getRoot()));
+        transactionTiles.forEach(t -> ((HBox) t.getRoot()).prefWidthProperty().bind(this.mainPane.prefWidthProperty()));
         transactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                        this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
+                        this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getElement()))));
     }
 
     private void showWindow(final View impl) {
@@ -88,5 +108,9 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
                 super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }
+    }
+
+    private String getForListNames(final List<Person> list) {
+        return list.stream().map(Person::getName).collect(Collectors.joining(", "));
     }
 }

@@ -39,6 +39,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
                 date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
         this.manager.addTransaction(new TransactionImpl(description, category, formattedDate, account,
                 (int) (amount * 100), repetition));
+        this.manager.generateRepeatedTransactions(LocalDate.now());
     }
 
     @Override
@@ -58,5 +59,10 @@ public class NewTransactionControllerImpl implements NewTransactionController {
         final ObservableList<Account> list = FXCollections.observableArrayList();
         Linker.setToList(this.manager.getAccountManager().getAccounts(), list);
         return list;
+    }
+
+    @Override
+    public final FinanceManager getManager() {
+        return this.manager;
     }
 }

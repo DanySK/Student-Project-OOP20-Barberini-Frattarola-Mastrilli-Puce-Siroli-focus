@@ -24,17 +24,17 @@
    </top>
    <left>
       <VBox fx:id="leftVBox" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="10000.0" prefWidth="133.0" BorderPane.alignment="CENTER">
-         <ScrollPane fx:id="accountsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="10000.0" prefWidth="133.0" />
-         <Button fx:id="newAccountButton" alignment="CENTER" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="0.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="133.0" text="Crea Conto" textAlignment="CENTER" />
+         <ScrollPane fx:id="accountsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="320.0" prefWidth="23.0" />
       </VBox>
    </left>
    <center>
-      <ScrollPane fx:id="transactionsScroll" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="282.0" prefWidth="467.0" BorderPane.alignment="CENTER">
-         <VBox fx:id="transactionsVBox" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="465.0" />
+      <ScrollPane fx:id="transactionsScroll" prefHeight="282.0" prefWidth="467.0" BorderPane.alignment="CENTER">
+         <VBox fx:id="transactionsVBox" prefHeight="73.0" prefWidth="465.0" />
       </ScrollPane>
    </center>
    <bottom>
       <HBox maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="47.0" prefWidth="467.0" BorderPane.alignment="CENTER">
+         <Button fx:id="newAccountButton" alignment="CENTER" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="0.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="133.0" text="Crea Conto" textAlignment="CENTER" />
          <Button fx:id="deleteButton" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="237.0">
             <opaqueInsets>
                <Insets />

@@ -5,6 +5,7 @@ import oop.focus.common.Controller;
 import oop.focus.common.Repetition;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
+import oop.focus.finance.model.FinanceManager;
 
 import java.time.LocalDate;
 
@@ -12,6 +13,7 @@ public interface NewTransactionController extends Controller {
 
     /**
      * Creates a new transaction and saves it in the database.
+     * If possible, create the transactions to be generated automatically.
      *
      * @param description of the transaction to add
      * @param amount of the transaction to add
@@ -39,4 +41,9 @@ public interface NewTransactionController extends Controller {
      * @return a list of alla accounts saved in the database
      */
     ObservableList<Account> getAccounts();
+
+    /**
+     * @return manager of finance
+     */
+    FinanceManager getManager();
 }

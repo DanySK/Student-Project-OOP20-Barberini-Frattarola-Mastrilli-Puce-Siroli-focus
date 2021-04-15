@@ -7,10 +7,12 @@ public interface GenericTileView<X> extends View {
     /**
      * Set the labels description and amount.
      *
-     * @param description to be set in the description label
+     * @param color to be set as circle color
+     * @param first to be set in the first description label
+     * @param second to be set in the second description label
      * @param amount to be set in the amount label
      */
-    void setLabels(String description, String amount);
+    void setLabels(String color, String first, String second, String amount);
 
     /**
      * @return the element referenced by the tile

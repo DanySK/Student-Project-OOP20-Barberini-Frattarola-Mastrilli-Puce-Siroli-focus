@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import oop.focus.common.View;
 import oop.focus.finance.controller.BaseController;
 import oop.focus.finance.controller.FXMLPaths;
 
 public class BaseViewImpl extends GenericView<BaseController> implements BaseView {
+
+    private static final double RATIO = 0.072;
 
     @FXML
     private BorderPane mainBorderPane;
@@ -27,7 +29,8 @@ public class BaseViewImpl extends GenericView<BaseController> implements BaseVie
 
     @Override
     public final void populate() {
-        final Node buttons = new ButtonsBoxImpl(super.getX());
+        final Node buttons = new ButtonsBoxImpl(super.getX()).getRoot();
+        this.menuScroll.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * RATIO);
         this.menuScroll.setContent(buttons);
     }
 }

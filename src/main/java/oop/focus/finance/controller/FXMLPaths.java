@@ -29,15 +29,7 @@ public enum FXMLPaths {
     /**
      *
      */
-    GROUPTILE(Costants.TILES + "groupTransactionTile.fxml"),
-    /**
-     *
-     */
     MOVTILE(Costants.TILES + "movementTile.fxml"),
-    /**
-     *
-     */
-    FASTACCOUNT(Costants.TILES + "fastAccountTile.fxml"),
     /**
      *
      */

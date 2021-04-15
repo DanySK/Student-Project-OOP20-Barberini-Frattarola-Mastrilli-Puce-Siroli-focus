@@ -9,9 +9,9 @@
 <BorderPane fx:id="mainPane" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <Label alignment="CENTER_RIGHT" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="0.0" prefHeight="45.0" prefWidth="150.0" text="Spesa mensile totale:  €  " textAlignment="CENTER" />
+         <Label fx:id="monthlyLabel" alignment="CENTER_RIGHT" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="135.0" prefHeight="45.0" prefWidth="150.0" text="Spesa mensile totale:  €  " textAlignment="CENTER" />
          <Label fx:id="monthlyTransactionLabel" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="0.0" prefHeight="45.0" prefWidth="150.0" />
-         <Label alignment="CENTER_RIGHT" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="0.0" prefHeight="45.0" prefWidth="150.0" text="Spesa annuale totale:  €  " textAlignment="CENTER" />
+         <Label fx:id="annualLabel" alignment="CENTER_RIGHT" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="135.0" prefHeight="45.0" prefWidth="150.0" text="Spesa annuale totale:  €  " textAlignment="CENTER" />
          <Label fx:id="annualTransactionLabel" maxHeight="10000.0" maxWidth="10000.0" minHeight="45.0" minWidth="0.0" prefHeight="45.0" prefWidth="150.0" />
       </HBox>
    </bottom>

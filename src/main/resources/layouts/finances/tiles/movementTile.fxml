@@ -21,5 +21,8 @@
    </VBox>
    <Label fx:id="dateLabel" prefHeight="50.0" prefWidth="103.0" />
    <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="21.0" text="€  " />
-   <Label fx:id="amountLabel" prefHeight="50" prefWidth="63.0" />
+   <Label fx:id="amountLabel" prefHeight="50" prefWidth="63.0">
+      <font>
+         <Font name="System Bold" size="12.0" />
+      </font></Label>
 </HBox>

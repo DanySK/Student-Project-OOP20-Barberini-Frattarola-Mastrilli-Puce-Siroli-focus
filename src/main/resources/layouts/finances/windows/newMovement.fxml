@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="523.0" prefWidth="332.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="332.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <Label fx:id="titleLabel" alignment="CENTER" layoutY="-1.0" prefHeight="48.0" prefWidth="332.0">
       <font>
          <Font name="System Bold" size="14.0" />
@@ -16,19 +16,20 @@
    <Label fx:id="descriptionLabel" layoutX="21.0" layoutY="77.0" prefHeight="35.0" prefWidth="139.0" text="Descrizione:" />
    <Label fx:id="amountLabel" layoutX="21.0" layoutY="137.0" prefHeight="35.0" prefWidth="139.0" text="Importo:" />
    <Label fx:id="categoryLabel" layoutX="21.0" layoutY="202.0" prefHeight="35.0" prefWidth="139.0" text="Categoria:" />
-   <Label fx:id="repetitionLabel" layoutX="21.0" layoutY="385.0" prefHeight="35.0" prefWidth="139.0" text="Ripetizione:" />
-   <Label fx:id="dateLabel" layoutX="21.0" layoutY="329.0" prefHeight="35.0" prefWidth="139.0" text="Data:" />
-   <Label fx:id="accountLabel" layoutX="21.0" layoutY="266.0" prefHeight="35.0" prefWidth="139.0" text="Conto:" />
+   <Label fx:id="repetitionLabel" layoutX="21.0" layoutY="404.0" prefHeight="35.0" prefWidth="139.0" text="Ripetizione:" />
+   <Label fx:id="dateLabel" layoutX="21.0" layoutY="348.0" prefHeight="35.0" prefWidth="139.0" text="Data:" />
+   <Label fx:id="accountLabel" layoutX="21.0" layoutY="285.0" prefHeight="35.0" prefWidth="139.0" text="Conto:" />
    <TextField fx:id="descriptionTextField" layoutX="163.0" layoutY="83.0" prefHeight="25.0" prefWidth="139.0" />
    <TextField fx:id="amountTextField" layoutX="163.0" layoutY="142.0" prefHeight="25.0" prefWidth="139.0" />
-   <DatePicker fx:id="dataPicker" layoutX="163.0" layoutY="334.0" prefHeight="25.0" prefWidth="63.0" />
+   <DatePicker fx:id="dataPicker" layoutX="163.0" layoutY="353.0" prefHeight="25.0" prefWidth="63.0" />
    <ChoiceBox fx:id="categoryChoice" layoutX="163.0" layoutY="207.0" prefHeight="25.0" prefWidth="139.0" />
-   <ChoiceBox fx:id="accountChoice" layoutX="166.0" layoutY="271.0" prefHeight="25.0" prefWidth="139.0" />
-   <ChoiceBox fx:id="repetitionChioce" layoutX="163.0" layoutY="390.0" prefHeight="25.0" prefWidth="139.0" />
-   <Button fx:id="cancelButton" layoutX="52.0" layoutY="449.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" text="Chiudi" />
-   <Button fx:id="saveButton" layoutX="187.0" layoutY="449.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" text="Salva" />
+   <ChoiceBox fx:id="accountChoice" layoutX="166.0" layoutY="290.0" prefHeight="25.0" prefWidth="139.0" />
+   <ChoiceBox fx:id="repetitionChioce" layoutX="163.0" layoutY="409.0" prefHeight="25.0" prefWidth="139.0" />
+   <Button fx:id="cancelButton" layoutX="52.0" layoutY="468.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" text="Chiudi" />
+   <Button fx:id="saveButton" layoutX="187.0" layoutY="468.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" text="Salva" />
    <Label alignment="CENTER_RIGHT" layoutX="135.0" layoutY="142.0" prefHeight="25.0" prefWidth="28.0" text="€  " />
-   <TextField fx:id="hoursTextField" layoutX="236.0" layoutY="334.0" prefHeight="25.0" prefWidth="28.0" />
-   <TextField fx:id="minutesTextField" layoutX="274.0" layoutY="334.0" prefHeight="25.0" prefWidth="28.0" />
-   <Label alignment="CENTER" layoutX="260.0" layoutY="334.0" prefHeight="25.0" prefWidth="18.0" text=":" />
+   <TextField fx:id="hoursTextField" layoutX="236.0" layoutY="353.0" prefHeight="25.0" prefWidth="28.0" />
+   <TextField fx:id="minutesTextField" layoutX="274.0" layoutY="353.0" prefHeight="25.0" prefWidth="28.0" />
+   <Label alignment="CENTER" layoutX="260.0" layoutY="353.0" prefHeight="25.0" prefWidth="18.0" text=":" />
+   <Button fx:id="newCategoryButton" layoutX="173.0" layoutY="237.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Nuova cateogoria" />
 </Pane>

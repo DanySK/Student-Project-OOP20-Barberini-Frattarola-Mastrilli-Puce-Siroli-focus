@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
@@ -21,9 +22,11 @@ import java.util.List;
 public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> implements SubscriptionsView {
 
     @FXML
+    private BorderPane mainPane;
+    @FXML
     private VBox subcriptionsVBox;
     @FXML
-    private Label monthlyTransactionLabel, annualTransactionLabel;
+    private Label monthlyLabel, annualLabel, monthlyTransactionLabel, annualTransactionLabel;
 
     public SubscriptionsViewImpl(final SubscriptionsController controller) {
         super(controller, FXMLPaths.SUBS);
@@ -33,6 +36,15 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
     public final void populate() {
         this.annualTransactionLabel.setText(this.format(super.getX().getYearlyExpense()));
         this.monthlyTransactionLabel.setText(this.format(super.getX().getMonthlyExpense()));
+        this.setPref();
+    }
+
+    private void setPref() {
+        this.monthlyLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.annualLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.monthlyTransactionLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.annualTransactionLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.subcriptionsVBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty().multiply(0.5));
     }
 
     @Override
@@ -40,7 +52,7 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         this.subcriptionsVBox.getChildren().clear();
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
-                new GenericTileViewImpl<>(t, t.getDescription() + "      " + t.getRepetition().getName(),
+                new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(), t.getRepetition().getName(),
                 this.format(super.getX().getTransactionAmount(t)))));
         subscriptionsTiles.forEach(t -> this.subcriptionsVBox.getChildren().add(t.getRoot()));
         subscriptionsTiles.forEach(t -> t.getRoot()

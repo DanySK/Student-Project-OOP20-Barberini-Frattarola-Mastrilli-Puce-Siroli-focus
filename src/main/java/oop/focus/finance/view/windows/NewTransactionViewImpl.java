@@ -1,13 +1,18 @@
 package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import oop.focus.common.Repetition;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.controller.NewCategoryController;
+import oop.focus.finance.controller.NewCategoryControllerImpl;
 import oop.focus.finance.controller.NewTransactionController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
@@ -31,7 +36,7 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
     @FXML
     private ChoiceBox<Repetition> repetitionChioce;
     @FXML
-    private Button cancelButton, saveButton;
+    private Button cancelButton, saveButton, newCategoryButton;
 
     public NewTransactionViewImpl(final NewTransactionController controller) {
         super(controller, FXMLPaths.NEWMOVEMENT);
@@ -39,12 +44,21 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
 
     @Override
     public final void populate() {
+        this.newCategoryButton.setOnAction(event -> this.showNewCategory());
         this.titleLabel.setText("NUOVA TRANSAZIONE");
         this.categoryChoice.setItems(super.getX().getCategories());
         this.accountChoice.setItems(super.getX().getAccounts());
         this.repetitionChioce.setItems(super.getX().getRepetitions());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
+    }
+
+    private void showNewCategory() {
+        final NewCategoryController controller = new NewCategoryControllerImpl(super.getX().getManager());
+        final Stage stage = new Stage();
+        stage.setScene(new Scene((Parent) controller.getView().getRoot()));
+        stage.show();
+        this.close();
     }
 
     @Override
