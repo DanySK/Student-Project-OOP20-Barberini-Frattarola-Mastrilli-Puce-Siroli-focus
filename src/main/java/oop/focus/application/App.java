@@ -18,6 +18,7 @@ public class App extends Application {
         final Scene scene = new Scene((Parent) this.controller.getView().getRoot());
         scene.getStylesheets().add(Style.GENERAL_STYLE.getPath());
         scene.getStylesheets().add(Style.STATISTIC_STYLE.getPath());
+        scene.getStylesheets().add(Style.CALENDAR_STYLE.getPath());
         primaryStage.setHeight(this.height);
         primaryStage.setWidth(this.width);
         primaryStage.setScene(scene);
