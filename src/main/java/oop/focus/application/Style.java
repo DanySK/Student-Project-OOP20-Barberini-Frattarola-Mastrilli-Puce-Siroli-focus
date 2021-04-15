@@ -8,7 +8,11 @@ public enum Style {
     /**
      *
      */
-    GENERAL_STYLE(Costants.STYLES + "generalStyle.css");
+    GENERAL_STYLE(Costants.STYLES + "generalStyle.css"),
+    /**
+     *
+     */
+    CALENDAR_STYLE(Costants.STYLES + "Calendar.css");
     private final String path;
 
     Style(final String path) {
