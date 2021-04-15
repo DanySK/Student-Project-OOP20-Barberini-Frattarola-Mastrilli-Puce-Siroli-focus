@@ -28,7 +28,7 @@ public class GeneralDiaryView implements View {
         for (final var elem : DiarySections.values()) {
             final Button b = new Button(elem.getName());
             b.setOnMouseClicked(event -> {
-                setStyle(elem, pane);
+                //setStyle(elem, pane);
                 //pane.getChildren().clear();
                 pane.setCenter(getPane(elem, b));
 
@@ -43,7 +43,7 @@ public class GeneralDiaryView implements View {
             this.pane.setLeft(this.vBox);
         }
         pane.setCenter(this.controller.getDiary());
-        pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
+        //pane.getStylesheets().add(Style.DIARY_STYLE.getPath());
         //setVBox();
        }
 
@@ -52,7 +52,7 @@ public class GeneralDiaryView implements View {
         if (elem.equals(DiarySections.DIARY)) {
             return this.controller.getDiary();
         } else if (elem.equals(DiarySections.STOPWATCH)) {
-            b.setStyle(Style.STOPWATCH_STYLE.getPath());
+           // b.setStyle(Style.STOPWATCH_STYLE.getPath());
             return this.controller.getStopwatch();
         } else if (elem.equals(DiarySections.MOOD_CALENDAR)) {
             return this.controller.getMoodCalendar();

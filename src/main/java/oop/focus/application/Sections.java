@@ -4,7 +4,6 @@ import oop.focus.calendar.controller.CalendarControllerImpl;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.diary.controller.DiarySectionsController;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
 
 import oop.focus.finance.controller.BaseControllerImpl;
