@@ -17,6 +17,6 @@ public class SingleCheckBoxController implements Controller {
 
     @Override
     public final View getView() {
-        return null;
+        return view;
     }
 }

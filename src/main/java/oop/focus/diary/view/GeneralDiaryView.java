@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
-import oop.focus.db.DataSource;
 import oop.focus.diary.controller.DiarySections;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
 import oop.focus.diary.controller.Style;
@@ -19,7 +18,7 @@ public class GeneralDiaryView implements View {
     private final BorderPane pane;
     private final VBox vBox;
     private final DiarySectionsControllerImpl controller;
-    public GeneralDiaryView(DiarySectionsControllerImpl controller) {
+    public GeneralDiaryView(final DiarySectionsControllerImpl controller) {
         this.controller = controller;
         this.pane = new BorderPane();
         this.vBox = new VBox();

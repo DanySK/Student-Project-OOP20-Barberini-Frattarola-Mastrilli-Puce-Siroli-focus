@@ -19,11 +19,16 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class StartStopView implements View {
+    private static final Integer INSETS = 20;
+    private static final Double SPACING = 0.1;
+    private static final Double BUTTONS_WIDTH = 0.3;
+    private static final Double LABEL_WIDTH = 0.5;
+    private static final Double LABEL_HEIGHT = 0.4;
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private final Label counterLabel;
     private final Button start;
     private final Button stop;
-    public StartStopView(final CounterControllerImpl controller, CounterGeneralControllerImpl controllerCounter) {
+    public StartStopView(final CounterControllerImpl controller, final CounterGeneralControllerImpl controllerCounter) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
         this.start.setOnMouseClicked(event -> {
@@ -48,9 +53,7 @@ public class StartStopView implements View {
         List.of(this.start, this.stop).forEach(s -> s.setDisable(disable));
     }
     public final void updateValue(final LocalTime localTime) {
-        Platform.runLater(() -> {
-            this.counterLabel.setText(localTime.toString(TIME_FORMATTER));
-        });
+        Platform.runLater(() -> this.counterLabel.setText(localTime.toString(TIME_FORMATTER)));
     }
     @Override
     public final Node getRoot() {
@@ -58,12 +61,12 @@ public class StartStopView implements View {
         final VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
         final HBox hBox = new HBox(this.start, this.stop);
-        hBox.setPadding(new Insets(20));
-        hBox.spacingProperty().bind(vbox.widthProperty().multiply(0.1));
-        this.start.prefWidthProperty().bind(vbox.widthProperty().multiply(0.3));
-        this.stop.prefWidthProperty().bind(vbox.widthProperty().multiply(0.3));
-        this.counterLabel.prefWidthProperty().bind(vbox.widthProperty().multiply(0.5));
-        this.counterLabel.prefHeightProperty().bind(vbox.heightProperty().multiply(0.4));
+        hBox.setPadding(new Insets(INSETS));
+        hBox.spacingProperty().bind(vbox.widthProperty().multiply(SPACING));
+        this.start.prefWidthProperty().bind(vbox.widthProperty().multiply(BUTTONS_WIDTH));
+        this.stop.prefWidthProperty().bind(vbox.widthProperty().multiply(BUTTONS_WIDTH));
+        this.counterLabel.prefWidthProperty().bind(vbox.widthProperty().multiply(LABEL_WIDTH));
+        this.counterLabel.prefHeightProperty().bind(vbox.heightProperty().multiply(LABEL_HEIGHT));
         hBox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(this.counterLabel, hBox);
         vbox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));

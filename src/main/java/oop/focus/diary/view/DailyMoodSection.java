@@ -59,13 +59,13 @@ public class DailyMoodSection implements View {
     }
     private void setGrid() throws IOException {
         int index = 0;
-        GridPane gridPane = new GridPane();
+        final GridPane gridPane = new GridPane();
         gridPane.setVgap(GRID_GAP);
         gridPane.setHgap(GRID_GAP);
         gridPane.setAlignment(Pos.CENTER);
         for (int i = 0; i < NUM_ICONS; i++) {
-            DailyMoodViewImpl view = new DailyMoodViewImpl(i);
-            Button b = new Button();
+            final DailyMoodViewImpl view = new DailyMoodViewImpl(i);
+            final Button b = new Button();
             this.map.put(b, i);
             b.setGraphic(view.getRoot());
             gridPane.add(b, index, 0);

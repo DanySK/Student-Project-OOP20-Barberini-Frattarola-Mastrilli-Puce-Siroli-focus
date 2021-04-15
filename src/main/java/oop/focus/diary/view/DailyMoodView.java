@@ -1,10 +1,8 @@
 package oop.focus.diary.view;
 
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
 
-import java.util.List;
+
+import javafx.scene.image.ImageView;
 import java.util.Set;
 
 /**

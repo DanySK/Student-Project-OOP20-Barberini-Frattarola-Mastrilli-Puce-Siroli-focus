@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.DateTimeStringConverter;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
-import oop.focus.diary.controller.InsertTimeTimerController;
+import oop.focus.diary.controller.InsertTimeTimerControllerImpl;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -23,7 +23,6 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 public class InsertTimeTimerWindow implements Initializable, View {
     private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
@@ -44,9 +43,9 @@ public class InsertTimeTimerWindow implements Initializable, View {
     private Label separate1;
 
     private Parent root;
-    private String value;
-    private InsertTimeTimerController controller;
-    public InsertTimeTimerWindow(InsertTimeTimerController controller) {
+
+    private final InsertTimeTimerControllerImpl controller;
+    public InsertTimeTimerWindow(final InsertTimeTimerControllerImpl controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TIMER_TIME.getPath()));
         loader.setController(this);

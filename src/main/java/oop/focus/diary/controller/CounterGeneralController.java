@@ -17,8 +17,9 @@ public interface CounterGeneralController extends Controller {
     void setCounterName(String event);
 
     /**
-     *
-     * @param localTime
+     * The method sets starter value of counter, which is zero in the case of stopwatch and set by the user
+     * in the case of timer.
+     * @param localTime the starter value of timer.
      */
     void setStarterValue(LocalTime localTime);
 }

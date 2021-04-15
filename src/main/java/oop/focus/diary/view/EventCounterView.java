@@ -8,20 +8,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.EventCounterController;
+import oop.focus.diary.controller.EventCounterControllerImpl;
+import java.util.List;
 
 public class EventCounterView implements View {
+    private static final double COMBO_BOX_WIDTH = 0.6;
+    private static final double COMBO_BOX_HEIGHT = 0.2;
+    private static final double LABEL_WIDTH = 0.3;
+    private static final double SPACING = 0.2;
     private final Label chooseLabel;
     private final ComboBox<String> chooseEvent;
-    private final EventCounterController controller;
+    private final EventCounterControllerImpl controller;
     private final Button addNewEvent;
-    //private VBox vBox;
-    public EventCounterView(final EventCounterController controller) {
+    public EventCounterView(final EventCounterControllerImpl controller) {
         this.controller = controller;
         this.chooseLabel = new Label("Scegli evento");
         this.addNewEvent = new Button("+");
@@ -46,21 +49,13 @@ public class EventCounterView implements View {
     public final Node getRoot() {
         final VBox vBox = new VBox(this.chooseLabel, this.chooseEvent);
         vBox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));
-        this.chooseEvent.prefWidthProperty().bind(vBox.widthProperty().multiply(0.6));
-        this.chooseEvent.prefHeightProperty().bind(vBox.heightProperty().multiply(0.2));
+        this.chooseEvent.prefWidthProperty().bind(vBox.widthProperty().multiply(COMBO_BOX_WIDTH));
+        this.chooseEvent.prefHeightProperty().bind(vBox.heightProperty().multiply(COMBO_BOX_HEIGHT));
         this.chooseLabel.prefWidthProperty().bind(this.chooseEvent.prefWidthProperty());
         this.chooseLabel.setAlignment(Pos.CENTER);
-        this.addNewEvent.prefWidthProperty().bind(this.chooseEvent.prefWidthProperty().multiply(0.3));
-        //vBox.setPadding(new Insets(20));
-        vBox.spacingProperty().bind(vBox.heightProperty().multiply(0.2));
+        this.addNewEvent.prefWidthProperty().bind(this.chooseEvent.prefWidthProperty().multiply(LABEL_WIDTH));
+        vBox.spacingProperty().bind(vBox.heightProperty().multiply(SPACING));
         vBox.setAlignment(Pos.CENTER);
-
-        final HBox hBox = new HBox(vBox, this.addNewEvent);
-       // hBox.setPadding(new Insets(20));
-        hBox.setAlignment(Pos.CENTER);
-        hBox.getChildren().forEach(s -> HBox.setHgrow(s, Priority.ALWAYS));
-
-
-        return hBox;
+        return new CreateBoxFactoryImpl().createHBox(List.of(vBox, this.addNewEvent)).getRoot();
     }
 }

@@ -2,7 +2,7 @@ package oop.focus.diary.controller;
 import oop.focus.common.View;
 import oop.focus.diary.model.CounterManager;
 import oop.focus.diary.model.CounterManagerImpl;
-import oop.focus.diary.view.CreateHBox;
+import oop.focus.diary.view.CreateBoxFactoryImpl;
 import oop.focus.diary.view.StartStopView;
 import oop.focus.diary.view.TimerButtons;
 import oop.focus.homepage.model.EventManager;
@@ -20,7 +20,7 @@ public class CounterControllerImpl implements CounterController {
         this.isTimer = isTimer;
         this.counterManager = new CounterManagerImpl(me,  isTimer);
         this.view = new StartStopView(this, controllerCounter);
-        if(isTimer) {
+        if (isTimer) {
             this.timerView = new TimerButtons(controllerCounter);
         }
     }
@@ -57,8 +57,11 @@ public class CounterControllerImpl implements CounterController {
     public final void stopTimer() {
         this.counterManager.stopCounter();
     }
-    @Override
-    public final boolean isPlaying() {
+    /**
+     * The method can be used to check if counter's alarm is started.
+     * @return  true if alarm is playing, false otherwise
+     */
+    private boolean isPlaying() {
         return this.counterManager.isPlaying();
     }
 
@@ -67,7 +70,7 @@ public class CounterControllerImpl implements CounterController {
         if (!this.isTimer) {
             return this.view;
         } else {
-            return new CreateHBox().createVBox(List.of(this.timerView.getRoot(), this.view.getRoot()));
+            return new CreateBoxFactoryImpl().createVBox(List.of(this.timerView.getRoot(), this.view.getRoot()));
         }
     }
 }

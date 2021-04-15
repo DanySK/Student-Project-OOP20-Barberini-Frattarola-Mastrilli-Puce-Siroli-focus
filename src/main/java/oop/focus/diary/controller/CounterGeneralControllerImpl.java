@@ -1,21 +1,21 @@
 package oop.focus.diary.controller;
 import oop.focus.common.View;
 
-import oop.focus.diary.view.CreateHBox;
+import oop.focus.diary.view.CreateBoxFactoryImpl;
 import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalTime;
 
 import java.util.List;
 
 public class CounterGeneralControllerImpl implements CounterGeneralController {
-    private final EventCounterController eventCounterController;
+    private final EventCounterControllerImpl eventCounterController;
     private final TotalTimeController totalTimeController;
     private final CounterController counterController;
     private LocalTime localTime = LocalTime.MIDNIGHT;
     private String eventName;
     public CounterGeneralControllerImpl(final EventManager eventManager, final boolean isTimer) {
         this.counterController = new CounterControllerImpl(eventManager, isTimer, this);
-        this.eventCounterController = new EventCounterController(eventManager, this);
+        this.eventCounterController = new EventCounterControllerImpl(eventManager, this);
         this.totalTimeController = new TotalTimeControllerImpl(eventManager);
     }
     @Override
@@ -36,7 +36,7 @@ public class CounterGeneralControllerImpl implements CounterGeneralController {
     }
     @Override
     public final View getView() {
-        return new CreateHBox().createVBox(List.of(new CreateHBox().createHBox(List.of(this.eventCounterController.getView().getRoot(),
+        return new CreateBoxFactoryImpl().createVBox(List.of(new CreateBoxFactoryImpl().createHBox(List.of(this.eventCounterController.getView().getRoot(),
                 this.totalTimeController.getView().getRoot())).getRoot(), this.counterController.getView().getRoot()));
     }
 }

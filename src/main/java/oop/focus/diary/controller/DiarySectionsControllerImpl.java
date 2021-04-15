@@ -14,28 +14,20 @@ import oop.focus.diary.view.GeneralDiaryView;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class DiarySectionsControllerImpl implements DiarySectionsController {
-    private final DataSource dataSource;
-    private final EventManagerImpl eventManager;
-    private final TotalTimeControllerImpl totalTimeController;
-    private Node diary;
-    private Node stopwatch;
-    private Node timer;
-    private GeneralDiaryView content;
+    private final Node diary;
+    private final Node stopwatch;
+    private final Node timer;
+    private final GeneralDiaryView content;
     private final CalendarMonthController calendarMonthController;
     public DiarySectionsControllerImpl(final DataSource dataSource) {
         this.content = new GeneralDiaryView(this);
-        this.dataSource = dataSource;
-        this.eventManager = new EventManagerImpl(dataSource);
-        this.calendarMonthController = new CalendarMonthControllerImpl(CalendarType.DIARY, this.dataSource);
-        this.totalTimeController = new TotalTimeControllerImpl(eventManager);
+        final EventManagerImpl eventManager = new EventManagerImpl(dataSource);
+        this.calendarMonthController = new CalendarMonthControllerImpl(CalendarType.DIARY, dataSource);
         this.diary = new BaseDiary(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
                 new DiaryPagesImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource))).
                 getRoot();
         this.stopwatch = new CounterGeneralControllerImpl(eventManager, false).getView().getRoot();
         this.timer = new CounterGeneralControllerImpl(eventManager, true).getView().getRoot();
-       // this.stopwatch = new StopwatchView(totalTimeController,
-        //        new CounterControllerImpl(eventManager, false)).getRoot();
-       // this.timer = new TimerView(totalTimeController, new CounterControllerImpl(eventManager, true)).getRoot();
     }
     @Override
     public final Node getDiary() {
@@ -49,15 +41,16 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
     public final Node getTimer() {
         return this.timer;
     }
-    public Node getMoodCalendar() {
+
+    public final Node getMoodCalendar() {
         return this.calendarMonthController.getView().getRoot();
     }
-    public CalendarMonthController getCalendarMonthController() {
+    public final CalendarMonthController getCalendarMonthController() {
         return this.calendarMonthController;
     }
 
     @Override
-    public View getView() {
+    public final View getView() {
         return this.content;
     }
 }

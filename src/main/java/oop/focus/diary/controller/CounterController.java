@@ -1,6 +1,5 @@
 package oop.focus.diary.controller;
 
-import javafx.collections.ObservableList;
 import oop.focus.common.Controller;
 import org.joda.time.LocalTime;
 
@@ -35,10 +34,9 @@ public interface CounterController extends Controller {
     void stopTimer();
 
     /**
-     * The method can be used to check if counter's alarm is started.
-     * @return  true if alarm is playing, false otherwise
+     * The method can be used to enable/disable buttons of "start" and "stop" in the view.
+     * @param disable   true if the buttons should be disabled, false otherwise
      */
-    boolean isPlaying();
     void disableButton(boolean disable);
 
 }
