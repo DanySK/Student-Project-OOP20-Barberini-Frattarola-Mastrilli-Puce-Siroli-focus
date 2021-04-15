@@ -19,6 +19,7 @@ public class App extends Application {
         final String css = App.class.getResource(PATH_MAIN_STYLE).toExternalForm();
         final Scene scene = new Scene((Parent) this.controller.getView().getRoot());
         scene.getStylesheets().add(css);
+        scene.getStylesheets().add(Style.STATISTIC_STYLE.getPath());
         primaryStage.setHeight(height);
         primaryStage.setWidth(width);
         primaryStage.setScene(scene);

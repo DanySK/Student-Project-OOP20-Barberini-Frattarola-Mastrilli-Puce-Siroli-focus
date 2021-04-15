@@ -37,6 +37,7 @@ public class UpperDiaryView implements View {
             this.vBox.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
+
         this.map.keySet().forEach(s -> s.setPrefHeight(SCREEN_BOUNDS.getHeight() / this.map.keySet().size()));
         this.map.keySet().forEach(s -> s.setPrefWidth(SCREEN_BOUNDS.getWidth() * BUTTONS_WIDTH));
         this.vBox.getChildren().forEach(s -> VBox.setMargin(s, new Insets(SCREEN_BOUNDS.getHeight() * INSETS)));
