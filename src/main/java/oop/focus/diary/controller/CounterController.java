@@ -9,11 +9,6 @@ import org.joda.time.LocalTime;
  * This interface has methods to start or stop a counter(which could be a timer or a stopwatch).
  */
 public interface CounterController extends Controller {
-    /**
-     * The method return an observable list with values of counter, updated whenever one second has passed.
-     * @return  a list of localTime, representing counter's values
-     */
-    ObservableList<LocalTime> getValue();
 
     /**
      * The method arranges the counter to be started, setting event's name that counter is computing and

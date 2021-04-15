@@ -1,31 +1,33 @@
-package oop.focus.application;
+package oop.focus.diary.view;
+
 import javafx.util.Pair;
-import oop.focus.calendar.controller.CalendarControllerImpl;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.diary.controller.DiarySectionsController;
 import oop.focus.diary.controller.DiarySectionsControllerImpl;
+import oop.focus.diary.controller.CounterGeneralControllerImpl;
+import oop.focus.homepage.model.EventManager;
+import oop.focus.homepage.model.EventManagerImpl;
 
-import oop.focus.finance.controller.BaseControllerImpl;
-import oop.focus.finance.model.FinanceManagerImpl;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sections {
+public class SectionsDiary {
     private final List<Pair<Controller, String>> list;
     private final DataSource dataSource;
-    public Sections() {
+    private EventManager eventManager;
+    public SectionsDiary(DataSource dataSource) {
         this.dataSource = new DataSourceImpl();
+        this.eventManager = new EventManagerImpl(dataSource);
         this.list = new ArrayList<>();
         this.putControllers();
     }
     private void putControllers() {
-        this.list.add(new Pair<>(new BaseControllerImpl(new FinanceManagerImpl(this.dataSource)), "Finanza"));
-        this.list.add(new Pair<>(new CalendarControllerImpl(this.dataSource), "Calendario"));
         this.list.add(new Pair<>(new DiarySectionsControllerImpl(this.dataSource), "Diario"));
+        this.list.add(new Pair<>(new CounterGeneralControllerImpl(eventManager, false), "Cronometro"));
+        this.list.add(new Pair<>(new CounterGeneralControllerImpl(eventManager, true), "Timer"));
     }
     public final List<Pair<Controller, String>> getList() {
-        return this.list;
+        return list;
     }
 }

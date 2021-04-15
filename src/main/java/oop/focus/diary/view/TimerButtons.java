@@ -1,26 +1,20 @@
 package oop.focus.diary.view;
 
-import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import oop.focus.common.Controller;
 import oop.focus.common.View;
-import oop.focus.diary.controller.CounterController;
-import oop.focus.diary.controller.CounterControllerImpl;
-import oop.focus.diary.controller.GeneralControllerCounter;
+import oop.focus.diary.controller.CounterGeneralControllerImpl;
 import oop.focus.diary.controller.InsertTimeTimerController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.nio.file.WatchEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +23,8 @@ public class TimerButtons implements View {
     private static final DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");
     private static final int BUTTON_WITH_MINUTES = 3;
     private List<Button> list;
-    private GeneralControllerCounter controller;
-    public TimerButtons(GeneralControllerCounter controller) {
+    private CounterGeneralControllerImpl controller;
+    public TimerButtons(CounterGeneralControllerImpl controller) {
         this.controller = controller;
         this.list = new ArrayList<>();
         this.setTimeButtons();
@@ -67,7 +61,10 @@ public class TimerButtons implements View {
     public Node getRoot() {
         HBox hBox = new HBox();
         hBox.getChildren().addAll(list);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setSpacing(20);
         list.forEach(s -> HBox.setHgrow(s, Priority.ALWAYS));
+        list.forEach(s -> s.prefWidthProperty().bind(hBox.widthProperty().multiply(0.2)));
         return hBox;
     }
 }

@@ -18,7 +18,7 @@ public class LauncherStopwatch extends Application {
         final DataSourceImpl dataSource = new DataSourceImpl();
         final EventManager manager = new EventManagerImpl(dataSource);
         //final ControllersFactory f = new ControllersFactoryImpl(manager);
-        final Scene scene = new Scene((Parent) new GeneralControllerCounter(manager, false).getView().getRoot());
+        final Scene scene = new Scene((Parent) new CounterGeneralControllerImpl(manager, false).getView().getRoot());
         primaryStage.setScene(scene);
         final String css = LauncherDiary.class.getResource(Style.STOPWATCH_STYLE.getPath()).toExternalForm();
         scene.getStylesheets().add(css);

@@ -19,8 +19,8 @@ public class GeneralDiaryView implements View {
     private final BorderPane pane;
     private final VBox vBox;
     private final DiarySectionsControllerImpl controller;
-    public GeneralDiaryView(final DataSource dataSource) {
-        this.controller = new DiarySectionsControllerImpl(dataSource);
+    public GeneralDiaryView(DiarySectionsControllerImpl controller) {
+        this.controller = controller;
         this.pane = new BorderPane();
         this.vBox = new VBox();
         this.setView();
@@ -30,10 +30,11 @@ public class GeneralDiaryView implements View {
             final Button b = new Button(elem.getName());
             b.setOnMouseClicked(event -> {
                 setStyle(elem, pane);
+                //pane.getChildren().clear();
                 pane.setCenter(getPane(elem, b));
 
             });
-            b.prefWidthProperty().bind(this.vBox.widthProperty());
+           b.prefWidthProperty().bind(this.vBox.widthProperty());
             b.prefHeightProperty().bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT));
             this.vBox.getChildren().add(b);
             this.vBox.prefWidthProperty().bind(this.pane.widthProperty().multiply(VBOX_WIDTH));
@@ -50,7 +51,6 @@ public class GeneralDiaryView implements View {
 
     private Node getPane(final Enum<DiarySections> elem, final Button b) {
         if (elem.equals(DiarySections.DIARY)) {
-            b.getStyleClass().add("alice");
             return this.controller.getDiary();
         } else if (elem.equals(DiarySections.STOPWATCH)) {
             b.setStyle(Style.STOPWATCH_STYLE.getPath());

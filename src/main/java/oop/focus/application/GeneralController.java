@@ -11,7 +11,7 @@ public class GeneralController implements Controller {
         final SectionsController controller = new SectionsController();
         final ButtonsController buttonController = new ButtonsController(controller);
         this.content = new ViewFactoryImpl()
-                .createVerticalAutoResizing(List.of(buttonController.getView(), controller.getView()));
+                .createVertical(List.of(buttonController.getView().getRoot(), controller.getView().getRoot()));
     }
 
     @Override

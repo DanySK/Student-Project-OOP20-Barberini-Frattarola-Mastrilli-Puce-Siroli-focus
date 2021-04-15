@@ -10,8 +10,8 @@ import oop.focus.homepage.model.EventManager;
 public class EventCounterController implements Controller {
     private final EventCounterView view;
     private final ObservableSet<String> set;
-    private final GeneralControllerCounter generalControllerCounter;
-    public EventCounterController(final EventManager eventManager, final GeneralControllerCounter generalControllerCounter) {
+    private final CounterGeneralControllerImpl generalControllerCounter;
+    public EventCounterController(final EventManager eventManager, final CounterGeneralControllerImpl generalControllerCounter) {
         this.set = FXCollections.observableSet();
         eventManager.getAll().forEach(s -> this.set.add(s.getName()));
         this.view = new EventCounterView(this);
@@ -25,7 +25,7 @@ public class EventCounterController implements Controller {
     }
     public final void setChosen(final String eventChosen) {
         System.out.println(eventChosen);
-        this.generalControllerCounter.setTotalTime(eventChosen);
+        this.generalControllerCounter.setCounterName(eventChosen);
     }
 
     public final void addEvent(final String newEvent) {

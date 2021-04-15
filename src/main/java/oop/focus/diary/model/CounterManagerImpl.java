@@ -69,7 +69,7 @@ public class CounterManagerImpl implements CounterManager {
     @Override
     public final void stopCounter() {
         this.counter.stopCounter();
-        //this.createEvent();
+        this.createEvent();
     }
     @Override
     public final void setStarterValue(final Integer value) {
@@ -84,6 +84,7 @@ public class CounterManagerImpl implements CounterManager {
     public final void createEvent() {
         if (this.finalCounter.isPresent() && this.finalCounter.get().equals(0)) {
             this.sound.playSound();
+            this.finalCounter = Optional.empty();
         }
         this.me.saveTimer(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
     }

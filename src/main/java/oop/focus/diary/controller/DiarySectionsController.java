@@ -1,12 +1,13 @@
 package oop.focus.diary.controller;
 
 import javafx.scene.Node;
+import oop.focus.common.Controller;
 
 /**
  * The interface returns three Nodes, which represent the different sections of diary's sections(diary, stopwatch and
  * timer).
  */
-public interface DiarySectionsController {
+public interface DiarySectionsController extends Controller {
     /**
      * Returns the root of diary's section.
      * @return  the root of diary's section

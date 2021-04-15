@@ -4,12 +4,16 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import oop.focus.common.View;
-import java.util.List;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
+import java.util.List;
+/*
 public class GeneralCounterView implements View {
-    private final GridPane gridPane;
+    //private final GridPane gridPane;
+    private List<List<Node>> list;
     public GeneralCounterView(final List<List<Node>> list) {
-        this.gridPane = new GridPane();
+        this.list = list;
+      /*  this.gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
         int index = 0;
         for (final List<Node> l : list) {
@@ -22,9 +26,15 @@ public class GeneralCounterView implements View {
         }
     }
 
+       */
+
+/*    }
+
 
     @Override
     public final Node getRoot() {
-        return this.gridPane;
     }
 }
+
+
+ */

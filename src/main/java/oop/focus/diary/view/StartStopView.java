@@ -11,6 +11,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
 import oop.focus.diary.controller.CounterControllerImpl;
+import oop.focus.diary.controller.CounterGeneralControllerImpl;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -22,21 +23,26 @@ public class StartStopView implements View {
     private final Label counterLabel;
     private final Button start;
     private final Button stop;
-    public StartStopView(final CounterControllerImpl controller) {
+    public StartStopView(final CounterControllerImpl controller, CounterGeneralControllerImpl controllerCounter) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
         this.start.setOnMouseClicked(event -> {
             controller.startTimer();
             this.start.setDisable(true);
+            this.stop.setDisable(false);
         });
         this.stop.setDisable(true);
         this.start.setDisable(true);
+        this.counterLabel = new Label(LocalTime.MIDNIGHT.toString(TIME_FORMATTER));
         this.stop.setOnMouseClicked(event -> {
             controller.stopSound();
             controller.stopTimer();
+            controllerCounter.setStarterValue(LocalTime.parse(this.counterLabel.getText(), TIME_FORMATTER));
+            System.out.println(this.counterLabel.getText());
             this.start.setDisable(false);
+            this.stop.setDisable(true);
         });
-        this.counterLabel = new Label(LocalTime.MIDNIGHT.toString(TIME_FORMATTER));
+
     }
     public final void disableButton(final boolean disable) {
         List.of(this.start, this.stop).forEach(s -> s.setDisable(disable));

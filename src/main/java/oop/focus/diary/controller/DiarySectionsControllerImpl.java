@@ -4,11 +4,13 @@ import javafx.scene.Node;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
+import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.ToDoListManagerImpl;
 import oop.focus.diary.view.BaseDiary;
+import oop.focus.diary.view.GeneralDiaryView;
 import oop.focus.homepage.model.EventManagerImpl;
 
 public class DiarySectionsControllerImpl implements DiarySectionsController {
@@ -18,8 +20,10 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
     private Node diary;
     private Node stopwatch;
     private Node timer;
+    private GeneralDiaryView content;
     private final CalendarMonthController calendarMonthController;
     public DiarySectionsControllerImpl(final DataSource dataSource) {
+        this.content = new GeneralDiaryView(this);
         this.dataSource = dataSource;
         this.eventManager = new EventManagerImpl(dataSource);
         this.calendarMonthController = new CalendarMonthControllerImpl(CalendarType.DIARY, this.dataSource);
@@ -27,6 +31,8 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
         this.diary = new BaseDiary(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
                 new DiaryPagesImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource))).
                 getRoot();
+        this.stopwatch = new CounterGeneralControllerImpl(eventManager, false).getView().getRoot();
+        this.timer = new CounterGeneralControllerImpl(eventManager, true).getView().getRoot();
        // this.stopwatch = new StopwatchView(totalTimeController,
         //        new CounterControllerImpl(eventManager, false)).getRoot();
        // this.timer = new TimerView(totalTimeController, new CounterControllerImpl(eventManager, true)).getRoot();
@@ -48,5 +54,10 @@ public class DiarySectionsControllerImpl implements DiarySectionsController {
     }
     public CalendarMonthController getCalendarMonthController() {
         return this.calendarMonthController;
+    }
+
+    @Override
+    public View getView() {
+        return this.content;
     }
 }

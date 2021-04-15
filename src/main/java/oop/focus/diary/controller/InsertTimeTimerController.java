@@ -6,9 +6,9 @@ import oop.focus.diary.view.InsertTimeTimerWindow;
 import org.joda.time.LocalTime;
 
 public class InsertTimeTimerController implements Controller {
-    private GeneralControllerCounter controllerCounter;
+    private CounterGeneralControllerImpl controllerCounter;
     private InsertTimeTimerWindow insertTimeTimerWindow;
-    public InsertTimeTimerController(GeneralControllerCounter controllerCounter) {
+    public InsertTimeTimerController(CounterGeneralControllerImpl controllerCounter) {
         this.controllerCounter = controllerCounter;
         this.insertTimeTimerWindow = new InsertTimeTimerWindow(this);
     }
