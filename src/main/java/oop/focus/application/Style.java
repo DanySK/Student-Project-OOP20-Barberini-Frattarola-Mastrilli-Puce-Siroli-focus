@@ -4,8 +4,11 @@ public enum Style {
     /**
      *
      */
-    STATISTIC_STYLE(Style.Costants.STYLES + "statistics.css");
-
+    STATISTIC_STYLE(Style.Costants.STYLES + "statistics.css"),
+    /**
+     *
+     */
+    GENERAL_STYLE(Costants.STYLES + "generalStyle.css");
     private final String path;
 
     Style(final String path) {

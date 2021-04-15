@@ -19,7 +19,8 @@ import java.util.Map;
 public class UpperDiaryView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final Double INSETS = 0.02;
-    private static final Double BUTTONS_WIDTH = 0.25;
+    private static final Double BUTTONS_WIDTH = 0.7;
+    private static final Double VBOX_WIDTH = 0.3;
     private final Pane vBox;
     private final Map<Button, Controller> map;
     private final DiarySections controller;
@@ -34,12 +35,14 @@ public class UpperDiaryView implements View {
     private void setButtons() {
         this.controller.getList().forEach(s -> {
             final Button b = new Button(s.getValue());
+            b.getStyleClass().addAll("lateral-button");
             this.vBox.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
 
         this.map.keySet().forEach(s -> s.setPrefHeight(SCREEN_BOUNDS.getHeight() / this.map.keySet().size()));
-        this.map.keySet().forEach(s -> s.setPrefWidth(SCREEN_BOUNDS.getWidth() * BUTTONS_WIDTH));
+        this.vBox.setPrefWidth(SCREEN_BOUNDS.getWidth() * VBOX_WIDTH);
+        this.map.keySet().forEach(s -> s.prefWidthProperty().bind(this.vBox.widthProperty().multiply(BUTTONS_WIDTH)));
         this.vBox.getChildren().forEach(s -> VBox.setMargin(s, new Insets(SCREEN_BOUNDS.getHeight() * INSETS)));
         this.setOnPress();
     }

@@ -31,6 +31,7 @@ public class UpperView implements View {
     private void setButtons() {
         this.controller.getList().forEach(s -> {
             final Button b = new Button(s.getValue());
+            b.getStyleClass().addAll("upper-button");
             this.hBox.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
