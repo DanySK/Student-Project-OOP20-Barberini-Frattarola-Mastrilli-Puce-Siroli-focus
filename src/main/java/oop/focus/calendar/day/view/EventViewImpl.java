@@ -81,9 +81,9 @@ public class EventViewImpl implements VBoxManager {
         final Label name = new Label(this.events.get(i).getName());
 
         panel.setBackground(new Background(
-                new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
         panel.setBorder(new Border(
-                new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+                new BorderStroke(Color.GRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
         panel.getChildren().add(name);
 
@@ -93,10 +93,10 @@ public class EventViewImpl implements VBoxManager {
         panel.setTranslateY(this.getY(i));
         }
 
-        final double durationeventinhours = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
-        final double durationeventinminutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
-        panel.setPrefHeight((this.spacing / MINUTES_IN_HOURS) * (durationeventinminutes + durationeventinhours * MINUTES_IN_HOURS));
-        insertEventsDuration += (this.spacing / MINUTES_IN_HOURS) * (durationeventinminutes + durationeventinhours * MINUTES_IN_HOURS);
+        final double durationEventInHours = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
+        final double durationEventInMinutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
+        panel.setPrefHeight((this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS));
+        insertEventsDuration += (this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS);
 
         vbox.getChildren().add(panel);
     }
@@ -105,7 +105,7 @@ public class EventViewImpl implements VBoxManager {
     public final void buildVBox() {
         checkSpacing();
         final VBox vbox = new VBox();
-        vbox.setBackground(new Background(new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+        vbox.setBackground(new Background(new BackgroundFill(Color.valueOf("ffcccc"), CornerRadii.EMPTY, Insets.EMPTY)));
         for (int i = 0; i < this.events.size(); i++) {
             buildPanel(vbox, i);
         }

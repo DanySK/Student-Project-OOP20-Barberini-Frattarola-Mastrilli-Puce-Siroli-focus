@@ -188,7 +188,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setPrefSize(DIM, DIM);
         jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         } else {
             jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
@@ -214,7 +214,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setPrefSize(DIM, DIM);
         jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         } else {
             jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
         }
@@ -303,6 +303,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         final Button previous = new Button("precedente");
         next.setOnAction(changeMonthButton(this, false));
         previous.setOnAction(changeMonthButton(this, true));
+
+        next.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(10), Insets.EMPTY)));
+        previous.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(10), Insets.EMPTY)));
 
         topPanel.getChildren().add(previous);
         topPanel.getChildren().add(monthInfo);
