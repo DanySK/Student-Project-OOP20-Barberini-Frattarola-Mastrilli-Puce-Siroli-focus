@@ -58,9 +58,9 @@ public class EventViewImpl implements VBoxManager {
 
 
     public final double getY(final int i) {
-        final double spaceforminute = this.spacing / MINUTES_IN_HOURS;
-        final double minutestotalspace = spaceforminute * this.events.get(i).getStartHour().getMinuteOfHour();
-        return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutestotalspace;
+        final double spaceForMinute = this.spacing / MINUTES_IN_HOURS;
+        final double minutesTotalSpace = spaceForMinute * this.events.get(i).getStartHour().getMinuteOfHour();
+        return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutesTotalSpace;
     }
 
 
@@ -78,7 +78,7 @@ public class EventViewImpl implements VBoxManager {
      */
     private void buildPanel(final VBox vbox, final int i) {
         final Pane panel = new Pane();
-        final Label name = new Label(this.events.get(i).getName());
+        final Label name = new Label(" " + this.events.get(i).getName());
 
         panel.setBackground(new Background(
                 new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));

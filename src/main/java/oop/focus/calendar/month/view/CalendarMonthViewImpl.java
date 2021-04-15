@@ -18,14 +18,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import oop.focus.calendar.day.controller.CalendarDayController;
@@ -36,9 +31,6 @@ import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
 import oop.focus.diary.view.DailyMoodViewImpl;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
 
 
 
@@ -69,8 +61,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     private static final double MOOD_FONT = 1.5;
     private static final double DAY_WIDTH = 200;
     private static final double DAY_HEIGHT = 500;
-    private static final double CORNER_RADIUS = 10;
-    private static final String COLOR = "fc8282";
+
+
 
     /**
      * Used for Initialize the month view.
@@ -187,11 +179,10 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setAlignment(Pos.CENTER);
         jb.setOnAction(getDayView());
         jb.setPrefSize(DIM, DIM);
-        jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.valueOf(COLOR), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.getStyleClass().add("grid-event");
         } else {
-            jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.getStyleClass().add("grid");
         }
         final CalendarDayController dayController = new CalendarDayControllerImpl(day, DAY_WIDTH, DAY_HEIGHT);
         monthController.configureDay(dayController);
@@ -213,11 +204,10 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         jb.setFont(Font.font(monthController.getFontSize()));
         jb.setAlignment(Pos.CENTER);
         jb.setPrefSize(DIM, DIM);
-        jb.setBorder(new Border(new BorderStroke(Color.GREY, BorderStrokeStyle.SOLID, new CornerRadii(CORNER_RADIUS), BorderWidths.DEFAULT)));
         if (!day.getEvents().isEmpty()) {
-            jb.setBackground(new Background(new BackgroundFill(Color.valueOf(COLOR), new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.getStyleClass().add("grid-event");
         } else {
-            jb.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, new CornerRadii(CORNER_RADIUS), Insets.EMPTY)));
+            jb.getStyleClass().add("grid");
         }
         daysGrid.add(jb, counter, count);
     }
@@ -305,8 +295,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         next.setOnAction(changeMonthButton(this, false));
         previous.setOnAction(changeMonthButton(this, true));
 
-        next.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(10), Insets.EMPTY)));
-        previous.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(10), Insets.EMPTY)));
+        next.getStyleClass().add("calendar-upper-button");
+        previous.getStyleClass().add("calendar-upper-button");
 
         topPanel.getChildren().add(previous);
         topPanel.getChildren().add(monthInfo);

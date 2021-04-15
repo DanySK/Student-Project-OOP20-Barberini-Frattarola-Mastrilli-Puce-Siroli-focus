@@ -46,7 +46,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         final VBox container = new VBox();
 
         container.setBackground(new Background(
-                new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
+                new BackgroundFill(Color.valueOf("ffcccc"), CornerRadii.EMPTY, Insets.EMPTY)));
 
         final GridPane settings = new GridPane();
 

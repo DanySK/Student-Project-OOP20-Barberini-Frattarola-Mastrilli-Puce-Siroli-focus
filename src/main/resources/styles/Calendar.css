@@ -1,17 +1,24 @@
 .calendar-upper-button {
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-background-color: #fc8282;
 }
 .calendar-lateral-button {
-    -fx-border-radius: 50px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-background-color: #fc8282;
 }
-.grid-button {
-    -fx-background-color: #fc8282;
-    -fx-border-radius: 50px;
 }
-.event-panel {
+.grid-event {
     -fx-background-color: #fc8282;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: gray;
 }
-.event {
-    -fx-background-color: #fc8282;
+.grid {
+    -fx-background-color: #1C00ff00;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: gray;
 }
+

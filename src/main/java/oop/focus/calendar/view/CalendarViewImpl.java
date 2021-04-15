@@ -2,18 +2,13 @@ package oop.focus.calendar.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
 import oop.focus.common.View;
@@ -97,7 +92,7 @@ public class CalendarViewImpl implements View {
      */
     private void columnButton(final VBox buttonColumn, final String string, final EventHandler<ActionEvent> openThisPanel) {
         final Button button = new Button(string);
-        button.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(10), Insets.EMPTY)));
+        button.getStyleClass().add("calendar-lateral-button");
         button.setPrefHeight(GAP * 2);
         button.setAlignment(Pos.CENTER);
         button.prefWidthProperty().bind(buttonColumn.widthProperty().multiply(WIDTH_BUTTON));
@@ -115,7 +110,7 @@ public class CalendarViewImpl implements View {
      */
     private Button buildButtonWindows(final String name, final View view, final double width, final double height) {
         final Button button = new Button(name);
-        button.setBackground(new Background(new BackgroundFill(Color.valueOf("fc8282"), new CornerRadii(10), Insets.EMPTY)));
+        button.getStyleClass().add("calendar-lateral-button");
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) view.getRoot(), width, height));
         if ("IMPOSTAZIONI".equalsIgnoreCase(name)) {
