@@ -14,7 +14,8 @@ import java.util.Map;
 
 public class UpperView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
-    private static final Double BUTTONS_HEIGHT = 0.3;
+    private static final Double BOX_HEIGHT = 0.2;
+    private static final Double BUTTONS_HEIGHT = 0.6;
     private static final Double INSETS = 0.01;
     private final Pane hBox;
     private final Map<Button, Controller> map;
@@ -34,8 +35,9 @@ public class UpperView implements View {
             this.map.put(b, s.getKey());
         });
         this.hBox.getChildren().forEach(s -> HBox.setMargin(s, new Insets(SCREEN_BOUNDS.getWidth() * INSETS)));
+        this.hBox.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * BOX_HEIGHT);
+        this.map.keySet().forEach(s -> s.prefHeightProperty().bind(this.hBox.heightProperty().multiply(BUTTONS_HEIGHT)));
         this.map.keySet().forEach(s -> s.setPrefWidth(SCREEN_BOUNDS.getWidth() / this.map.keySet().size()));
-        this.map.keySet().forEach(s -> s.setPrefHeight(SCREEN_BOUNDS.getHeight() * BUTTONS_HEIGHT));
         this.setOnPress();
     }
     private void setOnPress() {

@@ -9,7 +9,7 @@ import oop.focus.common.View;
 
 public class SectionsView implements View, Update {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
-    private static final double PANE_HEIGHT = 0.9;
+    private static final double PANE_HEIGHT = 0.95;
     private static final double PANE_WIDTH = 0.8;
 
     private final BorderPane pane;

@@ -1,9 +1,11 @@
 package oop.focus.diary.view;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Screen;
 import oop.focus.common.View;
 
 import java.io.File;
@@ -17,7 +19,8 @@ import java.util.Objects;
 import java.util.Set;
 
 public class DailyMoodViewImpl implements View, DailyMoodView {
-    private static final double ICON_DIM = 80;
+    private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
+    private static final double ICON_DIM = 0.07;
     private static final String SEP = File.separator;
     private final Map<Integer, ImageView> map;
     private final AnchorPane pane;
@@ -42,10 +45,9 @@ public class DailyMoodViewImpl implements View, DailyMoodView {
     }
     @Override
     public final Node getRoot() {
-        this.pane.getChildren().add(this.map.get(value));
-        this.map.get(value).setFitWidth(ICON_DIM);
-        this.map.get(value).setPreserveRatio(true);
-        this.map.get(value).setFitHeight(ICON_DIM);
+        this.pane.getChildren().add(this.map.get(this.value));
+        this.map.get(this.value).fitHeightProperty().set(SCREEN_BOUNDS.getHeight() * ICON_DIM);
+        this.map.get(this.value).setPreserveRatio(true);
         return this.pane;
     }
 }

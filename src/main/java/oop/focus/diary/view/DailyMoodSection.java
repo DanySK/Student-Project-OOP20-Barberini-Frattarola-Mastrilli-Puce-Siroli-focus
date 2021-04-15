@@ -50,7 +50,7 @@ public class DailyMoodSection implements View {
         this.button.setOnMouseClicked(event -> {
             try {
                 this.controller.removeChoice();
-                setBrightness();
+                this.setBrightness();
             } catch (DaoAccessException e) {
                 e.printStackTrace();
             }
@@ -68,6 +68,7 @@ public class DailyMoodSection implements View {
             final Button b = new Button();
             this.map.put(b, i);
             b.setGraphic(view.getRoot());
+            b.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
             gridPane.add(b, index, 0);
             index++;
         }
