@@ -66,8 +66,13 @@ public class WeekViewImpl implements WeekView {
 
     private void setProperty() {
         this.thisWeek.setAlignment(Pos.CENTER);
-        //this.weekDaysScroller.prefWidthProperty().bind(this.weekDaysPane.prefWidthProperty().multiply(0.8));
-        //this.weekDaysScroller.prefHeightProperty().bind(this.weekDaysPane.prefHeightProperty().multiply(0.7));
+
+        this.weekDaysScroller.prefWidthProperty().bind(this.weekDaysPane.widthProperty().multiply(0.95));
+        this.weekDaysScroller.prefHeightProperty().bind(this.weekDaysPane.heightProperty().multiply(0.8));
+
+        this.thisWeek.prefHeightProperty().bind(this.weekDaysPane.heightProperty().multiply(0.1));
+        this.thisWeek.prefWidthProperty().bind(this.weekDaysPane.widthProperty().multiply(0.3));
+
     }
 
     @Override
@@ -125,6 +130,6 @@ public class WeekViewImpl implements WeekView {
     private class Constants {
         private static final int FIND_FINAL = 6;
         private static final int DAYS_PER_WEEK = 7;
-        private static final int SPACING = 50;
+        private static final int SPACING = 100;
     }
 }
