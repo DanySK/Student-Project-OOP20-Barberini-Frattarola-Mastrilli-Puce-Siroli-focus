@@ -2,6 +2,8 @@ package oop.focus.finance.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import oop.focus.common.Linker;
 import oop.focus.common.Repetition;
 import oop.focus.common.View;
@@ -21,9 +23,17 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     private final NewTransactionViewImpl view;
     private final FinanceManager manager;
 
+    private final ObservableSet<Category> categories;
+
     public NewTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new NewTransactionViewImpl(this);
+        this.categories = manager.getCategoryManager().getCategories();
+        this.addListeners();
+    }
+
+    private void addListeners() {
+        this.categories.addListener((SetChangeListener<Category>) change -> this.view.populate());
     }
 
     @Override
@@ -34,11 +44,8 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     @Override
     public final void newTransaction(final String description, final double amount, final Category category, final Account account,
                                      final java.time.LocalDate date, final int hours, final int minutes, final Repetition repetition) {
-        final LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
-                date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
-                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
-        this.manager.addTransaction(new TransactionImpl(description, category, formattedDate, account,
-                (int) (amount * 100), repetition));
+        this.manager.addTransaction(new TransactionImpl(description, category, new LocalDateTime(date.getYear(), date.getMonthValue(),
+                        date.getDayOfMonth(), hours, minutes, 0), account, (int) (amount * 100), repetition));
         this.manager.generateRepeatedTransactions(LocalDate.now());
     }
 

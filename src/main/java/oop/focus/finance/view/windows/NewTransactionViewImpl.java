@@ -18,10 +18,9 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import org.joda.time.LocalDateTime;
 
-public class NewTransactionViewImpl extends GenericWindow<NewTransactionController> {
+import java.time.LocalDate;
 
-    private static final int MAX_HOURS = 23;
-    private static final int MAX_MINUTES = 59;
+public class NewTransactionViewImpl extends GenericWindow<NewTransactionController> {
 
     @FXML
     private Label titleLabel;
@@ -51,6 +50,10 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         this.repetitionChioce.setItems(super.getX().getRepetitions());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
+        this.dataPicker.setValue(LocalDate.now());
+        this.hoursTextField.setText("" + LocalDateTime.now().getHourOfDay());
+        this.minutesTextField.setText("" + LocalDateTime.now().getMinuteOfHour());
+        this.repetitionChioce.setValue(Repetition.ONCE);
     }
 
     private void showNewCategory() {
@@ -58,7 +61,6 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) controller.getView().getRoot()));
         stage.show();
-        this.close();
     }
 
     @Override
@@ -66,22 +68,14 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.repetitionChioce.getValue() == null
-                || !this.hoursTextField.getText().isEmpty() && (isNotNumeric(this.hoursTextField.getText())
-                    || Integer.parseInt(this.hoursTextField.getText()) < 0
-                    || Integer.parseInt(this.hoursTextField.getText()) > MAX_HOURS)
-                || !this.minutesTextField.getText().isEmpty() && (isNotNumeric(this.minutesTextField.getText())
-                    || Integer.parseInt(this.hoursTextField.getText()) < 0
-                    || Integer.parseInt(this.hoursTextField.getText()) > MAX_MINUTES)) {
+                || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             try {
                 super.getX().newTransaction(this.descriptionTextField.getText(),
                         Double.parseDouble(this.amountTextField.getText()),
                         this.categoryChoice.getValue(), this.accountChoice.getValue(), this.dataPicker.getValue(),
-                        this.hoursTextField.getText().isEmpty() ? LocalDateTime.now().getHourOfDay()
-                                : Integer.parseInt(this.hoursTextField.getText()),
-                        this.minutesTextField.getText().isEmpty() ? LocalDateTime.now().getMinuteOfHour()
-                                : Integer.parseInt(this.minutesTextField.getText()),
+                        Integer.parseInt(this.hoursTextField.getText()), Integer.parseInt(this.minutesTextField.getText()),
                         this.repetitionChioce.getValue());
             } catch (UnsupportedOperationException e) {
                 super.allert("Non posso eseguire una transazione in una data futura.");

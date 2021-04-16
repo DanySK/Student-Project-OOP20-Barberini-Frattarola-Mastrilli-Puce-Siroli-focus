@@ -19,9 +19,9 @@ public interface NewTransactionController extends Controller {
      * @param amount of the transaction to add
      * @param category of the transaction to add
      * @param account of the transaction to add
-     * @param date of the transaction to add (default today)
-     * @param hours of the transaction to add (default current hour)
-     * @param minutes of the transaction to add (default current minutes)
+     * @param date of the transaction to add
+     * @param hours of the transaction to add
+     * @param minutes of the transaction to add
      * @param repetition of the transaction to add
      */
     void newTransaction(String description, double amount, Category category, Account account,

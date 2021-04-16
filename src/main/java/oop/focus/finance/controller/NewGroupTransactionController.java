@@ -17,9 +17,9 @@ public interface NewGroupTransactionController extends Controller {
      * @param madeBy person who made the transaction
      * @param forSet persons for whom the transaction was made
      * @param amount  of the transaction to add
-     * @param date of the transaction to add (dafult today)
-     * @param hours at which the transaction was made (default current hours)
-     * @param minutes at which the transaction was made (default current minutes)
+     * @param date of the transaction to add
+     * @param hours at which the transaction was made
+     * @param minutes at which the transaction was made
      */
     void newGroupTransaction(String description, Person madeBy, Set<Person> forSet, double amount,
                              LocalDate date, int hours, int minutes);

@@ -10,7 +10,6 @@ import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.finance.view.windows.GenericWindow;
 import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
 import oop.focus.homepage.model.Person;
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
@@ -34,11 +33,9 @@ public class NewGroupTransactionControllerImpl implements NewGroupTransactionCon
     @Override
     public final void newGroupTransaction(final String description, final Person madeBy, final Set<Person> forSet, final double amount,
                                           final java.time.LocalDate date, final int hours, final int minutes) {
-        final LocalDateTime formattedDate = new LocalDateTime(date == null ? LocalDate.now().getYear() : date.getYear(),
-                date == null ? LocalDate.now().getMonthOfYear() : date.getMonthValue(),
-                date == null ? LocalDate.now().getDayOfMonth() : date.getDayOfMonth(), hours, minutes, 0);
         this.manager.getGroupManager().addTransaction(new GroupTransactionImpl(description, madeBy,
-                new ArrayList<>(forSet), (int) (amount * 100), formattedDate));
+                new ArrayList<>(forSet), (int) (amount * 100), new LocalDateTime(date.getYear(), date.getMonthValue(),
+                date.getDayOfMonth(), hours, minutes, 0)));
     }
 
     @Override
