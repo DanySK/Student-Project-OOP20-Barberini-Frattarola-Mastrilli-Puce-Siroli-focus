@@ -40,9 +40,14 @@ public class UpperView implements View {
         this.map.keySet().forEach(s -> s.prefHeightProperty().bind(this.hBox.heightProperty().multiply(BUTTONS_HEIGHT)));
         this.map.keySet().forEach(s -> s.setPrefWidth(SCREEN_BOUNDS.getWidth() / this.map.keySet().size()));
         this.setOnPress();
+        this.setFirstWindow();
     }
     private void setOnPress() {
         this.hBox.getChildren().forEach(s -> s.setOnMouseClicked(event -> this.sectionsController.update(this.map.get(s))));
+    }
+    private void setFirstWindow() {
+        this.sectionsController.update(this.map.get(this.map.keySet().stream().filter(s -> this.map.get(s).
+                equals(this.controller.getFirstWindow())).findAny().get()));
     }
     @Override
     public final Node getRoot() {

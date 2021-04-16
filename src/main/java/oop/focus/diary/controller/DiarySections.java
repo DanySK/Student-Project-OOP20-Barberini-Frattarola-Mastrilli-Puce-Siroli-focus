@@ -16,21 +16,29 @@ public class DiarySections implements Sections {
     private final List<Pair<Controller, String>> list;
     private final DataSource dataSource;
     private final EventManager eventManager;
+    private final Controller baseDiary;
 
     public DiarySections(final DataSource dataSource)  {
         this.list = new ArrayList<>();
         this.dataSource = dataSource;
         this.eventManager = new EventManagerImpl(dataSource);
+        this.baseDiary = new BaseDiaryController(this.dataSource);
         this.putControllers();
     }
     private void putControllers() {
-        this.list.add(new Pair<>(new BaseDiaryController(this.dataSource), "Diario"));
+        this.list.add(new Pair<>(this.baseDiary, "Diario"));
         this.list.add(new Pair<>(new CalendarMonthControllerImpl(CalendarType.DIARY, this.dataSource), "Statistiche umore"));
         this.list.add(new Pair<>(new CounterGeneralControllerImpl(this.eventManager, false),
                 "Cronometro"));
         this.list.add(new Pair<>(new CounterGeneralControllerImpl(this.eventManager, true),
                 "Timer"));
     }
+
+    @Override
+    public Controller getFirstWindow() {
+        return this.baseDiary;
+    }
+
     public final List<Pair<Controller, String>> getList() {
         return this.list;
     }

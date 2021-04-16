@@ -6,3 +6,9 @@
     -fx-font-size: 20;
     -fx-background-color: #fc8282;
 }
+.label {
+    -fx-font-size: 20;
+}
+.button {
+    -fx-font-size: 20;
+}
