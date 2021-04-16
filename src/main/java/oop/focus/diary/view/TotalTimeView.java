@@ -35,6 +35,7 @@ public class TotalTimeView implements View {
         this.label.prefWidthProperty().bind(vBox.widthProperty().multiply(LABEL_WIDTH));
         this.label.prefHeightProperty().bind(vBox.heightProperty().multiply(LABEL_HEIGHT));
         this.label.setAlignment(Pos.CENTER);
+        this.totalTimeLabel.setAlignment(Pos.CENTER);
         this.totalTimeLabel.prefWidthProperty().bind(this.label.widthProperty());
         vBox.spacingProperty().bind(vBox.heightProperty().multiply(SPACING));
         vBox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));
