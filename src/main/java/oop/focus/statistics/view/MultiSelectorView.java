@@ -54,7 +54,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
                     this.root.getChildren().remove(p.getKey());
                 });
                 this.selectedItems.remove(change.getElementRemoved());
-            } else if (change.wasAdded()) {
+            } else if (change.wasAdded() && !this.selectedItems.containsKey(change.getElementAdded())) {
                 var box = this.createBox(function.apply(change.getElementAdded()));
                 this.checkBoxMap.put(box, change.getElementAdded());
                 this.selectedItems.put(change.getElementAdded(), false);

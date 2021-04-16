@@ -1,7 +1,9 @@
 package oop.focus.statistics.view;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.scene.control.Label;
+import oop.focus.common.Linker;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.homepage.model.Event;
@@ -10,12 +12,16 @@ import oop.focus.statistics.controller.TimePeriodInputBuilderImpl;
 import oop.focus.statistics.controller.UpdatableController;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Function;
 
 /**
  * Implementation of {@link InputViewFactory}.
  */
 public class InputViewFactoryImpl implements InputViewFactory {
+
+    private static final String EVENT_LABEL = "Eventi";
+    private static final String ACCOUNT_LABEL = "Conti";
+
     /**
      * {@inheritDoc}
      */
@@ -26,7 +32,8 @@ public class InputViewFactoryImpl implements InputViewFactory {
         return new AbstractPeriodInputView<>() {
             @Override
             View createSelector() {
-                return new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.of(new Label("Conti"),
+                return new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.of(
+                        new Label(ACCOUNT_LABEL),
                         selector.getRoot()));
             }
 
@@ -51,23 +58,26 @@ public class InputViewFactoryImpl implements InputViewFactory {
     @Override
     public final View eventsInputView(final ObservableSet<Event> events,
                                       final UpdatableController<TimePeriodInput<String>> controller) {
-        final MultiSelector<Event> selector = new MultiSelectorView<>(events, Event::getName);
         return new AbstractPeriodInputView<>() {
+            private ObservableSet<String> eventNames;
+            private MultiSelector<String> selector;
+
             @Override
             View createSelector() {
+                this.eventNames = FXCollections.observableSet();
+                Linker.setToSet(events, this.eventNames, Event::getName);
+                this.selector = new MultiSelectorView<>(this.eventNames, Function.identity());
                 return new ViewFactoryImpl()
-                        .createVerticalAutoResizingWithNodes(List.of(new Label("Eventi"), selector.getRoot()));
+                        .createVerticalAutoResizingWithNodes(List.of(new Label(EVENT_LABEL), this.selector.getRoot()));
             }
 
             @Override
             protected void save() {
                 try {
-                    System.out.println("Selezionati ->" + selector.getSelected());
                     controller.updateInput(new TimePeriodInputBuilderImpl<String>()
                             .from(this.getStartDate())
                             .to(this.getEndDate())
-                            .values(selector.getSelected().stream()
-                                    .map(Event::getName).collect(Collectors.toSet()))
+                            .values(this.selector.getSelected())
                             .save());
                 } catch (IllegalStateException e) {
                     this.showError();

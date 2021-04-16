@@ -1,9 +1,12 @@
 package oop.focus.statistics.controller;
 
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
+import oop.focus.finance.model.Transaction;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
@@ -19,6 +22,7 @@ public class FinanceStatisticsController implements UpdatableController<TimePeri
     private final List<UpdatableController<TimePeriodInput<Account>>> charts;
     private final View content;
     private TimePeriodInput<Account> actualInput;
+    private final ObservableSet<Transaction> transactions;
 
     /**
      * Instantiates a new Finance statistics controller and creates the associated view.
@@ -32,8 +36,9 @@ public class FinanceStatisticsController implements UpdatableController<TimePeri
         this.charts.add(factory.balances(manager));
         this.content = new ViewFactoryImpl().createVerticalAutoResizing(this.charts.stream()
                 .map(Controller::getView).collect(Collectors.toList()));
+        this.transactions = manager.getTransactionManager().getTransactions();
+        this.setListener();
     }
-
     /**
      * {@inheritDoc}
      */
@@ -49,7 +54,16 @@ public class FinanceStatisticsController implements UpdatableController<TimePeri
     public final void updateInput(final TimePeriodInput<Account> input) {
         if (!input.equals(this.actualInput)) {
             this.actualInput = input;
-            this.charts.forEach(a -> a.updateInput(input));
+            this.updateCharts(input);
         }
+    }
+
+    private void setListener() {
+        this.transactions.addListener((SetChangeListener<Transaction>) change ->
+                this.updateCharts(this.actualInput));
+    }
+
+    private void updateCharts(final TimePeriodInput<Account> input) {
+        this.charts.forEach(a -> a.updateInput(input));
     }
 }
