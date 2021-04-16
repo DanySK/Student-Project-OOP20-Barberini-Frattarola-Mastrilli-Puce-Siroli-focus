@@ -58,8 +58,6 @@ public class RelationshipsViewImpl implements RelationshipsView {
     }
 
     private void setProperty() {
-        //this.relationshipsPane.setPrefSize(this.controller.getWidth(), this.controller.getHeight());
-
         this.relationshipsTable.prefWidthProperty().bind(this.relationshipsPane.widthProperty().multiply(Constants.TABLE_WIDTH));
         this.relationshipsTable.prefHeightProperty().bind(this.relationshipsPane.heightProperty().multiply(Constants.TABLE_HEIGHT));
         this.relationshipsColumn.prefWidthProperty().bind(this.relationshipsTable.widthProperty());
@@ -80,18 +78,9 @@ public class RelationshipsViewImpl implements RelationshipsView {
     }
 
     private void deleteItem() {
-        try {
-            this.controller.deleteRelationship(relationshipsTable.getSelectionModel().getSelectedItem());
+            this.controller.deleteRelationship(this.relationshipsTable.getSelectionModel().getSelectedItem());
+            this.personView.fillComboBoxDegree();
             this.refreshTableView();
-        } catch (DaoAccessException e) {
-            final Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("Impossibile eliminare la parentela poichè è utilizzata da una o più persone!");
-            final Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-                alert.close();
-            }
-        }
     }
 
     @FXML
@@ -99,7 +88,7 @@ public class RelationshipsViewImpl implements RelationshipsView {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 
         alert.setTitle("Conferma eliminazione");
-        alert.setHeaderText("Sei sicuro di volere eliminare questa persona?");
+        alert.setHeaderText("Sei sicuro di volere eliminare questa parentela?");
 
         final Optional<ButtonType> result = alert.showAndWait();
 
@@ -132,7 +121,7 @@ public class RelationshipsViewImpl implements RelationshipsView {
     }
 
     public final void refreshTableView() {
-        this.relationshipsTable.getItems().removeAll(relationshipsTable.getSelectionModel().getSelectedItems());
+        this.relationshipsTable.setItems(this.controller.getDegree());
     }
 
     private static class Constants {

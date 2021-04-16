@@ -30,7 +30,7 @@ public class RelationshipsControllerImpl implements RelationshipsController {
         this.relationships.add(relationship);
     }
 
-    public final void deleteRelationship(final String relationship) throws DaoAccessException {
+    public final void deleteRelationship(final String relationship) {
         this.relationships.remove(relationship);
     }
 

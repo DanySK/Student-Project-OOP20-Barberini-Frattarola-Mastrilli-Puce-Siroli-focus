@@ -4,7 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 import oop.focus.statistics.view.ViewFactoryImpl;
+
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -93,7 +96,9 @@ public class WeekViewImpl implements WeekView {
         if (this.startWeek.isEqual(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek() - 1))) {
             this.thisWeek.setText("SETTIMANA CORRENTE");
         } else {
-            this.thisWeek.setText(startWeek.toString() + " - " + startWeek.plusDays(Constants.FIND_FINAL));
+            final DateTime stringDate = this.startWeek.toDateTime(new LocalTime(00, 00));
+            final String month = stringDate.monthOfYear().getAsText();
+            this.thisWeek.setText(startWeek.getYear() + " - " + month);
         }
     }
 

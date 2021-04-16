@@ -9,7 +9,7 @@ public interface RelationshipsController {
 
     void addRelationship(String relationship);
 
-    void deleteRelationship(String relationship) throws DaoAccessException;
+    void deleteRelationship(String relationship);
 
     ObservableList<String> getDegree();
 

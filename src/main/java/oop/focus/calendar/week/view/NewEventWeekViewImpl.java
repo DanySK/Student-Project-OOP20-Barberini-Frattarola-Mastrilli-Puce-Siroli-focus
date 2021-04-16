@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import oop.focus.homepage.view.AlertFactory;
 import oop.focus.homepage.view.AlertFactoryImpl;
 import org.joda.time.LocalDate;
@@ -19,6 +18,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.persons.controller.PersonsController;
@@ -159,7 +166,6 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
             this.weekController.getView().setWeekDays();
             this.monthController.updateView();
 
-            //this.delete(event);
         } else {
             final AlertFactory alertCreator = new AlertFactoryImpl();
             final Alert alert = alertCreator.createWarningAlert();
