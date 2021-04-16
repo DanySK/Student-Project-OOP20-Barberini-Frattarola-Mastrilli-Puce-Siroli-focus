@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
+import javafx.stage.Stage;
 import oop.focus.homepage.view.AlertFactory;
 import oop.focus.homepage.view.AlertFactoryImpl;
 import org.joda.time.LocalDate;
@@ -194,6 +195,8 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         try {
             this.controller.addNewEvent(eventToSave);
             this.delete(event);
+            final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
+            stage.close();
         } catch (IllegalStateException e) {
             final AlertFactory alertCreator = new AlertFactoryImpl();
             final Alert alert = alertCreator.createWarningAlert();

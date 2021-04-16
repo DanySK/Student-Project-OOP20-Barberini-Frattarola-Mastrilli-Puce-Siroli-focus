@@ -7,7 +7,6 @@ import oop.focus.calendar.persons.view.RelationshipsView;
 import oop.focus.calendar.persons.view.RelationshipsViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.model.RelationshipsManager;
 import oop.focus.homepage.model.RelationshipsManagerImpl;
 

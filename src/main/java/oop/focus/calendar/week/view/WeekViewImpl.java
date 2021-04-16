@@ -125,7 +125,7 @@ public class WeekViewImpl implements WeekView {
     }
 
     private class Constants {
-        private static final int FIND_FINAL = 6;
+        //private static final int FIND_FINAL = 6;
         private static final int DAYS_PER_WEEK = 7;
         private static final int SPACING = 100;
     }

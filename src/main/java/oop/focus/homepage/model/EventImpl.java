@@ -15,9 +15,11 @@ import oop.focus.common.Repetition;
  */
 public class EventImpl implements Event {
 
-    private final String name;
-    private final LocalDateTime startDate;
+    private String name;
+    private LocalDateTime startDate;
     private final LocalDateTime endDate;
+    private String startDay;
+    private String startTime;
     private Repetition repetition;
     private final List<Person> persons;
     private boolean isRepeated;
@@ -35,6 +37,8 @@ public class EventImpl implements Event {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.startDay = this.startDate.toLocalDate().toString();
+        this.startTime = this.startDate.toLocalTime().toString();
         this.repetition = repetition;
         this.persons = persons;
         this.isRepeated = isRepeat;
@@ -113,6 +117,14 @@ public class EventImpl implements Event {
         return this.repetition;
     }
 
+    public final String getStartTime() {
+        return this.startTime;
+    }
+
+    public final String getStartDay() {
+        return this.startDay;
+    }
+
     public final boolean isRepeated() {
         return isRepeated;
     }
@@ -161,6 +173,23 @@ public class EventImpl implements Event {
 
     public final void stopRepeat() {
         this.isRepeated = false;
+        this.repetition = Repetition.ONCE;
     }
 
+    @Override
+    public final void setName(final String newValue) {
+        this.name = newValue;
+    }
+
+    @Override
+    public final void setStartDay(final String newValue) {
+        this.startDay = newValue;
+        this.startDate = new LocalDate(newValue).toLocalDateTime(new LocalTime(this.startTime));
+    }
+
+    @Override
+    public final void setStartTime(final String newValue) {
+        this.startTime = newValue;
+        this.startDate = new LocalDate(this.startDay).toLocalDateTime(new LocalTime(this.startTime));
+    }
 }

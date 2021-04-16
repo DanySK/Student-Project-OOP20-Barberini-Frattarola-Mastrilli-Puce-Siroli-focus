@@ -90,10 +90,10 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
                 e.printStackTrace();
             }
         });
-        this.newDegree.setOnAction(event -> this.newDegree(event));
+        this.newDegree.setOnAction(event -> this.newDegree());
     }
 
-    private void newDegree(final ActionEvent event) {
+    private void newDegree() {
         final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi(), this);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) relationshipsController.getView().getRoot()));
@@ -124,6 +124,11 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     }
 
     @Override
+    public final void fillComboBoxDegree() {
+        this.degreeComboBox.setItems(this.controller.getDegree());
+    }
+
+    @Override
     public final Node getRoot() {
         return this.root;
     }
@@ -151,10 +156,5 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
         private static final double FIELD_HEIGHT = 0.05;
         private static final double LABEL_WIDTH = 0.8;
         private static final double LABEL_HEIGHT = 0.1;
-    }
-
-    @Override
-    public final void fillComboBoxDegree() {
-        this.degreeComboBox.setItems(this.controller.getDegree());
     }
 }

@@ -12,7 +12,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import oop.focus.db.exceptions.DaoAccessException;
 
 import java.io.IOException;
 import java.net.URL;

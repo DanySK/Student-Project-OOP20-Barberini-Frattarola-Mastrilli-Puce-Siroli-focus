@@ -93,4 +93,14 @@ public interface Event {
      */
     void stopRepeat();
 
+    void setName(String newValue);
+
+    void setStartDay(String localDate);
+
+    void setStartTime(String newValue);
+
+    String getStartTime();
+
+    String getStartDay();
+
 }
