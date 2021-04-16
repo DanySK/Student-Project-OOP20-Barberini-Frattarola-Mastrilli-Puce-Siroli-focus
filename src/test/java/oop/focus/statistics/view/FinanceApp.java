@@ -19,9 +19,9 @@ import java.util.function.Consumer;
 
 public class FinanceApp extends Application {
 
-    String color1 = "123455";
-    String color2 = "234562";
-    String color3 = "567893";
+    String color1 = "0000ff";
+    String color2 = "00ff00";
+    String color3 = "ff0000";
     String color4 = "000000";
     Category c1 = new CategoryImpl("c1", this.color1);
     Category c2 = new CategoryImpl("c2", this.color2);
@@ -52,12 +52,7 @@ public class FinanceApp extends Application {
 
         Controller controller = new FinanceStatistics(manager);
         primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));
-        try {
-            primaryStage.getScene().getStylesheets()
-                    .add(this.getClass().getResource("/styles/statistics.css").toExternalForm());
-        } catch (Exception e) {
-            //create
-        }
+
         primaryStage.show();
         /*this.createData(manager::removeAccount, manager);
         try {

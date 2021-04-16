@@ -39,9 +39,7 @@ public class EventsApp extends Application {
             e.printStackTrace();
         }
         Controller controller = new EventsStatistics(db);
-        primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));
-        primaryStage.getScene().getStylesheets()
-                .add(this.getClass().getResource("/styles/statistics.css").toExternalForm());
+        primaryStage.setScene(new Scene((Parent) controller.getView().getRoot(), 500, 600));
         primaryStage.show();
         /*this.createData(manager::removeAccount, manager);
         try {

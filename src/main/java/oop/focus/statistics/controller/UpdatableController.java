@@ -3,11 +3,11 @@ package oop.focus.statistics.controller;
 import oop.focus.common.Controller;
 
 /**
- * The interface Chart controller defines a controller for a chart section.
+ * The interface Updatable controller defines a controller to which an input change can be notified.
  *
- * @param <X> the type of the input used to change the chart data.
+ * @param <X> the type of the input.
  */
-public interface ChartController<X> extends Controller {
+public interface UpdatableController<X> extends Controller {
     /**
      * Update the input.
      *

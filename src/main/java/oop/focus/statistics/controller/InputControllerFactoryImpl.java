@@ -1,6 +1,7 @@
 package oop.focus.statistics.controller;
 
 import oop.focus.db.DataSource;
+import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.statistics.view.InputViewFactoryImpl;
 
@@ -12,11 +13,12 @@ public class InputControllerFactoryImpl implements InputControllerFactory {
      * {@inheritDoc}
      */
     @Override
-    public final AbstractInputController<FinanceInput> financeInputController(final StatisticController<FinanceInput> controller,
-                                                                              final FinanceManager manager) {
+    public final AbstractInputController<TimePeriodInput<Account>> financeInputController(
+            final UpdatableController<TimePeriodInput<Account>> controller,
+            final FinanceManager manager) {
         return new AbstractInputController<>(controller) {
             @Override
-            public void updateInput(final FinanceInput input) {
+            public void updateInput(final TimePeriodInput<Account> input) {
                 super.getController().updateInput(input);
             }
 
@@ -28,12 +30,16 @@ public class InputControllerFactoryImpl implements InputControllerFactory {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final AbstractInputController<EventsInput> eventsInputController(final StatisticController<EventsInput> controller,
-                                                                            final DataSource dataSource) {
+    public final AbstractInputController<TimePeriodInput<String>> eventsInputController(
+            final UpdatableController<TimePeriodInput<String>> controller,
+            final DataSource dataSource) {
         return new AbstractInputController<>(controller) {
             @Override
-            public void updateInput(final EventsInput input) {
+            public void updateInput(final TimePeriodInput<String> input) {
                 super.getController().updateInput(input);
             }
 

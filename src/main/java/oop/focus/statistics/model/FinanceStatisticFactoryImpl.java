@@ -79,7 +79,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
     }
 
     @Override
-    public final DataCreator<LocalDate, Pair<LocalDate, Integer>> accountPeriodExpenses(final Account account, final LocalDate start, final LocalDate end) {
+    public final DataCreator<LocalDate, Pair<LocalDate, Integer>> accountPeriodExpenses(final Account account,
+                                                                                        final LocalDate start,
+                                                                                        final LocalDate end) {
         return new GeneratedDataCreator<>(
                 () -> Stream.iterate(start, d -> d.plusDays(1))
                         .limit(1 + Math.abs(Days.daysBetween(start, end).getDays())).collect(Collectors.toSet()),
@@ -89,6 +91,17 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                                 .mapToInt(Transaction::getAmount).sum()))));
     }
 
+    /**
+     * This method collects a Stream of pairs<X, Integer> to a list of pairs<String, Double>.
+     * The input function is used to transform each {@link Integer} value to a double value.
+     * Each X key of the pair is transformed to a String using the toString() method.
+     * This method is useful for transforming data so that it can be displayed in a chart.
+     *
+     * @param data the input stream of {@link Pair}
+     * @param fun  the function to map each Integer to a Double
+     * @param <X>  the {@link Pair} key type
+     * @return the list.
+     */
     public static <X> List<Pair<String, Double>> collectData(final Stream<Pair<X, Integer>> data,
                                                              final Function<Integer, Double> fun) {
         return data.map(p -> new Pair<>(p.getKey().toString(), fun.apply(p.getValue())))

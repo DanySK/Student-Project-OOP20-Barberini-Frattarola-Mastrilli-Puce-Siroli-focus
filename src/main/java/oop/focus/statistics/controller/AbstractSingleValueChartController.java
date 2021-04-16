@@ -1,22 +1,23 @@
 package oop.focus.statistics.controller;
 
 import oop.focus.common.View;
-import oop.focus.statistics.view.LineChartView;
-import oop.focus.statistics.view.MultiValueChart;
+import oop.focus.statistics.view.PieChartView;
+import oop.focus.statistics.view.SingleValueChart;
+
 /**
  * The Abstract line chart controller defines a controller that manages a line chart.
  *
  * @param <X> the type of the input data to be displayed
  */
-public abstract class AbstractLineChartController<X> implements ChartController<X> {
+public abstract class AbstractSingleValueChartController<X> implements UpdatableController<X> {
 
-    private final MultiValueChart chart;
+    private final SingleValueChart chart;
 
     /**
-     * Instantiates a new Abstract line chart controller and creates the associated view.
+     * Instantiates a new Abstract pie chart controller and creates the associated view.
      */
-    public AbstractLineChartController() {
-        this.chart = new LineChartView();
+    public AbstractSingleValueChartController() {
+        this.chart = new PieChartView();
     }
 
     /**
@@ -37,7 +38,7 @@ public abstract class AbstractLineChartController<X> implements ChartController<
      *
      * @return the chart
      */
-    protected final MultiValueChart getChart() {
+    protected final SingleValueChart getChart() {
         return this.chart;
     }
 }

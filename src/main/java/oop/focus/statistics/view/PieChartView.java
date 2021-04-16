@@ -3,6 +3,7 @@ package oop.focus.statistics.view;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Side;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -17,9 +18,9 @@ import java.util.List;
  * based on input data set on the PieChart.
  */
 public class PieChartView implements SingleValueChart {
-    private static final double SPACING = 0.02;
-    private static final double XRATIO = 0.02;
-    private static final double YRATIO = 0.02;
+    private static final double SPACING = 0.005;
+    private static final double XRATIO = 0.005;
+    private static final double YRATIO = 0.005;
     private static final double TICK_RATIO = 0.01;
     private static final String PIE_COLOR_STYLE = "-fx-pie-color: #%s;";
     private final Pane container;
@@ -38,6 +39,8 @@ public class PieChartView implements SingleValueChart {
         this.pieChart = new PieChart(this.data);
         this.container.getChildren().addAll(this.title, this.pieChart);
         this.pieChart.setLabelLineLength(ViewFactoryImpl.SCREEN_BOUNDS.getHeight() * TICK_RATIO);
+        this.pieChart.setLegendVisible(true);
+        this.pieChart.setLegendSide(Side.RIGHT);
     }
 
     /**

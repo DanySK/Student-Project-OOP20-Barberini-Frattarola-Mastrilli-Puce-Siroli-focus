@@ -25,9 +25,9 @@ import java.util.stream.Collectors;
  * and a numeric value.
  */
 public class LineChartView implements MultiValueChart {
-    private static final double SPACING = 0.02;
-    private static final double XRATIO = 0.01;
-    private static final double YRATIO = 0.02;
+    private static final double SPACING = 0.005;
+    private static final double XRATIO = 0.005;
+    private static final double YRATIO = 0.005;
     private static final String SYMBOL_STYLE = "-fx-background-color: #%s, whitesmoke;";
     private static final String LYNE_STYLE = "-fx-stroke: #%s";
     private final NumberFormat format = new DecimalFormat("#.#E0");
@@ -93,23 +93,23 @@ public class LineChartView implements MultiValueChart {
      */
     @Override
     public final void setColors(final List<String> colors) {
-        int i = 0;
-        for (var c : this.lineChart.getData()) {
-            final String lineStyle = String.format(LYNE_STYLE, colors.get(i));
-            c.getNode().lookup(".chart-series-line").setStyle(lineStyle);
-        }
-        final String[] symbolStyles = new String[colors.size()];
-
-        int index = 0;
-        for (var c : colors) {
-            final String symbolStyle = String.format(SYMBOL_STYLE, c);
-            symbolStyles[index] = symbolStyle;
-            for (var data : this.lineChart.getData().get(index).getData()) {
-                data.getNode().lookup(".chart-line-symbol").setStyle(symbolStyle);
-            }
-            index++;
-        }
         Platform.runLater(() -> {
+            int i = 0;
+            for (var c : this.lineChart.getData()) {
+                final String lineStyle = String.format(LYNE_STYLE, colors.get(i++));
+                c.getNode().lookup(".chart-series-line").setStyle(lineStyle);
+            }
+            int index = 0;
+            final String[] symbolStyles = new String[colors.size()];
+            for (var c : colors) {
+                final String symbolStyle = String.format(SYMBOL_STYLE, c);
+                symbolStyles[index] = symbolStyle;
+                for (var data : this.lineChart.getData().get(index).getData()) {
+                    data.getNode().lookup(".chart-line-symbol").setStyle(symbolStyle);
+                }
+                index++;
+            }
+
             for (Node node : this.lineChart.lookupAll(".chart-legend-item-symbol")) {
                 for (String styleClass : node.getStyleClass()) {
                     if (styleClass.startsWith("series")) {

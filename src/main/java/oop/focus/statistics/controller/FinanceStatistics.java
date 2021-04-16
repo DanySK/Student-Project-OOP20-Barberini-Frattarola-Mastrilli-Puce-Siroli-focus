@@ -1,5 +1,6 @@
 package oop.focus.statistics.controller;
 
+import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.statistics.view.ViewFactoryImpl;
@@ -10,11 +11,9 @@ import java.util.List;
  * The Finance statistics represents a controller that manages a chart section of
  * finance data. It also manage the user input and updates the shown charts.
  */
-public class FinanceStatistics implements StatisticController<FinanceInput> {
+public class FinanceStatistics implements Controller {
 
-    private FinanceInput actualInput;
     private final View statisticsView;
-    private final StatisticController<FinanceInput> statisticController;
 
     /**
      * Instantiates a new Finance statistics and creates the associated view.
@@ -22,11 +21,11 @@ public class FinanceStatistics implements StatisticController<FinanceInput> {
      * @param manager the finance manager
      */
     public FinanceStatistics(final FinanceManager manager) {
-        this.statisticController = new FinanceStatisticsController(manager);
-        AbstractInputController<FinanceInput> inputController = new InputControllerFactoryImpl()
-                .financeInputController(this, manager);
+        var statisticController = new FinanceStatisticsController(manager);
+        var inputController = new InputControllerFactoryImpl()
+                .financeInputController(statisticController, manager);
         this.statisticsView = new ViewFactoryImpl()
-                .createHorizontal(List.of(this.statisticController.getView(), inputController.getView()));
+                .createHorizontal(List.of(statisticController.getView(), inputController.getView()));
     }
 
     /**
@@ -35,16 +34,5 @@ public class FinanceStatistics implements StatisticController<FinanceInput> {
     @Override
     public final View getView() {
         return this.statisticsView;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void updateInput(final FinanceInput input) {
-        if (!input.equals(this.actualInput)) {
-            this.actualInput = input;
-            this.statisticController.updateInput(input);
-        }
     }
 }

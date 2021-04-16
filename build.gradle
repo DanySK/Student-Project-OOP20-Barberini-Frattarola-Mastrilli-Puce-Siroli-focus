@@ -21,4 +21,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml','javafx.graphics']
 }
 
-mainClassName = 'oop.focus.core.App' 
+mainClassName = 'oop.focus.application.Launcher'

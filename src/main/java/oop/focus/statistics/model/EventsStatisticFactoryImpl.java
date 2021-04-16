@@ -49,7 +49,8 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
         var all = this.dataSource.getEvents().getAll();
         return new GeneratedDataCreator<>(
                 () -> Stream.iterate(start, d -> d.plusDays(1))
-                        .limit(1 + Math.abs(Days.daysBetween(start, end).getDays())).collect(Collectors.toSet()),
+                        .limit(1 + Math.abs(Days.daysBetween(start, end).getDays()))
+                        .collect(Collectors.toSet()),
                 s -> s.collect(Collectors.toMap(Function.identity(),
                         v -> all.stream()
                                 .filter(e -> e.getName().equals(eventName))

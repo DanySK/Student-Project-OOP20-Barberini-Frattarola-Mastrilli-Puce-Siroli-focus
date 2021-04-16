@@ -4,14 +4,14 @@ import oop.focus.common.View;
 
 /**
  * The Abstract input controller defines the common behavior of all inputs controller.
- * Input changes will be notified to a given {@link StatisticController}.
+ * Input changes will be notified to a given {@link UpdatableController}.
  *
  * @param <X> the type of the input
  */
-public abstract class AbstractInputController<X> implements InputController<X> {
+public abstract class AbstractInputController<X> implements UpdatableController<X> {
 
     private View view;
-    private final StatisticController<X> controller;
+    private final UpdatableController<X> controller;
 
     /**
      * Instantiates a new Abstract input controller and creates the associated view,
@@ -19,7 +19,7 @@ public abstract class AbstractInputController<X> implements InputController<X> {
      *
      * @param controller the controller
      */
-    public AbstractInputController(final StatisticController<X> controller) {
+    public AbstractInputController(final UpdatableController<X> controller) {
         this.controller = controller;
         this.createView();
     }
@@ -38,7 +38,7 @@ public abstract class AbstractInputController<X> implements InputController<X> {
      *
      * @return the controller
      */
-    protected final StatisticController<X> getController() {
+    protected final UpdatableController<X> getController() {
         return this.controller;
     }
 

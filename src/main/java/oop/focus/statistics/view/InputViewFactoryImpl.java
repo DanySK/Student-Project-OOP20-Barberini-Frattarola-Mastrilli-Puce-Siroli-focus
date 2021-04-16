@@ -1,20 +1,16 @@
 package oop.focus.statistics.view;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.scene.control.Label;
-import oop.focus.common.Linker;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.homepage.model.Event;
-import oop.focus.statistics.controller.EventsInput;
-import oop.focus.statistics.controller.EventsInputBuilderImpl;
-import oop.focus.statistics.controller.FinanceInput;
-import oop.focus.statistics.controller.FinanceInputBuilderImpl;
-import oop.focus.statistics.controller.InputController;
+import oop.focus.statistics.controller.TimePeriodInput;
+import oop.focus.statistics.controller.TimePeriodInputBuilderImpl;
+import oop.focus.statistics.controller.UpdatableController;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of {@link InputViewFactory}.
@@ -25,7 +21,7 @@ public class InputViewFactoryImpl implements InputViewFactory {
      */
     @Override
     public final View financeInputView(final ObservableSet<Account> accounts,
-                                       final InputController<FinanceInput> controller) {
+                                       final UpdatableController<TimePeriodInput<Account>> controller) {
         final MultiSelector<Account> selector = new MultiSelectorView<>(accounts, Account::getName);
         return new AbstractPeriodInputView<>() {
             @Override
@@ -37,10 +33,10 @@ public class InputViewFactoryImpl implements InputViewFactory {
             @Override
             protected void save() {
                 try {
-                    controller.updateInput(new FinanceInputBuilderImpl()
+                    controller.updateInput(new TimePeriodInputBuilderImpl<Account>()
                             .from(this.getStartDate())
                             .to(this.getEndDate())
-                            .accounts(selector.getSelected())
+                            .values(selector.getSelected())
                             .save());
                 } catch (IllegalStateException e) {
                     this.showError();
@@ -54,10 +50,8 @@ public class InputViewFactoryImpl implements InputViewFactory {
      */
     @Override
     public final View eventsInputView(final ObservableSet<Event> events,
-                                      final InputController<EventsInput> controller) {
-        final ObservableSet<String> eventNames = FXCollections.observableSet();
-        Linker.setToSet(events, eventNames, Event::getName);
-        final MultiSelector<String> selector = new MultiSelectorView<>(eventNames, Function.identity());
+                                      final UpdatableController<TimePeriodInput<String>> controller) {
+        final MultiSelector<Event> selector = new MultiSelectorView<>(events, Event::getName);
         return new AbstractPeriodInputView<>() {
             @Override
             View createSelector() {
@@ -68,10 +62,12 @@ public class InputViewFactoryImpl implements InputViewFactory {
             @Override
             protected void save() {
                 try {
-                    controller.updateInput(new EventsInputBuilderImpl()
+                    System.out.println("Selezionati ->" + selector.getSelected());
+                    controller.updateInput(new TimePeriodInputBuilderImpl<String>()
                             .from(this.getStartDate())
                             .to(this.getEndDate())
-                            .names(selector.getSelected())
+                            .values(selector.getSelected().stream()
+                                    .map(Event::getName).collect(Collectors.toSet()))
                             .save());
                 } catch (IllegalStateException e) {
                     this.showError();

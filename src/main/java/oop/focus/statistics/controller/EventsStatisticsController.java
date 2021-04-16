@@ -11,12 +11,13 @@ import java.util.stream.Collectors;
 
 /**
  * The Events statistics controller manages the chart visualization, populating and updating
- * the views when the {@link EventsInput} changes.
+ * the views when the {@link TimePeriodInput} changes.
  */
-public class EventsStatisticsController implements StatisticController<EventsInput> {
+public class EventsStatisticsController implements UpdatableController<TimePeriodInput<String>> {
 
     private final View view;
-    private final List<ChartController<EventsInput>> charts;
+    private final List<UpdatableController<TimePeriodInput<String>>> charts;
+    private TimePeriodInput<String> actualInput;
 
     /**
      * Instantiates a new Events statistics controller and creates the associated view.
@@ -25,13 +26,11 @@ public class EventsStatisticsController implements StatisticController<EventsInp
      */
     public EventsStatisticsController(final DataSource dataSource) {
         this.charts = new ArrayList<>();
-        var pieFactory = new EventsSingleValueChartFactoryImpl();
-        var lineFactory = new EventsMultiValueChartFactoryImpl();
-        this.charts.add(lineFactory.eventsTimePerDays(dataSource));
-        this.charts.add(pieFactory.eventsOccurrences(dataSource));
-        this.view = new ViewFactoryImpl()
-                .createVerticalAutoResizing(this.charts.stream()
-                        .map(Controller::getView).collect(Collectors.toList()));
+        var factory = new EventsChartFactoryImpl();
+        this.charts.add(factory.eventsTimePerDays(dataSource));
+        this.charts.add(factory.eventsOccurrences(dataSource));
+        this.view = new ViewFactoryImpl().createVerticalAutoResizing(this.charts.stream()
+                .map(Controller::getView).collect(Collectors.toList()));
     }
 
     /**
@@ -46,7 +45,10 @@ public class EventsStatisticsController implements StatisticController<EventsInp
      * {@inheritDoc}
      */
     @Override
-    public final void updateInput(final EventsInput input) {
-        this.charts.forEach(a -> a.updateInput(input));
+    public final void updateInput(final TimePeriodInput<String> input) {
+        if (!input.equals(this.actualInput)) {
+            this.actualInput = input;
+            this.charts.forEach(a -> a.updateInput(input));
+        }
     }
 }
