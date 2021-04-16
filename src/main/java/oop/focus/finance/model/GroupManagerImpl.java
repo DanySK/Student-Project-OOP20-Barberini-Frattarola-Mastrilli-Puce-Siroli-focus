@@ -85,7 +85,8 @@ public class GroupManagerImpl implements GroupManager {
             final var creditor = this.getCreditor(map);
             final var debtor = this.getDebtor(map);
             final var amount = this.calculateAmount(map);
-            ret.add(new GroupTransactionImpl("Auto", debtor, List.of(creditor), amount, LocalDateTime.now()));
+            ret.add(new GroupTransactionImpl("Risoluzione debiti", debtor,
+                    List.of(creditor), amount, LocalDateTime.now()));
             map.replace(creditor, map.get(creditor) - amount);
             map.replace(debtor, map.get(debtor) + amount);
         }
