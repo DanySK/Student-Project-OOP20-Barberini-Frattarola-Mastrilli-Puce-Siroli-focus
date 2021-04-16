@@ -123,8 +123,8 @@ public class EventManagerImpl implements EventManager {
         }).collect(Collectors.toSet());
     }
 
-    public final Set<Event> getEventsWithDuration() {
-        return this.getEvents().stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toSet());
+    public final List<Event> getEventsWithDuration(final List<Event> listOfEvents) {
+        return listOfEvents.stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toList());
     }
 
     public final List<Event> getFutureEvent(final LocalDate date) {

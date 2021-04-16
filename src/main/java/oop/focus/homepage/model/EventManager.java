@@ -83,9 +83,10 @@ public interface EventManager {
 
     /**
      * This method is used to obtain all the events that respect a minimum duration.
+     * @param listOfEvents is the list;
      * @return set of event that respect a minimum duration.
      */
-    Set<Event> getEventsWithDuration();
+    List<Event> getEventsWithDuration(List<Event> listOfEvents);
 
     /**
      * 
