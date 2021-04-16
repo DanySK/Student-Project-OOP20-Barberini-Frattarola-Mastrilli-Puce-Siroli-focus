@@ -5,23 +5,11 @@ public enum FXMLPaths {
     /**
      *
      */
-    STOPWATCH(Costants.DIARY + "stopwatchScheme.fxml"),
-    /**
-     *
-     */
-    TIMER(Costants.DIARY + "timerScheme.fxml"),
-    /**
-     *
-     */
     ADD_EVENT_NAME_COUNTER(Costants.DIARY + "newCounterNameWindow.fxml"),
     /**
      *
      */
     INSERT_TIMER_TIME(Costants.DIARY + "insertTimeWindow.fxml"),
-    /**
-     *
-     */
-    BASE_DIARY(Costants.DIARY + "baseDiary.fxml"),
     /**
      *
      */
@@ -33,7 +21,15 @@ public enum FXMLPaths {
     /**
      *
      */
-    REMOVE_TDL_ANNOTATION(Costants.DIARY + "windowRemoveAnnotation.fxml");
+    REMOVE_TDL_ANNOTATION(Costants.DIARY + "windowRemoveAnnotation.fxml"),
+    /**
+     *
+     */
+    DIARY_SCHEME(Costants.DIARY + "diaryScheme.fxml"),
+    /**
+     *
+     */
+    TDL_SCHEME(Costants.DIARY + "TDLScheme.fxml");
     private final String path;
 
     FXMLPaths(final String path) {

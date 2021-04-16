@@ -7,7 +7,7 @@ import javafx.collections.ObservableSet;
 import oop.focus.common.View;
 import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.DiaryImpl;
-import oop.focus.diary.view.PagesViewImpl;
+import oop.focus.diary.view.DiaryView;
 
 public class DiaryPagesImpl implements DiaryPages {
     private final DiaryDao diaryDao;
@@ -18,7 +18,7 @@ public class DiaryPagesImpl implements DiaryPages {
         this.diaryDao = diaryDao;
         this.set = FXCollections.observableSet();
         this.set.addAll(this.diaryDao.getAll());
-        this.content = new PagesViewImpl(this);
+        this.content = new DiaryView(this);
     }
     @Override
     public final ObservableSet<DiaryImpl> getObservableSet() {

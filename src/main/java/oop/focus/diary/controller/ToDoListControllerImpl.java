@@ -6,6 +6,7 @@ import oop.focus.diary.model.ToDoAction;
 import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.diary.model.ToDoListManager;
 import oop.focus.diary.view.AnnotationViewImpl;
+import oop.focus.diary.view.ToDoListView;
 
 public class ToDoListControllerImpl implements ToDoListController {
     private final ToDoListManager manager;
@@ -15,7 +16,7 @@ public class ToDoListControllerImpl implements ToDoListController {
         this.manager = manager;
         this.toDoActions = FXCollections.observableSet();
         this.toDoActions.addAll(this.manager.getAnnotations());
-        this.content = new AnnotationViewImpl(this);
+        this.content = new ToDoListView(this);
     }
     @Override
     public final ObservableSet<ToDoAction> allAnnotations() {
