@@ -9,13 +9,18 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import oop.focus.application.controller.Sections;
 import oop.focus.application.controller.SectionsImpl;
-import oop.focus.application.controller.SectionsController;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
+import oop.focus.statistics.controller.UpdatableController;
+
 import java.util.HashMap;
 import java.util.Map;
 
-
+/**
+ * The class views upper buttons of sections of app. When one of them is pressed, a specific View,
+ * associated with the section,is shown. ButtonsView also sets the first window to be opened when
+ * app is launched.
+ */
 public class ButtonsView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final Double BOX_HEIGHT = 0.2;
@@ -24,8 +29,8 @@ public class ButtonsView implements View {
     private final Pane hBox;
     private final Map<Button, Controller> map;
     private final Sections controller;
-    private final SectionsController sectionsController;
-    public ButtonsView(final SectionsController sectionsController) {
+    private final UpdatableController<Controller> sectionsController;
+    public ButtonsView(final UpdatableController<Controller> sectionsController) {
         this.map = new HashMap<>();
         this.hBox = new HBox();
         this.controller = new SectionsImpl();
@@ -43,11 +48,14 @@ public class ButtonsView implements View {
             this.hBox.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
-        this.hBox.getChildren().forEach(s -> HBox.setMargin(s, new Insets(SCREEN_BOUNDS.getWidth() * INSETS)));
+        this.hBox.getChildren().forEach(s -> HBox.setMargin(s,
+                new Insets(SCREEN_BOUNDS.getWidth() * INSETS)));
         this.hBox.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * BOX_HEIGHT);
-        this.map.keySet().forEach(s -> s.prefHeightProperty().bind(this.hBox.heightProperty().multiply(BUTTONS_HEIGHT)));
+        this.map.keySet().forEach(s -> s.prefHeightProperty().bind(this.hBox.heightProperty().
+                multiply(BUTTONS_HEIGHT)));
         this.map.keySet().forEach(s -> s.setPrefWidth(SCREEN_BOUNDS.getWidth() / this.map.keySet().size()));
-        this.hBox.getChildren().forEach(s -> s.setOnMouseClicked(event -> this.sectionsController.update(this.map.get(s))));
+        this.hBox.getChildren().forEach(s -> s.setOnMouseClicked(event ->
+                this.sectionsController.updateInput(this.map.get(s))));
         this.setFirstWindow();
     }
 
@@ -55,8 +63,8 @@ public class ButtonsView implements View {
      * Sets the first window to open when the app starts.
      */
     private void setFirstWindow() {
-        this.sectionsController.update(this.map.get(this.map.keySet().stream().filter(s -> this.map.get(s).
-                equals(this.controller.getFirstWindow())).findAny().get()));
+        this.sectionsController.updateInput(this.map.get(this.map.keySet().stream().filter(s -> this.map.get(s).
+                equals(this.controller.getStarterController())).findAny().get()));
     }
 
     /**

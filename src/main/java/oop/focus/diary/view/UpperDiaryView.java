@@ -47,11 +47,11 @@ public class UpperDiaryView implements View {
         this.setFirstWindow();
     }
     private void setOnPress() {
-        this.vBox.getChildren().forEach(s -> s.setOnMouseClicked(event -> this.sectionsController.update(this.map.get(s))));
+        this.vBox.getChildren().forEach(s -> s.setOnMouseClicked(event -> this.sectionsController.updateInput(this.map.get(s))));
     }
     private void setFirstWindow() {
-        this.sectionsController.update(this.map.get(this.map.keySet().stream().filter(s -> this.map.get(s).equals(
-                this.controller.getFirstWindow())).findAny().get()));
+        this.sectionsController.updateInput(this.map.get(this.map.keySet().stream().filter(s -> this.map.get(s).equals(
+                this.controller.getStarterController())).findAny().get()));
     }
     @Override
     public final Node getRoot() {

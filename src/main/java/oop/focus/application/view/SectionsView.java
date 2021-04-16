@@ -4,11 +4,13 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
-import oop.focus.application.controller.Update;
-import oop.focus.common.Controller;
 import oop.focus.common.View;
 
-public class SectionsView implements View, Update {
+/**
+ * The class manages all sections' view of app. It creates a {@link BorderPane}, sets its dimension
+ * and has a method to update its content.
+ */
+public class SectionsView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double PANE_HEIGHT = 0.95;
     private static final double PANE_WIDTH = 0.8;
@@ -23,9 +25,13 @@ public class SectionsView implements View, Update {
         return this.pane;
     }
 
-    @Override
-    public final void update(final Controller controller) {
+    /**
+     * Sets the new content of {@link BorderPane}, replacing the previous one with the new View associated with
+     * the Controller in input.
+     * @param controller    the controller whose view has to be shown.
+     */
+    public final void update(final View controller) {
         this.pane.getChildren().clear();
-        this.pane.setCenter(controller.getView().getRoot());
+        this.pane.setCenter(controller.getRoot());
     }
 }

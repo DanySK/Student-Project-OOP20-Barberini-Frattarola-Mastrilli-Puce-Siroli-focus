@@ -3,8 +3,12 @@ package oop.focus.application.controller;
 import oop.focus.application.view.SectionsView;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
+import oop.focus.statistics.controller.UpdatableController;
 
-public class SectionsController implements Controller, Update {
+/**
+ * SectionsController manages and updates the view of different sections.
+ */
+public class SectionsController implements UpdatableController<Controller> {
     private final SectionsView view;
     public SectionsController() {
         this.view = new SectionsView();
@@ -22,7 +26,7 @@ public class SectionsController implements Controller, Update {
      * {@inheritDoc}
      */
     @Override
-    public final void update(final Controller controller) {
-        this.view.update(controller);
+    public final void updateInput(final Controller input) {
+        this.view.update(input.getView());
     }
 }

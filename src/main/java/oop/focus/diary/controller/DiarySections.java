@@ -35,7 +35,7 @@ public class DiarySections implements Sections {
     }
 
     @Override
-    public Controller getFirstWindow() {
+    public Controller getStarterController() {
         return this.baseDiary;
     }
 

@@ -13,10 +13,11 @@ public interface Sections {
      * Returns the {@link Controller} of the first section to show when app starts.
      * @return  the Controller of the first section to show
      */
-    Controller getFirstWindow();
+    Controller getStarterController();
 
     /**
-     * Returns a {@link List} of pairs, each one has the Controller and the name of a specific section.
+     * Returns a List of {@link Pair}. For each of which, the key is the Controller, while the value is the
+     * name of a specific section.
      * @return  a list of Controllers and names of all sections.
      */
     List<Pair<Controller, String>> getList();

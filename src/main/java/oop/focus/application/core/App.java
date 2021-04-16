@@ -11,12 +11,18 @@ import oop.focus.application.controller.Style;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-
+/**
+ * This class represent the Main class of the JavaFX-based application and starts application.
+ */
 public class App extends Application {
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private final double width = this.screenSize.getWidth() * 0.8;
     private final double height = this.screenSize.getHeight() * 0.8;
     private final GeneralController controller = new GeneralController();
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final Scene scene = new Scene((Parent) this.controller.getView().getRoot());
@@ -29,6 +35,11 @@ public class App extends Application {
         primaryStage.show();
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
+
+    /**
+     * Main method.
+     * @param args  unused.
+     */
     public static void main(final String[] args) {
         launch(args);
     }

@@ -1,5 +1,8 @@
 package oop.focus.application.controller;
 
+/**
+ * The enum has paths of all application's styles.
+ */
 public enum Style {
     /**
      *
