@@ -5,13 +5,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.VBox;
+import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.ResolveController;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.homepage.model.Person;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +20,6 @@ import java.util.stream.Collectors;
 
 public class ResolveViewImpl extends GenericWindow<ResolveController> {
 
-    @FXML
-    private VBox resolveVBox;
     @FXML
     private Label resolveLabel;
     @FXML
@@ -37,15 +36,18 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
         this.showResolvingTiles();
+        this.resolveScroll.setFitToWidth(true);
     }
 
     private void showResolvingTiles() {
-        this.resolveVBox.getChildren().clear();
+        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<GroupTransaction>> resolvingTiles = new ArrayList<>();
         super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(
                 new GenericTileViewImpl<>(t, t.getMadeBy().getName() + " ->"
                         + this.getForListNames(t.getForList()), this.format(t.getAmount()))));
-        resolvingTiles.forEach(t -> this.resolveVBox.getChildren().add(t.getRoot()));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(resolvingTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
+        this.resolveScroll.setContent(vbox.getRoot());
     }
 
     @Override

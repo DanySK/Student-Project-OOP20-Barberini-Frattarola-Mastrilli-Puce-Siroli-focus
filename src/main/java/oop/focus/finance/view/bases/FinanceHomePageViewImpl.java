@@ -21,9 +21,11 @@ import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.statistics.view.ViewFactory;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageController> implements FinanceHomePageView {
 
@@ -32,7 +34,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
     @FXML
     private BorderPane mainPane;
     @FXML
-    private VBox accountsVBox, movementsVBox, financeHotKeyVBox, leftVBox;
+    private VBox leftVBox;
     @FXML
     private HBox downHBox;
     @FXML
@@ -63,32 +65,38 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         this.quickTransactionsScroll.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
         this.quickTransactionsScroll.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
         this.transactionsScroll.prefHeightProperty().bind(this.mainPane.prefHeightProperty());
+        this.quickTransactionsScroll.setFitToWidth(true);
+        this.transactionsScroll.setFitToWidth(true);
+        this.accountsScroll.setFitToWidth(true);
     }
 
     @Override
     public final void populateAccounts() {
         this.amountLabel.setText(this.format(super.getX().getTotalAmount()));
-        this.accountsVBox.getChildren().clear();
+        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Account>> fastAccountTiles = new ArrayList<>();
         super.getX().getSortedAccounts().forEach(a -> fastAccountTiles.add(
                 new GenericTileViewImpl<>(a, a.getColor(), a.getName(), "",
                         this.format(super.getX().getAmount(a)))));
-        fastAccountTiles.forEach(t -> this.accountsVBox.getChildren().add(t.getRoot()));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(fastAccountTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
+        this.accountsScroll.setContent(vbox.getRoot());
     }
 
     @Override
     public final void populateRecentTransactions() {
-        this.movementsVBox.getChildren().clear();
+        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Transaction>> fastTransactionTiles = new ArrayList<>();
         super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
                         t.getCategory().getName(), this.format((double) t.getAmount() / 100))));
-        fastTransactionTiles.forEach(t -> this.movementsVBox.getChildren().add(t.getRoot()));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(fastTransactionTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
+        this.transactionsScroll.setContent(vbox.getRoot());
     }
 
     @Override
     public final void populateQuickTransactions() {
-        this.financeHotKeyVBox.getChildren().clear();
         var pane = ViewFactory.verticalWithPadding(RATIO, RATIO, RATIO);
         final List<FinanceMenuButton<FinanceHomePageController>> financeHotKeyButtons = new ArrayList<>();
         super.getX().getSortedQuickTransactions().forEach(qt -> financeHotKeyButtons.add(
@@ -97,7 +105,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         financeHotKeyButtons.forEach(b -> b.getButton().setPrefWidth(Screen.getPrimary().getBounds().getWidth()));
         financeHotKeyButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(super.getX())));
         this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionControllerImpl(super.getX().getManager()).getView()));
-        this.financeHotKeyVBox.getChildren().add(pane);
+        this.quickTransactionsScroll.setContent(pane);
     }
 
     private void show(final View view) {

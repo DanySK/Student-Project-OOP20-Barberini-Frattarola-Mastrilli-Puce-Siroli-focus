@@ -29,6 +29,7 @@ import oop.focus.statistics.view.ViewFactoryImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class TransactionsViewImpl extends GenericView<TransactionsController> implements TransactionsView {
 
@@ -37,9 +38,9 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @FXML
     private BorderPane mainPane;
     @FXML
-    private ScrollPane accountsScroll;
+    private ScrollPane accountsScroll, transactionsScroll;
     @FXML
-    private VBox transactionsVBox, leftVBox;
+    private VBox leftVBox;
     @FXML
     private Label accountLabel, amountLabel, colorLabel, currencyLabel;
     @FXML
@@ -71,7 +72,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         this.newTransactionButton.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
         this.leftVBox.setPrefWidth(Screen.getPrimary().getBounds().getWidth() * LEFT_RATIO);
         this.accountsScroll.setPrefHeight(Screen.getPrimary().getBounds().getHeight());
-        this.transactionsVBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty().multiply(0.5));
+        this.transactionsScroll.setFitToWidth(true);
     }
 
     @Override
@@ -81,12 +82,13 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
         this.amountLabel.setText(this.format(super.getX().getAmount(predicate)));
         this.colorLabel.setTextFill(Color.valueOf(super.getX().getColor(predicate)));
         this.deleteButton.setText("Elimina " + super.getX().getAccountName());
-        this.transactionsVBox.getChildren().clear();
         final List<TransactionView> transactionsTiles = new ArrayList<>();
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> this.showWindow(new TransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
-        transactionsTiles.forEach(t -> this.transactionsVBox.getChildren().add(viewFactory.createVerticalAutoResizing(List.of(t)).getRoot()));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionsTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
+        this.transactionsScroll.setContent(vbox.getRoot());
     }
 
     private void showWindow(final View view) {

@@ -6,10 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import oop.focus.common.View;
@@ -27,6 +26,7 @@ import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
 import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
 import oop.focus.finance.view.windows.ResolveViewImpl;
 import oop.focus.homepage.model.Person;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     @FXML
     private BorderPane mainPane;
     @FXML
-    private VBox groupMovementsVBox;
+    private ScrollPane groupMovementsScroll;
     @FXML
     private Button peopleButton, groupTransactionsButton, newPersonButton, resolveButton, newGroupTransactionButton;
 
@@ -62,6 +62,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.resolveButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.newGroupTransactionButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        this.groupMovementsScroll.setFitToWidth(true);
     }
 
     @Override
@@ -69,28 +70,31 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.setText("Aggiungi persona al gruppo");
         this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(
                 new AddPersonControllerImpl(super.getX().getManager()))));
-        this.groupMovementsVBox.getChildren().clear();
+        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         super.getX().getSortedGroup().forEach(p -> personTiles.add(
                 new GenericTileViewImpl<>(p, p.getName(), this.format(super.getX().getCredit(p)))));
-        personTiles.forEach(t -> this.groupMovementsVBox.getChildren().add(t.getRoot()));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(personTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
         personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
                         this.showWindow(new PersonDetailsWindowImpl(super.getX(), t.getElement()))));
+        this.groupMovementsScroll.setContent(vbox.getRoot());
     }
 
     @Override
     public final void showTransactions(final ObservableSet<GroupTransaction> transactions) {
         this.newPersonButton.setText("Reset");
         this.newPersonButton.setOnAction(event -> this.reset());
-        this.groupMovementsVBox.getChildren().clear();
+        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<GroupTransaction>> transactionTiles = new ArrayList<>();
         super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
-                        + this.getForListNames(t.getForList()), this.format(t.getAmount()))));
-        transactionTiles.forEach(t -> this.groupMovementsVBox.getChildren().add(t.getRoot()));
-        transactionTiles.forEach(t -> ((HBox) t.getRoot()).prefWidthProperty().bind(this.mainPane.prefWidthProperty()));
+                        + this.getForListNames(t.getForList()), this.format((double) t.getAmount() / 100))));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
         transactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
                         this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getElement()))));
+        this.groupMovementsScroll.setContent(vbox.getRoot());
     }
 
     private void showWindow(final View impl) {

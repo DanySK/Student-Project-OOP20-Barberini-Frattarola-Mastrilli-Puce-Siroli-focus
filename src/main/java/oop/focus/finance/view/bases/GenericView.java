@@ -2,7 +2,7 @@ package oop.focus.finance.view.bases;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import oop.focus.finance.controller.FXMLPaths;
@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 public abstract class GenericView<X> implements Initializable, FinanceView<X> {
 
     private final X x;
-    private Parent root;
+    private Node root;
 
     public GenericView(final X x, final FXMLPaths path) {
         this.x = x;
@@ -30,7 +30,7 @@ public abstract class GenericView<X> implements Initializable, FinanceView<X> {
     }
 
     @Override
-    public final Parent getRoot() {
+    public final Node getRoot() {
         return this.root;
     }
 

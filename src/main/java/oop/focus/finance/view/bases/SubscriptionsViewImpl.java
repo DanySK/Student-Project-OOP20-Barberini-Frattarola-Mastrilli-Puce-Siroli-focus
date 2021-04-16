@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
@@ -15,16 +15,18 @@ import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.finance.view.windows.SubscriptionDetailsWindowImpl;
+import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> implements SubscriptionsView {
 
     @FXML
     private BorderPane mainPane;
     @FXML
-    private VBox subcriptionsVBox;
+    private ScrollPane subscriptionsScroll;
     @FXML
     private Label monthlyLabel, annualLabel, monthlyTransactionLabel, annualTransactionLabel;
 
@@ -44,19 +46,21 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         this.annualLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.monthlyTransactionLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.annualTransactionLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
-        this.subcriptionsVBox.prefWidthProperty().bind(this.mainPane.prefWidthProperty().multiply(0.5));
+        this.subscriptionsScroll.setFitToWidth(true);
     }
 
     @Override
     public final void showSubscriptions(final List<Transaction> subscriptions) {
-        this.subcriptionsVBox.getChildren().clear();
+        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
-                new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(), t.getRepetition().getName(),
-                this.format(super.getX().getTransactionAmount(t)))));
-        subscriptionsTiles.forEach(t -> this.subcriptionsVBox.getChildren().add(t.getRoot()));
+                new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
+                        t.getRepetition().getName(), this.format(super.getX().getTransactionAmount(t)))));
+        var vbox = viewFactory.createVerticalAutoResizingWithNodes(subscriptionsTiles.stream()
+                .map(View::getRoot).collect(Collectors.toList()));
         subscriptionsTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showDetails(t.getElement())));
+        this.subscriptionsScroll.setContent(vbox.getRoot());
     }
 
     private void showDetails(final Transaction subscription) {
