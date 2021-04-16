@@ -1,4 +1,4 @@
-package oop.focus.application;
+package oop.focus.application.controller;
 
 import oop.focus.common.Controller;
 

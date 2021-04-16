@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import oop.focus.application.SectionsController;
+import oop.focus.application.controller.SectionsController;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;

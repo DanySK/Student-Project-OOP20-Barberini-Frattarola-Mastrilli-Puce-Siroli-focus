@@ -1,4 +1,4 @@
-package oop.focus.application;
+package oop.focus.application.controller;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.statistics.view.ViewFactoryImpl;
@@ -14,6 +14,9 @@ public class GeneralController implements Controller {
                 .createVertical(List.of(buttonController.getView().getRoot(), controller.getView().getRoot()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.content;

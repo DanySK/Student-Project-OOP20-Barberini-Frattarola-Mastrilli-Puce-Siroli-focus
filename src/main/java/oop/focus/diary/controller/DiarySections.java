@@ -1,7 +1,7 @@
 package oop.focus.diary.controller;
 
 import javafx.util.Pair;
-import oop.focus.application.Sections;
+import oop.focus.application.controller.Sections;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.common.Controller;

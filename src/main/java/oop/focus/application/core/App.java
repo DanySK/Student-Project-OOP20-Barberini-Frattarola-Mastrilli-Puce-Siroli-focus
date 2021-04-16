@@ -1,9 +1,13 @@
-package oop.focus.application;
+package oop.focus.application.core;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import oop.focus.application.controller.GeneralController;
+import oop.focus.application.controller.Style;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -23,6 +27,7 @@ public class App extends Application {
         primaryStage.setWidth(this.width);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
     public static void main(final String[] args) {
         launch(args);

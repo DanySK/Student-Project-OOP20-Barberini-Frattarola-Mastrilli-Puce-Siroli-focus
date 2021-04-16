@@ -1,18 +1,18 @@
-package oop.focus.application;
+package oop.focus.application.controller;
 
 public enum Style {
     /**
      *
      */
-    STATISTIC_STYLE(Style.Costants.STYLES + "statistics.css"),
+    STATISTIC_STYLE(Constants.STYLES + "statistics.css"),
     /**
      *
      */
-    GENERAL_STYLE(Costants.STYLES + "generalStyle.css"),
+    GENERAL_STYLE(Constants.STYLES + "generalStyle.css"),
     /**
      *
      */
-    CALENDAR_STYLE(Costants.STYLES + "Calendar.css");
+    CALENDAR_STYLE(Constants.STYLES + "Calendar.css");
     private final String path;
 
     Style(final String path) {
@@ -23,7 +23,7 @@ public enum Style {
         return this.path;
     }
 
-    private static class Costants {
+    private static class Constants {
 
         public static final String STYLES = "/styles/";
     }

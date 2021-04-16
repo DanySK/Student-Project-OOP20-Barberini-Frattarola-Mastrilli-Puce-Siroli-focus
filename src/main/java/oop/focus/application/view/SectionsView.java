@@ -1,9 +1,10 @@
-package oop.focus.application;
+package oop.focus.application.view;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
+import oop.focus.application.controller.Update;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 

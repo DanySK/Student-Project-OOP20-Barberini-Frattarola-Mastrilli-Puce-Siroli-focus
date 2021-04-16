@@ -1,4 +1,4 @@
-package oop.focus.application;
+package oop.focus.application.controller;
 import javafx.util.Pair;
 import oop.focus.calendar.controller.CalendarControllerImpl;
 import oop.focus.common.Controller;
@@ -14,6 +14,9 @@ import oop.focus.homepage.view.GeneralHomePageController;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of {@link Sections}
+ */
 public class SectionsImpl implements Sections {
     private final List<Pair<Controller, String>> list;
     private final DataSource dataSource;
@@ -26,12 +29,21 @@ public class SectionsImpl implements Sections {
         this.list = new ArrayList<>();
         this.putControllers();
     }
+
+    /**
+     * The method fills the {@link List} putting all Controllers of Focus' sections.
+     */
     private void putControllers() {
         this.list.add(new Pair<>(this.generalHomePageController, "Home Page"));
         this.list.add(new Pair<>(new BaseControllerImpl(this.financeManager), "Finanza"));
         this.list.add(new Pair<>(new CalendarControllerImpl(this.dataSource), "Calendario"));
         this.list.add(new Pair<>(new GeneralDiaryController(this.dataSource), "Diario"));
     }
+
+    /**
+     * Returns the Controller relative to the first section to show when app starts(in that case is )
+     * @return  the
+     */
     public final Controller getFirstWindow() {
         return this.generalHomePageController;
     }

@@ -1,5 +1,5 @@
 package oop.focus.diary.controller;
-import oop.focus.application.SectionsController;
+import oop.focus.application.controller.SectionsController;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
