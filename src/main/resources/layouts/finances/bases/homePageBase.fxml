@@ -26,20 +26,14 @@
                </font>
             </Label>
          </HBox>
-         <ScrollPane fx:id="accountsScroll" prefHeight="164.0" prefWidth="243.0">
-            <VBox fx:id="accountsVBox" prefHeight="61.0" prefWidth="242.0" />
-         </ScrollPane>
+         <ScrollPane fx:id="accountsScroll" prefHeight="164.0" prefWidth="243.0" />
          <Label fx:id="movementsLabel" alignment="CENTER" minHeight="38.0" prefHeight="47.0" prefWidth="10000.0" text="Transazioni di oggi" />
-         <ScrollPane fx:id="transactionsScroll" prefHeight="295.0" prefWidth="239.0">
-            <VBox fx:id="movementsVBox" maxWidth="293.0" prefHeight="57.0" prefWidth="293.0" />
-         </ScrollPane>
+         <ScrollPane fx:id="transactionsScroll" prefHeight="295.0" prefWidth="239.0" />
       </VBox>
    </center>
    <left>
       <VBox prefHeight="551.0" prefWidth="194.0" BorderPane.alignment="CENTER">
-         <ScrollPane fx:id="quickTransactionsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="209.0">
-            <VBox fx:id="financeHotKeyVBox" prefHeight="117.0" prefWidth="186.0" />
-         </ScrollPane>
+         <ScrollPane fx:id="quickTransactionsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="209.0" />
       </VBox>
    </left>
 </BorderPane>

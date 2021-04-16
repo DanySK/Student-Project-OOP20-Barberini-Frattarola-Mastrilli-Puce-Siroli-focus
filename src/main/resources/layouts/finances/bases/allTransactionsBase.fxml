@@ -28,9 +28,7 @@
       </VBox>
    </left>
    <center>
-      <ScrollPane fx:id="transactionsScroll" prefHeight="282.0" prefWidth="467.0" BorderPane.alignment="CENTER">
-         <VBox fx:id="transactionsVBox" prefHeight="73.0" prefWidth="465.0" />
-      </ScrollPane>
+      <ScrollPane fx:id="transactionsScroll" prefHeight="282.0" prefWidth="467.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <HBox maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="47.0" prefWidth="467.0" BorderPane.alignment="CENTER">

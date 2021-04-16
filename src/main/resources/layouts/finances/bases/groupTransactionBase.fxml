@@ -4,7 +4,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="mainPane" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="596.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
@@ -21,8 +20,6 @@
       </HBox>
    </bottom>
    <center>
-      <ScrollPane fx:id="groupMovementsScroll" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="232.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <VBox fx:id="groupMovementsVBox" prefHeight="107.0" prefWidth="593.0" />
-      </ScrollPane>
+      <ScrollPane fx:id="groupMovementsScroll" maxHeight="10000.0" maxWidth="10000.0" minHeight="0.0" minWidth="0.0" prefHeight="232.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

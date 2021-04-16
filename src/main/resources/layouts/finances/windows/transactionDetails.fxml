@@ -2,28 +2,55 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="titleLabel" alignment="CENTER" layoutX="-1.0" layoutY="12.0" prefHeight="34.0" prefWidth="486.0" text="DETTAGLI TRANSAZIONE" textAlignment="CENTER">
+<AnchorPane fx:id="mainPane" prefHeight="420.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="titleLabel" alignment="CENTER" layoutY="13.0" prefHeight="34.0" prefWidth="314.0"
+          text="DETTAGLI TRANSAZIONE" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="10.0">
       <font>
-         <Font name="System Bold" size="14.0" />
-      </font></Label>
-   <Label fx:id="descriptionLabel" layoutX="38.0" layoutY="63.0" prefHeight="30.0" prefWidth="224.0" text="Descrizione:" textAlignment="CENTER" />
-   <Label fx:id="categoryLabel" layoutX="38.0" layoutY="127.0" prefHeight="30.0" prefWidth="224.0" text="Categoria:" textAlignment="CENTER" />
-   <Label fx:id="dateLabel" layoutX="38.0" layoutY="192.0" prefHeight="30.0" prefWidth="224.0" text="Data e ora:" textAlignment="CENTER" />
-   <Label fx:id="accountLabel" layoutX="38.0" layoutY="254.0" prefHeight="30.0" prefWidth="224.0" text="Conto:" textAlignment="CENTER" />
-   <Label fx:id="amountLabel" layoutX="38.0" layoutY="318.0" prefHeight="30.0" prefWidth="224.0" text="Importo:" textAlignment="CENTER" />
-   <Label fx:id="subscriptionLabel" layoutX="38.0" layoutY="381.0" prefHeight="30.0" prefWidth="224.0" text="Abbonamento:" textAlignment="CENTER" />
-   <Button fx:id="closeButton" layoutX="139.0" layoutY="435.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Chiudi" />
-   <Label fx:id="dataDescriptionLabel" layoutX="200.0" layoutY="63.0" prefHeight="30.0" prefWidth="224.0" textAlignment="CENTER" />
-   <Label fx:id="dataCategoryLabel" layoutX="200.0" layoutY="127.0" prefHeight="30.0" prefWidth="224.0" textAlignment="CENTER" />
-   <Label fx:id="dataDateLabel" layoutX="200.0" layoutY="192.0" prefHeight="30.0" prefWidth="224.0" textAlignment="CENTER" />
-   <Label fx:id="dataAccountLabel" layoutX="200.0" layoutY="254.0" prefHeight="30.0" prefWidth="224.0" textAlignment="CENTER" />
-   <Label fx:id="dataAmountLabel" layoutX="204.0" layoutY="318.0" prefHeight="30.0" prefWidth="107.0" textAlignment="CENTER" />
-   <Label fx:id="dataSubscriptionLabel" layoutX="200.0" layoutY="381.0" prefHeight="30.0" prefWidth="224.0" textAlignment="CENTER" />
-   <Button fx:id="deleteButton" layoutX="253.0" layoutY="435.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Elimina" />
-   <Label fx:id="firstEuroLabel" alignment="CENTER_RIGHT" layoutX="175.0" layoutY="318.0" prefHeight="30.0" prefWidth="28.0" text="€  " textAlignment="CENTER" />
-   <Label fx:id="secondEuroLabel" alignment="CENTER_RIGHT" layoutX="175.0" layoutY="381.0" prefHeight="30.0" prefWidth="28.0" text="€  " textAlignment="CENTER" visible="false" />
-</Pane>
+         <Font name="System Bold" size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="descriptionLabel" layoutX="20.0" layoutY="61.0" prefHeight="30.0" prefWidth="145.0" text="Descrizione:"
+          textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+   <Label fx:id="categoryLabel" layoutX="20.0" layoutY="111.0" prefHeight="30.0" prefWidth="145.0" text="Categoria:"
+          textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0"/>
+   <Label fx:id="dateLabel" layoutX="20.0" layoutY="160.0" prefHeight="30.0" prefWidth="150.0" text="Data e ora:"
+          textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="160.0"/>
+   <Label fx:id="accountLabel" layoutX="20.0" layoutY="210.0" prefHeight="30.0" prefWidth="145.0" text="Conto:"
+          textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="210.0"/>
+   <Label fx:id="amountLabel" layoutX="20.0" layoutY="260.0" prefHeight="30.0" prefWidth="135.0" text="Importo:"
+          textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0"/>
+   <Label fx:id="subscriptionLabel" layoutX="20.0" layoutY="310.0" prefHeight="30.0" prefWidth="145.0"
+          text="Abbonamento:" textAlignment="CENTER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="310.0"/>
+   <Button fx:id="closeButton" layoutX="74.0" layoutY="417.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0"
+           text="Chiudi" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="360.0"/>
+   <Label fx:id="dataDescriptionLabel" layoutX="110.0" layoutY="61.0" prefHeight="30.0" prefWidth="166.0"
+          textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="60.0"/>
+   <Label fx:id="dataCategoryLabel" layoutX="110.0" layoutY="111.0" prefHeight="30.0" prefWidth="198.0"
+          textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="110.0"/>
+   <Label fx:id="dataDateLabel" layoutX="110.0" layoutY="160.0" prefHeight="30.0" prefWidth="138.0"
+          textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="160.0"/>
+   <Label fx:id="dataAccountLabel" layoutX="110.0" layoutY="210.0" prefHeight="30.0" prefWidth="113.0"
+          textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="210.0"/>
+   <Label fx:id="dataAmountLabel" layoutX="110.0" layoutY="260.0" prefHeight="30.0" prefWidth="107.0"
+          textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="260.0"/>
+   <Label fx:id="dataSubscriptionLabel" layoutX="110.0" layoutY="310.0" prefHeight="30.0" prefWidth="113.0"
+          textAlignment="CENTER" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="310.0"/>
+   <Button fx:id="deleteButton" layoutX="194.0" layoutY="417.0" mnemonicParsing="false" prefHeight="40.0"
+           prefWidth="90.0" text="Elimina" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="360.0"/>
+   <Label fx:id="firstEuroLabel" alignment="CENTER_RIGHT" layoutX="80.0" layoutY="260.0" prefHeight="30.0"
+          prefWidth="28.0" text="€  " textAlignment="CENTER" AnchorPane.leftAnchor="150.0"
+          AnchorPane.topAnchor="260.0"/>
+   <Label fx:id="secondEuroLabel" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="28.0" text="€  "
+          textAlignment="CENTER" visible="false"/>
+</AnchorPane>

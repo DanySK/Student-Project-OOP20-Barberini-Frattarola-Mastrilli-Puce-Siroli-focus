@@ -5,29 +5,51 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="324.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Button fx:id="cancelButton" layoutX="40.0" layoutY="383.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="88.0" text="Chiudi" />
-   <Button fx:id="saveButton" layoutX="196.0" layoutY="383.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="88.0" text="Salva" />
-   <TextField fx:id="amountTextField" layoutX="157.0" layoutY="315.0" prefHeight="25.0" prefWidth="130.0" />
-   <ChoiceBox fx:id="madeByChoice" layoutX="155.0" layoutY="113.0" prefHeight="25.0" prefWidth="130.0" />
-   <Label fx:id="titleLabel" alignment="CENTER" layoutX="-4.0" layoutY="6.0" prefHeight="43.0" prefWidth="332.0" text="NUOVA TRANSAZIONE DI GRUPPO">
+<AnchorPane fx:id="mainPane" prefHeight="430.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <Button fx:id="cancelButton" layoutX="59.0" layoutY="422.0" mnemonicParsing="false" prefHeight="45.0"
+           prefWidth="90.0" text="Chiudi" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="75.0"
+           AnchorPane.rightAnchor="185.0"/>
+   <Button fx:id="saveButton" layoutX="170.0" layoutY="422.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="90.0"
+           text="Salva" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="75.0"/>
+   <TextField fx:id="amountTextField" layoutX="149.0" layoutY="261.0" prefHeight="25.0" prefWidth="130.0"
+              AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="20.0"/>
+   <ChoiceBox fx:id="madeByChoice" layoutX="130.0" layoutY="116.0" prefHeight="25.0" prefWidth="130.0"
+              AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0"/>
+   <Label fx:id="titleLabel" alignment="CENTER" layoutX="58.0" prefHeight="43.0" prefWidth="332.0"
+          text="NUOVA TRANSAZIONE DI GRUPPO" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+          AnchorPane.topAnchor="10.0">
       <font>
-         <Font name="System Bold" size="14.0" />
-      </font></Label>
-   <Label fx:id="descriptionLabel" layoutX="35.0" layoutY="63.0" prefHeight="25.0" prefWidth="76.0" text="Descrizione:" />
-   <Label fx:id="madeByLabel" layoutX="35.0" layoutY="113.0" prefHeight="25.0" prefWidth="76.0" text="Fatta da:" />
-   <Label fx:id="forLabel" layoutX="35.0" layoutY="167.0" prefHeight="25.0" prefWidth="76.0" text="Per:" />
-   <Label fx:id="amountLabel" layoutX="37.0" layoutY="315.0" prefHeight="25.0" prefWidth="76.0" text="Importo:" />
-   <VBox fx:id="multiVBox" layoutX="157.0" layoutY="167.0" prefHeight="88.0" prefWidth="130.0" />
-   <TextField fx:id="descriptionTextField" layoutX="155.0" layoutY="63.0" prefHeight="25.0" prefWidth="130.0" />
-   <Label alignment="CENTER_RIGHT" layoutX="128.0" layoutY="315.0" prefHeight="25.0" prefWidth="28.0" text="€  " />
-   <Label fx:id="forLabel1" layoutX="37.0" layoutY="271.0" prefHeight="25.0" prefWidth="76.0" text="Data e ora:" />
-   <DatePicker fx:id="dataPicker" layoutX="155.0" layoutY="271.0" prefHeight="25.0" prefWidth="61.0" />
-   <TextField fx:id="hoursTextField" layoutX="223.0" layoutY="271.0" prefHeight="25.0" prefWidth="28.0" />
-   <TextField fx:id="minutesTextField" layoutX="259.0" layoutY="271.0" prefHeight="25.0" prefWidth="28.0" />
-   <Label alignment="CENTER" layoutX="246.0" layoutY="271.0" prefHeight="25.0" prefWidth="19.0" text=":" />
-</Pane>
+         <Font name="System Bold" size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="descriptionLabel" layoutX="27.0" layoutY="79.0" prefHeight="25.0" prefWidth="76.0" text="Descrizione:"
+          AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+   <Label fx:id="madeByLabel" layoutX="27.0" layoutY="116.0" prefHeight="25.0" prefWidth="76.0" text="Fatta da:"
+          AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="110.0"/>
+   <Label fx:id="forLabel" layoutX="27.0" layoutY="141.0" prefHeight="25.0" prefWidth="76.0" text="Per:"
+          AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="160.0"/>
+   <Label fx:id="amountLabel" layoutX="27.0" layoutY="261.0" prefHeight="25.0" prefWidth="76.0" text="Importo:"
+          AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="20.0"/>
+   <VBox fx:id="multiVBox" layoutX="110.0" layoutY="151.0" prefHeight="43.0" prefWidth="220.0"
+         AnchorPane.bottomAnchor="175.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="20.0"
+         AnchorPane.topAnchor="150.0"/>
+   <TextField fx:id="descriptionTextField" layoutX="130.0" layoutY="79.0" prefHeight="25.0" prefWidth="130.0"
+              AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+   <Label alignment="CENTER_RIGHT" layoutX="116.0" layoutY="261.0" prefHeight="25.0" prefWidth="28.0" text="€  "
+          AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="80.0"/>
+   <DatePicker fx:id="dataPicker" layoutX="147.0" layoutY="220.0" prefHeight="25.0" prefWidth="120.0"
+               AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="120.0"/>
+   <TextField fx:id="hoursTextField" layoutX="241.0" layoutY="220.0" prefHeight="25.0" prefWidth="28.0"
+              AnchorPane.bottomAnchor="135.0" AnchorPane.rightAnchor="70.0"/>
+   <TextField fx:id="minutesTextField" layoutX="288.0" layoutY="220.0" prefHeight="25.0" prefWidth="28.0"
+              AnchorPane.bottomAnchor="135.0" AnchorPane.rightAnchor="20.0"/>
+   <Label alignment="CENTER" layoutX="269.0" layoutY="220.0" prefHeight="25.0" prefWidth="19.0" text=":"
+          AnchorPane.bottomAnchor="135.0" AnchorPane.rightAnchor="50.0"/>
+   <Label fx:id="forLabel1" layoutX="27.0" layoutY="177.0" prefHeight="25.0" prefWidth="76.0" text="Data e ora:"
+          AnchorPane.bottomAnchor="135.0" AnchorPane.leftAnchor="20.0"/>
+</AnchorPane>

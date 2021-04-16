@@ -5,31 +5,53 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="332.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <Label fx:id="titleLabel" alignment="CENTER" layoutY="-1.0" prefHeight="48.0" prefWidth="332.0">
+<AnchorPane fx:id="mainPane" prefHeight="420.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="titleLabel" alignment="CENTER" prefHeight="48.0" prefWidth="332.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
       <font>
-         <Font name="System Bold" size="14.0" />
-      </font></Label>
-   <Label fx:id="descriptionLabel" layoutX="21.0" layoutY="77.0" prefHeight="35.0" prefWidth="139.0" text="Descrizione:" />
-   <Label fx:id="amountLabel" layoutX="21.0" layoutY="137.0" prefHeight="35.0" prefWidth="139.0" text="Importo:" />
-   <Label fx:id="categoryLabel" layoutX="21.0" layoutY="202.0" prefHeight="35.0" prefWidth="139.0" text="Categoria:" />
-   <Label fx:id="repetitionLabel" layoutX="21.0" layoutY="404.0" prefHeight="35.0" prefWidth="139.0" text="Ripetizione:" />
-   <Label fx:id="dateLabel" layoutX="21.0" layoutY="348.0" prefHeight="35.0" prefWidth="139.0" text="Data:" />
-   <Label fx:id="accountLabel" layoutX="21.0" layoutY="285.0" prefHeight="35.0" prefWidth="139.0" text="Conto:" />
-   <TextField fx:id="descriptionTextField" layoutX="163.0" layoutY="83.0" prefHeight="25.0" prefWidth="139.0" />
-   <TextField fx:id="amountTextField" layoutX="163.0" layoutY="142.0" prefHeight="25.0" prefWidth="139.0" />
-   <DatePicker fx:id="dataPicker" layoutX="163.0" layoutY="353.0" prefHeight="25.0" prefWidth="63.0" />
-   <ChoiceBox fx:id="categoryChoice" layoutX="163.0" layoutY="207.0" prefHeight="25.0" prefWidth="139.0" />
-   <ChoiceBox fx:id="accountChoice" layoutX="166.0" layoutY="290.0" prefHeight="25.0" prefWidth="139.0" />
-   <ChoiceBox fx:id="repetitionChioce" layoutX="163.0" layoutY="409.0" prefHeight="25.0" prefWidth="139.0" />
-   <Button fx:id="cancelButton" layoutX="52.0" layoutY="468.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" text="Chiudi" />
-   <Button fx:id="saveButton" layoutX="187.0" layoutY="468.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="91.0" text="Salva" />
-   <Label alignment="CENTER_RIGHT" layoutX="135.0" layoutY="142.0" prefHeight="25.0" prefWidth="28.0" text="€  " />
-   <TextField fx:id="hoursTextField" layoutX="236.0" layoutY="353.0" prefHeight="25.0" prefWidth="28.0" />
-   <TextField fx:id="minutesTextField" layoutX="274.0" layoutY="353.0" prefHeight="25.0" prefWidth="28.0" />
-   <Label alignment="CENTER" layoutX="260.0" layoutY="353.0" prefHeight="25.0" prefWidth="18.0" text=":" />
-   <Button fx:id="newCategoryButton" layoutX="173.0" layoutY="237.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Nuova cateogoria" />
-</Pane>
+         <Font name="System Bold" size="14.0"/>
+      </font>
+   </Label>
+   <Label fx:id="descriptionLabel" prefHeight="30.0" prefWidth="139.0" text="Descrizione:" AnchorPane.leftAnchor="20.0"
+          AnchorPane.topAnchor="60.0"/>
+   <Label fx:id="amountLabel" prefHeight="30.0" prefWidth="72.0" text="Importo:" AnchorPane.leftAnchor="20.0"
+          AnchorPane.topAnchor="110.0"/>
+   <Label fx:id="categoryLabel" prefHeight="30.0" prefWidth="139.0" text="Categoria:" AnchorPane.leftAnchor="20.0"
+          AnchorPane.topAnchor="160.0"/>
+   <Label fx:id="repetitionLabel" prefHeight="30.0" prefWidth="139.0" text="Ripetizione:" AnchorPane.leftAnchor="20.0"
+          AnchorPane.topAnchor="310.0"/>
+   <Label fx:id="dateLabel" prefHeight="30.0" prefWidth="139.0" text="Data:" AnchorPane.leftAnchor="20.0"
+          AnchorPane.topAnchor="260.0"/>
+   <Label fx:id="accountLabel" prefHeight="30.0" prefWidth="139.0" text="Conto:" AnchorPane.leftAnchor="20.0"
+          AnchorPane.topAnchor="210.0"/>
+   <TextField fx:id="descriptionTextField" prefHeight="25.0" prefWidth="139.0" AnchorPane.leftAnchor="110.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0"/>
+   <TextField fx:id="amountTextField" prefHeight="25.0" prefWidth="139.0" AnchorPane.leftAnchor="110.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0"/>
+   <DatePicker fx:id="dataPicker" prefHeight="25.0" prefWidth="63.0" AnchorPane.leftAnchor="110.0"
+               AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="260.0"/>
+   <ChoiceBox fx:id="categoryChoice" prefHeight="25.0" prefWidth="139.0" AnchorPane.leftAnchor="110.0"
+              AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="160.0"/>
+   <ChoiceBox fx:id="accountChoice" prefHeight="25.0" prefWidth="139.0" AnchorPane.leftAnchor="110.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="210.0"/>
+   <ChoiceBox fx:id="repetitionChioce" prefHeight="25.0" prefWidth="139.0" AnchorPane.leftAnchor="110.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="310.0"/>
+   <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Chiudi"
+           AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="185.0" AnchorPane.topAnchor="360.0"/>
+   <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Salva"
+           AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="360.0"/>
+   <Label alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="28.0" text="€  " AnchorPane.leftAnchor="80.0"
+          AnchorPane.topAnchor="110.0"/>
+   <TextField fx:id="hoursTextField" prefHeight="25.0" prefWidth="28.0" AnchorPane.rightAnchor="70.0"
+              AnchorPane.topAnchor="260.0"/>
+   <TextField fx:id="minutesTextField" prefHeight="25.0" prefWidth="28.0" AnchorPane.rightAnchor="20.0"
+              AnchorPane.topAnchor="260.0"/>
+   <Label alignment="CENTER" prefHeight="25.0" prefWidth="18.0" text=":" AnchorPane.rightAnchor="50.0"
+          AnchorPane.topAnchor="260.0"/>
+   <Button fx:id="newCategoryButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="84.0" text="Aggiungi"
+           AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0"/>
+</AnchorPane>
