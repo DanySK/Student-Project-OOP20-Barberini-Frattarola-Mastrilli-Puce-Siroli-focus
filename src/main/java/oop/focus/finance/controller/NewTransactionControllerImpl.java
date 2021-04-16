@@ -1,6 +1,5 @@
 package oop.focus.finance.controller;
 
-import com.sun.javafx.collections.ObservableListWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import oop.focus.common.Linker;
@@ -15,6 +14,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class NewTransactionControllerImpl implements NewTransactionController {
 
@@ -51,7 +51,10 @@ public class NewTransactionControllerImpl implements NewTransactionController {
 
     @Override
     public final ObservableList<Repetition> getRepetitions() {
-        return new ObservableListWrapper<>(Arrays.asList(Repetition.values()));
+        final ObservableList<Repetition> list = FXCollections.observableArrayList();
+        Linker.listToList((Arrays.stream(Repetition.values())
+                .collect(Collectors.toCollection(FXCollections::observableArrayList))), list);
+        return list;
     }
 
     @Override
