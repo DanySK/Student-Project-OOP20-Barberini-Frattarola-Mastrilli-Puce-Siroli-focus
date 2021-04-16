@@ -5,7 +5,7 @@ public enum FXMLPaths {
     /**
      * 
      */
-    HOMEPAGEBASE(Constants.HOMEPAGE + "base.fxml"),
+    HOMEPAGEBASE(Constants.HOMEPAGE + "provaHomePage.fxml"),
     /**
      * 
      */

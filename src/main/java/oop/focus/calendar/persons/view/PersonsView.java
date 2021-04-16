@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import oop.focus.common.View;
 
-import java.io.IOException;
 
 public interface PersonsView extends Initializable, View {
 

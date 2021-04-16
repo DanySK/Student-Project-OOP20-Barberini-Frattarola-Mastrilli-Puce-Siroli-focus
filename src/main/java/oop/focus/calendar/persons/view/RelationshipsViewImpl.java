@@ -11,23 +11,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.db.exceptions.DaoAccessException;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import oop.focus.calendar.persons.controller.PersonsController;
-import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.common.View;
-import oop.focus.statistics.view.ViewFactoryImpl;
 
 
 public class RelationshipsViewImpl implements RelationshipsView {
@@ -66,8 +60,8 @@ public class RelationshipsViewImpl implements RelationshipsView {
     private void setProperty() {
         //this.relationshipsPane.setPrefSize(this.controller.getWidth(), this.controller.getHeight());
 
-        this.relationshipsTable.prefWidthProperty().bind(this.relationshipsPane.widthProperty().multiply(0.65));
-        this.relationshipsTable.prefHeightProperty().bind(this.relationshipsPane.heightProperty().multiply(0.8));
+        this.relationshipsTable.prefWidthProperty().bind(this.relationshipsPane.widthProperty().multiply(Constants.TABLE_WIDTH));
+        this.relationshipsTable.prefHeightProperty().bind(this.relationshipsPane.heightProperty().multiply(Constants.TABLE_HEIGHT));
         this.relationshipsColumn.prefWidthProperty().bind(this.relationshipsTable.widthProperty());
     }
 
@@ -141,4 +135,8 @@ public class RelationshipsViewImpl implements RelationshipsView {
         this.relationshipsTable.getItems().removeAll(relationshipsTable.getSelectionModel().getSelectedItems());
     }
 
+    private static class Constants {
+        private static final double TABLE_WIDTH = 0.65;
+        private static final double TABLE_HEIGHT = 0.8;
+    }
 }

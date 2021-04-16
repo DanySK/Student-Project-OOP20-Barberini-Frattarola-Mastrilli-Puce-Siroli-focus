@@ -3,23 +3,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import javafx.geometry.Insets;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.stage.Window;
-import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
 import org.joda.time.LocalDate;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import oop.focus.calendar.day.controller.CalendarDayController;
 import oop.focus.calendar.day.controller.CalendarDayControllerImpl;
 import oop.focus.calendar.day.view.CalendarDaysView;
@@ -45,7 +40,6 @@ public class WeekViewImpl implements WeekView {
 
     @FXML
     private ScrollPane weekDaysScroller;
-
 
     private Node root;
     private LocalDate startWeek;

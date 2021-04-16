@@ -8,8 +8,6 @@ import oop.focus.homepage.view.HotKeyMenuView;
 
 public interface HotKeyController {
 
-    void deleteHotKey(HotKeyImpl hotKeyImpl);
-
     DataSource getDsi();
 
     HotKeyMenuView getView();
@@ -17,4 +15,6 @@ public interface HotKeyController {
     ObservableList<HotKey> getSortedHotKey();
 
     void saveHotKey(HotKey hotKey);
+
+    void deleteHotKey(HotKey selectedItem);
 }

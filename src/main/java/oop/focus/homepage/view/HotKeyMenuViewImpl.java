@@ -25,9 +25,6 @@ import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyImpl;
-import oop.focus.homepage.model.HotKeyType;
-import oop.focus.statistics.view.ViewFactoryImpl;
 
 public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
@@ -47,7 +44,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     private final HomePageController controllerHomePage;
     private Node root;
 
-    public HotKeyMenuViewImpl(final HotKeyController controller, HomePageController homePageController) {
+    public HotKeyMenuViewImpl(final HotKeyController controller, final HomePageController homePageController) {
         this.controller = controller;
         this.controllerHomePage = homePageController;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.HOTKEYMENU.getPath()));
@@ -62,20 +59,20 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     private void setProperties() {
-        this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.7));
-        this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.7));
+        this.tableHotKeyList.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(Constants.TABLE_SIZE));
+        this.tableHotKeyList.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(Constants.TABLE_SIZE));
 
         this.nome.prefWidthProperty().bind(this.tableHotKeyList.widthProperty().divide(2));
         this.tipo.prefWidthProperty().bind(this.tableHotKeyList.widthProperty().divide(2));
 
-        this.deleteElement.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.5));
-        this.deleteElement.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
+        this.deleteElement.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(Constants.DELETE_BUTTON_WIDTH));
+        this.deleteElement.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(Constants.PREF_BUTTON_HEIGHT));
 
-        this.goBackButton.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.15));
-        this.goBackButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
+        this.goBackButton.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(Constants.PREF_BUTTON_WIDTH));
+        this.goBackButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(Constants.PREF_BUTTON_HEIGHT));
 
-        this.addHotKeyButton.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(0.15));
-        this.addHotKeyButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(0.05));
+        this.addHotKeyButton.prefWidthProperty().bind(this.paneHotKeyView.widthProperty().multiply(Constants.PREF_BUTTON_WIDTH));
+        this.addHotKeyButton.prefHeightProperty().bind(this.paneHotKeyView.heightProperty().multiply(Constants.PREF_BUTTON_HEIGHT));
     }
 
     @Override
@@ -93,9 +90,8 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     private void deleteItem() {
-        final HotKeyType type = tableHotKeyList.getSelectionModel().getSelectedItem().getType();
-        final String name = tableHotKeyList.getSelectionModel().getSelectedItem().getName();
-        this.controller.deleteHotKey(new HotKeyImpl(name, type));
+        this.controller.deleteHotKey(this.tableHotKeyList.getSelectionModel().getSelectedItem());
+        this.controllerHomePage.getView().fullVBoxHotKey();
         this.refreshTableView();
     }
 

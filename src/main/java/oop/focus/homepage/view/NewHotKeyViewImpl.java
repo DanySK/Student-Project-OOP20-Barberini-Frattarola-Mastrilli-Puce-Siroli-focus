@@ -42,15 +42,11 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
     private final HotKeyController controller;
     private final HomePageController homePageController;
-    private final HotKeyMenuView menuView;
-    private final HomePageBaseView homePageBaseView;
     private Node root;
 
-    public NewHotKeyViewImpl(final HotKeyController controller, HomePageController controllerHomePage) {
+    public NewHotKeyViewImpl(final HotKeyController controller, final HomePageController controllerHomePage) {
         this.controller = controller;
         this.homePageController = controllerHomePage;
-        this.menuView = this.controller.getView();
-        this.homePageBaseView = this.homePageController.getView();
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWHOTKEY.getPath()));
         loader.setController(this);
 
@@ -84,7 +80,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
     @FXML
     public final void delete(final ActionEvent event) {
-        this.nameTextField.setText(" ");
+        this.nameTextField.clear();
         this.categoryComboBox.getSelectionModel().clearSelection();
     }
 
@@ -102,24 +98,20 @@ public class NewHotKeyViewImpl implements  GenericAddView {
     public final void save(final ActionEvent event) throws IOException {
         final String name = nameTextField.getText();
         if (categoryComboBox.getSelectionModel().isEmpty() || name.isEmpty()) {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.checkFieldsFilled();
-            allert.showAllert();
+            final AlertFactory alertCreator = new AlertFactoryImpl();
+            final Alert alert = alertCreator.createWarningAlert();
+            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
+            alert.show();
         } else {
             try {
                 this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
-                this.menuView.populateTableView();
-                this.homePageBaseView.fullVBoxHotKey();
+                this.controller.getView().populateTableView();
+                this.homePageController.getView().fullVBoxHotKey();
                 this.goBack(event);
             } catch (IllegalStateException e) {
-                final Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Errore");
-                alert.setContentText("Il tasto inserito è già presente!");
-
-                final Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-                    alert.close();
-                }
+                final AlertFactory alertCreator = new AlertFactoryImpl();
+                final Alert alert = alertCreator.createConfirmationAlert();
+                alert.show();
             }
         }
     }

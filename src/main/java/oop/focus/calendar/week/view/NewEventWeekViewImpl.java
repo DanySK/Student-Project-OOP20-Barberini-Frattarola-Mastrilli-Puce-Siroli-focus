@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import oop.focus.homepage.view.AlertFactory;
+import oop.focus.homepage.view.AlertFactoryImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -16,13 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.persons.controller.PersonsController;
@@ -35,7 +31,6 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.Person;
-import oop.focus.homepage.view.AllertGenerator;
 import oop.focus.homepage.view.ComboBoxFiller;
 
 public class NewEventWeekViewImpl implements NewEventWeekView {
@@ -99,17 +94,6 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
 
         this.textFieldName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(Constants.TEXT_FIELF_WIDTH));
         this.textFieldName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(Constants.TEXT_FIELD_HEIGHT));
-/*
-        this.choiceEndHour.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
-        this.choiceEndHour.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.15));
-        this.choiceEndMinute.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.15));
-
-        this.choiceEndMinute.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
-        this.choiceStartHour.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
-        this.choiceStartMinute.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
-        this.repetitionChoice.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
-        this.textFieldName.prefHeightProperty().bind(this.paneNewEvent.prefHeightProperty().multiply(0.05));
-        this.textFieldName.prefWidthProperty().bind(this.paneNewEvent.prefWidthProperty().multiply(0.6));*/
     }
 
     public final void setButtonAction() {
@@ -125,7 +109,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     }
 
     public final void delete(final ActionEvent event) {
-        this.textFieldName.setText(" ");
+        this.textFieldName.clear();
 
         this.choiceStartHour.getSelectionModel().clearSelection();
         this.choiceStartMinute.getSelectionModel().clearSelection();
@@ -177,8 +161,10 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
 
             //this.delete(event);
         } else {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.createWarningAllert(1);
+            final AlertFactory alertCreator = new AlertFactoryImpl();
+            final Alert alert = alertCreator.createWarningAlert();
+            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
+            alert.show();
         }
     }
 
@@ -203,8 +189,10 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
             this.controller.addNewEvent(eventToSave);
             this.delete(event);
         } catch (IllegalStateException e) {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.createWarningAllert(2);
+            final AlertFactory alertCreator = new AlertFactoryImpl();
+            final Alert alert = alertCreator.createWarningAlert();
+            alert.setHeaderText("Sono stati inseriti orario o data non validi");
+            alert.show();
         }
     }
 

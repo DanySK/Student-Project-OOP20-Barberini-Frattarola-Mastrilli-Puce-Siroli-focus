@@ -7,18 +7,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.RelationshipsControllerImpl;
 import oop.focus.homepage.model.PersonImpl;
-import oop.focus.homepage.view.AllertGenerator;
+import oop.focus.homepage.view.AlertFactory;
+import oop.focus.homepage.view.AlertFactoryImpl;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,7 +36,7 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     private AnchorPane newPersonPane;
 
     @FXML
-    private Label name, degree, newPerson;
+    private Label name, degree, newPerson, newDegreeLabel;
 
     @FXML
     private TextField nameTextField;
@@ -41,6 +44,8 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     @FXML
     private ComboBox<String> degreeComboBox;
 
+    @FXML
+    private Line line;
 
     private final PersonsController controller;
     private final PersonsView personsView;
@@ -100,6 +105,7 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
         this.newPerson.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.LABEL_WIDTH));
         this.newPerson.setAlignment(Pos.CENTER);
 
+        this.newDegreeLabel.setAlignment(Pos.CENTER);
         this.degree.setAlignment(Pos.CENTER);
         this.name.setAlignment(Pos.CENTER);
 
@@ -108,11 +114,13 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
 
         this.nameTextField.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
         this.nameTextField.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
+
+        //this.newDegree.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(C));
     }
 
     public final void delete(final ActionEvent event) {
         this.degreeComboBox.getSelectionModel().clearSelection();
-        this.nameTextField.setText(" ");
+        this.nameTextField.clear();
     }
 
     @Override
@@ -131,9 +139,10 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
             this.personsView.populateTableView();
             this.goBack(event);
         } else {
-           final AllertGenerator allert = new AllertGenerator();
-           allert.checkFieldsFilled();
-           allert.showAllert();
+            final AlertFactory alertCreator = new AlertFactoryImpl();
+            final Alert alert = alertCreator.createWarningAlert();
+            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
+            alert.show();
         }
     }
 
@@ -144,9 +153,8 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
         private static final double LABEL_HEIGHT = 0.1;
     }
 
-	@Override
-	public final void fillComboBoxDegree() {
+    @Override
+    public final void fillComboBoxDegree() {
         this.degreeComboBox.setItems(this.controller.getDegree());
-
-	}
+    }
 }

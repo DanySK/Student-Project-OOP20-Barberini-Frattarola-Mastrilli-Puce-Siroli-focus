@@ -22,8 +22,8 @@
       <Button fx:id="save" layoutX="326.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="SALVA" AnchorPane.bottomAnchor="32.6" AnchorPane.rightAnchor="26.399999999999977" />
       <Button fx:id="back" layoutX="26.0" layoutY="20.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="INDIETRO" AnchorPane.leftAnchor="26.0" />
       <Button fx:id="delete" layoutX="38.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="CANCELLA" AnchorPane.bottomAnchor="32.6" AnchorPane.leftAnchor="26.0" />
-      <Line endX="158.20001220703125" layoutX="213.0" layoutY="263.0" startX="-154.6000213623047" />
-      <Label layoutX="103.0" layoutY="273.0" text="Clicca qui per creare una nuova parentela">
+      <Line fx:id="line" endX="158.20001220703125" layoutX="213.0" layoutY="263.0" startX="-154.6000213623047" AnchorPane.leftAnchor="57.300027465820335" AnchorPane.rightAnchor="54.899923706054665" />
+      <Label fx:id="newDegreeLabel" layoutX="103.0" layoutY="273.0" text="Clicca qui per creare una nuova parentela">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>

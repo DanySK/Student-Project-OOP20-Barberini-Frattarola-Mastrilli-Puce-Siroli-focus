@@ -136,9 +136,4 @@ public class PersonsViewImpl implements PersonsView {
         this.tableViewPersons.getItems().removeAll(tableViewPersons.getSelectionModel().getSelectedItems());
     }
 
-    private static final class Constants {
-        private static final double TABLE_WIDTH = 0.50;
-        private static final double TABLE_HEIGHT = 0.8;
-    }
-
 }

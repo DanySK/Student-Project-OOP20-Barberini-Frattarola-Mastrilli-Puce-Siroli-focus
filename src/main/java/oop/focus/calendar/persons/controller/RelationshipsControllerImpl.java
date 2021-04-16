@@ -38,7 +38,7 @@ public class RelationshipsControllerImpl implements RelationshipsController {
         final ObservableList<String> list = FXCollections.observableArrayList();
         final List<String> arrayList = this.relationships.getAll().stream().sorted().collect(Collectors.toList());
         arrayList.stream().forEach(p -> list.add(p));
-        return list;
+        return list.sorted();
     }
 
     public final DataSource getDsi() {

@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -135,8 +136,10 @@ public class NewEventViewImpl implements NewEventView {
                 && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent(event);
         } else {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.createWarningAllert(1);
+            final AlertFactory alertCreator = new AlertFactoryImpl();
+            final Alert alert = alertCreator.createWarningAlert();
+            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
+            alert.show();
         }
     }
 
@@ -157,8 +160,10 @@ public class NewEventViewImpl implements NewEventView {
             this.controller.saveEvent(eventToSave);
             this.goBack(event);
         } catch (IllegalStateException e) {
-            final AllertGenerator allert = new AllertGenerator();
-            allert.createWarningAllert(2);
+            final AlertFactory alertCreator = new AlertFactoryImpl();
+            final Alert alert = alertCreator.createWarningAlert();
+            alert.setHeaderText("Sono stati inseriti orario o data non validi");
+            alert.show();
         }
     }
 

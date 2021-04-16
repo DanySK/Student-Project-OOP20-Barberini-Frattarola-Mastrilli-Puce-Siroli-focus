@@ -3,10 +3,10 @@ package oop.focus.homepage.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import oop.focus.db.DataSource;
+import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyManager;
 import oop.focus.homepage.model.HotKeyManagerImpl;
 import oop.focus.homepage.view.HotKeyMenuView;
@@ -30,8 +30,15 @@ public class HotKeyControllerImpl implements HotKeyController {
         this.view = new HotKeyMenuViewImpl(this, controller);
     }
 
-    public final void deleteHotKey(final HotKeyImpl hotKeyImpl) {
+    public final void deleteHotKey(final HotKey hotKeyImpl) {
         this.hotKeyManager.remove(hotKeyImpl);
+        final String name = hotKeyImpl.getName();
+        final  List<Event> list = this.eventManager.getHotKeyEvents();
+        for (final Event event : list) {
+            if (event.getName().equals(name)) {
+                this.eventManager.removeEvent(event);
+            }
+        }
     }
 
     public final DataSource getDsi() {
@@ -51,10 +58,11 @@ public class HotKeyControllerImpl implements HotKeyController {
     }
 
     public final void saveHotKey(final HotKey hotKey) {
-        this.hotKeyManager.add(hotKey);
-        /*if (this.hotKeyManager.getAll().contains(hotKey)) {
+        if (this.hotKeyManager.getAll().contains(hotKey)) {
             throw new IllegalStateException();
-        }*/
+        } else {
+            this.hotKeyManager.add(hotKey);
+        }
     }
 
 }
