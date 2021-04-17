@@ -8,6 +8,9 @@ import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.ToDoListManagerImpl;
 import oop.focus.diary.view.BaseDiaryView;
 
+/**
+ *
+ */
 public class BaseDiaryController implements Controller {
     private final View baseDiary;
     public BaseDiaryController(final DataSource dataSource) {
