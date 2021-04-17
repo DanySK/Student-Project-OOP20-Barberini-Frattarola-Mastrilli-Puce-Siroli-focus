@@ -1,9 +1,9 @@
 package oop.focus.diary.view;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.application.controller.SectionsController;
@@ -22,7 +22,8 @@ public class ButtonsDiaryView extends ButtonsView {
     private static final Double INSETS = 0.02;
     private static final Double BUTTONS_WIDTH = 0.7;
     private static final Double VBOX_WIDTH = 0.3;
-    private final Pane pane;
+    private static final Double BUTTONS_HEIGHT = 0.1;
+    private final VBox pane;
     private final Map<Button, Controller> map;
     private final DiarySections controller;
 
@@ -37,17 +38,18 @@ public class ButtonsDiaryView extends ButtonsView {
     /**
      * {@inheritDoc}
      */
-    public void setButtons() {
+    public final void setButtons() {
         this.controller.getList().forEach(s -> {
             final Button b = new Button(s.getValue());
             b.getStyleClass().addAll("lateral-button");
             this.pane.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
-        this.map.keySet().forEach(s -> s.setPrefHeight(SCREEN_BOUNDS.getHeight() / this.map.keySet().size()));
+        this.map.keySet().forEach(s -> s.setPrefHeight(this.pane.heightProperty().multiply(BUTTONS_HEIGHT).get()));
         this.pane.setPrefWidth(SCREEN_BOUNDS.getWidth() * VBOX_WIDTH);
         this.map.keySet().forEach(s -> s.prefWidthProperty().bind(this.pane.widthProperty().multiply(BUTTONS_WIDTH)));
         this.pane.getChildren().forEach(s -> VBox.setMargin(s, new Insets(SCREEN_BOUNDS.getHeight() * INSETS)));
+        pane.setAlignment(Pos.CENTER);
         super.setOnClick(this.pane, this.map);
         this.setFirstWindow(this.map, this.controller);
     }

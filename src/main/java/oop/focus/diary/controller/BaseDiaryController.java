@@ -9,7 +9,8 @@ import oop.focus.diary.model.ToDoListManagerImpl;
 import oop.focus.diary.view.BaseDiaryView;
 
 /**
- *
+ *  BaseDiaryController is the Controller relative to the Diary's section. It's corresponding View
+ *  is composed by three under-sections : diary, ToDoList and dailyMood.
  */
 public class BaseDiaryController implements Controller {
     private final View baseDiary;
@@ -17,6 +18,9 @@ public class BaseDiaryController implements Controller {
         this.baseDiary = new BaseDiaryView(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
                 new DiaryPagesImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource)));
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.baseDiary;

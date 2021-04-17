@@ -7,14 +7,20 @@ import oop.focus.db.DataSource;
 
 import oop.focus.diary.view.ButtonsDiaryView;
 
+/**
+ * ButtonsDiaryController is the Controller of diary's lateral button.
+ */
 public class ButtonsDiaryController implements Controller {
-    private final ButtonsDiaryView upperView;
+    private final View content;
     public ButtonsDiaryController(final SectionsController controller, final DataSource dataSource) {
-        this.upperView = new ButtonsDiaryView(controller, dataSource);
+        this.content = new ButtonsDiaryView(controller, dataSource);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
-        return this.upperView;
+        return this.content;
     }
 }
