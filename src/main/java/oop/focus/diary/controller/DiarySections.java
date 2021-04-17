@@ -14,29 +14,23 @@ import java.util.List;
 
 public class DiarySections implements Sections {
     private final List<Pair<Controller, String>> list;
-    private final DataSource dataSource;
-    private final EventManager eventManager;
-    private final Controller baseDiary;
+    private final DiarySectionsControllerFactory factory;
 
     public DiarySections(final DataSource dataSource)  {
         this.list = new ArrayList<>();
-        this.dataSource = dataSource;
-        this.eventManager = new EventManagerImpl(dataSource);
-        this.baseDiary = new BaseDiaryController(this.dataSource);
+        this.factory = new DiarySectionsControllerFactoryImpl(dataSource);
         this.putControllers();
     }
     private void putControllers() {
-        this.list.add(new Pair<>(this.baseDiary, "Diario"));
-        this.list.add(new Pair<>(new CalendarMonthControllerImpl(CalendarType.DIARY, this.dataSource), "Statistiche umore"));
-        this.list.add(new Pair<>(new CounterGeneralControllerImpl(this.eventManager, false),
-                "Cronometro"));
-        this.list.add(new Pair<>(new CounterGeneralControllerImpl(this.eventManager, true),
-                "Timer"));
+        this.list.add(new Pair<>(this.factory.getDiaryController(), "Diario"));
+        this.list.add(new Pair<>(this.factory.getMoodCalendarController(), "Statistiche umore"));
+        this.list.add(new Pair<>(this.factory.getStopwatchController(), "Cronometro"));
+        this.list.add(new Pair<>(this.factory.getTimerController(), "Timer"));
     }
 
     @Override
-    public Controller getStarterController() {
-        return this.baseDiary;
+    public final Controller getStarterController() {
+        return this.factory.getDiaryController();
     }
 
     public final List<Pair<Controller, String>> getList() {

@@ -5,12 +5,12 @@ import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 
-import oop.focus.diary.view.UpperDiaryView;
+import oop.focus.diary.view.ButtonsDiaryView;
 
 public class ButtonsDiaryController implements Controller {
-    private final UpperDiaryView upperView;
+    private final ButtonsDiaryView upperView;
     public ButtonsDiaryController(final SectionsController controller, final DataSource dataSource) {
-        this.upperView = new UpperDiaryView(controller, dataSource);
+        this.upperView = new ButtonsDiaryView(controller, dataSource);
     }
 
     @Override

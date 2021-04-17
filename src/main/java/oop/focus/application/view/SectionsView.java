@@ -20,8 +20,12 @@ public class SectionsView implements View {
         this.pane.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * PANE_HEIGHT);
         this.pane.prefWidthProperty().set(SCREEN_BOUNDS.getWidth() * PANE_WIDTH);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.pane;
     }
 
