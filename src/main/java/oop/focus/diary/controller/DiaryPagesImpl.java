@@ -58,10 +58,13 @@ public class DiaryPagesImpl implements DiaryPages {
         return this.content;
     }
 
+    /**
+     *  {@inheritDoc}
+     */
     @Override
-    public final void remove(final String a) {
-        if (this.getFileName().contains(a)) {
-            final DiaryImpl diary = new DiaryImpl(this.getContentByName(a), a);
+    public final void remove(final String input) {
+        if (this.getFileName().contains(input)) {
+            final DiaryImpl diary = new DiaryImpl(this.getContentByName(input), input);
             this.diaryDao.delete(diary);
             this.set.remove(diary);
         }

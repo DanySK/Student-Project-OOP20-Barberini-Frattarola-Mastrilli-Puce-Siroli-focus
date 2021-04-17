@@ -1,7 +1,16 @@
 package oop.focus.diary.controller;
 
 import oop.focus.common.Controller;
-
-public interface RemoveControllers extends Controller {
-    void remove(String string);
+/**
+ * The interface Remove controller defines a controller that deletes the input.
+ *
+ * @param <X> the type of the input.
+ */
+public interface RemoveControllers<X> extends Controller {
+    /**
+     * Update the input.
+     *
+     * @param input the input
+     */
+    void remove(X input);
 }

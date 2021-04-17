@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * This interface models a controller of pages' diary, saved as a file.
  */
-public interface DiaryPages extends RemoveControllers {
+public interface DiaryPages extends RemoveControllers<String> {
 
     /**
      * The list return an observable set with all diary saved(a diary is formed by title and content).
