@@ -1,5 +1,6 @@
 package oop.focus.finance.view.windows;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -35,6 +36,8 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
     @FXML
     private ChoiceBox<Repetition> repetitionChioce;
     @FXML
+    private ChoiceBox<String> typeChoice;
+    @FXML
     private Button cancelButton, saveButton, newCategoryButton;
 
     public NewTransactionViewImpl(final NewTransactionController controller) {
@@ -48,12 +51,14 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         this.categoryChoice.setItems(super.getX().getCategories());
         this.accountChoice.setItems(super.getX().getAccounts());
         this.repetitionChioce.setItems(super.getX().getRepetitions());
+        this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
         this.dataPicker.setValue(LocalDate.now());
         this.hoursTextField.setText("" + LocalDateTime.now().getHourOfDay());
         this.minutesTextField.setText("" + LocalDateTime.now().getMinuteOfHour());
         this.repetitionChioce.setValue(Repetition.ONCE);
+        this.typeChoice.setValue("Uscita");
     }
 
     private void showNewCategory() {
@@ -67,13 +72,14 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
-                || this.repetitionChioce.getValue() == null
-                || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()) {
+                || this.repetitionChioce.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
+                || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()
+                || this.typeChoice.getValue() == null) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             try {
                 super.getX().newTransaction(this.descriptionTextField.getText(),
-                        Double.parseDouble(this.amountTextField.getText()),
+                        Double.parseDouble(this.amountTextField.getText()) * (this.typeChoice.getValue().equals("Uscita") ? -1 : 1),
                         this.categoryChoice.getValue(), this.accountChoice.getValue(), this.dataPicker.getValue(),
                         Integer.parseInt(this.hoursTextField.getText()), Integer.parseInt(this.minutesTextField.getText()),
                         this.repetitionChioce.getValue());

@@ -42,7 +42,7 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @FXML
     private VBox leftVBox;
     @FXML
-    private Label accountLabel, amountLabel, colorLabel, currencyLabel;
+    private Label accountLabel, amountLabel, colorLabel, currencyLabel, minusLabel;
     @FXML
     private Button newAccountButton, deleteButton, newTransactionButton;
 
@@ -79,7 +79,9 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     public final void updateTransactions(final List<Transaction> transactions, final Predicate<Account> predicate) {
         var viewFactory = new ViewFactoryImpl();
         this.accountLabel.setText(super.getX().getAccountName());
-        this.amountLabel.setText(this.format(super.getX().getAmount(predicate)));
+        this.amountLabel.setText(this.format(Math.abs(super.getX().getAmount(predicate))));
+        this.amountLabel.setTextFill(Color.valueOf(super.getX().getAmount(predicate) > 0 ? "008f39" : "cc0605"));
+        this.minusLabel.setVisible(super.getX().getAmount(predicate) < 0);
         this.colorLabel.setTextFill(Color.valueOf(super.getX().getColor(predicate)));
         this.deleteButton.setText("Elimina " + super.getX().getAccountName());
         final List<TransactionView> transactionsTiles = new ArrayList<>();

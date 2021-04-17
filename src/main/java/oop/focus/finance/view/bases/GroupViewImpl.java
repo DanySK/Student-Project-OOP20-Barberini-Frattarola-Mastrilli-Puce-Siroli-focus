@@ -73,7 +73,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         super.getX().getSortedGroup().forEach(p -> personTiles.add(
-                new GenericTileViewImpl<>(p, p.getName(), this.format(super.getX().getCredit(p)))));
+                new GenericTileViewImpl<>(p, p.getName(), super.getX().getCredit(p))));
         var vbox = viewFactory.createVerticalAutoResizingWithNodes(personTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
@@ -89,7 +89,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         final List<GenericTileView<GroupTransaction>> transactionTiles = new ArrayList<>();
         super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
-                        + this.getForListNames(t.getForList()), this.format((double) t.getAmount() / 100))));
+                        + this.getForListNames(t.getForList()), (double) t.getAmount() / 100)));
         var vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         transactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->

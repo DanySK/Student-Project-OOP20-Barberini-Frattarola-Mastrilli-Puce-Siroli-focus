@@ -52,7 +52,8 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null
-                || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()) {
+                || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()
+                || Integer.parseInt(this.amountLabel.getText()) > 0) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else if ((Double.parseDouble(this.amountTextField.getText()) * 100) % this.multiSelector.getSelected().size() > 0) {
             super.allert("Non e' possibile dividere correttamente l'importo tra le persone selezionate.");

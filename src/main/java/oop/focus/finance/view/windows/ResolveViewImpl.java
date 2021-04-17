@@ -44,7 +44,7 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
         final List<GenericTileView<GroupTransaction>> resolvingTiles = new ArrayList<>();
         super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(
                 new GenericTileViewImpl<>(t, t.getMadeBy().getName() + " ->"
-                        + this.getForListNames(t.getForList()), this.format(t.getAmount()))));
+                        + this.getForListNames(t.getForList()), (double) t.getAmount() / 100)));
         var vbox = viewFactory.createVerticalAutoResizingWithNodes(resolvingTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.resolveScroll.setContent(vbox.getRoot());

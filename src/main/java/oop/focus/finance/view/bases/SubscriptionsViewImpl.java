@@ -55,7 +55,7 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
                 new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
-                        t.getRepetition().getName(), this.format(super.getX().getTransactionAmount(t)))));
+                        t.getRepetition().getName(), super.getX().getTransactionAmount(t))));
         var vbox = viewFactory.createVerticalAutoResizingWithNodes(subscriptionsTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         subscriptionsTiles.forEach(t -> t.getRoot()

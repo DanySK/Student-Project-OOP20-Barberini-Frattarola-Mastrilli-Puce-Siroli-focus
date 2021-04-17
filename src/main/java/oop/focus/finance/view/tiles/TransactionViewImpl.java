@@ -11,7 +11,7 @@ import oop.focus.finance.view.bases.GenericView;
 public class TransactionViewImpl extends GenericView<Transaction> implements Initializable, TransactionView {
 
     @FXML
-    private Label descriptionLabel, categoryLabel, colorLabel, dateLabel, amountLabel;
+    private Label descriptionLabel, categoryLabel, colorLabel, dateLabel, amountLabel, minusLabel;
 
     public TransactionViewImpl(final Transaction transaction) {
         super(transaction, FXMLPaths.MOVTILE);
@@ -23,7 +23,9 @@ public class TransactionViewImpl extends GenericView<Transaction> implements Ini
         this.categoryLabel.setText(super.getX().getCategory().getName());
         this.colorLabel.setTextFill(Color.valueOf(super.getX().getCategory().getColor()));
         this.dateLabel.setText(super.getX().getDateToString());
-        this.amountLabel.setText(this.format((double) super.getX().getAmount() / 100));
+        this.amountLabel.setText(this.format((double) Math.abs(super.getX().getAmount()) / 100));
+        this.amountLabel.setTextFill(Color.valueOf(super.getX().getAmount() > 0 ? "008f39" : "cc0605"));
+        this.minusLabel.setVisible(super.getX().getAmount() < 0);
     }
 
     @Override
