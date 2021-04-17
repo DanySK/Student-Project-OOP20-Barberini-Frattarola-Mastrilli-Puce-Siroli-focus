@@ -2,6 +2,7 @@ package oop.focus.event.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -9,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -17,6 +20,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.event.controller.EventInformationController;
 import oop.focus.event.controller.EventInformationControllerImpl;
 import oop.focus.event.controller.EventMenuController;
@@ -33,19 +38,10 @@ public class EventMenuViewImpl implements EventMenuView {
     private TableView<Event> tableEvent;
 
     @FXML
-    private TableColumn<Event, String> dayOfStart;
+    private TableColumn<Event, String> dayOfStart, startHour, eventName;
 
     @FXML
-    private TableColumn<Event, String> startHour;
-
-    @FXML
-    private TableColumn<Event, String> eventName;
-
-    @FXML
-    private Button seeInformation;
-
-    @FXML
-    private Button deleteElement;
+    private Button seeInformation, deleteElement;
 
     private Node root;
     private final EventMenuController controller;
@@ -83,19 +79,34 @@ public class EventMenuViewImpl implements EventMenuView {
         this.seeInformation.setOnAction(event -> this.viewInformation());
     }
 
-    private void viewInformation() {
+    public final void viewInformation() {
         if (!this.tableEvent.getSelectionModel().isEmpty()) {
-            final EventInformationController controllerEvent = new EventInformationControllerImpl(this.controller.getDsi(), this.tableEvent.getSelectionModel().getSelectedItem());
+            final WeekController week = this.controller.getWeek();
+            final CalendarMonthController month = this.controller.getMonth();
+            final EventInformationController controllerEvent = new EventInformationControllerImpl(this.controller.getDsi(), this.tableEvent.getSelectionModel().getSelectedItem(), week, month);
             final Stage stage = new Stage();
             stage.setScene(new Scene((Parent) controllerEvent.getView().getRoot()));
             stage.show();
         }
     }
 
-    private void deleteItem() {
+    public final void deleteItem() {
         if (!this.tableEvent.getSelectionModel().isEmpty()) {
-            this.controller.remove(this.tableEvent.getSelectionModel().getSelectedItem());
-            this.refreshTable();
+            final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Conferma eliminazione");
+            alert.setHeaderText("Sei sicuro di volere eliminare questo evento?");
+
+            final Optional<ButtonType> result = alert.showAndWait();
+
+            if (!result.isPresent() || result.get() != ButtonType.OK) {
+                alert.close();
+            } else {
+                this.controller.remove(this.tableEvent.getSelectionModel().getSelectedItem());
+                this.refreshTable();
+                this.controller.getMonth().updateView();
+                this.controller.getWeek().getHomePageController().getView().setDay();
+                this.controller.getWeek().getView().setWeekDays();
+            }
         }
     }
 

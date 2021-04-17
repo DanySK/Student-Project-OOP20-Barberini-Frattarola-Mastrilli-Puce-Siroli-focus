@@ -9,7 +9,6 @@ import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.homepage.view.GeneralHomePageController;
 
 public class HomePageLauncher extends Application {
 

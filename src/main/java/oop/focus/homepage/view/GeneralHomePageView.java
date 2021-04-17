@@ -17,6 +17,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import oop.focus.common.View;
+import oop.focus.homepage.controller.GeneralHomePageController;
 
 public class GeneralHomePageView implements View, Initializable {
 

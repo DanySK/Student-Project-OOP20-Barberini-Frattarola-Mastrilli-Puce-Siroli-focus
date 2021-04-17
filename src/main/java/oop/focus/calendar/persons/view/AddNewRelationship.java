@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -17,7 +16,6 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
-import oop.focus.homepage.view.AlertFactory;
 import oop.focus.homepage.view.AlertFactoryImpl;
 import oop.focus.homepage.view.GenericAddView;
 
@@ -114,10 +112,7 @@ public class AddNewRelationship implements GenericAddView {
             this.personView.fillComboBoxDegree();
             this.goBack(event);
         } else {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
-            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-            alert.show();
+            new AlertFactoryImpl().createIncompleteFieldAlert();
         }
     }
     private static final class Constants {

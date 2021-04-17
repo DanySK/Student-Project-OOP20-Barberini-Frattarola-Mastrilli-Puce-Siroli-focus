@@ -6,12 +6,25 @@ import oop.focus.common.View;
 
 public interface RelationshipsView extends Initializable, View {
 
+    /**
+     * This method is used to set the action of the button that is clicked when you want to add a new relationship.
+     */
     void addRelationships();
 
+    /**
+     * This method is used to set the action of the button that is clicked when you want to delete a relationship.
+     */
     void deleteRelationships();
 
+    /**
+     * This method is used to get the root of the view.
+     * @return Node that represent the root.
+     */
     Node getRoot();
 
+    /**
+     * This method is used to populate the tableview with all of the relationsips saved.
+     */
     void populateTableView();
 
 }

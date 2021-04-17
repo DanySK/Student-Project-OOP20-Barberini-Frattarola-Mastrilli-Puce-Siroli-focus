@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
-import oop.focus.homepage.view.AlertFactory;
-import oop.focus.homepage.view.AlertFactoryImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -20,7 +19,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -53,7 +54,10 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     private Button delete, add;
 
     @FXML
-    private ComboBox<String> choiceEndHour, choiceStartHour, choiceStartMinute, choiceEndMinute, repetitionChoice;
+    private ComboBox<String> choiceEndHour, choiceStartHour, choiceStartMinute, choiceEndMinute;
+
+    @FXML
+    private ComboBox<Repetition> repetitionChoice;
 
     @FXML
     private DatePicker datePickerEnd, datePickerStart;
@@ -138,7 +142,9 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         this.choiceEndHour.setItems(fullComboBoxes.getHourAndMinute(Constants.HOUR_PER_DAYS));
         this.choiceStartMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
         this.choiceEndMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
-        this.repetitionChoice.setItems(fullComboBoxes.getRepetition());
+
+        final ObservableList<Repetition> rep = FXCollections.observableArrayList(Repetition.values());
+        this.repetitionChoice.setItems(rep);
     }
 
     public final void fillTheList() {
@@ -165,13 +171,17 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
             this.saveEvent(event);
 
             this.weekController.getView().setWeekDays();
+            this.weekController.getHomePageController().getView().setDay();
             this.monthController.updateView();
 
         } else {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
+            final Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Attenzione!");
             alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-            alert.show();
+            final Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+                alert.close();
+            }
         }
     }
 
@@ -191,17 +201,20 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
             finalList.add(this.list.get(i));
         });
 
-        final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), Repetition.getRepetition(this.repetitionChoice.getSelectionModel().getSelectedItem()), finalList);
+        final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
         try {
             this.controller.addNewEvent(eventToSave);
             this.delete(event);
             final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
             stage.close();
         } catch (IllegalStateException e) {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Attenzione!");
             alert.setHeaderText("Sono stati inseriti orario o data non validi");
-            alert.show();
+            final Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+                alert.close();
+            }
         }
     }
 

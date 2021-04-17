@@ -12,10 +12,10 @@ public class App{
 	     public static void main(final String... args) {
 
 	         //PersonLauncher.main(args);
-			 HomePageLauncher.main(args);
+			 //HomePageLauncher.main(args);
 	         //WeekLauncher.main(args);
 			 //EventLauncher.main(args);
-			 //NewEventLauncher.main(args);
+			 NewEventLauncher.main(args);
 	     }
 
 }

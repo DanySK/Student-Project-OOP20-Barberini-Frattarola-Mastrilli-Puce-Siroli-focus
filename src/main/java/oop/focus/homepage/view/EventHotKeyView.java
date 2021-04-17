@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.HotKeyType;
 
+/**
+ * This class is used to model an event hot key, wich is represented from a button.
+ */
 public class EventHotKeyView extends Pane implements HotKeyView {
 
     private final HomePageController controller;

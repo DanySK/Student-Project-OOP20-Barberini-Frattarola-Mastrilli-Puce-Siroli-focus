@@ -6,9 +6,21 @@ import oop.focus.homepage.model.Event;
 
 public interface NewEventController {
 
+    /**
+     * This method is used to add an event.
+     * @param event is the evnt to add.
+     */
     void addNewEvent(Event event);
 
+    /**
+     * This method is used to get the dsi.
+     * @return the data source.
+     */
     DataSource getDsi();
 
+    /**
+     * This method is used to get the view.
+     * @return View.
+     */
     View getView();
 }

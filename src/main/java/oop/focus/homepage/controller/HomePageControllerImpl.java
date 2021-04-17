@@ -35,10 +35,6 @@ public class HomePageControllerImpl implements HomePageController {
         this.view = new HomePageBaseViewImpl(this);
     }
 
-    public final boolean canBeAdded(final Event event) {
-        return event.getStartHour().isBefore(event.getEndHour());
-    }
-
     public final void deleteHotKey(final HotKeyImpl hotKeyImpl) {
         this.hotKeyManager.remove(hotKeyImpl);
     }
@@ -73,10 +69,6 @@ public class HomePageControllerImpl implements HomePageController {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
         hotKeyManager.getAll().forEach(hotKey -> list.add(hotKey));
         return list;
-    }
-
-    public final HotKeyManager getHotKeyManager() {
-        return this.hotKeyManager;
     }
 
     public final String getText() {

@@ -23,31 +23,10 @@ public class EventInformationViewImpl implements View, Initializable {
     private AnchorPane paneEventInformation;
 
     @FXML
-    private Label startDate;
+    private Label startDate, endDate, repetition, insertStartDate, insertEndHour, labelRepetition, name;
 
     @FXML
-    private Label endDate;
-
-    @FXML
-    private Label repetition;
-
-    @FXML
-    private Label insertStartDate;
-
-    @FXML
-    private Label insertEndHour;
-
-    @FXML
-    private Label labelRepetition;
-
-    @FXML
-    private Label name;
-
-    @FXML
-    private Button goBack;
-
-    @FXML
-    private Button stopRepetition;
+    private Button goBack, stopRepetition;
 
     private Node root;
     private final EventInformationController controller;
@@ -69,10 +48,12 @@ public class EventInformationViewImpl implements View, Initializable {
         this.name.setAlignment(Pos.CENTER);
         this.name.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
         this.name.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+
         this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
-        this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        this.startDate.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
+
         this.insertStartDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
-        this.insertStartDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        this.insertStartDate.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
 
     }
 
@@ -100,11 +81,13 @@ public class EventInformationViewImpl implements View, Initializable {
 
     private void stopRepeat() {
         this.controller.stopRepetition();
+        this.controller.getWeek().getView().setWeekDays();
+        this.controller.getMonth().updateView();
         this.labelRepetition.setText(Repetition.ONCE.toString());
     }
 
     private static class Constants {
-        private static final double PREF_WIDTH = 0.4;
+        private static final double PREF_WIDTH = 0.8;
         private static final double PREF_HEIGHT = 0.05;
     }
 }

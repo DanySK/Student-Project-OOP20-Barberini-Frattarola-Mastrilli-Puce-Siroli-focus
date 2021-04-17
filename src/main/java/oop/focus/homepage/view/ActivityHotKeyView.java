@@ -9,6 +9,9 @@ import oop.focus.common.Repetition;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.EventImpl;
 
+/**
+ * This class is used to model an activity hot key, wich is represented from a check box.
+ */
 public class ActivityHotKeyView extends Pane implements HotKeyView {
 
     private final HomePageController controller;

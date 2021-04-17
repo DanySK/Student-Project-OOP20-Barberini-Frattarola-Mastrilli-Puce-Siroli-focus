@@ -10,13 +10,16 @@ import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
+import oop.focus.homepage.controller.HomePageController;
+import oop.focus.homepage.controller.HomePageControllerImpl;
 
 public class NewEventLauncher extends Application {
 
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final DataSource dsi = new DataSourceImpl();
-        final WeekController week = new WeekControllerImpl(dsi);
+        final HomePageController homePage = new HomePageControllerImpl(dsi);
+        final WeekController week = new WeekControllerImpl(dsi, homePage);
         final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.NORMAL, dsi);
         final NewEventController controller = new NewEventControllerImpl(dsi, week, monthController);
 

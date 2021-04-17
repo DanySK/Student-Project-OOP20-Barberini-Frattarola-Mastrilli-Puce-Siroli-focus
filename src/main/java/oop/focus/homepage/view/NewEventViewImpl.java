@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDate;
@@ -19,7 +18,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -42,7 +40,10 @@ public class NewEventViewImpl implements NewEventView {
     private Label newEvent, newEventName, startHour, endHour, repetition, persons;
 
     @FXML
-    private ComboBox<String> startHourChoice, repetitionChoice, endHourChoice, startMinuteChoice, endMinuteChoice;
+    private ComboBox<String> startHourChoice, endHourChoice, startMinuteChoice, endMinuteChoice;
+
+    @FXML
+    private ComboBox<Repetition> repetitionChoice;
 
     @FXML
     private Button back, saveSelection, deleteSelection;
@@ -93,11 +94,13 @@ public class NewEventViewImpl implements NewEventView {
         this.startHourChoice.setItems(filler.getHourAndMinute(Constants.HOUR_PER_DAY));
         this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
         this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
-        this.repetitionChoice.setItems(filler.getRepetition());
+
+        final ObservableList<Repetition> rep = FXCollections.observableArrayList(Repetition.values());
+        this.repetitionChoice.setItems(rep);
     }
 
     public final void fillTheList() {
-        final PersonsController persons = new PersonsControllerImpl(new DataSourceImpl());
+        final PersonsController persons = new PersonsControllerImpl(this.controller.getDsi());
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
         this.list = persons.getPersons();
@@ -136,10 +139,7 @@ public class NewEventViewImpl implements NewEventView {
                 && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent(event);
         } else {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
-            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-            alert.show();
+            new AlertFactoryImpl().createIncompleteFieldAlert();
         }
     }
 
@@ -154,16 +154,13 @@ public class NewEventViewImpl implements NewEventView {
             finalList.add(this.list.get(i));
         });
 
-        final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), Repetition.getRepetition(this.repetitionChoice.getSelectionModel().getSelectedItem()), finalList);
+        final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
 
         try {
             this.controller.saveEvent(eventToSave);
             this.goBack(event);
         } catch (IllegalStateException e) {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
-            alert.setHeaderText("Sono stati inseriti orario o data non validi");
-            alert.show();
+            new AlertFactoryImpl().createHourOrDateError();
         }
     }
 

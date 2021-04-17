@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,13 +31,10 @@ public class WeekViewImpl implements WeekView {
     private VBox weekDaysPane;
 
     @FXML
-    private Button lastWeek;
+    private Button lastWeek, nextWeek;
 
     @FXML
     private Label thisWeek;
-
-    @FXML
-    private Button nextWeek;
 
     @FXML
     private ScrollPane weekDaysScroller;
@@ -96,9 +91,7 @@ public class WeekViewImpl implements WeekView {
         if (this.startWeek.isEqual(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek() - 1))) {
             this.thisWeek.setText("SETTIMANA CORRENTE");
         } else {
-            final DateTime stringDate = this.startWeek.toDateTime(new LocalTime(00, 00));
-            final String month = stringDate.monthOfYear().getAsText();
-            this.thisWeek.setText(startWeek.getYear() + " - " + month);
+            this.thisWeek.setText(this.startWeek.toString() + "  - " + this.startWeek.plusDays(Constants.FIND_FINAL).toString());
         }
     }
 
@@ -125,7 +118,7 @@ public class WeekViewImpl implements WeekView {
     }
 
     private class Constants {
-        //private static final int FIND_FINAL = 6;
+        private static final int FIND_FINAL = 6;
         private static final int DAYS_PER_WEEK = 7;
         private static final int SPACING = 100;
     }

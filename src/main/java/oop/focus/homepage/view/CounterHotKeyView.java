@@ -11,6 +11,9 @@ import oop.focus.common.Repetition;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.EventImpl;
 
+/**
+ * This class is used to model an event hot key, wich is represented from a button, and a label.
+ */
 public class CounterHotKeyView extends Pane implements HotKeyView {
 
     private final HomePageController controller;

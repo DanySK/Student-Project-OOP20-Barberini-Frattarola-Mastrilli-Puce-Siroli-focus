@@ -2,16 +2,13 @@ package oop.focus.homepage.view;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -98,10 +95,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
     public final void save(final ActionEvent event) throws IOException {
         final String name = nameTextField.getText();
         if (categoryComboBox.getSelectionModel().isEmpty() || name.isEmpty()) {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
-            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-            alert.show();
+            new AlertFactoryImpl().createIncompleteFieldAlert();
         } else {
             try {
                 this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
@@ -109,9 +103,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
                 this.homePageController.getView().fullVBoxHotKey();
                 this.goBack(event);
             } catch (IllegalStateException e) {
-                final AlertFactory alertCreator = new AlertFactoryImpl();
-                final Alert alert = alertCreator.createConfirmationAlert();
-                alert.show();
+                new AlertFactoryImpl().createImpossibleSaveElement();
             }
         }
     }

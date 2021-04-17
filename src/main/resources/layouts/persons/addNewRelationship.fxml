@@ -15,7 +15,7 @@
       <Button fx:id="back" layoutX="27.0" layoutY="14.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="INDIETRO" />
       <Label fx:id="newDegree" layoutX="164.0" layoutY="22.0" text="NUOVA PARENTELA">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold Italic" size="24.0" />
          </font>
       </Label>
    </children>

@@ -7,20 +7,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.RelationshipsControllerImpl;
 import oop.focus.homepage.model.PersonImpl;
-import oop.focus.homepage.view.AlertFactory;
 import oop.focus.homepage.view.AlertFactoryImpl;
 
 import java.io.IOException;
@@ -44,8 +41,6 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     @FXML
     private ComboBox<String> degreeComboBox;
 
-    @FXML
-    private Line line;
 
     private final PersonsController controller;
     private final PersonsView personsView;
@@ -114,8 +109,6 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
 
         this.nameTextField.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
         this.nameTextField.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
-
-        //this.newDegree.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(C));
     }
 
     public final void delete(final ActionEvent event) {
@@ -144,10 +137,7 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
             this.personsView.populateTableView();
             this.goBack(event);
         } else {
-            final AlertFactory alertCreator = new AlertFactoryImpl();
-            final Alert alert = alertCreator.createWarningAlert();
-            alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-            alert.show();
+            new AlertFactoryImpl().createIncompleteFieldAlert();
         }
     }
 
