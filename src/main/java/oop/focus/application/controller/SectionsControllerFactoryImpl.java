@@ -8,7 +8,7 @@ import oop.focus.diary.controller.GeneralDiaryController;
 import oop.focus.finance.controller.BaseControllerImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.homepage.view.GeneralHomePageController;
+import oop.focus.homepage.controller.GeneralHomePageControllerImpl;
 
 /**
  * Implementation of {@link SectionsControllerFactory}.
@@ -20,7 +20,7 @@ public class SectionsControllerFactoryImpl implements SectionsControllerFactory 
     public SectionsControllerFactoryImpl() {
         this.dataSource = new DataSourceImpl();
         this.financeManager = new FinanceManagerImpl(this.dataSource);
-        this.generalHomePageController = new GeneralHomePageController(this.dataSource, this.financeManager);
+        this.generalHomePageController = new GeneralHomePageControllerImpl(this.dataSource, this.financeManager);
     }
 
     /**
