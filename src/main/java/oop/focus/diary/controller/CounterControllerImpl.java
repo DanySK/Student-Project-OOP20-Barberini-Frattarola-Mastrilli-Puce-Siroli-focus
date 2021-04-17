@@ -16,8 +16,10 @@ public class CounterControllerImpl implements CounterController {
     private final StartStopView view;
     private TimerButtons timerView;
     private final boolean isTimer;
-    public CounterControllerImpl(final EventManager me, final boolean isTimer, final CounterGeneralControllerImpl controllerCounter) {
+    private final CounterGeneralController generalController;
+    public CounterControllerImpl(final EventManager me, final boolean isTimer, final CounterGeneralController controllerCounter) {
         this.isTimer = isTimer;
+        this.generalController = controllerCounter;
         this.counterManager = new CounterManagerImpl(me,  isTimer);
         this.view = new StartStopView(this, controllerCounter);
         if (isTimer) {
@@ -44,17 +46,32 @@ public class CounterControllerImpl implements CounterController {
 
     @Override
     public final void stopSound() {
+        this.generalController.disableChooseEvent(true);
+        if (this.isTimer) {
+            this.disableTimerButtons(false);
+        }
         if (this.isPlaying()) {
             System.out.println(this.isPlaying());
             this.counterManager.stopSound();
         }
     }
+    private void disableTimerButtons(final boolean disable) {
+        this.timerView.disableButtons(disable);
+    }
     @Override
     public final void startTimer() {
+        this.generalController.disableChooseEvent(true);
+        if (this.isTimer) {
+            this.disableTimerButtons(true);
+        }
         this.counterManager.startCounter();
     }
     @Override
     public final void stopTimer() {
+        this.generalController.disableChooseEvent(true);
+        if (this.isTimer) {
+            this.disableTimerButtons(false);
+        }
         this.counterManager.stopCounter();
     }
     /**

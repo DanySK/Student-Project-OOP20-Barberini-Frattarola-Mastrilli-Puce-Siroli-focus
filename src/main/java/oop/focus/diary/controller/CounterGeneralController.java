@@ -22,4 +22,11 @@ public interface CounterGeneralController extends Controller {
      * @param localTime the starter value of timer.
      */
     void setStarterValue(LocalTime localTime);
+
+    /**
+     * The method disable the {@link javafx.scene.control.CheckBox} and the {@link javafx.scene.control.Button}
+     * that allow the insertion of a new name of an event.
+     * @param disable   the boolean is true if the components must be disabled, false otherwise.
+     */
+    void disableChooseEvent(boolean disable);
 }

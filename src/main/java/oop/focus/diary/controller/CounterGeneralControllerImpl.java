@@ -8,7 +8,7 @@ import org.joda.time.LocalTime;
 import java.util.List;
 
 public class CounterGeneralControllerImpl implements CounterGeneralController {
-    private final EventCounterControllerImpl eventCounterController;
+    private final EventCounterController eventCounterController;
     private final TotalTimeController totalTimeController;
     private final CounterController counterController;
     private LocalTime localTime = LocalTime.MIDNIGHT;
@@ -21,6 +21,10 @@ public class CounterGeneralControllerImpl implements CounterGeneralController {
     @Override
     public final void disableButton(final boolean disable) {
         this.counterController.disableButton(disable);
+    }
+    @Override
+    public void disableChooseEvent(final boolean disable) {
+        this.eventCounterController.disableChooseEvent(disable);
     }
     @Override
     public final void setCounterName(final String event) {

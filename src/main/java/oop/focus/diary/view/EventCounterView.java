@@ -41,7 +41,10 @@ public class EventCounterView implements View {
             this.controller.disableButton(false);
         });
     }
-
+    public void disableChooseEvent(final boolean disable) {
+        this.chooseEvent.setDisable(disable);
+        this.addNewEvent.setDisable(disable);
+    }
     public final void setNewValue(final String name) {
         this.chooseEvent.setValue(name);
     }

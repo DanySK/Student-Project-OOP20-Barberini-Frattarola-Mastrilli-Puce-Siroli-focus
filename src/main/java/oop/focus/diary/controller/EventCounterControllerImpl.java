@@ -25,6 +25,9 @@ public class EventCounterControllerImpl implements Controller, EventCounterContr
     public final void disableButton(final boolean disable) {
         this.generalControllerCounter.disableButton(disable);
     }
+    public void disableChooseEvent(boolean disable) {
+        this.view.disableChooseEvent(disable);
+    }
     @Override
     public final void setChosen(final String eventChosen) {
         this.generalControllerCounter.setCounterName(eventChosen);

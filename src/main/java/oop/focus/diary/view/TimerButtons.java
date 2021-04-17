@@ -10,12 +10,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.CounterGeneralControllerImpl;
+import oop.focus.diary.controller.CounterGeneralController;
 import oop.focus.diary.controller.InsertTimeTimerControllerImpl;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +25,8 @@ public class TimerButtons implements View {
     private static final DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");
     private static final int BUTTON_WITH_MINUTES = 3;
     private final List<Button> list;
-    private final CounterGeneralControllerImpl controller;
-    public TimerButtons(final CounterGeneralControllerImpl controller) {
+    private final CounterGeneralController controller;
+    public TimerButtons(final CounterGeneralController controller) {
         this.controller = controller;
         this.list = new ArrayList<>();
         this.setTimeButtons();
@@ -51,6 +50,9 @@ public class TimerButtons implements View {
             window.setScene(scene);
             window.show();
         });
+    }
+    public void disableButtons(final boolean disable) {
+        this.list.forEach(s -> s.setDisable(disable));
     }
     @Override
     public final Node getRoot() {
