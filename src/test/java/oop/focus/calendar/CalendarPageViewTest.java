@@ -20,10 +20,8 @@ public class CalendarPageViewTest extends Application {
 
     public final void start(final Stage primaryStage) {
 
-    	//final HBox test = new HBox();
     	final DataSource datasource = new DataSourceImpl();
         final CalendarController pagecontroller = new CalendarControllerImpl(datasource);
-        //test.getChildren().add(pagecontroller.getCalendarPage());
         primaryStage.setScene(new Scene((Parent) pagecontroller.getView().getRoot(), WIDTH, HEIGHT));
         primaryStage.show();
     }
