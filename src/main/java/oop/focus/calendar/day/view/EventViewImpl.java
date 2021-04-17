@@ -26,6 +26,7 @@ public class EventViewImpl implements VBoxManager {
 
     //Classes
     private final HoursView hours;
+    private final Day day;
 
     //View
     private VBox myVBox;
@@ -33,17 +34,22 @@ public class EventViewImpl implements VBoxManager {
     //Variables
     private double spacing;
     private double insertEventsDuration;
+    private double height;
 
     //List
     private final List<Event> events;
 
     //Constants
     private static final double MINUTES_IN_HOURS = 60;
+    private static final double HALF_HOUR = 30;
+
 
 
     public EventViewImpl(final HoursView hours, final Day day) {
         this.events = new ArrayList<>(day.getEvents());
         this.hours = hours;
+        this.day = day;
+        this.height = 0;
     }
 
     /**
@@ -58,9 +64,15 @@ public class EventViewImpl implements VBoxManager {
 
 
     public final double getY(final int i) {
+        final int hour;
         final double spaceForMinute = this.spacing / MINUTES_IN_HOURS;
         final double minutesTotalSpace = spaceForMinute * this.events.get(i).getStartHour().getMinuteOfHour();
-        return hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutesTotalSpace;
+        if (this.events.get(i).getEndDate().getDayOfMonth() == day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != day.getNumber()) {
+            return 0;
+        } else {
+            hour = this.events.get(i).getStartHour().getHourOfDay();
+            return hours.getY(hour) + minutesTotalSpace;
+        }
     }
 
 
@@ -88,15 +100,50 @@ public class EventViewImpl implements VBoxManager {
         panel.getChildren().add(name);
 
         if (i != 0) {
-        panel.setTranslateY(this.getY(i) - insertEventsDuration);
+            panel.setTranslateY(this.getY(i) - insertEventsDuration);
         } else {
-        panel.setTranslateY(this.getY(i));
+            if (this.getY(i) == 0 && this.hours.getFormat() == Format.EXTENDED.getNumber()) {
+                panel.setTranslateY(this.getY(i));
+                this.height -= HALF_HOUR;
+            } else {
+                panel.setTranslateY(this.getY(i));
+            }
         }
 
-        final double durationEventInHours = this.events.get(i).getEndHour().getHourOfDay() - this.events.get(i).getStartHour().getHourOfDay();
-        final double durationEventInMinutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
-        panel.setPrefHeight((this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS));
-        insertEventsDuration += (this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS);
+
+        double endHour;
+        double startHour;
+
+        if (this.events.get(i).getEndDate().getDayOfMonth() == day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != day.getNumber()) {
+            endHour = this.events.get(i).getEndHour().getHourOfDay();
+            startHour = 0;
+        } else {
+            startHour = this.events.get(i).getStartHour().getHourOfDay();
+            if (this.events.get(i).getEndHour().getHourOfDay() == 0) {
+                endHour = Format.NORMAL.getNumber();
+            } else {
+                if (!this.events.get(i).getEndDate().dayOfMonth().equals(this.events.get(i).getStartDate().dayOfMonth())) {
+                    endHour = Format.NORMAL.getNumber();
+                } else {
+                    endHour = this.events.get(i).getEndHour().getHourOfDay();
+                }
+            }
+        }
+
+
+        final double durationEventInHours = endHour - startHour;
+        double durationEventInMinutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
+        if (this.getY(i) == 0) {
+            if (this.events.get(i).getEndHour().getHourOfDay() == 0) {
+            durationEventInMinutes = HALF_HOUR;
+            } else {
+            durationEventInMinutes = HALF_HOUR + (double) this.events.get(i).getEndHour().getMinuteOfHour();
+            }
+        }
+        this.height += (this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS);
+        panel.setPrefHeight(this.height);
+        insertEventsDuration += this.height;
+        this.height = 0;
 
         vbox.getChildren().add(panel);
     }

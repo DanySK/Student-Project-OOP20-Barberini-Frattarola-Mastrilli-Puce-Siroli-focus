@@ -111,6 +111,8 @@ public class CalendarViewImpl implements View {
     private Button buildButtonWindows(final String name, final View view, final double width, final double height) {
         final Button button = new Button(name);
         button.getStyleClass().add("calendar-lateral-button");
+        button.setPrefHeight(GAP * 2);
+        button.setAlignment(Pos.CENTER);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) view.getRoot(), width, height));
         if ("IMPOSTAZIONI".equalsIgnoreCase(name)) {
