@@ -1,6 +1,5 @@
 package oop.focus.application.controller;
 import oop.focus.application.view.ButtonsAppView;
-import oop.focus.application.view.ButtonsView;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.statistics.controller.UpdatableController;

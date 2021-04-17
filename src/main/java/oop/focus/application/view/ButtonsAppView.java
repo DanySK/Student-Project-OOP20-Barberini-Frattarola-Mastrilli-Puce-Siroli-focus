@@ -38,7 +38,7 @@ public class ButtonsAppView extends ButtonsView {
      * {@inheritDoc}
      */
     @Override
-    public void setButtons() {
+    public final void setButtons() {
         this.controller.getList().forEach(s -> {
             final Button b = new Button(s.getValue());
             b.getStyleClass().addAll("upper-button");
