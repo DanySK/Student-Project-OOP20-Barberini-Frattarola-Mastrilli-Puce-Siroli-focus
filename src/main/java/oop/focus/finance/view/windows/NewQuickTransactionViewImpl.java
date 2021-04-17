@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,11 +28,11 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
     @FXML
     private DatePicker dataPicker;
     @FXML
-    private ChoiceBox<Category> categoryChoice;
+    private ComboBox<Category> categoryChoice;
     @FXML
-    private ChoiceBox<Account> accountChoice;
+    private ComboBox<Account> accountChoice;
     @FXML
-    private ChoiceBox<Repetition> repetitionChioce;
+    private ComboBox<Repetition> repetitionChioce;
     @FXML
     private ChoiceBox<String> typeChoice;
     @FXML
@@ -51,7 +52,9 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
         this.hoursTextField.setVisible(false);
         this.minutesTextField.setVisible(false);
         this.categoryChoice.setItems(super.getX().getCategories());
+        this.categoryChoice.setConverter(super.createStringConverter(Category::getName));
         this.accountChoice.setItems(super.getX().getAccounts());
+        this.accountChoice.setConverter(super.createStringConverter(Account::getName));
         this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
         this.typeChoice.setValue("Uscita");
         this.cancelButton.setOnAction(event -> this.close());
@@ -68,7 +71,7 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
 
     @Override
     public final void save() {
-        if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
+        if (this.descriptionTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.typeChoice.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0) {
             super.allert("I campi non sono stati compilati correttamente.");

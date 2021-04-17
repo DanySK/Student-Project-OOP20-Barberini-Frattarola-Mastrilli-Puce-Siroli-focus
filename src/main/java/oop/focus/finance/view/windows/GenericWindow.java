@@ -3,8 +3,11 @@ package oop.focus.finance.view.windows;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.view.bases.GenericView;
+
+import java.util.function.Function;
 
 public abstract class GenericWindow<X> extends GenericView<X> implements FinanceWindow {
 
@@ -21,15 +24,19 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
         stage.close();
     }
 
-    public static boolean isNotNumeric(final String strNum) {
-        if (strNum == null) {
-            return true;
-        }
-        try {
-            final double d = Double.parseDouble(strNum);
-        } catch (NumberFormatException nfe) {
-            return true;
-        }
-        return false;
+    @Override
+    public final <Y> StringConverter<Y> createStringConverter(final Function<Y, String> function) {
+        return new StringConverter<>() {
+            @Override
+            public String toString(final Y obj) {
+                return obj == null ? "" : function.apply(obj);
+            }
+
+            @Override
+            public Y fromString(final String s) {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
+
 }

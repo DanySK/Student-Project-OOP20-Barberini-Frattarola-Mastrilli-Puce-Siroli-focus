@@ -36,7 +36,7 @@ public class NewAccountViewImpl extends GenericWindow<NewAccountController> {
 
     @Override
     public final void save() {
-        if (this.nameTextfield.getText().isEmpty() || isNotNumeric(this.amountTextfield.getText())) {
+        if (this.nameTextfield.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextfield.getText())) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             super.getX().newAccount(this.nameTextfield.getText(), toRGBCode(this.colorPicker.getValue()),

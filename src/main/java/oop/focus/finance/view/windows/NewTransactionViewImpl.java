@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,11 +31,11 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
     @FXML
     private DatePicker dataPicker;
     @FXML
-    private ChoiceBox<Category> categoryChoice;
+    private ComboBox<Category> categoryChoice;
     @FXML
-    private ChoiceBox<Account> accountChoice;
+    private ComboBox<Account> accountChoice;
     @FXML
-    private ChoiceBox<Repetition> repetitionChioce;
+    private ComboBox<Repetition> repetitionChioce;
     @FXML
     private ChoiceBox<String> typeChoice;
     @FXML
@@ -46,19 +47,22 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
 
     @Override
     public final void populate() {
-        this.newCategoryButton.setOnAction(event -> this.showNewCategory());
         this.titleLabel.setText("NUOVA TRANSAZIONE");
-        this.categoryChoice.setItems(super.getX().getCategories());
-        this.accountChoice.setItems(super.getX().getAccounts());
-        this.repetitionChioce.setItems(super.getX().getRepetitions());
-        this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
+        this.newCategoryButton.setOnAction(event -> this.showNewCategory());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
+        this.categoryChoice.setItems(super.getX().getCategories());
+        this.categoryChoice.setConverter(super.createStringConverter(Category::getName));
+        this.accountChoice.setItems(super.getX().getAccounts());
+        this.accountChoice.setConverter(super.createStringConverter(Account::getName));
+        this.repetitionChioce.setItems(super.getX().getRepetitions());
+        this.repetitionChioce.setConverter(super.createStringConverter(Repetition::getName));
+        this.repetitionChioce.setValue(Repetition.ONCE);
+        this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
+        this.typeChoice.setValue("Uscita");
         this.dataPicker.setValue(LocalDate.now());
         this.hoursTextField.setText("" + LocalDateTime.now().getHourOfDay());
         this.minutesTextField.setText("" + LocalDateTime.now().getMinuteOfHour());
-        this.repetitionChioce.setValue(Repetition.ONCE);
-        this.typeChoice.setValue("Uscita");
     }
 
     private void showNewCategory() {
@@ -70,7 +74,7 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
 
     @Override
     public final void save() {
-        if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
+        if (this.descriptionTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.repetitionChioce.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
                 || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()

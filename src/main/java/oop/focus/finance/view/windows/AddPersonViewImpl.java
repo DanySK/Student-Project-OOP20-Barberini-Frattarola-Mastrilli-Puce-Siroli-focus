@@ -4,14 +4,12 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
-import oop.focus.calendar.persons.view.PersonsView;
-import oop.focus.calendar.persons.view.PersonsViewImpl;
 import oop.focus.finance.controller.AddPersonController;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.homepage.model.Person;
@@ -23,7 +21,7 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
     @FXML
     private Label titleLabel, selectLabel, newPersonLabel;
     @FXML
-    private ChoiceBox<Person> personChoice;
+    private ComboBox<Person> personChoice;
     @FXML
     private Button newPersonButton, cancelButton, saveButton;
 
@@ -35,6 +33,7 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
     public final void populate() {
         this.newPersonButton.setText("Nuova persona");
         this.personChoice.setItems(super.getX().getPersonsToAdd());
+        this.personChoice.setConverter(super.createStringConverter(Person::getName));
         this.newPersonButton.setOnAction(event -> this.newPerson());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());

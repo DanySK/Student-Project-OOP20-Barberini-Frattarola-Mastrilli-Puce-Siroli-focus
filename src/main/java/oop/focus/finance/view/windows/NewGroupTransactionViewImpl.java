@@ -2,7 +2,7 @@ package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -22,7 +22,7 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
     @FXML
     private TextField descriptionTextField, amountTextField, hoursTextField, minutesTextField;
     @FXML
-    private ChoiceBox<Person> madeByChoice;
+    private ComboBox<Person> madeByChoice;
     @FXML
     private VBox multiVBox;
     @FXML
@@ -39,6 +39,7 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
     @Override
     public final void populate() {
         this.madeByChoice.setItems(super.getX().getGroupList());
+        this.madeByChoice.setConverter(super.createStringConverter(Person::getName));
         this.multiSelector = new MultiSelectorView<>(super.getX().getGroup(), Person::getName);
         this.multiVBox.getChildren().add(this.multiSelector.getRoot());
         this.cancelButton.setOnAction(event -> this.close());
@@ -50,7 +51,7 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
 
     @Override
     public final void save() {
-        if (this.descriptionTextField.getText().isEmpty() || isNotNumeric(this.amountTextField.getText())
+        if (this.descriptionTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null
                 || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()
                 || Integer.parseInt(this.amountLabel.getText()) > 0) {
