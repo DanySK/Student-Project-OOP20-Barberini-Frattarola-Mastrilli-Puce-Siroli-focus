@@ -15,7 +15,11 @@ public enum Style {
     /**
      *
      */
-    CALENDAR_STYLE(Constants.STYLES + "Calendar.css");
+    CALENDAR_STYLE(Constants.STYLES + "Calendar.css"),
+    /**
+     *
+     */
+    DIARY_STYLE(Constants.STYLES + "diaryStyle.css");
     private final String path;
 
     Style(final String path) {

@@ -23,9 +23,9 @@ import java.util.List;
 public class StartStopView implements View {
     private static final Integer INSETS = 20;
     private static final Double SPACING = 0.1;
-    private static final Double BUTTONS_WIDTH = 0.3;
+    private static final Double BUTTONS_WIDTH = 0.2;
     private static final Double LABEL_WIDTH = 0.5;
-    private static final Double LABEL_HEIGHT = 0.4;
+    private static final Double LABEL_HEIGHT = 0.6;
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private final Label counterLabel;
     private final Button start;
@@ -45,7 +45,6 @@ public class StartStopView implements View {
             controller.stopSound();
             controller.stopTimer();
             controllerCounter.setStarterValue(LocalTime.parse(this.counterLabel.getText(), TIME_FORMATTER));
-            System.out.println(this.counterLabel.getText());
             this.start.setDisable(false);
             this.stop.setDisable(true);
         });
@@ -69,6 +68,7 @@ public class StartStopView implements View {
         this.stop.prefWidthProperty().bind(vbox.widthProperty().multiply(BUTTONS_WIDTH));
         this.counterLabel.prefWidthProperty().bind(vbox.widthProperty().multiply(LABEL_WIDTH));
         this.counterLabel.prefHeightProperty().bind(vbox.heightProperty().multiply(LABEL_HEIGHT));
+        this.counterLabel.getStyleClass().addAll("counterValue");
         hBox.setAlignment(Pos.CENTER);
         vbox.getChildren().addAll(this.counterLabel, hBox);
         vbox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));

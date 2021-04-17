@@ -17,6 +17,7 @@ public enum Style {
      *
      */
     MOOD_CALENDAR_STYLE(Costants.DIARY + "moodCalendarStyle.css");
+
     private final String path;
 
     Style(final String path) {

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimerButtons implements View {
-    private static final Double BUTTONS_WIDTH = 0.3;
+    private static final Double BUTTONS_WIDTH = 0.2;
     private static final Integer INSETS = 20;
     private static final int MINUTES_GAP = 15;
     private static final DateTimeFormatter TIME_FORMATTER_WITHOUT_HOUR = DateTimeFormat.forPattern("mm : ss");

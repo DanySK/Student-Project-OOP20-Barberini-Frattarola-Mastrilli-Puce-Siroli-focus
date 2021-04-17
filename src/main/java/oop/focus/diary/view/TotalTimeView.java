@@ -13,9 +13,9 @@ import org.joda.time.format.DateTimeFormatter;
 
 public class TotalTimeView implements View {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
-    private static final double LABEL_WIDTH = 0.6;
+    private static final double LABEL_WIDTH = 0.5;
     private static final double LABEL_HEIGHT = 0.2;
-    private static final double SPACING = 0.2;
+    private static final double SPACING = 0.1;
     private final Label label;
     private final Label totalTimeLabel;
 
@@ -35,6 +35,7 @@ public class TotalTimeView implements View {
         this.label.prefWidthProperty().bind(vBox.widthProperty().multiply(LABEL_WIDTH));
         this.label.prefHeightProperty().bind(vBox.heightProperty().multiply(LABEL_HEIGHT));
         this.label.setAlignment(Pos.CENTER);
+        this.label.getStyleClass().addAll("totalTimeLabel");
         this.totalTimeLabel.setAlignment(Pos.CENTER);
         this.totalTimeLabel.prefWidthProperty().bind(this.label.widthProperty());
         vBox.spacingProperty().bind(vBox.heightProperty().multiply(SPACING));

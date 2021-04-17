@@ -40,7 +40,7 @@ public class CounterGeneralControllerImpl implements CounterGeneralController {
     }
     @Override
     public final View getView() {
-        return new CreateBoxFactoryImpl().createVBox(List.of(new CreateBoxFactoryImpl().createHBox(List.of(this.eventCounterController.getView().getRoot(),
-                this.totalTimeController.getView().getRoot())).getRoot(), this.counterController.getView().getRoot()));
+        return new CreateBoxFactoryImpl().createVBox(List.of(this.eventCounterController.getView().getRoot(),
+                this.totalTimeController.getView().getRoot(), this.counterController.getView().getRoot()));
     }
 }

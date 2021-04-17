@@ -29,6 +29,7 @@ public class App extends Application {
         scene.getStylesheets().add(Style.GENERAL_STYLE.getPath());
         scene.getStylesheets().add(Style.STATISTIC_STYLE.getPath());
         scene.getStylesheets().add(Style.CALENDAR_STYLE.getPath());
+        scene.getStylesheets().add(Style.DIARY_STYLE.getPath());
         primaryStage.setHeight(this.height);
         primaryStage.setWidth(this.width);
         primaryStage.setScene(scene);
