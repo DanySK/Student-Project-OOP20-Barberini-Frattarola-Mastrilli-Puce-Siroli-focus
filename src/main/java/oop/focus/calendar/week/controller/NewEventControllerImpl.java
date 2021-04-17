@@ -9,6 +9,7 @@ import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
+import org.joda.time.LocalDate;
 
 public class NewEventControllerImpl implements NewEventController {
 
@@ -32,6 +33,7 @@ public class NewEventControllerImpl implements NewEventController {
     public final void addNewEvent(final Event event) {
         try {
             this.eventManager.addEvent(event);
+            this.eventManager.generateRepeatedEvents(LocalDate.now());
         } catch (IllegalStateException e) {
             throw new IllegalStateException();
         }

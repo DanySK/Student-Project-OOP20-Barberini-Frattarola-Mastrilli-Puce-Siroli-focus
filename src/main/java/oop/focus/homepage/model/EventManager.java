@@ -10,6 +10,9 @@ import org.joda.time.LocalTime;
 
 public interface EventManager {
 
+    List<Event> generateNext(Event event, LocalDate date);
+
+    List<Event> generateListOfNextEvent(LocalDate date);
     /**
      * This method is used to add new event.
      * @param event is the event that must be added to events list.

@@ -79,7 +79,7 @@ public class EventManagerImpl implements EventManager {
                .flatMap(e -> this.generateNext(e, date).stream()).collect(Collectors.toList());
     }
 
-    private List<Event> generateNext(final Event event, final LocalDate date) {
+    public final List<Event> generateNext(final Event event, final LocalDate date) {
         if (event.getRipetition().equals(Repetition.ONCE) || new LocalDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth())
                .isBefore(new LocalDate(event.getNextRenewal().getStartDate()))) {
            return new ArrayList<>();
@@ -91,7 +91,13 @@ public class EventManagerImpl implements EventManager {
     }
 
     public final void generateRepeatedEvents(final LocalDate date) {
-        this.generateListOfNextEvent(date).forEach(this::addEvent);
+        this.generateListOfNextEvent(date).forEach(e -> {
+            try {
+                this.events.save(e);
+            } catch (DaoAccessException daoAccessException) {
+                daoAccessException.printStackTrace();
+            }
+        });
     }
 
     public final Set<Event> getAll() {

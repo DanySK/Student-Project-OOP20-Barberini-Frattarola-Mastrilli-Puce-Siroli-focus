@@ -69,6 +69,11 @@ public class EventInformationViewImpl implements View, Initializable {
         this.name.setAlignment(Pos.CENTER);
         this.name.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
         this.name.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        this.insertStartDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        this.insertStartDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+
     }
 
     @Override

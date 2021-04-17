@@ -7,6 +7,7 @@ import oop.focus.calendar.persons.view.RelationshipsView;
 import oop.focus.calendar.persons.view.RelationshipsViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
+import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.model.RelationshipsManager;
 import oop.focus.homepage.model.RelationshipsManagerImpl;
 
@@ -29,8 +30,12 @@ public class RelationshipsControllerImpl implements RelationshipsController {
         this.relationships.add(relationship);
     }
 
-    public final void deleteRelationship(final String relationship) {
-        this.relationships.remove(relationship);
+    public final void deleteRelationship(final String relationship)  {
+        try{
+            this.relationships.remove(relationship);
+        } catch (IllegalStateException e){
+            throw  new IllegalStateException();
+        }
     }
 
     public final ObservableList<String> getDegree() {

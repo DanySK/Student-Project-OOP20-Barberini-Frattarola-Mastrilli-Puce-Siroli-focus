@@ -43,7 +43,7 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
         try {
             this.sd.delete(degree);
         } catch (DaoAccessException e) {
-            e.printStackTrace();
+            throw new IllegalStateException();
         }
     }
 

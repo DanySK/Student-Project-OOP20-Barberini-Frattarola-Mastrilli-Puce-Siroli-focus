@@ -88,12 +88,13 @@ public class HomePageControllerImpl implements HomePageController {
     }
 
     public final void refreshDailyEvents() {
-        //this.eventManager.generateRepeatedEvents(LocalDate.now());
+        this.eventManager.generateRepeatedEvents(LocalDate.now());
     }
 
     public final void saveEvent(final Event eventImpl) {
         try {
             this.eventManager.addEvent(eventImpl);
+            this.eventManager.generateRepeatedEvents(LocalDate.now());
         } catch (IllegalStateException e) {
             throw new IllegalStateException();
         }

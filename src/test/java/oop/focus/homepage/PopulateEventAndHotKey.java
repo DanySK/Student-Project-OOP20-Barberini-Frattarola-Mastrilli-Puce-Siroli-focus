@@ -26,6 +26,8 @@ public class PopulateEventAndHotKey {
 
     @Test
     public void populateEvent(){
+        final Event repeMonth = new EventImpl("Month", new LocalDateTime(2021, 1, 14, 00, 00), new LocalDateTime(2021, 1, 15, 2, 00), Repetition.MONTHLY);
+        final Event repDayly = new EventImpl("Daily", new LocalDateTime(2021, 4,10,8,00), new LocalDateTime(2021, 4, 10, 10 ,00), Repetition.DAILY);
         final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9,26,9,30), new LocalDateTime(2021, 9,26,10,30), Repetition.ONCE);
         final Event second = new EventImpl("Allenamento" , new LocalDateTime(2021, 4, 11, 7,30), new LocalDateTime(2021, 4, 11, 7,30), Repetition.ONCE);
         final Event third =new EventImpl("Gita", new LocalDateTime(2021, 9,26,9,30), new LocalDateTime(2021, 9,27,10,30), Repetition.ONCE);
@@ -35,6 +37,12 @@ public class PopulateEventAndHotKey {
         final Event seventh = new EventImpl("normale", new LocalDateTime(2021, 4, 12, 23, 10), new LocalDateTime(2021, 4, 12, 23, 45), Repetition.ONCE);
         final Event eight = new EventImpl("Prova", new LocalDateTime(2021, 4, 7, 12, 00), new LocalDateTime(2021, 4, 7, 13, 00), Repetition.WEEKLY);
         try {
+            this.event.addEvent(repeMonth);
+        } catch (IllegalStateException ignored) {}
+        try {
+            this.event.addEvent(repDayly);
+        } catch (IllegalStateException ignored) {}
+        /*try {
             this.event.addEvent(first);
         } catch (IllegalStateException ignored) {}
         try{
@@ -60,7 +68,7 @@ public class PopulateEventAndHotKey {
         try{
             this.event.addEvent(eight);
         } catch (IllegalStateException ignored) {}
-
+*/
     }
 
     @Test

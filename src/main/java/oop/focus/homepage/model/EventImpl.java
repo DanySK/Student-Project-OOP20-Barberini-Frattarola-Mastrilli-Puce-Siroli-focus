@@ -173,7 +173,7 @@ public class EventImpl implements Event {
 
     public final void stopRepeat() {
         this.isRepeated = false;
-        this.repetition = Repetition.ONCE;
+        //this.repetition = Repetition.ONCE;
     }
 
     @Override

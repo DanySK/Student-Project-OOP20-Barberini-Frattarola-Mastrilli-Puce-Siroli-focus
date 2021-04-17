@@ -6,6 +6,7 @@ import oop.focus.event.view.EventInformationViewImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
+import org.joda.time.LocalDate;
 
 public class EventInformationControllerImpl implements EventInformationController {
 
@@ -24,11 +25,10 @@ public class EventInformationControllerImpl implements EventInformationControlle
     }
 
     public final void stopRepetition() {
-        this.eventManager.removeEvent(this.event);
-        if (this.event.isRepeated()) {
-            this.event.stopRepeat();
+        this.eventManager.generateRepeatedEvents(LocalDate.now());
+        for (Event e : this.eventManager.getAll()){
+            System.out.println(e.getName() + " "+ e.getStart().toString());
         }
-        this.eventManager.addEvent(this.event);
     }
 
     @Override

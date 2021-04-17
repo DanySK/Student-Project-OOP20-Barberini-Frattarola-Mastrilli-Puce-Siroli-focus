@@ -33,6 +33,19 @@ public class EventTest {
     private final Event seventh = new EventImpl("Cane", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 9, 15), Repetition.ONCE);
 
     @Test
+    public void testRepeat(){
+        Event repeated = new EventImpl("Repeat", new LocalDateTime(2021, 4, 13, 00, 00), new LocalDateTime(2021, 4, 13, 2, 00), Repetition.DAILY);
+        try{
+            this.eventi.addEvent(repeated);
+        } catch (IllegalStateException ignored){}
+
+        this.eventi.generateRepeatedEvents(LocalDate.now());;
+        for (Event e : this.eventi.getAll()){
+            System.out.println(e.getName());
+        }
+    }
+    /*
+    @Test
     public void addingAndRemovingEventTest() {
         try {
             this.eventi.addEvent(first);
@@ -64,7 +77,7 @@ public class EventTest {
     	this.eventi.removeEvent(seventh);
     }*/
 
-    @Test
+  /*  @Test
     public void equalsEventsTest() {
 
     	final Event firstCopy = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.DAILY);
@@ -111,6 +124,6 @@ public class EventTest {
 
         assertEquals(third.getStartHour(), new LocalTime(11, 30));
         assertEquals(third.getEndHour(), new LocalTime(18, 30));
-    }
+    }*/
 
 }
