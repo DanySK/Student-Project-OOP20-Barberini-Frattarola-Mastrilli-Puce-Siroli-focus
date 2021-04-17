@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import oop.focus.common.Controller;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
+import oop.focus.finance.model.FinanceManager;
 
 public interface NewQuickTransactionController extends Controller {
 
@@ -26,4 +27,9 @@ public interface NewQuickTransactionController extends Controller {
      * @return a list of alla accounts saved in the database
      */
     ObservableList<Account> getAccounts();
+
+    /**
+     * @return manager of finance
+     */
+    FinanceManager getManager();
 }

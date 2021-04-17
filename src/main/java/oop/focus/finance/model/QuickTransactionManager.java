@@ -24,6 +24,11 @@ public interface QuickTransactionManager {
     void remove(QuickTransaction quickTransaction);
 
     /**
+     * Removes all quick transactions.
+     */
+    void reset();
+
+    /**
      * @return the list of all quick transactions
      */
     ObservableSet<QuickTransaction> getQuickTransactions();

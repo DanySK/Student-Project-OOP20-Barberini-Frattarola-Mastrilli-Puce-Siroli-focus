@@ -5,6 +5,8 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
+import java.util.List;
+
 public class QuickTransactionManagerImpl implements QuickTransactionManager {
 
     private final Dao<QuickTransaction> quickTransactions;
@@ -29,6 +31,11 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
         } catch (DaoAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public final void reset() {
+        List.copyOf(this.quickTransactions.getAll()).forEach(this::remove);
     }
 
     @Override

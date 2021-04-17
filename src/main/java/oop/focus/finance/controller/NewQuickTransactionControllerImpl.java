@@ -45,4 +45,9 @@ public class NewQuickTransactionControllerImpl implements NewQuickTransactionCon
         Linker.setToList(this.manager.getAccountManager().getAccounts(), list);
         return list;
     }
+
+    @Override
+    public final FinanceManager getManager() {
+        return this.manager;
+    }
 }

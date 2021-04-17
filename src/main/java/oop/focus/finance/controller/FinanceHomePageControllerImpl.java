@@ -54,6 +54,11 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
     }
 
     @Override
+    public final void resetQuickTransactions() {
+        this.manager.getQuickManager().reset();
+    }
+
+    @Override
     public final double getAmount(final Account account) {
         return (double) this.manager.getAmount(account) / 100;
     }

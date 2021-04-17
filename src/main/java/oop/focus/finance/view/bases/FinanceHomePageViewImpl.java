@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
@@ -42,7 +43,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
     @FXML
     private Label amountLabel;
     @FXML
-    private Button newMovememntButton, newQuickTransactionButton;
+    private Button newMovememntButton, newQuickTransactionButton, deleteButton;
 
     public FinanceHomePageViewImpl(final FinanceHomePageController controller) {
         super(controller, FXMLPaths.HOMEPAGE);
@@ -55,6 +56,9 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         this.populateQuickTransactions();
         this.newMovememntButton.setOnAction(event ->
                 this.show(new NewTransactionControllerImpl(super.getX().getManager()).getView()));
+        this.newQuickTransactionButton.setOnAction(event ->
+                this.show(new NewQuickTransactionControllerImpl(super.getX().getManager()).getView()));
+        this.deleteButton.setOnAction(event -> this.resetQuickTransactions());
         this.setPref();
     }
 
@@ -77,7 +81,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         final List<GenericTileView<Account>> fastAccountTiles = new ArrayList<>();
         super.getX().getSortedAccounts().forEach(a -> fastAccountTiles.add(
                 new GenericTileViewImpl<>(a, a.getColor(), a.getName(), "",
-                        this.format(super.getX().getAmount(a)))));
+                        super.getX().getAmount(a))));
         var vbox = viewFactory.createVerticalAutoResizingWithNodes(fastAccountTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.accountsScroll.setContent(vbox.getRoot());
@@ -89,7 +93,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         final List<GenericTileView<Transaction>> fastTransactionTiles = new ArrayList<>();
         super.getX().getSortedTodayTransactions().forEach(t -> fastTransactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
-                        t.getCategory().getName(), this.format((double) t.getAmount() / 100))));
+                        t.getCategory().getName(), (double) t.getAmount() / 100)));
         var vbox = viewFactory.createVerticalAutoResizingWithNodes(fastTransactionTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.transactionsScroll.setContent(vbox.getRoot());
@@ -104,7 +108,6 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         financeHotKeyButtons.forEach(b -> pane.getChildren().add(b.getButton()));
         financeHotKeyButtons.forEach(b -> b.getButton().setPrefWidth(Screen.getPrimary().getBounds().getWidth()));
         financeHotKeyButtons.forEach(b -> b.getButton().setOnAction(event -> b.getAction(super.getX())));
-        this.newQuickTransactionButton.setOnAction(event -> this.show(new NewQuickTransactionControllerImpl(super.getX().getManager()).getView()));
         this.quickTransactionsScroll.setContent(pane);
     }
 
@@ -112,5 +115,12 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) view.getRoot()));
         stage.show();
+    }
+
+    private void resetQuickTransactions() {
+        var result = super.confirm("Sicuro di voler eliminare tutte le transazioni rapide?");
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            super.getX().resetQuickTransactions();
+        }
     }
 }

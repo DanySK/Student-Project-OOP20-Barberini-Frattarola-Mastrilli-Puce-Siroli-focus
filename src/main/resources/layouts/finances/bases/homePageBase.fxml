@@ -33,7 +33,8 @@
    </center>
    <left>
       <VBox prefHeight="551.0" prefWidth="194.0" BorderPane.alignment="CENTER">
-         <ScrollPane fx:id="quickTransactionsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="549.0" prefWidth="209.0" />
+         <ScrollPane fx:id="quickTransactionsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="194.0" />
+         <Button fx:id="deleteButton" minHeight="55.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="194.0" text="Elimina Transazioni Rapide" />
       </VBox>
    </left>
 </BorderPane>

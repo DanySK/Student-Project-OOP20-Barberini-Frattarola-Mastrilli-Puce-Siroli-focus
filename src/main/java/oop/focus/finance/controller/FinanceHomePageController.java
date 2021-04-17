@@ -18,6 +18,11 @@ public interface FinanceHomePageController extends Controller {
     void doQuickTransaction(QuickTransaction quickTransaction);
 
     /**
+     * Deletes all quick transactions.
+     */
+    void resetQuickTransactions();
+
+    /**
      * @param account whose amount we want to know
      * @return account's current amount in euro
      */
