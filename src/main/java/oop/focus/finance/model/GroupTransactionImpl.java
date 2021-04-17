@@ -7,6 +7,7 @@ import org.joda.time.LocalDateTime;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Immutable implementation of a group transaction.
@@ -78,5 +79,14 @@ public class GroupTransactionImpl implements GroupTransaction {
     @Override
     public final int hashCode() {
         return Objects.hash(this.description, this.madeBy, this.forList, this.amount, this.date);
+    }
+
+    @Override
+    public final String toString() {
+        return "Description: " + this.description
+                + ", made by: " + this.madeBy.getName()
+                + ", for: " + this.forList.stream().map(Person::getName).collect(Collectors.joining(", "))
+                + ", amount: " + this.amount
+                + ", date: " + this.getDateToString();
     }
 }

@@ -51,6 +51,8 @@ public class AccountImpl implements Account {
 
     @Override
     public final String toString() {
-        return this.name;
+        return "Name: " + this.name
+                + ", initial amount: " + this.initialAmount
+                + ", color: " + this.color;
     }
 }

@@ -107,4 +107,14 @@ public class TransactionImpl implements Transaction {
     public final int hashCode() {
         return Objects.hash(this.description, this.category, this.date, this.account, this.amount, this.repetition);
     }
+
+    @Override
+    public final String toString() {
+        return "Description: " + this.description
+                + ", category: " + this.category.getName()
+                + ", date: " + this.getDateToString()
+                + ", account: " + this.account.getName()
+                + ", amount: " + this.amount
+                + ", repetition: " + this.repetition.getName();
+    }
 }

@@ -57,4 +57,12 @@ public class QuickTransactionImpl implements QuickTransaction {
     public final int hashCode() {
         return Objects.hash(this.description, this.category, this.account, this.amount);
     }
+
+    @Override
+    public final String toString() {
+        return "Description: " + this.description
+                + ", category: " + this.category.getName()
+                + ", account: " + this.account.getName()
+                + ", amount: " + this.amount;
+    }
 }
