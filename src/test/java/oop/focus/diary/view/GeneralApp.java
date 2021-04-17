@@ -1,4 +1,4 @@
-package oop.focus.diary.model;
+package oop.focus.diary.view;
 
 import javafx.application.Application;
 import javafx.geometry.Dimension2D;
@@ -10,7 +10,7 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.GeneralDiaryController;
 
 
-public class GeneralLauncher extends Application {
+public class GeneralApp extends Application {
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         final Dimension2D dim = new Dimension2D(1400, 900);
