@@ -1,6 +1,5 @@
 package oop.focus.diary.view;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -75,11 +74,11 @@ public class DailyMoodSection implements View {
         this.gridPane.setHgap(GRID_GAP);
         this.gridPane.setAlignment(Pos.CENTER);
         for (int i = 0; i < NUM_ICONS; i++) {
-            final DailyMoodViewImpl view = new DailyMoodViewImpl(i);
+            final DailyMoodView view = new DailyMoodView(i);
             final Button b = new Button();
             this.map.put(b, i);
-
             b.setGraphic(view.getRoot());
+            b.getGraphic().maxWidth(20);
             b.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
             b.prefWidthProperty().bind(this.gridPane.widthProperty().multiply(0.15));
             this.gridPane.add(b, index, 0);

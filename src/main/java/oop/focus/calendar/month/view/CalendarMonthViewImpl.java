@@ -30,7 +30,7 @@ import oop.focus.calendar.model.Day;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
 import oop.focus.diary.model.DailyMoodManagerImpl;
-import oop.focus.diary.view.DailyMoodViewImpl;
+import oop.focus.diary.view.DailyMoodView;
 
 
 
@@ -229,7 +229,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         if (moodController.getValueByDate(localDay).isPresent()) {
             final Optional<Integer> index = moodController.getValueByDate(localDay);
             if (index.isPresent()) {
-                container.getChildren().add(new DailyMoodViewImpl(index.get()).getRoot());
+                container.getChildren().add(new DailyMoodView(index.get()).getRoot());
             }
         }
         container.setAlignment(Pos.CENTER);
