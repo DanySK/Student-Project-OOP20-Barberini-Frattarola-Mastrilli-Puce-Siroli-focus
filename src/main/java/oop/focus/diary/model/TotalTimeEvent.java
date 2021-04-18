@@ -16,7 +16,7 @@ public interface TotalTimeEvent {
     /**
      * Compute the seconds spent to do an activity.
      * @param labelName   activity's name
-     * @return  the seconds spent to do an activity
+     * @return  the period spent to do an activity (if the activity is present in dataBase)
     */
     Optional<Period> computePeriod(String labelName);
 

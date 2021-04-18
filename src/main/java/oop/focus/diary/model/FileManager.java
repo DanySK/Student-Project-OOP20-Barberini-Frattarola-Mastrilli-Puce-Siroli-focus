@@ -8,19 +8,19 @@ import java.io.IOException;
 import java.nio.file.Path;
 
 /**
- * The interface can be used to manage the opening/closing of buffers.
+ * The interface can be used to manage the opening/closing of buffers of the file in input.
  * Every file has his own FileManager.
  */
 public interface FileManager {
     /**
-     * The method create a new buffered reader of the input's file.
+     * The method create a new {@link BufferedReader} of the input's file.
      * @param file  the file of which is returned his buffered reader
      * @throws FileNotFoundException    if the file doesn't exist
      */
     void openBufferedReader(File file) throws FileNotFoundException;
 
     /**
-     * Return the last buffered reader created.
+     * Return buffered reader relating to the file associated with the class.
      * @return  the last buffered reader created
      */
     BufferedReader getBufferedReader();
@@ -33,13 +33,13 @@ public interface FileManager {
     void openBufferedWriter(File file) throws IOException;
 
     /**
-     * Return the last buffered writer created.
-     * @return  the last buffered writer created
+     * Return the last buffered writer relating to the file associated with the class.
+     * @return  the buffered writer of file
      */
     BufferedWriter getBufferedWriter();
 
     /**
-     * Return the path of the specific file of file manager.
+     * Return the path of file of file manager.
      * @return  the path of the file specified in the constructor of the class
      */
     Path getFile();

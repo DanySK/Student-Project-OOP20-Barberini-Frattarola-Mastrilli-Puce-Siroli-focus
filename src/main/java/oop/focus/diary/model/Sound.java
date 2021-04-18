@@ -13,10 +13,5 @@ public interface Sound {
      * The method is used to stop an alarm if it's playing.
      */
     void stopSound();
-    /**
-     * Checks if alarm is playing or not.
-     * @return  true if alarm is playing, false otherwise.
-     */
-    boolean isPlaying();
 
 }

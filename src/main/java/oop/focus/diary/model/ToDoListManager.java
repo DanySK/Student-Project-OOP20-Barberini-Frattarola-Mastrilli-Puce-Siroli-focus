@@ -3,32 +3,34 @@ package oop.focus.diary.model;
 import javafx.collections.ObservableSet;
 
 /**
- * The interface is a manager of ToDoList's section, with method to create or delete annotations and to set if an annotation has been complete.
+ * The interface is a manager of ToDoList's section, with methods to create or delete annotations and to set if an
+ * annotation has been complete.
  *
  */
 public interface ToDoListManager {
     /**
-     * Add new ToDoList's annotation to the section.
+     * Add new ToDoAction to ToDoList.
      * 
-     * @param tdl       ToDoList's annotation
+     * @param tda   ToDoAction's annotation
      */
-    void addAnnotation(ToDoAction tdl);
+    void addAnnotation(ToDoAction tda);
     /**
-     * Remove the ToDoList's section from the list.
+     * Remove the ToDoAction in input by ToDoList.
      * 
-     * @param tdl       the annotation to remove
+     * @param tda   the annotation to remove
      */
-    void removeAnnotation(ToDoAction tdl);
+    void removeAnnotation(ToDoAction tda);
     /**
-     * Set as done or unset the annotation of the ToDoList in input: if the box is setted the method unsets it, so on the other side.
-     * 
-     * @param tdl       ToDoList's section : is the box is choosed, then
+     * Set as done or unset the annotation of ToDoAction in input:
+     * if the toDoAction's status is set the method unsets it, so on the other side.
+     *
+     * @param tda   the ToDoAction whose status is changed
      */
-    void changeBoxStatus(ToDoAction tdl);
+    void changeBoxStatus(ToDoAction tda);
     /**
-     * Return all the annotation saved.
+     * Return an {@link ObservableSet} with all toDoActions.
      * 
-     * @return  a set of all ToDoList's sections
+     * @return  a set of all ToDoActions.
      */
     ObservableSet<ToDoAction> getAnnotations();
 }

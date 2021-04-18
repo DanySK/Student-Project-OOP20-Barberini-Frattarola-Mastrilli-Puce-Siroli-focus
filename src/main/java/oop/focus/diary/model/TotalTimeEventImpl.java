@@ -8,11 +8,16 @@ import org.joda.time.Period;
 
 import oop.focus.homepage.model.EventManager;
 /**
- * Immutable implementation of TotalTimeEvent.
+ * Immutable implementation of {@link TotalTimeEvent}.
  */
 
 public class TotalTimeEventImpl implements TotalTimeEvent {
     private final EventManager me;
+
+    /**
+     * Instantiates a new total time event.
+     * @param me    the event manager
+     */
     public TotalTimeEventImpl(final EventManager me) {
         this.me = me;
     }

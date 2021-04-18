@@ -15,6 +15,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Implementation of {@link Dao}.
+ */
 public class DiaryDao implements Dao<DiaryImpl> {
     private static final int MAX_LENGTH = 50;
     private final Map<DiaryImpl, DiaryConnector> map;

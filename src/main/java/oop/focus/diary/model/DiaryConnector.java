@@ -6,7 +6,9 @@ import oop.focus.db.exceptions.ConnectionException;
 import java.io.File;
 import java.io.IOException;
 
-
+/**
+ * A specific connector to a file.
+ */
 public class DiaryConnector implements Connector<FileManager> {
     private boolean connected;
     private final FileManager fm;
@@ -17,6 +19,9 @@ public class DiaryConnector implements Connector<FileManager> {
         this.fm = new FileManagerImpl(this.file);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void create() throws ConnectionException {
         if (!this.file.exists()) {
@@ -28,11 +33,17 @@ public class DiaryConnector implements Connector<FileManager> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final FileManager getConnection() throws IllegalStateException {
         return this.fm;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void open() {
 
@@ -52,6 +63,9 @@ public class DiaryConnector implements Connector<FileManager> {
         this.connected = true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void close() {
         if (!this.connected) {

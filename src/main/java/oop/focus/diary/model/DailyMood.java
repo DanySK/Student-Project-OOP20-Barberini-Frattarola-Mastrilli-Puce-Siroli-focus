@@ -21,10 +21,5 @@ public interface DailyMood {
      * @return the date of the registration of the mood 
      */
     LocalDate getDate();
-    /**
-     * Sets the date of the registration of mood.
-     * @param date      the date of mood's registration
-     */
-    void setDate(LocalDate date);
 
 }

@@ -6,14 +6,23 @@ import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
 /**
- * Immutable implementation of ToDoListManagerImpl.
+ * Immutable implementation of {@link ToDoListManagerImpl}.
  */
 
 public class ToDoListManagerImpl implements ToDoListManager {
     private final Dao<ToDoAction> dsi;
+
+    /**
+     * Instantiates a new to do list manager.
+     * @param dsi the {@link DataSource} from which to retrieve data
+     */
     public ToDoListManagerImpl(final DataSource dsi) {
         this.dsi = dsi.getToDoList();
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addAnnotation(final ToDoAction tdl) {
         if (!this.dsi.getAll().contains(tdl)) {
@@ -24,6 +33,9 @@ public class ToDoListManagerImpl implements ToDoListManager {
             }
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void removeAnnotation(final ToDoAction tdl) {
         try {
@@ -32,6 +44,9 @@ public class ToDoListManagerImpl implements ToDoListManager {
             e.printStackTrace();
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void changeBoxStatus(final ToDoAction tdl) {
         try {
@@ -40,6 +55,9 @@ public class ToDoListManagerImpl implements ToDoListManager {
             e.printStackTrace();
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ObservableSet<ToDoAction> getAnnotations() {
         return this.dsi.getAll();

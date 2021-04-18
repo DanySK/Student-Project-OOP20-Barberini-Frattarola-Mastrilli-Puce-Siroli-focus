@@ -1,6 +1,6 @@
 package oop.focus.diary.model;
 /**
- * The interface ToDoList defines an annotation's structure.
+ * The interface ToDoAction defines an annotation's structure.
  * It defines methods to set/get the annotation.
  *
  */

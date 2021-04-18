@@ -18,7 +18,7 @@ public class DiarySections implements Sections {
     /**
      * Instantiates a new diary sections.
      *
-     * @param dataSource    dataSource the {@link DataSource} from which to retrieve data
+     * @param dataSource    the {@link DataSource} from which to retrieve data
      */
     public DiarySections(final DataSource dataSource)  {
         this.list = new ArrayList<>();

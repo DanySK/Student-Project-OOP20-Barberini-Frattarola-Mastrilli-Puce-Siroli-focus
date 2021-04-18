@@ -2,9 +2,18 @@ package oop.focus.diary.model;
 
 import org.joda.time.LocalDate;
 
+/**
+ * Implementation of {@link DailyMood}.
+ */
 public class DailyMoodImpl implements DailyMood {
     private int value;
     private LocalDate date;
+
+    /**
+     * Instantiates a new daily mood.
+     * @param value the value to associate to daily mood
+     * @param date  the date in which daily mood is saved
+     */
     public DailyMoodImpl(final int value, final LocalDate date) {
         super();
         this.value = value;
@@ -22,10 +31,7 @@ public class DailyMoodImpl implements DailyMood {
     public final LocalDate getDate() {
         return this.date;
     }
-    @Override
-    public final void setDate(final LocalDate date) {
-        this.date = date;
-    }
+
     @Override
     public final int hashCode() {
         final int prime = 31;

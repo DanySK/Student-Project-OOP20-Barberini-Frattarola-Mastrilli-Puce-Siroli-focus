@@ -71,10 +71,7 @@ public class CounterControllerImpl implements CounterController {
         if (this.isTimer) {
             this.disableTimerButtons(false);
         }
-        if (this.isPlaying()) {
-            System.out.println(this.isPlaying());
-            this.counterManager.stopSound();
-        }
+        this.counterManager.stopSound();
     }
 
     /**
@@ -106,13 +103,7 @@ public class CounterControllerImpl implements CounterController {
         }
         this.counterManager.stopCounter();
     }
-    /**
-     * The method can be used to check if counter's alarm is started.
-     * @return  true if alarm is playing, false otherwise
-     */
-    private boolean isPlaying() {
-        return this.counterManager.isPlaying();
-    }
+
     /**
      *  {@inheritDoc}
      */

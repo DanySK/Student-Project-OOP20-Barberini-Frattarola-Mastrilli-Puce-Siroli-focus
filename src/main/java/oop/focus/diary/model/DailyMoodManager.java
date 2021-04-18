@@ -6,7 +6,7 @@ import org.joda.time.LocalDate;
 import oop.focus.db.exceptions.DaoAccessException;
 
 /**
- * The interface can be used to add, remove or change by database, the value of dailyMood.
+ * The interface can be used to add, remove or change by database, the value of {@link DailyMood}.
  */
     public interface DailyMoodManager {
     /**
@@ -29,7 +29,7 @@ import oop.focus.db.exceptions.DaoAccessException;
     void deleteDailyMood(DailyMood mood) throws DaoAccessException;
     /**
      * Returns all register moods.
-     * @return  a list with all register DailyMood
+     * @return  an {@link ObservableSet} with all register DailyMood
      */
     ObservableSet<DailyMood> getAllMoods();
     /**
