@@ -5,6 +5,9 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
+/**
+ * Immutable implementation of a category manager.
+ */
 public class CategoryManagerImpl implements CategoryManager {
 
     private final Dao<Category> categories;
@@ -15,6 +18,9 @@ public class CategoryManagerImpl implements CategoryManager {
         this.colors = db.getColors();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void add(final Category category) {
         try {
@@ -25,16 +31,9 @@ public class CategoryManagerImpl implements CategoryManager {
         }
     }
 
-    private void checkColor(final String color) {
-        if (!this.colors.getAll().contains(color)) {
-            try {
-                this.colors.save(color);
-            } catch (DaoAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void remove(final Category category) {
         try {
@@ -47,5 +46,20 @@ public class CategoryManagerImpl implements CategoryManager {
     @Override
     public final ObservableSet<Category> getCategories() {
         return this.categories.getAll();
-    } 
+    }
+
+    /**
+     * Check if the color has been saved in the database. If not, it is saved.
+     *
+     * @param color to check
+     */
+    private void checkColor(final String color) {
+        if (!this.colors.getAll().contains(color)) {
+            try {
+                this.colors.save(color);
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

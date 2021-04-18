@@ -2,10 +2,7 @@ package oop.focus.finance.model;
 
 /**
  * Interface that models an account.
- * Each account has a name, a color and its amount.
- * 
- * The amount is changed when a transaction takes
- * place on the account.
+ * Each account has a name, a color and its initial amount.
  */
 public interface Account {
 

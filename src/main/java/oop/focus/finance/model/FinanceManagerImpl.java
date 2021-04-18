@@ -5,6 +5,7 @@ import oop.focus.db.DataSource;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -28,11 +29,17 @@ public class FinanceManagerImpl implements FinanceManager {
         this.group = new GroupManagerImpl(this.db);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addAccount(final Account account) {
         this.accounts.add(account);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void removeAccount(final Account account) {
         this.transactions.getTransactions().stream()
@@ -42,11 +49,17 @@ public class FinanceManagerImpl implements FinanceManager {
         this.accounts.remove(account);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addCategory(final Category category) {
         this.categories.add(category);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void removeCategory(final Category category) {
         if (this.transactions.getTransactions().stream()
@@ -58,11 +71,17 @@ public class FinanceManagerImpl implements FinanceManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addTransaction(final Transaction transaction) {
         this.transactions.add(transaction);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int getAmount(final Account account) {
         final var acc = this.accounts.getAccounts().stream()
@@ -75,6 +94,9 @@ public class FinanceManagerImpl implements FinanceManager {
                 .sum();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void removeTransaction(final Transaction transaction) {
         if (this.transactions.getTransactions().contains(transaction)) {
@@ -84,17 +106,22 @@ public class FinanceManagerImpl implements FinanceManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void doQuickTransaction(final QuickTransaction quickTransaction) {
         this.addTransaction(new TransactionImpl(quickTransaction.getDescription(), quickTransaction.getCategory(),
                 LocalDateTime.now(), quickTransaction.getAccount(), quickTransaction.getAmount(), Repetition.ONCE, false));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void generateRepeatedTransactions(final LocalDate date) {
-        final var sub = this.transactions.getSubscriptions();
         this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
-        sub.forEach(this.transactions::update);
+        List.copyOf(this.transactions.getSubscriptions()).forEach(this.transactions::update);
     }
 
     @Override

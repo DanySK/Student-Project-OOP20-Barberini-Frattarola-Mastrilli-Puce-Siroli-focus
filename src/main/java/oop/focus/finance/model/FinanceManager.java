@@ -5,26 +5,26 @@ import org.joda.time.LocalDate;
 
 /**
  * Interface that models a finance manager,
- * coordinating the four managers of transactions, quick transaction, accounts and categories.
+ * coordinating the five managers of transactions, quick transaction, accounts, categories and group.
  */
 public interface FinanceManager {
 
     /**
-     * Create an account and add it to accounts.
+     * Create an account and add it to database.
      * 
      * @param account that is added
      */
     void addAccount(Account account);
 
     /**
-     * Delete the account and all its transactions.
+     * Delete the account and all its transactions from database.
      * 
      * @param account that is removed
      */
     void removeAccount(Account account);
 
     /**
-     * Create a category and add it to categories.
+     * Create a category and add it to database.
      * 
      * @param category that is added
      */
@@ -38,14 +38,21 @@ public interface FinanceManager {
     void removeCategory(Category category);
 
     /**
-     * Create a transaction, add it to transactions and edit account's amount.
+     * Create a transaction add it to database.
      * 
      * @param transaction that is added
      */
     void addTransaction(Transaction transaction);
 
     /**
-     * Given as a parameter, an account returns its current amount.
+     * Delete transaction from database.
+     *
+     * @param transaction that is removed
+     */
+    void removeTransaction(Transaction transaction);
+
+    /**
+     * Returns the current amount of an account.
      *
      * @param account whose amount we want to know
      * @return account's current amount
@@ -53,16 +60,9 @@ public interface FinanceManager {
     int getAmount(Account account);
 
     /**
-     * Delete transaction from transactions and edit account's amount.
-     * 
-     * @param transaction that is removed
-     */
-    void removeTransaction(Transaction transaction);
-
-    /**
      * Do a quick transaction, then a new transaction is created with the current date as its date.
      *
-     * @param quickTransaction - that is executed
+     * @param quickTransaction that is executed
      */
     void doQuickTransaction(QuickTransaction quickTransaction);
 

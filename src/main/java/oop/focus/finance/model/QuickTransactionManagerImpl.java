@@ -7,6 +7,9 @@ import oop.focus.db.exceptions.DaoAccessException;
 
 import java.util.List;
 
+ /**
+ * Immutable implementation of a quick transaction manager.
+ */
 public class QuickTransactionManagerImpl implements QuickTransactionManager {
 
     private final Dao<QuickTransaction> quickTransactions;
@@ -15,6 +18,9 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
         this.quickTransactions = db.getQuickTransactions();
     }
 
+     /**
+      * {@inheritDoc}
+      */
     @Override
     public final void add(final QuickTransaction quickTransaction) {
         try {
@@ -24,6 +30,9 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
         }
     }
 
+     /**
+      * {@inheritDoc}
+      */
     @Override
     public final void remove(final QuickTransaction quickTransaction) {
         try {
@@ -33,6 +42,9 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
         }
     }
 
+     /**
+      * {@inheritDoc}
+      */
     @Override
     public final void reset() {
         List.copyOf(this.quickTransactions.getAll()).forEach(this::remove);

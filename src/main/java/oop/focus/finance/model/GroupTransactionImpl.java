@@ -85,7 +85,7 @@ public class GroupTransactionImpl implements GroupTransaction {
     public final String toString() {
         return "Description: " + this.description
                 + ", made by: " + this.madeBy.getName()
-                + ", for: " + this.forList.stream().map(Person::getName).collect(Collectors.joining(", "))
+                + ", for: " + this.forList.stream().map(Person::getName).collect(Collectors.joining("- "))
                 + ", amount: " + this.amount
                 + ", date: " + this.getDateToString();
     }

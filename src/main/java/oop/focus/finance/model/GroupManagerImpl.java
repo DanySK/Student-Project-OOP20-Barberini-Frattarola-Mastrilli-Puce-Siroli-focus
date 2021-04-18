@@ -13,18 +13,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Comparator;
 
+/**
+ * Immutable implementation of a group manager.
+ */
 public class GroupManagerImpl implements GroupManager {
 
     private final Dao<Person> group;
-    private final Dao<GroupTransaction> transactions;
     private final Dao<Person> persons;
+    private final Dao<GroupTransaction> transactions;
 
     public GroupManagerImpl(final DataSource db) {
         this.group = db.getGroup();
-        this.transactions = db.getGroupTransactions();
         this.persons = db.getPersons();
+        this.transactions = db.getGroupTransactions();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addPerson(final Person person) {
         try {
@@ -34,6 +40,9 @@ public class GroupManagerImpl implements GroupManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void removePerson(final Person person) {
         if (this.getCredit(person) == 0) {
@@ -58,6 +67,9 @@ public class GroupManagerImpl implements GroupManager {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addTransaction(final GroupTransaction groupTransaction) {
         try {
@@ -67,6 +79,9 @@ public class GroupManagerImpl implements GroupManager {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void removeTransaction(final GroupTransaction groupTransaction) {
         try {
@@ -82,9 +97,9 @@ public class GroupManagerImpl implements GroupManager {
         final Map<Person, Integer> map = new HashMap<>();
         this.group.getAll().forEach(p -> map.put(p, this.getCredit(p)));
         while (!map.values().stream().allMatch(i -> i == 0)) {
-            final var creditor = this.getCreditor(map);
-            final var debtor = this.getDebtor(map);
-            final var amount = this.calculateAmount(map);
+            Person creditor = this.getCreditor(map);
+            Person debtor = this.getDebtor(map);
+            int amount = this.calculateAmount(map);
             ret.add(new GroupTransactionImpl("Risoluzione debiti", debtor,
                     List.of(creditor), amount, LocalDateTime.now()));
             map.replace(creditor, map.get(creditor) - amount);
@@ -93,19 +108,9 @@ public class GroupManagerImpl implements GroupManager {
         return ret;
     }
 
-    private int calculateAmount(final Map<Person, Integer> map) {
-        return map.get(this.getCreditor(map)) < -map.get(this.getDebtor(map))
-                ? map.get(this.getCreditor(map)) : -map.get(this.getDebtor(map));
-    }
-
-    private Person getCreditor(final Map<Person, Integer> map) {
-        return map.keySet().stream().max(Comparator.comparingInt(map::get)).orElse(null);
-    }
-
-    private Person getDebtor(final Map<Person, Integer> map) {
-        return map.keySet().stream().filter(p -> map.get(p) < 0).max(Comparator.comparingInt(map::get)).orElse(null);
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void reset() {
         new ArrayList<>(this.group.getAll()).forEach(this::removePerson);
@@ -125,5 +130,32 @@ public class GroupManagerImpl implements GroupManager {
     @Override
     public final ObservableSet<Person> getPersons() {
         return this.persons.getAll();
+    }
+
+    /**
+     * @param map of people with their own credit
+     * @return the absolute minimum value between the maximum debt and the maximum credit
+     */
+    private int calculateAmount(final Map<Person, Integer> map) {
+        return Math.min(map.get(this.getCreditor(map)), -map.get(this.getDebtor(map)));
+    }
+
+    /**
+     * @param map of people with their own credit
+     * @return the person with the greatest credit
+     */
+    private Person getCreditor(final Map<Person, Integer> map) {
+        return map.keySet().stream().max(Comparator.comparingInt(map::get)).orElse(null);
+    }
+
+    /**
+     * @param map of people with their own credit
+     * @return the person with the greatest debt
+     */
+    private Person getDebtor(final Map<Person, Integer> map) {
+        return map.keySet().stream()
+                .filter(p -> map.get(p) < 0)
+                .max(Comparator.comparingInt(map::get))
+                .orElse(null);
     }
 }

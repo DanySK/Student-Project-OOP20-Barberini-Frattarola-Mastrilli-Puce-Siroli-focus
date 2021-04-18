@@ -4,12 +4,12 @@ import javafx.collections.ObservableSet;
 
 /**
  * Interface that models an account manager,
- * working on an account list and managing database operations.
+ * working on all accounts and managing database operations.
  */
 public interface AccountManager {
 
     /**
-     * Adds an account and saves it in the database.
+     * Saves an account in the database.
      * If the color of account doesn't exist, saves it in the database too.
      * 
      * @param account that is saved
@@ -17,7 +17,7 @@ public interface AccountManager {
     void add(Account account);
 
     /**
-     * Removes an account and deletes it from the database.
+     * Removes an account from the database.
      * 
      * @param account being deleted
      */

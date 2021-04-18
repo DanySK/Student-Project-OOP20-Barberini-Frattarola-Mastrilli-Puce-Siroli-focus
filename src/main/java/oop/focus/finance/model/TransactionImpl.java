@@ -8,6 +8,9 @@ import org.joda.time.LocalDateTime;
 import java.text.DecimalFormat;
 import java.util.Objects;
 
+/**
+ * Class that considers the characteristics of a single transaction.
+ */
 public class TransactionImpl implements Transaction {
 
     private final String description;
@@ -41,6 +44,9 @@ public class TransactionImpl implements Transaction {
         return this.repetition.getNextRenewalFunction().apply(new LocalDate(this.date.getYear(), this.date.getMonthOfYear(), this.date.getDayOfMonth()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void stopRepeat() {
         this.toRepeat = false;

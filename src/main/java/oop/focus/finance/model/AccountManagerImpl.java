@@ -5,6 +5,9 @@ import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
 
+/**
+ * Immutable implementation of a account manager.
+ */
 public class AccountManagerImpl implements AccountManager {
 
     private final Dao<Account> accounts;
@@ -15,6 +18,9 @@ public class AccountManagerImpl implements AccountManager {
         this.colors = db.getColors();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void add(final Account account) {
         try {
@@ -25,16 +31,9 @@ public class AccountManagerImpl implements AccountManager {
         }
     }
 
-    private void checkColor(final String color) {
-        if (!this.colors.getAll().contains(color)) {
-            try {
-                this.colors.save(color);
-            } catch (DaoAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void remove(final Account account) {
         try {
@@ -47,5 +46,20 @@ public class AccountManagerImpl implements AccountManager {
     @Override
     public final ObservableSet<Account> getAccounts() {
         return this.accounts.getAll();
+    }
+
+    /**
+     * Check if the color has been saved in the database. If not, it is saved.
+     *
+     * @param color to check
+     */
+    private void checkColor(final String color) {
+        if (!this.colors.getAll().contains(color)) {
+            try {
+                this.colors.save(color);
+            } catch (DaoAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

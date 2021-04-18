@@ -4,12 +4,12 @@ import javafx.collections.ObservableSet;
 
 /**
  * Interface that models a quick transaction manager,
- * working on a quick transaction list and managing database operations.
+ * working on all quick transactions and managing database operations.
  */
 public interface QuickTransactionManager {
 
     /**
-     * Adds a quick transaction and saves it in the database.
+     * Saves a quick transaction in the database.
      * It is not possible to add a transaction at a future date.
      *
      * @param quickTransaction that is saved
@@ -17,7 +17,7 @@ public interface QuickTransactionManager {
     void add(QuickTransaction quickTransaction);
 
     /**
-     * Removes a quick transaction and deletes it from the database.
+     * Removes a quick transaction from the database.
      *
      * @param quickTransaction being deleted
      */
