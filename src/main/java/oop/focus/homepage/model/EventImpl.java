@@ -171,6 +171,10 @@ public class EventImpl implements Event {
         return true;
     }
 
+    public final void setRepetition(final Repetition repetition) {
+        this.repetition = repetition;
+    }
+
     public final void stopRepeat() {
         this.isRepeated = false;
         //this.repetition = Repetition.ONCE;

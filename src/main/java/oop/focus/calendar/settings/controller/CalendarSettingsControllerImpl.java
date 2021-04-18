@@ -6,6 +6,7 @@ import oop.focus.calendar.model.Format;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.settings.view.CalendarSettingsView;
 import oop.focus.calendar.settings.view.CalendarSettingsViewImpl;
+import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.View;
 
 
@@ -13,6 +14,7 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     //Classes
     private final CalendarMonthController monthController;
+    private final WeekController weekController;
     private final CalendarSettingsView settingsView;
 
     //Variables
@@ -27,7 +29,8 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
      * Used for Initialize the settings controller.
      * @param monthController : controller of the month
      */
-    public CalendarSettingsControllerImpl(final CalendarMonthController monthController) {
+    public CalendarSettingsControllerImpl(final CalendarMonthController monthController, final WeekController weekController) {
+        this.weekController = weekController;
         this.monthController = monthController;
         this.settingsView = new CalendarSettingsViewImpl(this);
         this.format = Format.NORMAL;
@@ -82,6 +85,9 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
         this.monthController.setFormat(this.format);
         this.monthController.setSpacing(this.spacing);
         this.monthController.updateView();
+
+        this.weekController.getView().setDayProperty(this.format, this.spacing);
+
     }
 
     public final void setWindow(final Stage stage) {

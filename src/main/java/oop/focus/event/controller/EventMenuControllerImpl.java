@@ -43,7 +43,7 @@ public class EventMenuControllerImpl implements EventMenuController {
     }
 
     @Override
-    public final View getView() {
+    public final EventMenuView getView() {
         return this.view;
     }
 

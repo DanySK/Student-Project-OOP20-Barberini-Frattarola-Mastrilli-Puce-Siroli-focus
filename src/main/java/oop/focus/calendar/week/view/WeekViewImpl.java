@@ -43,6 +43,9 @@ public class WeekViewImpl implements WeekView {
     private LocalDate startWeek;
     private final WeekController controller;
 
+    private Format format;
+    private double spacing;
+
     public WeekViewImpl(final WeekController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.WEEK.getPath()));
@@ -58,6 +61,8 @@ public class WeekViewImpl implements WeekView {
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
 
+        this.spacing = Constants.SPACING;
+        this.format = Format.NORMAL;
         final LocalDate today = LocalDate.now();
         this.startWeek = today.minusDays(today.getDayOfWeek() - 1);
         this.setWeekDays();
@@ -104,8 +109,9 @@ public class WeekViewImpl implements WeekView {
         for (int i = 0; i < Constants.DAYS_PER_WEEK; i++) {
             final CalendarDayController day = new CalendarDayControllerImpl(new DayImpl(date, (DataSourceImpl) this.controller.getDsi()), 200, 500);
 
-            day.setFormat(Format.NORMAL);
-            day.setSpacing(Constants.SPACING);
+            day.setFormat(this.format);
+            day.setSpacing(this.spacing);
+
             day.buildDay();
             final CalendarDaysView daysView = (CalendarDaysView) day.getView();
             daysView.getContainer().prefWidthProperty().bind(hbox.widthProperty().divide(Constants.DAYS_PER_WEEK));
@@ -115,6 +121,12 @@ public class WeekViewImpl implements WeekView {
         hbox.prefWidthProperty().bind(weekDaysScroller.widthProperty());
 
         this.weekDaysScroller.setContent(hbox);
+    }
+
+    public final void setDayProperty(final Format format, final double spacing) {
+        this.format = format;
+        this.spacing = spacing;
+        this.setWeekDays();
     }
 
     private class Constants {

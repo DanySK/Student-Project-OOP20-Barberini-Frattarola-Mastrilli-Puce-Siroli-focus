@@ -95,6 +95,7 @@ public interface Event {
 
     void setName(String newValue);
 
+    void setRepetition(Repetition repetition);
     void setStartDay(String localDate);
 
     void setStartTime(String newValue);

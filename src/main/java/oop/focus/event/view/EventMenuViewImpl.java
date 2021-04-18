@@ -108,6 +108,7 @@ public class EventMenuViewImpl implements EventMenuView {
 
     public final void refreshTable() {
         this.tableEvent.getItems().clear();
+        System.out.println("eNTRO");
         this.tableEvent.setItems(this.controller.getEvents());
     }
 
@@ -147,6 +148,8 @@ public class EventMenuViewImpl implements EventMenuView {
 
     @Override
     public final Node getRoot() {
+        this.refreshTable();
+        System.out.println(" xxx");
         return this.root;
     }
 

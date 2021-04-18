@@ -2,6 +2,7 @@ package oop.focus.calendar.week.view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import oop.focus.calendar.model.Format;
 import oop.focus.common.View;
 
 public interface WeekView extends Initializable, View {
@@ -22,4 +23,6 @@ public interface WeekView extends Initializable, View {
      * This method is used to set the week days.
      */
     void setWeekDays();
+
+    void setDayProperty(Format format, double spacing);
 }

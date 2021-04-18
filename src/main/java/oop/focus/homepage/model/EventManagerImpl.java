@@ -137,7 +137,7 @@ public class EventManagerImpl implements EventManager {
         final List<Event> eventsToShow = new ArrayList<>();
 
         for (final Event event : this.getAll()) {
-            if (!event.getRipetition().equals(Repetition.ONCE)) {
+            if (!event.getRipetition().equals(Repetition.ONCE) && event.isRepeated()) {
                 LocalDate startDate = event.getStartDate();
                 LocalDate endDate = event.getEndDate();
 

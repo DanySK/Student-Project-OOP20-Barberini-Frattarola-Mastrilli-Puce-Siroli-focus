@@ -1,4 +1,5 @@
 package oop.focus.event.controller;
+import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.view.EventInformationViewImpl;
@@ -27,9 +28,10 @@ public class EventInformationControllerImpl implements EventInformationControlle
 
     public final void stopRepetition() {
         this.eventManager.generateRepeatedEvents(LocalDate.now());
-        for (final Event e : this.eventManager.getAll()) {
-            System.out.println(e.getName() + " " + e.getStart().toString());
-        }
+        this.eventManager.getAll().stream().forEach(e ->{
+            System.out.println(e.getName() + " " + e.isRepeated());
+        });
+        this.event.setRepetition(Repetition.ONCE);
     }
 
     @Override

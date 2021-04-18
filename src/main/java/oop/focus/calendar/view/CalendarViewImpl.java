@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
 import oop.focus.common.View;
+import oop.focus.event.view.EventMenuView;
 
 import static java.util.Objects.nonNull;
 
@@ -65,7 +66,6 @@ public class CalendarViewImpl implements View {
         buildButtonWindows(buttonColumn, "Aggiungi Evento", calendarController.getNewEventController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
         buildButtonWindows(buttonColumn, "Info Eventi", calendarController.getEventInfoController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
         panelColumn.getChildren().add(calendarController.getMonthController().getView().getRoot());
-
     }
 
 
@@ -117,10 +117,14 @@ public class CalendarViewImpl implements View {
         button.setAlignment(Pos.CENTER);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) view.getRoot(), width, height));
-        if ("IMPOSTAZIONI".equalsIgnoreCase(name)) {
-        calendarController.getSettingsController().setWindow(stage);
+        if ("Impostazioni".equalsIgnoreCase(name)) {
+            this.calendarController.getSettingsController().setWindow(stage);
         }
         button.setOnAction((e) -> {
+            if ("Info Eventi".equalsIgnoreCase(name) || "Settimana".equalsIgnoreCase(name)) {
+                ((EventMenuView) this.calendarController.getEventInfoController().getView()).refreshTable();
+                this.calendarController.getWeekController().getView().setWeekDays();
+            }
             stage.show();
         });
         buttonColumn.getChildren().add(button);
