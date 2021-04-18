@@ -16,7 +16,9 @@ import oop.focus.common.View;
 import oop.focus.db.DataSource;
 
 
-
+/**
+ * Implementation of {@link CalendarMonthController}.
+ */
 public class CalendarMonthControllerImpl implements CalendarMonthController {
 
 
@@ -53,51 +55,80 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         monthView = new CalendarMonthViewImpl(type, this);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void configureDay(final CalendarDayController dayController) {
         dayController.setFormat(this.format);
         dayController.setSpacing(this.spacing);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final CalendarLogic getCalendarLogic() {
         return this.calendarLogic;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setFontSize(final double fontSize) {
         this.fontSize = fontSize;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final double getFontSize() {
         return this.fontSize;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setFormat(final Format format) {
         this.format = format;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void setSpacing(final double spacing) {
         this.spacing = spacing;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final List<Day> getMonth() {
         return this.month;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setMonth() {
         this.month = this.calendarLogic.getMonth();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void updateView() {
         this.monthView.updateView(this.monthView);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final View getView() {
         return this.monthView;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final DataSource getDataSource() {
         return this.dataSource;
     } 

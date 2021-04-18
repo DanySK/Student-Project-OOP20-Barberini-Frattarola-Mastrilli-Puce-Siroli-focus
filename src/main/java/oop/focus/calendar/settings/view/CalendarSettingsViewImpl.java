@@ -21,7 +21,9 @@ import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.settings.controller.CalendarSettingsController;
 
-
+/**
+ * Implementation of {@link CalendarSettingsView}.
+ */
 public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
     //Classes
@@ -144,10 +146,16 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setWindow(final Stage stage) {
         this.settingsWindows = stage;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void windowsError(final String string) {
         final Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Errore");
@@ -156,6 +164,9 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         alert.showAndWait();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final Node getRoot() {
         return this.settingsBox;
     }

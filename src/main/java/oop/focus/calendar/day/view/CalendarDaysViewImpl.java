@@ -17,7 +17,9 @@ import oop.focus.calendar.day.controller.CalendarDayController;
 
 
 
-
+/**
+ * Implementation of {@link CalendarDaysView}.
+ */
 public class CalendarDaysViewImpl implements CalendarDaysView {
 
     //Classes
@@ -77,7 +79,9 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         container.getChildren().add(daily);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void buildDay() {
         //container is used for contain all the component of the day
         final VBox container = new VBox();
@@ -113,6 +117,9 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         this.dayBox = new VBox(container);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final VBox getContainer() {
         return this.dayBox;
     }
@@ -132,6 +139,9 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         return this.dailyEvents;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final Node getRoot() {
         return getContainer();
     }

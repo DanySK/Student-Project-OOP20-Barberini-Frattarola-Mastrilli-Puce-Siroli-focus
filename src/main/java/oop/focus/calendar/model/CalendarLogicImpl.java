@@ -7,7 +7,9 @@ import java.util.stream.Collectors;
 import org.joda.time.LocalDate;
 
 import oop.focus.db.DataSource;
-
+/**
+ * Implementation of {@link CalendarLogic}.
+ */
 public class CalendarLogicImpl implements CalendarLogic {
 
     //Classes

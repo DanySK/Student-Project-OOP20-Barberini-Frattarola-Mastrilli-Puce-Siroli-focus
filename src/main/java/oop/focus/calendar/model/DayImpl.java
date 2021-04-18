@@ -9,7 +9,9 @@ import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
-
+/**
+ * Implementation of {@link Day}.
+ */
 public class DayImpl implements Day {
 
     private final LocalDate date;

@@ -23,7 +23,9 @@ import oop.focus.statistics.controller.EventsStatistics;
 
 
 
-
+/**
+ * Implementation of {@link CalendarController}.
+ */
 public class CalendarControllerImpl implements CalendarController {
 
     //Classes
@@ -40,15 +42,15 @@ public class CalendarControllerImpl implements CalendarController {
     /**
      * Used for initialize the calendar controller.
      * @param dataSource
-     * @param controller
+     * @param homePageController
      */
-    public CalendarControllerImpl(final DataSource dataSource, final Controller controller) {
+    public CalendarControllerImpl(final DataSource dataSource, final Controller homePageController) {
 
         this.monthController = new CalendarMonthControllerImpl(CalendarType.NORMAL, dataSource);
 
         this.statisticsController  = new EventsStatistics(dataSource);
 
-        weekController = new WeekControllerImpl(dataSource, ((GeneralHomePageController) controller).getHomePageController());
+        weekController = new WeekControllerImpl(dataSource, ((GeneralHomePageController) homePageController).getHomePageController());
         this.newEventController = new NewEventControllerImpl(dataSource, weekController, this.monthController);
 
         settingsController = new CalendarSettingsControllerImpl(monthController, weekController);
@@ -60,34 +62,58 @@ public class CalendarControllerImpl implements CalendarController {
         this.calendarView = new CalendarViewImpl(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final CalendarSettingsController getSettingsController() {
         return this.settingsController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final CalendarMonthController getMonthController() {
         return this.monthController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final EventsStatistics getStatisticsController() {
         return this.statisticsController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final WeekController getWeekController() {
         return this.weekController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final PersonsController getPersonController() {
         return this.personController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final NewEventController getNewEventController() {
         return this.newEventController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final EventMenuController getEventInfoController() {
         return this.eventController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final View getView() {
         return this.calendarView;
     }

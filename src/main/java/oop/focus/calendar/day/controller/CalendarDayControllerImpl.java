@@ -11,7 +11,9 @@ import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
 import oop.focus.common.View;
 
-
+/**
+ * Implementation of {@link CalendarDayController}.
+ */
 public class CalendarDayControllerImpl implements CalendarDayController {
 
     //Classes
@@ -54,47 +56,79 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         setFormat(Format.NORMAL);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void buildDay() {
         this.calendarDayView.buildDay();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final HoursView getHoursBox() {
         return this.hoursBox;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final VBoxManager getEventBox() {
         return this.eventBox;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final Day getDay() {
         return this.day;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final double getWidth() {
         return this.width;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final double getHeight() {
         return this.height;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setSpacing(final double spacing) {
         this.spacing = spacing;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final double getSpacing() {
         return this.spacing;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setFormat(final Format format) {
         this.format = format;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final Format getFormat() {
         return this.format;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final String writeDailyEvent() {
         this.day.getDailyEvents().forEach(e -> {
             this.dailyEvents += e.getName() + SEP;
@@ -102,7 +136,9 @@ public class CalendarDayControllerImpl implements CalendarDayController {
         return this.dailyEvents;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final View getView() {
         return this.calendarDayView;
     }

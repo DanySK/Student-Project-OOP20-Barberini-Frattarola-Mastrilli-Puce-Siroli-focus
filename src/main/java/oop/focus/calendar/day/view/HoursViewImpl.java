@@ -7,7 +7,9 @@ import javafx.scene.text.TextAlignment;
 import oop.focus.calendar.model.Format; 
 
 
-
+/**
+ * Implementation of {@link HoursView}.
+ */
 public class HoursViewImpl implements HoursView {
 
 
@@ -21,33 +23,44 @@ public class HoursViewImpl implements HoursView {
 
 
 
-
+    /**
+     * Used for Initialize Hours view.
+     */
     public HoursViewImpl() {
         this.hoursFormat = Format.NORMAL.getNumber();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void setSpacing(final double spacing) {
         this.spacing = spacing;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final double getSpacing() {
         return this.spacing;
     }
 
-
-
+    /**
+     * {@inheritDoc}
+     */
     public final void setFormat(final Format format) {
         hoursFormat = format.getNumber();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final int getFormat() {
         return hoursFormat;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final double getY(final int hour) {
         if (this.hoursFormat == Format.NORMAL.getNumber()) {
             return this.myVBox.getChildren().get(hour).getLayoutY();
@@ -56,7 +69,9 @@ public class HoursViewImpl implements HoursView {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final VBox getVBox() {
         if (this.myVBox == null) {
             buildVBox();
@@ -79,7 +94,9 @@ public class HoursViewImpl implements HoursView {
         vBox.getChildren().add(label);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void buildVBox() {
         final VBox vBox = new VBox();
 

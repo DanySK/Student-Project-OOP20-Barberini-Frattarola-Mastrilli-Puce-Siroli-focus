@@ -152,7 +152,9 @@ public class CalendarViewImpl implements View {
         };
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final Node getRoot() {
         return this.calendarPage;
     }

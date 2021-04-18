@@ -9,7 +9,9 @@ import oop.focus.calendar.settings.view.CalendarSettingsViewImpl;
 import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.View;
 
-
+/**
+ * Implementation of {@link CalendarSettingsController}.
+ */
 public class CalendarSettingsControllerImpl implements CalendarSettingsController {
 
     //Classes
@@ -28,6 +30,7 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
     /**
      * Used for Initialize the settings controller.
      * @param monthController : controller of the month
+     * @param weekController : controller of the week
      */
     public CalendarSettingsControllerImpl(final CalendarMonthController monthController, final WeekController weekController) {
         this.weekController = weekController;
@@ -37,12 +40,16 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
         this.spacing = SPACING;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void setFormat(final Format format) {
         this.format = format;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final Format getFormat() {
         return this.format;
     }
@@ -70,17 +77,23 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void setSpacing(final double spacing) {
         this.spacing = spacing;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final double getSpacing() {
         return this.spacing;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void updateView() {
         this.monthController.setFormat(this.format);
         this.monthController.setSpacing(this.spacing);
@@ -90,10 +103,16 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final void setWindow(final Stage stage) {
         this.settingsView.setWindow(stage);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final View getView() {
         return this.settingsView;
     }

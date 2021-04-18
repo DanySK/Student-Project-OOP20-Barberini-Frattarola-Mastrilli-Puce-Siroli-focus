@@ -21,7 +21,9 @@ import oop.focus.homepage.model.Event;
 
 
 
-
+/**
+ * Implementation of {@link VBoxManager}.
+ */
 public class EventViewImpl implements VBoxManager {
 
     //Classes
@@ -44,7 +46,11 @@ public class EventViewImpl implements VBoxManager {
     private static final double HALF_HOUR = 30;
 
 
-
+    /**
+     * Used for Initialize Event view.
+     * @param hours : the box of the hours
+     * @param day : the day
+     */
     public EventViewImpl(final HoursView hours, final Day day) {
         this.events = new ArrayList<>(day.getEvents());
         this.hours = hours;
@@ -62,7 +68,9 @@ public class EventViewImpl implements VBoxManager {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final double getY(final int i) {
         final int hour;
         final double spaceForMinute = this.spacing / MINUTES_IN_HOURS;
@@ -75,7 +83,9 @@ public class EventViewImpl implements VBoxManager {
         }
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final VBox getVBox() {
         if (this.myVBox == null) {
             buildVBox();
@@ -148,7 +158,9 @@ public class EventViewImpl implements VBoxManager {
         vbox.getChildren().add(panel);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final void buildVBox() {
         checkSpacing();
         final VBox vbox = new VBox();

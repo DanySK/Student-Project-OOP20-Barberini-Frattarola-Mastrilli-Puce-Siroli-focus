@@ -34,7 +34,9 @@ import oop.focus.diary.view.DailyMoodView;
 
 
 
-
+/**
+ * Implementation of {@link CalendarMonthView}.
+ */
 public class CalendarMonthViewImpl implements CalendarMonthView {
 
     //Classes
@@ -361,6 +363,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     public final void updateView(final CalendarMonthView monthInfo) {
         if (nonNull(dayWindows)) {
             dayWindows.close();
@@ -373,6 +378,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         this.setMonthInfo(this.monthInfo, monthController.getMonth().get(0).getYear() + "   " + monthController.getMonth().get(0).getMonth());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final VBox getMonthView() {
         this.monthController.updateView();
         return this.monthBox;
@@ -387,7 +395,9 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         monthInfo.setText(string);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final Node getRoot() {
         return this.getMonthView();
     }
