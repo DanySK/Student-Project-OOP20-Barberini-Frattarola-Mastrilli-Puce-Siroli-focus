@@ -9,7 +9,7 @@ import javafx.stage.Screen;
 import oop.focus.application.controller.Sections;
 import oop.focus.application.controller.SectionsImpl;
 import oop.focus.common.Controller;
-import oop.focus.statistics.controller.UpdatableController;
+import oop.focus.common.UpdatableController;
 
 import java.util.HashMap;
 import java.util.Map;

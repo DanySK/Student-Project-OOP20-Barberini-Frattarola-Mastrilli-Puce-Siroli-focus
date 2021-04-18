@@ -4,8 +4,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import oop.focus.application.controller.Sections;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
-import oop.focus.statistics.controller.UpdatableController;
 import java.util.Map;
 
 /**
