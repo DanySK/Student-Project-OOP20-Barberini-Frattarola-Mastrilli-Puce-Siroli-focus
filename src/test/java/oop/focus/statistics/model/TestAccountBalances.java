@@ -68,8 +68,8 @@ public class TestAccountBalances {
 
         this.financeManager.generateRepeatedTransactions(new LocalDate(1961, 1, 1));
 
-        assertEquals(Set.of(1_499_500, 1_000_000), data.get()
-                .stream().map(Pair::getValue).collect(Collectors.toSet()));
+        assertTrue(data.get().stream().map(Pair::getValue).collect(Collectors.toList())
+                .containsAll(List.of(1_499_500, 1_000_000)));
 
         this.financeManager.removeAccount(ac1);
         this.financeManager.removeAccount(ac2);
