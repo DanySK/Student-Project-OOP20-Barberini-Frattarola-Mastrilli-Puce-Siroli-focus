@@ -11,6 +11,9 @@ import oop.focus.homepage.model.Person;
 
 import java.util.stream.Collectors;
 
+/**
+ * Immutable implementation of an add person controller.
+ */
 public class AddPersonControllerImpl implements AddPersonController {
 
     private final GenericWindow<AddPersonController> view;
@@ -21,11 +24,17 @@ public class AddPersonControllerImpl implements AddPersonController {
         this.view = new AddPersonViewImpl(this);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addPerson(final Person person) {
         this.manager.getGroupManager().addPerson(person);

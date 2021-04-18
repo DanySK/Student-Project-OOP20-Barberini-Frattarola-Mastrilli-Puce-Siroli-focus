@@ -18,35 +18,49 @@ import org.joda.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
+/**
+ * Immutable implementation of a ew transaction controller.
+ */
 public class NewTransactionControllerImpl implements NewTransactionController {
 
     private final NewTransactionViewImpl view;
     private final FinanceManager manager;
 
     private final ObservableSet<Category> categories;
+    private final ObservableSet<Account> accounts;
 
     public NewTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new NewTransactionViewImpl(this);
         this.categories = manager.getCategoryManager().getCategories();
+        this.accounts = manager.getAccountManager().getAccounts();
         this.addListeners();
     }
 
     private void addListeners() {
         this.categories.addListener((SetChangeListener<Category>) change -> this.view.populate());
+        this.accounts.addListener((SetChangeListener<Account>) change -> this.view.populate());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void newTransaction(final String description, final double amount, final Category category, final Account account,
                                      final java.time.LocalDate date, final int hours, final int minutes, final Repetition repetition) {
         this.manager.addTransaction(new TransactionImpl(description, category, new LocalDateTime(date.getYear(), date.getMonthValue(),
                         date.getDayOfMonth(), hours, minutes, 0), account, (int) (amount * 100), repetition));
-        this.manager.generateRepeatedTransactions(LocalDate.now());
+        if (!repetition.equals(Repetition.ONCE)) {
+            this.manager.generateRepeatedTransactions(LocalDate.now());
+        }
     }
 
     @Override

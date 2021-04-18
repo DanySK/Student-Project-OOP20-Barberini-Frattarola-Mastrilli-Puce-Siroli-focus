@@ -128,7 +128,7 @@ public class TransactionManagerImpl implements TransactionManager {
      * @return a list of all transactions generated
      */
     private List<Transaction> generateNext(final Transaction t, final LocalDate date) {
-        if (date.isBefore(t.getDate())) {
+        if (date.toLocalDateTime(LocalTime.MIDNIGHT).isBefore(t.getNextRenewal().toLocalDateTime(LocalTime.MIDNIGHT))) {
             return new ArrayList<>();
         }
         t.stopRepeat();

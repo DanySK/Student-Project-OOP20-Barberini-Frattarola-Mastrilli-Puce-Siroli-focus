@@ -8,6 +8,9 @@ import oop.focus.finance.model.Transaction;
 
 import java.util.function.Predicate;
 
+/**
+ * Implementation of a controller interface that deals with transactions.
+ */
 public interface TransactionsController extends Controller {
 
     /**

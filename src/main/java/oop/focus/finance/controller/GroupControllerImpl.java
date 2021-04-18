@@ -11,6 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Immutable implementation of a group transactions group controller.
+ */
 public class GroupControllerImpl implements GroupController {
 
     private final GroupViewImpl view;
@@ -22,9 +25,9 @@ public class GroupControllerImpl implements GroupController {
     public GroupControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new GroupViewImpl(this);
-        this.showPeople();
         this.group = this.manager.getGroupManager().getGroup();
         this.groupTransactions = this.manager.getGroupManager().getTransactions();
+        this.showPeople();
         this.addListeners();
     }
 
@@ -33,6 +36,9 @@ public class GroupControllerImpl implements GroupController {
         this.groupTransactions.addListener((SetChangeListener<GroupTransaction>) change -> this.showTansactions());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
@@ -48,14 +54,20 @@ public class GroupControllerImpl implements GroupController {
         this.manager.getGroupManager().removeTransaction(transaction);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showTansactions() {
-        this.view.showTransactions(this.manager.getGroupManager().getTransactions());
+        this.view.showTransactions(this.groupTransactions);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showPeople() {
-        this.view.showPeople(this.manager.getGroupManager().getGroup());
+        this.view.showPeople(this.group);
     }
 
     @Override
@@ -63,6 +75,9 @@ public class GroupControllerImpl implements GroupController {
         return (double) this.manager.getGroupManager().getCredit(person) / 100;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void reset() {
         this.manager.getGroupManager().reset();
@@ -77,7 +92,7 @@ public class GroupControllerImpl implements GroupController {
 
     @Override
     public final List<Person> getSortedGroup() {
-        return this.manager.getGroupManager().getGroup().stream()
+        return this.group.stream()
                 .sorted(Comparator.comparing(Person::getName))
                 .collect(Collectors.toList());
     }

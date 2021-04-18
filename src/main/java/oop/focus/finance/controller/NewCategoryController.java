@@ -2,6 +2,9 @@ package oop.focus.finance.controller;
 
 import oop.focus.common.Controller;
 
+/**
+ * Implementation of a controller interface that takes care of creating a new category.
+ */
 public interface NewCategoryController extends Controller {
 
     /**

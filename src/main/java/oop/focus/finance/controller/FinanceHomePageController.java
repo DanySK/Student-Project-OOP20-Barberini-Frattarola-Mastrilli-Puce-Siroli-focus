@@ -8,6 +8,9 @@ import oop.focus.finance.model.Transaction;
 
 import java.util.List;
 
+/**
+ * Implementation of a controller interface that takes care of the finance home page.
+ */
 public interface FinanceHomePageController extends Controller {
 
     /**

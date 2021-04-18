@@ -9,6 +9,9 @@ import oop.focus.finance.model.FinanceManager;
 
 import java.time.LocalDate;
 
+/**
+ * Implementation of a controller interface that deals with the creation of a new transaction.
+ */
 public interface NewTransactionController extends Controller {
 
     /**

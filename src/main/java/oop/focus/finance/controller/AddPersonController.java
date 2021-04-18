@@ -5,10 +5,14 @@ import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
 
+/**
+ * Implementation of a controller interface that implements the methods useful
+ * for adding a person to the group of group transactions.
+ */
 public interface AddPersonController extends Controller {
 
     /**
-     * Adds the person to the group.
+     * Adds a person to the group of transactions group.
      *
      * @param person to be added to the group
      */
@@ -20,7 +24,7 @@ public interface AddPersonController extends Controller {
     ObservableList<Person> getPersonsToAdd();
 
     /**
-     * @return finance manager
+     * @return database
      */
     DataSource getDb();
 }

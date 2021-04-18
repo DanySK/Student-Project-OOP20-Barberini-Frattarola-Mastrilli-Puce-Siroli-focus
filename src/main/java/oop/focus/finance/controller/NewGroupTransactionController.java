@@ -8,6 +8,9 @@ import oop.focus.homepage.model.Person;
 import java.time.LocalDate;
 import java.util.Set;
 
+/**
+ * Implementation of a controller interface that deals with the creation of a new group transaction.
+ */
 public interface NewGroupTransactionController extends Controller {
 
     /**

@@ -5,7 +5,6 @@ import oop.focus.db.DataSource;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -120,8 +119,9 @@ public class FinanceManagerImpl implements FinanceManager {
      */
     @Override
     public final void generateRepeatedTransactions(final LocalDate date) {
+        final var sub = this.transactions.getSubscriptions();
         this.transactions.getGeneratedTransactions(date).forEach(this::addTransaction);
-        List.copyOf(this.transactions.getSubscriptions()).forEach(this.transactions::update);
+        sub.forEach(this.transactions::update);
     }
 
     @Override

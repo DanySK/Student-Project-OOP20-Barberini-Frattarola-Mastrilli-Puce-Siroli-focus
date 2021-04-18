@@ -1,6 +1,6 @@
 package oop.focus.finance.view.bases;
 
-import oop.focus.finance.controller.BaseController;
+import oop.focus.finance.controller.ChangeViewController;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
@@ -17,8 +17,8 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of filtered transactions
      */
-    FinanceMenuButton<BaseController> getTransactions(BaseController controller, String name,
-                                      Predicate<Transaction> predicate, FinanceManager manager);
+    FinanceMenuButton<ChangeViewController> getTransactions(ChangeViewController controller, String name,
+                                                            Predicate<Transaction> predicate, FinanceManager manager);
 
     /**
      * @param controller of finance
@@ -26,7 +26,7 @@ public interface ButtonFactory {
      * @param manager of finance
      * @return a FinanceMenuButton that has as its action the visualization of finance statistic
      */
-    FinanceMenuButton<BaseController> getStatistics(BaseController controller, String name, FinanceManager manager);
+    FinanceMenuButton<ChangeViewController> getStatistics(ChangeViewController controller, String name, FinanceManager manager);
 
     /**
      * @param controller of finance
@@ -34,7 +34,7 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of SubscriptionsView
      */
-    FinanceMenuButton<BaseController> getSubscriptions(BaseController controller, String name, FinanceManager manager);
+    FinanceMenuButton<ChangeViewController> getSubscriptions(ChangeViewController controller, String name, FinanceManager manager);
 
     /**
      * @param controller of group
@@ -42,7 +42,7 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of GroupView
      */
-    FinanceMenuButton<BaseController> getGroupTransactions(BaseController controller, String name, FinanceManager manager);
+    FinanceMenuButton<ChangeViewController> getGroupTransactions(ChangeViewController controller, String name, FinanceManager manager);
 
     /**
      * @param controller of transactions

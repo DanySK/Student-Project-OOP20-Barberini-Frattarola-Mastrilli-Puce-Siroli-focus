@@ -15,20 +15,23 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Immutable implementation of a finance home page controller.
+ */
 public class FinanceHomePageControllerImpl implements FinanceHomePageController {
 
     private final FinanceHomePageView view;
     private final FinanceManager manager;
 
     private final ObservableSet<Account> accounts;
-    private final ObservableSet<Transaction> transaction;
+    private final ObservableSet<Transaction> transactions;
     private final ObservableSet<QuickTransaction> quickTransactions;
 
     public FinanceHomePageControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new FinanceHomePageViewImpl(this);
         this.accounts = manager.getAccountManager().getAccounts();
-        this.transaction = manager.getTransactionManager().getTransactions();
+        this.transactions = manager.getTransactionManager().getTransactions();
         this.quickTransactions = manager.getQuickManager().getQuickTransactions();
         this.addListeners();
     }
@@ -37,17 +40,23 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
         this.accounts.addListener((SetChangeListener<Account>) change -> this.view.populateAccounts());
         this.quickTransactions.addListener((SetChangeListener<QuickTransaction>) change ->
                 this.view.populateQuickTransactions());
-        this.transaction.addListener((SetChangeListener<Transaction>) change -> {
-            this.view.populateRecentTransactions();
-            this.view.populateAccounts();
+        this.transactions.addListener((SetChangeListener<Transaction>) change -> {
+                this.view.populateRecentTransactions();
+                this.view.populateAccounts();
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void doQuickTransaction(final QuickTransaction quickTransaction) {
         this.manager.doQuickTransaction(quickTransaction);
@@ -65,7 +74,7 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     @Override
     public final double getTotalAmount() {
-        return (double) this.manager.getAccountManager().getAccounts().stream()
+        return (double) this.accounts.stream()
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
                 .sum() / 100;
@@ -73,7 +82,7 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     @Override
     public final List<Transaction> getSortedTodayTransactions() {
-        return this.manager.getTransactionManager().getTransactions().stream()
+        return this.transactions.stream()
                 .filter(t -> t.getDate().toLocalDate().equals(LocalDate.now()))
                 .sorted(Comparator.comparing(Transaction::getDate).reversed())
                 .collect(Collectors.toList());
@@ -81,14 +90,14 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     @Override
     public final List<QuickTransaction> getSortedQuickTransactions() {
-        return this.manager.getQuickManager().getQuickTransactions().stream()
+        return this.quickTransactions.stream()
                 .sorted(Comparator.comparing(QuickTransaction::getDescription))
                 .collect(Collectors.toList());
     }
 
     @Override
     public final List<Account> getSortedAccounts() {
-        return this.manager.getAccountManager().getAccounts().stream()
+        return this.accounts.stream()
                 .sorted(Comparator.comparing(Account::getName))
                 .collect(Collectors.toList());
     }

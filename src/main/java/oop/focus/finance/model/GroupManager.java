@@ -55,7 +55,7 @@ public interface GroupManager {
     /**
      * @return the list with the minimum transactions to be carried out to settle the debts.
      */
-    List<GroupTransaction> resolve();
+    List<GroupTransaction> resolveList();
 
     /**
      * @return the list of people in the group

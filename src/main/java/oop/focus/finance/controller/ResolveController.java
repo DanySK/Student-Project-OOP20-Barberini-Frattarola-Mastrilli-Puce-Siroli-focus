@@ -5,6 +5,9 @@ import oop.focus.finance.model.GroupTransaction;
 
 import java.util.List;
 
+/**
+ * Implementation of a controller interface that deals with the resolution of all credits.
+ */
 public interface ResolveController extends Controller {
 
     /**
@@ -13,7 +16,7 @@ public interface ResolveController extends Controller {
     void resolve();
 
     /**
-     * @return a list of group transactions which, if carried out, resolve all debts
+     * @return a list of group transactions which, if carried out, resolveList all debts
      */
     List<GroupTransaction> getResolvingTransactions();
 }

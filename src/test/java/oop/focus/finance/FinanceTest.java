@@ -458,7 +458,7 @@ public class FinanceTest {
         assertEquals(numPer+4, this.financeManager.getGroupManager().getGroup().size());
 
         // richiedo la soluzione dei debiti
-        final var solution = this.financeManager.getGroupManager().resolve();
+        final var solution = this.financeManager.getGroupManager().resolveList();
 
         // eseguo le transazioni di risoluzione
         solution.forEach(this.financeManager.getGroupManager()::addTransaction);

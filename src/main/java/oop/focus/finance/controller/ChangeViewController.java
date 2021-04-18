@@ -4,7 +4,10 @@ import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 
-public interface BaseController extends Controller {
+/**
+ * Implementation of a controller interface that takes care of changing the screen to be displayed.
+ */
+public interface ChangeViewController extends Controller {
 
     /**
      * Change the view to show in BaseView.

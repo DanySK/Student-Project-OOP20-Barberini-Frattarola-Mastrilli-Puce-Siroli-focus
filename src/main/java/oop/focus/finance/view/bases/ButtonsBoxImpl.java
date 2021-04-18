@@ -4,7 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import oop.focus.common.View;
-import oop.focus.finance.controller.BaseController;
+import oop.focus.finance.controller.ChangeViewController;
 import oop.focus.statistics.view.ViewFactory;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ public class ButtonsBoxImpl implements View {
     private static final double BUTTON_RATIO = 0.05;
     private final Pane pane;
 
-    public ButtonsBoxImpl(final BaseController controller) {
+    public ButtonsBoxImpl(final ChangeViewController controller) {
         this.pane = ViewFactory.verticalWithPadding(PADDING_RATIO, PADDING_RATIO, PADDING_RATIO);
-        final List<FinanceMenuButton<BaseController>> menuButtons = new ArrayList<>();
+        final List<FinanceMenuButton<ChangeViewController>> menuButtons = new ArrayList<>();
         final ButtonFactory factory = new ButtonFactoryImpl();
         menuButtons.add(factory.getTransactions(controller, "Tutte", t -> true, controller.getManager()));
         menuButtons.add(factory.getTransactions(controller, "Uscite", t -> t.getAmount() < 0, controller.getManager()));

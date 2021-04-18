@@ -10,6 +10,9 @@ import oop.focus.finance.view.bases.SubscriptionsViewImpl;
 import java.util.Comparator;
 import java.util.stream.Collectors;
 
+/**
+ * Immutable implementation of a subscriptions controller.
+ */
 public class SubscriptionsControllerImpl implements SubscriptionsController {
 
     private static final int GENERIC_PRICE = 12;
@@ -34,6 +37,9 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
@@ -49,6 +55,9 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
         return (double) this.manager.getTransactionManager().monthlyExpense() / 100;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showSortedSubscriptions() {
         this.view.showSubscriptions(this.manager.getTransactionManager().getSubscriptions().stream()
@@ -56,6 +65,9 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
                 .collect(Collectors.toList()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void stopSubscription(final Transaction subscription) {
         this.manager.getTransactionManager().stopRepeat(subscription);

@@ -6,10 +6,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import oop.focus.common.View;
-import oop.focus.finance.controller.BaseController;
+import oop.focus.finance.controller.ChangeViewController;
 import oop.focus.finance.controller.FXMLPaths;
 
-public class BaseViewImpl extends GenericView<BaseController> implements BaseView {
+public class BaseViewImpl extends GenericView<ChangeViewController> implements BaseView {
 
     private static final double RATIO = 0.072;
 
@@ -18,7 +18,7 @@ public class BaseViewImpl extends GenericView<BaseController> implements BaseVie
     @FXML
     private ScrollPane menuScroll;
 
-    public BaseViewImpl(final BaseController controller) {
+    public BaseViewImpl(final ChangeViewController controller) {
         super(controller, FXMLPaths.MAIN);
     }
 

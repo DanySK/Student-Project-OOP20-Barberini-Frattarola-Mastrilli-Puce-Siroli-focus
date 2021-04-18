@@ -6,6 +6,9 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import oop.focus.finance.model.FinanceManager;
 
+/**
+ * Implementation of a controller interface that deals with the creation of a new quick transaction.
+ */
 public interface NewQuickTransactionController extends Controller {
 
     /**

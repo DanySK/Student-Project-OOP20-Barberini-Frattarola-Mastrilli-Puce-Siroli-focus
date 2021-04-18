@@ -15,6 +15,9 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of a transactions controller.
+ */
 public class TransactionsControllerImpl implements TransactionsController {
 
     private final TransactionsViewImpl view;
@@ -37,17 +40,21 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     private void addListeners() {
-        this.transactions.addListener((SetChangeListener<Transaction>) c ->
-                this.showTransactions(this.accountPredicate));
-        this.acccounts.addListener((SetChangeListener<Account>) c ->
-                this.view.populate());
+        this.transactions.addListener((SetChangeListener<Transaction>) c -> this.showTransactions(this.accountPredicate));
+        this.acccounts.addListener((SetChangeListener<Account>) c -> this.view.populate());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void showTransactions(final Predicate<Account> predicate) {
         this.accountPredicate = predicate;
@@ -56,6 +63,9 @@ public class TransactionsControllerImpl implements TransactionsController {
                 .collect(Collectors.toList()), predicate);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void deleteAccounts() {
         this.getAccounts().stream()
@@ -65,6 +75,9 @@ public class TransactionsControllerImpl implements TransactionsController {
         this.showTransactions(a -> true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void deleteTransaction(final Transaction transaction) {
         this.manager.removeTransaction(transaction);

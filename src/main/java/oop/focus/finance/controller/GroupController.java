@@ -7,6 +7,9 @@ import oop.focus.homepage.model.Person;
 
 import java.util.List;
 
+/**
+ * Implementation of a controller interface that deals with the group of group transactions.
+ */
 public interface GroupController extends Controller {
 
     /**

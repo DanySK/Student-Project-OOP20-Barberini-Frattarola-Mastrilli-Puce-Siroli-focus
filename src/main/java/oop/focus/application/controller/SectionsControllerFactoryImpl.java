@@ -5,7 +5,7 @@ import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.GeneralDiaryController;
-import oop.focus.finance.controller.BaseControllerImpl;
+import oop.focus.finance.controller.ChangeViewControllerImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
 import oop.focus.homepage.controller.GeneralHomePageControllerImpl;
@@ -35,7 +35,7 @@ public class SectionsControllerFactoryImpl implements SectionsControllerFactory 
      */
     @Override
     public Controller getFinanceController() {
-        return new BaseControllerImpl(this.financeManager);
+        return new ChangeViewControllerImpl(this.financeManager);
     }
     /**
      * {@inheritDoc}

@@ -92,7 +92,7 @@ public class GroupManagerImpl implements GroupManager {
     }
 
     @Override
-    public final List<GroupTransaction> resolve() {
+    public final List<GroupTransaction> resolveList() {
         final var ret = new ArrayList<GroupTransaction>();
         final Map<Person, Integer> map = new HashMap<>();
         this.group.getAll().forEach(p -> map.put(p, this.getCredit(p)));
