@@ -20,7 +20,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * A dao that keeps a internal cache to limit the number of interactions with the source.
+ * A dao that keeps an internal cache to limit the number of interactions with the source.
+ * All data present in the source is loaded during the instantiation of the dao object
+ * and it is assumed that all interactions with the source are made using the same instance of the dao object.
+ * Cached dao does not guarantee any synchronization between different instances of the same object.
+ * Changes made to the data source through another instance of the dao object
+ * will not affect the cache state of other instances of the same object.
  *
  * @param <X> the type parameter
  */
@@ -161,7 +166,7 @@ public class CachedDao<X> implements SingleDao<X> {
             this.execute(this::withNoParameters);
             this.observable.addAll(this.cache.values());
         } catch (DaoAccessException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
@@ -173,6 +178,8 @@ public class CachedDao<X> implements SingleDao<X> {
 
     /**
      * {@inheritDoc}
+     *
+     * @return a unmodifiable {@link ObservableSet} to prevent external modifications.
      */
     @Override
     public ObservableSet<X> getAll() {
@@ -221,10 +228,18 @@ public class CachedDao<X> implements SingleDao<X> {
                 .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),
                         this.parser.getFieldNames(), id)));
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Optional<X> getValue(final int id) {
         return Optional.ofNullable(this.cache.get(id));
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Optional<Integer> getId(final X x) {
         return this.getIdFromCache(x);

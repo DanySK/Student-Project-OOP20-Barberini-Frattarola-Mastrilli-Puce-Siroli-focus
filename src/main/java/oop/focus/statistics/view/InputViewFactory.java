@@ -5,7 +5,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.homepage.model.Event;
 import oop.focus.statistics.controller.TimePeriodInput;
-import oop.focus.statistics.controller.UpdatableController;
+import oop.focus.common.UpdatableController;
 
 /**
  * The interface Input view factory defines methods to create different input views.

@@ -1,6 +1,7 @@
 package oop.focus.statistics.controller;
 
 import javafx.util.Pair;
+import oop.focus.common.UpdatableController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import oop.focus.finance.model.FinanceManager;
@@ -64,8 +65,8 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
         var factory = new FinanceStatisticFactoryImpl(manager);
         return new AbstractMultiValueChartController<>() {
             private static final String ALL_ACCOUNT_NAME = "Tutti gli account";
-            public static final String ALL_ACCOUNTS_TITLE = "Spese giornaliere tutti i conti";
-            public static final String ACCOUNTS_TITLE = "Spese giornaliere conti selezionati";
+            public static final String ALL_ACCOUNTS_TITLE = "Movimenti giornalieri tutti i conti";
+            public static final String ACCOUNTS_TITLE = "Movimenti giornalieri conti selezionati";
 
             @Override
             public void updateInput(final TimePeriodInput<Account> input) {

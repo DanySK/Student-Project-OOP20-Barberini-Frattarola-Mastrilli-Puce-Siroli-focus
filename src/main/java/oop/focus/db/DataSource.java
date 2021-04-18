@@ -3,14 +3,18 @@ package oop.focus.db;
 import oop.focus.diary.model.DailyMood;
 import oop.focus.diary.model.ToDoAction;
 import oop.focus.fidelitycard.FidelityCard;
-import oop.focus.finance.model.*;
+import oop.focus.finance.model.Account;
+import oop.focus.finance.model.Category;
+import oop.focus.finance.model.GroupTransaction;
+import oop.focus.finance.model.QuickTransaction;
+import oop.focus.finance.model.Transaction;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.Person;
 
 /**
  * Defines the methods to create an Object to access different types of data
- * that can be stored into a data source.
+ * needed by the application context, that can be stored into a data source.
  */
 public interface DataSource {
     /**

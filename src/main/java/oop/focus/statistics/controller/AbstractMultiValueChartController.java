@@ -1,5 +1,6 @@
 package oop.focus.statistics.controller;
 
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
 import oop.focus.statistics.view.LineChartView;
 import oop.focus.statistics.view.MultiValueChart;

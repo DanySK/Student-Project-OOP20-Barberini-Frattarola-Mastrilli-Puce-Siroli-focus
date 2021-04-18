@@ -1,5 +1,6 @@
 package oop.focus.statistics.controller;
 
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
 import oop.focus.statistics.view.PieChartView;
 import oop.focus.statistics.view.SingleValueChart;

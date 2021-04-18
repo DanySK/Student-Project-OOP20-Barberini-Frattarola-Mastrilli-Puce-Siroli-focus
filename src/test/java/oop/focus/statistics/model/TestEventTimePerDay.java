@@ -46,11 +46,10 @@ public class TestEventTimePerDay {
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         assertEquals(evt1.getStartDate(), evt2.getStartDate());
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.eventTimePerDay("evt1");
+        var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
             events.save(evt2);
-            //System.out.println(dataset.get());
             var data = dataset.get();
             assertEquals(1, data.size());
             var tmp = data.stream().findAny().orElseThrow();
@@ -82,7 +81,7 @@ public class TestEventTimePerDay {
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.eventTimePerDay("evt1");
+        var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
             events.save(evt2);
@@ -92,7 +91,6 @@ public class TestEventTimePerDay {
             e.printStackTrace();
         }
         var data = dataset.get();
-        //System.out.println(data);
         assertEquals(3, data.size());
         assertEquals(Set.of(30, 4 * 60, 5 * 60),
                 data.stream().map(Pair::getValue).collect(Collectors.toSet()));
@@ -119,9 +117,8 @@ public class TestEventTimePerDay {
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl("AnotherName",s3,f3,Repetition.WEEKLY);
-        //assertEquals(evt1.getStartDate(), evt2.getStartDate());
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.eventTimePerDay("evt1");
+        var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
             events.save(evt2);
@@ -131,7 +128,6 @@ public class TestEventTimePerDay {
             e.printStackTrace();
         }
         var data = dataset.get();
-        //System.out.println(data);
         assertEquals(4, data.size());
         assertEquals(List.of(17 * 60, 24 * 60, 5 * 60, 4 * 60).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
@@ -158,9 +154,8 @@ public class TestEventTimePerDay {
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        //assertEquals(evt1.getStartDate(), evt2.getStartDate());
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.eventTimePerDay("evt1");
+        var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
             events.save(evt2);
@@ -170,7 +165,6 @@ public class TestEventTimePerDay {
             e.printStackTrace();
         }
         var data = dataset.get();
-        //System.out.println(data);
         assertEquals(List.of(2 * 60, 60, 330, 30).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
         assertEquals(4, data.size());
@@ -201,7 +195,7 @@ public class TestEventTimePerDay {
         var start = new LocalDate(2018, 2, 1);
         var end = new LocalDate(2018, 2, 3);
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.eventTimePerDay("evt1",
+        var dataset = factory.eventTimePerDay(evtName,
                 start, end);
         try {
             events.save(evt1);
@@ -212,7 +206,6 @@ public class TestEventTimePerDay {
             e.printStackTrace();
         }
         var data = dataset.get();
-        System.out.println(data);
         assertEquals(3, data.size());
         assertEquals(List.of(2 * 60, 60, 330).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
@@ -239,9 +232,8 @@ public class TestEventTimePerDay {
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        //assertEquals(evt1.getStartDate(), evt2.getStartDate());
         var factory = new EventsStatisticFactoryImpl(this.dataSource);
-        var dataset = factory.eventTimePerDay("evt1");
+        var dataset = factory.eventTimePerDay(evtName);
 
         try {
             events.save(evt1);
@@ -254,7 +246,6 @@ public class TestEventTimePerDay {
         assertEquals(3, data.size());
         assertEquals(List.of(2 * 60, 90, 30).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));
-        //System.out.println(data);
         try {
             events.save(evt3);
         } catch (Exception e) {

@@ -1,7 +1,12 @@
 package oop.focus.statistics.controller;
 
+import javafx.collections.ObservableSet;
+import javafx.collections.SetChangeListener;
 import javafx.util.Pair;
+import oop.focus.common.Action;
+import oop.focus.common.UpdatableController;
 import oop.focus.db.DataSource;
+import oop.focus.homepage.model.Event;
 import oop.focus.statistics.model.EventsStatisticFactory;
 import oop.focus.statistics.model.EventsStatisticFactoryImpl;
 
@@ -22,16 +27,33 @@ public class EventsChartFactoryImpl implements EventsChartFactory {
     @Override
     public final UpdatableController<TimePeriodInput<String>> eventsOccurrences(final DataSource dataSource) {
         EventsStatisticFactory factory = new EventsStatisticFactoryImpl(dataSource);
+        final ObservableSet<Event> events = dataSource.getEvents().getAll();
         var data = factory.eventsOccurrences();
         return new AbstractSingleValueChartController<>() {
             private static final String TITLE = "Numero di occorrenze per evento";
+            private boolean created = false;
 
             @Override
             public void updateInput(final TimePeriodInput<String> input) {
-                this.getChart().updateData(data.get().stream()
-                        .map(p -> new Pair<>(p.getKey(), (double) p.getValue()))
-                        .collect(Collectors.toList()));
-                this.getChart().setTitle(TITLE);
+                if (!this.created) {
+                    this.created = true;
+                    Action update = () -> this.getChart().updateData(data.get().stream()
+                            .map(p -> new Pair<>(p.getKey(), (double) p.getValue()))
+                            .collect(Collectors.toList()));
+                    this.getChart().setTitle(TITLE);
+                    events.addListener((SetChangeListener<Event>) change -> {
+                        try {
+                            update.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                    try {
+                        update.execute();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         };
     }

@@ -1,6 +1,4 @@
-package oop.focus.statistics.controller;
-
-import oop.focus.common.Controller;
+package oop.focus.common;
 
 /**
  * The interface Updatable controller defines a controller to which an input change can be notified.

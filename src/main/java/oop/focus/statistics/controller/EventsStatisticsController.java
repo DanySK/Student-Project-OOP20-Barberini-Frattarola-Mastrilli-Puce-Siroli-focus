@@ -3,6 +3,7 @@ package oop.focus.statistics.controller;
 import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;

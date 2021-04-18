@@ -13,6 +13,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Implementation of {@link EventsStatisticFactory}.
+ */
 public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
 
     private static final int MAX_HOURS = 24 * 60;
@@ -21,12 +24,13 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
     public EventsStatisticFactoryImpl(final DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
     @Override
     public final DataCreator<Event, Pair<String, Integer>> eventsOccurrences() {
         return new DataCreatorImpl<>(this.dataSource.getEvents().getAll(),
                 (s) -> s.collect(Collectors.toMap(Event::getName, e -> 1,
-                Integer::sum)).entrySet().stream()
-                .map((a) -> new Pair<>(a.getKey(), a.getValue())).collect(Collectors.toSet()));
+                        Integer::sum)).entrySet().stream()
+                        .map((a) -> new Pair<>(a.getKey(), a.getValue())).collect(Collectors.toSet()));
     }
 
     @Override

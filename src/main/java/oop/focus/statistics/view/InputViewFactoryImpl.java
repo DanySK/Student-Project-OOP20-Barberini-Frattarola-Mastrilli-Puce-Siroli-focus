@@ -9,7 +9,7 @@ import oop.focus.finance.model.Account;
 import oop.focus.homepage.model.Event;
 import oop.focus.statistics.controller.TimePeriodInput;
 import oop.focus.statistics.controller.TimePeriodInputBuilderImpl;
-import oop.focus.statistics.controller.UpdatableController;
+import oop.focus.common.UpdatableController;
 
 import java.util.List;
 import java.util.function.Function;

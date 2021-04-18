@@ -36,24 +36,24 @@ public class DataTypeTest {
 
         try {
             var rel = "relation1";
-            var p1 = new PersonImpl("person1", "relation1");
-            var p2 = new PersonImpl("person2", "relation1");
+            var p1 = new PersonImpl("personT1", "relation1");
+            var p2 = new PersonImpl("personT2", "relation1");
             relationships.save(rel);
             persons.save(p1);
             assertEquals(initialSize + 1, all.size());
             persons.save(p2);
-            assertEquals(initialSize+2,all.size());
+            assertEquals(initialSize + 2, all.size());
             persons.delete(p1);
-            assertEquals(initialSize+1,all.size());
+            assertEquals(initialSize + 1, all.size());
             persons.delete(p2);
-            assertEquals(initialSize,all.size());
+            assertEquals(initialSize, all.size());
             relationships.delete(rel);
         } catch (DaoAccessException e) {
             fail();
             e.printStackTrace();
         }
         try {
-            persons.delete(new PersonImpl("Person1", "rel1"));
+            persons.delete(new PersonImpl("PersonT1", "rel1"));
             fail();
         } catch (Exception e) {
             // success
@@ -621,7 +621,6 @@ public class DataTypeTest {
         var quickTransactions = this.df.getQuickTransactions();
         var all = quickTransactions.getAll();
         int initialSize = all.size();
-        System.out.println(initialSize);
         var c1 = "color1";
         var cat1 = new CategoryImpl("Cat1", c1);
         var ac1 = new AccountImpl("Ac1", c1, 200);

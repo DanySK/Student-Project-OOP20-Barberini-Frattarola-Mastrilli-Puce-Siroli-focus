@@ -21,7 +21,6 @@ public class H2Connector implements Connector<Connection> {
     private static final String INSERT_SCRIPT_PATH = "scripts/populate_script.sql";
     private static final String CREATE_SCHEMA = "INIT=create schema if not exists " + DB_NAME;
     private static final String CREATE_SCRIPT = "runscript from ";
-
     private static final String DRIVER = "org.h2.Driver";
     private static final String USER = "oop";
     private static final String PASS = "oop2021";
@@ -29,6 +28,9 @@ public class H2Connector implements Connector<Connection> {
     private Connection connection;
     private boolean connected;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void create() throws ConnectionException {
         File db = new File(System.getProperty("user.home") + "//" + SOURCE_PATH);
@@ -49,11 +51,17 @@ public class H2Connector implements Connector<Connection> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Connection getConnection() {
         return this.connection;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void open() throws ConnectionException, IllegalStateException {
         if (this.connected) {
@@ -67,6 +75,9 @@ public class H2Connector implements Connector<Connection> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void close() throws ConnectionException, IllegalStateException {
         if (!this.connected) {
@@ -80,10 +91,23 @@ public class H2Connector implements Connector<Connection> {
         }
     }
 
+    /**
+     * Try to connect to the database.
+     *
+     * @param url the url on which to connect.
+     * @throws SQLException if is not possible to connect.
+     */
     private void connect(final String url) throws SQLException {
         this.connection = DriverManager.getConnection(url, USER, PASS);
     }
 
+    /**
+     * Get the correct absolute path for a relative path file.
+     *
+     * @param name the file path
+     * @return the correct path as {@link String}
+     * @throws URISyntaxException if the file cannot be found.
+     */
     private String getPath(final String name) throws URISyntaxException {
         return new File(Objects.requireNonNull(ClassLoader.getSystemClassLoader()
                 .getResource(name)).toURI()).getPath().replace("\\", "\\\\");

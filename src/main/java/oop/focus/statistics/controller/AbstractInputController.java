@@ -1,5 +1,6 @@
 package oop.focus.statistics.controller;
 
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
 
 /**
