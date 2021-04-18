@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDate;
@@ -95,8 +96,19 @@ public class NewEventViewImpl implements NewEventView {
         this.startMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
         this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
 
-        final ObservableList<Repetition> rep = FXCollections.observableArrayList(Repetition.values());
-        this.repetitionChoice.setItems(rep);
+        this.repetitionChoice.setItems(this.controller.getRep());
+        this.controller.getRep().forEach(e -> System.out.println(e));
+        this.repetitionChoice.setConverter(new StringConverter<Repetition>() {
+            @Override
+            public String toString(final Repetition repetition) {
+                return repetition == null ? "" : repetition.getName();
+            }
+
+            @Override
+            public Repetition fromString(final String string) {
+                return null;
+            }
+        });
     }
 
     public final void fillTheList() {

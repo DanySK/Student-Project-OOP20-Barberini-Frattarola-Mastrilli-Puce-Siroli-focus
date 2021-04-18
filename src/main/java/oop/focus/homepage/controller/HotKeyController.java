@@ -36,4 +36,5 @@ public interface HotKeyController {
      * @param selectedItem hotKey is the hot key to delete.
      */
     void deleteHotKey(HotKey selectedItem);
+
 }

@@ -2,12 +2,20 @@ package oop.focus.calendar.week.controller;
 
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.view.NewEventWeekViewImpl;
+import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.LocalDate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class NewEventControllerImpl implements NewEventController {
 
@@ -46,6 +54,16 @@ public class NewEventControllerImpl implements NewEventController {
     @Override
     public final CalendarMonthController getMonth() {
         return this.monthController;
+    }
+
+    public final ObservableList<Repetition> getRep() {
+        final ObservableList<Repetition> list = FXCollections.observableArrayList();
+        final List<Repetition> arrayList = new ArrayList<>();
+        for (final Repetition repetition : Repetition.values()) {
+            arrayList.add(repetition);
+        }
+        arrayList.stream().forEach(h -> list.add(h));
+        return list;
     }
 
     @Override

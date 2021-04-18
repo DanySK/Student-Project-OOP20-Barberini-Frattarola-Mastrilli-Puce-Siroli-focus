@@ -1,6 +1,8 @@
 package oop.focus.calendar.week.controller;
 
+import javafx.collections.ObservableList;
 import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
@@ -36,4 +38,6 @@ public interface NewEventController {
      * @return View.
      */
     View getView();
+
+	ObservableList<Repetition> getRep();
 }

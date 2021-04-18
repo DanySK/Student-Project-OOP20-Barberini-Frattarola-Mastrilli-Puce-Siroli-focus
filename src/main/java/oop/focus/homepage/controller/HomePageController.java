@@ -1,6 +1,7 @@
 package oop.focus.homepage.controller;
 
 import javafx.collections.ObservableList;
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.HotKey;
@@ -82,4 +83,5 @@ public interface HomePageController {
      */
     void setText(String text);
 
+    ObservableList<Repetition> getRep();
 }

@@ -2,6 +2,7 @@ package oop.focus.homepage.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
@@ -16,6 +17,7 @@ import oop.focus.homepage.view.HomePageBaseViewImpl;
 
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -98,5 +100,16 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final void setText(final String text) {
         this.nameEvent = text;
+    }
+
+    @Override
+    public ObservableList<Repetition> getRep() {
+        final ObservableList<Repetition> list = FXCollections.observableArrayList();
+        final List<Repetition> arrayList = new ArrayList<>();
+        for (final Repetition repetition : Repetition.values()) {
+            arrayList.add(repetition);
+        }
+        arrayList.stream().forEach(h -> list.add(h));
+        return list;
     }
 }

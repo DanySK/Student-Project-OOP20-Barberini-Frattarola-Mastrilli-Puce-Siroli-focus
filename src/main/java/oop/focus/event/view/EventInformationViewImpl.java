@@ -12,6 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.event.controller.EventInformationController;
@@ -45,16 +49,16 @@ public class EventInformationViewImpl implements View, Initializable {
     }
 
     private void setProperties() {
+
         this.name.setAlignment(Pos.CENTER);
         this.name.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
         this.name.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
 
-        this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
+        /*this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
         this.startDate.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
-
+        */
         this.insertStartDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
         this.insertStartDate.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
-
     }
 
     @Override
@@ -77,6 +81,8 @@ public class EventInformationViewImpl implements View, Initializable {
     }
 
     private void goBack() {
+        final Stage stage = (Stage) this.root.getScene().getWindow();
+        stage.close();
     }
 
     private void stopRepeat() {
@@ -88,7 +94,7 @@ public class EventInformationViewImpl implements View, Initializable {
     }
 
     private static class Constants {
-        private static final double PREF_WIDTH = 0.8;
+        private static final double PREF_WIDTH = 0.3;
         private static final double PREF_HEIGHT = 0.05;
     }
 }
