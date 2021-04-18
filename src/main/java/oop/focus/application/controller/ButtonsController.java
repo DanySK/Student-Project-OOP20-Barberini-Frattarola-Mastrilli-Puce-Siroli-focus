@@ -1,8 +1,8 @@
 package oop.focus.application.controller;
 import oop.focus.application.view.ButtonsAppView;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
-import oop.focus.statistics.controller.UpdatableController;
 
 /**
  * ButtonsController is the controller that manages the section's buttons.

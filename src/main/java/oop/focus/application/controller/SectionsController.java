@@ -2,8 +2,8 @@ package oop.focus.application.controller;
 
 import oop.focus.application.view.SectionsView;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
-import oop.focus.statistics.controller.UpdatableController;
 
 /**
  * SectionsController manages and updates the view of different sections.

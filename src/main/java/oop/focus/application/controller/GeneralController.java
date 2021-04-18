@@ -1,7 +1,7 @@
 package oop.focus.application.controller;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
-import oop.focus.statistics.controller.UpdatableController;
 import oop.focus.statistics.view.ViewFactoryImpl;
 import java.util.List;
 
