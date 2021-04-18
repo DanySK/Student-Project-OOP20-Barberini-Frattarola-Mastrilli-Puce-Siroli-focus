@@ -6,13 +6,13 @@ import oop.focus.diary.model.DiaryImpl;
 import java.util.Set;
 
 /**
- * This interface models a controller of pages' diary, saved as a file.
+ * This interface models a controller of pages' diary.
  */
-public interface DiaryPages extends RemoveControllers<String> {
+public interface DiaryPagesController extends RemoveControllers<String> {
 
     /**
-     * The list return an observable set with all diary saved(a diary is formed by title and content).
-     * @return  an observable set of all Diary's saved
+     * Returns an observable set with all {@link DiaryImpl} saved.
+     * @return  an observable set of all Diary page's saved
      */
     ObservableSet<DiaryImpl> getObservableSet();
 
@@ -24,27 +24,23 @@ public interface DiaryPages extends RemoveControllers<String> {
     String getContentByName(String fileName);
 
     /**
-     * The method updates the diary's page whose title is "name", replacing his content with the input's "content".
+     * Updates the diary's page whose title is the first string in input,
+     * replacing his content with the second string.
      * @param name  the name of diary's page
      * @param content   the new content of diary's page
      */
     void updatePage(String name, String content);
 
     /**
-     * The method removes the diary's page whose title is the string in input.
-     * @param name  the title of page to remove
-     */
-  //  void removePage(String name);
-
-    /**
-     * The method creates a new diary's page whose name and content are specified.
+     * The method creates a new diary's page whose name and content are specified in input.
      * @param name  the title of the page to insert
      * @param content   the content of the page to insert
      */
     void createPage(String name, String content);
+
     /**
-     * The method returns a list with all files' names.
-     * @return  a list of all files saved
+     * Returns a set with all files' names.
+     * @return  a set of titles of all files saved
      */
     Set<String> getFileName();
 }

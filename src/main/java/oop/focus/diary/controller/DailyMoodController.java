@@ -10,22 +10,28 @@ import java.util.Optional;
  */
 public interface DailyMoodController extends Controller {
     /**
-     * The method saves the daily mood chosen, setting as day today itself.
+     * Saves the daily mood chosen, setting as day today itself.
      * @param value    the value of mood to save
      * @throws DaoAccessException   if the mood can't be saved
      */
     void addDailyMood(int value) throws DaoAccessException;
 
     /**
-     * Return today's mood if is it chosen yet, an empty optional otherwise.
+     * Returns today's mood if is it chosen yet, an empty optional otherwise.
      * @return  the value of today's mood if present, nothing otherwise
      */
     Optional<Integer> getValueChosen();
 
     /**
-     * The method deletes today's dailyMood(if it was set yet).
+     * Deletes today's dailyMood(if it was set yet).
      * @throws DaoAccessException  if the mood can't be deleted
      */
     void removeChoice() throws DaoAccessException;
+
+    /**
+     * Returns dailyMood's value in the date specified in input.
+     * @param date  the {@link LocalDate} from which is returned the relative daily mood.
+     * @return  the value of daily mood registered in a specific day
+     */
     Optional<Integer> getValueByDate(LocalDate date);
 }

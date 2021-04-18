@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import oop.focus.common.View;
-import oop.focus.diary.controller.SingleCheckBoxController;
+import oop.focus.diary.controller.SingleAnnotationController;
 import oop.focus.diary.controller.ToDoListController;
 import oop.focus.diary.model.ToDoAction;
 
@@ -17,17 +17,17 @@ public class AnnotationViewImpl implements View {
     private final ListView<CheckBox> listView;
     private final ObservableList<CheckBox> checkBoxes;
     private final ToDoListController controller;
-    private final SingleCheckBoxController checkBoxController;
+
     public AnnotationViewImpl(final ToDoListController controller)  {
         this.controller = controller;
-        this.checkBoxController = new SingleCheckBoxController();
+
         this.checkBoxes =  FXCollections.observableArrayList();
         this.listView = new ListView<>();
         this.updateTDLView();
         controller.allAnnotations().addListener((SetChangeListener<ToDoAction>) c -> {
             if (c.wasAdded()) {
                 final ToDoAction change = c.getElementAdded();
-                this.checkBoxes.add(this.checkBoxController.createCheckBox(change));
+                this.checkBoxes.add((CheckBox) new SingleAnnotationController(change).getView().getRoot());
             } else if (c.wasRemoved()) {
                 this.listView.getItems().clear();
                 this.updateTDLView();
@@ -37,7 +37,7 @@ public class AnnotationViewImpl implements View {
         this.listView.setItems(this.checkBoxes);
     }
     private void updateTDLView() {
-        controller.allAnnotations().stream().map(this.checkBoxController::createCheckBox).forEach(this.checkBoxes::add);
+        controller.allAnnotations().stream().map(s -> (CheckBox)new SingleAnnotationController(s).getView().getRoot()).forEach(this.checkBoxes::add);
     }
     @Override
     public final Node getRoot() {

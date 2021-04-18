@@ -21,7 +21,7 @@ import javafx.stage.Screen;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.RemoveTDLController;
-import oop.focus.diary.controller.SingleCheckBoxController;
+import oop.focus.diary.controller.SingleAnnotationController;
 import oop.focus.diary.controller.ToDoListController;
 import oop.focus.diary.model.ToDoAction;
 
@@ -62,10 +62,10 @@ public class ToDoListView implements View, Initializable {
     private final ToDoListController controller;
     private  ListView<CheckBox> listView;
     private ObservableList<CheckBox> checkBoxes;
-    private  SingleCheckBoxController checkBoxController;
+    private SingleAnnotationController checkBoxController;
 
     private void updateTDLView() {
-        this.controller.allAnnotations().stream().map(this.checkBoxController::createCheckBox).forEach(this.checkBoxes::add);
+        this.controller.allAnnotations().stream().map(s -> (CheckBox)new SingleAnnotationController(s).getView().getRoot()).forEach(this.checkBoxes::add);
     }
     public ToDoListView(final ToDoListController controller) {
         this.controller = controller;
@@ -87,14 +87,14 @@ public class ToDoListView implements View, Initializable {
         this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.controller).getRoot()));
         this.removeAnnotation.setText("Rimuovi");
         this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.controller).getView().getRoot()));
-        this.checkBoxController = new SingleCheckBoxController();
+        //this.checkBoxController = new SingleAnnotationController();
         this.checkBoxes =  FXCollections.observableArrayList();
         this.listView = new ListView<>();
         this.updateTDLView();
         this.controller.allAnnotations().addListener((SetChangeListener<ToDoAction>) c -> {
             if (c.wasAdded()) {
                 final ToDoAction change = c.getElementAdded();
-                this.checkBoxes.add(this.checkBoxController.createCheckBox(change));
+                this.checkBoxes.add((CheckBox) new SingleAnnotationController(change).getView().getRoot());
             } else if (c.wasRemoved()) {
                 this.listView.getItems().clear();
                 this.updateTDLView();

@@ -1,5 +1,8 @@
 package oop.focus.diary.controller;
 
+/**
+ * The enum lists all FXML file used by under-sections of diary.
+ */
 public enum FXMLPaths {
 
     /**

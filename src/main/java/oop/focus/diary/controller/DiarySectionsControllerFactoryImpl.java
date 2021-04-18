@@ -1,6 +1,5 @@
 package oop.focus.diary.controller;
 
-import oop.focus.application.controller.SectionsControllerFactory;
 import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.common.Controller;
@@ -14,6 +13,12 @@ public class DiarySectionsControllerFactoryImpl implements DiarySectionsControll
     private final DataSource dataSource;
     private final EventManager eventManager;
     private final Controller baseDiary;
+
+    /**
+     * Instantiates a new diary sections controller factory.
+     *
+     * @param dataSource    dataSource the {@link DataSource} from which to retrieve data
+     */
     public DiarySectionsControllerFactoryImpl(final DataSource dataSource) {
         this.dataSource = dataSource;
         this.eventManager = new EventManagerImpl(dataSource);
@@ -38,13 +43,13 @@ public class DiarySectionsControllerFactoryImpl implements DiarySectionsControll
      */
     @Override
     public Controller getStopwatchController() {
-        return new CounterGeneralControllerImpl(this.eventManager, false);
+        return new GeneralCounterControllerImpl(this.eventManager, false);
     }
     /**
      * {@inheritDoc}
      */
     @Override
     public Controller getTimerController() {
-        return new CounterGeneralControllerImpl(this.eventManager, true);
+        return new GeneralCounterControllerImpl(this.eventManager, true);
     }
 }

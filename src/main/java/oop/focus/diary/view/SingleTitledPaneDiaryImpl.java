@@ -9,8 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import oop.focus.diary.controller.DiaryPages;
-import oop.focus.diary.controller.DiaryPagesImpl;
+import oop.focus.diary.controller.DiaryPagesController;
 
 
 public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
@@ -18,8 +17,8 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
     private TitledPane title;
-    private final DiaryPages controller;
-    public SingleTitledPaneDiaryImpl(final DiaryPages controller) {
+    private final DiaryPagesController controller;
+    public SingleTitledPaneDiaryImpl(final DiaryPagesController controller) {
         this.controller = controller;
         this.newContent.setWrapText(true);
         this.modify.setOnMouseClicked((EventHandler<Event>) event -> {

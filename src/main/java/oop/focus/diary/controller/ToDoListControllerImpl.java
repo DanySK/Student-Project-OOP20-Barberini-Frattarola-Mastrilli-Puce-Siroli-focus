@@ -5,23 +5,38 @@ import oop.focus.common.View;
 import oop.focus.diary.model.ToDoAction;
 import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.diary.model.ToDoListManager;
-import oop.focus.diary.view.AnnotationViewImpl;
 import oop.focus.diary.view.ToDoListView;
 
+/**
+ * Implementation of {@link ToDoListController}. It has method to create, delete or modify a ToDoAction.
+ */
 public class ToDoListControllerImpl implements ToDoListController {
     private final ToDoListManager manager;
     private final ObservableSet<ToDoAction> toDoActions;
     private final View content;
+
+    /**
+     *  Instantiates a to do list controller and creates the associated view.
+     *
+     * @param manager   toDoList manager
+     */
     public ToDoListControllerImpl(final ToDoListManager manager) {
         this.manager = manager;
         this.toDoActions = FXCollections.observableSet();
         this.toDoActions.addAll(this.manager.getAnnotations());
         this.content = new ToDoListView(this);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ObservableSet<ToDoAction> allAnnotations() {
         return this.toDoActions;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void addNote(final String annotation) {
         if (this.toDoActions.stream().noneMatch(a -> a.getAnnotation().equals(annotation))) {
@@ -42,18 +57,26 @@ public class ToDoListControllerImpl implements ToDoListController {
         }
         return null;
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void changeCheck(final String a) {
         if (this.allAnnotations().contains(this.findTDAbyString(a))) {
             this.manager.changeBoxStatus(this.findTDAbyString(a));
         }
     }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void remove(final String a) {
         this.manager.removeAnnotation(this.findTDAbyString(a));
         this.toDoActions.remove(this.findTDAbyString(a));
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.content;

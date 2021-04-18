@@ -4,11 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import oop.focus.common.View;
-import oop.focus.diary.controller.DiaryPages;
+import oop.focus.diary.controller.DiaryPagesController;
 
 public class RemovePageView implements View {
     private final View view;
-    public RemovePageView(final DiaryPages controller) {
+    public RemovePageView(final DiaryPagesController controller) {
         final ObservableList<String> list = FXCollections.observableArrayList();
         controller.getObservableSet().forEach(s -> list.add(s.getName()));
         this.view = new WindowRemoveAnnotation<>(controller, list);

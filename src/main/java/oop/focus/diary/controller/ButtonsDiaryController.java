@@ -12,6 +12,12 @@ import oop.focus.diary.view.ButtonsDiaryView;
  */
 public class ButtonsDiaryController implements Controller {
     private final View content;
+
+    /**
+     * Instantiates a new buttons diary controller and creates the associated view.
+     * @param controller    the sectionsController
+     * @param dataSource    the{@link DataSource} from which to retrieve data
+     */
     public ButtonsDiaryController(final SectionsController controller, final DataSource dataSource) {
         this.content = new ButtonsDiaryView(controller, dataSource);
     }

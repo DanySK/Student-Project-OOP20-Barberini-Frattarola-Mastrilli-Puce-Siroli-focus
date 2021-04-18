@@ -19,7 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import oop.focus.common.View;
-import oop.focus.diary.controller.DiaryPages;
+import oop.focus.diary.controller.DiaryPagesController;
 import oop.focus.diary.controller.FXMLPaths;
 
 
@@ -37,8 +37,8 @@ public class WindowCreateNewPage implements Initializable, View {
     @FXML
     private Button create;
     private Parent root;
-    private final DiaryPages controller;
-    public WindowCreateNewPage(final DiaryPages controller) {
+    private final DiaryPagesController controller;
+    public WindowCreateNewPage(final DiaryPagesController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_DIARY_PAGE.getPath()));
         loader.setController(this);

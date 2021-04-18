@@ -3,7 +3,10 @@ package oop.focus.diary.controller;
 import oop.focus.common.Controller;
 import org.joda.time.LocalTime;
 
-public interface CounterGeneralController extends Controller {
+/**
+ * The interface initializes and manages all controllers relatives to counter section.
+ */
+public interface GeneralCounterController extends Controller {
     /**
      * The method can be used to enable/disable start/stop button.
      * @param disable   if true the buttons are disabled, otherwise buttons are enabled

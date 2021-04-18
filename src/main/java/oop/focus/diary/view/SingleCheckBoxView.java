@@ -7,17 +7,15 @@ import oop.focus.diary.model.ToDoAction;
 
 public class SingleCheckBoxView implements View {
     private CheckBox box;
-
-    public SingleCheckBoxView() {
+    private ToDoAction action;
+    public SingleCheckBoxView(final ToDoAction action ) {
         this.box = new CheckBox();
-    }
-    public final CheckBox createCheckBox(final ToDoAction action) {
-        this.box = new CheckBox(action.getAnnotation());
-        box.setSelected(action.isDone());
-        return box;
+        this.action = action;
     }
     @Override
     public final Node getRoot() {
-        return null;
+        this.box = new CheckBox(action.getAnnotation());
+        box.setSelected(action.isDone());
+        return this.box;
     }
 }

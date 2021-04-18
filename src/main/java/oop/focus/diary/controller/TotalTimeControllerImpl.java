@@ -8,17 +8,27 @@ import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalTime;
 
 /**
- * Immutable implementation of TotalTimeController.
+ * Immutable implementation of {@link TotalTimeController}. It can be used to calculate and
+ * visualize the total time spent to do an activity.
  */
 public class TotalTimeControllerImpl implements TotalTimeController {
 
     private final TotalTimeView totalTimeView;
     private final EventManager eventManager;
+
+    /**
+     *  Instantiates a new total time controller and creates the associated view.
+     * @param eventManager  the event manager
+     */
     public TotalTimeControllerImpl(final EventManager eventManager) {
         this.totalTimeView = new TotalTimeView();
         this.eventManager = eventManager;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final void setTotalTime(final String event) {
         System.out.println(event);
         final TotalTimeEvent totalTimeEvent = new TotalTimeEventImpl(this.eventManager);
@@ -28,7 +38,9 @@ public class TotalTimeControllerImpl implements TotalTimeController {
             this.totalTimeView.setLabel(LocalTime.MIDNIGHT);
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.totalTimeView;

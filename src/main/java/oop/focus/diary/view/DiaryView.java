@@ -4,7 +4,6 @@ import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -17,7 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.common.View;
-import oop.focus.diary.controller.DiaryPages;
+import oop.focus.diary.controller.DiaryPagesController;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.RemovePageController;
 import oop.focus.diary.model.DiaryImpl;
@@ -54,9 +53,9 @@ public class DiaryView implements View, Initializable {
     @FXML
     private HBox hBox;
 
-    private final DiaryPages controller;
+    private final DiaryPagesController controller;
     private Accordion pages;
-    public DiaryView(final DiaryPages controller) {
+    public DiaryView(final DiaryPagesController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.DIARY_SCHEME.getPath()));
         loader.setController(this);

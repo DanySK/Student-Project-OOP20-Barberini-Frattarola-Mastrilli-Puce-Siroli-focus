@@ -11,24 +11,43 @@ import org.joda.time.Period;
 
 import java.util.List;
 
+/**
+ * Implementation of {@link CounterController}. It manages counters, setting starter value and starting
+ * or stopping them.
+ */
 public class CounterControllerImpl implements CounterController {
     private final CounterManager counterManager;
     private final StartStopView view;
     private TimerButtons timerView;
     private final boolean isTimer;
-    private final CounterGeneralController generalController;
-    public CounterControllerImpl(final EventManager me, final boolean isTimer, final CounterGeneralController controllerCounter) {
+    private final GeneralCounterController generalController;
+
+    /**
+     * Instantiates a new counter controller and creates the associated view.
+     * @param eventManager  the event manager
+     * @param isTimer   a boolean which is true if the controller is a timer, false if it is a stopwatch
+     * @param controllerCounter the general controller of counter's sections
+     */
+    public CounterControllerImpl(final EventManager eventManager, final boolean isTimer, final GeneralCounterController controllerCounter) {
         this.isTimer = isTimer;
         this.generalController = controllerCounter;
-        this.counterManager = new CounterManagerImpl(me,  isTimer);
+        this.counterManager = new CounterManagerImpl(eventManager,  isTimer);
         this.view = new StartStopView(this, controllerCounter);
         if (isTimer) {
             this.timerView = new TimerButtons(controllerCounter);
         }
     }
+
+    /**
+     *  {@inheritDoc}
+     */
+    @Override
     public final void disableButton(final boolean disable) {
         this.view.disableButton(disable);
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void setStarter(final String event, final LocalTime localTime) {
         this.counterManager.createCounter(event);
@@ -43,7 +62,9 @@ public class CounterControllerImpl implements CounterController {
             }
         });
     }
-
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void stopSound() {
         this.generalController.disableChooseEvent(true);
@@ -55,9 +76,17 @@ public class CounterControllerImpl implements CounterController {
             this.counterManager.stopSound();
         }
     }
+
+    /**
+     * Sets if timer's buttons(those that allow the selection of time in timer's section) are disable or enabled.
+     * @param disable   a boolean which is true if buttons must be disabled, false otherwise.
+     */
     private void disableTimerButtons(final boolean disable) {
         this.timerView.disableButtons(disable);
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void startTimer() {
         this.generalController.disableChooseEvent(true);
@@ -66,6 +95,9 @@ public class CounterControllerImpl implements CounterController {
         }
         this.counterManager.startCounter();
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void stopTimer() {
         this.generalController.disableChooseEvent(true);
@@ -81,7 +113,9 @@ public class CounterControllerImpl implements CounterController {
     private boolean isPlaying() {
         return this.counterManager.isPlaying();
     }
-
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final View getView() {
         if (!this.isTimer) {

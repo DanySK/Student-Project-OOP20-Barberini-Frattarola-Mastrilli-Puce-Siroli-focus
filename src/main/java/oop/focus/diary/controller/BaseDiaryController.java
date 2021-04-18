@@ -14,9 +14,15 @@ import oop.focus.diary.view.BaseDiaryView;
  */
 public class BaseDiaryController implements Controller {
     private final View baseDiary;
+
+    /**
+     * Instantiates a new base diary controller and creates the associated view.
+     *
+     * @param dataSource the {@link DataSource} from which to retrieve data
+     */
     public BaseDiaryController(final DataSource dataSource) {
         this.baseDiary = new BaseDiaryView(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
-                new DiaryPagesImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource)));
+                new DiaryPagesControllerImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource)));
     }
     /**
      * {@inheritDoc}

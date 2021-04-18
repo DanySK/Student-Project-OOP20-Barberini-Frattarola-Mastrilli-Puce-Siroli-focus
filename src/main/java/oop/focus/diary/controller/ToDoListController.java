@@ -8,19 +8,19 @@ import oop.focus.diary.model.ToDoAction;
  */
 public interface ToDoListController extends RemoveControllers<String> {
     /**
-     *  This method returns an observable list with all toDoAction saved.
-     * @return  a list of toDoAction
+     * Returns an {@link ObservableSet} with all toDoActions saved.
+     * @return  a set of toDoActions
      */
     ObservableSet<ToDoAction> allAnnotations();
 
     /**
-     * This method create a new ToDoAction, whose annotation is the string in input and it isn't done yet.
+     * Creates a new ToDoAction, whose annotation is the string in input and it isn't done yet.
      * @param annotation    the annotation of toDoAction to add
      */
     void addNote(String annotation);
 
     /**
-     * This method change the checkBox of the ToDoAction whose annotation is the string in input.
+     * Changes the checkBox's status of the ToDoAction whose annotation is the string in input.
      * @param a the annotation of toDoAction to change
      */
     void changeCheck(String a);

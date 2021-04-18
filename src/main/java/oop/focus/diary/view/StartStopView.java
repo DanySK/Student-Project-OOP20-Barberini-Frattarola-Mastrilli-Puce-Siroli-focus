@@ -11,9 +11,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import oop.focus.common.View;
 import oop.focus.diary.controller.CounterController;
-import oop.focus.diary.controller.CounterControllerImpl;
-import oop.focus.diary.controller.CounterGeneralController;
-import oop.focus.diary.controller.CounterGeneralControllerImpl;
+import oop.focus.diary.controller.GeneralCounterController;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -30,7 +28,7 @@ public class StartStopView implements View {
     private final Label counterLabel;
     private final Button start;
     private final Button stop;
-    public StartStopView(final CounterController controller, final CounterGeneralController controllerCounter) {
+    public StartStopView(final CounterController controller, final GeneralCounterController controllerCounter) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
         this.start.setOnMouseClicked(event -> {

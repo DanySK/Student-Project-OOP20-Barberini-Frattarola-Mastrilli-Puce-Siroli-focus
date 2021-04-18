@@ -7,25 +7,45 @@ import org.joda.time.LocalTime;
 
 import java.util.List;
 
-public class CounterGeneralControllerImpl implements CounterGeneralController {
+/**
+ * Implementation of {@link GeneralCounterController}. This class puts in communication the
+ * different Controller of counter.
+ */
+public class GeneralCounterControllerImpl implements GeneralCounterController {
     private final EventCounterController eventCounterController;
     private final TotalTimeController totalTimeController;
     private final CounterController counterController;
     private LocalTime localTime = LocalTime.MIDNIGHT;
     private String eventName;
-    public CounterGeneralControllerImpl(final EventManager eventManager, final boolean isTimer) {
+
+    /**
+     * Instantiates a new general counter controller and initializes other Controller relatives to counter.
+     * @param eventManager  the event manager
+     * @param isTimer   a boolean which is true if the counter is a timer, false if it is a stopwatch
+     */
+    public GeneralCounterControllerImpl(final EventManager eventManager, final boolean isTimer) {
         this.counterController = new CounterControllerImpl(eventManager, isTimer, this);
         this.eventCounterController = new EventCounterControllerImpl(eventManager, this);
         this.totalTimeController = new TotalTimeControllerImpl(eventManager);
     }
+
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void disableButton(final boolean disable) {
         this.counterController.disableButton(disable);
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public void disableChooseEvent(final boolean disable) {
         this.eventCounterController.disableChooseEvent(disable);
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void setCounterName(final String event) {
         this.eventName = event;
@@ -33,11 +53,17 @@ public class CounterGeneralControllerImpl implements CounterGeneralController {
         this.counterController.setStarter(event, this.localTime);
         this.localTime = LocalTime.MIDNIGHT;
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final void setStarterValue(final LocalTime localTime) {
         this.localTime = localTime;
         this.setCounterName(this.eventName);
     }
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return new CreateBoxFactoryImpl().createVBox(List.of(this.eventCounterController.getView().getRoot(),

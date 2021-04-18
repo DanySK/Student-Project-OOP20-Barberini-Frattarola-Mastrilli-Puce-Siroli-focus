@@ -3,16 +3,16 @@ package oop.focus.diary.view;
 import javafx.scene.Node;
 import oop.focus.common.View;
 import oop.focus.diary.controller.DailyMoodController;
-import oop.focus.diary.controller.DiaryPages;
+import oop.focus.diary.controller.DiaryPagesController;
 import oop.focus.diary.controller.ToDoListController;
 
 import java.util.List;
 
 public class BaseDiaryView implements View {
     private final ToDoListController toDoListController;
-    private final DiaryPages diaryController;
+    private final DiaryPagesController diaryController;
     private final DailyMoodController manager;
-    public BaseDiaryView(final ToDoListController toDoListController, final DiaryPages diaryController, final DailyMoodController manager) {
+    public BaseDiaryView(final ToDoListController toDoListController, final DiaryPagesController diaryController, final DailyMoodController manager) {
         this.toDoListController = toDoListController;
         this.diaryController = diaryController;
         this.manager = manager;
