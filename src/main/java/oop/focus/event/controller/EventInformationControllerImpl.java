@@ -28,10 +28,14 @@ public class EventInformationControllerImpl implements EventInformationControlle
 
     public final void stopRepetition() {
         this.eventManager.generateRepeatedEvents(LocalDate.now());
-        this.eventManager.getAll().stream().forEach(e ->{
-            System.out.println(e.getName() + " " + e.isRepeated());
-        });
+
+        this.event.stopRepeat();
+        this.eventManager.removeEvent(this.event);
         this.event.setRepetition(Repetition.ONCE);
+        this.eventManager.addEvent(this.event);
+        this.eventManager.getAll().stream().forEach(e ->{
+            System.out.println(e.getName() + " " + e.getStart().toString() + " " + e.isRepeated());
+        });
     }
 
     @Override
