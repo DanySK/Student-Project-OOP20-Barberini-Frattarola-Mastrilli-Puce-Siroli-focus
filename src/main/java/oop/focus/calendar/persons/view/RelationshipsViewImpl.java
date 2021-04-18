@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.common.View;
-import oop.focus.db.exceptions.DaoAccessException;
 
 
 public class RelationshipsViewImpl implements RelationshipsView {
@@ -78,12 +77,12 @@ public class RelationshipsViewImpl implements RelationshipsView {
     }
 
     private void deleteItem() {
-            try{
+            try {
                 this.controller.deleteRelationship(this.relationshipsTable.getSelectionModel().getSelectedItem());
                 this.personView.fillComboBoxDegree();
                 this.refreshTableView();
             } catch (IllegalStateException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                final Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setHeaderText("La parentela che si vuole eliminare è utilizzata!");
                 final Optional<ButtonType> result = alert.showAndWait();

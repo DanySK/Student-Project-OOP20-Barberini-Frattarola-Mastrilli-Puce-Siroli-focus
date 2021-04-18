@@ -42,7 +42,7 @@ public class SectionsControllerFactoryImpl implements SectionsControllerFactory 
      */
     @Override
     public Controller getCalendarController() {
-        return new CalendarControllerImpl(this.dataSource);
+        return new CalendarControllerImpl(this.dataSource,  this.getHomePageController());
     }
     /**
      * {@inheritDoc}

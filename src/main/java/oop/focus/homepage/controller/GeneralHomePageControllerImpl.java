@@ -10,14 +10,12 @@ import oop.focus.homepage.view.GeneralHomePageView;
 
 public class GeneralHomePageControllerImpl implements GeneralHomePageController {
 
-    private final DataSource dsi;
     private final GeneralHomePageView view;
     private final HomePageController calendarHomePage;
     private final FinanceHomePageController financheHomePage;
 
     public GeneralHomePageControllerImpl(final DataSource dsi, final FinanceManager financeManager) {
-        this.dsi = dsi;
-        this.calendarHomePage = new HomePageControllerImpl(this.dsi);
+        this.calendarHomePage = new HomePageControllerImpl(dsi);
         this.financheHomePage = new FinanceHomePageControllerImpl(financeManager);
         this.view = new GeneralHomePageView(this);
     }
@@ -32,5 +30,10 @@ public class GeneralHomePageControllerImpl implements GeneralHomePageController 
 
     public final View getView() {
         return this.view;
+    }
+
+    @Override
+    public final HomePageController getHomePageController() {
+        return this.calendarHomePage;
     }
 }

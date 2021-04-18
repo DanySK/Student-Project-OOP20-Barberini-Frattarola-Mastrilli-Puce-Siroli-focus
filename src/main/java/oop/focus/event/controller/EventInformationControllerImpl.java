@@ -5,7 +5,6 @@ import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.view.EventInformationViewImpl;
-import oop.focus.event.view.EventMenuView;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
@@ -33,18 +32,18 @@ public class EventInformationControllerImpl implements EventInformationControlle
 
     public final void stopRepetition() {
         this.eventManager.generateRepeatedEvents(LocalDate.now());
-        for (Event e : this.eventManager.getAll()){
-            System.out.println(e.getName() + " "+ e.getStart().toString());
+        for (final Event e : this.eventManager.getAll()) {
+            System.out.println(e.getName() + " " + e.getStart().toString());
         }
     }
 
     @Override
-    public WeekController getWeek() {
+    public final WeekController getWeek() {
         return this.week;
     }
 
     @Override
-    public CalendarMonthController getMonth() {
+    public final CalendarMonthController getMonth() {
         return this.month;
     }
 

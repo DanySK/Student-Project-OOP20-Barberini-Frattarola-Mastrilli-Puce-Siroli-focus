@@ -7,8 +7,6 @@ import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
-import oop.focus.homepage.model.TimeProperty;
-import oop.focus.homepage.model.TimePropertyImpl;
 import org.joda.time.LocalDate;
 
 public class NewEventControllerImpl implements NewEventController {
@@ -17,17 +15,15 @@ public class NewEventControllerImpl implements NewEventController {
     private final WeekController weekController;
     private final CalendarMonthController monthController;
     private final EventManager eventManager;
-    private final TimeProperty timeProperty;
     private final NewEventWeekViewImpl view;
 
     public NewEventControllerImpl(final DataSource dsi, final WeekController weekController, final CalendarMonthController monthController) {
         this.dsi = dsi;
         this.eventManager = new EventManagerImpl(this.dsi);
-        this.timeProperty = new TimePropertyImpl();
         this.monthController = monthController;
         this.weekController = weekController;
 
-        this.view = new NewEventWeekViewImpl(this, this.weekController, this.monthController);
+        this.view = new NewEventWeekViewImpl(this);
     }
 
     public final void addNewEvent(final Event event) {
@@ -45,5 +41,15 @@ public class NewEventControllerImpl implements NewEventController {
 
     public final View getView() {
         return this.view;
+    }
+
+    @Override
+    public final CalendarMonthController getMonth() {
+        return this.monthController;
+    }
+
+    @Override
+    public final WeekController getWeek() {
+        return this.weekController;
     }
 }

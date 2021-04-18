@@ -23,4 +23,10 @@ public interface GeneralHomePageController extends Controller {
      * @return View that represent the view of the homepage.
      */
     View getView();
+
+    /**
+     * This method is used to get the calendarHomePage controller.
+     * @return HomePageController that is the controller of the homepage.
+     */
+     HomePageController getHomePageController();
 }

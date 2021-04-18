@@ -145,8 +145,10 @@ public class NewEventViewImpl implements NewEventView {
 
     private void saveEvent(final ActionEvent event) throws IOException {
         final LocalDate date = LocalDate.now();
-        final LocalTime start = new LocalTime(Integer.valueOf(this.startHourChoice.getSelectionModel().getSelectedItem()), Integer.valueOf(this.startMinuteChoice.getSelectionModel().getSelectedItem()));
-        final LocalTime end = new LocalTime(Integer.valueOf(this.endHourChoice.getSelectionModel().getSelectedItem()), Integer.valueOf(this.endMinuteChoice.getSelectionModel().getSelectedItem()));
+        final LocalTime start = new LocalTime(Integer.valueOf(this.startHourChoice.getSelectionModel().getSelectedItem()),
+                Integer.valueOf(this.startMinuteChoice.getSelectionModel().getSelectedItem()));
+        final LocalTime end = new LocalTime(Integer.valueOf(this.endHourChoice.getSelectionModel().getSelectedItem()),
+                Integer.valueOf(this.endMinuteChoice.getSelectionModel().getSelectedItem()));
 
         final ObservableList<Integer> indices = this.listOfPersons.getSelectionModel().getSelectedIndices();
         final List<Person> finalList = new ArrayList<>();

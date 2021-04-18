@@ -1,5 +1,6 @@
 package oop.focus.calendar.week.controller;
 
+import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
@@ -17,6 +18,18 @@ public interface NewEventController {
      * @return the data source.
      */
     DataSource getDsi();
+
+    /**
+     * This method is used to get the month controller.
+     * @return CalendarMonthController
+     */
+    CalendarMonthController getMonth();
+
+    /**
+     * This method is used to get the week controller.
+     * @return WeekController.
+     */
+    WeekController getWeek();
 
     /**
      * This method is used to get the view.

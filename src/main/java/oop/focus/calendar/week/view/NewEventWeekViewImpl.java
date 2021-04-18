@@ -29,12 +29,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.week.controller.FXMLPaths;
 import oop.focus.calendar.week.controller.NewEventController;
-import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
@@ -69,16 +67,12 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     private ListView<String> listOfPersons;
 
     private final NewEventController controller;
-    private final WeekController weekController;
-    private final CalendarMonthController monthController;
 
     private Node root;
     private ObservableList<Person> list;
 
-    public NewEventWeekViewImpl(final NewEventController controller, final WeekController weekController, final CalendarMonthController monthController) {
+    public NewEventWeekViewImpl(final NewEventController controller) {
         this.controller = controller;
-        this.weekController = weekController;
-        this.monthController = monthController;
 
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWEVENT.getPath()));
         loader.setController(this);
@@ -170,9 +164,9 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
                 && !String.valueOf(this.datePickerEnd.getValue()).isEmpty() && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent(event);
 
-            this.weekController.getView().setWeekDays();
-            this.weekController.getHomePageController().getView().setDay();
-            this.monthController.updateView();
+            this.controller.getWeek().getView().setWeekDays();
+            this.controller.getWeek().getHomePageController().getView().setDay();
+            this.controller.getMonth().updateView();
 
         } else {
             final Alert alert = new Alert(AlertType.ERROR);

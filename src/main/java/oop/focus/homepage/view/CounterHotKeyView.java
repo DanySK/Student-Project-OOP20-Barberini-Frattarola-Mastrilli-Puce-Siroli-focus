@@ -38,7 +38,8 @@ public class CounterHotKeyView extends Pane implements HotKeyView {
         this.button.setOnAction(event -> {
 
             this.controller.saveEvent(new EventImpl(this.button.getText(), LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE));
-            this.label.setText(String.valueOf(Integer.valueOf(this.label.getText()) + 1));
+            final int count = Integer.parseInt(this.label.getText()) + 1;
+            this.label.setText(String.valueOf(count));
         });
     }
 
