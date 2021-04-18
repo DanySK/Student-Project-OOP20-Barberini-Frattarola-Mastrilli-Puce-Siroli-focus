@@ -3,12 +3,6 @@
     -fx-background-radius: 10px;
     -fx-background-color: #fc8282;
 }
-.calendar-lateral-button {
-    -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-background-color: #fc8282;
-}
-}
 .grid-event {
     -fx-background-color: #fc8282;
     -fx-background-radius: 10px;

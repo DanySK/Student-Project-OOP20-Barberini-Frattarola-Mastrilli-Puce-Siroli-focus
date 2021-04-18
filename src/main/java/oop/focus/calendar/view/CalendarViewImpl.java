@@ -34,8 +34,8 @@ public class CalendarViewImpl implements View {
     private static final double EVENT_HEIGHT = 600;
 
 
-    public CalendarViewImpl(final CalendarController calendarcontroller) {
-        this.calendarController = calendarcontroller;
+    public CalendarViewImpl(final CalendarController calendarController) {
+        this.calendarController = calendarController;
         this.calendarPage = new HBox();
         buildCalendarPage();
     }
@@ -61,9 +61,9 @@ public class CalendarViewImpl implements View {
         columnButton(buttonColumn, "Settimana", addPanel(panelColumn, calendarController.getWeekController().getView().getRoot()));
         columnButton(buttonColumn, "Persone", addPanel(panelColumn, calendarController.getPersonController().getView().getRoot()));
         columnButton(buttonColumn, "Statistiche", addPanel(panelColumn, calendarController.getStatisticsController().getView().getRoot()));
-        buttonColumn.getChildren().add(buildButtonWindows("IMPOSTAZIONI", calendarController.getSettingsController().getView(), SETTING_WIDTH, SETTING_HEIGHT));
-        buttonColumn.getChildren().add(buildButtonWindows("AGGIUNGI EVENTO", calendarController.getNewEventController().getView(), EVENT_WIDTH, EVENT_HEIGHT));
-
+        buildButtonWindows(buttonColumn, "Impostazioni", calendarController.getSettingsController().getView(), SETTING_WIDTH, SETTING_HEIGHT);
+        buildButtonWindows(buttonColumn, "Aggiungi Evento", calendarController.getNewEventController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
+        buildButtonWindows(buttonColumn, "Info Eventi", calendarController.getEventInfoController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
         panelColumn.getChildren().add(calendarController.getMonthController().getView().getRoot());
 
     }
@@ -92,7 +92,7 @@ public class CalendarViewImpl implements View {
      */
     private void columnButton(final VBox buttonColumn, final String string, final EventHandler<ActionEvent> openThisPanel) {
         final Button button = new Button(string);
-        button.getStyleClass().add("calendar-lateral-button");
+        button.getStyleClass().add("lateral-button");
         button.setPrefHeight(GAP * 2);
         button.setAlignment(Pos.CENTER);
         button.prefWidthProperty().bind(buttonColumn.widthProperty().multiply(WIDTH_BUTTON));
@@ -102,15 +102,17 @@ public class CalendarViewImpl implements View {
 
     /**
      * Used for build the button for open window.
+     * @param buttonColumn : column where the button will be
      * @param name : String with the name of the button
      * @param view : controller of the windows to open
      * @param widht : width of the window
      * @param height : height of the window
-     * @return Button
      */
-    private Button buildButtonWindows(final String name, final View view, final double width, final double height) {
+
+    private void buildButtonWindows(final VBox buttonColumn, final String name, final View view, final double width, final double height) {
         final Button button = new Button(name);
-        button.getStyleClass().add("calendar-lateral-button");
+        button.getStyleClass().add("lateral-button");
+        button.prefWidthProperty().bind(buttonColumn.widthProperty().multiply(WIDTH_BUTTON));
         button.setPrefHeight(GAP * 2);
         button.setAlignment(Pos.CENTER);
         final Stage stage = new Stage();
@@ -121,7 +123,7 @@ public class CalendarViewImpl implements View {
         button.setOnAction((e) -> {
             stage.show();
         });
-        return button;
+        buttonColumn.getChildren().add(button);
     }
 
     /**

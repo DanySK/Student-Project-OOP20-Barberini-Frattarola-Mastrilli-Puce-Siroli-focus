@@ -6,6 +6,7 @@ import oop.focus.calendar.settings.controller.CalendarSettingsController;
 import oop.focus.calendar.week.controller.NewEventController;
 import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.Controller;
+import oop.focus.event.controller.EventMenuController;
 import oop.focus.statistics.controller.EventsStatistics;
 
 /**
@@ -43,6 +44,12 @@ public interface CalendarController extends Controller {
     * @return NewEventController
     */
    NewEventController getNewEventController();
+
+   /**
+    * Used for get the Info Event Controller.
+    * @return EventMenuController
+    */
+   EventMenuController getEventInfoController();
 
    /**
     * Used for get the Person Controller.
