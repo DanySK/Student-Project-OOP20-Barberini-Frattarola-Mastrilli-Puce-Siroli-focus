@@ -20,8 +20,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.event.controller.EventInformationController;
 import oop.focus.event.controller.EventInformationControllerImpl;
 import oop.focus.event.controller.EventMenuController;
@@ -81,9 +79,7 @@ public class EventMenuViewImpl implements EventMenuView {
 
     public final void viewInformation() {
         if (!this.tableEvent.getSelectionModel().isEmpty()) {
-            final WeekController week = this.controller.getWeek();
-            final CalendarMonthController month = this.controller.getMonth();
-            final EventInformationController controllerEvent = new EventInformationControllerImpl(this.controller.getDsi(), this.tableEvent.getSelectionModel().getSelectedItem(), week, month);
+            final EventInformationController controllerEvent = new EventInformationControllerImpl(this.controller.getDsi(), this.tableEvent.getSelectionModel().getSelectedItem(), this.controller);
             final Stage stage = new Stage();
             stage.setScene(new Scene((Parent) controllerEvent.getView().getRoot()));
             stage.show();
@@ -110,7 +106,7 @@ public class EventMenuViewImpl implements EventMenuView {
         }
     }
 
-    private void refreshTable() {
+    public final void refreshTable() {
         this.tableEvent.getItems().clear();
         this.tableEvent.setItems(this.controller.getEvents());
     }

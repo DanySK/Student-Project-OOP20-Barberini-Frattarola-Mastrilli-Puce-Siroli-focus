@@ -14,8 +14,8 @@ public class App{
 	         //PersonLauncher.main(args);
 			 //HomePageLauncher.main(args);
 	         //WeekLauncher.main(args);
-			 //EventLauncher.main(args);
-			 NewEventLauncher.main(args);
+			 EventLauncher.main(args);
+			 //NewEventLauncher.main(args);
 	     }
 
 }

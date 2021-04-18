@@ -1,7 +1,5 @@
 package oop.focus.event.controller;
 
-import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.View;
 import oop.focus.homepage.model.Event;
 
@@ -25,14 +23,8 @@ public interface EventInformationController {
     void stopRepetition();
 
     /**
-     * This method is used to get the week controller.
-     * @return WeekController that is the week controller.
+     * 
+     * @return EventMenuController
      */
-    WeekController getWeek();
-
-    /**
-     * This method is used to get the CalendarMonthControlle.
-     * @return CalendarMonthController that is the month controller.
-     */
-    CalendarMonthController getMonth();
+    EventMenuController getMenu();
 }

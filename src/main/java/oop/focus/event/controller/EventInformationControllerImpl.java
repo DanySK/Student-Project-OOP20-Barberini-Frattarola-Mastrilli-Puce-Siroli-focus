@@ -1,7 +1,4 @@
 package oop.focus.event.controller;
-
-import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.view.EventInformationViewImpl;
@@ -14,15 +11,13 @@ public class EventInformationControllerImpl implements EventInformationControlle
 
     private final EventInformationViewImpl view;
     private final EventManager eventManager;
-    private final WeekController week;
-    private final CalendarMonthController month;
+    private final EventMenuController menuController;
     private final Event event;
 
-    public EventInformationControllerImpl(final DataSource dsi, final Event event, final WeekController week, final CalendarMonthController month) {
+    public EventInformationControllerImpl(final DataSource dsi, final Event event, final EventMenuController menuController) {
         this.eventManager = new EventManagerImpl(dsi);
         this.event = event;
-        this.week = week;
-        this.month = month;
+        this.menuController = menuController;
         this.view = new EventInformationViewImpl(this);
     }
 
@@ -38,18 +33,13 @@ public class EventInformationControllerImpl implements EventInformationControlle
     }
 
     @Override
-    public final WeekController getWeek() {
-        return this.week;
-    }
-
-    @Override
-    public final CalendarMonthController getMonth() {
-        return this.month;
-    }
-
-    @Override
     public final View getView() {
         return this.view;
+    }
+
+    @Override
+    public final EventMenuController getMenu() {
+        return this.menuController;
     }
 
 }

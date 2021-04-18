@@ -81,8 +81,9 @@ public class EventInformationViewImpl implements View, Initializable {
 
     private void stopRepeat() {
         this.controller.stopRepetition();
-        this.controller.getWeek().getView().setWeekDays();
-        this.controller.getMonth().updateView();
+        this.controller.getMenu().getWeek().getView().setWeekDays();
+        this.controller.getMenu().getMonth().updateView();
+        ((EventMenuView) this.controller.getMenu().getView()).refreshTable();
         this.labelRepetition.setText(Repetition.ONCE.toString());
     }
 
