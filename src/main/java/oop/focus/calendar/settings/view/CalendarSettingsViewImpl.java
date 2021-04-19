@@ -33,6 +33,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
     private Stage settingsWindows;
     private final VBox settingsBox;
 
+
     public CalendarSettingsViewImpl(final CalendarSettingsController controller) {
         this.settingsController = controller;
         this.settingsBox = buildSettingsView();

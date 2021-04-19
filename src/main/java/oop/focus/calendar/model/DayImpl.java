@@ -21,7 +21,7 @@ public class DayImpl implements Day {
     /**
      * Used for Initialize the Day.
      * @param date : date of the day
-     * @param dataSource
+     * @param dataSource : dataSource the {@link DataSource} from which to retrieve data
      */
     public DayImpl(final LocalDate date, final DataSource dataSource) {
         final EventManager manager = new EventManagerImpl(dataSource);

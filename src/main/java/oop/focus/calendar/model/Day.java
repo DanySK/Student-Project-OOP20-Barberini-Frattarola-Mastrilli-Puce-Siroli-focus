@@ -58,14 +58,14 @@ public interface Day {
 
     /**
      * Can be used to get the list of the events of the day.
-     * @return List<Event> : the list of event of the day 
+     * @return List : the list of event of the day
      */
     List<Event> getEvents();
 
 
     /**
      * Can be used to get the list of the daily events of the day.
-     * @return List<Event> : the list of the daily event of the day 
+     * @return List : the list of the daily event of the day
      */
     List<Event> getDailyEvents();
 }

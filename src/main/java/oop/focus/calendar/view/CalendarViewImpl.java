@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
+import oop.focus.calendar.settings.view.CalendarSettingsView;
 import oop.focus.common.View;
 import oop.focus.event.view.EventMenuView;
 
@@ -118,7 +119,7 @@ public class CalendarViewImpl implements View {
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) view.getRoot(), width, height));
         if ("Impostazioni".equalsIgnoreCase(name)) {
-            this.calendarController.getSettingsController().setWindow(stage);
+            ((CalendarSettingsView) this.calendarController.getSettingsController().getView()).setWindow(stage);
         }
         button.setOnAction((e) -> {
             if ("Info Eventi".equalsIgnoreCase(name) || "Settimana".equalsIgnoreCase(name)) {

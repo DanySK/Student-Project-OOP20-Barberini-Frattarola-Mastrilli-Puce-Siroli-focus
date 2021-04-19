@@ -14,13 +14,13 @@ public interface CalendarSettingsView extends View {
 
     /**
      * Used for set the stage of the settings view.
-     * @param stage
+     * @param stage : stage of the settings view
      */
     void setWindow(Stage stage);
 
     /**
      * Used for set the windows error of settings.
-     * @param string : Error phrases.
+     * @param string : Error phrases to show.
      */
     void windowsError(String string);
 }

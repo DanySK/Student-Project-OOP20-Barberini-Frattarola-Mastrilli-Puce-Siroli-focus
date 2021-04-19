@@ -51,7 +51,7 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for set the spacing between the hours.
-     * @param spacing
+     * @param spacing : space between two hours in the {@link HoursView}
      */
     void setSpacing(double spacing);
 
@@ -63,7 +63,7 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for set the format of the hours.
-     * @param format
+     * @param format : the {@link Format} of the hours of the hours box
      */
     void setFormat(Format format);
 

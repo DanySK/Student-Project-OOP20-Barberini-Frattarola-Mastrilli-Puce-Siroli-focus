@@ -21,7 +21,7 @@ public interface CalendarMonthController extends  Controller {
 
     /**
      * Used for set the Format and the Spacing of the hoursbox of the day.
-     * @param dayController
+     * @param dayController : controller of the month
      */
     void configureDay(CalendarDayController dayController);
 
@@ -33,7 +33,7 @@ public interface CalendarMonthController extends  Controller {
     /**
      * 
      * Used to get the list with the days of the month.
-     * @return List<Day> : month
+     * @return List : month
      */
     List<Day> getMonth();
 
@@ -57,13 +57,13 @@ public interface CalendarMonthController extends  Controller {
 
     /**
      * Used for set the Format of the hoursbox.
-     * @param format
+     * @param format : format of the hours box
      */
     void setFormat(Format format);
 
     /**
      * Used for set the Spacing of the hoursbox.
-     * @param spacing
+     * @param spacing : space between two numbers in the hours box
      */
     void setSpacing(double spacing);
 

@@ -30,7 +30,7 @@ public class CalendarLogicImpl implements CalendarLogic {
 
     /**
      * Used for Initialize the calendar logic.
-     * @param dataSource
+     * @param dataSource : dataSource the {@link DataSource} from which to retrieve data
      */
     public CalendarLogicImpl(final DataSource dataSource) {
         this.dataSource = dataSource;

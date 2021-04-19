@@ -1,7 +1,6 @@
 package oop.focus.calendar.settings.controller;
 
 
-import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.settings.view.CalendarSettingsView;
@@ -103,12 +102,6 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public final void setWindow(final Stage stage) {
-        this.settingsView.setWindow(stage);
-    }
 
     /**
      * {@inheritDoc}

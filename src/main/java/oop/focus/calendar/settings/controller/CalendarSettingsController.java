@@ -1,7 +1,6 @@
 package oop.focus.calendar.settings.controller;
 
 
-import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.common.Controller;
 
@@ -13,7 +12,7 @@ public interface CalendarSettingsController extends Controller {
 
     /**
      * Used for set the format of the hours.
-     * @param format
+     * @param format : the {@link Format} of the hours of the hours box
      */
     void setFormat(Format format);
 
@@ -32,7 +31,7 @@ public interface CalendarSettingsController extends Controller {
 
     /**
      * Used for set the space between the hours.
-     * @param spacing
+     * @param spacing : space between two hours in the Hours Box
      */
     void setSpacing(double spacing);
 
@@ -41,12 +40,6 @@ public interface CalendarSettingsController extends Controller {
      * @return double : spacing
      */
     double getSpacing();
-
-    /**
-     * Used for set the stage of the settings view.
-     * @param stage
-     */
-    void setWindow(Stage stage);
 
 
     /**

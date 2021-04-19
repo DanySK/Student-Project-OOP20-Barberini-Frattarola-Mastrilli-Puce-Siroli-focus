@@ -47,7 +47,7 @@ public interface CalendarLogic {
      * Used for generate one of the Calendar List.
      * @param numberOfDays : is the number of day of the list
      * @param startingDate : is the date of the day from it start to generate the calendar
-     * @return List<DayImpl> : a generated list of number number of days.
+     * @return List : a generated list of number number of days.
      */
     List<Day> generate(int numberOfDays, LocalDate startingDate);
 

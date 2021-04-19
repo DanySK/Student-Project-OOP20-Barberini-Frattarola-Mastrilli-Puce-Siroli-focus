@@ -43,7 +43,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
     /**
      * Used for Initialize the month controller.
      * @param type : type of calendar to build
-     * @param dataSource
+     * @param dataSource : the {@link DataSource} from which to retrieve data
      */
     public CalendarMonthControllerImpl(final CalendarType type, final DataSource dataSource) {
         this.format = Format.NORMAL;
