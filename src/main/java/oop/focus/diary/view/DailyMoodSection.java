@@ -17,6 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Implementation of {@link View}. Daily mood section represents the section of daily mood,
+ * filling and returning a pane with the different mood, which can be chosen by the user.
+ */
 public class DailyMoodSection implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double NUM_ICONS = 5;
@@ -35,6 +39,11 @@ public class DailyMoodSection implements View {
     private final Label dailyMoodLabel;
     private final DailyMoodControllerImpl controller;
     private final GridPane gridPane;
+
+    /**
+     * Initializes a new daily mood section.
+     * @param controller    the daily mood controller
+     */
     public DailyMoodSection(final DailyMoodControllerImpl controller) {
         this.gridPane = new GridPane();
         this.map = new HashMap<>();
@@ -66,8 +75,15 @@ public class DailyMoodSection implements View {
                 e.printStackTrace();
             }
         });
-        this.vBox = (VBox) new CreateBoxFactoryImpl().createVBox(List.of(this.dailyMoodLabel, this.gridPane, this.button)).getRoot();
+        this.vBox = (VBox) new ContainerFactoryImpl().mergeVertically(List.of(this.dailyMoodLabel, this.gridPane,
+                this.button)).getRoot();
     }
+
+    /**
+     * Sets the configuration and fill a {@link GridPane} with different {@link Button}. It also sets the
+     * graphic of each button taking it from the apposite class {@link DailyMoodView}.
+     * @throws IOException  if isn't possible to set graphic of buttons
+     */
     private void setGrid() throws IOException {
         int index = 0;
         this.gridPane.setVgap(GRID_GAP);
@@ -87,6 +103,10 @@ public class DailyMoodSection implements View {
 
     }
 
+    /**
+     * The method sets the brightness of each button of grid. In that way, when a button is clicked, unselected buttons
+     * darken.
+     */
     private void setBrightness() {
         for (final var elem : this.map.keySet()) {
             final ColorAdjust blackout = new ColorAdjust();
@@ -103,6 +123,9 @@ public class DailyMoodSection implements View {
             }
         }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         this.gridPane.prefWidthProperty().bind(this.vBox.widthProperty());

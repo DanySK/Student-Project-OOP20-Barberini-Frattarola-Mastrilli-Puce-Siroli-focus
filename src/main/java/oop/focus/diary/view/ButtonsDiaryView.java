@@ -27,6 +27,11 @@ public class ButtonsDiaryView extends ButtonsView {
     private final Map<Button, Controller> map;
     private final DiarySections controller;
 
+    /**
+     * Instantiates a new buttons view.
+     * @param sectionsController    the controller of sections
+     * @param dataSource    the {@link DataSource} from which to retrieve data
+     */
     public ButtonsDiaryView(final SectionsController sectionsController, final DataSource dataSource) {
         super(sectionsController);
         this.map = new HashMap<>();

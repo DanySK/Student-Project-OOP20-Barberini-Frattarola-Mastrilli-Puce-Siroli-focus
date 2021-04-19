@@ -32,6 +32,10 @@ import java.util.ResourceBundle;
 
 import static oop.focus.diary.view.OpenWindow.openWindow;
 
+/**
+ * To Do List View represents toDoList's section, a container of ToDoActions.
+ * The view of single ToDoAction is given by the apposite class {@link SingleToDoActionView}.
+ */
 public class ToDoListView implements View, Initializable {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double SINGLE_NOTE_HEIGHT = 0.1;
@@ -62,32 +66,41 @@ public class ToDoListView implements View, Initializable {
     private final ToDoListController controller;
     private  ListView<CheckBox> listView;
     private ObservableList<CheckBox> checkBoxes;
-    private SingleAnnotationController checkBoxController;
 
-    private void updateTDLView() {
-        this.controller.allAnnotations().stream().map(s -> (CheckBox)new SingleAnnotationController(s).getView().getRoot()).forEach(this.checkBoxes::add);
-    }
+    /**
+     * Instantiates a new to do list view and opens the relative FXML file.
+     * @param controller    to do list controller
+     */
     public ToDoListView(final ToDoListController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TDL_SCHEME.getPath()));
         loader.setController(this);
         try {
             Parent root = loader.load();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * The method can be used to insert all {@link ToDoAction} in the apposite {@link ListView}.
+     */
+    private void updateTDLView() {
+        this.controller.allAnnotations().stream().map(s -> (CheckBox)new SingleAnnotationController(s).getView().
+                getRoot()).forEach(this.checkBoxes::add);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.vBox = (VBox) new CreateBoxFactoryImpl().createVBox(List.of(this.toDoListLabel, this.containerTDL, this.hBox)).getRoot();
+        this.vBox = (VBox) new ContainerFactoryImpl().mergeVertically(List.of(this.toDoListLabel, this.containerTDL, this.hBox)).getRoot();
         this.toDoListLabel.setText("To Do List");
         this.addAnnotation.setText("Aggiungi");
         this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.controller).getRoot()));
         this.removeAnnotation.setText("Rimuovi");
         this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.controller).getView().getRoot()));
-        //this.checkBoxController = new SingleAnnotationController();
         this.checkBoxes =  FXCollections.observableArrayList();
         this.listView = new ListView<>();
         this.updateTDLView();
@@ -103,7 +116,9 @@ public class ToDoListView implements View, Initializable {
         this.checkBoxes.forEach(a -> a.setOnAction(event -> this.controller.changeCheck(a.getText())));
         this.listView.setItems(this.checkBoxes);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         this.vBox.prefWidthProperty().set(SCREEN_BOUNDS.getWidth() * V_BOX_WIDTH);

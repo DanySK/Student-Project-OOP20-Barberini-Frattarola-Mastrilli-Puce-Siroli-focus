@@ -22,7 +22,10 @@ import oop.focus.common.View;
 import oop.focus.diary.controller.DiaryPagesController;
 import oop.focus.diary.controller.FXMLPaths;
 
-
+/**
+ * This class represents a new window, opened to add new page in diary's section. When new page is created,
+ * his title and his content are chosen by the user.
+ */
 public class WindowCreateNewPage implements Initializable, View {
 
     @FXML
@@ -38,6 +41,11 @@ public class WindowCreateNewPage implements Initializable, View {
     private Button create;
     private Parent root;
     private final DiaryPagesController controller;
+
+    /**
+     *  Instantiates a new window create new page and opens the relative FXML file.
+     * @param controller    diaryPagesController
+     */
     public WindowCreateNewPage(final DiaryPagesController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_DIARY_PAGE.getPath()));
@@ -60,7 +68,7 @@ public class WindowCreateNewPage implements Initializable, View {
                 alert.setContentText("Il titolo della pagina di diario non deve avere caratteri speciali");
                 alert.showAndWait();
             } else {
-               controller.createPage(this.titleDiaryPage.getText(), this.content.getText());
+                this.controller.createPage(this.titleDiaryPage.getText(), this.content.getText());
                 final Stage stage = (Stage) this.content.getScene().getWindow();
                 stage.close();
             }
@@ -72,12 +80,17 @@ public class WindowCreateNewPage implements Initializable, View {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.insertTitleLabel.setText("Titolo");
         this.create.setText("Crea");
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         return this.root;

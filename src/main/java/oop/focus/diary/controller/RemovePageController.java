@@ -1,8 +1,10 @@
 package oop.focus.diary.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
-import oop.focus.diary.view.RemovePageView;
+import oop.focus.diary.view.WindowRemoveAnnotation;
 
 /**
  * Implementation of {@link Controller}. This class manages the elimination of diary's pages.
@@ -15,7 +17,9 @@ public class RemovePageController implements Controller {
      * @param controller    the diaryPagesController
      */
     public RemovePageController(final DiaryPagesController controller) {
-        this.content = new RemovePageView(controller);
+        final ObservableList<String> list = FXCollections.observableArrayList();
+        controller.getObservableSet().forEach(s -> list.add(s.getName()));
+        this.content = new WindowRemoveAnnotation<>(controller, list);
     }
 
     /**

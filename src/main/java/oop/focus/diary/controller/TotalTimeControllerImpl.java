@@ -30,12 +30,11 @@ public class TotalTimeControllerImpl implements TotalTimeController {
      */
     @Override
     public final void setTotalTime(final String event) {
-        System.out.println(event);
         final TotalTimeEvent totalTimeEvent = new TotalTimeEventImpl(this.eventManager);
         if (totalTimeEvent.computePeriod(event).isPresent()) {
-            this.totalTimeView.setLabel(LocalTime.MIDNIGHT.plus(totalTimeEvent.computePeriod(event).get()));
+            this.totalTimeView.updateInput(LocalTime.MIDNIGHT.plus(totalTimeEvent.computePeriod(event).get()));
         } else {
-            this.totalTimeView.setLabel(LocalTime.MIDNIGHT);
+            this.totalTimeView.updateInput(LocalTime.MIDNIGHT);
         }
     }
     /**

@@ -10,19 +10,29 @@ import oop.focus.common.View;
 
 import java.util.List;
 
-public class CreateBoxFactoryImpl implements CreateBoxFactory {
+/**
+ * Implementation of {@link ContainerFactory}.
+ */
+public class ContainerFactoryImpl implements ContainerFactory {
     private static final int INSETS = 20;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final View createVBox(final List<Node> list) {
+    public final View mergeVertically(final List<Node> list) {
         final VBox vBox = new VBox();
         list.forEach(a -> vBox.getChildren().addAll(a));
         vBox.paddingProperty().set(new Insets(INSETS));
         vBox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));
     return () -> vBox;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final View createHBox(final List<Node> list) {
+    public final View mergeHorizontally(final List<Node> list) {
         final HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         list.forEach(s -> hBox.getChildren().addAll(s));

@@ -2,8 +2,8 @@ package oop.focus.diary.controller;
 import oop.focus.common.View;
 import oop.focus.diary.model.CounterManager;
 import oop.focus.diary.model.CounterManagerImpl;
-import oop.focus.diary.view.CreateBoxFactoryImpl;
-import oop.focus.diary.view.StartStopView;
+import oop.focus.diary.view.ContainerFactoryImpl;
+import oop.focus.diary.view.StartStopCounterView;
 import oop.focus.diary.view.TimerButtons;
 import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalTime;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class CounterControllerImpl implements CounterController {
     private final CounterManager counterManager;
-    private final StartStopView view;
+    private final StartStopCounterView view;
     private TimerButtons timerView;
     private final boolean isTimer;
     private final GeneralCounterController generalController;
@@ -32,7 +32,7 @@ public class CounterControllerImpl implements CounterController {
         this.isTimer = isTimer;
         this.generalController = controllerCounter;
         this.counterManager = new CounterManagerImpl(eventManager,  isTimer);
-        this.view = new StartStopView(this, controllerCounter);
+        this.view = new StartStopCounterView(this, controllerCounter);
         if (isTimer) {
             this.timerView = new TimerButtons(controllerCounter);
         }
@@ -43,7 +43,7 @@ public class CounterControllerImpl implements CounterController {
      */
     @Override
     public final void disableButton(final boolean disable) {
-        this.view.disableButton(disable);
+        this.view.disableComponent(disable);
     }
     /**
      *  {@inheritDoc}
@@ -52,13 +52,13 @@ public class CounterControllerImpl implements CounterController {
     public final void setStarter(final String event, final LocalTime localTime) {
         this.counterManager.createCounter(event);
         this.counterManager.setStarterValue(new Period(LocalTime.MIDNIGHT, localTime).toStandardSeconds().getSeconds());
-        this.view.updateValue(localTime);
+        this.view.updateInput(localTime);
         this.counterManager.setChangeListener(s -> {
-            this.view.updateValue(LocalTime.MIDNIGHT.plusSeconds(s));
+            this.view.updateInput(LocalTime.MIDNIGHT.plusSeconds(s));
         });
         this.counterManager.setFinishListener(s -> {
             if (s.equals(0)) {
-                this.view.updateValue(LocalTime.MIDNIGHT.plusSeconds(s));
+                this.view.updateInput(LocalTime.MIDNIGHT.plusSeconds(s));
             }
         });
     }
@@ -79,7 +79,7 @@ public class CounterControllerImpl implements CounterController {
      * @param disable   a boolean which is true if buttons must be disabled, false otherwise.
      */
     private void disableTimerButtons(final boolean disable) {
-        this.timerView.disableButtons(disable);
+        this.timerView.disableComponent(disable);
     }
     /**
      *  {@inheritDoc}
@@ -112,7 +112,7 @@ public class CounterControllerImpl implements CounterController {
         if (!this.isTimer) {
             return this.view;
         } else {
-            return new CreateBoxFactoryImpl().createVBox(List.of(this.timerView.getRoot(), this.view.getRoot()));
+            return new ContainerFactoryImpl().mergeVertically(List.of(this.timerView.getRoot(), this.view.getRoot()));
         }
     }
 }

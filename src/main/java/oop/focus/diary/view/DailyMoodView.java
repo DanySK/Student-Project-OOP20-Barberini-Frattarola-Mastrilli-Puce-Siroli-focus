@@ -14,13 +14,22 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Objects;
 
-
+/**
+ * Daily Mood View implements {@link View} and represents the single daily mood, identified by a value given in input.
+ * The relevant icon is loaded from the appropriate directory and is put in a {@link javafx.scene.layout.Pane}, that
+ * the class returns.
+ */
 public class DailyMoodView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double ICON_DIM = 0.04;
     private static final String SEP = File.separator;
     private final BorderPane pane;
     private  ImageView imageView;
+
+    /**
+     * Instantiates the daily mood whose value is put in input.
+     * @param value the value of daily mood of which the class returns its display.
+     */
     public DailyMoodView(final Integer value) {
         this.pane = new BorderPane();
         final Path iconsDir;
@@ -34,6 +43,10 @@ public class DailyMoodView implements View {
         }
 
     }
+
+    /**
+     *  {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
        this.imageView.fitWidthProperty().set(SCREEN_BOUNDS.getWidth() * ICON_DIM);

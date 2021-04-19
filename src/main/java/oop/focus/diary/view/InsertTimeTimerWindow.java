@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.util.converter.DateTimeStringConverter;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
+import oop.focus.diary.controller.InsertTimeTimerController;
 import oop.focus.diary.controller.InsertTimeTimerControllerImpl;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
@@ -24,8 +25,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+/**
+ * Represents a new window that allows the user's choice of the timer time. There are three {@link Button }
+ * with a preset time and a quarter that allows the user to enter the time manually.
+ */
 public class InsertTimeTimerWindow implements Initializable, View {
-    private static final  DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
 
     @FXML
     private Pane pane;
@@ -44,8 +48,13 @@ public class InsertTimeTimerWindow implements Initializable, View {
 
     private Parent root;
 
-    private final InsertTimeTimerControllerImpl controller;
-    public InsertTimeTimerWindow(final InsertTimeTimerControllerImpl controller) {
+    private final InsertTimeTimerController controller;
+
+    /**
+     * Instantiates a new insert time timer window and opens the relative FXML file.
+     * @param controller    insert time timer controller
+     */
+    public InsertTimeTimerWindow(final InsertTimeTimerController controller) {
         this.controller = controller;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TIMER_TIME.getPath()));
         loader.setController(this);
@@ -56,8 +65,11 @@ public class InsertTimeTimerWindow implements Initializable, View {
         }
     }
 
-
-
+    /**
+     * Sets the format of {@link TextField} of window.
+     * @param field the field to of which to set the format
+     * @param string    the pattern of formatter
+     */
     private void setTimeFormatter(final TextField field, final String string) {
         final SimpleDateFormat format = new SimpleDateFormat(string);
         try {
@@ -67,6 +79,9 @@ public class InsertTimeTimerWindow implements Initializable, View {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.separate0.setText(":");
@@ -84,7 +99,9 @@ public class InsertTimeTimerWindow implements Initializable, View {
         });
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         return this.root;

@@ -3,7 +3,7 @@ import oop.focus.application.controller.SectionsController;
 import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.diary.view.CreateBoxFactoryImpl;
+import oop.focus.diary.view.ContainerFactoryImpl;
 import java.util.List;
 
 /**
@@ -20,7 +20,7 @@ public class GeneralDiaryController implements Controller {
     public GeneralDiaryController(final DataSource dataSource) {
         final SectionsController controller = new SectionsController();
         final ButtonsDiaryController buttonController = new ButtonsDiaryController(controller, dataSource);
-        this.content = new CreateBoxFactoryImpl().createHBox(List.of(buttonController.getView().getRoot(), controller.getView().getRoot()));
+        this.content = new ContainerFactoryImpl().mergeHorizontally(List.of(buttonController.getView().getRoot(), controller.getView().getRoot()));
     }
 
     /**

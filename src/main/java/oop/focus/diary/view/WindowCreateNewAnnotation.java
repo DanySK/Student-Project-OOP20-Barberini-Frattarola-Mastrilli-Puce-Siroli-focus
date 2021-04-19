@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class represents a new window, opened to add new ToDoAction. When new ToDoAction is created,
+ * his annotation is chosen by the user and his status is automatically set as "not done".
+ */
 public class WindowCreateNewAnnotation implements Initializable, View {
     @FXML
     private Button createButton;
@@ -28,6 +32,11 @@ public class WindowCreateNewAnnotation implements Initializable, View {
     private TextField annotationTitle;
     private Parent root;
     private final  ToDoListController toDoListController;
+
+    /**
+     * Instantiates a new window create new annotation and opens the relative FXML file.
+     * @param toDoListController    to do list Controller
+     */
     public WindowCreateNewAnnotation(final ToDoListController toDoListController) {
         this.toDoListController = toDoListController;
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.INSERT_TDL_ANNOTATION.getPath()));
@@ -44,7 +53,7 @@ public class WindowCreateNewAnnotation implements Initializable, View {
      */
     private void createNewAnnotation() {
         if (!this.annotationTitle.getText().isEmpty()) {
-           toDoListController.addNote(this.annotationTitle.getText());
+            this.toDoListController.addNote(this.annotationTitle.getText());
             final Stage stage = (Stage) this.annotationTitle.getScene().getWindow();
             stage.close();
         } else {
@@ -54,13 +63,19 @@ public class WindowCreateNewAnnotation implements Initializable, View {
             alert.showAndWait();
         }
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.createButton.setText("Crea");
         this.titleLabel.setText("Aggiungi nota");
         this.createButton.setOnMouseClicked(event -> this.createNewAnnotation());
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         return this.root;

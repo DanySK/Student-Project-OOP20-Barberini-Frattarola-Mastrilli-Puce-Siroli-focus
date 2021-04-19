@@ -18,7 +18,11 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 
-public class StartStopView implements View {
+/**
+ * StartStopCounterView represents {@link Button} used to start or stop the counter. When one of this is pressed,
+ * the
+ */
+public class StartStopCounterView implements DisableComponentsView, UpdatableView<LocalTime> {
     private static final Integer INSETS = 20;
     private static final Double SPACING = 0.1;
     private static final Double BUTTONS_WIDTH = 0.2;
@@ -28,7 +32,7 @@ public class StartStopView implements View {
     private final Label counterLabel;
     private final Button start;
     private final Button stop;
-    public StartStopView(final CounterController controller, final GeneralCounterController controllerCounter) {
+    public StartStopCounterView(final CounterController controller, final GeneralCounterController controllerCounter) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
         this.start.setOnMouseClicked(event -> {
@@ -48,12 +52,10 @@ public class StartStopView implements View {
         });
 
     }
-    public final void disableButton(final boolean disable) {
-        List.of(this.start, this.stop).forEach(s -> s.setDisable(disable));
-    }
-    public final void updateValue(final LocalTime localTime) {
-        Platform.runLater(() -> this.counterLabel.setText(localTime.toString(TIME_FORMATTER)));
-    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         this.counterLabel.setAlignment(Pos.CENTER);
@@ -71,5 +73,21 @@ public class StartStopView implements View {
         vbox.getChildren().addAll(this.counterLabel, hBox);
         vbox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));
         return vbox;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disableComponent(boolean disable) {
+        List.of(this.start, this.stop).forEach(s -> s.setDisable(disable));
+
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateInput(LocalTime input) {
+        Platform.runLater(() -> this.counterLabel.setText(input.toString(TIME_FORMATTER)));
     }
 }

@@ -1,7 +1,7 @@
 package oop.focus.diary.controller;
 import oop.focus.common.View;
 
-import oop.focus.diary.view.CreateBoxFactoryImpl;
+import oop.focus.diary.view.ContainerFactoryImpl;
 import oop.focus.homepage.model.EventManager;
 import org.joda.time.LocalTime;
 
@@ -66,7 +66,7 @@ public class GeneralCounterControllerImpl implements GeneralCounterController {
      */
     @Override
     public final View getView() {
-        return new CreateBoxFactoryImpl().createVBox(List.of(this.eventCounterController.getView().getRoot(),
+        return new ContainerFactoryImpl().mergeVertically(List.of(this.eventCounterController.getView().getRoot(),
                 this.totalTimeController.getView().getRoot(), this.counterController.getView().getRoot()));
     }
 }

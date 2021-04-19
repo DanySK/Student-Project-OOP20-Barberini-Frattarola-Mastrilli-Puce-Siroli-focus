@@ -3,7 +3,7 @@ package oop.focus.diary.controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import oop.focus.common.View;
-import oop.focus.diary.view.EventCounterView;
+import oop.focus.diary.view.EventCounterViewImpl;
 import oop.focus.homepage.model.EventManager;
 
 /**
@@ -11,7 +11,7 @@ import oop.focus.homepage.model.EventManager;
  * the name of activity they are computing.
  */
 public class EventCounterControllerImpl implements EventCounterController {
-    private final EventCounterView view;
+    private final EventCounterViewImpl view;
     private final ObservableSet<String> set;
     private final GeneralCounterControllerImpl generalControllerCounter;
 
@@ -23,7 +23,7 @@ public class EventCounterControllerImpl implements EventCounterController {
     public EventCounterControllerImpl(final EventManager eventManager, final GeneralCounterControllerImpl generalControllerCounter) {
         this.set = FXCollections.observableSet();
         eventManager.getAll().forEach(s -> this.set.add(s.getName()));
-        this.view = new EventCounterView(this);
+        this.view = new EventCounterViewImpl(this);
         this.generalControllerCounter = generalControllerCounter;
     }
 
@@ -46,7 +46,7 @@ public class EventCounterControllerImpl implements EventCounterController {
      */
     @Override
     public void disableChooseEvent(final boolean disable) {
-        this.view.disableChooseEvent(disable);
+        this.view.disableComponent(disable);
     }
     /**
      * {@inheritDoc}
@@ -61,7 +61,7 @@ public class EventCounterControllerImpl implements EventCounterController {
     @Override
     public final void addEvent(final String newEvent) {
         this.set.add(newEvent);
-        this.view.setNewValue(newEvent);
+        this.view.updateInput(newEvent);
     }
     /**
      * {@inheritDoc}

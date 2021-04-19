@@ -17,7 +17,10 @@ import oop.focus.diary.controller.FXMLPaths;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ *  This class represents a new window, opened to remove annotations. Annotations could represent
+ *  titles of pages of diary or toDoActions' annotations, depending on the classes in which it is called.
+ */
 public class WindowRemoveAnnotation<X> implements View, Initializable {
 
     @FXML
@@ -34,6 +37,12 @@ public class WindowRemoveAnnotation<X> implements View, Initializable {
     private final RemoveControllers<String> controller;
     private Parent root;
     private final ObservableList<String> list;
+
+    /**
+     * Instantiates a new window remove annotation and open the relative FXML file.
+     * @param controller    the remove controller
+     * @param list  an {@link ObservableList} with annotations that could be removed
+     */
     public WindowRemoveAnnotation(final RemoveControllers<String> controller, final ObservableList<String> list) {
         this.controller = controller;
         this.list = list;
@@ -46,11 +55,16 @@ public class WindowRemoveAnnotation<X> implements View, Initializable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         return this.root;
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.removeLabel.setText("Seleziona annotazioni da rimuovere");

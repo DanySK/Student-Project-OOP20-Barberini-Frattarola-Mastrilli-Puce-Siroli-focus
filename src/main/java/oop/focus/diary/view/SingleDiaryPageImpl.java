@@ -12,13 +12,13 @@ import javafx.scene.layout.VBox;
 import oop.focus.diary.controller.DiaryPagesController;
 
 
-public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
+public class SingleDiaryPageImpl implements SingleDiaryPage {
     private final Button modify = new Button("Modify");
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
     private TitledPane title;
     private final DiaryPagesController controller;
-    public SingleTitledPaneDiaryImpl(final DiaryPagesController controller) {
+    public SingleDiaryPageImpl(final DiaryPagesController controller) {
         this.controller = controller;
         this.newContent.setWrapText(true);
         this.modify.setOnMouseClicked((EventHandler<Event>) event -> {
@@ -38,13 +38,13 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
     private VBox createBox(final String s) {
         final VBox box = new VBox();
         final Label label = new Label();
-        label.setText(controller.getContentByName(s));
+        label.setText(this.controller.getContentByName(s));
         box.getChildren().add(label);
         return box;
     }
 
     @Override
-    public final TitledPane createTitledPane(final String s) {
+    public final TitledPane createSinglePage(final String s) {
         this.title = new TitledPane();
         this.modify.setDisable(true);
         this.title.setText(s);
@@ -53,7 +53,7 @@ public class SingleTitledPaneDiaryImpl implements SingleTitledPaneDiary {
         BorderPane.setAlignment(this.modify, Pos.TOP_CENTER);
         this.title.setContent(this.pane);
         this.title.getContent().setOnMouseClicked((EventHandler<Event>) event -> {
-            this.newContent.setText(controller.getContentByName(s));
+            this.newContent.setText(this.controller.getContentByName(s));
             this.pane.setTop(this.newContent);
             this.modify.setDisable(false);
         });

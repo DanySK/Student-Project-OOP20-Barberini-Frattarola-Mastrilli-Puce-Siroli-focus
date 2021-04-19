@@ -18,7 +18,10 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimerButtons implements View {
+/**
+ *  TimerButtons represents all {@link Button} useful to set time of timer.
+ */
+public class TimerButtons implements DisableComponentsView {
     private static final Double BUTTONS_WIDTH = 0.2;
     private static final Integer INSETS = 20;
     private static final int MINUTES_GAP = 15;
@@ -26,12 +29,20 @@ public class TimerButtons implements View {
     private static final int BUTTON_WITH_MINUTES = 3;
     private final List<Button> list;
     private final GeneralCounterController controller;
+
+    /**
+     * Instantiates a new Timer buttons.
+     * @param controller    general counter controller
+     */
     public TimerButtons(final GeneralCounterController controller) {
         this.controller = controller;
         this.list = new ArrayList<>();
         this.setTimeButtons();
     }
 
+    /**
+     * The method sets button's text. Three buttons have default time, the fourth allows the user to enter a new time.
+     */
     private void setTimeButtons() {
         int min = MINUTES_GAP;
         for (int i = 0; i < BUTTON_WITH_MINUTES; i++) {
@@ -51,9 +62,10 @@ public class TimerButtons implements View {
             window.show();
         });
     }
-    public void disableButtons(final boolean disable) {
-        this.list.forEach(s -> s.setDisable(disable));
-    }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         final HBox hBox = new HBox();
@@ -64,5 +76,12 @@ public class TimerButtons implements View {
         this.list.forEach(s -> HBox.setHgrow(s, Priority.ALWAYS));
         this.list.forEach(s -> s.prefWidthProperty().bind(hBox.widthProperty().multiply(BUTTONS_WIDTH)));
         return hBox;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disableComponent(boolean disable) {
+        this.list.forEach(s -> s.setDisable(disable));
     }
 }

@@ -11,7 +11,11 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class TotalTimeView implements View {
+/**
+ * Total Time View represents the section of counter in which is shown total time spent to do an event. The View
+ * is updated every time that user selects a new event from the apposite section.
+ */
+public class TotalTimeView implements UpdatableView<LocalTime> {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
     private static final double LABEL_WIDTH = 0.5;
     private static final double LABEL_HEIGHT = 0.2;
@@ -19,15 +23,18 @@ public class TotalTimeView implements View {
     private final Label label;
     private final Label totalTimeLabel;
 
+    /**
+     * Instantiates a new total time View
+     */
     public TotalTimeView() {
         this.label = new Label();
         this.totalTimeLabel = new Label("Tempo totale");
 
     }
-    public final void setLabel(final LocalTime localTime) {
-        Platform.runLater(() -> this.label.setText(localTime.toString(TIME_FORMATTER)));
-    }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         final VBox vBox = new VBox(this.totalTimeLabel, this.label);
@@ -41,5 +48,12 @@ public class TotalTimeView implements View {
         vBox.spacingProperty().bind(vBox.heightProperty().multiply(SPACING));
         vBox.getChildren().forEach(s -> VBox.setVgrow(s, Priority.ALWAYS));
         return vBox;
+    }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateInput(LocalTime input) {
+        Platform.runLater(() -> this.label.setText(input.toString(TIME_FORMATTER)));
     }
 }
