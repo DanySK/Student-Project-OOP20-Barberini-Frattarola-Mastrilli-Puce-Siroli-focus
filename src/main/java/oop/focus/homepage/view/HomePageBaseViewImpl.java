@@ -79,11 +79,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.controller.refreshDailyEvents();
 
             this.modifyButton.setOnAction(event -> {
-                try {
-                    this.modifyClicked(event);
-                } catch (final IOException e) {
-                    e.printStackTrace();
-                }
+                this.modifyClicked(event);
             });
 
             this.setCalendar();
@@ -96,7 +92,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         return this.root;
     }
 
-        public final void modifyClicked(final ActionEvent event) throws IOException {
+        public final void modifyClicked(final ActionEvent event) {
             final HotKeyController menuController = new HotKeyControllerImpl(this.controller);
             final Stage stage = new Stage();
             stage.setScene(new Scene((Parent) menuController.getView().getRoot()));

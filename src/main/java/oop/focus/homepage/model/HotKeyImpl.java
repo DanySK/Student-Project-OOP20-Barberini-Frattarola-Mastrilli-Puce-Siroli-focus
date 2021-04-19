@@ -68,13 +68,8 @@ public class HotKeyImpl implements HotKey {
             return false;
         }
         if (this.name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!this.name.equals(other.name)) {
-            return false;
-        }
-        return true;
+            return other.name == null;
+        } else return this.name.equals(other.name);
     }
 
     public final void setType(final String newValue) {

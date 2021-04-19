@@ -19,9 +19,8 @@ public interface GenericAddView extends Initializable, View {
     /**
      * This method is used to go back from the view.
      * @param event is the action event.
-     * @throws IOException if is impossible to go back.
      */
-    void goBack(ActionEvent event) throws IOException; 
+    void goBack(ActionEvent event);
 
     /**
      * This method is use to save an element.

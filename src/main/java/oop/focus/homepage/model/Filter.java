@@ -22,12 +22,12 @@ public final class Filter {
     }
 
     public static List<Event> takeOnlyHotKeyEvent(final List<Event> eventsList) {
-        return eventsList.stream().filter(e -> Filter.isAdequate(e)).collect(Collectors.toList());
+        return eventsList.stream().filter(Filter::isAdequate).collect(Collectors.toList());
     }
 
     public static List<Event> getEventsWithDuration(final List<Event> listOfEvents) {
         final TimeProperty time = new TimePropertyImpl();
-        return listOfEvents.stream().filter(e -> time.getMinEventTime(e)).collect(Collectors.toList());
+        return listOfEvents.stream().filter(time::getMinEventTime).collect(Collectors.toList());
     }
 
     public static List<Event> orderByHour(final List<Event> eventsList) {

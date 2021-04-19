@@ -9,70 +9,33 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import oop.focus.common.View;
 import oop.focus.homepage.controller.GeneralHomePageController;
 
 public class GeneralHomePageView implements View, Initializable {
 
-    @FXML
-    private VBox paneHomePage;
-
-    @FXML
+    private final GeneralHomePageController controller;
+    private BorderPane pane;
     private HBox container;
 
-    @FXML
-    private VBox calendarHomePage;
-
-    @FXML
-    private VBox financeHomePage;
-
-    private final GeneralHomePageController controller;
-    private Node root;
-
-    public GeneralHomePageView(final GeneralHomePageController generalHomePageController) {
-        this.controller = generalHomePageController;
-
-        final FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/layouts/homepage/homePageGenerale.fxml"));
-        loader.setController(this);
-        try {
-            this.root = loader.load();
-        } catch (final IOException e) {
-            e.printStackTrace();
-        }
-        this.setProperties();
-    }
-
-    private void setProperties() {
-        VBox.setVgrow(this.paneHomePage, Priority.ALWAYS);
-        HBox.setHgrow(this.paneHomePage, Priority.ALWAYS);
-
-        /*VBox.setVgrow(this.container, Priority.ALWAYS);
-        HBox.setHgrow(this.container, Priority.ALWAYS);
-
-        VBox.setVgrow(this.financeHomePage, Priority.ALWAYS);
-        HBox.setHgrow(this.financeHomePage, Priority.ALWAYS);
-
-        VBox.setVgrow(this.calendarHomePage, Priority.ALWAYS);
-        HBox.setHgrow(this.calendarHomePage, Priority.ALWAYS);*/
+    public GeneralHomePageView(final GeneralHomePageController controller){
+        this.controller = controller;
     }
 
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
-        this.paneHomePage.setBackground(new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        this.calendarHomePage.getChildren().add(this.controller.getCalendarHomePage());
-        this.financeHomePage.getChildren().add(this.controller.getFinanaceHomePage());
+    public void initialize(URL location, ResourceBundle resources) {
+        this.pane = new BorderPane();
+        this.container = new HBox();
+        this.container.getChildren().add(this.controller.getCalendarHomePage());
+        this.container.getChildren().add(this.controller.getFinanaceHomePage());
+        this.pane.setCenter(this.container);
     }
 
     @Override
-    public final Node getRoot() {
-        return this.root;
+    public Node getRoot() {
+        return this.pane;
     }
 }

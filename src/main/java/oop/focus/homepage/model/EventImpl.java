@@ -157,14 +157,8 @@ public class EventImpl implements Event {
         if (this.startDate.toLocalTime().getMinuteOfHour() != other.startDate.toLocalTime().getMinuteOfHour()) {
             return false;
         }
-        if (this.startDate.toLocalDate() == null) {
-            if (other.startDate.toLocalDate() != null) {
-                return false;
-            }
-        } else if (!this.startDate.toLocalDate().equals(other.startDate.toLocalDate())) {
-            return false;
-        }
-        return true;
+        this.startDate.toLocalDate();
+        return this.startDate.toLocalDate().equals(other.startDate.toLocalDate());
     }
 
     @Override

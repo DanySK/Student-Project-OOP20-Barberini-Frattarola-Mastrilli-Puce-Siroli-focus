@@ -18,6 +18,7 @@ import oop.focus.homepage.view.HomePageBaseViewImpl;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,18 +44,14 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final boolean getActivitySelected(final String hotKeyName) {
         List<Event> list = this.eventManager.getHotKeyEvents();
-        list = list.stream().filter(e -> {
-            return e.getName().equals(hotKeyName) && e.getStartDate().isEqual(LocalDate.now());
-        }).collect(Collectors.toList());
+        list = list.stream().filter(e -> e.getName().equals(hotKeyName) && e.getStartDate().isEqual(LocalDate.now())).collect(Collectors.toList());
         return list.isEmpty();
 
     }
 
     public final String getClickTime(final HotKey hotKey) {
         final List<Event> list = this.eventManager.getHotKeyEvents();
-        return String.valueOf(list.stream().filter(e -> {
-            return e.getName().equals(hotKey.getName()) && e.getStartDate().isEqual(LocalDate.now());
-        }).count());
+        return String.valueOf(list.stream().filter(e -> e.getName().equals(hotKey.getName()) && e.getStartDate().isEqual(LocalDate.now())).count());
     }
 
     public final DataSourceImpl getDsi() {
@@ -63,13 +60,13 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final ObservableList<Event> getEvents() {
         final ObservableList<Event> list = FXCollections.observableArrayList();
-        this.eventManager.getHotKeyEvents().forEach(event -> list.add(event));
+        this.eventManager.getHotKeyEvents().forEach(list::add);
         return list;
     }
 
     public final ObservableList<HotKey> getHotKey() {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
-        this.hotKeyManager.getAll().forEach(hotKey -> list.add(hotKey));
+        this.hotKeyManager.getAll().forEach(list::add);
         return list;
     }
 
@@ -106,10 +103,8 @@ public class HomePageControllerImpl implements HomePageController {
     public final ObservableList<Repetition> getRep() {
         final ObservableList<Repetition> list = FXCollections.observableArrayList();
         final List<Repetition> arrayList = new ArrayList<>();
-        for (final Repetition repetition : Repetition.values()) {
-            arrayList.add(repetition);
-        }
-        arrayList.stream().forEach(h -> list.add(h));
+        arrayList.addAll(Arrays.asList(Repetition.values()));
+        arrayList.forEach(list::add);
         return list;
     }
 }

@@ -11,9 +11,8 @@ public interface HomePageBaseView extends Initializable, View {
     /**
      * This method is used to set the action when the modify button is clicked.
      * @param event is the action event.
-     * @throws IOException is clicked when it is impossible to change the view.
      */
-    void modifyClicked(ActionEvent event) throws IOException;
+    void modifyClicked(ActionEvent event);
 
     /**
      * This method is used to set the day.

@@ -13,12 +13,12 @@ import oop.focus.finance.model.FinanceManagerImpl;
 public class HomePageLauncher extends Application {
 
     @Override
-    public final void start(final Stage primaryStage) throws Exception {
+    public final void start(final Stage primaryStage) {
 
         final DataSource dsi = new DataSourceImpl();
         final FinanceManager financeManager = new FinanceManagerImpl(dsi);
-        //final GeneralHomePageController controller = new GeneralHomePageController(dsi, financeManager);
-        final HomePageController controller = new HomePageControllerImpl(dsi);
+        final GeneralHomePageController controller = new GeneralHomePageControllerImpl(dsi, financeManager);
+        //final HomePageController controller = new HomePageControllerImpl(dsi);
         //final HotKeyController contr = new HotKeyControllerImpl(dsi);
         final Scene scene = new Scene((Parent) controller.getView().getRoot());
         primaryStage.setScene(scene);
@@ -27,7 +27,7 @@ public class HomePageLauncher extends Application {
 
     }
 
-    public static final void main(final String... args) {
+    public static void main(final String... args) {
         launch(args);
     }
 

@@ -26,7 +26,6 @@ public enum HotKeyType {
     /**
      * @param color is the color of the HotKey.
      * @param type is a String that represents the type of the hot key.
-     * @param id is an integer use for identify the three different type of hot key.
      */
     HotKeyType(final String color, final String type) {
         this.color = color;

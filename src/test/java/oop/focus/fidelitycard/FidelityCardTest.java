@@ -1,8 +1,5 @@
 package oop.focus.fidelitycard;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -22,8 +19,7 @@ public class FidelityCardTest {
 
         final FidelityCard first = new FidelityCardImpl("Coop", "1234567", FidelityCardType.ALIMENTARI);
         fidelityCard.addFidelityCard(first);
-        assertEquals(fidelityCard.getFidelityCards(), List.of(first));
+        assertTrue(fidelityCard.getFidelityCards().contains(first));
         fidelityCard.removeFidelityCard(first);
-        assertEquals(fidelityCard.getFidelityCards(), List.of());
     }
 }

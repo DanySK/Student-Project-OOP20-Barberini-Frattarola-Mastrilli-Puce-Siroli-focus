@@ -86,7 +86,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
     }
 
     @FXML
-    public final void goBack(final ActionEvent event) throws IOException {
+    public final void goBack(final ActionEvent event) {
         final Stage stage = (Stage) this.paneNewHotKey.getScene().getWindow();
         stage.close();
     }
@@ -111,14 +111,10 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
     public final void setButtonOnAction() {
         this.goBackButton.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
+            this.goBack(event);
         });
 
-        this.deleteButton.setOnAction(event -> this.delete(event));
+        this.deleteButton.setOnAction(this::delete);
 
         this.saveHotKeyButton.setOnAction(event -> {
             try {

@@ -97,8 +97,8 @@ public class NewEventViewImpl implements NewEventView {
         this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
 
         this.repetitionChoice.setItems(this.controller.getRep());
-        this.controller.getRep().forEach(e -> System.out.println(e));
-        this.repetitionChoice.setConverter(new StringConverter<Repetition>() {
+        this.controller.getRep().forEach(System.out::println);
+        this.repetitionChoice.setConverter(new StringConverter<>() {
             @Override
             public String toString(final Repetition repetition) {
                 return repetition == null ? "" : repetition.getName();
@@ -128,7 +128,7 @@ public class NewEventViewImpl implements NewEventView {
     }
 
     @FXML
-    public final void goBack(final ActionEvent event) throws IOException {
+    public final void goBack(final ActionEvent event) {
         final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
         stage.close();
     }
@@ -157,16 +157,14 @@ public class NewEventViewImpl implements NewEventView {
 
     private void saveEvent(final ActionEvent event) throws IOException {
         final LocalDate date = LocalDate.now();
-        final LocalTime start = new LocalTime(Integer.valueOf(this.startHourChoice.getSelectionModel().getSelectedItem()),
-                Integer.valueOf(this.startMinuteChoice.getSelectionModel().getSelectedItem()));
-        final LocalTime end = new LocalTime(Integer.valueOf(this.endHourChoice.getSelectionModel().getSelectedItem()),
-                Integer.valueOf(this.endMinuteChoice.getSelectionModel().getSelectedItem()));
+        final LocalTime start = new LocalTime(Integer.parseInt(this.startHourChoice.getSelectionModel().getSelectedItem()),
+                Integer.parseInt(this.startMinuteChoice.getSelectionModel().getSelectedItem()));
+        final LocalTime end = new LocalTime(Integer.parseInt(this.endHourChoice.getSelectionModel().getSelectedItem()),
+                Integer.parseInt(this.endMinuteChoice.getSelectionModel().getSelectedItem()));
 
         final ObservableList<Integer> indices = this.listOfPersons.getSelectionModel().getSelectedIndices();
         final List<Person> finalList = new ArrayList<>();
-        indices.forEach(i -> {
-            finalList.add(this.list.get(i));
-        });
+        indices.forEach(i -> finalList.add(this.list.get(i)));
 
         final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
 
@@ -180,11 +178,7 @@ public class NewEventViewImpl implements NewEventView {
 
     public final void setButtonOnAction() {
         this.back.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
+            this.goBack(event);
         });
         this.saveSelection.setOnAction(event -> {
             try {
@@ -193,7 +187,7 @@ public class NewEventViewImpl implements NewEventView {
                 e.printStackTrace();
             }
         });
-        this.deleteSelection.setOnAction(event -> this.delete(event));
+        this.deleteSelection.setOnAction(this::delete);
     }
 
     public final void setText(final String eventName) {

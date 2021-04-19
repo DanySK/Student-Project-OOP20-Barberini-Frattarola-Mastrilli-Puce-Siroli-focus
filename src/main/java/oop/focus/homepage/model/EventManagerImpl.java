@@ -55,10 +55,8 @@ public class EventManagerImpl implements EventManager {
 
 
     public final List<Event> findByDate(final LocalDate date) {
-        return this.events.getAll().stream().filter(e -> {
-            return e.getStartDate().equals(date) || e.getEndDate().equals(date) 
-            || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
-        }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
+        return this.events.getAll().stream().filter(e -> e.getStartDate().equals(date) || e.getEndDate().equals(date)
+        || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date)).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
     }
 
     public final Set<Event> findByName(final String name) {
@@ -131,7 +129,7 @@ public class EventManagerImpl implements EventManager {
     }
 
     public final List<Event> getHotKeyEvents() {
-        return this.events.getAll().stream().filter(e -> this.isAdequate(e)).collect(Collectors.toList());
+        return this.events.getAll().stream().filter(this::isAdequate).collect(Collectors.toList());
     }
 
     private boolean isAdequate(final Event event) {

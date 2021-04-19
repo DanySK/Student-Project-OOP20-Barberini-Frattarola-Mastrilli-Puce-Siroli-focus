@@ -83,7 +83,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     @FXML
-    public final void addNewHotKey(final ActionEvent event) throws IOException {
+    public final void addNewHotKey(final ActionEvent event) {
         final GenericAddView newHotKey = new NewHotKeyViewImpl(this.controller, this.controllerHomePage);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newHotKey.getRoot()));
@@ -104,7 +104,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
         final Optional<ButtonType> result = alert.showAndWait();
 
-        if (!result.isPresent() || result.get() != ButtonType.OK) {
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
             alert.close();
         } else {
             this.deleteItem();
@@ -116,30 +116,24 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     @FXML
-    public final void goBack(final ActionEvent event) throws IOException {
+    public final void goBack(final ActionEvent event) {
         final Stage stage = (Stage) this.root.getScene().getWindow();
         stage.close();
     }
 
     public final void populateTableView() {
-        this.nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
+        this.nome.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.nome.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.nome.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
-            @Override
-            public void handle(final CellEditEvent<HotKey, String> event) {
-                final HotKey hotKey = event.getRowValue();
-                hotKey.setName(event.getNewValue());
-            }
+        this.nome.setOnEditCommit(event -> {
+            final HotKey hotKey = event.getRowValue();
+            hotKey.setName(event.getNewValue());
         });
 
-        this.tipo.setCellValueFactory(new PropertyValueFactory<HotKey, String>("typeRepresentation"));
+        this.tipo.setCellValueFactory(new PropertyValueFactory<>("typeRepresentation"));
         this.tipo.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.tipo.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
-            @Override
-            public void handle(final CellEditEvent<HotKey, String> event) {
-                final HotKey hotKey = event.getRowValue();
-                hotKey.setType(event.getNewValue());
-            }
+        this.tipo.setOnEditCommit(event -> {
+            final HotKey hotKey = event.getRowValue();
+            hotKey.setType(event.getNewValue());
         });
 
         this.tableHotKeyList.setEditable(false);
@@ -153,19 +147,11 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     public final void setButtonAction() {
         this.addHotKeyButton.setOnAction(event -> {
-            try {
-                this.addNewHotKey(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
+            this.addNewHotKey(event);
         });
-        this.deleteElement.setOnAction(event -> this.deletSelectedRowItem(event));
+        this.deleteElement.setOnAction(this::deletSelectedRowItem);
         this.goBackButton.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
+            this.goBack(event);
         });
 
     }

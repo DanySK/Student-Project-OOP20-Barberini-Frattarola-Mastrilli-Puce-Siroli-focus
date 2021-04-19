@@ -11,9 +11,8 @@ public interface HotKeyMenuView extends Initializable, View {
     /**
      * This method is used to add a new hot key to the database.
      * @param event is the action event.
-     * @throws IOException if is impossible to add the hot key.
      */
-    void addNewHotKey(ActionEvent event) throws IOException;
+    void addNewHotKey(ActionEvent event);
 
     /**
      * This method is used to delet the selected row.
@@ -24,9 +23,8 @@ public interface HotKeyMenuView extends Initializable, View {
     /**
      * This method is use to go back.
      * @param event is the action event.
-     * @throws IOException if is impossible to go back.
      */
-    void goBack(ActionEvent event) throws IOException;
+    void goBack(ActionEvent event);
 
     /**
      * This method is use to populate the table view.
