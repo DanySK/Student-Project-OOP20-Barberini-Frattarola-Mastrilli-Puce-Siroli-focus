@@ -67,7 +67,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
      *
      * @return the view.
      */
-    abstract View createSelector();
+    protected abstract View createSelector();
 
     /**
      * The action to be performed when the user insert the data.
@@ -139,10 +139,6 @@ public abstract class AbstractPeriodInputView<X> implements View {
     }
 
     private LocalDate convertData(final java.time.LocalDate value) {
-        try {
-            return new LocalDate(value.getYear(), value.getMonthValue(), value.getDayOfMonth());
-        } catch (final Exception e) {
-            return null;
-        }
+        return new LocalDate(value.getYear(), value.getMonthValue(), value.getDayOfMonth());
     }
 }

@@ -6,8 +6,6 @@ package oop.focus.common;
 public interface Action {
     /**
      * Execute the action.
-     *
-     * @throws Exception if the action fails
      */
-    void execute() throws Exception;
+    void execute();
 }

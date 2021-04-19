@@ -24,6 +24,7 @@ public class H2Connector implements Connector<Connection> {
     private static final String DRIVER = "org.h2.Driver";
     private static final String USER = "oop";
     private static final String PASS = "oop2021";
+    private static final String SEPARATOR = "\\";
 
     private Connection connection;
     private boolean connected;
@@ -42,10 +43,10 @@ public class H2Connector implements Connector<Connection> {
             try {
                 Class.forName(DRIVER);
                 this.connect(DB_URL + ";"
-                        + CREATE_SCHEMA + "\\;"
-                        + CREATE_SCRIPT + "'" + this.getPath(CREATE_SCRIPT_PATH) + "'\\;"
+                        + CREATE_SCHEMA + SEPARATOR + ";"
+                        + CREATE_SCRIPT + "'" + this.getPath(CREATE_SCRIPT_PATH) + "'" + SEPARATOR + ";"
                         + CREATE_SCRIPT + "'" + this.getPath(INSERT_SCRIPT_PATH) + "'");
-            } catch (final Exception e) {
+            } catch (final SQLException | URISyntaxException | ClassNotFoundException e) {
                 throw new ConnectionException();
             }
         }
@@ -63,14 +64,14 @@ public class H2Connector implements Connector<Connection> {
      * {@inheritDoc}
      */
     @Override
-    public final void open() throws ConnectionException, IllegalStateException {
+    public final void open() throws ConnectionException {
         if (this.connected) {
             throw new IllegalStateException();
         }
         try {
             this.connect(DB_URL);
             this.connected = true;
-        } catch (final Exception e) {
+        } catch (final SQLException throwables) {
             throw new ConnectionException();
         }
     }
@@ -79,14 +80,14 @@ public class H2Connector implements Connector<Connection> {
      * {@inheritDoc}
      */
     @Override
-    public final void close() throws ConnectionException, IllegalStateException {
+    public final void close() throws ConnectionException {
         if (!this.connected) {
             throw new IllegalStateException();
         }
         try {
             this.connection.close();
             this.connected = false;
-        } catch (final Exception e) {
+        } catch (final SQLException throwables) {
             throw new ConnectionException();
         }
     }
@@ -110,6 +111,6 @@ public class H2Connector implements Connector<Connection> {
      */
     private String getPath(final String name) throws URISyntaxException {
         return new File(Objects.requireNonNull(ClassLoader.getSystemClassLoader()
-                .getResource(name)).toURI()).getPath().replace("\\", "\\\\");
+                .getResource(name)).toURI()).getPath().replace(SEPARATOR, SEPARATOR + "\\");
     }
 }

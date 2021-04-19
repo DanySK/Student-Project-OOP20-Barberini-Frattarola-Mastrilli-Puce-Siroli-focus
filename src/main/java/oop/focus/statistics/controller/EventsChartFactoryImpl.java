@@ -41,18 +41,8 @@ public class EventsChartFactoryImpl implements EventsChartFactory {
                             .map(p -> new Pair<>(p.getKey(), (double) p.getValue()))
                             .collect(Collectors.toList()));
                     this.getChart().setTitle(TITLE);
-                    events.addListener((SetChangeListener<Event>) change -> {
-                        try {
-                            update.execute();
-                        } catch (final Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    try {
-                        update.execute();
-                    } catch (final Exception e) {
-                        e.printStackTrace();
-                    }
+                    events.addListener((SetChangeListener<Event>) change -> update.execute());
+                    update.execute();
                 }
             }
         };

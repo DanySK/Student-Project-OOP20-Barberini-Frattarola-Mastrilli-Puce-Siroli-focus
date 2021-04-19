@@ -48,7 +48,7 @@ public class TimePeriodInputBuilderImpl<X> implements TimePeriodInputBuilder<X> 
      * {@inheritDoc}
      */
     @Override
-    public final TimePeriodInput<X> save() throws IllegalStateException {
+    public final TimePeriodInput<X> save() {
         if (this.startDate == null || this.endDate == null || this.values == null) {
             throw new IllegalStateException();
         }

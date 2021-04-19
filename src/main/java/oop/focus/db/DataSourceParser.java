@@ -22,6 +22,7 @@ public interface DataSourceParser<X> {
      * @return the field names
      */
     List<String> getFieldNames();
+
     /**
      * Parses the element into a  {@link List} containing
      * all the string representations of the values of the fields.
@@ -30,7 +31,8 @@ public interface DataSourceParser<X> {
      * @return the string representations of the values of the element x collected in a list
      * @throws IllegalStateException if the element type has no fields
      */
-    List<String> getValues(X element) throws IllegalStateException;
+    List<String> getValues(X element);
+
     /**
      * Builds a type X element from a {@link List} of strings representing the values.
      *

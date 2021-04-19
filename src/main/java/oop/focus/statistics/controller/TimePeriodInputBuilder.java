@@ -40,5 +40,5 @@ public interface TimePeriodInputBuilder<X> {
      * @return the events input
      * @throws IllegalStateException if the event input cannot be created.
      */
-    TimePeriodInput<X> save() throws IllegalStateException;
+    TimePeriodInput<X> save();
 }

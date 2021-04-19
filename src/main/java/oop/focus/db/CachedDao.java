@@ -30,6 +30,9 @@ import java.util.stream.Stream;
  * @param <X> the type parameter
  */
 public class CachedDao<X> implements SingleDao<X> {
+
+    private static final String ERROR_MESSAGE = "Load error";
+
     /**
      * The enum Db action.
      */
@@ -100,10 +103,9 @@ public class CachedDao<X> implements SingleDao<X> {
         this.getAllFromSource();
     }
 
-    private void withNoParameters() throws DaoAccessException {
+    private void withNoParameters() {
         final Map<Integer, List<String>> values = new HashMap<>();
-        try {
-            final var s = this.db.getConnection().createStatement();
+        try (var s = this.db.getConnection().createStatement()) {
             final var resultSet = s.executeQuery(DbAction.SELECT_ALL.getSyntax(this.parser.getTypeName(),
                     this.parser.getFieldNames(), CachedDao.NO_ID));
             while (resultSet.next()) {
@@ -116,8 +118,7 @@ public class CachedDao<X> implements SingleDao<X> {
                 }
             }
         } catch (final Exception e) {
-            e.printStackTrace();
-            throw new DaoAccessException();
+            throw new IllegalStateException();
         }
 
         this.cache.putAll(values.entrySet().stream()
@@ -127,19 +128,22 @@ public class CachedDao<X> implements SingleDao<X> {
                 .collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().get())));
     }
 
-    private void withParameters(final X x, final DbAction action, final int id) throws SQLException {
-        final var values = this.parser.getValues(x);
-        final var p = this.db.getConnection()
+    private void withParameters(final X x, final DbAction action, final int id) {
+        try (var p = this.db.getConnection()
                 .prepareStatement(action.getSyntax(this.parser.getTypeName(),
-                        this.parser.getFieldNames(), id), Statement.RETURN_GENERATED_KEYS);
-        for (int i = 0; i < values.size(); i++) {
-            p.setString(i + 1, values.get(i));
-        }
-        p.executeUpdate();
-        final var generatedKeys = p.getGeneratedKeys();
-        while (generatedKeys.next()) {
-            final long tmp = generatedKeys.getLong(1);
-            this.cache.put(this.getKey(id, tmp), x);
+                        this.parser.getFieldNames(), id), Statement.RETURN_GENERATED_KEYS)) {
+            final var values = this.parser.getValues(x);
+            for (int i = 0; i < values.size(); i++) {
+                p.setString(i + 1, values.get(i));
+            }
+            p.executeUpdate();
+            final var generatedKeys = p.getGeneratedKeys();
+            while (generatedKeys.next()) {
+                final long tmp = generatedKeys.getLong(1);
+                this.cache.put(this.getKey(id, tmp), x);
+            }
+        } catch (final SQLException e) {
+            throw new IllegalArgumentException();
         }
     }
 
@@ -147,23 +151,18 @@ public class CachedDao<X> implements SingleDao<X> {
         return (int) (tmp == 0 ? id : tmp);
     }
 
-    private void execute(final Action a) throws DaoAccessException {
-        try {
-            this.db.open();
-            a.execute();
-            this.db.close();
-        } catch (final Exception e) {
-            e.printStackTrace();
-            throw new DaoAccessException();
-        }
+    private void execute(final Action a) throws DaoAccessException, ConnectionException {
+        this.db.open();
+        a.execute();
+        this.db.close();
     }
 
     private void getAllFromSource() {
         try {
             this.execute(this::withNoParameters);
             this.observable.addAll(this.cache.values());
-        } catch (final DaoAccessException e) {
-            //e.printStackTrace();
+        } catch (final DaoAccessException | ConnectionException e) {
+            System.err.println(ERROR_MESSAGE);
         }
     }
 
@@ -191,7 +190,11 @@ public class CachedDao<X> implements SingleDao<X> {
         if (this.observable.contains(x)) {
             return;
         }
-        this.execute(() -> this.withParameters(x, DbAction.INSERT, NO_ID));
+        try {
+            this.execute(() -> this.withParameters(x, DbAction.INSERT, NO_ID));
+        } catch (final ConnectionException e) {
+            throw new DaoAccessException();
+        }
         this.observable.add(x);
     }
 
@@ -207,7 +210,11 @@ public class CachedDao<X> implements SingleDao<X> {
         this.observable.add(x);
         final Optional<Integer> optId = this.getId(x);
         final int id = optId.orElseThrow();
-        this.execute(() -> this.withParameters(x, DbAction.UPDATE, id));
+        try {
+            this.execute(() -> this.withParameters(x, DbAction.UPDATE, id));
+        } catch (final ConnectionException e) {
+            throw new DaoAccessException();
+        }
     }
 
     /**
@@ -222,9 +229,19 @@ public class CachedDao<X> implements SingleDao<X> {
         final Optional<Integer> optId = this.getId(x);
         final int id = optId.orElseThrow();
         this.cache.remove(id);
-        this.execute(() -> this.db.getConnection().createStatement()
-                .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),
-                        this.parser.getFieldNames(), id)));
+        try {
+            this.execute(() -> {
+                try {
+                    this.db.getConnection().createStatement()
+                            .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),
+                                    this.parser.getFieldNames(), id));
+                } catch (final SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+        } catch (final ConnectionException e) {
+            throw new DaoAccessException();
+        }
     }
 
     /**

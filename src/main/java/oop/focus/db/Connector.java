@@ -22,7 +22,7 @@ public interface Connector<X> {
      * @return the instance of the connection of type X
      * @throws IllegalStateException if the connection has not been created.
      */
-    X getConnection() throws IllegalStateException;
+    X getConnection();
 
     /**
      * Open the connection with the source.
@@ -30,7 +30,7 @@ public interface Connector<X> {
      * @throws ConnectionException   if the connection cannot be opened.
      * @throws IllegalStateException if the connection has not been created or is already open.
      */
-    void open() throws ConnectionException, IllegalStateException;
+    void open() throws ConnectionException;
 
     /**
      * Close the connection with the source.
@@ -38,5 +38,5 @@ public interface Connector<X> {
      * @throws ConnectionException   the connection exception
      * @throws IllegalStateException if the connection has not been created or is already closed.
      */
-    void close() throws ConnectionException, IllegalStateException;
+    void close() throws ConnectionException;
 }

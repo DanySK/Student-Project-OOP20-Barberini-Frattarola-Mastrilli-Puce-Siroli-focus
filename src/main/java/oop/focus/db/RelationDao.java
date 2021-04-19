@@ -44,7 +44,7 @@ public class RelationDao<X> extends CachedDao<X> {
      * {@inheritDoc}
      */
     @Override
-    public final void update(final X x) throws IllegalArgumentException, DaoAccessException {
+    public final void update(final X x) throws DaoAccessException {
         this.saveAndCheckMissing(x);
         super.update(x);
     }

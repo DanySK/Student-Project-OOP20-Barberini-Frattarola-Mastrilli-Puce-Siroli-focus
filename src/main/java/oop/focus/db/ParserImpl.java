@@ -42,7 +42,7 @@ public class ParserImpl<X> implements DataSourceParser<X> {
     public final Optional<X> create(final List<String> rs) {
         try {
             return Optional.of(this.builder.apply(rs));
-        } catch (final Exception e) {
+        } catch (final NullPointerException e) {
             return Optional.empty();
         }
     }
@@ -68,7 +68,7 @@ public class ParserImpl<X> implements DataSourceParser<X> {
      * {@inheritDoc}
      */
     @Override
-    public final List<String> getValues(final X element) throws IllegalStateException {
+    public final List<String> getValues(final X element) {
         return this.input.stream()
                 .map(x -> x.getValue().apply(element))
                 .collect(Collectors.toList());
@@ -79,7 +79,7 @@ public class ParserImpl<X> implements DataSourceParser<X> {
      *
      * @throws IllegalStateException if the input is not valid.
      */
-    private void checkValidity() throws IllegalStateException {
+    private void checkValidity() {
         if (this.input.isEmpty()) {
             throw new IllegalStateException();
         }
