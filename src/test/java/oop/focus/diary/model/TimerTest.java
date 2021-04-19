@@ -18,9 +18,10 @@ public class TimerTest {
         //il timer relativo all'attività è settata a 5 sec
         this.timer.setStarterValue(5);
         this.timer.startCounter();
-        Thread.sleep(6000);
+        Thread.sleep(5000);
         assertEquals(this.csc.computePeriod(str).get().getSeconds(), 5);
-        this.me.removeEvent(this.me.findByName(str).stream().findAny().get());
+        this.me.removeAll();
+
     }
 
 }

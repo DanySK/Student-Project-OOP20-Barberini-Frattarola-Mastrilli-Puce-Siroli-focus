@@ -10,5 +10,5 @@
     -fx-font-size: 16;
 }
 .button {
-    -fx-font-size: 16;
+    -fx-padding: 0;
 }

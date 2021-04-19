@@ -7,7 +7,8 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * A specific connector to a file.
+ * A specific connector to a {@link FileManager}. The methods allow the creation, opening and closing
+ * of a file specified in input.
  */
 public class DiaryConnector implements Connector<FileManager> {
     private boolean connected;
