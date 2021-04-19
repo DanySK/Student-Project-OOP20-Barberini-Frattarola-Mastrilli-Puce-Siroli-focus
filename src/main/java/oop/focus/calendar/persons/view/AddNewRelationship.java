@@ -61,13 +61,7 @@ public class AddNewRelationship implements GenericAddView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.back.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        });
+        this.back.setOnAction(event -> this.goBack(event));
 
         this.delete.setOnAction(event -> this.delete(event));
 
@@ -100,7 +94,7 @@ public class AddNewRelationship implements GenericAddView {
         return this.root;
     }
 
-    public final void goBack(final ActionEvent event) throws IOException {
+    public final void goBack(final ActionEvent event) {
         final Stage stage = (Stage) this.newRelatioshipPane.getScene().getWindow();
         stage.close();
     }

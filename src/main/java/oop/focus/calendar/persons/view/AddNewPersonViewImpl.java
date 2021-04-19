@@ -78,13 +78,7 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
 
         this.delete.setOnAction(event -> this.delete(event));
 
-        this.back.setOnAction(event -> {
-            try {
-                this.goBack(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        });
+        this.back.setOnAction(event -> this.goBack(event));
         this.newDegree.setOnAction(event -> this.newDegree());
     }
 
@@ -130,7 +124,7 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
         return this.root;
     }
 
-    public final void goBack(final ActionEvent event) throws IOException {
+    public final void goBack(final ActionEvent event) {
         final Stage stage = (Stage) this.newPersonPane.getScene().getWindow();
         stage.close();
     }
