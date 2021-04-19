@@ -8,6 +8,9 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.GenericView;
 
+/**
+ * Class that implements the view of a transaction, showing the main details.
+ */
 public class TransactionViewImpl extends GenericView<Transaction> implements Initializable, TransactionView {
 
     @FXML
@@ -17,6 +20,9 @@ public class TransactionViewImpl extends GenericView<Transaction> implements Ini
         super(transaction, FXMLPaths.MOVTILE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.descriptionLabel.setText(super.getX().getDescription());
