@@ -73,8 +73,8 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     @Override
     public final ObservableList<Repetition> getRepetitions() {
         final ObservableList<Repetition> list = FXCollections.observableArrayList();
-        Linker.listToList((Arrays.stream(Repetition.values())
-                .collect(Collectors.toCollection(FXCollections::observableArrayList))), list);
+        Linker.listToList(Arrays.stream(Repetition.values())
+                .collect(Collectors.toCollection(FXCollections::observableArrayList)), list);
         return list;
     }
 

@@ -15,12 +15,16 @@ import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.finance.view.windows.SubscriptionDetailsWindowImpl;
+import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class that implements the view of subscriptions.
+ */
 public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> implements SubscriptionsView {
 
     @FXML
@@ -34,6 +38,9 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         super(controller, FXMLPaths.SUBS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.annualTransactionLabel.setText(this.format(super.getX().getYearlyExpense()));
@@ -41,6 +48,9 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         this.setPref();
     }
 
+    /**
+     * Method that takes care of the resize of the view.
+     */
     private void setPref() {
         this.monthlyLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.annualLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
@@ -49,20 +59,25 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         this.subscriptionsScroll.setFitToWidth(true);
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     public final void showSubscriptions(final List<Transaction> subscriptions) {
-        var viewFactory = new ViewFactoryImpl();
+        final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
                 new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
                         t.getRepetition().getName(), super.getX().getTransactionAmount(t))));
-        var vbox = viewFactory.createVerticalAutoResizingWithNodes(subscriptionsTiles.stream()
+        final View vbox = viewFactory.createVerticalAutoResizingWithNodes(subscriptionsTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         subscriptionsTiles.forEach(t -> t.getRoot()
                 .addEventHandler(MouseEvent.MOUSE_CLICKED, event -> this.showDetails(t.getElement())));
         this.subscriptionsScroll.setContent(vbox.getRoot());
     }
 
+    /**
+     * Method that shows the details of a transaction.
+     */
     private void showDetails(final Transaction subscription) {
         final View details = new SubscriptionDetailsWindowImpl(super.getX(), subscription);
         final Stage stage = new Stage();

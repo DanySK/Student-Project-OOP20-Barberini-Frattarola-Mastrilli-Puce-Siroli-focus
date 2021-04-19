@@ -1,23 +1,21 @@
 package oop.focus.finance.view.bases;
 
-import javafx.collections.ObservableSet;
 import oop.focus.common.View;
-import oop.focus.finance.model.GroupTransaction;
-import oop.focus.homepage.model.Person;
 
+/**
+ * Interface that implements the group view.
+ */
 public interface GroupView extends View {
 
     /**
      * Show people in the groupMovementsScroll.
      *
-     * @param group to be showed
      */
-    void showPeople(ObservableSet<Person> group);
+    void showPeople();
 
     /**
      * Show group transactions in the groupMovementsScroll.
      *
-     * @param transactions to be showed
      */
-    void showTransactions(ObservableSet<GroupTransaction> transactions);
+    void showTransactions();
 }

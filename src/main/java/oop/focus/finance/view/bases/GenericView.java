@@ -13,6 +13,13 @@ import java.text.DecimalFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Abstract generic class that implements a view that loads a specific fxml.
+ * The class contains an element as a field (usually a controller) and already has methods related
+ * to displaying recurring dialog windows.
+ *
+ * @param <X> type of the element passed as a field
+ */
 public abstract class GenericView<X> implements Initializable, FinanceView<X> {
 
     private final X x;
@@ -29,22 +36,34 @@ public abstract class GenericView<X> implements Initializable, FinanceView<X> {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Node getRoot() {
         return this.root;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.populate();
     }
 
-    @Override
+    /**
+     * @return the object to which the view refers
+     */
     public final X getX() {
         return this.x;
     }
 
-    @Override
+    /**
+     * Show a pop-up indicating an error.
+     *
+     * @param message to diplay
+     */
     public final void allert(final String message) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Errore");
@@ -57,7 +76,12 @@ public abstract class GenericView<X> implements Initializable, FinanceView<X> {
         }
     }
 
-    @Override
+    /**
+     * Show a pop-up asking for confirmation.
+     *
+     * @param message to display
+     * @return the result
+     */
     public final Optional<ButtonType> confirm(final String message) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma");
@@ -66,6 +90,9 @@ public abstract class GenericView<X> implements Initializable, FinanceView<X> {
         return alert.showAndWait();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String format(final double amount) {
         final DecimalFormat f = new DecimalFormat("#0.00");

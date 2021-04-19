@@ -313,22 +313,16 @@ public class FinanceTest {
         // eseguo alcune transazioni rapide
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
                 "TransazioneRapida1", new CategoryImpl(CATEGORY, ""), account));
-        this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""), account));
-        this.financeManager.doQuickTransaction(new QuickTransactionImpl(-150,
-                "TransazioneRapida1", new CategoryImpl(CATEGORY, ""), account));
-        this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
-                "TransazioneRapida2", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(-300,
                 "TransazioneRapida2", new CategoryImpl(CATEGORY, ""), account));
         this.financeManager.doQuickTransaction(new QuickTransactionImpl(1000,
                 "TransazioneRapida3", new CategoryImpl(CATEGORY, ""), account));
 
         // controllo che le transazioni siano sei in più
-        assertEquals(numTra+6, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+3, this.financeManager.getTransactionManager().getTransactions().size());
 
         // controllo che il saldo sia corretto
-        assertEquals(149_700, this.financeManager.getAmount(account));
+        assertEquals(150_300, this.financeManager.getAmount(account));
 
         // riporto tutto come da principio
         this.financeManager.removeAccount(new AccountImpl("Conto1", "", 0));

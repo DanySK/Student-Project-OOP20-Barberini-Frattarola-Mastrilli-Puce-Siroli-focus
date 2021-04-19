@@ -1,7 +1,7 @@
 package oop.focus.finance.view.bases;
 
-import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -26,12 +26,17 @@ import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
 import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
 import oop.focus.finance.view.windows.ResolveViewImpl;
 import oop.focus.homepage.model.Person;
+import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Class that implements the view of group and group transactions.
+ */
 public class GroupViewImpl extends GenericView<GroupController> implements GroupView {
 
     @FXML
@@ -41,10 +46,16 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     @FXML
     private Button peopleButton, groupTransactionsButton, newPersonButton, resolveButton, newGroupTransactionButton;
 
+    private final ViewFactory viewFactory;
+
     public GroupViewImpl(final GroupController controller) {
         super(controller, FXMLPaths.GROUP);
+        this.viewFactory = new ViewFactoryImpl();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.peopleButton.setOnAction(event -> super.getX().showPeople());
@@ -56,64 +67,84 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.setPref();
     }
 
+    /**
+     * Method that takes care of the resize of the view.
+     */
     private void setPref() {
-        this.peopleButton.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
-        this.groupTransactionsButton.setPrefWidth(Screen.getPrimary().getBounds().getWidth());
+        final Rectangle2D screen = Screen.getPrimary().getBounds();
+        this.peopleButton.setPrefWidth(screen.getWidth());
+        this.groupTransactionsButton.setPrefWidth(screen.getWidth());
         this.newPersonButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.resolveButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.newGroupTransactionButton.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.groupMovementsScroll.setFitToWidth(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final void showPeople(final ObservableSet<Person> group) {
+    public final void showPeople() {
         this.newPersonButton.setText("Aggiungi persona al gruppo");
         this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(
                 new AddPersonControllerImpl(super.getX().getManager()))));
-        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         super.getX().getSortedGroup().forEach(p -> personTiles.add(
                 new GenericTileViewImpl<>(p, p.getName(), super.getX().getCredit(p))));
-        var vbox = viewFactory.createVerticalAutoResizingWithNodes(personTiles.stream()
+        final View vbox = this.viewFactory.createVerticalAutoResizingWithNodes(personTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
                         this.showWindow(new PersonDetailsWindowImpl(super.getX(), t.getElement()))));
         this.groupMovementsScroll.setContent(vbox.getRoot());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public final void showTransactions(final ObservableSet<GroupTransaction> transactions) {
+    public final void showTransactions() {
         this.newPersonButton.setText("Reset");
         this.newPersonButton.setOnAction(event -> this.reset());
-        var viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<GroupTransaction>> transactionTiles = new ArrayList<>();
         super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
                         + this.getForListNames(t.getForList()), (double) t.getAmount() / 100)));
-        var vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionTiles.stream()
+        final View vbox = this.viewFactory.createVerticalAutoResizingWithNodes(transactionTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         transactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
                         this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getElement()))));
         this.groupMovementsScroll.setContent(vbox.getRoot());
     }
 
-    private void showWindow(final View impl) {
+    /**
+     * Method that displays a window on the screen.
+     *
+     * @param view to be shown
+     */
+    private void showWindow(final View view) {
         final Stage stage = new Stage();
-        stage.setScene(new Scene((Parent) impl.getRoot()));
+        stage.setScene(new Scene((Parent) view.getRoot()));
         stage.show();
     }
 
+    /**
+     * Method that after confirmation deletes all group transactions and group persons.
+     */
     private void reset() {
-        var result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
+        final Optional<ButtonType> result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 super.getX().reset();
-            } catch (Exception e) {
+            } catch (IllegalStateException e) {
                 super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }
     }
 
+    /**
+     * @param list of persons
+     * @return returns a formatted string listing all the people in the list
+     */
     private String getForListNames(final List<Person> list) {
         return list.stream().map(Person::getName).collect(Collectors.joining(", "));
     }

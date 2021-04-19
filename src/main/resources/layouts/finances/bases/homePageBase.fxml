@@ -12,13 +12,13 @@
    <bottom>
       <HBox fx:id="downHBox" maxHeight="56.0" maxWidth="1.7976931348623157E308" minHeight="56.0" prefHeight="56.0" prefWidth="495.0" BorderPane.alignment="CENTER">
          <Button fx:id="newQuickTransactionButton" mnemonicParsing="false" prefHeight="55.0" prefWidth="246.0" text="Nuova Transazione Rapida" />
-         <Button fx:id="newMovememntButton" mnemonicParsing="false" prefHeight="55.0" prefWidth="246.0" text="Nuova Transazione" />
+         <Button fx:id="newMovementButton" mnemonicParsing="false" prefHeight="55.0" prefWidth="246.0" text="Nuova Transazione" />
       </HBox>
    </bottom>
    <center>
-      <VBox fx:id="leftVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="551.0" prefWidth="308.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="551.0" prefWidth="308.0" BorderPane.alignment="CENTER">
          <HBox minHeight="38.0" prefHeight="44.0" prefWidth="308.0">
-            <Label fx:id="accountLabel" alignment="CENTER" prefHeight="44.0" prefWidth="10000.0" text="Saldo totale" />
+            <Label alignment="CENTER" prefHeight="44.0" prefWidth="10000.0" text="Saldo totale" />
             <Label alignment="CENTER_RIGHT" minWidth="19.0" prefHeight="44.0" prefWidth="19.0" text="€  " />
             <Label fx:id="amountLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="44.0" prefWidth="10000.0">
                <font>
@@ -27,12 +27,12 @@
             </Label>
          </HBox>
          <ScrollPane fx:id="accountsScroll" prefHeight="164.0" prefWidth="243.0" />
-         <Label fx:id="movementsLabel" alignment="CENTER" minHeight="38.0" prefHeight="47.0" prefWidth="10000.0" text="Transazioni di oggi" />
+         <Label alignment="CENTER" minHeight="38.0" prefHeight="47.0" prefWidth="10000.0" text="Transazioni di oggi" />
          <ScrollPane fx:id="transactionsScroll" prefHeight="295.0" prefWidth="239.0" />
       </VBox>
    </center>
    <left>
-      <VBox prefHeight="551.0" prefWidth="194.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="leftVBox" prefHeight="551.0" prefWidth="194.0" BorderPane.alignment="CENTER">
          <ScrollPane fx:id="quickTransactionsScroll" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="194.0" />
          <Button fx:id="deleteButton" minHeight="55.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="194.0" text="Elimina Transazioni Rapide" />
       </VBox>

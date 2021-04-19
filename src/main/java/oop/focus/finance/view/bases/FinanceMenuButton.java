@@ -2,6 +2,11 @@ package oop.focus.finance.view.bases;
 
 import javafx.scene.control.Button;
 
+/**
+ * Interface that implements a finance button, consisting of a button and an action.
+ *
+ * @param <X> type of controller in which the method executed in the button action is present
+ */
 public interface FinanceMenuButton<X> {
 
     /**
@@ -14,5 +19,5 @@ public interface FinanceMenuButton<X> {
      *
      * @param controller that contains the method for the action
      */
-    void getAction(X controller);
+    void action(X controller);
 }

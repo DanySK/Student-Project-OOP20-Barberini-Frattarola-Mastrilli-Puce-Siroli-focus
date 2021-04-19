@@ -2,6 +2,9 @@ package oop.focus.finance.view.bases;
 
 import oop.focus.common.View;
 
+/**
+ * Interface that implements the finance section skeleton view.
+ */
 public interface BaseView extends View {
 
     /**

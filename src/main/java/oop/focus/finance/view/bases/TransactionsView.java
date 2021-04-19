@@ -1,13 +1,16 @@
 package oop.focus.finance.view.bases;
 
-import oop.focus.common.View;
+import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 
 import java.util.List;
 import java.util.function.Predicate;
 
-public interface TransactionsView extends View {
+/**
+ * Interface that implements the transactions view.
+ */
+public interface TransactionsView extends FinanceView<TransactionsController> {
 
     /**
      * Shows transactions filtered by predicate.

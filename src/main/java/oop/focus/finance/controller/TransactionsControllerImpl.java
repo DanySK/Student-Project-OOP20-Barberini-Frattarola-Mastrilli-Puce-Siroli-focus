@@ -6,6 +6,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.bases.TransactionsView;
 import oop.focus.finance.view.bases.TransactionsViewImpl;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public class TransactionsControllerImpl implements TransactionsController {
 
-    private final TransactionsViewImpl view;
+    private final TransactionsView view;
     private final FinanceManager manager;
     private final Predicate<Transaction> transactionPredicate;
     private Predicate<Account> accountPredicate;

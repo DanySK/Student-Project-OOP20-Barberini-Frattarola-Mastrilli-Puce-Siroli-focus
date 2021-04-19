@@ -5,6 +5,7 @@ import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.bases.SubscriptionsView;
 import oop.focus.finance.view.bases.SubscriptionsViewImpl;
 
 import java.util.Comparator;
@@ -17,7 +18,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
 
     private static final int GENERIC_PRICE = 12;
 
-    private final SubscriptionsViewImpl view;
+    private final SubscriptionsView view;
     private final FinanceManager manager;
 
     private final ObservableSet<Transaction> transactions;

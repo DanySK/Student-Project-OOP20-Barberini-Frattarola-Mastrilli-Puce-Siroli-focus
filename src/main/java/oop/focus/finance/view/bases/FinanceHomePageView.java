@@ -2,6 +2,9 @@ package oop.focus.finance.view.bases;
 
 import oop.focus.common.View;
 
+/**
+ * Interface that implements the display of the finance-related part of the home page.
+ */
 public interface FinanceHomePageView extends View {
 
     /**
