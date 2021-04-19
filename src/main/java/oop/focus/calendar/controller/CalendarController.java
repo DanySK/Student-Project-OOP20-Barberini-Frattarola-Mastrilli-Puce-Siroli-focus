@@ -16,7 +16,7 @@ import oop.focus.statistics.controller.EventsStatistics;
 public interface CalendarController extends Controller {
 
     /**
-     * Used for get the Settings Controller.
+     * Used for get the {@link CalendarSettingsController}.
      * @return CalendarSettingsController
      */
     CalendarSettingsController getSettingsController();
@@ -28,31 +28,31 @@ public interface CalendarController extends Controller {
     CalendarMonthController getMonthController();
 
     /**
-    * Used for get the Statistics Controller.
+    * Used for get the {@link EventsStatistics}.
     * @return EventsStatistics
     */
    EventsStatistics getStatisticsController();
 
    /**
-    * Used for get the Week Controller.
+    * Used for get the {@link WeekController}.
     * @return WeekController
     */
    WeekController getWeekController();
 
    /**
-    * Used for get the New Event Controller.
+    * Used for get the {@link NewEventController}.
     * @return NewEventController
     */
    NewEventController getNewEventController();
 
    /**
-    * Used for get the Info Event Controller.
+    * Used for get the {@link EventMenuController}.
     * @return EventMenuController
     */
    EventMenuController getEventInfoController();
 
    /**
-    * Used for get the Person Controller.
+    * Used for get the {@link PersonsController}.
     * @return PersonsController
     */
    PersonsController getPersonController();

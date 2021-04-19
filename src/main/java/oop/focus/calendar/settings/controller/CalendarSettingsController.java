@@ -1,12 +1,13 @@
 package oop.focus.calendar.settings.controller;
 
 
+
 import oop.focus.calendar.model.Format;
 import oop.focus.common.Controller;
 
 /**
  * Interface that models a Settings Controller.
- * Is used for change the spacing and the format of the hours box (day view)
+ * Is used for change the spacing and the format of the {@link HoursView} (day view)
  */
 public interface CalendarSettingsController extends Controller {
 

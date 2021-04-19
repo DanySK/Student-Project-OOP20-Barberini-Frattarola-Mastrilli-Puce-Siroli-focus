@@ -20,19 +20,19 @@ public interface CalendarDayController extends Controller {
     void buildDay();
 
     /**
-     * Used for get the hours box.
+     * Used for get the {@link HoursView}.
      * @return HoursView
      */
     HoursView getHoursBox();
 
     /**
-     * Used for get the event box.
+     * Used for get the {@link EventViewImpl}.
      * @return VBoxManager
      */
     VBoxManager getEventBox();
 
     /**
-     * Used for get the day.
+     * Used for get the {@link Day}.
      * @return Day
      */
     Day getDay();
@@ -51,7 +51,7 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for set the spacing between the hours.
-     * @param spacing : space between two hours in the {@link HoursView}
+     * @param spacing : space between two hours of the {@link HoursView}
      */
     void setSpacing(double spacing);
 
@@ -63,7 +63,7 @@ public interface CalendarDayController extends Controller {
 
     /**
      * Used for set the format of the hours.
-     * @param format : the {@link Format} of the hours of the hours box
+     * @param format : the {@link Format} of the hours of the {@link HoursView}
      */
     void setFormat(Format format);
 

@@ -67,8 +67,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     /**
      * Used for Initialize the month view.
-     * @param type : type of calendar to build
-     * @param monthController : controller of the month
+     * @param type : the {@link CalendarType} of calendar to build
+     * @param monthController : the {@link CalendarMonthController} of the month
      */
     public CalendarMonthViewImpl(final CalendarType type, final CalendarMonthController monthController) {
         this.type = type;
@@ -107,7 +107,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     /**
      * Used for build the grid with the days of the month.
-     * @return grid    Grid with the days
+     * @return grid : Grid with the days
      */
     private GridPane buildGridMonth() {
 
@@ -164,11 +164,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     /**
-     * Used for build a normal calendar.
+     * Used for build a {@link CalendarMonthView} calendar.
      * It is made up of buttons that, when clicked,
      * open a window with the information of the day
      * @param daysGrid : grid where put the day
-     * @param day : the day from where start to build the calendar
+     * @param day : the {@link Day} from where start to build the calendar
      */
     private void normalCalendar(final GridPane daysGrid, final Day day) {
         final Button jb = new Button(" " + day.getNumber() + " ");
@@ -191,10 +191,10 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     /**
-     * Used for build an Homepage calendar.
+     * Used for build an {@link HomePageBaseView} calendar.
      * Is composed only with label with the number of the day.
      * @param daysGrid : grid where put the day
-     * @param day : the day from where start to build the calendar
+     * @param day : the {@link Day} from where start to build the calendar
      */
     private void homepageCalendar(final GridPane daysGrid, final Day day) {
         final Label jb = new Label(" " + day.getNumber() + " ");
@@ -210,11 +210,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     /**
-     * Used for build an Diary calendar.
+     * Used for build an {@link DiaryView} calendar.
      * Is composed only with label with the number of the day
      * and an icon that represent you daily humor.
      * @param daysGrid : grid where put the day
-     * @param day : the day from where start to build the calendar
+     * @param day : the {@link Day} from where start to build the calendar
      */
     private void diaryCalendar(final GridPane daysGrid, final Day day) {
         final VBox container = new VBox();

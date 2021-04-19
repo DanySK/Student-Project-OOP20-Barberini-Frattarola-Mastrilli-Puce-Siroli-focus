@@ -28,8 +28,8 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
 
     /**
      * Used for Initialize the settings controller.
-     * @param monthController : controller of the month
-     * @param weekController : controller of the week
+     * @param monthController : the {@link CalendarMonthController} of the month
+     * @param weekController : the {@link WeekController} of the week
      */
     public CalendarSettingsControllerImpl(final CalendarMonthController monthController, final WeekController weekController) {
         this.weekController = weekController;
@@ -53,7 +53,9 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
         return this.format;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final boolean checkSpacing(final String spacing) {
         if (spacing.isBlank()) {
             this.setSpacing(SPACING);

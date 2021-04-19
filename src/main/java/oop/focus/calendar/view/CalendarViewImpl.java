@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
 import oop.focus.calendar.settings.view.CalendarSettingsView;
 import oop.focus.common.View;
-import oop.focus.event.view.EventMenuView;
 
 import static java.util.Objects.nonNull;
 
@@ -104,7 +103,7 @@ public class CalendarViewImpl implements View {
      * Used for build the button for open window.
      * @param buttonColumn : column where the button will be
      * @param name : String with the name of the button
-     * @param view : controller of the windows to open
+     * @param view : {@link View} of the windows to open
      * @param width : width of the window
      * @param height : height of the window
      */

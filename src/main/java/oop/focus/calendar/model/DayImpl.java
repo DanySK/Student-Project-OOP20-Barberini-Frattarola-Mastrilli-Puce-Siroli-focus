@@ -21,7 +21,7 @@ public class DayImpl implements Day {
 
     /**
      * Used for Initialize the Day.
-     * @param date : date of the day
+     * @param date : {@link LocalDate}} of the day
      * @param dataSource : dataSource the {@link DataSource} from which to retrieve data
      */
     public DayImpl(final LocalDate date, final DataSource dataSource) {
@@ -40,43 +40,65 @@ public class DayImpl implements Day {
         this.dailyEvents.addAll(Filter.takeOnlyDailyEvent(temp));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final int getNumber() {
         return  date.getDayOfMonth();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final int getDayOfTheWeek() {
         return  date.getDayOfWeek();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final String getName() {
         return date.dayOfWeek().getAsText(Locale.ITALY);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final String getMonth() {
         return date.monthOfYear().getAsText(Locale.ITALY);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final int getMonthNumber() {
         return date.getMonthOfYear();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final int getYear() {
         return date.getYear();
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final List<Event> getEvents() {
         return  this.events;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public final List<Event> getDailyEvents() {
         return  this.dailyEvents;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     public final boolean isSunday() {
         return "domenica".equalsIgnoreCase(getName());
     }

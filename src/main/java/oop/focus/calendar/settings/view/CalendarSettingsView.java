@@ -5,7 +5,7 @@ import oop.focus.common.View;
 
 /**
  * Interface that models an Settings View.
- * An Settings View is a windows where you can set the Spacing and the Format,
+ * An Settings View is a windows where you can set the Spacing and the {@link Format},
  * The spacing need to be minimum 30
  * The format can be choose between Normal or Extended
  */

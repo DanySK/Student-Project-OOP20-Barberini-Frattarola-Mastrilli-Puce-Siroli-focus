@@ -41,8 +41,8 @@ public class CalendarControllerImpl implements CalendarController {
 
     /**
      * Used for initialize the calendar controller.
-     * @param dataSource : dataSource the {@link DataSource} from which to retrieve data
-     * @param homePageController : homepage controller
+     * @param dataSource : the {@link DataSource} from which to retrieve data
+     * @param homePageController : the {@link GeneralHomePageController}
      */
     public CalendarControllerImpl(final DataSource dataSource, final Controller homePageController) {
 

@@ -15,13 +15,13 @@ import oop.focus.db.DataSource;
 
 /**
  * Interface that models a Month Controller.
- * Is used for set and get the format and the the spacing or for update the month view.
+ * Is used for set and get the {@link Format} and the the spacing or for update the month view.
  */
 public interface CalendarMonthController extends  Controller {
 
     /**
-     * Used for set the Format and the Spacing of the hoursbox of the day.
-     * @param dayController : controller of the month
+     * Used for set the Format and the Spacing of the {@link HoursView} of the day.
+     * @param dayController : the {@link CalendarDayController} of the month
      */
     void configureDay(CalendarDayController dayController);
 
@@ -32,13 +32,13 @@ public interface CalendarMonthController extends  Controller {
 
     /**
      * 
-     * Used to get the list with the days of the month.
+     * Used to get the list with the {@link Day}  of the month.
      * @return List : month
      */
     List<Day> getMonth();
 
     /**
-     * Used for get the logic of the calendar.
+     * Used for get the {@link CalendarLogic}  of the calendar.
      * @return CalendarLogic
      */
      CalendarLogic getCalendarLogic();
@@ -56,13 +56,13 @@ public interface CalendarMonthController extends  Controller {
     double getFontSize();
 
     /**
-     * Used for set the Format of the hoursbox.
+     * Used for set the {@link Format}  of the {@link HoursView}.
      * @param format : format of the hours box
      */
     void setFormat(Format format);
 
     /**
-     * Used for set the Spacing of the hoursbox.
+     * Used for set the Spacing of the {@link HoursView}.
      * @param spacing : space between two numbers in the hours box
      */
     void setSpacing(double spacing);
@@ -74,7 +74,7 @@ public interface CalendarMonthController extends  Controller {
 
 
     /**
-     * Used for get the DataSource.
+     * Used for get the {@link DataSource}.
      * @return DataSource
      */
     DataSource getDataSource();

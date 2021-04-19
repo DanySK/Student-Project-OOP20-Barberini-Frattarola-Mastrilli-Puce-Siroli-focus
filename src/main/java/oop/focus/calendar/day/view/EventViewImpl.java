@@ -48,8 +48,8 @@ public class EventViewImpl implements VBoxManager {
 
     /**
      * Used for Initialize Event view.
-     * @param hours : the box of the hours
-     * @param day : the day
+     * @param hours : the box of the {@link HoursView}
+     * @param day : the {@link Day}
      */
     public EventViewImpl(final HoursView hours, final Day day) {
         this.events = new ArrayList<>(day.getEvents());

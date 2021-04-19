@@ -5,7 +5,7 @@ import oop.focus.calendar.model.Format;
  * Interface that models an HoursView.
  * An HoursView is a box where are all the hours of the day,
  * and is composed by an spacing (the space between two hours)
- * and an format (format of the hours Normal ( 0, 1,  2) or Extended (0, 0.30, 1, 1.30))
+ * and an {@link Format} (format of the hours Normal ( 0, 1,  2) or Extended (0, 0.30, 1, 1.30))
  */
 public interface HoursView extends VBoxManager {
 
@@ -22,7 +22,7 @@ public interface HoursView extends VBoxManager {
     void setSpacing(double spacing);
 
     /**
-     * Used for set the format of the hours.
+     * Used for set the {@link Format} of the hours.
      * @param format of the time
      */
     void setFormat(Format format);

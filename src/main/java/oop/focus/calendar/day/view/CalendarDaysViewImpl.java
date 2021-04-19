@@ -34,7 +34,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
 
     /**
      * Used for Initialize days view.
-     * @param dayController : controller of the day
+     * @param dayController : the {@link CalendarDayController} of the day
      */
     public CalendarDaysViewImpl(final CalendarDayController dayController) {
         this.dayController = dayController;
@@ -43,7 +43,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
 
     /*
      * used for configure the day view and build the third (from the top) box 
-     * that is composed by the EventView and HoursView
+     * that is composed by the {@link EventViewImpl} and {@link HoursView}
      */
     private void configureDay(final HBox myHBox) {
 

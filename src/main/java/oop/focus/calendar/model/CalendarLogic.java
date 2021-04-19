@@ -13,33 +13,33 @@ public interface CalendarLogic {
 
     /**
      * Used for get an Day from a list.
-     * @param day : date of the day that we want to generate
-     * @return  Day : all the information about a day
+     * @param day : {@link LocalDate} of the day that we want to generate
+     * @return  Day : all the information about a day.
      */
     Day getDay(LocalDate day);
 
     /**
      * Used for build a day from a date.
-     * @param day : date of the day that we want to generate
-     * @return Day : an generated day
+     * @param day : {@link LocalDate} of the day that we want to generate
+     * @return Day : an generated {@link Day}
      */
     Day generateDay(LocalDate day);
 
     /**
      * Used for get the week list.
-     * @return a list of 7 days
+     * @return a list of 7 {@link Day}
      */
     List<Day> getWeek();
 
     /**
      * Used for get the month list.
-     * @return a list of x days
+     * @return a list of X {@link Day}
      */
     List<Day> getMonth();
 
     /**
      * Used for get the year list.
-     * @return a list of 365 days
+     * @return a list of 365 {@link Day}
      */
     List<Day> getYear();
 
@@ -47,7 +47,7 @@ public interface CalendarLogic {
      * Used for generate one of the Calendar List.
      * @param numberOfDays : is the number of day of the list
      * @param startingDate : is the date of the day from it start to generate the calendar
-     * @return List : a generated list of number number of days.
+     * @return List : a generated list of number number of {@link Day}.
      */
     List<Day> generate(int numberOfDays, LocalDate startingDate);
 
@@ -58,13 +58,13 @@ public interface CalendarLogic {
     List<Day> generateWeek();
 
     /**
-     * Generate a list of x day.
+     * Generate a list of x {@link Day}.
      * @return Set of x generated days 
      */
     List<Day> generateMonth();
 
     /**
-     * Generate a list of 365 day.
+     * Generate a list of 365 {@link Day}.
      * @return Set of 365 generated days 
      */
     List<Day> generateYear();
