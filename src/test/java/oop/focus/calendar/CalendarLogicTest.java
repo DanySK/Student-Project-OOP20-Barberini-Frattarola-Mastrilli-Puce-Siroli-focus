@@ -51,7 +51,7 @@ public class CalendarLogicTest {
         assertTrue(manager.getWeek().get(3).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 3), datasource)));
         assertTrue(manager.getWeek().get(4).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 2), datasource)));
         assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 1), datasource)));
-        assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 0), datasource)));
+        assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek()), datasource)));
         
         //controllo che il giorno corrente non ci sia nella settimana precedente
         assertFalse(manager.getWeek().contains(manager.getDay(today)));

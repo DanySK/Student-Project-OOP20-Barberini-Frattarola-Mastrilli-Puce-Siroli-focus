@@ -44,7 +44,6 @@ public class CalendarViewImpl implements View {
 
     /**
      * Used for build the calendar page box.
-     * @return HBox
      */
     private void buildCalendarPage() {
 
@@ -106,7 +105,7 @@ public class CalendarViewImpl implements View {
      * @param buttonColumn : column where the button will be
      * @param name : String with the name of the button
      * @param view : controller of the windows to open
-     * @param widht : width of the window
+     * @param width : width of the window
      * @param height : height of the window
      */
 
@@ -138,18 +137,13 @@ public class CalendarViewImpl implements View {
      * @return EventHandler
      */
     private EventHandler<ActionEvent> addPanel(final VBox panelColumn, final Node root) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                if (nonNull(panelColumn.getChildren())) {
-                    panelColumn.getChildren().remove(0);
-                    panelColumn.getChildren().add(root);
-                } else {
-                    panelColumn.getChildren().add(root);
-                }
+        return event -> {
+            if (nonNull(panelColumn.getChildren())) {
+                panelColumn.getChildren().remove(0);
+                panelColumn.getChildren().add(root);
+            } else {
+                panelColumn.getChildren().add(root);
             }
-
         };
     }
 

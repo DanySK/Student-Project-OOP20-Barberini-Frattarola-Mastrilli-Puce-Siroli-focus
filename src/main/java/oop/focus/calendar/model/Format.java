@@ -19,8 +19,8 @@ public enum Format {
      */
     EXTENDED(48, "ogni mezz'ora");
 
-    private int number;
-    private String name;
+    private final int number;
+    private final String name;
 
     Format(final int i, final String string) {
         number = i;

@@ -130,9 +130,7 @@ public class CalendarDayControllerImpl implements CalendarDayController {
      * {@inheritDoc}
      */
     public final String writeDailyEvent() {
-        this.day.getDailyEvents().forEach(e -> {
-            this.dailyEvents += e.getName() + SEP;
-        });
+        this.day.getDailyEvents().forEach(e -> this.dailyEvents += e.getName() + SEP);
         return this.dailyEvents;
     }
 

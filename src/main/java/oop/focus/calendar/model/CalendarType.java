@@ -22,6 +22,6 @@ public enum CalendarType {
     /**
      * Diary Calendar.
      */
-    DIARY;
+    DIARY
 
 }

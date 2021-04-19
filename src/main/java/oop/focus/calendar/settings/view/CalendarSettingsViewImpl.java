@@ -105,9 +105,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         format.getItems().add(normal.getName());
         format.getItems().add(extended.getName());
 
-        format.setOnAction((e) -> {
-            settingsController.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED);
-        });
+        format.setOnAction((e) -> settingsController.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED));
 
 
         settings.add(formatLabel, 0, 1);
@@ -130,21 +128,16 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
      * @return EventHandler
      */
     private EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                 if (!settingsController.checkSpacing(spacing.getText())) {
-                     spacing.setText(String.valueOf(settingsController.getSpacing()));
-                 }
-                 if (settingsController.getFormat() == null) {
-                     settingsController.setFormat(Format.NORMAL);
-                 }
-                 settingsController.updateView();
-                 settingsWindows.close();
-           }
-
-        };
+        return event -> {
+             if (!settingsController.checkSpacing(spacing.getText())) {
+                 spacing.setText(String.valueOf(settingsController.getSpacing()));
+             }
+             if (settingsController.getFormat() == null) {
+                 settingsController.setFormat(Format.NORMAL);
+             }
+             settingsController.updateView();
+             settingsWindows.close();
+       };
     }
 
     /**

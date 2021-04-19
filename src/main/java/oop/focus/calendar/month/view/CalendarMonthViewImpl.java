@@ -1,7 +1,6 @@
 package oop.focus.calendar.month.view;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,13 +68,13 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     /**
      * Used for Initialize the month view.
      * @param type : type of calendar to build
-     * @param monthcontroller : controller of the month
+     * @param monthController : controller of the month
      */
-    public CalendarMonthViewImpl(final CalendarType type, final CalendarMonthController monthcontroller) {
+    public CalendarMonthViewImpl(final CalendarType type, final CalendarMonthController monthController) {
         this.type = type;
         cells  = new HashMap<>();
         this.monthInfo = new Label();
-        this.monthController = monthcontroller;
+        this.monthController = monthController;
         this.monthBox = buildMonthView();
     }
 
@@ -153,11 +152,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
             if (type.equals(CalendarType.NORMAL)) {
                 normalCalendar(daysGrid, day);
             } else if (type.equals(CalendarType.DIARY)) {
-                try {
-                    diaryCalendar(daysGrid, day);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                diaryCalendar(daysGrid, day);
             } else if (type.equals(CalendarType.HOMEPAGE)) {
                 homepageCalendar(daysGrid, day);
             }
@@ -221,7 +216,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @param daysGrid : grid where put the day
      * @param day : the day from where start to build the calendar
      */
-    private void diaryCalendar(final GridPane daysGrid, final Day day) throws IOException {
+    private void diaryCalendar(final GridPane daysGrid, final Day day) {
         final VBox container = new VBox();
         final Label dayNumber = new Label(" " + day.getNumber() + " ");
         dayNumber.setFont(Font.font(monthController.getFontSize() / MOOD_FONT));
@@ -314,30 +309,25 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @return EventHandler
      */
     private EventHandler<ActionEvent> getDayView() {
-        return new EventHandler<ActionEvent>() {
+        return event -> {
+            final Button bt = (Button) event.getSource();
+            final Scene dayCheck = cells.get(bt);
+            if (dayWindows == null) {
 
-            @Override
-            public void handle(final ActionEvent event) {
-                final Button bt = (Button) event.getSource();
-                final Scene dayCheck = cells.get(bt);
-                if (dayWindows == null) {
+                dayWindows = new Stage();
+                final Scene p = cells.get(bt);
 
-                    dayWindows = new Stage();
-                    final Scene p = cells.get(bt);
+                dayWindows.setScene(p);
 
-                    dayWindows.setScene(p);
+            } else if (!dayWindows.getScene().equals(dayCheck)) {
 
-                } else if (!dayWindows.getScene().equals(dayCheck)) {
-
-                    dayWindows.close();
-                    dayWindows = new Stage();
-                    final Scene p = cells.get(bt);
-                    dayWindows.setScene(p);
-                }
-
-                dayWindows.show();
-
+                dayWindows.close();
+                dayWindows = new Stage();
+                final Scene p = cells.get(bt);
+                dayWindows.setScene(p);
             }
+
+            dayWindows.show();
 
         };
     }
@@ -350,15 +340,10 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @return EventHandler
      */
     private EventHandler<ActionEvent> changeMonthButton(final CalendarMonthView monthView, final Boolean flag) {
-        return new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(final ActionEvent event) {
-                monthController.getCalendarLogic().changeMonth(flag);
-                monthController.setMonth();
-                updateView(monthView);
-            }
-
+        return event -> {
+            monthController.getCalendarLogic().changeMonth(flag);
+            monthController.setMonth();
+            updateView(monthView);
         };
     }
 
@@ -389,7 +374,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     /**
      * Used for set the month view.
-     * @param month : the box that will contain all the object of the month view
+     * @param monthInfo : the box that will contain all the object of the month view
      */
     private void setMonthInfo(final Label monthInfo, final String string) {
         monthInfo.setText(string);

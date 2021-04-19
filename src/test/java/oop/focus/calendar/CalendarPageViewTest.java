@@ -30,7 +30,7 @@ public class CalendarPageViewTest extends Application {
         primaryStage.show();
     }
 
-    public static final void main(final String... args) {
+    public static void main(final String... args) {
         launch(args);
     }
 }
