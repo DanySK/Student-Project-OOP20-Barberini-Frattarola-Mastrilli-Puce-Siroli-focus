@@ -7,10 +7,15 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
 public class AlertFactoryImpl implements AlertFactory {
+    private Alert alert;
+
+    public AlertFactoryImpl() {
+        this.alert = new Alert(AlertType.WARNING);
+    }
 
     @Override
     public final Alert createIncompleteFieldAlert() {
-        final Alert alert = new Alert(AlertType.ERROR);
+        this.alert = new Alert(AlertType.ERROR);
         alert.setTitle("Attenzione!");
         alert.setHeaderText("I campi non sono stati riempiti correttamente!");
         final Optional<ButtonType> result = alert.showAndWait();
@@ -22,7 +27,7 @@ public class AlertFactoryImpl implements AlertFactory {
 
     @Override
     public final Alert createImpossibleSaveElement() {
-        final Alert alert = new Alert(AlertType.CONFIRMATION);
+        this.alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Errore!");
         alert.setHeaderText("Impossibile salvare questo elemento!");
         final Optional<ButtonType> result = alert.showAndWait();
@@ -34,7 +39,7 @@ public class AlertFactoryImpl implements AlertFactory {
 
     @Override
     public final Alert createHourOrDateError() {
-        final Alert alert = new Alert(AlertType.ERROR);
+        this.alert = new Alert(AlertType.ERROR);
         alert.setTitle("Attenzione!");
         alert.setHeaderText("Sono stati inseriti orario o data non validi");
         final Optional<ButtonType> result = alert.showAndWait();

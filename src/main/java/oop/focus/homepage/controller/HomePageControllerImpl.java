@@ -32,7 +32,7 @@ public class HomePageControllerImpl implements HomePageController {
     public HomePageControllerImpl(final DataSource dsi) {
         this.dsi = dsi;
         this.eventManager = new EventManagerImpl(dsi);
-        this.hotKeyManager = new HotKeyManagerImpl(dsi, eventManager);
+        this.hotKeyManager = new HotKeyManagerImpl(dsi, this.eventManager);
         this.nameEvent = " ";
         this.view = new HomePageBaseViewImpl(this);
     }
@@ -63,13 +63,13 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final ObservableList<Event> getEvents() {
         final ObservableList<Event> list = FXCollections.observableArrayList();
-        eventManager.getHotKeyEvents().forEach(event -> list.add(event));
+        this.eventManager.getHotKeyEvents().forEach(event -> list.add(event));
         return list;
     }
 
     public final ObservableList<HotKey> getHotKey() {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
-        hotKeyManager.getAll().forEach(hotKey -> list.add(hotKey));
+        this.hotKeyManager.getAll().forEach(hotKey -> list.add(hotKey));
         return list;
     }
 
@@ -89,7 +89,7 @@ public class HomePageControllerImpl implements HomePageController {
         try {
             this.eventManager.addEvent(eventImpl);
             this.eventManager.generateRepeatedEvents(LocalDate.now());
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             throw new IllegalStateException();
         }
     }
@@ -103,7 +103,7 @@ public class HomePageControllerImpl implements HomePageController {
     }
 
     @Override
-    public ObservableList<Repetition> getRep() {
+    public final ObservableList<Repetition> getRep() {
         final ObservableList<Repetition> list = FXCollections.observableArrayList();
         final List<Repetition> arrayList = new ArrayList<>();
         for (final Repetition repetition : Repetition.values()) {

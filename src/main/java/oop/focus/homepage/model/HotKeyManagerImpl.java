@@ -37,7 +37,7 @@ public class HotKeyManagerImpl implements HotKeyManager {
         if (!this.sd.getAll().contains(hotKey)) {
             try {
                 this.sd.save(hotKey);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -68,7 +68,7 @@ public class HotKeyManagerImpl implements HotKeyManager {
     public final void remove(final HotKey hotKey) {
         try {
             this.sd.delete(hotKey);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }

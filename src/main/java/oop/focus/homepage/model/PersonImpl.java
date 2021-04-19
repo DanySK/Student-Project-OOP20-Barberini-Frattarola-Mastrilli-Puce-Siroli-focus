@@ -31,8 +31,8 @@ public class PersonImpl implements Person {
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((relationships == null) ? 0 : relationships.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((this.relationships == null) ? 0 : this.relationships.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         return result;
     }
 
@@ -43,22 +43,22 @@ public class PersonImpl implements Person {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         final PersonImpl other = (PersonImpl) obj;
-        if (relationships == null) {
+        if (this.relationships == null) {
             if (other.relationships != null) {
                 return false;
             }
-        } else if (!relationships.equals(other.relationships)) {
+        } else if (!this.relationships.equals(other.relationships)) {
               return false;
         }
-        if (name == null) {
+        if (this.name == null) {
             if (other.name != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!this.name.equals(other.name)) {
             return false;
         }
         return true;

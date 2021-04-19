@@ -32,7 +32,7 @@ public class RelationshipsControllerImpl implements RelationshipsController {
     public final void deleteRelationship(final String relationship)  {
         try {
             this.relationships.remove(relationship);
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             throw  new IllegalStateException();
         }
     }

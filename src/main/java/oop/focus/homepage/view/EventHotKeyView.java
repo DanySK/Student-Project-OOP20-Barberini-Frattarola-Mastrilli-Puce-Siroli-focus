@@ -21,7 +21,7 @@ public class EventHotKeyView extends Pane implements HotKeyView {
         this.button = new Button(name);
         this.button.setStyle("-fx-background-color:" + HotKeyType.EVENT.getColor() + ";");
         this.setAction();
-        this.getChildren().add(button);
+        this.getChildren().add(this.button);
     }
 
     public final Button getButton() {

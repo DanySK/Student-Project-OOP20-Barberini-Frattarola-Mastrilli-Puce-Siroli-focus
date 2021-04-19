@@ -49,7 +49,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         this.setProperty();
@@ -93,16 +93,16 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
     @FXML
     public final void save(final ActionEvent event) throws IOException {
-        final String name = nameTextField.getText();
-        if (categoryComboBox.getSelectionModel().isEmpty() || name.isEmpty()) {
+        final String name = this.nameTextField.getText();
+        if (this.categoryComboBox.getSelectionModel().isEmpty() || name.isEmpty()) {
             new AlertFactoryImpl().createIncompleteFieldAlert();
         } else {
             try {
-                this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(categoryComboBox.getSelectionModel().getSelectedItem())));
+                this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(this.categoryComboBox.getSelectionModel().getSelectedItem())));
                 this.controller.getView().populateTableView();
                 this.homePageController.getView().fullVBoxHotKey();
                 this.goBack(event);
-            } catch (IllegalStateException e) {
+            } catch (final IllegalStateException e) {
                 new AlertFactoryImpl().createImpossibleSaveElement();
             }
         }
@@ -113,7 +113,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
         this.goBackButton.setOnAction(event -> {
             try {
                 this.goBack(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
@@ -123,7 +123,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
         this.saveHotKeyButton.setOnAction(event -> {
             try {
                 this.save(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });

@@ -83,10 +83,6 @@ public class EventImpl implements Event {
         return this.endDate.toLocalTime();
     }
 
-    /**
-     * This method is used for get the event name.
-     * @return a string that represent the event name.
-     */
     public final String getName() {
         return this.name;
     }
@@ -126,14 +122,14 @@ public class EventImpl implements Event {
     }
 
     public final boolean isRepeated() {
-        return isRepeated;
+        return this.isRepeated;
     }
 
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.startDate == null) ? 0 : this.startDate.hashCode());
         return result;
     }
 
@@ -144,40 +140,31 @@ public class EventImpl implements Event {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         final EventImpl other = (EventImpl) obj;
-        if (name == null) {
+        if (this.name == null) {
             if (other.name != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!this.name.equals(other.name)) {
                return false;
         }
-        if (startDate.toLocalTime().getHourOfDay() != other.startDate.toLocalTime().getHourOfDay()) {
+        if (this.startDate.toLocalTime().getHourOfDay() != other.startDate.toLocalTime().getHourOfDay()) {
             return false;
         }
-        if (startDate.toLocalTime().getMinuteOfHour() != other.startDate.toLocalTime().getMinuteOfHour()) {
+        if (this.startDate.toLocalTime().getMinuteOfHour() != other.startDate.toLocalTime().getMinuteOfHour()) {
             return false;
         }
-        if (startDate.toLocalDate() == null) {
+        if (this.startDate.toLocalDate() == null) {
             if (other.startDate.toLocalDate() != null) {
                 return false;
             }
-        } else if (!startDate.toLocalDate().equals(other.startDate.toLocalDate())) {
+        } else if (!this.startDate.toLocalDate().equals(other.startDate.toLocalDate())) {
             return false;
         }
         return true;
-    }
-
-    public final void setRepetition(final Repetition repetition) {
-        this.repetition = repetition;
-    }
-
-    public final void stopRepeat() {
-        this.isRepeated = false;
-        //this.repetition = Repetition.ONCE;
     }
 
     @Override
@@ -196,4 +183,13 @@ public class EventImpl implements Event {
         this.startTime = newValue;
         this.startDate = new LocalDate(this.startDay).toLocalDateTime(new LocalTime(this.startTime));
     }
+
+    public final void setRepetition(final Repetition repetition) {
+        this.repetition = repetition;
+    }
+
+    public final void stopRepeat() {
+        this.isRepeated = false;
+    }
+
 }

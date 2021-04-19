@@ -13,13 +13,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageController;
@@ -27,6 +27,7 @@ import oop.focus.homepage.controller.HotKeyController;
 import oop.focus.homepage.model.HotKey;
 
 public class HotKeyMenuViewImpl implements  HotKeyMenuView {
+
 
     @FXML
     private AnchorPane paneHotKeyView;
@@ -52,7 +53,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         this.setProperties();
@@ -121,9 +122,9 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     public final void populateTableView() {
-        nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
-        nome.setCellFactory(TextFieldTableCell.forTableColumn());
-        nome.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
+        this.nome.setCellValueFactory(new PropertyValueFactory<HotKey, String>("name"));
+        this.nome.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.nome.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
             @Override
             public void handle(final CellEditEvent<HotKey, String> event) {
                 final HotKey hotKey = event.getRowValue();
@@ -131,9 +132,9 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
             }
         });
 
-        tipo.setCellValueFactory(new PropertyValueFactory<HotKey, String>("typeRepresentation"));
-        tipo.setCellFactory(TextFieldTableCell.forTableColumn());
-        tipo.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
+        this.tipo.setCellValueFactory(new PropertyValueFactory<HotKey, String>("typeRepresentation"));
+        this.tipo.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.tipo.setOnEditCommit(new EventHandler<CellEditEvent<HotKey, String>>() {
             @Override
             public void handle(final CellEditEvent<HotKey, String> event) {
                 final HotKey hotKey = event.getRowValue();
@@ -147,14 +148,14 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     private void refreshTableView() {
-        this.tableHotKeyList.getItems().removeAll(tableHotKeyList.getSelectionModel().getSelectedItems());
+        this.tableHotKeyList.getItems().removeAll(this.tableHotKeyList.getSelectionModel().getSelectedItems());
     }
 
     public final void setButtonAction() {
         this.addHotKeyButton.setOnAction(event -> {
             try {
                 this.addNewHotKey(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
@@ -162,7 +163,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.goBackButton.setOnAction(event -> {
             try {
                 this.goBack(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });

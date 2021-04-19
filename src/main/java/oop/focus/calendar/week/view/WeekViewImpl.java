@@ -55,12 +55,15 @@ public class WeekViewImpl implements WeekView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+        this.setRoot();
+    }
+
+    private void setRoot() {
         this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.weekDaysPane.getChildren())).getRoot();
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-
         this.spacing = Constants.SPACING;
         this.format = Format.NORMAL;
         final LocalDate today = LocalDate.now();
@@ -118,7 +121,7 @@ public class WeekViewImpl implements WeekView {
             hbox.getChildren().add(daysView.getContainer());
             date = date.plusDays(1);
         }
-        hbox.prefWidthProperty().bind(weekDaysScroller.widthProperty());
+        hbox.prefWidthProperty().bind(this.weekDaysScroller.widthProperty());
 
         this.weekDaysScroller.setContent(hbox);
     }

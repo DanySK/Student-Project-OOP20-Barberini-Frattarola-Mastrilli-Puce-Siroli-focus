@@ -107,8 +107,8 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     public final void setButtonAction() {
         this.add.setOnAction(event -> {
             try {
-                save(event);
-            } catch (IOException e) {
+                this.save(event);
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
@@ -141,7 +141,6 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         this.choiceEndMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
 
         this.repetitionChoice.setItems(this.controller.getRep());
-        this.controller.getRep().forEach(e -> System.out.println(e));
         this.repetitionChoice.setConverter(new StringConverter<Repetition>() {
             @Override
             public String toString(final Repetition repetition) {
@@ -160,7 +159,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
         this.list = persons.getPersons();
-        list.forEach(p -> listOfString.add(p.toString()));
+        this.list.forEach(p -> listOfString.add(p.toString()));
 
         this.listOfPersons.setItems(listOfString);
         this.listOfPersons.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -215,7 +214,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
             this.delete(event);
             final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
             stage.close();
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Attenzione!");
             alert.setHeaderText("Sono stati inseriti orario o data non validi");

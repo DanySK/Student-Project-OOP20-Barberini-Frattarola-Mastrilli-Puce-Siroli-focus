@@ -39,5 +39,9 @@ public interface NewEventController {
      */
     View getView();
 
-	ObservableList<Repetition> getRep();
+    /**
+     * This method is used to get all the saved repetition.
+     * @return  ObservableList<Repetition> that represent all the saved repetition.
+     */
+    ObservableList<Repetition> getRep();
 }

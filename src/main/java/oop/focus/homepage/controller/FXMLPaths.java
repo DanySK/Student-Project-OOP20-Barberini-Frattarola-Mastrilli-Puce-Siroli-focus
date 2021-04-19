@@ -22,7 +22,7 @@ public enum FXMLPaths {
     /**
      *
      */
-    private String path;
+    private final String path;
 
     FXMLPaths(final String path) {
         this.path = path;

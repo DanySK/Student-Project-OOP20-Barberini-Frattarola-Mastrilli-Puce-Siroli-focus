@@ -6,7 +6,12 @@ import oop.focus.event.view.EventInformationViewImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.homepage.model.Person;
+
 import org.joda.time.LocalDate;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class EventInformationControllerImpl implements EventInformationController {
 
@@ -33,9 +38,6 @@ public class EventInformationControllerImpl implements EventInformationControlle
         this.eventManager.removeEvent(this.event);
         this.event.setRepetition(Repetition.ONCE);
         this.eventManager.addEvent(this.event);
-        this.eventManager.getAll().stream().forEach(e ->{
-            System.out.println(e.getName() + " " + e.getStart().toString() + " " + e.isRepeated());
-        });
     }
 
     @Override
@@ -46,6 +48,15 @@ public class EventInformationControllerImpl implements EventInformationControlle
     @Override
     public final EventMenuController getMenu() {
         return this.menuController;
+    }
+
+    @Override
+    public final ObservableList<String> getPersons() {
+        final ObservableList<String> list = FXCollections.observableArrayList();
+        for (final Person p : this.event.getPersons()) {
+            list.add(p.toString());
+        }
+        return list;
     }
 
 }

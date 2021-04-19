@@ -26,7 +26,7 @@ public class HotKeyControllerImpl implements HotKeyController {
     public HotKeyControllerImpl(final HomePageController controller) {
         this.dsi = controller.getDsi();
         this.eventManager = new EventManagerImpl(this.dsi);
-        this.hotKeyManager = new HotKeyManagerImpl(dsi, eventManager);
+        this.hotKeyManager = new HotKeyManagerImpl(this.dsi, this.eventManager);
         this.view = new HotKeyMenuViewImpl(this, controller);
     }
 
@@ -47,7 +47,7 @@ public class HotKeyControllerImpl implements HotKeyController {
 
     public final ObservableList<HotKey> getSortedHotKey() {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
-        List<HotKey> arrayList = hotKeyManager.getAll().stream().collect(Collectors.toList());
+        List<HotKey> arrayList = this.hotKeyManager.getAll().stream().collect(Collectors.toList());
         arrayList = arrayList.stream().sorted(Comparator.comparing(HotKey :: getName)).collect(Collectors.toList());
         arrayList.stream().forEach(h -> list.add(h));
         return list;

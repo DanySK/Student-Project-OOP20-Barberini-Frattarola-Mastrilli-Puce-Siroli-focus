@@ -23,7 +23,7 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
         if (!this.sd.getAll().contains(degree)) {
             try {
                 this.sd.save(degree);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -42,8 +42,8 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
     public final void remove(final String degree) {
         try {
             this.sd.delete(degree);
-        } catch (DaoAccessException e) {
-            extracted();
+        } catch (final DaoAccessException e) {
+            this.extracted();
         }
     }
 

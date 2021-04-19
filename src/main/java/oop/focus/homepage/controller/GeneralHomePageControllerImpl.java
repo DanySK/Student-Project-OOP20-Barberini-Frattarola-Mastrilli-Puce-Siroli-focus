@@ -25,7 +25,7 @@ public class GeneralHomePageControllerImpl implements GeneralHomePageController 
     }
 
     public final Node getFinanaceHomePage() {
-        return  this.financheHomePage.getView().getRoot();
+      return  this.financheHomePage.getView().getRoot();
     }
 
     public final View getView() {

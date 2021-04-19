@@ -11,10 +11,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import oop.focus.common.Repetition;
 import oop.focus.common.View;
@@ -27,10 +25,13 @@ public class EventInformationViewImpl implements View, Initializable {
     private AnchorPane paneEventInformation;
 
     @FXML
-    private Label startDate, endDate, repetition, insertStartDate, insertEndHour, labelRepetition, name;
+    private Label startDate, endDate, repetition, insertStartDate, insertEndHour, labelRepetition, name, persons;
 
     @FXML
     private Button goBack, stopRepetition;
+
+    @FXML
+    private ListView<String> viewOfPersons;
 
     private Node root;
     private final EventInformationController controller;
@@ -73,6 +74,7 @@ public class EventInformationViewImpl implements View, Initializable {
         this.insertEndHour.setText(this.controller.getEvent().getEnd().toString());
         this.insertStartDate.setText(this.controller.getEvent().getStart().toString());
         this.labelRepetition.setText(this.controller.getEvent().getRipetition().toString());
+        this.viewOfPersons.setItems(this.controller.getPersons());
     }
 
     private void setButtonOnAction() {
@@ -89,7 +91,7 @@ public class EventInformationViewImpl implements View, Initializable {
         this.controller.stopRepetition();
         this.controller.getMenu().getWeek().getView().setWeekDays();
         this.controller.getMenu().getMonth().updateView();
-        ((EventMenuView) this.controller.getMenu().getView()).refreshTable();
+        //((EventMenuView) this.controller.getMenu().getView()).refreshTable();
         this.labelRepetition.setText(Repetition.ONCE.toString());
     }
 

@@ -53,14 +53,14 @@ public class GeneralHomePageView implements View, Initializable {
         VBox.setVgrow(this.paneHomePage, Priority.ALWAYS);
         HBox.setHgrow(this.paneHomePage, Priority.ALWAYS);
 
-        VBox.setVgrow(this.container, Priority.ALWAYS);
+        /*VBox.setVgrow(this.container, Priority.ALWAYS);
         HBox.setHgrow(this.container, Priority.ALWAYS);
 
         VBox.setVgrow(this.financeHomePage, Priority.ALWAYS);
         HBox.setHgrow(this.financeHomePage, Priority.ALWAYS);
 
         VBox.setVgrow(this.calendarHomePage, Priority.ALWAYS);
-        HBox.setHgrow(this.calendarHomePage, Priority.ALWAYS);
+        HBox.setHgrow(this.calendarHomePage, Priority.ALWAYS);*/
     }
 
     @Override

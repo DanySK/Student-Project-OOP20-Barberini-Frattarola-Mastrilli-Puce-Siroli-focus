@@ -8,8 +8,9 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
+import javafx.collections.ObservableSet;
+
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -39,7 +40,7 @@ public class EventManagerImpl implements EventManager {
             if (!this.events.getAll().contains(event)) {
                 try {
                     this.events.save(event);
-                } catch (DaoAccessException e) {
+                } catch (final DaoAccessException e) {
                     e.printStackTrace();
                 }
             }
@@ -48,14 +49,8 @@ public class EventManagerImpl implements EventManager {
         }
     }
 
-    public final void addEventsSet(final Set<Event> eventsSet) {
-        for (final Event event : eventsSet) {
-            this.addEvent(event);
-        }
-    }
-
     public final boolean checkEmptyJourney(final LocalDateTime date) {
-        return this.takeOnly(this.findByDate(date.toLocalDate())).isEmpty();
+        return Filter.takeOnly(this.findByDate(date.toLocalDate())).isEmpty();
     }
 
 
@@ -64,10 +59,6 @@ public class EventManagerImpl implements EventManager {
             return e.getStartDate().equals(date) || e.getEndDate().equals(date) 
             || e.getStartDate().isBefore(date) && e.getEndDate().isAfter(date);
         }).filter(e -> !this.isAdequate(e)).collect(Collectors.toList());
-    }
-
-    public final Set<Event> findByHour(final LocalTime hour) {
-        return this.events.getAll().stream().filter(e -> e.getStartHour().equals(hour)).collect(Collectors.toSet());
     }
 
     public final Set<Event> findByName(final String name) {
@@ -94,7 +85,7 @@ public class EventManagerImpl implements EventManager {
         this.generateListOfNextEvent(date).forEach(e -> {
             try {
                 this.events.save(e);
-            } catch (DaoAccessException daoAccessException) {
+            } catch (final DaoAccessException daoAccessException) {
                 daoAccessException.printStackTrace();
             }
         });
@@ -106,31 +97,17 @@ public class EventManagerImpl implements EventManager {
 
     public final boolean getAnswer(final Event event) {
         if (event.getStartDate().isEqual(event.getEndDate())) {
-            return this.time.areCompatibleEquals(event, this.orderByHour(this.takeOnly(this.findByDate(event.getStartDate()))));
+            return this.time.areCompatibleEquals(event, Filter.orderByHour(Filter.takeOnly(this.findByDate(event.getStartDate()))));
         } else {
-            return this.time.areCompatibleDifferent(event, this.orderByHour(this.takeOnly(this.findByDate(event.getStartDate()))), this.takeOnly(this.orderByHour(this.findByDate(event.getEndDate()))));
+            return this.time.areCompatibleDifferent(event, Filter.orderByHour(Filter.takeOnly(this.findByDate(event.getStartDate()))), Filter.takeOnly(Filter.orderByHour(this.findByDate(event.getEndDate()))));
         }
     }
 
     public final Optional<LocalTime> getClosestEvent(final LocalDateTime date) {
-        if (this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().anyMatch(e -> e.getStartHour().isAfter(date.toLocalTime()))) {
-            return Optional.of(this.takeOnly(this.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
+        if (Filter.takeOnly(Filter.orderByHour(this.findByDate(date.toLocalDate()))).stream().anyMatch(e -> e.getStartHour().isAfter(date.toLocalTime()))) {
+            return Optional.of(Filter.takeOnly(Filter.orderByHour(this.findByDate(date.toLocalDate()))).stream().filter(e -> e.getStartHour().isAfter(date.toLocalTime())).findFirst().get().getStartHour());
         }
         return Optional.empty();
-    }
-
-    public final Set<Event> getDailyEvents() {
-        return this.events.getAll().stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toSet());
-    }
-
-    public final Set<Event> getEvents() {
-        return this.events.getAll().stream().filter(e -> {
-            return this.time.getHourDuration(e) && !this.isAdequate(e);
-        }).collect(Collectors.toSet());
-    }
-
-    public final List<Event> getEventsWithDuration(final List<Event> listOfEvents) {
-        return listOfEvents.stream().filter(e -> this.time.getMinEventTime(e)).collect(Collectors.toList());
     }
 
     public final List<Event> getFutureEvent(final LocalDate date) {
@@ -161,21 +138,10 @@ public class EventManagerImpl implements EventManager {
         return event.getStart().isEqual(event.getEnd());
     }
 
-    public final List<Event> orderByHour(final List<Event> eventsList) {
-        eventsList.sort(Comparator.comparing(Event::getEnd));
-        return eventsList;
-    }
-
-    public final void removeAll() {
-        for (final Event e : this.events.getAll()) {
-            this.removeEvent(e);
-        }
-    }
-
     public final void removeEvent(final Event event) {
         try {
             this.events.delete(event);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -183,30 +149,23 @@ public class EventManagerImpl implements EventManager {
     public final void saveTimer(final Event event) {
         try {
             this.events.save(event);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
 
-    public final List<Event> takeOnly(final List<Event> eventsList) {
-        return eventsList.stream().filter(e -> this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
-    }
-
-    public final List<Event> takeOnlyDailyEvent(final List<Event> eventsList) {
-        return eventsList.stream().filter(e -> !this.time.getHourDuration(e) && !this.isAdequate(e)).collect(Collectors.toList());
-    }
-
-    public final List<Event> takeOnlyHotKeyEvent(final List<Event> eventsList) {
-        return eventsList.stream().filter(e -> this.isAdequate(e)).collect(Collectors.toList());
-    }
-
     public final boolean timerCanStart(final LocalDateTime date) {
-        for (final Event e : this.takeOnly(this.findByDate(date.toLocalDate()))) {
+        for (final Event e : Filter.takeOnly(this.findByDate(date.toLocalDate()))) {
             if (this.time.getStart(date, e)) {
                 return false;
             }
         }
         return true;
+    }
+
+    @Override
+    public final ObservableSet<Event> getAller() {
+        return this.events.getAll();
     }
 
 }

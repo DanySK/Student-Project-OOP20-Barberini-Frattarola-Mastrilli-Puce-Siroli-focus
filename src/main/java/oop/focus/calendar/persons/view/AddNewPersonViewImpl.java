@@ -68,20 +68,20 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
 
     private void setButtonOnAction() {
         this.degreeComboBox.setItems(this.controller.getDegree());
-        save.setOnAction(event -> {
+        this.save.setOnAction(event -> {
             try {
                 this.save(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
 
-        delete.setOnAction(event -> this.delete(event));
+        this.delete.setOnAction(event -> this.delete(event));
 
-        back.setOnAction(event -> {
+        this.back.setOnAction(event -> {
             try {
                 this.goBack(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
@@ -103,6 +103,10 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
         this.newDegreeLabel.setAlignment(Pos.CENTER);
         this.degree.setAlignment(Pos.CENTER);
         this.name.setAlignment(Pos.CENTER);
+
+        this.newDegree.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
+        this.newDegree.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
+        this.newDegree.setAlignment(Pos.CENTER);
 
         this.degreeComboBox.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
         this.degreeComboBox.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));

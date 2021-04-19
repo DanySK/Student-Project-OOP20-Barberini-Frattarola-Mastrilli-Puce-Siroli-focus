@@ -48,8 +48,8 @@ public class HotKeyImpl implements HotKey {
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((hotKeyType == null) ? 0 : hotKeyType.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((this.hotKeyType == null) ? 0 : this.hotKeyType.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         return result;
     }
 
@@ -60,18 +60,18 @@ public class HotKeyImpl implements HotKey {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         final HotKeyImpl other = (HotKeyImpl) obj;
-        if (hotKeyType != other.hotKeyType) {
+        if (this.hotKeyType != other.hotKeyType) {
             return false;
         }
-        if (name == null) {
+        if (this.name == null) {
             if (other.name != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!this.name.equals(other.name)) {
             return false;
         }
         return true;

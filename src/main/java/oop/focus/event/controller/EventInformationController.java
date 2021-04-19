@@ -1,5 +1,6 @@
 package oop.focus.event.controller;
 
+import javafx.collections.ObservableList;
 import oop.focus.common.View;
 import oop.focus.homepage.model.Event;
 
@@ -27,4 +28,6 @@ public interface EventInformationController {
      * @return EventMenuController
      */
     EventMenuController getMenu();
+
+    ObservableList<String> getPersons();
 }

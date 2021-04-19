@@ -121,10 +121,6 @@ public class CalendarViewImpl implements View {
             ((CalendarSettingsView) this.calendarController.getSettingsController().getView()).setWindow(stage);
         }
         button.setOnAction((e) -> {
-            if ("Info Eventi".equalsIgnoreCase(name) || "Settimana".equalsIgnoreCase(name)) {
-                ((EventMenuView) this.calendarController.getEventInfoController().getView()).refreshTable();
-                this.calendarController.getWeekController().getView().setWeekDays();
-            }
             stage.show();
         });
         buttonColumn.getChildren().add(button);

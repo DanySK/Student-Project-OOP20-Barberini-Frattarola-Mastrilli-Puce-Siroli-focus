@@ -8,22 +8,15 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
 
+import javafx.collections.ObservableSet;
+
 public interface EventManager {
 
-    List<Event> generateNext(Event event, LocalDate date);
-
-    List<Event> generateListOfNextEvent(LocalDate date);
     /**
      * This method is used to add new event.
      * @param event is the event that must be added to events list.
      */
     void addEvent(Event event);
-
-    /**
-     * This method is used to add new events.
-     * @param events is an event list that must be added to events list.
-     */
-    void addEventsSet(Set<Event> events);
 
     /**
      * This method is utilized from timer to check if the journey is empt(there aren't events).
@@ -38,13 +31,6 @@ public interface EventManager {
      * @return a list of events with the date parameter as start date.
      */
     List<Event> findByDate(LocalDate date);
-
-    /**
-     * This method is used to find the events that have a specific start hour.
-     * @param hour is the start hour on which to search for events.
-     * @return a list of events with the hour parameter as start hour.
-     */
-    Set<Event> findByHour(LocalTime hour);
 
     /**
      * This method is used to find the events that have a specific name.
@@ -73,25 +59,6 @@ public interface EventManager {
     Set<Event> getAll();
 
     /**
-     * This method is used to get only the daily events.
-     * @return a set composed by only the daily events.
-     */
-    Set<Event> getDailyEvents();
-
-    /**
-     * This method is used for get all the scheduled events.
-     * @return the list with all the scheduled events.
-     */
-    Set<Event> getEvents();
-
-    /**
-     * This method is used to obtain all the events that respect a minimum duration.
-     * @param listOfEvents is the list;
-     * @return set of event that respect a minimum duration.
-     */
-    List<Event> getEventsWithDuration(List<Event> listOfEvents);
-
-    /**
      * 
      * @param date
      * @return a list of event.
@@ -105,17 +72,6 @@ public interface EventManager {
     List<Event> getHotKeyEvents();
 
     /**
-     * This method is used to sort a set of events by time.
-     * @param eventsSet is the set of events to order by time.
-     * @return a set consisting of events sorted by time.
-     */
-    List<Event> orderByHour(List<Event> eventsSet);
-
-    /**
-     * This method is used to remove all the save events.
-     */
-    void removeAll();
-    /**
      * This method is used to remove a specific event from the events list.
      * @param event is the event that must be removed from the events list.
      */
@@ -124,25 +80,12 @@ public interface EventManager {
     void saveTimer(Event event);
 
     /**
-     * This method is used to get only the events that have a duration less then 24 hours.
-     * @param eventsList is the list of events from which to take only events with a duration of less than 24 hours.
-     * @return a list of event.
-     */
-    List<Event> takeOnly(List<Event> eventsList);
-
-    /**
-     * This method is used to get only the daily event.
-     * @param eventsList is the list of events from which to take only events with a duration greatest than 24 hours.
-     * @return a list of event.
-     */
-    List<Event> takeOnlyDailyEvent(List<Event> eventsList);
-
-    List<Event> takeOnlyHotKeyEvent(List<Event> eventsList);
-
-    /**
      * This method is used to know if a timer can start.
      * @param date represents the date and time to check if a timer can be started.
      * @return true if it's possible, false otherwise.
      */
     boolean timerCanStart(LocalDateTime date);
+
+	ObservableSet<Event> getAller();
+
 }

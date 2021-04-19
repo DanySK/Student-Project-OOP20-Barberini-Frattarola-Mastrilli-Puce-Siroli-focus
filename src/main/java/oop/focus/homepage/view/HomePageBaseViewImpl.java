@@ -64,20 +64,24 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
 
             try {
                 this.root = loader.load();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
+            this.setRoot();
+        }
+
+        private void setRoot() {
             this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.paneCalendarHomePage.getChildren())).getRoot();
         }
 
-    @Override
+        @Override
         public final void initialize(final URL location, final ResourceBundle resources) {
             this.controller.refreshDailyEvents();
 
             this.modifyButton.setOnAction(event -> {
                 try {
                     this.modifyClicked(event);
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     e.printStackTrace();
                 }
             });
@@ -103,8 +107,8 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi());
             monthController.setFontSize(Constants.FONT_SIZE);
             final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController);
-            month.getMonthView().prefWidthProperty().bind(calendarHBox.widthProperty());
-            month.getMonthView().prefHeightProperty().bind(calendarHBox.heightProperty());
+            month.getMonthView().prefWidthProperty().bind(this.calendarHBox.widthProperty());
+            month.getMonthView().prefHeightProperty().bind(this.calendarHBox.heightProperty());
             this.calendarHBox.getChildren().add(month.getMonthView());
         }
 
@@ -133,14 +137,14 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
             this.vbox.getChildren().clear();
 
-            vbox.setSpacing(Constants.SPACING_HOT_KEY);
-            vbox.setPadding(new Insets(Constants.SPACING_HOT_KEY));
+            this.vbox.setSpacing(Constants.SPACING_HOT_KEY);
+            this.vbox.setPadding(new Insets(Constants.SPACING_HOT_KEY));
             final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
             hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
 
-            vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
-            vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
-            scrollPane.setContent(vbox);
+            this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
+            this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
+            this.scrollPane.setContent(this.vbox);
         }
 
         private static class Constants {

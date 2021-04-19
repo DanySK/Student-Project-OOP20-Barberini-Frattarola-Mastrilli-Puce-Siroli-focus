@@ -12,7 +12,7 @@ public enum FXMLPaths {
      */
     EVENTINFORMATION(Constants.EVENT + "viewEventStopped.fxml");
 
-    private String path;
+    private final String path;
 
     FXMLPaths(final String path) {
         this.path = path;

@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.event.EventHandler;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,12 +17,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import oop.focus.common.Linker;
 import oop.focus.event.controller.EventInformationController;
 import oop.focus.event.controller.EventInformationControllerImpl;
 import oop.focus.event.controller.EventMenuController;
@@ -43,6 +46,8 @@ public class EventMenuViewImpl implements EventMenuView {
 
     private Node root;
     private final EventMenuController controller;
+    private final ObservableList<Event> list;
+    private final ObservableSet<Event> set;
 
     public EventMenuViewImpl(final EventMenuController controller) {
         this.controller = controller;
@@ -54,7 +59,13 @@ public class EventMenuViewImpl implements EventMenuView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
+
         this.setProperties();
+        this.set = this.controller.getEvents();
+        this.list = FXCollections.observableArrayList();
+        Linker.setToList(this.set, this.list);
+        this.setTableView();
+        this.tableEvent.setItems(this.list);
     }
 
     private void setProperties() {
@@ -68,7 +79,6 @@ public class EventMenuViewImpl implements EventMenuView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.setTableView();
         this.setButtonOnAction();
     }
 
@@ -79,7 +89,8 @@ public class EventMenuViewImpl implements EventMenuView {
 
     public final void viewInformation() {
         if (!this.tableEvent.getSelectionModel().isEmpty()) {
-            final EventInformationController controllerEvent = new EventInformationControllerImpl(this.controller.getDsi(), this.tableEvent.getSelectionModel().getSelectedItem(), this.controller);
+            final EventInformationController controllerEvent = new EventInformationControllerImpl(this.controller.getDsi(),
+                    this.tableEvent.getSelectionModel().getSelectedItem(), this.controller);
             final Stage stage = new Stage();
             stage.setScene(new Scene((Parent) controllerEvent.getView().getRoot()));
             stage.show();
@@ -98,7 +109,6 @@ public class EventMenuViewImpl implements EventMenuView {
                 alert.close();
             } else {
                 this.controller.remove(this.tableEvent.getSelectionModel().getSelectedItem());
-                this.refreshTable();
                 this.controller.getMonth().updateView();
                 this.controller.getWeek().getHomePageController().getView().setDay();
                 this.controller.getWeek().getView().setWeekDays();
@@ -106,50 +116,31 @@ public class EventMenuViewImpl implements EventMenuView {
         }
     }
 
-    public final void refreshTable() {
-        this.tableEvent.getItems().clear();
-        System.out.println("eNTRO");
-        this.tableEvent.setItems(this.controller.getEvents());
-    }
-
-    private void setTableView() {
-        eventName.setCellValueFactory(new PropertyValueFactory<Event, String>("name"));
-        eventName.setCellFactory(TextFieldTableCell.forTableColumn());
-        eventName.setOnEditCommit(new EventHandler<CellEditEvent<Event, String>>() {
-            @Override
-            public void handle(final CellEditEvent<Event, String> event) {
-                final Event e = event.getRowValue();
-                e.setName(event.getNewValue());
-            }
+    public final void setTableView() {
+        this.eventName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.eventName.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.eventName.setOnEditCommit(event -> {
+            final Event e = event.getRowValue();
+            e.setName(event.getNewValue());
         });
 
-        dayOfStart.setCellValueFactory(new PropertyValueFactory<Event, String>("startDay"));
-        dayOfStart.setCellFactory(TextFieldTableCell.forTableColumn());
-        dayOfStart.setOnEditCommit(new EventHandler<CellEditEvent<Event, String>>() {
-            @Override
-            public void handle(final CellEditEvent<Event, String> event) {
-                final Event e = event.getRowValue();
-                e.setStartDay(event.getNewValue());
-            }
+        this.dayOfStart.setCellValueFactory(new PropertyValueFactory<>("startDay"));
+        this.dayOfStart.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.dayOfStart.setOnEditCommit(event -> {
+            final Event e = event.getRowValue();
+            e.setStartDay(event.getNewValue());
         });
 
-        startHour.setCellValueFactory(new PropertyValueFactory<Event, String>("startTime"));
-        startHour.setCellFactory(TextFieldTableCell.forTableColumn());
-        startHour.setOnEditCommit(new EventHandler<CellEditEvent<Event, String>>() {
-            @Override
-            public void handle(final CellEditEvent<Event, String> event) {
-                final Event e = event.getRowValue();
-                e.setStartTime(event.getNewValue());
-            }
+        this.startHour.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        this.startHour.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.startHour.setOnEditCommit(event -> {
+            final Event e = event.getRowValue();
+            e.setStartTime(event.getNewValue());
         });
-
-        this.tableEvent.setItems(this.controller.getEvents());
     }
 
     @Override
     public final Node getRoot() {
-        this.refreshTable();
-        System.out.println(" xxx");
         return this.root;
     }
 

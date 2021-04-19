@@ -38,7 +38,7 @@ public class NewEventControllerImpl implements NewEventController {
         try {
             this.eventManager.addEvent(event);
             this.eventManager.generateRepeatedEvents(LocalDate.now());
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             throw new IllegalStateException();
         }
     }

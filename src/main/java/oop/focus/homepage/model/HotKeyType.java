@@ -20,8 +20,8 @@ public enum HotKeyType {
      */
     COUNTER("#42f5d7", "Contatore");
 
-    private String color;
-    private String type;
+    private final String color;
+    private final String type;
 
     /**
      * @param color is the color of the HotKey.

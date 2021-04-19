@@ -1,14 +1,8 @@
 package oop.focus.event.controller;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.controller.WeekController;
-import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.view.EventMenuView;
 import oop.focus.event.view.EventMenuViewImpl;
@@ -32,14 +26,9 @@ public class EventMenuControllerImpl implements EventMenuController {
         this.view = new EventMenuViewImpl(this);
     }
 
-    public final ObservableList<Event> getEvents() {
-        final ObservableList<Event> list = FXCollections.observableArrayList();
-        final List<Event> listDaily = this.eventManager.getDailyEvents().stream().collect(Collectors.toList());
-        final List<Event> listEvent = this.eventManager.getEvents().stream().collect(Collectors.toList());
-        listDaily.forEach(e -> listEvent.add(e));
-        listEvent.stream().sorted(Comparator.comparing(Event :: getName)).collect(Collectors.toList());
-        listEvent.stream().forEach(p -> list.add(p));
-        return list;
+
+    public final ObservableSet<Event> getEvents() {
+        return this.eventManager.getAller();
     }
 
     @Override

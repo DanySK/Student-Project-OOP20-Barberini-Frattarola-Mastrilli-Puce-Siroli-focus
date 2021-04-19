@@ -81,7 +81,7 @@ public class RelationshipsViewImpl implements RelationshipsView {
                 this.controller.deleteRelationship(this.relationshipsTable.getSelectionModel().getSelectedItem());
                 this.personView.fillComboBoxDegree();
                 this.refreshTableView();
-            } catch (IllegalStateException e) {
+            } catch (final IllegalStateException e) {
                 final Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Errore");
                 alert.setHeaderText("La parentela che si vuole eliminare è utilizzata!");
@@ -119,7 +119,7 @@ public class RelationshipsViewImpl implements RelationshipsView {
     }
 
     public final void populateTableView() {
-        relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
+        this.relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
         this.relationshipsTable.setItems(this.controller.getDegree());
     }
 

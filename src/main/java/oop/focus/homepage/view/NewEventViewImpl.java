@@ -64,7 +64,7 @@ public class NewEventViewImpl implements NewEventView {
 
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -116,7 +116,7 @@ public class NewEventViewImpl implements NewEventView {
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
         this.list = persons.getPersons();
-        list.forEach(p -> listOfString.add(p.toString()));
+        this.list.forEach(p -> listOfString.add(p.toString()));
 
         this.listOfPersons.setItems(listOfString);
         this.listOfPersons.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -173,7 +173,7 @@ public class NewEventViewImpl implements NewEventView {
         try {
             this.controller.saveEvent(eventToSave);
             this.goBack(event);
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             new AlertFactoryImpl().createHourOrDateError();
         }
     }
@@ -182,14 +182,14 @@ public class NewEventViewImpl implements NewEventView {
         this.back.setOnAction(event -> {
             try {
                 this.goBack(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
         this.saveSelection.setOnAction(event -> {
             try {
                 this.save(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
@@ -197,7 +197,7 @@ public class NewEventViewImpl implements NewEventView {
     }
 
     public final void setText(final String eventName) {
-        newEventName.setText(eventName);
+        this.newEventName.setText(eventName);
     }
 
     private static class Constants {

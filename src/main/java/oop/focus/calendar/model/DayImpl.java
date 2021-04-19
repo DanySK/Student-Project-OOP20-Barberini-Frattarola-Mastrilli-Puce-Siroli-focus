@@ -9,6 +9,7 @@ import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.homepage.model.Filter;
 /**
  * Implementation of {@link Day}.
  */
@@ -28,15 +29,15 @@ public class DayImpl implements Day {
         events = new ArrayList<>();
         dailyEvents = new ArrayList<>();
         this.date = date;
-        final List<Event> temp = manager.getEventsWithDuration(manager.findByDate(date));
+        final List<Event> temp = Filter.getEventsWithDuration(manager.findByDate(date));
         final List<Event> future = manager.getFutureEvent(date);
         future.stream().forEach(e -> {
             if (!temp.contains(e)) {
                 temp.add(e);
             }
         });
-        this.events.addAll(manager.takeOnly(temp));
-        this.dailyEvents.addAll(manager.takeOnlyDailyEvent(temp));
+        this.events.addAll(Filter.takeOnly(temp));
+        this.dailyEvents.addAll(Filter.takeOnlyDailyEvent(temp));
     }
 
     public final int getNumber() {

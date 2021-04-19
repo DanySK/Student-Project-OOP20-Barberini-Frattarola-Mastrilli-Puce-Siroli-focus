@@ -64,7 +64,7 @@ public class AddNewRelationship implements GenericAddView {
         this.back.setOnAction(event -> {
             try {
                 this.goBack(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });
@@ -74,7 +74,7 @@ public class AddNewRelationship implements GenericAddView {
         this.save.setOnAction(event -> {
             try {
                 this.save(event);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         });

@@ -1,9 +1,8 @@
 package oop.focus.event.controller;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.controller.WeekController;
-import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.view.EventMenuView;
 import oop.focus.homepage.model.Event;
@@ -14,7 +13,7 @@ public interface EventMenuController {
      * This method is used to get the save events.
      * @return ObservableList of event.
      */
-    ObservableList<Event> getEvents();
+    ObservableSet<Event> getEvents();
 
     /**
      * This method is used to get the view that represent the view of the event menu.

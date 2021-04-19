@@ -22,7 +22,7 @@ public class PersonsManagerImpl implements PersonsManager {
         if (!this.sd.getAll().contains(person)) {
             try {
                 this.sd.save(person);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -35,7 +35,7 @@ public class PersonsManagerImpl implements PersonsManager {
     public final void removePerson(final Person person) {
         try {
             this.sd.delete(person);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }

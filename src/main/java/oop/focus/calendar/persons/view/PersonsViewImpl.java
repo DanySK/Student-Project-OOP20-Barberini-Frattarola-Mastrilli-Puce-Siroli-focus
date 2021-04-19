@@ -58,8 +58,11 @@ public class PersonsViewImpl implements PersonsView {
         } catch (final IOException e) {
             e.printStackTrace();
         }
-        this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.panePersons.getChildren())).getRoot();
+        this.setRoot();
+        }
 
+    private void setRoot() {
+        this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.panePersons.getChildren())).getRoot();
     }
 
     @Override
@@ -91,7 +94,7 @@ public class PersonsViewImpl implements PersonsView {
 
     private void deleteItem() {
         final String name = this.tableViewPersons.getSelectionModel().getSelectedItem().getName();
-        final String degree = tableViewPersons.getSelectionModel().getSelectedItem().getRelationships();
+        final String degree = this.tableViewPersons.getSelectionModel().getSelectedItem().getRelationships();
         this.controller.deletePerson(new PersonImpl(name, degree));
         this.refreshTableView();
     }
@@ -102,9 +105,9 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     public final void populateTableView() {
-        name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
-        name.setCellFactory(TextFieldTableCell.forTableColumn());
-        name.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
+        this.name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+        this.name.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.name.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
             @Override
             public void handle(final CellEditEvent<Person, String> event) {
                 final Person person = event.getRowValue();
@@ -112,9 +115,9 @@ public class PersonsViewImpl implements PersonsView {
             }
         });
 
-        relationships.setCellValueFactory(new PropertyValueFactory<Person, String>("relationships"));
-        relationships.setCellFactory(TextFieldTableCell.forTableColumn());
-        relationships.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
+        this.relationships.setCellValueFactory(new PropertyValueFactory<Person, String>("relationships"));
+        this.relationships.setCellFactory(TextFieldTableCell.forTableColumn());
+        this.relationships.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
             @Override
             public void handle(final CellEditEvent<Person, String> event) {
                 final Person person = event.getRowValue();
@@ -133,7 +136,7 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     public final void refreshTableView() {
-        this.tableViewPersons.getItems().removeAll(tableViewPersons.getSelectionModel().getSelectedItems());
+        this.tableViewPersons.getItems().removeAll(this.tableViewPersons.getSelectionModel().getSelectedItems());
     }
 
 }
