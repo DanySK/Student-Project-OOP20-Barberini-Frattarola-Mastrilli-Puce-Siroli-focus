@@ -13,6 +13,7 @@ import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.homepage.model.Filter;
 import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
 import oop.focus.db.DataSource;
@@ -49,7 +50,7 @@ public class TimePropertyTest {
         assertTrue(this.time.areCompatibleEquals(fourth, events));
         events = this.refreshList(fourth, events);
 
-        assertFalse(this.time.areCompatibleDifferent(fifth, events, this.manager.takeOnly(this.manager.findByDate(new LocalDate(2021, 9, 27)))));
+        assertFalse(this.time.areCompatibleDifferent(fifth, events, Filter.takeOnly(this.manager.findByDate(new LocalDate(2021, 9, 27)))));
 
         assertTrue(this.time.areCompatibleEquals(sixth, events));
     }
@@ -94,7 +95,7 @@ public class TimePropertyTest {
 
     private List<Event> refreshList(final Event event, final List<Event> events) {
 		events.add(event);
-		return this.manager.orderByHour(events);
+		return events;
 	}
 
 	
