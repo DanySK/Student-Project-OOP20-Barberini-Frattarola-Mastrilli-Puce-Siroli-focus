@@ -8,7 +8,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
- * This implementation of {@link DataCreator} interface maps elements from a list<X> to a Set<Y>.
+ * This implementation of {@link DataCreator} interface maps elements from a list of X to a Set of Y.
  * changes on the input list will affect the next get method call, but not the old sets already returned
  * by the get method. This class can not change the list state.
  *
