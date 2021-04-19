@@ -59,7 +59,7 @@ public class GroupControllerImpl implements GroupController {
      */
     @Override
     public final void showTansactions() {
-        this.view.showTransactions(this.groupTransactions);
+        this.view.showTransactions();
     }
 
     /**
@@ -67,7 +67,7 @@ public class GroupControllerImpl implements GroupController {
      */
     @Override
     public final void showPeople() {
-        this.view.showPeople(this.group);
+        this.view.showPeople();
     }
 
     @Override

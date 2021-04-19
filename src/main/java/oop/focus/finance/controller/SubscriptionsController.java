@@ -20,11 +20,6 @@ public interface SubscriptionsController extends Controller {
     double getMonthlyExpense();
 
     /**
-     * Show subscriptions in view, sorted by tipe of repetition.
-     */
-    void showSortedSubscriptions();
-
-    /**
      * Stop repeating a subscription.
      *
      * @param subscription to be stopped

@@ -56,10 +56,9 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     }
 
     /**
-     * {@inheritDoc}
+     * Show subscriptions in view, sorted by tipe of repetition.
      */
-    @Override
-    public final void showSortedSubscriptions() {
+    private void showSortedSubscriptions() {
         this.view.showSubscriptions(this.manager.getTransactionManager().getSubscriptions().stream()
                 .sorted(Comparator.comparingInt(a -> a.getRepetition().getPerMonthFunction().apply(GENERIC_PRICE)))
                 .collect(Collectors.toList()));
