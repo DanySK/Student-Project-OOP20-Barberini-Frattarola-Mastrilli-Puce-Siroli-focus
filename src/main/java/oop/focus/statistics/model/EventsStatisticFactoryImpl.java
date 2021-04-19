@@ -9,7 +9,9 @@ import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.Minutes;
 
+import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -35,7 +37,7 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
 
     @Override
     public final DataCreator<Event, Pair<LocalDate, Integer>> eventTimePerDay(final String eventName) {
-        var events = this.dataSource.getEvents().getAll();
+        final var events = this.dataSource.getEvents().getAll();
         return new GeneratedDataCreator<>(() -> events.stream().filter(e -> e.getName().equals(eventName)).collect(Collectors.toSet()),
                 s -> s.flatMap(this::getDividedEvents)
                         .collect(Collectors.toMap(Event::getStartDate, this::getDuration,
@@ -50,11 +52,12 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException();
         }
-        var all = this.dataSource.getEvents().getAll();
-        return new GeneratedDataCreator<>(
-                () -> Stream.iterate(start, d -> d.plusDays(1))
-                        .limit(1 + Math.abs(Days.daysBetween(start, end).getDays()))
-                        .collect(Collectors.toSet()),
+        final var all = this.dataSource.getEvents().getAll();
+        // avoid eclipse error by creating a variable : cannot infer type argument
+        final Supplier<Set<LocalDate>> supplier = () -> Stream.iterate(start, d -> d.plusDays(1))
+                .limit(1 + Math.abs(Days.daysBetween(start, end).getDays()))
+                .collect(Collectors.toSet());
+        final Function<Stream<LocalDate>, Set<Pair<LocalDate, Integer>>> function =
                 s -> s.collect(Collectors.toMap(Function.identity(),
                         v -> all.stream()
                                 .filter(e -> e.getName().equals(eventName))
@@ -62,7 +65,8 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
                                 .filter(e -> e.getStartDate().equals(v))
                                 .mapToInt(this::getDuration).sum()))
                         .entrySet().stream()
-                        .map(p -> new Pair<>(p.getKey(), p.getValue())).collect(Collectors.toSet()));
+                        .map(p -> new Pair<>(p.getKey(), p.getValue())).collect(Collectors.toSet());
+        return new GeneratedDataCreator<>(supplier, function);
     }
 
     private Integer getDuration(final Event e) {
@@ -70,11 +74,11 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
     }
 
     private Stream<Event> getDividedEvents(final Event event) {
-        var start = event.getStartDate();
-        var end = event.getEndDate();
+        final var start = event.getStartDate();
+        final var end = event.getEndDate();
         if (!start.equals(end)) {
-            var newDate = start.plusDays(1);
-            var midDate = new LocalDateTime(newDate.getYear(), newDate.getMonthOfYear(), newDate.getDayOfMonth(), 0, 0, 0);
+            final var newDate = start.plusDays(1);
+            final var midDate = new LocalDateTime(newDate.getYear(), newDate.getMonthOfYear(), newDate.getDayOfMonth(), 0, 0, 0);
             return Stream.concat(Stream.of(new EventImpl(event.getName(), event.getStart(), midDate, event.getRipetition())),
                     this.getDividedEvents(new EventImpl(event.getName(), midDate, event.getEnd(), event.getRipetition())));
         }

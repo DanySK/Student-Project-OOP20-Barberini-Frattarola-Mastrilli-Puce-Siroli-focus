@@ -30,12 +30,12 @@ public interface ViewFactory {
      * @param yRatio       the top and bottom borders distance ratio
      * @return the pane
      */
-    static Pane verticalWithPadding(double spacingRatio, double xRatio, double yRatio) {
-        VBox vBox = new VBox(spacingRatio * ViewFactoryImpl.SCREEN_BOUNDS.getHeight());
+    static Pane verticalWithPadding(final double spacingRatio, final double xRatio, final double yRatio) {
+        final VBox vBox = new VBox(spacingRatio * ViewFactoryImpl.SCREEN_BOUNDS.getHeight());
         vBox.setAlignment(Pos.TOP_CENTER);
-        var px = xRatio * ViewFactory.SCREEN_BOUNDS.getWidth();
-        var py = yRatio * ViewFactory.SCREEN_BOUNDS.getWidth();
-        var i = new Insets(py, px, py, px);
+        final var px = xRatio * ViewFactory.SCREEN_BOUNDS.getWidth();
+        final var py = yRatio * ViewFactory.SCREEN_BOUNDS.getWidth();
+        final var i = new Insets(py, px, py, px);
         vBox.setPadding(i);
         VBox.setVgrow(vBox, Priority.ALWAYS);
         return vBox;

@@ -57,7 +57,7 @@ public class PieChartView implements SingleValueChart {
     @Override
     public final void updateData(final List<Pair<String, Double>> items) {
         this.data.clear();
-        double sum = items.stream().map(Pair::getValue).mapToDouble(Double::doubleValue).sum();
+        final double sum = items.stream().map(Pair::getValue).mapToDouble(Double::doubleValue).sum();
         items.forEach(i -> this.data.add(new PieChart.Data(i.getKey()
                 + this.percentage(i.getValue(), sum),
                 i.getValue())));
@@ -69,21 +69,21 @@ public class PieChartView implements SingleValueChart {
     @Override
     public final void setColors(final List<String> colors) {
         int ind = 0;
-        for (String c : colors) {
-            String style = String.format(PIE_COLOR_STYLE, c);
+        for (final String c : colors) {
+            final String style = String.format(PIE_COLOR_STYLE, c);
             this.pieChart.getData().get(ind++).getNode().setStyle(style);
         }
         Platform.runLater(() -> {
             for (int i = 0; i < this.pieChart.getData().size(); i++) {
-                PieChart.Data d = this.pieChart.getData().get(i);
+                final PieChart.Data d = this.pieChart.getData().get(i);
                 String colorClass = "";
-                for (String cls : d.getNode().getStyleClass()) {
+                for (final String cls : d.getNode().getStyleClass()) {
                     if (cls.startsWith("default-color")) {
                         colorClass = cls;
                         break;
                     }
                 }
-                for (var n : this.pieChart.lookupAll("." + colorClass)) {
+                for (final var n : this.pieChart.lookupAll("." + colorClass)) {
                     n.setStyle(String.format(PIE_COLOR_STYLE, colors.get(i)));
                 }
             }

@@ -42,7 +42,7 @@ public class ParserImpl<X> implements DataSourceParser<X> {
     public final Optional<X> create(final List<String> rs) {
         try {
             return Optional.of(this.builder.apply(rs));
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return Optional.empty();
         }
     }

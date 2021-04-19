@@ -32,6 +32,7 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -139,27 +140,29 @@ public class DataSourceImpl implements DataSource {
 
     @Override
     public final SingleDao<Event> getEvents() {
-        return Objects.requireNonNullElseGet(this.events, () ->
-                new RelationDao<>(new ParserImpl<>("event", a -> {
-                    var id = Integer.parseInt(a.remove(0));
-                    return new EventImpl(a.remove(0),
-                            DF.parseLocalDateTime(a.remove(0)),
-                            DF.parseLocalDateTime(a.remove(0)),
-                            Repetition.values()[Integer.parseInt(a.remove(0))],
-                            this.getEventPerson().getAll().stream().filter(p -> p.getKey().equals(id))
-                                    .map(i -> this.getPersons().getValue(i.getValue()).orElse(null))
-                                    .filter(Objects::nonNull)
-                                    .collect(Collectors.toList()),
-                            Integer.parseInt(a.remove(0)) == 0);
-                },
-                        List.of(new Pair<>("name", Event::getName),
-                                new Pair<>("startdate", e -> DF.print(e.getStart())),
-                                new Pair<>("enddate", e -> DF.print(e.getEnd())),
-                                new Pair<>("frequency", e -> String.valueOf(e.getRipetition().ordinal())),
-                                new Pair<>("is_last", e -> e.isRepeated() ? "0" : "1"))),
-                        List.of(new Pair<>(this.getEventPerson(),
-                                (a) -> a.getPersons().stream()
-                                        .map(p -> this.persons.getId(p).orElse(NA)).collect(Collectors.toList())))));
+        return Objects.requireNonNullElseGet(this.events, () -> {
+            final Function<Event, List<Integer>> function = (a) -> a.getPersons().stream()
+                    .map(p -> this.persons.getId(p).orElse(NA))
+                    .collect(Collectors.toList());
+            return new RelationDao<>(new ParserImpl<>("event", a -> {
+                final var id = Integer.parseInt(a.remove(0));
+                return new EventImpl(a.remove(0),
+                        DF.parseLocalDateTime(a.remove(0)),
+                        DF.parseLocalDateTime(a.remove(0)),
+                        Repetition.values()[Integer.parseInt(a.remove(0))],
+                        this.getEventPerson().getAll().stream().filter(p -> p.getKey().equals(id))
+                                .map(i -> this.getPersons().getValue(i.getValue()).orElse(null))
+                                .filter(Objects::nonNull)
+                                .collect(Collectors.toList()),
+                        Integer.parseInt(a.remove(0)) == 0);
+            }, List.of(new Pair<>("name", Event::getName),
+                    new Pair<>("startdate", e -> DF.print(e.getStart())),
+                    new Pair<>("enddate", e -> DF.print(e.getEnd())),
+                    new Pair<>("frequency", e -> String.valueOf(e.getRipetition().ordinal())),
+                    new Pair<>("is_last", e -> e.isRepeated() ? "0" : "1"))),
+                    List.of(new Pair<>(this.getEventPerson(),
+                            function)));
+        });
     }
 
     @Override
@@ -193,24 +196,27 @@ public class DataSourceImpl implements DataSource {
 
     @Override
     public final SingleDao<GroupTransaction> getGroupTransactions() {
-        return Objects.requireNonNullElseGet(this.groupTransactions, () ->
-                new RelationDao<>(new ParserImpl<>("group_transaction", a -> {
-                    var id = Integer.parseInt(a.remove(0));
-                    return new GroupTransactionImpl(a.remove(0),
-                            this.persons.getValue(Integer.parseInt(a.remove(0))).orElse(null),
-                            this.groupTransactionPersons.getAll().stream()
-                                    .filter(p -> p.getKey().equals(id))
-                                    .map(i -> this.getPersons().getValue(i.getValue()).orElse(null))
-                                    .filter(Objects::nonNull).collect(Collectors.toList()),
-                            Integer.parseInt(a.remove(0)),
-                            DF.parseLocalDateTime(a.remove(0)));
-                }, List.of(new Pair<>("description", GroupTransaction::getDescription),
-                        new Pair<>("id_person", t -> String.valueOf(this.persons.getId(t.getMadeBy()).orElse(NA))),
-                        new Pair<>("amount", t -> String.valueOf(t.getAmount())),
-                        new Pair<>("date", t -> DF.print(t.getDate())))),
-                        List.of(new Pair<>(this.getGroupTransactionPersons(),
-                                (a) -> a.getForList().stream()
-                                        .map(p -> this.persons.getId(p).orElse(NA)).collect(Collectors.toList())))));
+        return Objects.requireNonNullElseGet(this.groupTransactions, () -> {
+            final Function<GroupTransaction, List<Integer>> function = (a) -> a.getForList().stream()
+                    .map(p -> this.persons.getId(p).orElse(NA))
+                    .collect(Collectors.toList());
+            return new RelationDao<>(new ParserImpl<>("group_transaction", a -> {
+                final var id = Integer.parseInt(a.remove(0));
+                return new GroupTransactionImpl(a.remove(0),
+                        this.persons.getValue(Integer.parseInt(a.remove(0))).orElse(null),
+                        this.groupTransactionPersons.getAll().stream()
+                                .filter(p -> p.getKey().equals(id))
+                                .map(i -> this.getPersons().getValue(i.getValue()).orElse(null))
+                                .filter(Objects::nonNull).collect(Collectors.toList()),
+                        Integer.parseInt(a.remove(0)),
+                        DF.parseLocalDateTime(a.remove(0)));
+            }, List.of(new Pair<>("description", GroupTransaction::getDescription),
+                    new Pair<>("id_person", t -> String.valueOf(this.persons.getId(t.getMadeBy()).orElse(NA))),
+                    new Pair<>("amount", t -> String.valueOf(t.getAmount())),
+                    new Pair<>("date", t -> DF.print(t.getDate())))),
+                    List.of(new Pair<>(this.getGroupTransactionPersons(),
+                            function)));
+        });
     }
 
     @Override

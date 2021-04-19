@@ -63,7 +63,7 @@ public class TimePeriodInputImpl<X> implements TimePeriodInput<X> {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        TimePeriodInputImpl<?> that = (TimePeriodInputImpl<?>) o;
+        final TimePeriodInputImpl<?> that = (TimePeriodInputImpl<?>) o;
         return this.values.equals(that.values) && this.startDate.equals(that.startDate) && this.endDate.equals(that.endDate);
     }
 

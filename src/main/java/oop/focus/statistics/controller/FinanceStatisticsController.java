@@ -32,7 +32,7 @@ public class FinanceStatisticsController implements UpdatableController<TimePeri
      */
     public FinanceStatisticsController(final FinanceManager manager) {
         this.charts = new ArrayList<>();
-        var factory = new FinanceChartFactoryImpl();
+        final var factory = new FinanceChartFactoryImpl();
         this.charts.add(factory.periodExpenses(manager));
         this.charts.add(factory.balances(manager));
         this.content = new ViewFactoryImpl().createVerticalAutoResizing(this.charts.stream()

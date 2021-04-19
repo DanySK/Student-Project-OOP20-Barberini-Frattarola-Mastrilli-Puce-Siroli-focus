@@ -21,8 +21,8 @@ public class EventsStatistics implements Controller {
      * @param dataSource the data source from which to retrieve data.
      */
     public EventsStatistics(final DataSource dataSource) {
-        var statisticController = new EventsStatisticsController(dataSource);
-        var inputController = new InputControllerFactoryImpl()
+        final var statisticController = new EventsStatisticsController(dataSource);
+        final var inputController = new InputControllerFactoryImpl()
                 .eventsInputController(statisticController, dataSource);
         this.view = new ViewFactoryImpl().createHorizontal(List.of(
                 statisticController.getView(),

@@ -40,12 +40,12 @@ public abstract class AbstractPeriodInputView<X> implements View {
      */
     public AbstractPeriodInputView() {
         this.root = this.createRoot();
-        View selector = this.createSelector();
+        final View selector = this.createSelector();
         this.startDate = new DatePicker();
         this.endDate = new DatePicker();
-        var f = new ViewFactoryImpl();
-        var s = f.createVertical(List.of(new Label(START_TEXT), this.startDate));
-        var e = f.createVertical(List.of(new Label(END_TEXT), this.endDate));
+        final var f = new ViewFactoryImpl();
+        final var s = f.createVertical(List.of(new Label(START_TEXT), this.startDate));
+        final var e = f.createVertical(List.of(new Label(END_TEXT), this.endDate));
         this.save = new Button(SAVE_TEXT);
         this.root.getChildren().addAll(selector.getRoot(), s.getRoot(), e.getRoot(), this.save);
         this.root.getStyleClass().add("input-container");
@@ -95,7 +95,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
      * Displays an input error.
      */
     protected final void showError() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        final Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(ERROR_TITLE);
         alert.setHeaderText(ERROR_HEADER);
         alert.setContentText(ERROR_MESSAGE);
@@ -121,8 +121,8 @@ public abstract class AbstractPeriodInputView<X> implements View {
     }
 
     private boolean inputNotValid() {
-        var start = this.getStartDate();
-        var end = this.getEndDate();
+        final var start = this.getStartDate();
+        final var end = this.getEndDate();
         if (start == null || end == null || start.isAfter(end)) {
             this.showError();
             return true;
@@ -132,8 +132,8 @@ public abstract class AbstractPeriodInputView<X> implements View {
 
     private void setProperties() {
         this.save.setOnAction(this::checkAndSave);
-        var today = java.time.LocalDate.now();
-        var monthAgo = today.minusMonths(1);
+        final var today = java.time.LocalDate.now();
+        final var monthAgo = today.minusMonths(1);
         this.startDate.setValue(monthAgo);
         this.endDate.setValue(today);
     }
@@ -141,7 +141,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
     private LocalDate convertData(final java.time.LocalDate value) {
         try {
             return new LocalDate(value.getYear(), value.getMonthValue(), value.getDayOfMonth());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return null;
         }
     }

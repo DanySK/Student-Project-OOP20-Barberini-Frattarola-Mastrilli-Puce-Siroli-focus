@@ -43,10 +43,6 @@ public class CachedDao<X> implements SingleDao<X> {
          */
         DELETE("DELETE FROM %s %s WHERE id=%s", a -> ""),
         /**
-         * The Select syntax for one element.
-         */
-        SELECT("SELECT * FROM %s %s WHERE id=%s", a -> ""),
-        /**
          * The select syntax for multiple elements.
          */
         SELECT_ALL("SELECT * FROM %s %s %s", a -> ""),
@@ -95,7 +91,7 @@ public class CachedDao<X> implements SingleDao<X> {
         this.db = new H2Connector();
         try {
             this.db.create();
-        } catch (ConnectionException e) {
+        } catch (final ConnectionException e) {
             e.printStackTrace();
         }
         this.cache = new HashMap<>();
@@ -107,11 +103,11 @@ public class CachedDao<X> implements SingleDao<X> {
     private void withNoParameters() throws DaoAccessException {
         final Map<Integer, List<String>> values = new HashMap<>();
         try {
-            var s = this.db.getConnection().createStatement();
-            var resultSet = s.executeQuery(DbAction.SELECT_ALL.getSyntax(this.parser.getTypeName(),
+            final var s = this.db.getConnection().createStatement();
+            final var resultSet = s.executeQuery(DbAction.SELECT_ALL.getSyntax(this.parser.getTypeName(),
                     this.parser.getFieldNames(), CachedDao.NO_ID));
             while (resultSet.next()) {
-                List<String> tmp = new ArrayList<>();
+                final List<String> tmp = new ArrayList<>();
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
                     tmp.add(resultSet.getString(i));
                 }
@@ -119,7 +115,7 @@ public class CachedDao<X> implements SingleDao<X> {
                     values.put(resultSet.getInt(1), new ArrayList<>(tmp));
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
             throw new DaoAccessException();
         }
@@ -132,17 +128,17 @@ public class CachedDao<X> implements SingleDao<X> {
     }
 
     private void withParameters(final X x, final DbAction action, final int id) throws SQLException {
-        var values = this.parser.getValues(x);
-        var p = this.db.getConnection()
+        final var values = this.parser.getValues(x);
+        final var p = this.db.getConnection()
                 .prepareStatement(action.getSyntax(this.parser.getTypeName(),
                         this.parser.getFieldNames(), id), Statement.RETURN_GENERATED_KEYS);
         for (int i = 0; i < values.size(); i++) {
             p.setString(i + 1, values.get(i));
         }
         p.executeUpdate();
-        var generatedKeys = p.getGeneratedKeys();
+        final var generatedKeys = p.getGeneratedKeys();
         while (generatedKeys.next()) {
-            long tmp = generatedKeys.getLong(1);
+            final long tmp = generatedKeys.getLong(1);
             this.cache.put(this.getKey(id, tmp), x);
         }
     }
@@ -156,7 +152,8 @@ public class CachedDao<X> implements SingleDao<X> {
             this.db.open();
             a.execute();
             this.db.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
+            e.printStackTrace();
             throw new DaoAccessException();
         }
     }
@@ -165,7 +162,7 @@ public class CachedDao<X> implements SingleDao<X> {
         try {
             this.execute(this::withNoParameters);
             this.observable.addAll(this.cache.values());
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             //e.printStackTrace();
         }
     }
@@ -197,18 +194,19 @@ public class CachedDao<X> implements SingleDao<X> {
         this.execute(() -> this.withParameters(x, DbAction.INSERT, NO_ID));
         this.observable.add(x);
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
-    public void update(final X x) throws IllegalArgumentException, DaoAccessException {
+    public void update(final X x) throws DaoAccessException {
         if (!this.observable.contains(x)) {
             throw new IllegalArgumentException();
         }
         this.observable.remove(x);
         this.observable.add(x);
-        Optional<Integer> optId = this.getId(x);
-        int id = optId.orElseThrow();
+        final Optional<Integer> optId = this.getId(x);
+        final int id = optId.orElseThrow();
         this.execute(() -> this.withParameters(x, DbAction.UPDATE, id));
     }
 
@@ -216,13 +214,13 @@ public class CachedDao<X> implements SingleDao<X> {
      * {@inheritDoc}
      */
     @Override
-    public void delete(final X x) throws DaoAccessException, IllegalArgumentException {
+    public void delete(final X x) throws DaoAccessException {
         if (!this.observable.contains(x)) {
             throw new IllegalArgumentException();
         }
         this.observable.remove(x);
-        Optional<Integer> optId = this.getId(x);
-        int id = optId.orElseThrow();
+        final Optional<Integer> optId = this.getId(x);
+        final int id = optId.orElseThrow();
         this.cache.remove(id);
         this.execute(() -> this.db.getConnection().createStatement()
                 .execute(DbAction.DELETE.getSyntax(this.parser.getTypeName(),

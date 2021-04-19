@@ -23,8 +23,8 @@ public class GeneratedDataCreator<X, Y> extends DataCreatorImpl<X, Y> {
     }
 
     private void updateDataset() {
-        var generated = this.generator.get();
-        var dataset = this.getDataset();
+        final var generated = this.generator.get();
+        final var dataset = this.getDataset();
         this.getDataset().removeIf(e -> !generated.contains(e));
         generated.stream().filter(e -> !dataset.contains(e)).forEach(dataset::add);
     }

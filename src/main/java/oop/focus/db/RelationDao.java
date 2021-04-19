@@ -56,8 +56,8 @@ public class RelationDao<X> extends CachedDao<X> {
     public final void delete(final X x) throws DaoAccessException {
         final int id = this.getId(x).orElse(-1);
         super.delete(x);
-        for (var p : this.related) {
-            var total = p.getValue().apply(x);
+        for (final var p : this.related) {
+            final var total = p.getValue().apply(x);
             this.deleteRelated(p.getKey(), total, id);
         }
     }
@@ -68,15 +68,15 @@ public class RelationDao<X> extends CachedDao<X> {
      * @param x the element
      */
     private void saveAndCheckMissing(final X x) {
-        var opt = this.getId(x);
+        final var opt = this.getId(x);
         if (opt.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        int id = opt.get();
-        for (var p : this.related) {
-            var total = p.getValue().apply(x);
+        final int id = opt.get();
+        for (final var p : this.related) {
+            final var total = p.getValue().apply(x);
             this.saveRelated(p.getKey(), total, id);
-            var missing = p.getKey().getAll().stream()
+            final var missing = p.getKey().getAll().stream()
                     .filter(px -> px.getKey().equals(id))
                     .map(Pair::getValue)
                     .collect(Collectors.toList());
@@ -98,7 +98,7 @@ public class RelationDao<X> extends CachedDao<X> {
         relatedIds.forEach(e -> {
             try {
                 dao.save(new Pair<>(savedId, e));
-            } catch (DaoAccessException daoAccessException) {
+            } catch (final DaoAccessException daoAccessException) {
                 daoAccessException.printStackTrace();
             }
         });
@@ -117,7 +117,7 @@ public class RelationDao<X> extends CachedDao<X> {
         relatedIds.forEach(e -> {
             try {
                 dao.delete(new Pair<>(deletedId, e));
-            } catch (DaoAccessException daoAccessException) {
+            } catch (final DaoAccessException daoAccessException) {
                 daoAccessException.printStackTrace();
             }
         });

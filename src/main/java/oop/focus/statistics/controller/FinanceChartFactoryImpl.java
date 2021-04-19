@@ -62,7 +62,7 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
      */
     @Override
     public final UpdatableController<TimePeriodInput<Account>> periodExpenses(final FinanceManager manager) {
-        var factory = new FinanceStatisticFactoryImpl(manager);
+        final var factory = new FinanceStatisticFactoryImpl(manager);
         return new AbstractMultiValueChartController<>() {
             private static final String ALL_ACCOUNT_NAME = "Tutti gli account";
             public static final String ALL_ACCOUNTS_TITLE = "Movimenti giornalieri tutti i conti";
@@ -86,7 +86,7 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
              * @param input the input.
              */
             private void updateWithoutAccount(final TimePeriodInput<Account> input) {
-                var data = factory.periodExpenses(input.getStartDate(),
+                final var data = factory.periodExpenses(input.getStartDate(),
                         input.getEndDate());
                 this.getChart().updateData(List.of(collectData(data.get().stream()
                         .sorted(Comparator.comparing(Pair::getKey)), a -> (double) a / 100)));
@@ -102,7 +102,7 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
              */
             private void updateWithAccount(final TimePeriodInput<Account> input) {
                 final var account = input.getValues();
-                var colors = new ArrayList<String>(account.size());
+                final var colors = new ArrayList<String>(account.size());
                 final var accountsData = new ArrayList<List<Pair<String, Double>>>(account.size());
                 final var names = new ArrayList<String>(account.size());
                 account.forEach(a -> {

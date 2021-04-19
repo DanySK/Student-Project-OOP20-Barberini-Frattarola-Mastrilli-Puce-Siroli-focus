@@ -55,7 +55,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
                 });
                 this.selectedItems.remove(change.getElementRemoved());
             } else if (change.wasAdded() && !this.selectedItems.containsKey(change.getElementAdded())) {
-                var box = this.createBox(function.apply(change.getElementAdded()));
+                final var box = this.createBox(function.apply(change.getElementAdded()));
                 this.checkBoxMap.put(box, change.getElementAdded());
                 this.selectedItems.put(change.getElementAdded(), false);
                 this.root.getChildren().add(box);
@@ -72,7 +72,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
      * @return the check box.
      */
     protected CheckBox createBox(final String name) {
-        CheckBox c = new CheckBox(name);
+        final CheckBox c = new CheckBox(name);
         c.setAlignment(Pos.CENTER);
         return c;
     }
@@ -83,7 +83,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
      * @return the box
      */
     protected Pane getBox() {
-        var v = new VBox();
+        final var v = new VBox();
         v.setAlignment(Pos.TOP_LEFT);
         return v;
     }
@@ -108,7 +108,7 @@ public class MultiSelectorView<X> implements MultiSelector<X> {
 
     private void addListeners(final CheckBox checkBox) {
         checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            var r = this.selectedItems.replace(this.checkBoxMap.get(checkBox), newValue);
+            final var r = this.selectedItems.replace(this.checkBoxMap.get(checkBox), newValue);
         });
     }
 }

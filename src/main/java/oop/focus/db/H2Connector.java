@@ -33,7 +33,7 @@ public class H2Connector implements Connector<Connection> {
      */
     @Override
     public final void create() throws ConnectionException {
-        File db = new File(System.getProperty("user.home") + "//" + SOURCE_PATH);
+        final File db = new File(System.getProperty("user.home") + "//" + SOURCE_PATH);
         if (!db.exists() && !db.mkdirs()) {
             return;
         }

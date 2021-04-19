@@ -21,8 +21,8 @@ public class FinanceStatistics implements Controller {
      * @param manager the finance manager
      */
     public FinanceStatistics(final FinanceManager manager) {
-        var statisticController = new FinanceStatisticsController(manager);
-        var inputController = new InputControllerFactoryImpl()
+        final var statisticController = new FinanceStatisticsController(manager);
+        final var inputController = new InputControllerFactoryImpl()
                 .financeInputController(statisticController, manager);
         this.statisticsView = new ViewFactoryImpl()
                 .createHorizontal(List.of(statisticController.getView(), inputController.getView()));

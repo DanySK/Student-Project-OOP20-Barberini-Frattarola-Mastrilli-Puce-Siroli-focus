@@ -31,7 +31,7 @@ public class EventsStatisticsController implements UpdatableController<TimePerio
      */
     public EventsStatisticsController(final DataSource dataSource) {
         this.charts = new ArrayList<>();
-        var factory = new EventsChartFactoryImpl();
+        final var factory = new EventsChartFactoryImpl();
         this.charts.add(factory.eventsTimePerDays(dataSource));
         this.charts.add(factory.eventsOccurrences(dataSource));
         this.view = new ViewFactoryImpl().createVerticalAutoResizing(this.charts.stream()

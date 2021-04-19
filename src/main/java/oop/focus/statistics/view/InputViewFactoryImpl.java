@@ -45,7 +45,7 @@ public class InputViewFactoryImpl implements InputViewFactory {
                             .to(this.getEndDate())
                             .values(selector.getSelected())
                             .save());
-                } catch (IllegalStateException e) {
+                } catch (final IllegalStateException e) {
                     this.showError();
                 }
             }
@@ -64,11 +64,16 @@ public class InputViewFactoryImpl implements InputViewFactory {
 
             @Override
             View createSelector() {
-                this.eventNames = FXCollections.observableSet();
-                Linker.setToSet(events, this.eventNames, Event::getName);
+                this.addListener();
                 this.selector = new MultiSelectorView<>(this.eventNames, Function.identity());
                 return new ViewFactoryImpl()
-                        .createVerticalAutoResizingWithNodes(List.of(new Label(EVENT_LABEL), this.selector.getRoot()));
+                        .createVerticalAutoResizingWithNodes(List.of(new Label(EVENT_LABEL),
+                                this.selector.getRoot()));
+            }
+
+            private void addListener() {
+                this.eventNames = FXCollections.observableSet();
+                Linker.setToSet(events, this.eventNames, Event::getName);
             }
 
             @Override
@@ -79,7 +84,7 @@ public class InputViewFactoryImpl implements InputViewFactory {
                             .to(this.getEndDate())
                             .values(this.selector.getSelected())
                             .save());
-                } catch (IllegalStateException e) {
+                } catch (final IllegalStateException e) {
                     this.showError();
                 }
             }

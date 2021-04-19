@@ -95,23 +95,23 @@ public class LineChartView implements MultiValueChart {
     public final void setColors(final List<String> colors) {
         Platform.runLater(() -> {
             int i = 0;
-            for (var c : this.lineChart.getData()) {
+            for (final var c : this.lineChart.getData()) {
                 final String lineStyle = String.format(LYNE_STYLE, colors.get(i++));
                 c.getNode().lookup(".chart-series-line").setStyle(lineStyle);
             }
             int index = 0;
             final String[] symbolStyles = new String[colors.size()];
-            for (var c : colors) {
+            for (final var c : colors) {
                 final String symbolStyle = String.format(SYMBOL_STYLE, c);
                 symbolStyles[index] = symbolStyle;
-                for (var data : this.lineChart.getData().get(index).getData()) {
+                for (final var data : this.lineChart.getData().get(index).getData()) {
                     data.getNode().lookup(".chart-line-symbol").setStyle(symbolStyle);
                 }
                 index++;
             }
 
-            for (Node node : this.lineChart.lookupAll(".chart-legend-item-symbol")) {
-                for (String styleClass : node.getStyleClass()) {
+            for (final Node node : this.lineChart.lookupAll(".chart-legend-item-symbol")) {
+                for (final String styleClass : node.getStyleClass()) {
                     if (styleClass.startsWith("series")) {
                         final int ind = Integer.parseInt(styleClass.substring(6));
                         node.setStyle(symbolStyles[ind]);
@@ -133,7 +133,7 @@ public class LineChartView implements MultiValueChart {
     private XYChart.Data<String, Number> getPair(final Pair<String, Double> i) {
         try {
             return new XYChart.Data<>(i.getKey(), this.format.parse(i.getValue().toString()));
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             e.printStackTrace();
         }
         return null;
@@ -152,6 +152,4 @@ public class LineChartView implements MultiValueChart {
         this.lineChart.setHorizontalGridLinesVisible(false);
         this.lineChart.setVerticalGridLinesVisible(false);
     }
-
-
 }

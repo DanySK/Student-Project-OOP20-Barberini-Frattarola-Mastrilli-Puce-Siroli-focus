@@ -34,7 +34,7 @@ public interface Dao<X> {
      * @throws IllegalArgumentException if the element is not present in the source
      * @throws DaoAccessException       if the element cannot be updated
      */
-    void update(X x) throws IllegalArgumentException, DaoAccessException;
+    void update(X x) throws DaoAccessException;
 
     /**
      * Delete the element from the source if present.
