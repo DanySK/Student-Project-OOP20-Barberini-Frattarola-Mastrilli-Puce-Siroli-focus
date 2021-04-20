@@ -21,7 +21,7 @@
          <Font name="Bell MT Bold" size="12.0"/>
       </font>
    </Button>
-   <Label fx:id="diaryLabel" alignment="CENTER" focusTraversable="false" layoutX="21.0" layoutY="12.0" prefHeight="61.0"
+   <Label fx:id="diaryLabel" alignment="CENTER" layoutX="21.0" layoutY="12.0" prefHeight="61.0"
           prefWidth="475.0">
       <font>
          <Font name="System Bold" size="24.0"/>

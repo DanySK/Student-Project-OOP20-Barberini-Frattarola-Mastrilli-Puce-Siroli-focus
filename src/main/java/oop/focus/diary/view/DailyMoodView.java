@@ -7,17 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import oop.focus.common.View;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 /**
  * Daily Mood View implements {@link View} and represents the single daily mood, identified by a value given in input.
@@ -38,10 +33,10 @@ public class DailyMoodView implements View {
         this.pane = new BorderPane();
 
         try {
-            URI uri = ClassLoader.getSystemResource("icons//").toURI();
-            String mainPath = Paths.get(uri).toString();
-            Path path = Paths.get(mainPath ,String.valueOf(value).concat(".png"));
-            this.imageView = new ImageView(new Image(new FileInputStream( path.toFile())));
+            final URI uri = ClassLoader.getSystemResource("icons//").toURI();
+            final String mainPath = Paths.get(uri).toString();
+            final Path path = Paths.get(mainPath, String.valueOf(value).concat(".png"));
+            this.imageView = new ImageView(new Image(new FileInputStream(path.toFile())));
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
