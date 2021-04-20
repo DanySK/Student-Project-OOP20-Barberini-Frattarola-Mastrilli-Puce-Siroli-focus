@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import static java.util.Objects.nonNull;
+
 import org.joda.time.LocalDate;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -191,7 +192,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     /**
-     * Used for build an {@link HomePageBaseView} calendar.
+     * Used for build an {@link oop.focus.homepage.view.HomePageBaseView} calendar.
      * Is composed only with label with the number of the day.
      * @param daysGrid : grid where put the day
      * @param day : the {@link Day} from where start to build the calendar
@@ -210,7 +211,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     }
 
     /**
-     * Used for build an {@link DiaryView} calendar.
+     * Used for build an {@link oop.focus.diary.view.DiaryView} calendar.
      * Is composed only with label with the number of the day
      * and an icon that represent you daily humor.
      * @param daysGrid : grid where put the day
@@ -225,9 +226,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
         final DailyMoodControllerImpl moodController = new DailyMoodControllerImpl(new DailyMoodManagerImpl(monthController.getDataSource()));
         if (moodController.getValueByDate(localDay).isPresent()) {
             final Optional<Integer> index = moodController.getValueByDate(localDay);
-            if (index.isPresent()) {
-                container.getChildren().add(new DailyMoodView(index.get()).getRoot());
-            }
+            index.ifPresent(integer -> container.getChildren().add(new DailyMoodView(integer).getRoot()));
         }
         container.setAlignment(Pos.CENTER);
         container.setPrefSize(DIM, DIM);
@@ -289,8 +288,8 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
         final Button next = new Button("prossimo");
         final Button previous = new Button("precedente");
-        next.setOnAction(changeMonthButton(this, false));
-        previous.setOnAction(changeMonthButton(this, true));
+        next.setOnAction(changeMonthButton(false));
+        previous.setOnAction(changeMonthButton(true));
 
         next.getStyleClass().add("calendar-upper-button");
         previous.getStyleClass().add("calendar-upper-button");
@@ -339,11 +338,11 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
      * @param flag : true previous month, false next month
      * @return EventHandler
      */
-    private EventHandler<ActionEvent> changeMonthButton(final CalendarMonthView monthView, final Boolean flag) {
+    private EventHandler<ActionEvent> changeMonthButton(final Boolean flag) {
         return event -> {
             monthController.getCalendarLogic().changeMonth(flag);
             monthController.setMonth();
-            updateView(monthView);
+            updateView();
         };
     }
 
@@ -351,7 +350,7 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
     /**
      * {@inheritDoc}
      */
-    public final void updateView(final CalendarMonthView monthInfo) {
+    public final void updateView() {
         if (nonNull(dayWindows)) {
             dayWindows.close();
         }

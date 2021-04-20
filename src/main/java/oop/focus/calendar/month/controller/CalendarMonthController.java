@@ -2,7 +2,6 @@ package oop.focus.calendar.month.controller;
 
 
 import java.util.List;
-
 import oop.focus.calendar.day.controller.CalendarDayController;
 import oop.focus.calendar.model.CalendarLogic;
 import oop.focus.calendar.model.Day;
@@ -20,7 +19,7 @@ import oop.focus.db.DataSource;
 public interface CalendarMonthController extends  Controller {
 
     /**
-     * Used for set the Format and the Spacing of the {@link HoursView} of the day.
+     * Used for set the Format and the Spacing of the {@link oop.focus.calendar.day.view.HoursView} of the day.
      * @param dayController : the {@link CalendarDayController} of the month
      */
     void configureDay(CalendarDayController dayController);

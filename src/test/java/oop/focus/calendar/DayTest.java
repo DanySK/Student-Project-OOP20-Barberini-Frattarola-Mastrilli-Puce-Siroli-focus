@@ -44,7 +44,6 @@ public class DayTest {
         //Test sulla creazione del giorno venerdi 26 marzo 2021 
         assertEquals(day.getNumber(), 26);
         assertEquals(day.getMonth(), "marzo");
-        System.out.println(day.getName() + " " + "venerdì");
         assertEquals(day.getYear(), YEAR);
         assertFalse(day.isSunday());
 
@@ -68,22 +67,22 @@ public class DayTest {
     public void testEvent() {
 
         //Controllo che gli eventi abbiamo la data del giorno
-    	day.getEvents().forEach(e -> assertTrue(e.getStartDate().equals(this.date)));
+    	day.getEvents().forEach(e -> assertEquals(e.getStartDate(), this.date));
 
         //Controllo che gli eventi abbiamo la data del giorno
-    	day2.getEvents().forEach(e -> assertTrue(e.getStartDate().equals(this.date2)));
+    	day2.getEvents().forEach(e -> assertEquals(e.getStartDate(), this.date2));
 
         //Controllo che gli eventi abbiamo la data del giorno
-    	day3.getEvents().forEach(e -> assertTrue(e.getStartDate().equals(this.date3)));
+    	day3.getEvents().forEach(e -> assertEquals(e.getStartDate(), this.date3));
 
         //Controllo che gli eventi giornalieri abbiamo la data del giorno
-        day.getDailyEvents().forEach(e -> assertTrue(e.getStartDate().equals(this.date)));
+        day.getDailyEvents().forEach(e -> assertEquals(e.getStartDate(), this.date));
 
         //Controllo che gli eventi giornalieri abbiamo la data del giorno
-        day2.getDailyEvents().forEach(e -> assertTrue(e.getStartDate().equals(this.date2)));
+        day2.getDailyEvents().forEach(e -> assertEquals(e.getStartDate(), this.date2));
 
         //Controllo che gli eventi giornalieri abbiamo la data del giorno
-        day3.getDailyEvents().forEach(e -> assertTrue(e.getStartDate().equals(this.date3)));
+        day3.getDailyEvents().forEach(e -> assertEquals(e.getStartDate(), this.date3));
     }
     
 

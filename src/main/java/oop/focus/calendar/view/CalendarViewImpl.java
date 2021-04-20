@@ -119,9 +119,7 @@ public class CalendarViewImpl implements View {
         if ("Impostazioni".equalsIgnoreCase(name)) {
             ((CalendarSettingsView) this.calendarController.getSettingsController().getView()).setWindow(stage);
         }
-        button.setOnAction((e) -> {
-            stage.show();
-        });
+        button.setOnAction((e) -> stage.show());
         buttonColumn.getChildren().add(button);
     }
 

@@ -116,7 +116,7 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
      * {@inheritDoc}
      */
     public final void updateView() {
-        this.monthView.updateView(this.monthView);
+        this.monthView.updateView();
     }
 
     /**

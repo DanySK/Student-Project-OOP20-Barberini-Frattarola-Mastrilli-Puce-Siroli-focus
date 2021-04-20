@@ -1,8 +1,6 @@
 package oop.focus.calendar;
 
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +10,10 @@ import oop.focus.calendar.model.CalendarLogicImpl;
 import oop.focus.calendar.model.DayImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 public class CalendarLogicTest {
 
@@ -33,25 +35,25 @@ public class CalendarLogicTest {
     	manager.generateWeek(); //genero la settimana corrente
 
     	//controllo che mi abbia generato la settimana corrente
-        assertTrue(manager.getWeek().get(0).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 1), datasource)));
-        assertTrue(manager.getWeek().get(1).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 2), datasource)));
-        assertTrue(manager.getWeek().get(2).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 3), datasource)));
-        assertTrue(manager.getWeek().get(3).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 4), datasource)));
-        assertTrue(manager.getWeek().get(4).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 5), datasource)));
-        assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 6), datasource)));
-        assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 7), datasource)));
+        assertEquals(manager.getWeek().get(0), new DayImpl(today.minusDays(today.getDayOfWeek() - 1), datasource));
+        assertEquals(manager.getWeek().get(1), new DayImpl(today.minusDays(today.getDayOfWeek() - 2), datasource));
+        assertEquals(manager.getWeek().get(2), new DayImpl(today.minusDays(today.getDayOfWeek() - 3), datasource));
+        assertEquals(manager.getWeek().get(3), new DayImpl(today.minusDays(today.getDayOfWeek() - 4), datasource));
+        assertEquals(manager.getWeek().get(4), new DayImpl(today.minusDays(today.getDayOfWeek() - 5), datasource));
+        assertEquals(manager.getWeek().get(5), new DayImpl(today.minusDays(today.getDayOfWeek() - 6), datasource));
+        assertEquals(manager.getWeek().get(6), new DayImpl(today.minusDays(today.getDayOfWeek() - 7), datasource));
         
         //cambio settimana, genero quella precedente
         manager.changeWeek(true);
              
         // controllo che abbia generato la settimana precedente
-        assertTrue(manager.getWeek().get(0).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 6), datasource)));
-        assertTrue(manager.getWeek().get(1).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 5), datasource)));
-        assertTrue(manager.getWeek().get(2).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 4), datasource)));
-        assertTrue(manager.getWeek().get(3).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 3), datasource)));
-        assertTrue(manager.getWeek().get(4).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 2), datasource)));
-        assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() + 1), datasource)));
-        assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek()), datasource)));
+        assertEquals(manager.getWeek().get(0), new DayImpl(today.minusDays(today.getDayOfWeek() + 6), datasource));
+        assertEquals(manager.getWeek().get(1), new DayImpl(today.minusDays(today.getDayOfWeek() + 5), datasource));
+        assertEquals(manager.getWeek().get(2), new DayImpl(today.minusDays(today.getDayOfWeek() + 4), datasource));
+        assertEquals(manager.getWeek().get(3), new DayImpl(today.minusDays(today.getDayOfWeek() + 3), datasource));
+        assertEquals(manager.getWeek().get(4), new DayImpl(today.minusDays(today.getDayOfWeek() + 2), datasource));
+        assertEquals(manager.getWeek().get(5), new DayImpl(today.minusDays(today.getDayOfWeek() + 1), datasource));
+        assertEquals(manager.getWeek().get(6), new DayImpl(today.minusDays(today.getDayOfWeek()), datasource));
         
         //controllo che il giorno corrente non ci sia nella settimana precedente
         assertFalse(manager.getWeek().contains(manager.getDay(today)));
@@ -60,13 +62,13 @@ public class CalendarLogicTest {
         manager.changeWeek(false); 
           
         //controllo che abbia cambiato la settimana       
-        assertTrue(manager.getWeek().get(0).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 1), datasource)));
-        assertTrue(manager.getWeek().get(1).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 2), datasource)));
-        assertTrue(manager.getWeek().get(2).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 3), datasource)));
-        assertTrue(manager.getWeek().get(3).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 4), datasource)));
-        assertTrue(manager.getWeek().get(4).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 5), datasource)));
-        assertTrue(manager.getWeek().get(5).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 6), datasource)));
-        assertTrue(manager.getWeek().get(6).equals(new DayImpl(today.minusDays(today.getDayOfWeek() - 7), datasource)));
+        assertEquals(manager.getWeek().get(0), new DayImpl(today.minusDays(today.getDayOfWeek() - 1), datasource));
+        assertEquals(manager.getWeek().get(1), new DayImpl(today.minusDays(today.getDayOfWeek() - 2), datasource));
+        assertEquals(manager.getWeek().get(2), new DayImpl(today.minusDays(today.getDayOfWeek() - 3), datasource));
+        assertEquals(manager.getWeek().get(3), new DayImpl(today.minusDays(today.getDayOfWeek() - 4), datasource));
+        assertEquals(manager.getWeek().get(4), new DayImpl(today.minusDays(today.getDayOfWeek() - 5), datasource));
+        assertEquals(manager.getWeek().get(5), new DayImpl(today.minusDays(today.getDayOfWeek() - 6), datasource));
+        assertEquals(manager.getWeek().get(6), new DayImpl(today.minusDays(today.getDayOfWeek() - 7), datasource));
         
         //controllo che il giorno corrente sia nella settimana attualmente visibile
         assertTrue(manager.getWeek().contains(manager.getDay(today)));
@@ -81,7 +83,7 @@ public class CalendarLogicTest {
 
     	//controllo che mi abbia generato il mese corrente
     	for(int i=0; i < today.dayOfMonth().getMaximumValue(); i++) {
-    		assertTrue(manager.getMonth().get(i).equals(new DayImpl(today.minusDays(today.getDayOfMonth() - (i + 1)), datasource)));
+            assertEquals(manager.getMonth().get(i), new DayImpl(today.minusDays(today.getDayOfMonth() - (i + 1)), datasource));
     	}
         
     	//cambio mese, genero quello precedente
@@ -89,7 +91,7 @@ public class CalendarLogicTest {
         
     	//controllo che mi abbia generato il mese precedente
     	for(int i=0; i < today.minusMonths(1).dayOfMonth().getMaximumValue(); i++) {
-    		assertTrue(manager.getMonth().get(i).equals(new DayImpl(today.minusDays(today.getDayOfMonth() + today.minusMonths(1).dayOfMonth().getMaximumValue() - (1 + i)), datasource)));
+            assertEquals(manager.getMonth().get(i), new DayImpl(today.minusDays(today.getDayOfMonth() + today.minusMonths(1).dayOfMonth().getMaximumValue() - (1 + i)), datasource));
     	}
     	
         //controllo che il giorno corrente non ci sia nel mese precedente
@@ -110,7 +112,7 @@ public class CalendarLogicTest {
 
     	//controllo che mi abbia generato l'hanno corrente
     	for(int i=0; i < today.dayOfYear().getMaximumValue(); i++) {
-    		assertTrue(manager.getYear().get(i).equals(new DayImpl(today.minusDays(today.getDayOfYear() - (i + 1)), datasource)));
+            assertEquals(manager.getYear().get(i), new DayImpl(today.minusDays(today.getDayOfYear() - (i + 1)), datasource));
     	}
         
     	//cambio anno, genero quello precedente
@@ -119,7 +121,7 @@ public class CalendarLogicTest {
         
     	//controllo che mi abbia generato l'anno precedente
     	for(int i=0; i < (today.minusYears(1).dayOfYear().getMaximumValue()) ; i++) {
-    		assertTrue(manager.getYear().get(i).equals(new DayImpl(today.minusDays(today.getDayOfYear() + today.minusYears(1).dayOfYear().getMaximumValue() - (1 + i)), datasource)));
+            assertEquals(manager.getYear().get(i), new DayImpl(today.minusDays(today.getDayOfYear() + today.minusYears(1).dayOfYear().getMaximumValue() - (1 + i)), datasource));
     	}
     	
     	

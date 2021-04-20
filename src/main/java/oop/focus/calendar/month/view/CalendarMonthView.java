@@ -11,9 +11,8 @@ public interface CalendarMonthView extends View {
 
     /**
      * Used for update the view when there are changes.
-     * @param monthView : the view of the month {@link CalendarMonthView}
      */
-    void updateView(CalendarMonthView monthView);
+    void updateView();
 
 
     /**

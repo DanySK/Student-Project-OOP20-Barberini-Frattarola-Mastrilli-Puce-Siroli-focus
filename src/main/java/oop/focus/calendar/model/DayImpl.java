@@ -31,7 +31,7 @@ public class DayImpl implements Day {
         this.date = date;
         final List<Event> temp = Filter.getEventsWithDuration(manager.findByDate(date));
         final List<Event> future = manager.getFutureEvent(date);
-        future.stream().forEach(e -> {
+        future.forEach(e -> {
             if (!temp.contains(e)) {
                 temp.add(e);
             }

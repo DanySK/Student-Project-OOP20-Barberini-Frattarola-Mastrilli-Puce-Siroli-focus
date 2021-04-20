@@ -26,7 +26,7 @@ public interface CalendarDayController extends Controller {
     HoursView getHoursBox();
 
     /**
-     * Used for get the {@link EventViewImpl}.
+     * Used for get the {@link oop.focus.calendar.day.view.EventViewImpl}.
      * @return VBoxManager
      */
     VBoxManager getEventBox();
