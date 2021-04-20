@@ -1,7 +1,7 @@
 package oop.focus.homepage.model;
 
 /**
- * This class adds new methods to manage hotKeys.
+ * This class model a person, which is composed of a name and a degree of kinship.
  */
 public interface Person {
 

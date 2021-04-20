@@ -73,7 +73,7 @@ public interface Event {
      * This method is used to know if an event repeats itself or not, and if it recurs, to know how often.
      *  @return a member of the Repetition enumeration.
      */
-    Repetition getRipetition();
+    Repetition getRepetition();
 
     /**
      * This method is utilized when we want to stop repeting an event.

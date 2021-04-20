@@ -2,8 +2,8 @@ package oop.focus.fidelitycard;
 
 import java.util.Set;
 
+import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
-import oop.focus.db.SingleDao;
 import oop.focus.db.exceptions.DaoAccessException;
 
 /**
@@ -11,7 +11,7 @@ import oop.focus.db.exceptions.DaoAccessException;
  */
 public class ManagerFidelityCardImpl implements  ManagerFidelityCard {
 
-    private final SingleDao<FidelityCard> sd;
+    private final Dao<FidelityCard> sd;
 
     /**
      * This is the class constructor.

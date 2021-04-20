@@ -272,10 +272,10 @@ public class DataTypeTest {
             events.save(ev);
             events.save(new EventImpl("Event1", today, today.plusDays(7), Repetition.HALF_YEARLY));
             assertEquals(initialSize + 1, all.size());
-            assertEquals(Repetition.BIMONTHLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
+            assertEquals(Repetition.BIMONTHLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRepetition());
             events.update(new EventImpl("Event1", today, today.plusDays(8), Repetition.HALF_YEARLY));
             assertEquals(initialSize + 1, events.getAll().size());
-            assertEquals(Repetition.HALF_YEARLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRipetition());
+            assertEquals(Repetition.HALF_YEARLY, all.stream().filter(a -> a.equals(ev)).findFirst().orElseThrow().getRepetition());
             events.delete(new EventImpl("NotExistingEvent", today, today.plusDays(8), Repetition.HALF_YEARLY));
             fail();
         } catch (IllegalArgumentException e) {

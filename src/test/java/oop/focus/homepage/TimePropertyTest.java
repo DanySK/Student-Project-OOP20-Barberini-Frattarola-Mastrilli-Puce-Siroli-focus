@@ -6,25 +6,17 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
-import oop.focus.homepage.model.Filter;
 import oop.focus.homepage.model.TimeProperty;
 import oop.focus.homepage.model.TimePropertyImpl;
-import oop.focus.db.DataSource;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
 
 public class TimePropertyTest {
 
 	private final TimeProperty time = new TimePropertyImpl();
-	private final DataSource dsi = new DataSourceImpl();
-	private final EventManager manager = new EventManagerImpl(dsi);
     
 	/**
 	 * This test is use to verify if an event could be added to a specific journey.
@@ -34,7 +26,7 @@ public class TimePropertyTest {
     	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
         final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 8, 30), new LocalDateTime(2021, 9, 26, 9, 00), Repetition.ONCE);
 
-        List<Event> events = new ArrayList<>();
+        final List<Event> events = new ArrayList<>();
         assertTrue(this.time.areCompatibleEquals(first, events));
         events.add(first);
 
@@ -79,11 +71,6 @@ public class TimePropertyTest {
     	assertFalse(this.time.getMinEventTime(third));
     	assertTrue(this.time.getMinEventTime(four));
     }
-
-    private List<Event> refreshList(final Event event, final List<Event> events) {
-		events.add(event);
-		return events;
-	}
 
 	
 }

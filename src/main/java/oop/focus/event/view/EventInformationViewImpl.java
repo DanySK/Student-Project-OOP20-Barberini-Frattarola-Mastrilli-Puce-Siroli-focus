@@ -70,7 +70,7 @@ public class EventInformationViewImpl implements View, Initializable {
         this.name.setText(this.controller.getEvent().getName());
         this.insertEndHour.setText(this.controller.getEvent().getEnd().toString());
         this.insertStartDate.setText(this.controller.getEvent().getStart().toString());
-        this.labelRepetition.setText(this.controller.getEvent().getRipetition().toString());
+        this.labelRepetition.setText(this.controller.getEvent().getRepetition().toString());
         if (!this.controller.getPersons().isEmpty()) {
             this.viewOfPersons.setItems(this.controller.getPersons());
         }

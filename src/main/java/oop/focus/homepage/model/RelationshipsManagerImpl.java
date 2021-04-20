@@ -1,7 +1,5 @@
 package oop.focus.homepage.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
@@ -26,12 +24,6 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
             } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
-        }
-    }
-
-    public final void addAll(final List<Person> personsList) {
-        for (final Person person : personsList) {
-            this.add(person.getRelationships());
         }
     }
 

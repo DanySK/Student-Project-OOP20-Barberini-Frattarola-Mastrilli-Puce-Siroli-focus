@@ -1,9 +1,11 @@
 package oop.focus.homepage.model;
 
-import java.util.List;
-
 import javafx.collections.ObservableSet;
 
+/**
+ * This class is used to model a manager for the relationships.
+ * This class has methods to save, delete and find relationships.
+ */
 public interface RelationshipsManager {
 
     /**
@@ -11,12 +13,6 @@ public interface RelationshipsManager {
     * @param degree is the degree of kinship to add.
     */
     void add(String degree);
-
-    /**
-     * This method is used to add new degrees of relationship from a list of persons.
-     * @param personsList is the list from which to take the degrees of kinship to add. 
-     */
-    void addAll(List<Person> personsList);
 
     /**
      * This method is used to get all degrees of relationship saved.

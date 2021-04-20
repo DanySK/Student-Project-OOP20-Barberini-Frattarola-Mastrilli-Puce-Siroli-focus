@@ -158,7 +158,7 @@ public class DataSourceImpl implements DataSource {
             }, List.of(new Pair<>("name", Event::getName),
                     new Pair<>("startdate", e -> DF.print(e.getStart())),
                     new Pair<>("enddate", e -> DF.print(e.getEnd())),
-                    new Pair<>("frequency", e -> String.valueOf(e.getRipetition().ordinal())),
+                    new Pair<>("frequency", e -> String.valueOf(e.getRepetition().ordinal())),
                     new Pair<>("is_last", e -> e.isRepeated() ? "0" : "1"))),
                     List.of(new Pair<>(this.getEventPerson(),
                             function)));

@@ -109,7 +109,7 @@ public class EventImpl implements Event {
         return this.startDate.toLocalTime();
     }
 
-    public final Repetition getRipetition() {
+    public final Repetition getRepetition() {
         return this.repetition;
     }
 

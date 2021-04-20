@@ -69,7 +69,7 @@ public class EventManagerImpl implements EventManager {
     }
 
     public final List<Event> generateNext(final Event event, final LocalDate date) {
-        if (event.getRipetition().equals(Repetition.ONCE) || !event.isRepeated() || new LocalDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth())
+        if (event.getRepetition().equals(Repetition.ONCE) || !event.isRepeated() || new LocalDate(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth())
                .isBefore(new LocalDate(event.getNextRenewal().getStartDate()))) {
            return new ArrayList<>();
         }
@@ -112,16 +112,17 @@ public class EventManagerImpl implements EventManager {
         final List<Event> eventsToShow = new ArrayList<>();
 
         for (final Event event : this.getAll()) {
-            if (!event.getRipetition().equals(Repetition.ONCE) && event.isRepeated()) {
+            if (!event.getRepetition().equals(Repetition.ONCE) && event.isRepeated()) {
                 LocalDate startDate = event.getStartDate();
                 LocalDate endDate = event.getEndDate();
 
                 while (startDate.isBefore(date) && endDate.isBefore(date)) {
-                    startDate = event.getRipetition().getNextRenewalFunction().apply(startDate);
-                    endDate = event.getRipetition().getNextRenewalFunction().apply(endDate);
+                    startDate = event.getRepetition().getNextRenewalFunction().apply(startDate);
+                    endDate = event.getRepetition().getNextRenewalFunction().apply(endDate);
                 }
                 if (startDate.equals(date) || endDate.equals(date) || startDate.isBefore(date) && endDate.isAfter(date)) {
-                    eventsToShow.add(new EventImpl(event.getName(), startDate.toLocalDateTime(event.getStartHour()), endDate.toLocalDateTime(event.getEndHour()), event.getRipetition()));
+                    eventsToShow.add(new EventImpl(event.getName(), startDate.toLocalDateTime(event.getStartHour()),
+                        endDate.toLocalDateTime(event.getEndHour()), event.getRepetition()));
                 }
             }
         }

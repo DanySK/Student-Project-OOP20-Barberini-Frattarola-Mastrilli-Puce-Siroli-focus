@@ -3,6 +3,10 @@ package oop.focus.homepage.model;
 
 import javafx.collections.ObservableSet;
 
+/**
+ * This class is used to model a manager for persons.
+ * This class has methods to save, delete and get the saved persons.
+ */
 public interface PersonsManager {
 
     /**

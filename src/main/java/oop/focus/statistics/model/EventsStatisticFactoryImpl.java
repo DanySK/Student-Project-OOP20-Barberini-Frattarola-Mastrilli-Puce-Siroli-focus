@@ -79,8 +79,8 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
         if (!start.equals(end)) {
             final var newDate = start.plusDays(1);
             final var midDate = new LocalDateTime(newDate.getYear(), newDate.getMonthOfYear(), newDate.getDayOfMonth(), 0, 0, 0);
-            return Stream.concat(Stream.of(new EventImpl(event.getName(), event.getStart(), midDate, event.getRipetition())),
-                    this.getDividedEvents(new EventImpl(event.getName(), midDate, event.getEnd(), event.getRipetition())));
+            return Stream.concat(Stream.of(new EventImpl(event.getName(), event.getStart(), midDate, event.getRepetition())),
+                    this.getDividedEvents(new EventImpl(event.getName(), midDate, event.getEnd(), event.getRepetition())));
         }
         return Stream.of(event);
     }

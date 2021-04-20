@@ -4,7 +4,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+/**
+ * This class is used to filter events, for take only some events(like daily events or hot key events).
+ */
 public final class Filter {
 
     private Filter() {

@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;

@@ -10,6 +10,10 @@ import org.joda.time.LocalTime;
 
 import javafx.collections.ObservableSet;
 
+/**
+ * This interface is used to model a manager for events.
+ * The manager is used to save, delete and find events.
+ */
 public interface EventManager {
 
     /**

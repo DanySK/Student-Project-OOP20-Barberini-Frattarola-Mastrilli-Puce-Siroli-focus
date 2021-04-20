@@ -4,7 +4,9 @@ import org.joda.time.LocalDateTime;
 
 import java.util.List;
 
-
+/**
+ * This class is used to verify if events respect some property.
+ */
 public interface TimeProperty {
 
     /**
