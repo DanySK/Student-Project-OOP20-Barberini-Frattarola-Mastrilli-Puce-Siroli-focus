@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="280.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <AnchorPane prefHeight="169.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="newEventNameLabel" layoutX="31.0" layoutY="59.0" prefHeight="51.0" prefWidth="207.0" />
-            <TextField fx:id="textField" layoutX="325.0" layoutY="61.0" prefHeight="47.0" prefWidth="234.0" />
-         </children>
+         <Label fx:id="newEventNameLabel" layoutX="31.0" layoutY="59.0" prefHeight="51.0" prefWidth="207.0"/>
+         <TextField fx:id="textField" layoutX="325.0" layoutY="61.0" prefHeight="47.0" prefWidth="234.0"/>
       </AnchorPane>
    </top>
    <center>

@@ -10,8 +10,14 @@ import oop.focus.common.View;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * Daily Mood View implements {@link View} and represents the single daily mood, identified by a value given in input.
@@ -21,7 +27,6 @@ import java.util.Arrays;
 public class DailyMoodView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double ICON_DIM = 0.04;
-    private static final String SEP = File.separator;
     private final BorderPane pane;
     private  ImageView imageView;
 
@@ -31,13 +36,13 @@ public class DailyMoodView implements View {
      */
     public DailyMoodView(final Integer value) {
         this.pane = new BorderPane();
-        final Path iconsDir;
+
         try {
-            iconsDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" + SEP
-                    + "resources" + SEP + "icons");
-            this.imageView = new ImageView(new Image(new FileInputStream(Arrays.stream(
-                    iconsDir.toFile().listFiles()).filter(s -> s.getName().equals(value + ".png")).findAny().get())));
-        } catch (IOException e) {
+            URI uri = ClassLoader.getSystemResource("icons//").toURI();
+            String mainPath = Paths.get(uri).toString();
+            Path path = Paths.get(mainPath ,String.valueOf(value).concat(".png"));
+            this.imageView = new ImageView(new Image(new FileInputStream( path.toFile())));
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 

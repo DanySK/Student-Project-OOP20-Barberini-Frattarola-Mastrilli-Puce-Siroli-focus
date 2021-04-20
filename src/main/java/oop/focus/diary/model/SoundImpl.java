@@ -5,7 +5,10 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -19,7 +22,7 @@ public class SoundImpl implements Sound {
     private static final String SEP = File.separator;
     private final Path soundDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" 
             + SEP + "resources" + SEP + "sounds");
-    private File alarmPath;
+    private Path alarmPath;
     private final Clip clip;
 
     /**
@@ -31,14 +34,22 @@ public class SoundImpl implements Sound {
     public SoundImpl() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         this.setAlarmPath();
         this.clip = AudioSystem.getClip();
-        this.clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(this.alarmPath))));
+        this.clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(this.alarmPath.toFile()))));
     }
 
     /**
      * Sets the path of directory of alarm sound.
      */
     private void setAlarmPath() {
-        this.alarmPath = Arrays.stream(this.soundDir.toFile().listFiles()).iterator().next();
+        URI uri = null;
+        try {
+            uri = ClassLoader.getSystemResource("sounds//").toURI();
+            String mainPath = Paths.get(uri).toString();
+            this.alarmPath = Paths.get(mainPath , "alarm.wav");
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

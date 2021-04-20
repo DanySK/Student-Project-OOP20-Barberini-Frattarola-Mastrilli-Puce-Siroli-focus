@@ -7,15 +7,12 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="diaryLabel" prefHeight="62.0" prefWidth="600.0" />
-      <ScrollPane fx:id="containerDiary" prefHeight="257.0" prefWidth="600.0" />
-      <HBox fx:id="hBox" prefHeight="85.0" prefWidth="600.0">
-         <children>
-            <Button fx:id="addButton" mnemonicParsing="false" />
-            <Button fx:id="removeButton" mnemonicParsing="false" />
-         </children>
-      </HBox>
-   </children>
+<VBox fx:id="vBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <Label fx:id="diaryLabel" prefHeight="62.0" prefWidth="600.0"/>
+   <ScrollPane fx:id="containerDiary" prefHeight="257.0" prefWidth="600.0"/>
+   <HBox fx:id="hBox" prefHeight="85.0" prefWidth="600.0">
+      <Button fx:id="addButton" mnemonicParsing="false"/>
+      <Button fx:id="removeButton" mnemonicParsing="false"/>
+   </HBox>
 </VBox>
