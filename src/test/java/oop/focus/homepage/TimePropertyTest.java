@@ -33,26 +33,13 @@ public class TimePropertyTest {
     public void compatibleTest() {
     	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
         final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 8, 30), new LocalDateTime(2021, 9, 26, 9, 00), Repetition.ONCE);
-        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 9, 45), new LocalDateTime(2021, 9, 26, 10, 15), Repetition.ONCE);
-        final Event fourth = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
-        final Event fifth = new EventImpl("Cena", new LocalDateTime(2021, 9, 26, 16, 30), new LocalDateTime(2021, 9, 27, 18, 00), Repetition.ONCE);
-        final Event sixth = new EventImpl("Sigaretta", new LocalDateTime(2021, 9, 26, 18, 30), new LocalDateTime(2021, 9, 26, 18, 45), Repetition.ONCE);
 
         List<Event> events = new ArrayList<>();
         assertTrue(this.time.areCompatibleEquals(first, events));
-        events = this.refreshList(first, events);
+        events.add(first);
 
-        assertTrue(this.time.areCompatibleEquals(second, List.of(first)));
-        events = this.refreshList(second, events);
-
-        assertFalse(this.time.areCompatibleEquals(third, events));
-
-        assertTrue(this.time.areCompatibleEquals(fourth, events));
-        events = this.refreshList(fourth, events);
-
-        assertFalse(this.time.areCompatibleDifferent(fifth, events, Filter.takeOnly(this.manager.findByDate(new LocalDate(2021, 9, 27)))));
-
-        assertTrue(this.time.areCompatibleEquals(sixth, events));
+        assertTrue(this.time.areCompatibleEquals(second, events));
+        events.add(second);
     }
 
     /**
