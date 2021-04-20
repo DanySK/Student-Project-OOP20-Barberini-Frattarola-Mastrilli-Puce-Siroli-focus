@@ -23,7 +23,6 @@ import oop.focus.calendar.model.DayImpl;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.week.controller.FXMLPaths;
 import oop.focus.calendar.week.controller.WeekController;
-import oop.focus.db.DataSourceImpl;
 
 public class WeekViewImpl implements WeekView {
 

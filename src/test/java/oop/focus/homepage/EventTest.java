@@ -66,9 +66,6 @@ public class EventTest {
     @Test
     public void findEventsTest() {
         this.eventi.addEvent(sixth);
-        for (final Event e : this.eventi.getAll()){
-            System.out.println(e.getName());
-        }
         assertTrue(Filter.takeOnlyDailyEvent(this.eventi.getAll().stream().collect(Collectors.toList())).contains(sixth));
         this.eventi.removeEvent(sixth);
     }
