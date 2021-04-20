@@ -55,13 +55,13 @@ public interface CalendarMonthController extends  Controller {
     double getFontSize();
 
     /**
-     * Used for set the {@link Format}  of the {@link HoursView}.
+     * Used for set the {@link Format}  of the {@link oop.focus.calendar.day.view.HoursView}.
      * @param format : format of the hours box
      */
     void setFormat(Format format);
 
     /**
-     * Used for set the Spacing of the {@link HoursView}.
+     * Used for set the Spacing of the {@link oop.focus.calendar.day.view.HoursView}.
      * @param spacing : space between two numbers in the hours box
      */
     void setSpacing(double spacing);

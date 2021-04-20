@@ -334,7 +334,6 @@ public class CalendarMonthViewImpl implements CalendarMonthView {
 
     /**
      * Is an EventHandler for change the month (next or previous one).
-     * @param monthView : the month view
      * @param flag : true previous month, false next month
      * @return EventHandler
      */
