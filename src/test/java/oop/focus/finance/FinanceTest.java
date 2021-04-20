@@ -475,6 +475,15 @@ public class FinanceTest {
         this.financeManager.getGroupManager().removePerson(persona2);
         this.financeManager.getGroupManager().removePerson(persona4);
         this.financeManager.getGroupManager().removePerson(persona5);
+        try {
+            persons.delete(persona1);
+            persons.delete(persona2);
+            persons.delete(persona3);
+            persons.delete(persona4);
+            persons.delete(persona5);
+        } catch (DaoAccessException e) {
+            fail();
+        }
 
         // controllo che la rimozione sia andata a buon fine
         assertEquals(numPer, this.financeManager.getGroupManager().getGroup().size());
