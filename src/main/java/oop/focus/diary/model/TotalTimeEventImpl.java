@@ -21,9 +21,13 @@ public class TotalTimeEventImpl implements TotalTimeEvent {
     public TotalTimeEventImpl(final EventManager me) {
         this.me = me;
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Optional<Period> computePeriod(final String labelName) {
-        return this.me.findByName(labelName).stream().map(s -> new Period(s.getStart().toDateTime(), s.getEnd().toDateTime())).
-            reduce(Period::plus);
+        return this.me.findByName(labelName).stream().map(s -> new Period(s.getStart().toDateTime(), s.getEnd().
+                toDateTime())).reduce(Period::plus);
     }
 }

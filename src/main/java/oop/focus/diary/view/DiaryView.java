@@ -29,7 +29,7 @@ import static oop.focus.diary.view.OpenWindow.openWindow;
 
 /**
  * DiaryView represents the under-section of diary inside the section of diary. The representation of single pages
- * is managed by the apposite class {@link SingleDiaryPage}.
+ * is managed by the appropriate class {@link SingleDiaryPage}.
  */
 public class DiaryView implements View, Initializable {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
@@ -59,7 +59,6 @@ public class DiaryView implements View, Initializable {
 
     private final DiaryPagesController controller;
     private Accordion pages;
-
     /**
      * Instantiates a new diary view and opens the relative FXML file.
      * @param controller    diary pages controller
@@ -69,7 +68,7 @@ public class DiaryView implements View, Initializable {
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.DIARY_SCHEME.getPath()));
         loader.setController(this);
         try {
-            Parent root = loader.load();
+            loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,7 +115,7 @@ public class DiaryView implements View, Initializable {
     }
 
     /**
-     * The method can be used to add in the apposite container a single diary's page, identified by his title.
+     * The method can be used to add in the appropriate container a single diary's page, identified by his title.
      * @param title the title of page to insert
      */
     private void updateView(final String title) {
@@ -124,7 +123,7 @@ public class DiaryView implements View, Initializable {
     }
 
     /**
-     * The method can be used to add all pages' saved to the apposite container.
+     * The method can be used to add all pages' saved to the appropriate container.
      */
     private void insertPages() {
         this.controller.getFileName().forEach(this::updateView);

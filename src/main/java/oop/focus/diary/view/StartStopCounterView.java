@@ -9,7 +9,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import oop.focus.common.View;
 import oop.focus.diary.controller.CounterController;
 import oop.focus.diary.controller.GeneralCounterController;
 import org.joda.time.LocalTime;
@@ -32,6 +31,12 @@ public class StartStopCounterView implements DisableComponentsView, UpdatableVie
     private final Label counterLabel;
     private final Button start;
     private final Button stop;
+
+    /**
+     * Implementation of start stop counter View.
+     * @param controller    counter controller
+     * @param controllerCounter general counter controller
+     */
     public StartStopCounterView(final CounterController controller, final GeneralCounterController controllerCounter) {
         this.start = new Button("Start");
         this.stop = new Button("Stop");
@@ -78,7 +83,7 @@ public class StartStopCounterView implements DisableComponentsView, UpdatableVie
      * {@inheritDoc}
      */
     @Override
-    public void disableComponent(boolean disable) {
+    public void disableComponent(final boolean disable) {
         List.of(this.start, this.stop).forEach(s -> s.setDisable(disable));
 
     }
@@ -87,7 +92,7 @@ public class StartStopCounterView implements DisableComponentsView, UpdatableVie
      * {@inheritDoc}
      */
     @Override
-    public void updateInput(LocalTime input) {
+    public void updateInput(final LocalTime input) {
         Platform.runLater(() -> this.counterLabel.setText(input.toString(TIME_FORMATTER)));
     }
 }

@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import oop.focus.common.View;
 import oop.focus.diary.controller.GeneralCounterController;
 import oop.focus.diary.controller.InsertTimeTimerControllerImpl;
 import org.joda.time.LocalTime;
@@ -56,7 +55,8 @@ public class TimerButtons implements DisableComponentsView {
         final Button b = new Button("Scegli");
         this.list.add(b);
         b.setOnMouseClicked(event -> {
-            final Scene scene = new Scene((Parent) new InsertTimeTimerControllerImpl(this.controller).getView().getRoot());
+            final Scene scene = new Scene((Parent) new InsertTimeTimerControllerImpl(this.controller).getView().
+                    getRoot());
             final Stage window = new Stage();
             window.setScene(scene);
             window.show();
@@ -81,7 +81,7 @@ public class TimerButtons implements DisableComponentsView {
      * {@inheritDoc}
      */
     @Override
-    public void disableComponent(boolean disable) {
+    public void disableComponent(final boolean disable) {
         this.list.forEach(s -> s.setDisable(disable));
     }
 }

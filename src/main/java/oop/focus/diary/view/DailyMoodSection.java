@@ -7,12 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.common.View;
 import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.diary.controller.DailyMoodControllerImpl;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +77,7 @@ public class DailyMoodSection implements View {
 
     /**
      * Sets the configuration and fill a {@link GridPane} with different {@link Button}. It also sets the
-     * graphic of each button taking it from the apposite class {@link DailyMoodView}.
+     * graphic of each button taking it from the appropriate class {@link DailyMoodView}.
      */
     private void setGrid() {
         int index = 0;
@@ -89,9 +89,7 @@ public class DailyMoodSection implements View {
             final Button b = new Button();
             this.map.put(b, i);
             b.setGraphic(view.getRoot());
-            b.getGraphic().maxWidth(20);
             b.setStyle("-fx-border-color: transparent ; -fx-background-color: transparent");
-            b.prefWidthProperty().bind(this.gridPane.widthProperty().multiply(0.15));
             this.gridPane.add(b, index, 0);
             index++;
         }

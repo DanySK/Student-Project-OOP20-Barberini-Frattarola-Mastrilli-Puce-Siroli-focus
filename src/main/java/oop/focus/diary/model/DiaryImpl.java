@@ -8,7 +8,7 @@ public class DiaryImpl implements Diary {
     private String name;
 
     /**
-     * Instantiates a new diary, composed by the content and name in input
+     * Instantiates a new diary, composed by the content and name in input.
      * @param content   the content of diary's page to create
      * @param name  the title of diary's page to create
      */

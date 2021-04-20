@@ -14,7 +14,7 @@ public class RemoveTDLController implements Controller {
     private final View content;
 
     /**
-     * Instantiates a new remove tdl controller and creates the associated view.
+     * Instantiates a new remove toDoList controller and creates the associated view.
      * @param controller    the toDoListController
      */
     public RemoveTDLController(final ToDoListController controller) {

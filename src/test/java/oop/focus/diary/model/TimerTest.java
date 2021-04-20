@@ -12,7 +12,7 @@ public class TimerTest {
     private final CounterManager timer = new CounterManagerImpl(this.me, true);
     private final TotalTimeEvent csc = new TotalTimeEventImpl(this.me);
     @Test
-    public void TimerTest() throws InterruptedException {
+    public void testTimer() throws InterruptedException {
         final String str = "test1";
         this.timer.createCounter(str);
         //il timer relativo all'attività è settata a 10 sec

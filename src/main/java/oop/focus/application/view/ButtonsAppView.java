@@ -15,10 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Extends {@link abstractButtonsView} and creates and manages new buttons. Each of these buttons is relatives
+ * Extends {@link AbstractButtonsView} and creates and manages new buttons. Each of these buttons is relatives
  * to a section of application.
  */
-public class abstractButtonsAppView extends abstractButtonsView {
+public class ButtonsAppView extends AbstractButtonsView {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final Double INSETS = 0.01;
     private static final Double BOX_HEIGHT = 0.2;
@@ -26,7 +26,7 @@ public class abstractButtonsAppView extends abstractButtonsView {
     private final Pane pane;
     private final Map<Button, Controller> map;
     private final Sections controller;
-    public abstractButtonsAppView(final UpdatableController<Controller> sectionsController) {
+    public ButtonsAppView(final UpdatableController<Controller> sectionsController) {
         super(sectionsController);
         this.controller = new SectionsImpl();
         this.pane = new HBox();

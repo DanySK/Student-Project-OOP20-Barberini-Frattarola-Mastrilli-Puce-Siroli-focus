@@ -11,13 +11,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import oop.focus.diary.controller.DiaryPagesController;
 
-
+/**
+ * Implementation of {@link SingleDiaryPage}.
+ */
 public class SingleDiaryPageImpl implements SingleDiaryPage {
     private final Button modify = new Button("Modify");
     private final BorderPane pane = new BorderPane();
     private final TextArea newContent = new TextArea();
     private TitledPane title;
     private final DiaryPagesController controller;
+
+    /**
+     * Instantiates  a new single diary page.
+     * @param controller    diary pages controller
+     */
     public SingleDiaryPageImpl(final DiaryPagesController controller) {
         this.controller = controller;
         this.newContent.setWrapText(true);
@@ -43,6 +50,9 @@ public class SingleDiaryPageImpl implements SingleDiaryPage {
         return box;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final TitledPane createSinglePage(final String s) {
         this.title = new TitledPane();

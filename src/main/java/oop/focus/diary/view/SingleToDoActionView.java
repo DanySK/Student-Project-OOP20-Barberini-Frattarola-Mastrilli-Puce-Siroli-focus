@@ -16,7 +16,7 @@ public class SingleToDoActionView implements View {
      * Instantiates a new single to do action.
      * @param action    the to do action of which it's set the View
      */
-    public SingleToDoActionView(final ToDoAction action ) {
+    public SingleToDoActionView(final ToDoAction action) {
         this.box = new CheckBox();
         this.action = action;
     }

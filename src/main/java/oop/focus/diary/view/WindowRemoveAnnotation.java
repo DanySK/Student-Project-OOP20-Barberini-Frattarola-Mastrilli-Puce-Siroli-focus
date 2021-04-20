@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 /**
  *  This class represents a new window, opened to remove annotations. Annotations could represent
  *  titles of pages of diary or toDoActions' annotations, depending on the classes in which it is called.
+ * @param <X> the type parameter
  */
 public class WindowRemoveAnnotation<X> implements View, Initializable {
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * SectionsImpl has method to set and return sections' Controller, and gets the
- * Controller whose View is shown as first when app is launched.
+ * Controller whose View is shown as first when application is launched.
  */
 public class SectionsImpl implements Sections {
     private final List<Pair<Controller, String>> list;
@@ -28,7 +28,7 @@ public class SectionsImpl implements Sections {
     }
 
     /**
-     * Returns the Controller whose View is the first section to be shown when app starts.
+     * Returns the Controller whose View is the first section to be shown when application starts.
      * @return  the Controller whose View is showed as first when application is launched.
      */
     public final Controller getStarterController() {

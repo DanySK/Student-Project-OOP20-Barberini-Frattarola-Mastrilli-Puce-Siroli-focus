@@ -2,7 +2,6 @@ package oop.focus.diary.model;
 import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import oop.focus.db.Connector;
-import oop.focus.db.exceptions.ConnectionException;
 import java.io.File;
 import java.io.IOException;
 
@@ -38,7 +37,7 @@ public class DiaryConnector implements Connector<FileManager> {
      * {@inheritDoc}
      */
     @Override
-    public final FileManager getConnection() throws IllegalStateException {
+    public final FileManager getConnection() {
         return this.fm;
     }
 

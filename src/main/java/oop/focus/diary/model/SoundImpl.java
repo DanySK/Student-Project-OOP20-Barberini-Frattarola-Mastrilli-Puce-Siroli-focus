@@ -17,8 +17,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class SoundImpl implements Sound {
     private static final String SEP = File.separator;
-    private final Path soundDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" +
-            SEP + "resources" + SEP + "sounds");
+    private final Path soundDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" 
+            + SEP + "resources" + SEP + "sounds");
     private File alarmPath;
     private final Clip clip;
 
@@ -55,7 +55,7 @@ public class SoundImpl implements Sound {
      */
     @Override
     public final void stopSound() {
-        if(this.isPlaying()) {
+        if (this.isPlaying()) {
             this.clip.stop();
             this.clip.close();
         }

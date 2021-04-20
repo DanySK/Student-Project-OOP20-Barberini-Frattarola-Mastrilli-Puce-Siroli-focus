@@ -19,7 +19,7 @@ import java.util.List;
  * Event Counter View represents the section of counter linked to the events. It allows the display of a list of saved
  * events and a button to add new ones. When an event is selected, the appropriate section {@link TotalTimeView}
  * shows the total time devoted to this activity. If the button of "add new event " is pressed, is opened the
- * apposite window that allows to the user to set the time of timer.
+ * appropriate window that allows to the user to set the time of timer.
  */
 public class EventCounterViewImpl implements UpdatableView<String>, DisableComponentsView {
     private static final double COMBO_BOX_WIDTH = 0.4;
@@ -58,8 +58,8 @@ public class EventCounterViewImpl implements UpdatableView<String>, DisableCompo
      */
     @Override
     public final Node getRoot() {
-        HBox hBox = (HBox) new ContainerFactoryImpl().mergeHorizontally(List.of(this.chooseEvent, this.addNewEvent)).
-                getRoot();
+        final HBox hBox = (HBox) new ContainerFactoryImpl().mergeHorizontally(List.of(this.chooseEvent,
+                this.addNewEvent)).getRoot();
         hBox.spacingProperty().bind(hBox.heightProperty().multiply(SPACING));
         hBox.setAlignment(Pos.CENTER);
         final VBox vBox = new VBox(this.chooseLabel, hBox);
@@ -77,7 +77,7 @@ public class EventCounterViewImpl implements UpdatableView<String>, DisableCompo
      * {@inheritDoc}
      */
     @Override
-    public void disableComponent(boolean disable) {
+    public void disableComponent(final boolean disable) {
         this.chooseEvent.setDisable(disable);
         this.addNewEvent.setDisable(disable);
     }
@@ -85,7 +85,7 @@ public class EventCounterViewImpl implements UpdatableView<String>, DisableCompo
      * {@inheritDoc}
      */
     @Override
-    public void updateInput(String input) {
+    public void updateInput(final String input) {
         this.chooseEvent.setValue(input);
     }
 }

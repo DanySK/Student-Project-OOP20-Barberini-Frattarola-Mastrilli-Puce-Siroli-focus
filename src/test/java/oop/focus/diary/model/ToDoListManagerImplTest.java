@@ -2,9 +2,14 @@ package oop.focus.diary.model;
 
 
 import oop.focus.db.DataSourceImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+
 
 public class ToDoListManagerImplTest {
     private final DataSourceImpl dsi = new DataSourceImpl();

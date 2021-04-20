@@ -12,7 +12,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.Objects;
 
 /**
  * Daily Mood View implements {@link View} and represents the single daily mood, identified by a value given in input.
@@ -36,8 +35,8 @@ public class DailyMoodView implements View {
         try {
             iconsDir = Path.of(new File(".").getCanonicalPath() + SEP + "src" + SEP + "main" + SEP
                     + "resources" + SEP + "icons");
-            this.imageView = new ImageView(new Image(new FileInputStream(Arrays.stream(Objects.requireNonNull(
-                    iconsDir.toFile().listFiles())).filter(s -> s.getName().equals(value + ".png")).findAny().get())));
+            this.imageView = new ImageView(new Image(new FileInputStream(Arrays.stream(
+                    iconsDir.toFile().listFiles()).filter(s -> s.getName().equals(value + ".png")).findAny().get())));
         } catch (IOException e) {
             e.printStackTrace();
         }

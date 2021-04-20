@@ -11,12 +11,12 @@ import java.util.Map;
 /**
  * The class views upper buttons of sections of app. When one of them is pressed, a specific View,
  * associated with the section,is shown. ButtonsView also sets the first window to be opened when
- * app is launched.
+ * application is launched.
  */
-public abstract class abstractButtonsView implements View {
+public abstract class AbstractButtonsView implements View {
     private Pane pane;
     private final UpdatableController<Controller> sectionsController;
-    public abstractButtonsView(final UpdatableController<Controller> sectionsController) {
+    public AbstractButtonsView(final UpdatableController<Controller> sectionsController) {
         this.sectionsController = sectionsController;
     }
 
@@ -37,7 +37,7 @@ public abstract class abstractButtonsView implements View {
                 this.sectionsController.updateInput(map.get(s))));
     }
     /**
-     * Sets the first window to open when the app starts.
+     * Sets the first window to open when the application starts.
      * @param map    a Map of element, each one has a {@link Button} as key and a {@link Controller} as value.
      * @param controller    the Controller relatives to the first View that must be shown.
      */

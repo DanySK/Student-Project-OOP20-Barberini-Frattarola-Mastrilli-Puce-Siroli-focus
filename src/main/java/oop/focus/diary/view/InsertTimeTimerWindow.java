@@ -15,14 +15,12 @@ import javafx.util.converter.DateTimeStringConverter;
 import oop.focus.common.View;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.InsertTimeTimerController;
-import oop.focus.diary.controller.InsertTimeTimerControllerImpl;
 import org.joda.time.LocalTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
@@ -71,7 +69,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
      * @param string    the pattern of formatter
      */
     private void setTimeFormatter(final TextField field, final String string) {
-        final SimpleDateFormat format = new SimpleDateFormat(string);
+        final SimpleDateFormat format = new SimpleDateFormat(string, Locale.ITALIAN);
         try {
             field.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00")));
         } catch (ParseException e) {
@@ -91,8 +89,8 @@ public class InsertTimeTimerWindow implements Initializable, View {
         this.setTimeFormatter(this.minutes, "mm");
         this.setTimeFormatter(this.seconds, "ss");
         this.save.setOnMouseClicked(event -> {
-            final LocalTime r = new LocalTime(Integer.parseInt(this.hours.getText()), Integer.parseInt(this.minutes.getText()),
-                    Integer.parseInt(this.seconds.getText()));
+            final LocalTime r = new LocalTime(Integer.parseInt(this.hours.getText()), Integer.parseInt(this.minutes.
+                    getText()), Integer.parseInt(this.seconds.getText()));
             this.controller.setNewValue(r);
             final Stage stage = (Stage) this.pane.getScene().getWindow();
             stage.close();

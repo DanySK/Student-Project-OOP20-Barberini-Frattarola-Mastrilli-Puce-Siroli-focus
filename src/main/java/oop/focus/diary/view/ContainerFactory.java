@@ -2,7 +2,6 @@ package oop.focus.diary.view;
 
 import javafx.scene.Node;
 import oop.focus.common.View;
-import oop.focus.diary.model.TimeScrolling;
 
 import java.util.List;
 

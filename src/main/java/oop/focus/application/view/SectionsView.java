@@ -7,7 +7,7 @@ import javafx.stage.Screen;
 import oop.focus.common.View;
 
 /**
- * The class manages all sections' view of app. It creates a {@link BorderPane}, sets its dimension
+ * The class manages all sections' view of application. It creates a {@link BorderPane}, sets its dimension
  * and has a method to update its content.
  */
 public class SectionsView implements View {

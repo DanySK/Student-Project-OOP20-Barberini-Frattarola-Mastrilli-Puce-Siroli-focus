@@ -6,14 +6,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import oop.focus.common.View;
 import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
  * Total Time View represents the section of counter in which is shown total time spent to do an event. The View
- * is updated every time that user selects a new event from the apposite section.
+ * is updated every time that user selects a new event from the appropriate section.
  */
 public class TotalTimeView implements UpdatableView<LocalTime> {
     private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH : mm : ss");
@@ -24,7 +23,7 @@ public class TotalTimeView implements UpdatableView<LocalTime> {
     private final Label totalTimeLabel;
 
     /**
-     * Instantiates a new total time View
+     * Instantiates a new total time View.
      */
     public TotalTimeView() {
         this.label = new Label();
@@ -53,7 +52,7 @@ public class TotalTimeView implements UpdatableView<LocalTime> {
      * {@inheritDoc}
      */
     @Override
-    public void updateInput(LocalTime input) {
+    public void updateInput(final LocalTime input) {
         Platform.runLater(() -> this.label.setText(input.toString(TIME_FORMATTER)));
     }
 }

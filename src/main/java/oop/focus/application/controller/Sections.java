@@ -6,11 +6,11 @@ import oop.focus.common.Controller;
 import java.util.List;
 
 /**
- * The interface manages different sections of the app.
+ * The interface manages different sections of the application.
  */
 public interface Sections {
     /**
-     * Returns the {@link Controller} of the first section to show when app starts.
+     * Returns the {@link Controller} of the first section to show when application starts.
      * @return  the Controller of the first section to show
      */
     Controller getStarterController();

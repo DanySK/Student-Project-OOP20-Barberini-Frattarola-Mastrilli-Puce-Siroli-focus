@@ -5,7 +5,7 @@ import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 
-import oop.focus.diary.view.abstractButtonsDiaryView;
+import oop.focus.diary.view.ButtonsDiaryView;
 
 /**
  * ButtonsDiaryController is the Controller of diary's lateral button.
@@ -19,7 +19,7 @@ public class ButtonsDiaryController implements Controller {
      * @param dataSource    the{@link DataSource} from which to retrieve data
      */
     public ButtonsDiaryController(final SectionsController controller, final DataSource dataSource) {
-        this.content = new abstractButtonsDiaryView(controller, dataSource);
+        this.content = new ButtonsDiaryView(controller, dataSource);
     }
 
     /**

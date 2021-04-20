@@ -2,21 +2,14 @@ package oop.focus.diary.model;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.util.Optional;
-
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
-import org.h2.util.MathUtils;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 
 public class ComputeTotalTimeOfEventTest {
@@ -28,7 +21,7 @@ public class ComputeTotalTimeOfEventTest {
         //si creano due eventi : shopping e palestra, da aggiungere al ManagerEvent
         final String str = "test5";
         final String pal = "test6";
-        Event first = new EventImpl(str, new LocalDateTime(2021, 9, 26, 9,
+        final Event first = new EventImpl(str, new LocalDateTime(2021, 9, 26, 9,
                 30), new LocalDateTime(2021, 9, 26, 10, 30),
                 Repetition.ONCE);
         final Event second = new EventImpl(pal, new LocalDateTime(2021, 9, 25, 8,
@@ -48,7 +41,7 @@ public class ComputeTotalTimeOfEventTest {
     public void testEventsInDifferentsDays() {
         final String prog = "test7";
         //creato evento progetto, dalla durata di 5 ore
-        Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20,
+        final Event third = new EventImpl(prog, new LocalDateTime(2021, 9, 26, 20,
                 30), new LocalDateTime(2021, 9, 27, 01, 30),
                 Repetition.ONCE);
         this.me.saveTimer(third);

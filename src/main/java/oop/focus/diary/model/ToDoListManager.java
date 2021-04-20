@@ -21,8 +21,8 @@ public interface ToDoListManager {
      */
     void removeAnnotation(ToDoAction tda);
     /**
-     * Set as done or unset the annotation of ToDoAction in input:
-     * if the toDoAction's status is set the method unsets it, so on the other side.
+     * Set as done or undone the annotation of ToDoAction in input:
+     * if the toDoAction's status is set the method deactivates it, so on the other side.
      *
      * @param tda   the ToDoAction whose status is changed
      */

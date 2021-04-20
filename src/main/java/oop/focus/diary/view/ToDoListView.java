@@ -34,7 +34,7 @@ import static oop.focus.diary.view.OpenWindow.openWindow;
 
 /**
  * To Do List View represents toDoList's section, a container of ToDoActions.
- * The view of single ToDoAction is given by the apposite class {@link SingleToDoActionView}.
+ * The view of single ToDoAction is given by the appropriate class {@link SingleToDoActionView}.
  */
 public class ToDoListView implements View, Initializable {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
@@ -76,18 +76,18 @@ public class ToDoListView implements View, Initializable {
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.TDL_SCHEME.getPath()));
         loader.setController(this);
         try {
-            Parent root = loader.load();
+            loader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * The method can be used to insert all {@link ToDoAction} in the apposite {@link ListView}.
+     * The method can be used to insert all {@link ToDoAction} in the appropriate {@link ListView}.
      */
     private void updateTDLView() {
-        this.controller.allAnnotations().stream().map(s -> (CheckBox)new SingleAnnotationController(s).getView().
-                getRoot()).forEach(this.checkBoxes::add);
+        this.controller.allAnnotations().stream().map(s -> (CheckBox) new SingleAnnotationController(s).getView().
+               getRoot()).forEach(this.checkBoxes::add);
     }
 
     /**

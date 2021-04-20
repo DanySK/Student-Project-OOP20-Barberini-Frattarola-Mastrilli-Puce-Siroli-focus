@@ -2,7 +2,6 @@ package oop.focus.diary.model;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
-import oop.focus.db.exceptions.ConnectionException;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +11,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -77,7 +75,7 @@ public class DiaryDao implements Dao<DiaryImpl> {
     }
 
     @Override
-    public final void update(final DiaryImpl x) throws IllegalArgumentException {
+    public final void update(final DiaryImpl x) {
         final Optional<DiaryImpl> di = this.getAll().stream().filter(l -> l.getName().equals(x.getName())).findAny();
         if (di.isPresent()) {
             this.delete(di.get());
