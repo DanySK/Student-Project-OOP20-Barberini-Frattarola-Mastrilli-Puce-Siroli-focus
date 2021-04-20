@@ -110,7 +110,7 @@ public class WeekViewImpl implements WeekView {
         final HBox hbox = new HBox();
 
         for (int i = 0; i < Constants.DAYS_PER_WEEK; i++) {
-            final CalendarDayController day = new CalendarDayControllerImpl(new DayImpl(date, (DataSourceImpl) this.controller.getDsi()), 200, 500);
+            final CalendarDayController day = new CalendarDayControllerImpl(new DayImpl(date, this.controller.getDsi()), 200, 500);
 
             day.setFormat(this.format);
             day.setSpacing(this.spacing);
@@ -132,7 +132,7 @@ public class WeekViewImpl implements WeekView {
         this.setWeekDays();
     }
 
-    private class Constants {
+    private static final class Constants {
         private static final int FIND_FINAL = 6;
         private static final int DAYS_PER_WEEK = 7;
         private static final int SPACING = 100;

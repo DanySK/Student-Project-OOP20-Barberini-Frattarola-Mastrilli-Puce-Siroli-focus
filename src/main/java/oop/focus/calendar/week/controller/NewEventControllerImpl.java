@@ -10,6 +10,7 @@ import oop.focus.homepage.model.EventManager;
 import oop.focus.homepage.model.EventManagerImpl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -55,10 +56,8 @@ public class NewEventControllerImpl implements NewEventController {
     public final ObservableList<Repetition> getRep() {
         final ObservableList<Repetition> list = FXCollections.observableArrayList();
         final List<Repetition> arrayList = new ArrayList<>();
-        for (final Repetition repetition : Repetition.values()) {
-            arrayList.add(repetition);
-        }
-        arrayList.stream().forEach(h -> list.add(h));
+        arrayList.addAll(Arrays.asList(Repetition.values()));
+        list.addAll(arrayList);
         return list;
     }
 

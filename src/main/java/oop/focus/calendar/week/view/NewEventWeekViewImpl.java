@@ -162,7 +162,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
         final List<Person> temp = persons.getPersons().stream().collect(Collectors.toList());
-        temp.forEach(p -> this.list.add(p));
+        this.list.addAll(temp);
         this.list.forEach(p -> listOfString.add(p.toString()));
 
         this.listOfPersons.setItems(listOfString);

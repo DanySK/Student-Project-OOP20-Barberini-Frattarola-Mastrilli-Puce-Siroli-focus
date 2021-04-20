@@ -61,13 +61,13 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final ObservableList<Event> getEvents() {
         final ObservableList<Event> list = FXCollections.observableArrayList();
-        this.eventManager.getHotKeyEvents().forEach(list::add);
+        list.addAll(this.eventManager.getHotKeyEvents());
         return list;
     }
 
     public final ObservableList<HotKey> getHotKey() {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
-        this.hotKeyManager.getAll().stream().forEach(h -> list.add(h));
+        list.addAll(this.hotKeyManager.getAll());
         return list;
     }
 
@@ -99,9 +99,8 @@ public class HomePageControllerImpl implements HomePageController {
     @Override
     public final ObservableList<Repetition> getRep() {
         final ObservableList<Repetition> list = FXCollections.observableArrayList();
-        final List<Repetition> arrayList = new ArrayList<>();
-        arrayList.addAll(Arrays.asList(Repetition.values()));
-        arrayList.forEach(list::add);
+        final List<Repetition> arrayList = new ArrayList<>(Arrays.asList(Repetition.values()));
+        list.addAll(arrayList);
         return list;
     }
 }
