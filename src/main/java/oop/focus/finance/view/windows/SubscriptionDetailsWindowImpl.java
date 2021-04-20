@@ -8,6 +8,11 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
 
+import java.util.Optional;
+
+/**
+ * Class that implements the detail view of a subscription.
+ */
 public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<SubscriptionsController, Transaction> {
 
     @FXML
@@ -20,12 +25,18 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
         super(controller, subscription, FXMLPaths.TRANSACTIONDETAILS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateStaticLabels() {
         this.titleLabel.setText("DETTAGLI ABBONAMENTO");
         this.dateLabel.setText("Data e ora ultimo rinnovo:");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateDynamicLabels() {
         this.dataDescriptionLabel.setText(super.getX().getDescription());
@@ -36,6 +47,9 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
         this.dataSubscriptionLabel.setText(super.getX().getRepetition().getName());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateButtons() {
         this.deleteButton.setText("Stop");
@@ -44,9 +58,13 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
         this.closeButton.setOnAction(event -> this.close());
     }
 
+    /**
+     * {@inheritDoc}
+     * If the user confirms this, the subscription is stopped.
+     */
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
+        final Optional<ButtonType> result = super.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getController().stopSubscription(super.getX());
         }

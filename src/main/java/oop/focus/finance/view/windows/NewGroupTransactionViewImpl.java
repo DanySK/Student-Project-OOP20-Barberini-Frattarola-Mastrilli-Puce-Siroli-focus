@@ -13,8 +13,12 @@ import oop.focus.homepage.model.Person;
 import oop.focus.statistics.view.MultiSelectorView;
 import org.joda.time.LocalDateTime;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
+/**
+ * Class that implements the view of creating a new group transaction.
+ */
 public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransactionController> {
 
     @FXML
@@ -36,6 +40,9 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
         super(controller, FXMLPaths.NEWGROUPMOV);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.madeByChoice.setItems(super.getX().getGroupList());
@@ -45,16 +52,20 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
         this.dataPicker.setValue(LocalDate.now());
-        this.hoursTextField.setText("" + LocalDateTime.now().getHourOfDay());
-        this.minutesTextField.setText("" + LocalDateTime.now().getMinuteOfHour());
+        this.hoursTextField.setText(new DecimalFormat("#00").format(LocalDateTime.now().getHourOfDay()));
+        this.minutesTextField.setText(new DecimalFormat("#00").format(LocalDateTime.now().getMinuteOfHour()));
     }
 
+    /**
+     * {@inheritDoc}
+     * If the required fields are filled in, create the group transaction.
+     */
     @Override
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null
-                || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()
-                || Integer.parseInt(this.amountLabel.getText()) > 0) {
+                || this.hoursTextField.getText().isEmpty() || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0
+                || this.minutesTextField.getText().isEmpty() || Double.parseDouble(this.amountTextField.getText()) < 0) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else if ((Double.parseDouble(this.amountTextField.getText()) * 100) % this.multiSelector.getSelected().size() > 0) {
             super.allert("Non e' possibile dividere correttamente l'importo tra le persone selezionate.");

@@ -14,6 +14,9 @@ import oop.focus.finance.controller.AddPersonController;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.homepage.model.Person;
 
+/**
+ * Class that implements the view of adding a person to the group of group transactions.
+ */
 public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
 
     @FXML
@@ -29,17 +32,23 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
         super(controller, FXMLPaths.ADDPERSON);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.newPersonButton.setText("Nuova persona");
         this.personChoice.setItems(super.getX().getPersonsToAdd());
         this.personChoice.setConverter(super.createStringConverter(Person::getName));
-        this.newPersonButton.setOnAction(event -> this.newPerson());
+        this.newPersonButton.setOnAction(event -> this.showNewPerson());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
     }
 
-    private void newPerson() {
+    /**
+     * Method that shows on the screen the window for creating a new person to add to the database.
+     */
+    private void showNewPerson() {
         final PersonsController controller = new PersonsControllerImpl(super.getX().getDb());
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) controller.getView().getRoot()));
@@ -47,6 +56,10 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
         this.close();
     }
 
+    /**
+     * {@inheritDoc}
+     * If the required fields are filled in, add the person to the group.
+     */
     @Override
     public final void save() {
         if (this.personChoice.getValue() == null) {

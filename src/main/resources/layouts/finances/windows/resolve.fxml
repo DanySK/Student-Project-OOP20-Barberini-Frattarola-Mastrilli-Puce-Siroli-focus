@@ -9,19 +9,15 @@
 
 <VBox fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="420.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <AnchorPane prefHeight="52.0" prefWidth="350.0">
-      <Label fx:id="resolveLabel" alignment="CENTER" prefHeight="58.0" prefWidth="350.0" text="RISOLVI"
-             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label fx:id="resolveLabel" alignment="CENTER" prefHeight="58.0" prefWidth="350.0" text="RISOLVI" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
-            <Font name="System Bold" size="14.0"/>
+            <Font name="System Bold" size="14.0" />
          </font>
       </Label>
    </AnchorPane>
    <ScrollPane fx:id="resolveScroll" prefHeight="10000.0" prefWidth="350.0" />
    <AnchorPane prefHeight="90.0" prefWidth="350.0">
-      <Button fx:id="cancelButton" layoutX="186.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0"
-              text="Chiudi" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0"/>
-      <Button fx:id="saveButton" layoutX="74.0" layoutY="15.0" mnemonicParsing="false" prefHeight="40.0"
-              prefWidth="90.0" text="Salva" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="74.0"
-              AnchorPane.rightAnchor="186.0"/>
+      <Button fx:id="saveButton" layoutX="186.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Salva" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="0.0" />
+      <Button fx:id="cancelButton" layoutX="74.0" layoutY="15.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Chiudi" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="186.0" />
    </AnchorPane>
 </VBox>

@@ -5,7 +5,9 @@ import oop.focus.common.View;
 
 import java.util.function.Function;
 
-
+/**
+ * Interface that implements a finance window.
+ */
 public interface FinanceWindow extends View {
 
     /**
@@ -36,15 +38,11 @@ public interface FinanceWindow extends View {
      * @return true if the string is not convertible to number
      */
     static boolean isNotNumeric(String string) {
-        if (string == null) {
-            return true;
-        }
         try {
-            final double d = Double.parseDouble(string);
-        } catch (NumberFormatException nfe) {
+            Double.parseDouble(string);
+            return false;
+        } catch (NumberFormatException e) {
             return true;
         }
-        return false;
     }
-
 }

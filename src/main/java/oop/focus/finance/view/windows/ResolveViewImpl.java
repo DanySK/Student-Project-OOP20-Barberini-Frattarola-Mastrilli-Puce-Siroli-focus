@@ -11,13 +11,17 @@ import oop.focus.finance.controller.ResolveController;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
-import oop.focus.homepage.model.Person;
+import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Class that implements the view of all generated group transactions to quickly resolve all debts.
+ */
 public class ResolveViewImpl extends GenericWindow<ResolveController> {
 
     @FXML
@@ -31,6 +35,9 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
         super(controller, FXMLPaths.RESOLVE);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.cancelButton.setOnAction(event -> this.close());
@@ -39,27 +46,30 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
         this.resolveScroll.setFitToWidth(true);
     }
 
+    /**
+     * Method showing all resolving transactions.
+     */
     private void showResolvingTiles() {
-        var viewFactory = new ViewFactoryImpl();
+        final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<GroupTransaction>> resolvingTiles = new ArrayList<>();
         super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(
-                new GenericTileViewImpl<>(t, t.getMadeBy().getName() + " ->"
-                        + this.getForListNames(t.getForList()), (double) t.getAmount() / 100)));
-        var vbox = viewFactory.createVerticalAutoResizingWithNodes(resolvingTiles.stream()
+                new GenericTileViewImpl<>(t, t.getMadeBy().getName() + " -> "
+                        + t.getForList().get(0).getName(), (double) t.getAmount() / 100)));
+        final View vbox = viewFactory.createVerticalAutoResizingWithNodes(resolvingTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.resolveScroll.setContent(vbox.getRoot());
     }
 
+    /**
+     * {@inheritDoc}
+     * If the user confirms this, all resolving transactions are performed.
+     */
     @Override
     public final void save() {
-        final var result = super.confirm("Sicuro di voler eseguire le transazioni risolutive?");
+        final Optional<ButtonType> result = super.confirm("Sicuro di voler eseguire le transazioni risolutive?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getX().resolve();
         }
         this.close();
-    }
-
-    private String getForListNames(final List<Person> list) {
-        return list.stream().map(Person::getName).collect(Collectors.joining(", "));
     }
 }

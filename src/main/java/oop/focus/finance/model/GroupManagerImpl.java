@@ -97,9 +97,9 @@ public class GroupManagerImpl implements GroupManager {
         final Map<Person, Integer> map = new HashMap<>();
         this.group.getAll().forEach(p -> map.put(p, this.getCredit(p)));
         while (!map.values().stream().allMatch(i -> i == 0)) {
-            Person creditor = this.getCreditor(map);
-            Person debtor = this.getDebtor(map);
-            int amount = this.calculateAmount(map);
+            final Person creditor = this.getCreditor(map);
+            final Person debtor = this.getDebtor(map);
+            final int amount = this.calculateAmount(map);
             ret.add(new GroupTransactionImpl("Risoluzione debiti", debtor,
                     List.of(creditor), amount, LocalDateTime.now()));
             map.replace(creditor, map.get(creditor) - amount);

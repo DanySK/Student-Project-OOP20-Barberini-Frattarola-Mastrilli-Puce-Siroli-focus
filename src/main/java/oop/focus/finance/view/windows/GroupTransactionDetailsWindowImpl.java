@@ -9,8 +9,12 @@ import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.homepage.model.Person;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Class that implements the detail view of a group transaction.
+ */
 public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<GroupController, GroupTransaction> {
 
     @FXML
@@ -23,6 +27,9 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
         super(controller, transaction, FXMLPaths.TRANSACTIONDETAILS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateStaticLabels() {
         this.titleLabel.setText("DETTAGLI TRANSAZIONE DI GRUPPO");
@@ -32,6 +39,9 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
         this.secondEuroLabel.setVisible(true);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateDynamicLabels() {
         this.dataDescriptionLabel.setText(super.getX().getDescription());
@@ -42,19 +52,29 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
         this.dataSubscriptionLabel.setText(this.format(this.getAmountPerPerson()));
     }
 
+    /**
+     * {@inheritDoc}
+     * If the user confirms this, the group transaction is deleted.
+     */
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler elminare questa transazione di gruppo?");
+        final Optional<ButtonType> result = super.confirm("Sicuro di voler elminare questa transazione di gruppo?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             super.getController().deleteTransaction(super.getX());
         }
         this.close();
     }
 
+    /**
+     * @return the expense per person of a group transaction
+     */
     private double getAmountPerPerson() {
         return (double) super.getX().getAmount() / (super.getX().getForList().size() * 100);
     }
 
+    /**
+     * @return a formatted string listing all the people who participated in the expense
+     */
     private String getFormattedForList() {
         return super.getX().getForList().stream().map(Person::getName).collect(Collectors.joining(", "));
     }

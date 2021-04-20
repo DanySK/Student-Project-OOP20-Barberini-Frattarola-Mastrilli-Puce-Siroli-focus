@@ -20,8 +20,12 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import org.joda.time.LocalDateTime;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
+/**
+ * Class that implements the view of creating a new transaction.
+ */
 public class NewTransactionViewImpl extends GenericWindow<NewTransactionController> {
 
     @FXML
@@ -45,6 +49,9 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         super(controller, FXMLPaths.NEWMOVEMENT);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.titleLabel.setText("NUOVA TRANSAZIONE");
@@ -61,10 +68,13 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
         this.typeChoice.setValue("Uscita");
         this.dataPicker.setValue(LocalDate.now());
-        this.hoursTextField.setText("" + LocalDateTime.now().getHourOfDay());
-        this.minutesTextField.setText("" + LocalDateTime.now().getMinuteOfHour());
+        this.hoursTextField.setText(new DecimalFormat("#00").format(LocalDateTime.now().getHourOfDay()));
+        this.minutesTextField.setText(new DecimalFormat("#00").format(LocalDateTime.now().getMinuteOfHour()));
     }
 
+    /**
+     * Method that shows on the screen the window for creating a new category to add to the database.
+     */
     private void showNewCategory() {
         final NewCategoryController controller = new NewCategoryControllerImpl(super.getX().getManager());
         final Stage stage = new Stage();
@@ -72,18 +82,22 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
         stage.show();
     }
 
+    /**
+     * {@inheritDoc}
+     * If the required fields are filled in, create the transaction.
+     */
     @Override
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.repetitionChioce.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
                 || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()
-                || this.typeChoice.getValue() == null) {
+                || this.typeChoice.getValue() == null || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0) {
             super.allert("I campi non sono stati compilati correttamente.");
         } else {
             try {
                 super.getX().newTransaction(this.descriptionTextField.getText(),
-                        Double.parseDouble(this.amountTextField.getText()) * (this.typeChoice.getValue().equals("Uscita") ? -1 : 1),
+                        Double.parseDouble(this.amountTextField.getText()) * ("uscita".equals(this.typeChoice.getValue()) ? -1 : 1),
                         this.categoryChoice.getValue(), this.accountChoice.getValue(), this.dataPicker.getValue(),
                         Integer.parseInt(this.hoursTextField.getText()), Integer.parseInt(this.minutesTextField.getText()),
                         this.repetitionChioce.getValue());

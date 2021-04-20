@@ -4,6 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import oop.focus.finance.controller.FXMLPaths;
 
+/**
+ * Class that implements the view of an element detail view window.
+ * In addition to viewing the details, actions on the element are also generally allowed.
+ *
+ * @param <X> type of the controller that manages the item shown in detail
+ * @param <Y> type of the item shown in detail
+ */
 public abstract class GenericDetailsWindow<X, Y> extends GenericWindow<Y> implements FinanceDetailsWindow<X> {
 
     @FXML
@@ -16,6 +23,9 @@ public abstract class GenericDetailsWindow<X, Y> extends GenericWindow<Y> implem
         this.controller = controller;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populate() {
         this.populateStaticLabels();

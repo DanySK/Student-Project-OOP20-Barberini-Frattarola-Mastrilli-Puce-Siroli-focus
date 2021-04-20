@@ -143,7 +143,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
 
     /**
      * @param list of persons
-     * @return returns a formatted string listing all the people in the list
+     * @return a formatted string listing all the people in the list
      */
     private String getForListNames(final List<Person> list) {
         return list.stream().map(Person::getName).collect(Collectors.joining(", "));

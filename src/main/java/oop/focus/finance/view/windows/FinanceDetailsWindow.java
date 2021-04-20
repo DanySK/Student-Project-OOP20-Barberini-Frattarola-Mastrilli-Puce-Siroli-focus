@@ -1,5 +1,10 @@
 package oop.focus.finance.view.windows;
 
+/**
+ * Interface that implements a window showing the details of an element.
+ *
+ * @param <X> type of the controller that manages the item shown in detail
+ */
 public interface FinanceDetailsWindow<X> {
 
     /**

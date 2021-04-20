@@ -8,6 +8,11 @@ import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.homepage.model.Person;
 
+import java.util.Optional;
+
+/**
+ * Class that implements the detail view of a person.
+ */
 public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupController, Person> {
 
     @FXML
@@ -20,6 +25,9 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
         super(controller, person, FXMLPaths.TRANSACTIONDETAILS);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateStaticLabels() {
         this.titleLabel.setText("DETTAGLI DI " + super.getX().getName());
@@ -32,19 +40,26 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
         this.firstEuroLabel.setVisible(false);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void populateDynamicLabels() {
         this.dataDescriptionLabel.setText(super.getX().getName());
         this.dataCategoryLabel.setText(super.getX().getRelationships());
     }
 
+    /**
+     * {@inheritDoc}
+     * If the user confirms this, the person is removed from the group transaction group.
+     */
     @Override
     public final void save() {
-        var result = super.confirm("Sicuro di voler elminare " + super.getX().getName() + "?");
+        final Optional<ButtonType> result = super.confirm("Sicuro di voler elminare " + super.getX().getName() + "?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 super.getController().deletePerson(super.getX());
-            } catch (Exception e) {
+            } catch (IllegalStateException e) {
                 super.allert("Non e' possibile eliminare " + super.getX().getName() + " perche' ha ancora dei debiti.");
             }
         }

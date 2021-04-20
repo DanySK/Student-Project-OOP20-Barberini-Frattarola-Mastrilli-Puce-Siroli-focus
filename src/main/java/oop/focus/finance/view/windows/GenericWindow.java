@@ -9,6 +9,11 @@ import oop.focus.finance.view.bases.GenericView;
 
 import java.util.function.Function;
 
+/**
+ * Class that implements the view of a window.
+ *
+ * @param <X> type of the element passed as a field
+ */
 public abstract class GenericWindow<X> extends GenericView<X> implements FinanceWindow {
 
     @FXML
@@ -18,12 +23,18 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
         super(x, path);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void close() {
         final Stage stage = (Stage) this.mainPane.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final <Y> StringConverter<Y> createStringConverter(final Function<Y, String> function) {
         return new StringConverter<>() {
