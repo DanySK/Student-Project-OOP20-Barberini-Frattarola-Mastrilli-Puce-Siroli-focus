@@ -61,11 +61,7 @@ public class DiaryDao implements Dao<DiaryImpl> {
         if (x.getName().length() <= MAX_LENGTH && !this.getAll().contains(x)) {
             System.out.println(this.map.containsKey(x));
             final DiaryConnector diaryConnector = new DiaryConnector(this.getFile(x.getName()));
-            try {
-                diaryConnector.create();
-            } catch (ConnectionException e) {
-                e.printStackTrace();
-            }
+            diaryConnector.create();
             this.map.put(x, diaryConnector);
             this.list.add(x);
             try {

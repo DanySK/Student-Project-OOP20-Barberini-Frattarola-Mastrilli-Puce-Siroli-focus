@@ -20,7 +20,8 @@ public class GeneralDiaryController implements Controller {
     public GeneralDiaryController(final DataSource dataSource) {
         final SectionsController controller = new SectionsController();
         final ButtonsDiaryController buttonController = new ButtonsDiaryController(controller, dataSource);
-        this.content = new ContainerFactoryImpl().mergeHorizontally(List.of(buttonController.getView().getRoot(), controller.getView().getRoot()));
+        this.content = new ContainerFactoryImpl().mergeHorizontally(List.of(buttonController.getView().getRoot(),
+                controller.getView().getRoot()));
     }
 
     /**

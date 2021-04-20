@@ -16,17 +16,13 @@ public class StopwatchTest {
     @Test
     public void testStopwatch() throws InterruptedException {
 
-        this.stopwatch.createCounter(cuc);
+        this.stopwatch.createCounter(this.cuc);
         this.stopwatch.setStarterValue(0);
         this.stopwatch.startCounter();
         Thread.sleep(2000);
         this.stopwatch.stopCounter();
-        //Thread.sleep(1000);
+        Thread.sleep(7000);
         assertEquals(this.csc.computePeriod("test3").get().getSeconds(), 2);
-        this.me.removeEvent(this.me.findByName(cuc).stream().findAny().get());
-    }
-    @After
-    public void removeEvent() {
-        //this.me.removeEvent(this.me.findByName(cuc).stream().findAny().get());
+        this.me.removeEvent(this.me.findByName(this.cuc).stream().findAny().get());
     }
 }

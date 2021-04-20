@@ -13,10 +13,10 @@ import java.util.Map;
  * associated with the section,is shown. ButtonsView also sets the first window to be opened when
  * app is launched.
  */
-public abstract class ButtonsView implements View {
+public abstract class abstractButtonsView implements View {
     private Pane pane;
     private final UpdatableController<Controller> sectionsController;
-    public ButtonsView(final UpdatableController<Controller> sectionsController) {
+    public abstractButtonsView(final UpdatableController<Controller> sectionsController) {
         this.sectionsController = sectionsController;
     }
 

@@ -8,31 +8,31 @@ public enum FXMLPaths {
     /**
      *
      */
-    ADD_EVENT_NAME_COUNTER(Costants.DIARY + "newCounterNameWindow.fxml"),
+    ADD_EVENT_NAME_COUNTER(Constants.DIARY + "newCounterNameWindow.fxml"),
     /**
      *
      */
-    INSERT_TIMER_TIME(Costants.DIARY + "insertTimeWindow.fxml"),
+    INSERT_TIMER_TIME(Constants.DIARY + "insertTimeWindow.fxml"),
     /**
      *
      */
-    INSERT_DIARY_PAGE(Costants.DIARY + "windowAddPage.fxml"),
+    INSERT_DIARY_PAGE(Constants.DIARY + "windowAddPage.fxml"),
     /**
      *
      */
-    INSERT_TDL_ANNOTATION(Costants.DIARY + "windowAddAnnotation.fxml"),
+    INSERT_TDL_ANNOTATION(Constants.DIARY + "windowAddAnnotation.fxml"),
     /**
      *
      */
-    REMOVE_TDL_ANNOTATION(Costants.DIARY + "windowRemoveAnnotation.fxml"),
+    REMOVE_TDL_ANNOTATION(Constants.DIARY + "windowRemoveAnnotation.fxml"),
     /**
      *
      */
-    DIARY_SCHEME(Costants.DIARY + "diaryScheme.fxml"),
+    DIARY_SCHEME(Constants.DIARY + "diaryScheme.fxml"),
     /**
      *
      */
-    TDL_SCHEME(Costants.DIARY + "TDLScheme.fxml");
+    TDL_SCHEME(Constants.DIARY + "TDLScheme.fxml");
     private final String path;
 
     FXMLPaths(final String path) {
@@ -43,12 +43,8 @@ public enum FXMLPaths {
         return this.path;
     }
 
-    private static class Costants {
-
+    private static class Constants {
         public static final String DIARY = "/layouts/diary/";
-       // public static final String TILES = FINANCE + "tiles/";
-       // public static final String WINDOWS = FINANCE + "windows/";
-
     }
 
 }

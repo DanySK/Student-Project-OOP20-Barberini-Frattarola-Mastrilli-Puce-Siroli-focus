@@ -13,14 +13,14 @@ import oop.focus.homepage.model.EventManager;
 public class EventCounterControllerImpl implements EventCounterController {
     private final EventCounterViewImpl view;
     private final ObservableSet<String> set;
-    private final GeneralCounterControllerImpl generalControllerCounter;
+    private final GeneralCounterController generalControllerCounter;
 
     /**
      * Instantiates a new event counter controller and creates the associated view.
      * @param eventManager  the eventManager
      * @param generalControllerCounter  the generalControllerCounter
      */
-    public EventCounterControllerImpl(final EventManager eventManager, final GeneralCounterControllerImpl generalControllerCounter) {
+    public EventCounterControllerImpl(final EventManager eventManager, final GeneralCounterController generalControllerCounter) {
         this.set = FXCollections.observableSet();
         eventManager.getAll().forEach(s -> this.set.add(s.getName()));
         this.view = new EventCounterViewImpl(this);

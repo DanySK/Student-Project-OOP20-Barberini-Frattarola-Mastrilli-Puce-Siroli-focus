@@ -20,7 +20,7 @@ public class CounterManagerImpl implements CounterManager {
     private TimeScrolling counter;
     private LocalDateTime start;
     private Sound sound;
-    private Optional<Integer> finalCounter;
+    private Integer finalCounter;
     private final EventManager me;
     private String eventName;
     private boolean isSet;
@@ -36,7 +36,7 @@ public class CounterManagerImpl implements CounterManager {
         this.isTimer = isTimer;
         this.tf = new CounterFactoryImpl(me);
         this.isSet = false;
-        this.finalCounter = Optional.empty();
+        this.finalCounter = null;
 
     }
 
@@ -57,7 +57,7 @@ public class CounterManagerImpl implements CounterManager {
             e.printStackTrace();
         }
         this.counter.addFinishListener(integer -> {
-           this.finalCounter = Optional.of(integer);
+           this.finalCounter = integer;
            this.createEvent();
         });
 
@@ -116,9 +116,9 @@ public class CounterManagerImpl implements CounterManager {
      * The method is called when a counter ends and creates new event.
      */
     private void createEvent() {
-        if (this.finalCounter.isPresent() && this.finalCounter.get().equals(0)) {
+        if (this.finalCounter != null && this.finalCounter.equals(0)) {
             this.sound.playSound();
-            this.finalCounter = Optional.empty();
+            this.finalCounter = null;
         }
         this.me.saveTimer(new EventImpl(this.eventName, this.start, LocalDateTime.now(), Repetition.ONCE));
     }

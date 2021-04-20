@@ -1,5 +1,5 @@
 package oop.focus.application.controller;
-import oop.focus.application.view.ButtonsAppView;
+import oop.focus.application.view.abstractButtonsAppView;
 import oop.focus.common.Controller;
 import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
@@ -10,7 +10,7 @@ import oop.focus.common.View;
 public class ButtonsController implements Controller {
     private final View buttonsView;
     public ButtonsController(final UpdatableController<Controller> controller) {
-        this.buttonsView = new ButtonsAppView(controller);
+        this.buttonsView = new abstractButtonsAppView(controller);
     }
 
     /**

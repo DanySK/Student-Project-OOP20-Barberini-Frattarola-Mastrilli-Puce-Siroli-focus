@@ -31,13 +31,13 @@ public class DirectoryConnector implements Connector<File> {
     }
 
     @Override
-    public void open() throws ConnectionException, IllegalStateException {
+    public void open() throws IllegalStateException {
 
     }
 
 
     @Override
-    public void close() throws ConnectionException, IllegalStateException {
+    public void close() throws IllegalStateException {
 
     }
 

@@ -24,7 +24,7 @@ public class DiaryConnector implements Connector<FileManager> {
      * {@inheritDoc}
      */
     @Override
-    public final void create() throws ConnectionException {
+    public final void create() {
         if (!this.file.exists()) {
             try {
                 Files.createFile(this.file.toPath());

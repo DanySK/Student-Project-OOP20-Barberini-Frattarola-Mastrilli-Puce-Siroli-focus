@@ -50,12 +50,8 @@ public class DailyMoodSection implements View {
         this.dailyMoodLabel = new Label("Come ti senti oggi?");
         this.controller = controller;
         this.button = new Button("Modifica");
-        try {
-            this.setGrid();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-         this.setBrightness();
+        this.setGrid();
+        this.setBrightness();
         this.map.keySet().forEach(s -> s.setOnMouseClicked(new EventHandler<>() {
             @Override
             public void handle(final MouseEvent event) {
@@ -82,9 +78,8 @@ public class DailyMoodSection implements View {
     /**
      * Sets the configuration and fill a {@link GridPane} with different {@link Button}. It also sets the
      * graphic of each button taking it from the apposite class {@link DailyMoodView}.
-     * @throws IOException  if isn't possible to set graphic of buttons
      */
-    private void setGrid() throws IOException {
+    private void setGrid() {
         int index = 0;
         this.gridPane.setVgap(GRID_GAP);
         this.gridPane.setHgap(GRID_GAP);

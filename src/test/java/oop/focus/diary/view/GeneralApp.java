@@ -12,7 +12,7 @@ import oop.focus.diary.controller.GeneralDiaryController;
 
 public class GeneralApp extends Application {
     @Override
-    public final void start(final Stage primaryStage) throws Exception {
+    public final void start(final Stage primaryStage) {
         final Dimension2D dim = new Dimension2D(1400, 900);
         final DataSourceImpl dataSource = new DataSourceImpl();
         final Scene scene = new Scene((Parent) new GeneralDiaryController(dataSource).getView().getRoot());

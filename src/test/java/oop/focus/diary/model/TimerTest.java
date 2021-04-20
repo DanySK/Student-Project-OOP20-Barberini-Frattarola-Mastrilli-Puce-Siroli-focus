@@ -15,12 +15,14 @@ public class TimerTest {
     public void TimerTest() throws InterruptedException {
         final String str = "test1";
         this.timer.createCounter(str);
-        //il timer relativo all'attività è settata a 5 sec
-        this.timer.setStarterValue(5);
+        //il timer relativo all'attività è settata a 10 sec
+        this.timer.setStarterValue(10);
         this.timer.startCounter();
-        Thread.sleep(5000);
-        assertEquals(this.csc.computePeriod(str).get().getSeconds(), 5);
-        this.me.removeAll();
+        Thread.sleep(2000);
+        this.timer.stopCounter();
+        assertEquals(2, this.csc.computePeriod(str).get().getSeconds());
+        Thread.sleep(6000);
+        this.me.removeEvent(this.me.findByName(str).stream().findAny().get());
 
     }
 

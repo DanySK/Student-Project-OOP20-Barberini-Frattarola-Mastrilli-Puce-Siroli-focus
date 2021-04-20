@@ -1,43 +1,41 @@
 package oop.focus.diary.model;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 public class DiaryDaoTest {
     private final DiaryDao dsd = new DiaryDao();
-    private final DiaryImpl diario1 = new DiaryImpl("oggi il tempo è brutto, sta per piovere", "oggioggi");
-    private final DiaryImpl diario2 = new DiaryImpl("domani il tempo sarà bello e il sole splenderà", "domanidomani");
-    private final DiaryImpl diario3 = new DiaryImpl("provaprovaprova", "provaprova");
-    private final DiaryImpl diario4 = new DiaryImpl("ciaociao", "provaprova");
-    private final DiaryImpl diario5 = new DiaryImpl("aaaaa", "prova1prova1");
-    private final DiaryImpl diario6 = new DiaryImpl("ccccc", "provaprova2");
+    private final DiaryImpl diary1 = new DiaryImpl("testDiary1",
+            "test1");
+    private final DiaryImpl diary2 = new DiaryImpl("testDiary2",
+            "test2");
+    private final DiaryImpl diary5 = new DiaryImpl("testDiary5", "test5");
+    private final DiaryImpl diary6 = new DiaryImpl("testDiary6", "test6");
 
     @Test
     public void testBackupPages() {
-        this.dsd.save(this.diario1);
-        this.dsd.save(this.diario2);
-        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " " + a.getContent()));
-        this.dsd.delete(this.diario1);
-        this.dsd.delete(this.diario2);
+        this.dsd.save(this.diary1);
+        this.dsd.save(this.diary2);
+        assertEquals("testDiary1", this.dsd.getAll().stream().
+                filter(s -> s.equals(this.diary1)).findAny().get().getContent());
+        assertEquals("testDiary2", this.dsd.getAll().stream().
+                filter(s -> s.equals(this.diary2)).findAny().get().getContent());
+        this.dsd.delete(this.diary1);
+        this.dsd.delete(this.diary2);
     }
     @Test
     public void testUpdate() {
-        this.dsd.save(this.diario5);
-        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " " + a.getContent()));
-        this.dsd.update(new DiaryImpl("bbbbb", "prova1prova1"));
-        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " " + a.getContent()));
-        this.dsd.delete(this.diario5);
+        this.dsd.save(this.diary5);
+        assertEquals("testDiary5", this.dsd.getAll().stream().
+                filter(s -> s.getName().equals(this.diary5.getName())).findAny().get().getContent());
+        this.dsd.update(new DiaryImpl("This is a test", "test5"));
+        assertEquals("This is a test", this.dsd.getAll().stream().
+                filter(s -> s.getName().equals(this.diary5.getName())).findAny().get().getContent());
+        this.dsd.delete(this.diary5);
     }
     @Test (expected = IllegalArgumentException.class)
     public void testUpdateNewNote() {
-        this.dsd.update(diario6);
-        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " " + a.getContent()));
-    }
-    @Test
-    public void anotherTest() {
-        this.dsd.save(this.diario3);
-        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " "+ a.getContent()));
-        this.dsd.update(this.diario4);
-        this.dsd.getAll().forEach(a -> System.out.println(a.getName() + " "+ a.getContent()));
-        this.dsd.delete(this.diario4);
+        this.dsd.update(this.diary6);
     }
 
 }

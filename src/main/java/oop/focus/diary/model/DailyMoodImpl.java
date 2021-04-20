@@ -7,7 +7,7 @@ import org.joda.time.LocalDate;
  */
 public class DailyMoodImpl implements DailyMood {
     private int value;
-    private LocalDate date;
+    private final LocalDate date;
 
     /**
      * Instantiates a new daily mood.
@@ -53,9 +53,6 @@ public class DailyMoodImpl implements DailyMood {
         final DailyMoodImpl other = (DailyMoodImpl) obj;
         if (this.date == null) {
             return other.date == null;
-        } else if (!date.equals(other.date)) {
-            return false;
-        }
-        return true;
+        } else return this.date.equals(other.date);
     }
 }
