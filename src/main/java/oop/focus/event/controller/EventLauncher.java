@@ -32,7 +32,7 @@ public class EventLauncher extends Application {
 
     }
 
-    public static final void main(final String... args) {
+    public static void main(final String... args) {
         launch(args);
     }
 }

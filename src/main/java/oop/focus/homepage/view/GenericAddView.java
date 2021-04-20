@@ -27,7 +27,7 @@ public interface GenericAddView extends Initializable, View {
      * @param event is the action event.
      * @throws IOException if is impossible to save the element.
      */
-    void delete(ActionEvent event);
+    void delete(ActionEvent event) throws IOException;
 
     /**
      * This method is used to get the root of a view.

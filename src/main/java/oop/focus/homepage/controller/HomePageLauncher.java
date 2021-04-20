@@ -18,8 +18,6 @@ public class HomePageLauncher extends Application {
         final DataSource dsi = new DataSourceImpl();
         final FinanceManager financeManager = new FinanceManagerImpl(dsi);
         final GeneralHomePageController controller = new GeneralHomePageControllerImpl(dsi, financeManager);
-        //final HomePageController controller = new HomePageControllerImpl(dsi);
-        //final HotKeyController contr = new HotKeyControllerImpl(dsi);
         final Scene scene = new Scene((Parent) controller.getView().getRoot());
         primaryStage.setScene(scene);
         primaryStage.show();

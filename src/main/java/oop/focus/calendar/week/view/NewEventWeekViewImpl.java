@@ -17,7 +17,6 @@ import org.joda.time.LocalTime;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -108,18 +107,12 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     }
 
     public final void setButtonAction() {
-        this.add.setOnAction(event -> {
-            try {
-                this.save(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        });
+        this.add.setOnAction(event -> this.save());
 
-        this.delete.setOnAction(event -> this.delete(event));
+        this.delete.setOnAction(event -> this.delete());
     }
 
-    public final void delete(final ActionEvent event) {
+    public final void delete() {
         this.textFieldName.clear();
 
         this.choiceStartHour.getSelectionModel().clearSelection();
@@ -173,12 +166,13 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
        return this.root;
     }
 
-    public final void save(final ActionEvent event) throws IOException {
+    @Override
+    public final void save() {
         if (!this.textFieldName.getText().isEmpty() && !this.choiceStartHour.getSelectionModel().isEmpty()
                 && !this.choiceStartMinute.getSelectionModel().isEmpty() && !this.choiceEndHour.getSelectionModel().isEmpty()
                 && !this.choiceEndMinute.getSelectionModel().isEmpty() && !String.valueOf(this.datePickerStart.getValue()).isEmpty()
                 && !String.valueOf(this.datePickerEnd.getValue()).isEmpty() && !this.repetitionChoice.getSelectionModel().isEmpty()) {
-            this.saveEvent(event);
+            this.saveEvent();
 
             this.controller.getWeek().getView().setWeekDays();
             this.controller.getWeek().getHomePageController().getView().setDay();
@@ -195,7 +189,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         }
     }
 
-    public final void saveEvent(final ActionEvent event) throws IOException {
+    public final void saveEvent() {
         final LocalTime startTime = new LocalTime(Integer.valueOf(this.choiceStartHour.getSelectionModel().getSelectedItem()), Integer.valueOf(this.choiceStartMinute.getSelectionModel().getSelectedItem()));
         final LocalTime endTime = new LocalTime(Integer.valueOf(this.choiceEndHour.getSelectionModel().getSelectedItem()), Integer.valueOf(this.choiceEndMinute.getSelectionModel().getSelectedItem()));
 
@@ -216,7 +210,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         if (this.validateEvent(eventToSave)) {
                 try {
                     this.controller.addNewEvent(eventToSave);
-                    this.delete(event);
+                    this.delete();
                     final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
                     stage.close();
                 } catch (final IllegalStateException e) {

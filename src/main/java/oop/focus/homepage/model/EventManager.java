@@ -59,8 +59,8 @@ public interface EventManager {
     Set<Event> getAll();
 
     /**
-     * 
-     * @param date
+     * This method is used to save all recurring events to date.
+     * @param date is the date until saving repeating events.
      * @return a list of event.
      */
     List<Event> getFutureEvent(LocalDate date);
@@ -77,6 +77,10 @@ public interface EventManager {
      */
     void removeEvent(Event event);
 
+    /**
+     * This method is used to save the timer.
+     * @param event is the event generated to save the timer.
+     */
     void saveTimer(Event event);
 
     /**
@@ -88,7 +92,7 @@ public interface EventManager {
 
     /**
      * This method is used to get all the save event and to track the change.
-     * @return ObservableSet<Event> that represent all the save event.
+     * @return ObservableSet that represent all the save event.
      */
     ObservableSet<Event> getAllSaveEvent();
 

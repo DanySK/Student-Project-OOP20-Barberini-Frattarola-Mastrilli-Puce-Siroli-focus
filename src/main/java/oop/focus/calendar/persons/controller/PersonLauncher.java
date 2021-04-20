@@ -20,7 +20,7 @@ public class PersonLauncher extends Application {
         primaryStage.setOnCloseRequest(e -> Platform.exit());
     }
 
-    public static final void main(final String... args) {
+    public static void main(final String... args) {
         launch(args);
     }
 }

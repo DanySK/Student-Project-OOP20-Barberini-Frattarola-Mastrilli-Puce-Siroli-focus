@@ -41,7 +41,7 @@ public interface NewEventController {
 
     /**
      * This method is used to get all the saved repetition.
-     * @return  ObservableList<Repetition> that represent all the saved repetition.
+     * @return  ObservableList that represent all the saved repetition.
      */
     ObservableList<Repetition> getRep();
 }

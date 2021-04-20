@@ -6,6 +6,7 @@ import oop.focus.homepage.model.EventManager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
@@ -66,7 +67,7 @@ public class EventTest {
     @Test
     public void findEventsTest() {
         this.eventi.addEvent(sixth);
-        assertTrue(Filter.takeOnlyDailyEvent(this.eventi.getAll().stream().collect(Collectors.toList())).contains(sixth));
+        assertTrue(Filter.takeOnlyDailyEvent(new ArrayList<>(this.eventi.getAll())).contains(sixth));
         this.eventi.removeEvent(sixth);
     }
 

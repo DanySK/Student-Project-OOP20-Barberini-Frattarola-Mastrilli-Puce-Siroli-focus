@@ -83,5 +83,9 @@ public interface HomePageController {
      */
     void setText(String text);
 
+    /**
+     * This method is used to get all the repetition to fill the combo box for add a new event.
+     * @return ObservableList that contains all the repetitions name.
+     */
     ObservableList<Repetition> getRep();
 }

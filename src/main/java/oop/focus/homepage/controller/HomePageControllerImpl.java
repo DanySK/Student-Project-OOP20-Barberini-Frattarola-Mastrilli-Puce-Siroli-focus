@@ -33,7 +33,7 @@ public class HomePageControllerImpl implements HomePageController {
     public HomePageControllerImpl(final DataSource dsi) {
         this.dsi = dsi;
         this.eventManager = new EventManagerImpl(dsi);
-        this.hotKeyManager = new HotKeyManagerImpl(dsi, this.eventManager);
+        this.hotKeyManager = new HotKeyManagerImpl(dsi);
         this.nameEvent = " ";
         this.view = new HomePageBaseViewImpl(this);
     }

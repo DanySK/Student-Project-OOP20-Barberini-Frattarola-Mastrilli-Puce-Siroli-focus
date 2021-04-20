@@ -38,5 +38,9 @@ public interface RelationshipsController {
      */
     View getView();
 
+    /**
+     * This method is used to get all the used degree of kinship from all the saved persons.
+     * @return List of String that contains all the used degrees of kinship.
+     */
     List<String> getPersons();
 }

@@ -3,11 +3,9 @@ package oop.focus.homepage.model;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
-import org.joda.time.LocalDateTime;
 
 import javafx.collections.ObservableSet;
 
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -18,19 +16,13 @@ import java.util.Set;
 public class HotKeyManagerImpl implements HotKeyManager {
 
     private final Dao<HotKey> sd;
-    private final EventManager manager;
+
     /**
      * This is the class constructor.
      * @param dsi is the DataSource.
-     * @param manager is the manager of events.
      */
-    public HotKeyManagerImpl(final DataSource dsi, final EventManager manager) {
+    public HotKeyManagerImpl(final DataSource dsi) {
         this.sd = dsi.getHotKeys();
-        this.manager = manager;
-    }
-//valuta se togliete
-    public final void action(final HotKey hotKey, final LocalDateTime start, final LocalDateTime end) {
-        this.manager.addEvent(hotKey.createEvent(start, end));
     }
 
     public final void add(final HotKey hotKey) {
@@ -57,25 +49,11 @@ public class HotKeyManagerImpl implements HotKeyManager {
         return hotKey.getType();
     }
 
-    public final List<Event> getEventsHotKey() {
-        return this.manager.getHotKeyEvents();
-    }
- 
-    public final long getClickCount(final String name) {
-        return this.getEventsHotKey().stream().filter(e -> e.getName().equals(name)).count();
-    }
-
     public final void remove(final HotKey hotKey) {
         try {
             this.sd.delete(hotKey);
         } catch (final DaoAccessException e) {
             e.printStackTrace();
-        }
-    }
-
-    public final void removeAll(final Set<HotKey> hotKeys) {
-        for (final HotKey hotKey : hotKeys) {
-            this.remove(hotKey);
         }
     }
 

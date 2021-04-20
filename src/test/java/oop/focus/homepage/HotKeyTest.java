@@ -2,8 +2,6 @@ package oop.focus.homepage;
 
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyManager;
@@ -18,8 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class HotKeyTest {
 
 	private final DataSource dsi = new DataSourceImpl();
-	private final EventManager manager = new EventManagerImpl(dsi);
-	private final HotKeyManager hotKeyTrackers = new HotKeyManagerImpl(dsi, manager);
+	private final HotKeyManager hotKeyTrackers = new HotKeyManagerImpl(dsi);
 
 	/**
 	 * This test is used to verify the correctness of adding and removing hot keys.
