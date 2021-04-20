@@ -21,7 +21,7 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
         this.controller = controller;
         this.checkBox = new CheckBox(name);
         this.initSelection();
-        this.checkBox.setStyle("-fx-background-color:" + HotKeyType.EVENT.getColor() + ";");
+        this.checkBox.setStyle("-fx-background-color:" + HotKeyType.ACTIVITY.getColor() + ";");
 
         this.setAction();
         this.getChildren().add(this.checkBox);

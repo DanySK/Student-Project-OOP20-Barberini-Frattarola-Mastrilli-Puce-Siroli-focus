@@ -55,9 +55,6 @@ public class EventInformationViewImpl implements View, Initializable {
         this.name.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
         this.name.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
 
-        /*this.startDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
-        this.startDate.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
-        */
         this.insertStartDate.prefHeightProperty().bind(this.paneEventInformation.heightProperty().multiply(Constants.PREF_HEIGHT));
         this.insertStartDate.prefWidthProperty().bind(this.paneEventInformation.widthProperty().multiply(Constants.PREF_WIDTH));
     }
@@ -74,7 +71,9 @@ public class EventInformationViewImpl implements View, Initializable {
         this.insertEndHour.setText(this.controller.getEvent().getEnd().toString());
         this.insertStartDate.setText(this.controller.getEvent().getStart().toString());
         this.labelRepetition.setText(this.controller.getEvent().getRipetition().toString());
-        this.viewOfPersons.setItems(this.controller.getPersons());
+        if (!this.controller.getPersons().isEmpty()) {
+            this.viewOfPersons.setItems(this.controller.getPersons());
+        }
     }
 
     private void setButtonOnAction() {
@@ -91,7 +90,6 @@ public class EventInformationViewImpl implements View, Initializable {
         this.controller.stopRepetition();
         this.controller.getMenu().getWeek().getView().setWeekDays();
         this.controller.getMenu().getMonth().updateView();
-        //((EventMenuView) this.controller.getMenu().getView()).refreshTable();
         this.labelRepetition.setText(Repetition.ONCE.toString());
     }
 

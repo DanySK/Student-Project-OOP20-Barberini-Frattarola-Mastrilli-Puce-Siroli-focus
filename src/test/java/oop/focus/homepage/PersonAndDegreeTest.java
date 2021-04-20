@@ -23,8 +23,6 @@ public class PersonAndDegreeTest {
     private final Person p1 = new PersonImpl("n1", "r1");
     private final Person p2 = new PersonImpl("n2", "r2");
     private final Person p3 = new PersonImpl("n3", "r3");
-    private final Person p4 = new PersonImpl("n4", "r4");
-    private final Person p5 = new PersonImpl("n5", "r5");
 
 	/**
 	 * This test is use to save and remove relationships from the database.

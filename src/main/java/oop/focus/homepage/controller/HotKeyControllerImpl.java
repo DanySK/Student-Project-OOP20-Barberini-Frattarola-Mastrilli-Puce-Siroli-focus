@@ -1,7 +1,6 @@
 package oop.focus.homepage.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventManager;
@@ -11,11 +10,7 @@ import oop.focus.homepage.model.HotKeyManager;
 import oop.focus.homepage.model.HotKeyManagerImpl;
 import oop.focus.homepage.view.HotKeyMenuView;
 import oop.focus.homepage.view.HotKeyMenuViewImpl;
-
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class HotKeyControllerImpl implements HotKeyController {
 
@@ -46,12 +41,8 @@ public class HotKeyControllerImpl implements HotKeyController {
         return this.dsi;
     }
 
-    public final ObservableList<HotKey> getSortedHotKey() {
-        final ObservableList<HotKey> list = FXCollections.observableArrayList();
-        List<HotKey> arrayList = new ArrayList<>(this.hotKeyManager.getAll());
-        arrayList = arrayList.stream().sorted(Comparator.comparing(HotKey :: getName)).collect(Collectors.toList());
-        arrayList.forEach(list::add);
-        return list;
+    public final ObservableSet<HotKey> getSortedHotKey() {
+        return this.hotKeyManager.getAll();
     }
 
     public final HotKeyMenuView getView() {

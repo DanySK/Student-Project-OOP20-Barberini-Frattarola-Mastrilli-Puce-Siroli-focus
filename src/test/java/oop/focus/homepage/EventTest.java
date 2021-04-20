@@ -4,8 +4,9 @@ package oop.focus.homepage;
 import oop.focus.homepage.model.EventManager;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
@@ -14,6 +15,7 @@ import org.junit.Test;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.homepage.model.Filter;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.common.Repetition;
@@ -30,21 +32,7 @@ public class EventTest {
     private final Event fourth = new EventImpl("Ikea", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
     private final Event fifth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 6, 30), Repetition.ONCE);
     private final Event sixth = new EventImpl("Estetista", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 27, 10, 00), Repetition.ONCE);
-    private final Event seventh = new EventImpl("Cane", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 26, 9, 15), Repetition.ONCE);
-
-    @Test
-    public void testRepeat(){
-        Event repeated = new EventImpl("Repeat", new LocalDateTime(2021, 4, 13, 00, 00), new LocalDateTime(2021, 4, 13, 2, 00), Repetition.DAILY);
-        try{
-            this.eventi.addEvent(repeated);
-        } catch (IllegalStateException ignored){}
-
-        this.eventi.generateRepeatedEvents(LocalDate.now());;
-        for (Event e : this.eventi.getAll()){
-            System.out.println(e.getName());
-        }
-    }
-    /*
+    
     @Test
     public void addingAndRemovingEventTest() {
         try {
@@ -56,28 +44,16 @@ public class EventTest {
 
         this.eventi.addEvent(second);
 
-        for (final Event e : this.eventi.getEvents()){
-            System.out.println(e.getName());
-        }
-        assertTrue(this.eventi.getEvents().contains(first));
-        assertTrue(this.eventi.getEvents().contains(second));
-        assertTrue(this.eventi.getEvents().contains(third));
+        assertTrue(this.eventi.getAll().contains(first));
+        assertTrue(this.eventi.getAll().contains(second));
+        assertTrue(this.eventi.getAll().contains(third));
 
         this.eventi.removeEvent(first);
         this.eventi.removeEvent(second);
         this.eventi.removeEvent(third);
     }
 
-    //prendo solo gli eventi che hanno durata superiore o uguale a 30 minuti.
-    /*@Test
-    public void durationInMinutes() {
- 
-    	this.eventi.addEvent(seventh);
-    	assertFalse(this.eventi.getEventsWithDuration().contains(seventh));
-    	this.eventi.removeEvent(seventh);
-    }*/
-
-  /*  @Test
+    @Test
     public void equalsEventsTest() {
 
     	final Event firstCopy = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.DAILY);
@@ -93,9 +69,10 @@ public class EventTest {
         for (final Event e : this.eventi.getAll()){
             System.out.println(e.getName());
         }
-        assertTrue(this.eventi.getDailyEvents().contains(sixth));
+        assertTrue(Filter.takeOnlyDailyEvent(this.eventi.getAll().stream().collect(Collectors.toList())).contains(sixth));
         this.eventi.removeEvent(sixth);
     }
+
     @Test
     public void findByDateTest() {
         try {
@@ -124,6 +101,6 @@ public class EventTest {
 
         assertEquals(third.getStartHour(), new LocalTime(11, 30));
         assertEquals(third.getEndHour(), new LocalTime(18, 30));
-    }*/
+    }
 
 }

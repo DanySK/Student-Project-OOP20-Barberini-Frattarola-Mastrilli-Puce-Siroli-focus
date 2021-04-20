@@ -1,5 +1,8 @@
 package oop.focus.calendar.persons.view;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +21,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import oop.focus.calendar.persons.controller.PersonsController;
+import oop.focus.common.Linker;
 import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.homepage.model.Person;
 import oop.focus.homepage.model.PersonImpl;
+import oop.focus.homepage.view.GenericAddView;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.io.IOException;
@@ -46,6 +51,8 @@ public class PersonsViewImpl implements PersonsView {
 
     private final PersonsController controller;
     private Node root;
+    private final ObservableList<Person> list;
+    private final ObservableSet<Person> set;
 
     public PersonsViewImpl(final PersonsController controller) {
         this.controller = controller;
@@ -59,7 +66,12 @@ public class PersonsViewImpl implements PersonsView {
             e.printStackTrace();
         }
         this.setRoot();
-        }
+        this.set = this.controller.getPersons();
+        this.list = FXCollections.observableArrayList();
+        Linker.setToList(this.set, this.list);
+        this.populateTableView();
+        this.tableViewPersons.setItems(this.list);
+    }
 
     private void setRoot() {
         this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.panePersons.getChildren())).getRoot();
@@ -72,7 +84,7 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     public final void add(final ActionEvent event) {
-        final AddNewPersonView newPerson = new AddNewPersonViewImpl(this.controller, this);
+        final GenericAddView newPerson = new AddNewPersonViewImpl(this.controller);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newPerson.getRoot()));
         stage.show();
@@ -96,7 +108,6 @@ public class PersonsViewImpl implements PersonsView {
         final String name = this.tableViewPersons.getSelectionModel().getSelectedItem().getName();
         final String degree = this.tableViewPersons.getSelectionModel().getSelectedItem().getRelationships();
         this.controller.deletePerson(new PersonImpl(name, degree));
-        this.refreshTableView();
     }
 
     @Override
@@ -127,7 +138,6 @@ public class PersonsViewImpl implements PersonsView {
 
         this.tableViewPersons.setEditable(false);
         this.tableViewPersons.getItems().clear();
-        this.tableViewPersons.setItems(this.controller.getPersons());
     }
 
     private void setButtonOnAction() {
@@ -135,8 +145,5 @@ public class PersonsViewImpl implements PersonsView {
         this.delete.setOnAction(event -> this.delete(event));
     }
 
-    public final void refreshTableView() {
-        this.tableViewPersons.getItems().removeAll(this.tableViewPersons.getSelectionModel().getSelectedItems());
-    }
 
 }

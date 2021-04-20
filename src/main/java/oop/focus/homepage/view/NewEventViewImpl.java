@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -71,6 +72,7 @@ public class NewEventViewImpl implements NewEventView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.list = FXCollections.observableArrayList();
         this.newEventName.setText(this.controller.getText());
 
         this.setProperty();
@@ -97,7 +99,6 @@ public class NewEventViewImpl implements NewEventView {
         this.endMinuteChoice.setItems(filler.getHourAndMinute(Constants.MINUTE_PER_HOUR));
 
         this.repetitionChoice.setItems(this.controller.getRep());
-        this.controller.getRep().forEach(System.out::println);
         this.repetitionChoice.setConverter(new StringConverter<>() {
             @Override
             public String toString(final Repetition repetition) {
@@ -115,7 +116,8 @@ public class NewEventViewImpl implements NewEventView {
         final PersonsController persons = new PersonsControllerImpl(this.controller.getDsi());
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
-        this.list = persons.getPersons();
+        final List<Person> temp = persons.getPersons().stream().collect(Collectors.toList());
+        temp.forEach(p -> this.list.add(p));
         this.list.forEach(p -> listOfString.add(p.toString()));
 
         this.listOfPersons.setItems(listOfString);
@@ -168,12 +170,21 @@ public class NewEventViewImpl implements NewEventView {
 
         final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
 
-        try {
-            this.controller.saveEvent(eventToSave);
-            this.goBack(event);
-        } catch (final IllegalStateException e) {
+        if (this.validateEvent(eventToSave)) {
+            try {
+                this.controller.saveEvent(eventToSave);
+                this.goBack(event);
+            } catch (final IllegalStateException e) {
+                new AlertFactoryImpl().createEventWarning();
+            } 
+        } else {
             new AlertFactoryImpl().createHourOrDateError();
         }
+    }
+
+    private boolean validateEvent(final Event eventToSave) {
+        return eventToSave.getStartDate().equals(eventToSave.getEndDate()) && eventToSave.getStartHour().isBefore(eventToSave.getEndHour())
+            || eventToSave.getStartDate().isBefore(eventToSave.getEndDate());
     }
 
     public final void setButtonOnAction() {

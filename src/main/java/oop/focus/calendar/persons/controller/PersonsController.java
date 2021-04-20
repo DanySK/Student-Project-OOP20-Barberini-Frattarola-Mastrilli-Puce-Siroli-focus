@@ -1,6 +1,6 @@
 package oop.focus.calendar.persons.controller;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
@@ -23,7 +23,7 @@ public interface PersonsController {
      * This method is used to get an ObservableList of string.
      * @return the list of the string that represent the relationships.
      */
-    ObservableList<String> getDegree();
+    ObservableSet<String> getDegree();
 
     /**
      * This method is used to get the dsi.
@@ -35,7 +35,7 @@ public interface PersonsController {
      * This method is used to get an ObservableList of persons.
      * @return the list of the persons.
      */
-    ObservableList<Person> getPersons();
+    ObservableSet<Person>  getPersons();
 
     /**
      * This method is used to get the view.

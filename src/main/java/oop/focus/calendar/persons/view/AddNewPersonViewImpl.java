@@ -3,6 +3,9 @@ package oop.focus.calendar.persons.view;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,14 +20,16 @@ import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.RelationshipsControllerImpl;
+import oop.focus.common.Linker;
 import oop.focus.homepage.model.PersonImpl;
 import oop.focus.homepage.view.AlertFactoryImpl;
+import oop.focus.homepage.view.GenericAddView;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddNewPersonViewImpl implements AddNewPersonView {
+public class AddNewPersonViewImpl implements GenericAddView {
 
     @FXML
     private Button save, back, delete, newDegree;
@@ -43,12 +48,12 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
 
 
     private final PersonsController controller;
-    private final PersonsView personsView;
     private Node root;
+    private final ObservableList<String> list;
+    private final ObservableSet<String> set;
 
-    public AddNewPersonViewImpl(final PersonsController controller, final PersonsView personsView) {
+    public AddNewPersonViewImpl(final PersonsController controller) {
         this.controller = controller;
-        this.personsView = personsView;
 
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.ADDNEWPERSON.getPath()));
         loader.setController(this);
@@ -58,16 +63,18 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
             e.printStackTrace();
         }
         this.setProperty();
+        this.set = this.controller.getDegree();
+        this.list = FXCollections.observableArrayList();
+        Linker.setToList(this.set, this.list);
+        this.degreeComboBox.setItems(this.list);
     }
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.fillComboBoxDegree();
         this.setButtonOnAction();
     }
 
     private void setButtonOnAction() {
-        this.degreeComboBox.setItems(this.controller.getDegree());
         this.save.setOnAction(event -> {
             try {
                 this.save(event);
@@ -83,7 +90,7 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     }
 
     private void newDegree() {
-        final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi(), this);
+        final RelationshipsController relationshipsController = new RelationshipsControllerImpl(this.controller.getDsi());
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) relationshipsController.getView().getRoot()));
         stage.show();
@@ -115,11 +122,6 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     }
 
     @Override
-    public final void fillComboBoxDegree() {
-        this.degreeComboBox.setItems(this.controller.getDegree());
-    }
-
-    @Override
     public final Node getRoot() {
         return this.root;
     }
@@ -132,7 +134,6 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
     public final void save(final ActionEvent event) throws IOException {
         if (!this.nameTextField.getText().isEmpty() && !this.degreeComboBox.getSelectionModel().isEmpty()) {
             this.controller.addPerson(new PersonImpl(this.nameTextField.getText(), this.degreeComboBox.getSelectionModel().getSelectedItem()));
-            this.personsView.populateTableView();
             this.goBack(event);
         } else {
             new AlertFactoryImpl().createIncompleteFieldAlert();
@@ -145,4 +146,5 @@ public class AddNewPersonViewImpl implements AddNewPersonView {
         private static final double LABEL_WIDTH = 0.8;
         private static final double LABEL_HEIGHT = 0.1;
     }
+
 }

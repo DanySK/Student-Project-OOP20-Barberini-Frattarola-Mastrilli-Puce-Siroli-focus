@@ -1,6 +1,7 @@
 package oop.focus.homepage.model;
 
-import java.util.Set;
+
+import javafx.collections.ObservableSet;
 
 public interface PersonsManager {
 
@@ -14,7 +15,7 @@ public interface PersonsManager {
      * This method is used to get all the saved persons.
      * @return a list of persons.
      */
-    Set<Person> getPersons();
+    ObservableSet<Person> getPersons();
 
     /**
      * This method is used to remove a person from the database if it's already saved.

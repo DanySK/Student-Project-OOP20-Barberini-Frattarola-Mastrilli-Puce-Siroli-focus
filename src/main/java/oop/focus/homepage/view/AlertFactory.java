@@ -21,4 +21,16 @@ public interface AlertFactory {
      * @return an Alert of warning type.
      */
     Alert createHourOrDateError();
+
+    /**
+     * This method is use to create an alert when when the item we want to save is already present.
+     * @return an Alert of warning type.
+     */
+    Alert createAlreadyPresentItem();
+
+    /**
+     * This method is use to create an alert when when it's not possible to save an event.
+     * @return an Alert of warning type.
+     */
+    Alert createEventWarning();
 }

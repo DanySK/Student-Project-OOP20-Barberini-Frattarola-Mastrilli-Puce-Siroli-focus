@@ -1,7 +1,8 @@
 package oop.focus.homepage.model;
 
 import java.util.List;
-import java.util.Set;
+
+import javafx.collections.ObservableSet;
 
 public interface RelationshipsManager {
 
@@ -21,7 +22,7 @@ public interface RelationshipsManager {
      * This method is used to get all degrees of relationship saved.
      * @return a set of string that represent all the saved degrees of relationship.
      */
-    Set<String> getAll();
+    ObservableSet<String> getAll();
 
     /**
      * This method is used to remove a degree of kinship from all the saved degrees of kinship.

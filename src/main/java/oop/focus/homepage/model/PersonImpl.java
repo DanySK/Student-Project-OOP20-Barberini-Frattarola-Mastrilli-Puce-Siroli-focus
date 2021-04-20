@@ -56,7 +56,9 @@ public class PersonImpl implements Person {
         }
         if (this.name == null) {
             return other.name == null;
-        } else return this.name.equals(other.name);
+        } else {
+            return this.name.equals(other.name);
+        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package oop.focus.homepage.controller;
 
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.view.HotKeyMenuView;
@@ -23,7 +23,7 @@ public interface HotKeyController {
      * This method is used to get all the saved hot keys sorted by name.
      * @return an observable list of hot keys.
      */
-    ObservableList<HotKey> getSortedHotKey();
+    ObservableSet<HotKey> getSortedHotKey();
 
     /**
      * This method is used to save a specific hot key into the database.

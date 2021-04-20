@@ -21,10 +21,4 @@ public interface RelationshipsView extends Initializable, View {
      * @return Node that represent the root.
      */
     Node getRoot();
-
-    /**
-     * This method is used to populate the tableview with all of the relationsips saved.
-     */
-    void populateTableView();
-
 }

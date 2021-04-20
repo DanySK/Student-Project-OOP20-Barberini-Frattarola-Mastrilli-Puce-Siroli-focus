@@ -35,12 +35,8 @@ public class NewEventControllerImpl implements NewEventController {
     }
 
     public final void addNewEvent(final Event event) {
-        try {
-            this.eventManager.addEvent(event);
-            this.eventManager.generateRepeatedEvents(LocalDate.now());
-        } catch (final IllegalStateException e) {
-            throw new IllegalStateException();
-        }
+        this.eventManager.addEvent(event);
+        this.eventManager.generateRepeatedEvents(LocalDate.now());
     }
 
     public final DataSource getDsi() {

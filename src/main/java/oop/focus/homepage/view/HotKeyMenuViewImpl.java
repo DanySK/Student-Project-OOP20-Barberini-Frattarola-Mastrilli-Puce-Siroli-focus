@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,9 +21,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import oop.focus.common.Linker;
 import oop.focus.homepage.controller.FXMLPaths;
 import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.controller.HotKeyController;
@@ -45,6 +48,9 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     private final HomePageController controllerHomePage;
     private Node root;
 
+    private final ObservableList<HotKey> list;
+    private final ObservableSet<HotKey> set;
+
     public HotKeyMenuViewImpl(final HotKeyController controller, final HomePageController homePageController) {
         this.controller = controller;
         this.controllerHomePage = homePageController;
@@ -57,6 +63,12 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
             e.printStackTrace();
         }
         this.setProperties();
+
+        this.set = this.controller.getSortedHotKey();
+        this.list = FXCollections.observableArrayList();
+        Linker.setToList(this.set, this.list);
+        this.populateTableView();
+        this.tableHotKeyList.setItems(this.list);
     }
 
     private void setProperties() {
@@ -79,7 +91,6 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
         this.setButtonAction();
-        this.populateTableView();
     }
 
     @FXML
@@ -93,7 +104,6 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     private void deleteItem() {
         this.controller.deleteHotKey(this.tableHotKeyList.getSelectionModel().getSelectedItem());
         this.controllerHomePage.getView().fullVBoxHotKey();
-        this.refreshTableView();
     }
 
     @FXML
@@ -137,12 +147,6 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         });
 
         this.tableHotKeyList.setEditable(false);
-        this.tableHotKeyList.getItems().clear();
-        this.tableHotKeyList.setItems(this.controller.getSortedHotKey());
-    }
-
-    private void refreshTableView() {
-        this.tableHotKeyList.getItems().removeAll(this.tableHotKeyList.getSelectionModel().getSelectedItems());
     }
 
     public final void setButtonAction() {

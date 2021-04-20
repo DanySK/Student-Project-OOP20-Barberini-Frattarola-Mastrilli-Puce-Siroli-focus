@@ -14,7 +14,7 @@ public enum HotKeyType {
     /**
      * The activity hot key is represented from the purple color, the Italian translation of its category and has as identification number the number two.
      */ 
-    ACTIVITY("#8634eb", "Attività"),
+    ACTIVITY("#dcc5f0", "Attività"),
     /**
      * The counter hot key is represented from the blue color, the Italian translation of its category and has as identification number the number three.
      */

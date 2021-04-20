@@ -1,8 +1,8 @@
 package oop.focus.homepage.model;
 
 import java.util.List;
-import java.util.Set;
 
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -35,7 +35,7 @@ public class RelationshipsManagerImpl implements RelationshipsManager {
         }
     }
 
-    public final Set<String> getAll() {
+    public final ObservableSet<String> getAll() {
         return this.sd.getAll();
     }
 

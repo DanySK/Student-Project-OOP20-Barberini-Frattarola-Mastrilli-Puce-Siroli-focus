@@ -1,5 +1,8 @@
 package oop.focus.calendar.persons.view;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,6 +23,7 @@ import java.util.ResourceBundle;
 
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
+import oop.focus.common.Linker;
 import oop.focus.common.View;
 
 
@@ -38,12 +42,12 @@ public class RelationshipsViewImpl implements RelationshipsView {
     private Button addRelationship, goBack, deleteRelationship;
 
     private final RelationshipsController controller;
-    private final AddNewPersonView personView;
     private Node root;
+    private final ObservableList<String> list;
+    private final ObservableSet<String> set;
 
-    public RelationshipsViewImpl(final RelationshipsController controller, final AddNewPersonView personView) {
+    public RelationshipsViewImpl(final RelationshipsController controller) {
         this.controller = controller;
-        this.personView = personView;
 
         final FXMLLoader loader = new FXMLLoader(this.getClass().getResource(FXMLPaths.RELATIONSHIPS.getPath()));
         loader.setController(this);
@@ -54,6 +58,11 @@ public class RelationshipsViewImpl implements RelationshipsView {
             e.printStackTrace();
         }
         this.setProperty();
+        this.set = this.controller.getDegree();
+        this.list = FXCollections.observableArrayList();
+        Linker.setToList(this.set, this.list);
+        this.populateTableView();
+        this.relationshipsTable.setItems(this.list);
     }
 
     private void setProperty() {
@@ -70,26 +79,24 @@ public class RelationshipsViewImpl implements RelationshipsView {
 
     @FXML
     public final void addRelationships() {
-        final View newDegree = new AddNewRelationship(this.controller, this.personView);
+        final View newDegree = new AddNewRelationship(this.controller);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) newDegree.getRoot()));
         stage.show();
     }
 
     private void deleteItem() {
-            try {
-                this.controller.deleteRelationship(this.relationshipsTable.getSelectionModel().getSelectedItem());
-                this.personView.fillComboBoxDegree();
-                this.refreshTableView();
-            } catch (final IllegalStateException e) {
-                final Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Errore");
-                alert.setHeaderText("La parentela che si vuole eliminare è utilizzata!");
-                final Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-                    alert.close();
-                }
+        if (this.controller.getPersons().contains(this.relationshipsTable.getSelectionModel().getSelectedItem())) {
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Errore");
+            alert.setHeaderText("La parentela che si vuole eliminare è utilizzata!");
+            final Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+                alert.close();
             }
+        } else {
+            this.controller.deleteRelationship(this.relationshipsTable.getSelectionModel().getSelectedItem());
+        }
     }
 
     @FXML
@@ -118,19 +125,14 @@ public class RelationshipsViewImpl implements RelationshipsView {
         stage.close();
     }
 
-    public final void populateTableView() {
+    private void populateTableView() {
         this.relationshipsColumn.setCellValueFactory(param -> new ReadOnlyStringWrapper(param.getValue()));
-        this.relationshipsTable.setItems(this.controller.getDegree());
     }
 
     private void setButtonOnAction() {
         this.goBack.setOnAction(event -> this.goBack());
         this.addRelationship.setOnAction(event -> this.addRelationships());
         this.deleteRelationship.setOnAction(event -> this.deleteRelationships());
-    }
-
-    public final void refreshTableView() {
-        this.relationshipsTable.setItems(this.controller.getDegree());
     }
 
     private static class Constants {

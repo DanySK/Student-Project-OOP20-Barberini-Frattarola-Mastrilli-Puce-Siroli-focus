@@ -28,7 +28,7 @@ public class EventMenuControllerImpl implements EventMenuController {
 
 
     public final ObservableSet<Event> getEvents() {
-        return this.eventManager.getAller();
+        return this.eventManager.getAllSaveEvent();
     }
 
     @Override

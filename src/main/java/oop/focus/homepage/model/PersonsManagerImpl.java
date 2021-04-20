@@ -1,7 +1,7 @@
 package oop.focus.homepage.model;
 
-import java.util.Set;
 
+import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -28,7 +28,7 @@ public class PersonsManagerImpl implements PersonsManager {
         }
     }
 
-    public final Set<Person> getPersons() {
+    public final ObservableSet<Person> getPersons() {
         return this.sd.getAll();
     }
 
@@ -39,4 +39,5 @@ public class PersonsManagerImpl implements PersonsManager {
             e.printStackTrace();
         }
     }
+
 }

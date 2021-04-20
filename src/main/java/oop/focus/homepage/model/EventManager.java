@@ -86,6 +86,10 @@ public interface EventManager {
      */
     boolean timerCanStart(LocalDateTime date);
 
-	ObservableSet<Event> getAller();
+    /**
+     * This method is used to get all the save event and to track the change.
+     * @return ObservableSet<Event> that represent all the save event.
+     */
+    ObservableSet<Event> getAllSaveEvent();
 
 }

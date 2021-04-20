@@ -1,7 +1,6 @@
 package oop.focus.calendar.persons.controller;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import oop.focus.calendar.persons.view.PersonsView;
 import oop.focus.calendar.persons.view.PersonsViewImpl;
 import oop.focus.common.View;
@@ -11,10 +10,6 @@ import oop.focus.homepage.model.PersonsManager;
 import oop.focus.homepage.model.PersonsManagerImpl;
 import oop.focus.homepage.model.RelationshipsManager;
 import oop.focus.homepage.model.RelationshipsManagerImpl;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class PersonsControllerImpl implements PersonsController {
 
@@ -38,23 +33,20 @@ public class PersonsControllerImpl implements PersonsController {
         this.person.removePerson(person);
     }
 
-    public final ObservableList<String> getDegree() {
-        return FXCollections.observableArrayList(this.relationships.getAll());
+    public final ObservableSet<String> getDegree() {
+        return this.relationships.getAll();
     }
 
     public final DataSource getDsi() {
         return this.dsi;
     }
 
-    public final ObservableList<Person> getPersons() {
-        final ObservableList<Person> list = FXCollections.observableArrayList();
-        List<Person> arrayList = this.person.getPersons().stream().collect(Collectors.toList());
-        arrayList = arrayList.stream().sorted(Comparator.comparing(Person :: getName)).collect(Collectors.toList());
-        arrayList.stream().forEach(p -> list.add(p));
-        return list;
+    public final ObservableSet<Person> getPersons() {
+        return this.person.getPersons();
     }
 
     public final View getView() {
         return this.view;
     }
+
 }

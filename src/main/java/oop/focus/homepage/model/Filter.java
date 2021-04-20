@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 
 public final class Filter {
 
+    private Filter() {
+    }
+
     public static List<Event> takeOnly(final List<Event> eventsList) {
         final TimeProperty time = new TimePropertyImpl();
         return eventsList.stream().filter(e -> time.getHourDuration(e) && !Filter.isAdequate(e)).collect(Collectors.toList());

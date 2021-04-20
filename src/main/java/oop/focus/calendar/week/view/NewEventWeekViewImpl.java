@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
@@ -40,6 +41,7 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.EventImpl;
 import oop.focus.homepage.model.Person;
+import oop.focus.homepage.view.AlertFactoryImpl;
 import oop.focus.homepage.view.ComboBoxFiller;
 
 public class NewEventWeekViewImpl implements NewEventWeekView {
@@ -87,6 +89,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     }
 
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.list = FXCollections.observableArrayList();
         this.setProperty();
         this.fillComboBoxes();
         this.fillTheList();
@@ -158,12 +161,12 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         final PersonsController persons = new PersonsControllerImpl(new DataSourceImpl());
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
-        this.list = persons.getPersons();
+        final List<Person> temp = persons.getPersons().stream().collect(Collectors.toList());
+        temp.forEach(p -> this.list.add(p));
         this.list.forEach(p -> listOfString.add(p.toString()));
 
         this.listOfPersons.setItems(listOfString);
         this.listOfPersons.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
     }
 
     public final Node getRoot() {
@@ -209,20 +212,24 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         });
 
         final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
-        try {
-            this.controller.addNewEvent(eventToSave);
-            this.delete(event);
-            final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
-            stage.close();
-        } catch (final IllegalStateException e) {
-            final Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Attenzione!");
-            alert.setHeaderText("Sono stati inseriti orario o data non validi");
-            final Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-                alert.close();
-            }
+
+        if (this.validateEvent(eventToSave)) {
+                try {
+                    this.controller.addNewEvent(eventToSave);
+                    this.delete(event);
+                    final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
+                    stage.close();
+                } catch (final IllegalStateException e) {
+                    new AlertFactoryImpl().createEventWarning();
+                } 
+            } else {
+                new AlertFactoryImpl().createHourOrDateError();
         }
+    }
+
+    private boolean validateEvent(final Event eventToSave) {
+        return eventToSave.getStartDate().equals(eventToSave.getEndDate()) && eventToSave.getStartHour().isBefore(eventToSave.getEndHour())
+        || eventToSave.getStartDate().isBefore(eventToSave.getEndDate());
     }
 
     private static class Constants {

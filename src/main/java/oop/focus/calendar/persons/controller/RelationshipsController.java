@@ -1,6 +1,8 @@
 package oop.focus.calendar.persons.controller;
 
-import javafx.collections.ObservableList;
+import java.util.List;
+
+import javafx.collections.ObservableSet;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 
@@ -16,13 +18,13 @@ public interface RelationshipsController {
      * This method is used to delete a specific relationship.
      * @param relationship is the relationship to delete.
      */
-    void deleteRelationship(String relationship) throws IllegalStateException;
+    void deleteRelationship(String relationship);
 
     /**
      * This method is used to get an ObservableList of string.
      * @return the list of the string that represent the relationships.
      */
-    ObservableList<String> getDegree();
+    ObservableSet<String> getDegree();
 
     /**
      * This method is used to get the dsi.
@@ -35,4 +37,6 @@ public interface RelationshipsController {
      * @return View.
      */
     View getView();
+
+    List<String> getPersons();
 }

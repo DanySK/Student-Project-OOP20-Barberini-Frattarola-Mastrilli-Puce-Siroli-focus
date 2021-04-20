@@ -162,7 +162,7 @@ public class EventManagerImpl implements EventManager {
     }
 
     @Override
-    public final ObservableSet<Event> getAller() {
+    public final ObservableSet<Event> getAllSaveEvent() {
         return this.events.getAll();
     }
 

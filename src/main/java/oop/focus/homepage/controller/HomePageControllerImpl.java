@@ -51,7 +51,8 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final String getClickTime(final HotKey hotKey) {
         final List<Event> list = this.eventManager.getHotKeyEvents();
-        return String.valueOf(list.stream().filter(e -> e.getName().equals(hotKey.getName()) && e.getStartDate().isEqual(LocalDate.now())).count());
+        return String.valueOf(list.stream().filter(e -> e.getName().equals(hotKey.getName())
+            && e.getStartDate().isEqual(LocalDate.now())).count());
     }
 
     public final DataSourceImpl getDsi() {
@@ -66,7 +67,7 @@ public class HomePageControllerImpl implements HomePageController {
 
     public final ObservableList<HotKey> getHotKey() {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
-        this.hotKeyManager.getAll().forEach(list::add);
+        this.hotKeyManager.getAll().stream().forEach(h -> list.add(h));
         return list;
     }
 
@@ -83,12 +84,8 @@ public class HomePageControllerImpl implements HomePageController {
     }
 
     public final void saveEvent(final Event eventImpl) {
-        try {
-            this.eventManager.addEvent(eventImpl);
-            this.eventManager.generateRepeatedEvents(LocalDate.now());
-        } catch (final IllegalStateException e) {
-            throw new IllegalStateException();
-        }
+        this.eventManager.addEvent(eventImpl);
+        this.eventManager.generateRepeatedEvents(LocalDate.now());
     }
 
     public final void saveHotKey(final HotKey hotKey) {
