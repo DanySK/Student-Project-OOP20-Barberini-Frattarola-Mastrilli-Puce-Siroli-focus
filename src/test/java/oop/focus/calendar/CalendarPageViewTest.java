@@ -3,7 +3,6 @@ package oop.focus.calendar;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import oop.focus.calendar.controller.CalendarController;
 import oop.focus.calendar.controller.CalendarControllerImpl;
@@ -25,8 +24,8 @@ public class CalendarPageViewTest extends Application {
     	final DataSource datasource = new DataSourceImpl();
         final FinanceManager financeManager = new FinanceManagerImpl(datasource);
         final GeneralHomePageController controller = new GeneralHomePageControllerImpl(datasource, financeManager);
-        final CalendarController pagecontroller = new CalendarControllerImpl(datasource, controller);
-        primaryStage.setScene(new Scene((Parent) pagecontroller.getView().getRoot(), WIDTH, HEIGHT));
+        final CalendarController pageController = new CalendarControllerImpl(datasource, controller);
+        primaryStage.setScene(new Scene((Parent) pageController.getView().getRoot(), WIDTH, HEIGHT));
         primaryStage.show();
     }
 

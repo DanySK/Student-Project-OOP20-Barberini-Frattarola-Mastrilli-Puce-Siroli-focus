@@ -14,6 +14,8 @@ import oop.focus.calendar.controller.CalendarController;
 import oop.focus.calendar.settings.view.CalendarSettingsView;
 import oop.focus.common.View;
 
+import java.util.Objects;
+
 import static java.util.Objects.nonNull;
 
 public class CalendarViewImpl implements View {
@@ -135,7 +137,7 @@ public class CalendarViewImpl implements View {
                 panelColumn.getChildren().remove(0);
                 panelColumn.getChildren().add(root);
             } else {
-                panelColumn.getChildren().add(root);
+                Objects.requireNonNull(panelColumn.getChildren()).add(root);
             }
         };
     }
