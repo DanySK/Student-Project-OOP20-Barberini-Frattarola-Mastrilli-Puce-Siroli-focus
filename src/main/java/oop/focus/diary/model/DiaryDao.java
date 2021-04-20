@@ -34,7 +34,8 @@ public class DiaryDao implements Dao<DiaryImpl> {
                 final DiaryConnector conn = new DiaryConnector(elem);
                 conn.open();
                 try {
-                    final DiaryImpl diary = new DiaryImpl(conn.getConnection().getBufferedReader().readLine(), elem.getName());
+                    final DiaryImpl diary = new DiaryImpl(conn.getConnection().getBufferedReader().readLine(),
+                            elem.getName());
                     this.map.put(diary, conn);
                     this.list.add(diary);
                 } catch (IOException e) {
@@ -57,7 +58,6 @@ public class DiaryDao implements Dao<DiaryImpl> {
     @Override
     public final void save(final DiaryImpl x) {
         if (x.getName().length() <= MAX_LENGTH && !this.getAll().contains(x)) {
-            System.out.println(this.map.containsKey(x));
             final DiaryConnector diaryConnector = new DiaryConnector(this.getFile(x.getName()));
             diaryConnector.create();
             this.map.put(x, diaryConnector);

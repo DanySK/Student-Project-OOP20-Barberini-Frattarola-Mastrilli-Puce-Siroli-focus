@@ -95,12 +95,15 @@ public class ToDoListView implements View, Initializable {
      */
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.vBox = (VBox) new ContainerFactoryImpl().mergeVertically(List.of(this.toDoListLabel, this.containerTDL, this.hBox)).getRoot();
+        this.vBox = (VBox) new ContainerFactoryImpl().mergeVertically(List.of(this.toDoListLabel, this.containerTDL,
+                this.hBox)).getRoot();
         this.toDoListLabel.setText("To Do List");
         this.addAnnotation.setText("Aggiungi");
-        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.controller).getRoot()));
+        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.controller)
+                .getRoot()));
         this.removeAnnotation.setText("Rimuovi");
-        this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.controller).getView().getRoot()));
+        this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.controller)
+                .getView().getRoot()));
         this.checkBoxes =  FXCollections.observableArrayList();
         this.listView = new ListView<>();
         this.updateTDLView();
@@ -124,8 +127,10 @@ public class ToDoListView implements View, Initializable {
         this.vBox.prefWidthProperty().set(SCREEN_BOUNDS.getWidth() * V_BOX_WIDTH);
         this.vBox.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * V_BOX_HEIGHT);
         this.hBox.spacingProperty().bind(this.vBox.widthProperty().multiply(H_BOX_SPACING));
-        List.of(this.addAnnotation, this.removeAnnotation).forEach(s -> s.prefHeightProperty().bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT)));
-        List.of(this.addAnnotation, this.removeAnnotation).forEach(s -> s.prefWidthProperty().bind(this.vBox.widthProperty().multiply(BUTTON_WIDTH)));
+        List.of(this.addAnnotation, this.removeAnnotation).forEach(s -> s.prefHeightProperty().
+                bind(this.vBox.heightProperty().multiply(BUTTON_HEIGHT)));
+        List.of(this.addAnnotation, this.removeAnnotation).forEach(s -> s.prefWidthProperty().
+                bind(this.vBox.widthProperty().multiply(BUTTON_WIDTH)));
         this.hBox.setAlignment(Pos.CENTER);
         this.toDoListLabel.prefWidthProperty().bind(this.vBox.widthProperty());
         this.toDoListLabel.prefHeightProperty().bind(this.vBox.heightProperty().multiply(TDL_LABEL_HEIGHT));
@@ -134,7 +139,8 @@ public class ToDoListView implements View, Initializable {
         this.containerTDL.setContent(this.listView);
         this.listView.prefWidthProperty().bind(this.containerTDL.widthProperty());
         this.listView.prefHeightProperty().bind(this.containerTDL.heightProperty());
-        this.listView.getItems().forEach(s -> s.prefHeightProperty().bind(this.containerTDL.heightProperty().multiply(SINGLE_NOTE_HEIGHT)));
+        this.listView.getItems().forEach(s -> s.prefHeightProperty().bind(this.containerTDL.heightProperty()
+                .multiply(SINGLE_NOTE_HEIGHT)));
         return this.vBox;
     }
 }

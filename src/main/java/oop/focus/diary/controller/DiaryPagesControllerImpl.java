@@ -60,7 +60,6 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
     public final void updatePage(final String name, final String content) {
         if (this.getFileName().contains(name)) {
             this.diaryDao.update(new DiaryImpl(content, name));
-            System.out.println(content);
         }
     }
     /**
