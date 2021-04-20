@@ -22,7 +22,8 @@ public class BaseDiaryController implements Controller {
      */
     public BaseDiaryController(final DataSource dataSource) {
         this.baseDiary = new BaseDiaryView(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
-                new DiaryPagesControllerImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(dataSource)));
+                new DiaryPagesControllerImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(
+                        dataSource)));
     }
     /**
      * {@inheritDoc}

@@ -28,7 +28,8 @@ public class CounterControllerImpl implements CounterController {
      * @param isTimer   a boolean which is true if the controller is a timer, false if it is a stopwatch
      * @param controllerCounter the general controller of counter's sections
      */
-    public CounterControllerImpl(final EventManager eventManager, final boolean isTimer, final GeneralCounterController controllerCounter) {
+    public CounterControllerImpl(final EventManager eventManager, final boolean isTimer, final GeneralCounterController
+            controllerCounter) {
         this.isTimer = isTimer;
         this.generalController = controllerCounter;
         this.counterManager = new CounterManagerImpl(eventManager,  isTimer);
@@ -53,9 +54,7 @@ public class CounterControllerImpl implements CounterController {
         this.counterManager.createCounter(event);
         this.counterManager.setStarterValue(new Period(LocalTime.MIDNIGHT, localTime).toStandardSeconds().getSeconds());
         this.view.updateInput(localTime);
-        this.counterManager.setChangeListener(s -> {
-            this.view.updateInput(LocalTime.MIDNIGHT.plusSeconds(s));
-        });
+        this.counterManager.setChangeListener(s -> this.view.updateInput(LocalTime.MIDNIGHT.plusSeconds(s)));
         this.counterManager.setFinishListener(s -> {
             if (s.equals(0)) {
                 this.view.updateInput(LocalTime.MIDNIGHT.plusSeconds(s));

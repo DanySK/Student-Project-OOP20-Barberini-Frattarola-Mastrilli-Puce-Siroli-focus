@@ -53,8 +53,8 @@ public class ButtonsDiaryView extends AbstractButtonsView {
         this.map.keySet().forEach(s -> s.setPrefHeight(this.pane.heightProperty().multiply(BUTTONS_HEIGHT).get()));
         this.pane.setPrefWidth(SCREEN_BOUNDS.getWidth() * VBOX_WIDTH);
         this.map.keySet().forEach(s -> s.prefWidthProperty().bind(this.pane.widthProperty().multiply(BUTTONS_WIDTH)));
-        this.pane.getChildren().forEach(s -> VBox.setMargin(s, new Insets(SCREEN_BOUNDS.getHeight() *
-                INSETS)));
+        this.pane.getChildren().forEach(s -> VBox.setMargin(s, new Insets(SCREEN_BOUNDS.getHeight()
+                * INSETS)));
         this.pane.setAlignment(Pos.CENTER);
         super.setOnClick(this.pane, this.map);
         this.setFirstWindow(this.map, this.controller);

@@ -20,7 +20,8 @@ public class EventCounterControllerImpl implements EventCounterController {
      * @param eventManager  the eventManager
      * @param generalControllerCounter  the generalControllerCounter
      */
-    public EventCounterControllerImpl(final EventManager eventManager, final GeneralCounterController generalControllerCounter) {
+    public EventCounterControllerImpl(final EventManager eventManager, final GeneralCounterController
+            generalControllerCounter) {
         this.set = FXCollections.observableSet();
         eventManager.getAll().forEach(s -> this.set.add(s.getName()));
         this.view = new EventCounterViewImpl(this);
