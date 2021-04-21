@@ -42,7 +42,7 @@ public class EventCounterView implements UpdatableView<String>, DisableComponent
         this.chooseEvent = new ComboBox<>();
         this.chooseEvent.getItems().addAll(controller.getEventsNames());
         this.addNewEvent.setOnMouseClicked(event -> {
-            final Scene scene = new Scene((Parent) new NewEventNameWindowImpl(controller).getRoot());
+            final Scene scene = new Scene((Parent) new NewEventNameWindow(controller).getRoot());
             final Stage window = new Stage();
             window.setScene(scene);
             window.show();
@@ -57,7 +57,7 @@ public class EventCounterView implements UpdatableView<String>, DisableComponent
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         final HBox hBox = (HBox) new ContainerFactoryImpl().mergeHorizontally(List.of(this.chooseEvent,
                 this.addNewEvent)).getRoot();
         hBox.spacingProperty().bind(hBox.heightProperty().multiply(SPACING));

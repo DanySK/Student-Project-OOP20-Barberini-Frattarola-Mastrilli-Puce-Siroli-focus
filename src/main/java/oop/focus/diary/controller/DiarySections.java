@@ -4,6 +4,9 @@ import javafx.util.Pair;
 import oop.focus.application.controller.Sections;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,9 @@ import java.util.List;
 public class DiarySections implements Sections {
     private final List<Pair<Controller, String>> list;
     private final DiarySectionsControllerFactory factory;
-
+    private final DataSource dataSource;
+    private final EventManager eventManager;
+    private final Controller diaryController;
     /**
      * Instantiates a new diary sections.
      *
@@ -22,7 +27,10 @@ public class DiarySections implements Sections {
      */
     public DiarySections(final DataSource dataSource)  {
         this.list = new ArrayList<>();
-        this.factory = new DiarySectionsControllerFactoryImpl(dataSource);
+        this.factory = new DiarySectionsControllerFactoryImpl();
+        this.dataSource = dataSource;
+        this.eventManager = new EventManagerImpl(dataSource);
+        this.diaryController = this.factory.getDiaryController(this.dataSource);
         this.putControllers();
     }
 
@@ -30,10 +38,10 @@ public class DiarySections implements Sections {
      * The method fills a {@link List} with all Controllers relative to diary's section.
      */
     private void putControllers() {
-        this.list.add(new Pair<>(this.factory.getDiaryController(), "Diario"));
-        this.list.add(new Pair<>(this.factory.getMoodCalendarController(), "Statistiche umore"));
-        this.list.add(new Pair<>(this.factory.getStopwatchController(), "Cronometro"));
-        this.list.add(new Pair<>(this.factory.getTimerController(), "Timer"));
+        this.list.add(new Pair<>(this.diaryController, "Diario"));
+        this.list.add(new Pair<>(this.factory.getMoodCalendarController(this.dataSource), "Statistiche umore"));
+        this.list.add(new Pair<>(this.factory.getStopwatchController(this.eventManager), "Cronometro"));
+        this.list.add(new Pair<>(this.factory.getTimerController(this.eventManager), "Timer"));
     }
 
     /**
@@ -41,7 +49,7 @@ public class DiarySections implements Sections {
      */
     @Override
     public Controller getStarterController() {
-        return this.factory.getDiaryController();
+        return this.diaryController;
     }
     /**
      * {@inheritDoc}

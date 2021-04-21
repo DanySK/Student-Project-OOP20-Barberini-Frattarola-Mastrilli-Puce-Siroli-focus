@@ -1,5 +1,6 @@
 package oop.focus.diary.controller;
 
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
@@ -49,8 +50,9 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
      */
     @Override
     public String getContentByName(final String fileName) {
-        if (this.diaryDao.getAll().stream().anyMatch(s -> s.getName().equals(fileName))) {
-            return this.diaryDao.getAll().stream().filter(s -> s.getName().equals(fileName)).findAny().get().getContent();
+        final Optional<DiaryImpl> optional = this.diaryDao.getAll().stream().filter(s -> s.getName().equals(fileName)).findAny();
+        if (optional.isPresent()) {
+            return optional.get().getContent();
         }
         throw new IllegalArgumentException();
     }

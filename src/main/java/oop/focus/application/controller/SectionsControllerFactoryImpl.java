@@ -3,52 +3,42 @@ package oop.focus.application.controller;
 import oop.focus.calendar.controller.CalendarControllerImpl;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
-import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.GeneralDiaryController;
 import oop.focus.finance.controller.ChangeViewControllerImpl;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.finance.model.FinanceManagerImpl;
 import oop.focus.calendarhomepage.controller.GeneralHomePageControllerImpl;
 
 /**
  * Implementation of {@link SectionsControllerFactory}.
  */
 public class SectionsControllerFactoryImpl implements SectionsControllerFactory {
-    private final DataSource dataSource;
-    private final FinanceManager financeManager;
-    private final Controller generalHomePageController;
-    public SectionsControllerFactoryImpl() {
-        this.dataSource = new DataSourceImpl();
-        this.financeManager = new FinanceManagerImpl(this.dataSource);
-        this.generalHomePageController = new GeneralHomePageControllerImpl(this.dataSource, this.financeManager);
-    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Controller getHomePageController() {
-        return  this.generalHomePageController;
+    public Controller getHomePageController(final DataSource dataSource, final FinanceManager financeManager) {
+        return new GeneralHomePageControllerImpl(dataSource, financeManager);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public Controller getFinanceController() {
-        return new ChangeViewControllerImpl(this.financeManager);
+    public Controller getFinanceController(final FinanceManager financeManager) {
+        return new ChangeViewControllerImpl(financeManager);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public Controller getCalendarController() {
-        return new CalendarControllerImpl(this.dataSource,  this.getHomePageController());
+    public Controller getCalendarController(final DataSource dataSource, final Controller controller) {
+        return new CalendarControllerImpl(dataSource,  controller);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public Controller getDiaryController() {
-        return new GeneralDiaryController(this.dataSource);
+    public Controller getDiaryController(final DataSource dataSource) {
+        return new GeneralDiaryController(dataSource);
     }
 }

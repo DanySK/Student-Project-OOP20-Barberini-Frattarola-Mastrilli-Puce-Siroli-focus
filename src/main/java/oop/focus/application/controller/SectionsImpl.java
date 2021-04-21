@@ -1,6 +1,10 @@
 package oop.focus.application.controller;
 import javafx.util.Pair;
 import oop.focus.common.Controller;
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
+import oop.focus.finance.model.FinanceManager;
+import oop.focus.finance.model.FinanceManagerImpl;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +15,27 @@ import java.util.List;
 public class SectionsImpl implements Sections {
     private final List<Pair<Controller, String>> list;
     private final SectionsControllerFactory factory;
+    private final DataSource dataSource;
+    private final FinanceManager financeManager;
+    private Controller homePageController;
     public SectionsImpl() {
         this.factory = new SectionsControllerFactoryImpl();
         this.list = new ArrayList<>();
         this.setControllers();
+        this.dataSource = new DataSourceImpl();
+        this.financeManager = new FinanceManagerImpl(this.dataSource);
     }
 
     /**
      * The method fills the {@link List} putting all Controllers of Focus' sections.
      */
     private void setControllers() {
-        this.list.add(new Pair<>(this.factory.getHomePageController(), "Home Page"));
-        this.list.add(new Pair<>(this.factory.getFinanceController(), "Finanza"));
-        this.list.add(new Pair<>(this.factory.getCalendarController(), "Calendario"));
-        this.list.add(new Pair<>(this.factory.getDiaryController(), "Diario"));
+        this.homePageController = this.factory.getHomePageController(this.dataSource, this.financeManager);
+        this.list.add(new Pair<>(this.homePageController, "Home Page"));
+        this.list.add(new Pair<>(this.factory.getFinanceController(this.financeManager), "Finanza"));
+        this.list.add(new Pair<>(this.factory.getCalendarController(this.dataSource, this.homePageController),
+                "Calendario"));
+        this.list.add(new Pair<>(this.factory.getDiaryController(this.dataSource), "Diario"));
     }
 
     /**
@@ -32,7 +43,7 @@ public class SectionsImpl implements Sections {
      * @return  the Controller whose View is showed as first when application is launched.
      */
     public Controller getStarterController() {
-        return this.factory.getHomePageController();
+        return this.homePageController;
     }
 
     /**

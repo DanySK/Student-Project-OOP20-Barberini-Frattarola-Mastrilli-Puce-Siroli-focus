@@ -23,13 +23,10 @@ public class ToDoActionImpl implements ToDoAction {
     /**
      * Checks if an annotation is not too long.
      * @param annotation    the annotation whose length is evaluated
-     * @return  true if the annotation has a length less than the max chosen, throws an exception otherwise.
+     * @return  true if the annotation has a length less than the max chosen, false otherwise.
      */
     private boolean hasRightLength(final String annotation) {
-        if (annotation.chars().count() <= MAX_LENGTH) {
-            return true;
-        }
-        throw new IllegalArgumentException();
+        return annotation.chars().count() <= MAX_LENGTH;
     }
 
     /**

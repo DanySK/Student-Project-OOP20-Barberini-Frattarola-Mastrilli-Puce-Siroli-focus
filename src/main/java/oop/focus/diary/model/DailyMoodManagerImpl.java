@@ -36,7 +36,8 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
      */
     @Override
     public void modifyDailyMood(final DailyMood mood) throws DaoAccessException {
-        final Optional<DailyMood> moodToUpdate = this.dm.getAll().stream().filter(x -> x.getDate().equals(mood.getDate())).findAny();
+        final Optional<DailyMood> moodToUpdate = this.dm.getAll().stream().filter(x -> x.getDate().equals(mood.
+                getDate())).findAny();
         if (moodToUpdate.isPresent()) {
             this.dm.update(mood);
         }
@@ -53,10 +54,10 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Returns all register moods.
+     * @return  an {@link ObservableSet} with all register DailyMood
      */
-    @Override
-    public ObservableSet<DailyMood> getAllMoods() {
+    private ObservableSet<DailyMood> getAllMoods() {
         return this.dm.getAll();
     }
 

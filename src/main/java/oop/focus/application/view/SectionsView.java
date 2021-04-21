@@ -5,12 +5,13 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import oop.focus.common.View;
+import oop.focus.diary.view.UpdatableView;
 
 /**
  * The class manages all sections' view of application. It creates a {@link BorderPane}, sets its dimension
  * and has a method to update its content.
  */
-public class SectionsView implements View {
+public class SectionsView implements UpdatableView<View> {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double PANE_HEIGHT = 0.95;
     private static final double PANE_WIDTH = 0.8;
@@ -30,12 +31,11 @@ public class SectionsView implements View {
     }
 
     /**
-     * Sets the new content of {@link BorderPane}, replacing the previous one with the new View associated with
-     * the Controller in input.
-     * @param controller    the controller whose view has to be shown.
+     * {@inheritDoc}
      */
-    public void update(final View controller) {
+    @Override
+    public void updateInput(final View input) {
         this.pane.getChildren().clear();
-        this.pane.setCenter(controller.getRoot());
+        this.pane.setCenter(input.getRoot());
     }
 }

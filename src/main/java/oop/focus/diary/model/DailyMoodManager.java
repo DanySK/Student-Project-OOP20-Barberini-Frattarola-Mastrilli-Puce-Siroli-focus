@@ -1,7 +1,5 @@
 package oop.focus.diary.model;
 import java.util.Optional;
-
-import javafx.collections.ObservableSet;
 import org.joda.time.LocalDate;
 import oop.focus.db.exceptions.DaoAccessException;
 
@@ -27,11 +25,7 @@ import oop.focus.db.exceptions.DaoAccessException;
      * @throws DaoAccessException   if is not possible to remove the mood
      */
     void deleteDailyMood(DailyMood mood) throws DaoAccessException;
-    /**
-     * Returns all register moods.
-     * @return  an {@link ObservableSet} with all register DailyMood
-     */
-    ObservableSet<DailyMood> getAllMoods();
+
     /**
      * Returns the value of mood on the input's date.
      * @param date  the date in which compute the mood

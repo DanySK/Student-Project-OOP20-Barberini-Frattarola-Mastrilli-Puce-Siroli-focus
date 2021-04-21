@@ -12,7 +12,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.common.View;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.diary.controller.DailyMoodControllerImpl;
+import oop.focus.diary.controller.DailyMoodController;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,14 +38,14 @@ public class DailyMoodSection implements View {
     private final Button button;
     private final Map<Button, Integer> map;
     private final Label dailyMoodLabel;
-    private final DailyMoodControllerImpl controller;
+    private final DailyMoodController controller;
     private final GridPane gridPane;
 
     /**
      * Initializes a new daily mood section.
      * @param controller    the daily mood controller
      */
-    public DailyMoodSection(final DailyMoodControllerImpl controller) {
+    public DailyMoodSection(final DailyMoodController controller) {
         this.gridPane = new GridPane();
         this.map = new HashMap<>();
         this.dailyMoodLabel = new Label("Come ti senti oggi?");

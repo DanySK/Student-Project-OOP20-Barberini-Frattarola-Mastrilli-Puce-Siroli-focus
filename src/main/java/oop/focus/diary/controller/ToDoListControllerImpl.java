@@ -7,6 +7,8 @@ import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.diary.model.ToDoListManager;
 import oop.focus.diary.view.ToDoListView;
 
+import java.util.Optional;
+
 /**
  * Implementation of {@link ToDoListController}. It has method to create, delete or modify a ToDoAction.
  */
@@ -52,10 +54,8 @@ public class ToDoListControllerImpl implements ToDoListController {
      * @return  the to do action whose name is the string in input
      */
     private ToDoAction findTDAbyString(final String s) {
-        if (this.toDoActions.stream().anyMatch(a -> a.getAnnotation().equals(s))) {
-            return this.toDoActions.stream().filter(a -> a.getAnnotation().equals(s)).findAny().get();
-        }
-        return null;
+        final Optional<ToDoAction> optional = this.toDoActions.stream().filter(a -> a.getAnnotation().equals(s)).findAny();
+        return optional.orElse(null);
     }
     /**
      * {@inheritDoc}

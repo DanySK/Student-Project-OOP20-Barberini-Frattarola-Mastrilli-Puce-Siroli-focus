@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 import oop.focus.db.DataSourceImpl;
 
 import oop.focus.diary.controller.GeneralCounterControllerImpl;
-import oop.focus.diary.controller.Style;
 
 import oop.focus.event.model.EventManager;
 import oop.focus.event.model.EventManagerImpl;
@@ -22,8 +21,6 @@ public class TimerApp extends Application {
         final Scene scene = new Scene((Parent) new GeneralCounterControllerImpl(manager, true).getView().getRoot());
         //final Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
         primaryStage.setScene(scene);
-        final String css = LauncherDiary.class.getResource(Style.TIMER_STYLE.getPath()).toExternalForm();
-        scene.getStylesheets().add(css);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());
         primaryStage.show();

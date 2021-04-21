@@ -3,6 +3,7 @@ package oop.focus.diary.view;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -25,7 +26,7 @@ public class ButtonsDiaryView extends AbstractButtonsView {
     private static final Double VBOX_WIDTH = 0.3;
     private static final Double BUTTONS_HEIGHT = 0.1;
     private final VBox pane;
-    private final Map<Button, Controller> map;
+    private final Map<Node, Controller> map;
     private final Sections controller;
 
     /**
@@ -40,24 +41,23 @@ public class ButtonsDiaryView extends AbstractButtonsView {
         this.controller = new DiarySections(dataSource);
         this.setButtons();
     }
-
     /**
-     * {@inheritDoc}
+     * Creates different {@link Button} which pressed show the View associated with the correspondent Controller.
      */
-    public final void setButtons() {
+    private void setButtons() {
         this.controller.getList().forEach(s -> {
             final Button b = new Button(s.getValue());
             b.getStyleClass().addAll("lateral-button");
+            b.setPrefHeight(this.pane.heightProperty().multiply(BUTTONS_HEIGHT).get());
+            b.prefWidthProperty().bind(this.pane.widthProperty().multiply(BUTTONS_WIDTH));
             this.pane.getChildren().add(b);
             this.map.put(b, s.getKey());
         });
-        this.map.keySet().forEach(s -> s.setPrefHeight(this.pane.heightProperty().multiply(BUTTONS_HEIGHT).get()));
         this.pane.setPrefWidth(SCREEN_BOUNDS.getWidth() * VBOX_WIDTH);
-        this.map.keySet().forEach(s -> s.prefWidthProperty().bind(this.pane.widthProperty().multiply(BUTTONS_WIDTH)));
         this.pane.getChildren().forEach(s -> VBox.setMargin(s, new Insets(SCREEN_BOUNDS.getHeight()
                 * INSETS)));
         this.pane.setAlignment(Pos.CENTER);
         super.setOnClick(this.pane, this.map);
-        this.setFirstWindow(this.map, this.controller);
+        this.pane.getChildren().add(this.controller.getStarterController().getView().getRoot());
     }
 }

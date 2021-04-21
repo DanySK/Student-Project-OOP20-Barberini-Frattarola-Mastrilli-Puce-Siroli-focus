@@ -52,7 +52,7 @@ public class CounterManagerImpl implements CounterManager {
         this.eventName = event;
         try {
             this.sound = new SoundImpl();
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+        } catch (final UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
         this.counter.addFinishListener(integer -> {
