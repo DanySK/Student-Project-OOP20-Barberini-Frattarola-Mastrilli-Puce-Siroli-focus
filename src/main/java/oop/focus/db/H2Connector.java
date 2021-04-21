@@ -47,6 +47,7 @@ public class H2Connector implements Connector<Connection> {
                         + CREATE_SCRIPT + "'" + this.getPath(CREATE_SCRIPT_PATH) + "'" + SEPARATOR + ";"
                         + CREATE_SCRIPT + "'" + this.getPath(INSERT_SCRIPT_PATH) + "'");
             } catch (final SQLException | URISyntaxException | ClassNotFoundException e) {
+                e.printStackTrace();
                 throw new ConnectionException();
             }
         }

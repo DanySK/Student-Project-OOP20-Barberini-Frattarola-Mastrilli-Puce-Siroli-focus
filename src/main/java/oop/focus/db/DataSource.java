@@ -22,84 +22,97 @@ public interface DataSource {
      *
      * @return the persons dao
      */
-    SingleDao<Person> getPersons();
+    Dao<Person> getPersons();
+
     /**
      * Gets a data access object for {@link Category} type elements.
      *
      * @return the categories dao
      */
-    SingleDao<Category> getCategories();
+    Dao<Category> getCategories();
+
     /**
      * Gets a data access object for {@link Account} type elements.
      *
      * @return the accounts dao
      */
-    SingleDao<Account> getAccounts();
+    Dao<Account> getAccounts();
+
     /**
      * Gets a data access object for {@link String} type elements, representing a color.
      *
      * @return the colors dao
      */
-    SingleDao<String> getColors();
+    Dao<String> getColors();
+
     /**
      * Gets a data access object for {@link String} type elements, representing a relationship.
      *
      * @return the relationships dao
      */
-    SingleDao<String> getRelationships();
+    Dao<String> getRelationships();
+
     /**
      * Gets a data access object for {@link DailyMood} type elements.
      *
      * @return the daily moods dao
      */
-    SingleDao<DailyMood> getDailyMoods();
+    Dao<DailyMood> getDailyMoods();
+
     /**
      * Gets a data access object for {@link Event} type elements.
      *
      * @return the events dao
      */
-    SingleDao<Event> getEvents();
+    Dao<Event> getEvents();
+
     /**
      * Gets a data access object for {@link HotKey} type elements.
      *
      * @return the hot keys dao
      */
-    SingleDao<HotKey> getHotKeys();
+    Dao<HotKey> getHotKeys();
+
     /**
      * Gets a data access object for {@link Transaction} type elements.
      *
      * @return the transactions dao
      */
-    SingleDao<Transaction> getTransactions();
+    Dao<Transaction> getTransactions();
+
     /**
      * Gets a data access object for {@link GroupTransaction} type elements.
      *
      * @return the group transactions dao
      */
-    SingleDao<GroupTransaction> getGroupTransactions();
+    Dao<GroupTransaction> getGroupTransactions();
+
     /**
      * Gets a data access object for {@link ToDoAction} type elements.
      *
      * @return the to do list dao
      */
-    SingleDao<ToDoAction> getToDoList();
+    Dao<ToDoAction> getToDoList();
+
     /**
      * Gets a data access object for {@link FidelityCard} type elements.
      *
      * @return the fidelity cards dao
      */
-    SingleDao<FidelityCard> getFidelityCards();
+    Dao<FidelityCard> getFidelityCards();
+
     /**
      * Gets a data access object for a group of {@link Person} type elements.
      *
      * @return the persons group dao
      */
-    SingleDao<Person> getGroup();
+    Dao<Person> getGroup();
+
     /**
      * Gets a data access object for  {@link QuickTransaction} type elements.
      *
      * @return the quick transactions dao
      */
-    SingleDao<QuickTransaction> getQuickTransactions();
+    Dao<QuickTransaction> getQuickTransactions();
 
 }

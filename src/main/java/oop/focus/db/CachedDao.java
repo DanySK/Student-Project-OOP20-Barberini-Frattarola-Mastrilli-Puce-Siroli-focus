@@ -117,10 +117,9 @@ public class CachedDao<X> implements SingleDao<X> {
                     values.put(resultSet.getInt(1), new ArrayList<>(tmp));
                 }
             }
-        } catch (final Exception e) {
+        } catch (final SQLException throwables) {
             throw new IllegalStateException();
         }
-
         this.cache.putAll(values.entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey,
                         v -> this.parser.create(v.getValue())))

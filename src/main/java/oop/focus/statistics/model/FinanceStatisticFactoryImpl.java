@@ -92,7 +92,7 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
     }
 
     /**
-     * This method collects a Stream of pairs<X, Integer> to a list of pairs<String, Double>.
+     * This method collects a Stream of pair (X, Integer) to a list of pairs (String, Double).
      * The input function is used to transform each {@link Integer} value to a double value.
      * Each X key of the pair is transformed to a String using the toString() method.
      * This method is useful for transforming data so that it can be displayed in a chart.
