@@ -38,7 +38,7 @@ public class TransactionManagerImpl implements TransactionManager {
         if (!transaction.getDate().isAfter(LocalDateTime.now())) {
             try {
                 this.transactions.save(transaction);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         } else {
@@ -55,7 +55,7 @@ public class TransactionManagerImpl implements TransactionManager {
     public final void remove(final Transaction transaction) {
         try {
             this.transactions.delete(transaction);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }

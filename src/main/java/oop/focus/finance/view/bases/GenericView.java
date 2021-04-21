@@ -31,7 +31,7 @@ public abstract class GenericView<X> implements Initializable, FinanceView<X> {
         loader.setController(this);
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }

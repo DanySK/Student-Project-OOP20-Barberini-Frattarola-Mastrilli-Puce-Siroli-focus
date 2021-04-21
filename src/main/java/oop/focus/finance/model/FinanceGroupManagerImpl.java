@@ -26,7 +26,7 @@ public class FinanceGroupManagerImpl implements Manager<Person> {
     public final void add(final Person person) {
         try {
             this.group.save(person);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -40,7 +40,7 @@ public class FinanceGroupManagerImpl implements Manager<Person> {
     public final void remove(final Person person) {
         try {
             this.group.delete(person);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }

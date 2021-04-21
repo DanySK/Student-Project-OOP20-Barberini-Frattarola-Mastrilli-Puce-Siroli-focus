@@ -101,7 +101,7 @@ public class NewTransactionViewImpl extends GenericWindow<NewTransactionControll
                         this.categoryChoice.getValue(), this.accountChoice.getValue(), this.dataPicker.getValue(),
                         Integer.parseInt(this.hoursTextField.getText()), Integer.parseInt(this.minutesTextField.getText()),
                         this.repetitionChioce.getValue());
-            } catch (UnsupportedOperationException e) {
+            } catch (final UnsupportedOperationException e) {
                 super.allert("Non posso eseguire una transazione in una data futura.");
             }
             this.close();

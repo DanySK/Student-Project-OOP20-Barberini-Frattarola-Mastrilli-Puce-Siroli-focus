@@ -99,7 +99,7 @@ public class FinanceTest {
         try {
             this.financeManager.removeCategory(new CategoryImpl("Categoria1", ""));
             fail();
-        } catch (IllegalStateException ignored) { }
+        } catch (final IllegalStateException ignored) { }
 
         // controllo che non siano state rimosse categorie
         assertEquals(numCat+3, this.financeManager.getCategoryManager().getElements().size());
@@ -361,7 +361,7 @@ public class FinanceTest {
             persons.save(persona3);
             persons.save(persona4);
             persons.save(persona5);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             fail();
         }
         this.financeManager.getGroupManager().addPerson(persona1);
@@ -446,7 +446,7 @@ public class FinanceTest {
         try {
             this.financeManager.getGroupManager().removePerson(persona1);
             fail();
-        } catch (IllegalStateException ignored) { }
+        } catch (final IllegalStateException ignored) { }
 
         // controllo quante persone ci sono nel gruppo
         assertEquals(numPer+4, this.financeManager.getGroupManager().getGroup().size());
@@ -481,7 +481,7 @@ public class FinanceTest {
             persons.delete(persona3);
             persons.delete(persona4);
             persons.delete(persona5);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             fail();
         }
 

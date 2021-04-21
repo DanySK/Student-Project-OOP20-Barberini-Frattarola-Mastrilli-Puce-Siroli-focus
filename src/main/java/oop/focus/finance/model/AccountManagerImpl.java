@@ -29,7 +29,7 @@ public class AccountManagerImpl implements Manager<Account> {
         try {
             this.checkColor(account.getColor());
             this.accounts.save(account);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -43,7 +43,7 @@ public class AccountManagerImpl implements Manager<Account> {
     public final void remove(final Account account) {
         try {
             this.accounts.delete(account);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -65,7 +65,7 @@ public class AccountManagerImpl implements Manager<Account> {
         if (!this.colors.getAll().contains(color)) {
             try {
                 this.colors.save(color);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         }

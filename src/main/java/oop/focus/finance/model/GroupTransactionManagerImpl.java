@@ -25,7 +25,7 @@ public class GroupTransactionManagerImpl implements Manager<GroupTransaction> {
     public final void add(final GroupTransaction groupTransaction) {
         try {
             this.transactions.save(groupTransaction);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -39,7 +39,7 @@ public class GroupTransactionManagerImpl implements Manager<GroupTransaction> {
     public final void remove(final GroupTransaction groupTransaction) {
         try {
             this.transactions.delete(groupTransaction);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }

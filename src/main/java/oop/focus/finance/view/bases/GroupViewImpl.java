@@ -135,7 +135,7 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 super.getX().reset();
-            } catch (IllegalStateException e) {
+            } catch (final IllegalStateException e) {
                 super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }

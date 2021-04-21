@@ -29,7 +29,7 @@ public class CategoryManagerImpl implements Manager<Category> {
         try {
             this.checkColor(category.getColor());
             this.categories.save(category);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -43,7 +43,7 @@ public class CategoryManagerImpl implements Manager<Category> {
     public final void remove(final Category category) {
         try {
             this.categories.delete(category);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -65,7 +65,7 @@ public class CategoryManagerImpl implements Manager<Category> {
         if (!this.colors.getAll().contains(color)) {
             try {
                 this.colors.save(color);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         }

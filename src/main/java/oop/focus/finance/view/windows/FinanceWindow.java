@@ -37,11 +37,11 @@ public interface FinanceWindow extends View {
      * @param string to check
      * @return true if the string is not convertible to number
      */
-    static boolean isNotNumeric(String string) {
+    static boolean isNotNumeric(final String string) {
         try {
             Double.parseDouble(string);
             return false;
-        } catch (NumberFormatException e) {
+        } catch (final NumberFormatException e) {
             return true;
         }
     }

@@ -28,7 +28,7 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
     public final void add(final QuickTransaction quickTransaction) {
         try {
             this.quickTransactions.save(quickTransaction);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -42,7 +42,7 @@ public class QuickTransactionManagerImpl implements QuickTransactionManager {
     public final void remove(final QuickTransaction quickTransaction) {
         try {
             this.quickTransactions.delete(quickTransaction);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
