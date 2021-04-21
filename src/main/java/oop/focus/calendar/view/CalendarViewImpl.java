@@ -14,8 +14,6 @@ import oop.focus.calendar.controller.CalendarController;
 import oop.focus.calendar.settings.view.CalendarSettingsView;
 import oop.focus.common.View;
 
-import static java.util.Objects.nonNull;
-
 public class CalendarViewImpl implements View {
 
     //Classes
@@ -131,12 +129,10 @@ public class CalendarViewImpl implements View {
      */
     private EventHandler<ActionEvent> addPanel(final VBox panelColumn, final Node root) {
         return event -> {
-            if (nonNull(panelColumn.getChildren())) {
+            if (!panelColumn.getChildren().isEmpty()) {
                 panelColumn.getChildren().remove(0);
-                panelColumn.getChildren().add(root);
-            } else {
-                panelColumn.getChildren().add(root);
             }
+            panelColumn.getChildren().add(root);
         };
     }
 
