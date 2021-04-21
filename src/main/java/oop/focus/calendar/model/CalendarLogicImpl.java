@@ -34,7 +34,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public CalendarLogicImpl(final DataSource dataSource) {
         this.dataSource = dataSource;
-        today = new LocalDate();
+        this.today = new LocalDate();
         this.current = this.today;
         this.week = new ArrayList<>();
         this.month = new ArrayList<>();
@@ -45,16 +45,16 @@ public class CalendarLogicImpl implements CalendarLogic {
      * {@inheritDoc}
      */
     public final Day getDay(final LocalDate day) {
-        if (!this.week.contains(new DayImpl(day, dataSource))) {
-            if (!this.month.contains(new DayImpl(day, dataSource))) {
-                if (!this.year.contains(new DayImpl(day, dataSource))) {
-                    return generateDay(day);
+        if (!this.week.contains(new DayImpl(day, this.dataSource))) {
+            if (!this.month.contains(new DayImpl(day, this.dataSource))) {
+                if (!this.year.contains(new DayImpl(day, this.dataSource))) {
+                    return this.generateDay(day);
                 }
-                return filter(this.year, day);
+                return this.filter(this.year, day);
             }
-            return filter(this.month, day);
+            return this.filter(this.month, day);
         }
-        return filter(this.week, day);
+        return this.filter(this.week, day);
     }
 
     /**
@@ -75,10 +75,10 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public final Day generateDay(final LocalDate day) {
         if (this.day == null) {
-            this.day = new DayImpl(today, dataSource);
+            this.day = new DayImpl(this.today, this.dataSource);
             return this.day;
         }
-        this.day = new DayImpl(day, dataSource);
+        this.day = new DayImpl(day, this.dataSource);
         return this.day;
     }
 
@@ -87,7 +87,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public final List<Day> getWeek() {
         if (this.week.isEmpty()) {
-            this.week = generateWeek();
+            this.week = this.generateWeek();
         }
          return this.week;
     }
@@ -97,7 +97,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public final List<Day> getMonth() {
         if (this.month.isEmpty()) {
-            this.month = generateMonth();
+            this.month = this.generateMonth();
         }
          return this.month;
     }
@@ -107,7 +107,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public final List<Day> getYear() {
         if (this.year.isEmpty()) {
-            this.year = generateYear();
+            this.year = this.generateYear();
         }
          return this.year;
     }
@@ -118,7 +118,7 @@ public class CalendarLogicImpl implements CalendarLogic {
     public final List<Day> generate(final int numberOfDays, final LocalDate startingDate) {
         final List<Day> time = new ArrayList<>();
         for (int i = 0; i < numberOfDays; i++) {
-            time.add(new DayImpl(startingDate.plusDays(i), dataSource));
+            time.add(new DayImpl(startingDate.plusDays(i), this.dataSource));
         }
         return time;
     }
@@ -143,7 +143,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public final List<Day> generateMonth() {
         final LocalDate day = new LocalDate(this.current.getYear(), this.current.getMonthOfYear(), 1);
-        this.month = generate(day.dayOfMonth().getMaximumValue(), day);
+        this.month = this.generate(day.dayOfMonth().getMaximumValue(), day);
         return this.month;
     }
 
@@ -152,7 +152,7 @@ public class CalendarLogicImpl implements CalendarLogic {
      */
     public final List<Day> generateYear() {
         final LocalDate day = new LocalDate(this.current.getYear(), 1, 1);
-        this.year = generate(day.dayOfYear().getMaximumValue(), day);
+        this.year = this.generate(day.dayOfYear().getMaximumValue(), day);
         return this.year;
     }
 
@@ -165,7 +165,7 @@ public class CalendarLogicImpl implements CalendarLogic {
         } else { //next
             this.current = this.current.plusDays(DAYS_IN_WEEK);
         }
-        this.week = generateWeek();
+        this.week = this.generateWeek();
     }
 
     /**
@@ -185,7 +185,7 @@ public class CalendarLogicImpl implements CalendarLogic {
                 this.current = new LocalDate(this.current.getYear(), this.current.getMonthOfYear() + 1, 1);
                 }
         }
-        this.month = generateMonth();
+        this.month = this.generateMonth();
     }
 
     /**
@@ -197,7 +197,7 @@ public class CalendarLogicImpl implements CalendarLogic {
         } else { //next
             this.current = new LocalDate(this.current.getYear() + 1, this.current.getMonthOfYear(), this.current.getDayOfMonth());
         }
-        this.year = generateYear();
+        this.year = this.generateYear();
     }
 
 

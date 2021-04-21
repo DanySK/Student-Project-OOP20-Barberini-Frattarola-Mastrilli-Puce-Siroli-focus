@@ -21,10 +21,10 @@ public class CalendarPageViewTest extends Application {
 
     public final void start(final Stage primaryStage) {
 
-    	final DataSource datasource = new DataSourceImpl();
-        final FinanceManager financeManager = new FinanceManagerImpl(datasource);
-        final GeneralHomePageController controller = new GeneralHomePageControllerImpl(datasource, financeManager);
-        final CalendarController pageController = new CalendarControllerImpl(datasource, controller);
+    	final DataSource dataSource = new DataSourceImpl();
+        final FinanceManager financeManager = new FinanceManagerImpl(dataSource);
+        final GeneralHomePageController controller = new GeneralHomePageControllerImpl(dataSource, financeManager);
+        final CalendarController pageController = new CalendarControllerImpl(dataSource, controller);
         primaryStage.setScene(new Scene((Parent) pageController.getView().getRoot(), WIDTH, HEIGHT));
         primaryStage.show();
     }

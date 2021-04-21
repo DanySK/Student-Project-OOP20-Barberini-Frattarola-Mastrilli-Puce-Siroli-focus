@@ -49,10 +49,10 @@ public class CalendarMonthControllerImpl implements CalendarMonthController {
         this.format = Format.NORMAL;
         this.spacing = SPACING;
         this.fontSize = DEFAULT_FONT_SIZE;
-        calendarLogic = new CalendarLogicImpl(dataSource);
-        this.month = calendarLogic.getMonth();
+        this.calendarLogic = new CalendarLogicImpl(dataSource);
+        this.month = this.calendarLogic.getMonth();
         this.dataSource = dataSource;
-        monthView = new CalendarMonthViewImpl(type, this);
+        this.monthView = new CalendarMonthViewImpl(type, this);
     }
 
     /**

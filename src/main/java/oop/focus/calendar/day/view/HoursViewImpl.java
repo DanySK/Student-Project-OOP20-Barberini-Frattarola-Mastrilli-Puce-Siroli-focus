@@ -48,14 +48,14 @@ public class HoursViewImpl implements HoursView {
      * {@inheritDoc}
      */
     public final void setFormat(final Format format) {
-        hoursFormat = format.getNumber();
+        this.hoursFormat = format.getNumber();
     }
 
     /**
      * {@inheritDoc}
      */
     public final int getFormat() {
-        return hoursFormat;
+        return this.hoursFormat;
     }
 
     /**
@@ -74,7 +74,7 @@ public class HoursViewImpl implements HoursView {
      */
     public final VBox getVBox() {
         if (this.myVBox == null) {
-            buildVBox();
+            this.buildVBox();
         }
         return this.myVBox;
     }
@@ -87,7 +87,7 @@ public class HoursViewImpl implements HoursView {
      */
     private void buildLabel(final Label label, final VBox vBox, final int i) {
         label.setLayoutY(this.spacing / 2 + label.fontProperty().get().getSize() / 2 + this.spacing * i);
-        label.setPrefHeight(spacing);
+        label.setPrefHeight(this.spacing);
         label.setTextAlignment(TextAlignment.CENTER);
         label.alignmentProperty().set(Pos.CENTER);
         label.prefWidthProperty().bind(vBox.prefWidthProperty());
@@ -101,20 +101,20 @@ public class HoursViewImpl implements HoursView {
         final VBox vBox = new VBox();
 
         if (this.hoursFormat == Format.NORMAL.getNumber()) {
-            for (int i = 0; i <= hoursFormat; i++) { 
+            for (int i = 0; i <= this.hoursFormat; i++) {
                     final Label label = new Label(i + ":00");
-                    buildLabel(label, vBox, i);
+                    this.buildLabel(label, vBox, i);
             }
         } else {
-            for (int i = 0; i <= hoursFormat; i++) { 
-                if (flag) {
+            for (int i = 0; i <= this.hoursFormat; i++) {
+                if (this.flag) {
                     final Label label = new Label(i / 2 + ":00");
-                    buildLabel(label, vBox, i);
-                    flag = false;
+                    this.buildLabel(label, vBox, i);
+                    this.flag = false;
                 } else {
                     final Label label = new Label(i / 2 + ":30");
-                    buildLabel(label, vBox, i);
-                    flag = true;
+                    this.buildLabel(label, vBox, i);
+                    this.flag = true;
                 }
             } 
         }
