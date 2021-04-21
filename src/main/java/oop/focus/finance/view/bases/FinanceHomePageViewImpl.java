@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import oop.focus.common.View;
@@ -92,6 +93,7 @@ public class FinanceHomePageViewImpl extends GenericView<FinanceHomePageControll
     @Override
     public final void populateAccounts() {
         this.amountLabel.setText(this.format(super.getX().getTotalAmount()));
+        this.amountLabel.setTextFill(Color.valueOf(super.getX().getTotalAmount() > 0 ? "008f39" : "cc0605"));
         final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Account>> fastAccountTiles = new ArrayList<>();
         super.getX().getSortedAccounts().forEach(a -> fastAccountTiles.add(
