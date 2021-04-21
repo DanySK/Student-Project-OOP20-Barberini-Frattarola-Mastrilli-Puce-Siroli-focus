@@ -150,7 +150,7 @@ public class CachedDao<X> implements SingleDao<X> {
         return (int) (tmp == 0 ? id : tmp);
     }
 
-    private void execute(final Action a) throws DaoAccessException, ConnectionException {
+    private void execute(final Action a) throws ConnectionException {
         this.db.open();
         a.execute();
         this.db.close();
@@ -160,7 +160,7 @@ public class CachedDao<X> implements SingleDao<X> {
         try {
             this.execute(this::withNoParameters);
             this.observable.addAll(this.cache.values());
-        } catch (final DaoAccessException | ConnectionException e) {
+        } catch (final ConnectionException e) {
             System.err.println(ERROR_MESSAGE);
         }
     }

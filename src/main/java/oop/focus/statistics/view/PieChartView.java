@@ -1,6 +1,5 @@
 package oop.focus.statistics.view;
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -8,6 +7,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -73,21 +73,19 @@ public class PieChartView implements SingleValueChart {
             final String style = String.format(PIE_COLOR_STYLE, c);
             this.pieChart.getData().get(ind++).getNode().setStyle(style);
         }
-        Platform.runLater(() -> {
-            for (int i = 0; i < this.pieChart.getData().size(); i++) {
-                final PieChart.Data d = this.pieChart.getData().get(i);
-                String colorClass = "";
-                for (final String cls : d.getNode().getStyleClass()) {
-                    if (cls.startsWith("default-color")) {
-                        colorClass = cls;
-                        break;
-                    }
-                }
-                for (final var n : this.pieChart.lookupAll("." + colorClass)) {
-                    n.setStyle(String.format(PIE_COLOR_STYLE, colors.get(i)));
+        for (int i = 0; i < this.pieChart.getData().size(); i++) {
+            final PieChart.Data d = this.pieChart.getData().get(i);
+            String colorClass = "";
+            for (final String cls : d.getNode().getStyleClass()) {
+                if (cls.startsWith("default-color")) {
+                    colorClass = cls;
+                    break;
                 }
             }
-        });
+            for (final var n : this.pieChart.lookupAll("." + colorClass)) {
+                n.setStyle(String.format(PIE_COLOR_STYLE, colors.get(i)));
+            }
+        }
     }
 
     /**

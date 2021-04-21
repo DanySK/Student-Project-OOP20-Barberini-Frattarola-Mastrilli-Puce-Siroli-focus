@@ -48,7 +48,6 @@ public class DataSourceImpl implements DataSource {
     private final SingleDao<Event> events;
     private final SingleDao<ToDoAction> todoList;
     private final SingleDao<Pair<Integer, Integer>> eventPersons;
-    private final SingleDao<FidelityCard> fidelityCards;
     private final SingleDao<Account> accounts;
     private final SingleDao<Transaction> transactions;
     private final SingleDao<GroupTransaction> groupTransactions;
