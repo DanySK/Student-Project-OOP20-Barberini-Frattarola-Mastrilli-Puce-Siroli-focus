@@ -47,13 +47,13 @@ public class CalendarDayControllerImpl implements CalendarDayController {
 
         this.day = day;
         this.hoursBox = new HoursViewImpl();
-        this.eventBox = new EventViewImpl(hoursBox, day);
+        this.eventBox = new EventViewImpl(this.hoursBox, day);
 
         this.dailyEvents = " Attivita' giornaliere: " + SEP;
         this.width = width;
         this.height = height;
-        setSpacing(SPACING);
-        setFormat(Format.NORMAL);
+        this.setSpacing(SPACING);
+        this.setFormat(Format.NORMAL);
     }
 
     /**

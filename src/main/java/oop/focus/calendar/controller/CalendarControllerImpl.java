@@ -50,14 +50,14 @@ public class CalendarControllerImpl implements CalendarController {
 
         this.statisticsController  = new EventsStatistics(dataSource);
 
-        weekController = new WeekControllerImpl(dataSource, ((GeneralHomePageController) homePageController).getHomePageController());
-        this.newEventController = new NewEventControllerImpl(dataSource, weekController, this.monthController);
+        this.weekController = new WeekControllerImpl(dataSource, ((GeneralHomePageController) homePageController).getHomePageController());
+        this.newEventController = new NewEventControllerImpl(dataSource, this.weekController, this.monthController);
 
-        settingsController = new CalendarSettingsControllerImpl(monthController, weekController);
+        this.settingsController = new CalendarSettingsControllerImpl(this.monthController, this.weekController);
 
         this.eventController = new EventMenuControllerImpl(dataSource,  this.weekController, this.monthController);
 
-        personController = new PersonsControllerImpl(dataSource);
+        this.personController = new PersonsControllerImpl(dataSource);
 
         this.calendarView = new CalendarViewImpl(this);
     }

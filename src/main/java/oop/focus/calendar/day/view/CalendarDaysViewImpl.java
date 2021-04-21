@@ -47,17 +47,17 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      */
     private void configureDay(final HBox myHBox) {
 
-        dayController.getHoursBox().setFormat(dayController.getFormat());
-        dayController.getHoursBox().setSpacing(dayController.getSpacing());
+        this.dayController.getHoursBox().setFormat(this.dayController.getFormat());
+        this.dayController.getHoursBox().setSpacing(this.dayController.getSpacing());
 
-        dayController.getHoursBox().buildVBox();
-        dayController.getEventBox().buildVBox();
+        this.dayController.getHoursBox().buildVBox();
+        this.dayController.getEventBox().buildVBox();
 
-        dayController.getHoursBox().getVBox().prefWidthProperty().bind(myHBox.widthProperty().divide(2));
-        dayController.getEventBox().getVBox().prefWidthProperty().bind(myHBox.widthProperty());
+        this.dayController.getHoursBox().getVBox().prefWidthProperty().bind(myHBox.widthProperty().divide(2));
+        this.dayController.getEventBox().getVBox().prefWidthProperty().bind(myHBox.widthProperty());
 
-        myHBox.getChildren().add(dayController.getHoursBox().getVBox());
-        myHBox.getChildren().add(dayController.getEventBox().getVBox());
+        myHBox.getChildren().add(this.dayController.getHoursBox().getVBox());
+        myHBox.getChildren().add(this.dayController.getEventBox().getVBox());
         myHBox.setAlignment(Pos.CENTER);
     }
 
@@ -88,18 +88,18 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
         //myhbox is used for contain the HoursBox and EventBox
         final HBox myHBox = new HBox();
 
-        configureDay(myHBox);
+        this.configureDay(myHBox);
 
 
-        final Label nameDay = new Label(dayController.getDay().getName());
-        final Label numberDay = new Label(" " + dayController.getDay().getNumber() + " ");
+        final Label nameDay = new Label(this.dayController.getDay().getName());
+        final Label numberDay = new Label(" " + this.dayController.getDay().getNumber() + " ");
         nameDay.setAlignment(Pos.CENTER);
         numberDay.setAlignment(Pos.CENTER);
         container.getChildren().add(nameDay);
         container.getChildren().add(numberDay);
 
         final Label daily = new Label();
-        configureDailyEvent(container, daily);
+        this.configureDailyEvent(container, daily);
 
         container.getChildren().add(myHBox);
         container.setBorder(new Border(new BorderStroke(Color.PURPLE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -128,7 +128,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * Used for set the string where are written the daily events.
      */
     private void setDailyEvent() {
-        this.dailyEvents = dayController.writeDailyEvent();
+        this.dailyEvents = this.dayController.writeDailyEvent();
     }
 
     /**
@@ -143,7 +143,7 @@ public class CalendarDaysViewImpl implements CalendarDaysView {
      * {@inheritDoc}
      */
     public final Node getRoot() {
-        return getContainer();
+        return this.getContainer();
     }
 
 

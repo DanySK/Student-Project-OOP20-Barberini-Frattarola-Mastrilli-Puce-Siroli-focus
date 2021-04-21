@@ -26,8 +26,8 @@ public class DayImpl implements Day {
      */
     public DayImpl(final LocalDate date, final DataSource dataSource) {
         final EventManager manager = new EventManagerImpl(dataSource);
-        events = new ArrayList<>();
-        dailyEvents = new ArrayList<>();
+        this.events = new ArrayList<>();
+        this.dailyEvents = new ArrayList<>();
         this.date = date;
         final List<Event> temp = Filter.getEventsWithDuration(manager.findByDate(date));
         final List<Event> future = manager.getFutureEvent(date);
@@ -44,42 +44,42 @@ public class DayImpl implements Day {
      * {@inheritDoc}
      */
     public final int getNumber() {
-        return  date.getDayOfMonth();
+        return this.date.getDayOfMonth();
     }
 
     /**
      * {@inheritDoc}
      */
     public final int getDayOfTheWeek() {
-        return  date.getDayOfWeek();
+        return this.date.getDayOfWeek();
     }
 
     /**
      * {@inheritDoc}
      */
     public final String getName() {
-        return date.dayOfWeek().getAsText(Locale.ITALY);
+        return this.date.dayOfWeek().getAsText(Locale.ITALY);
     }
 
     /**
      * {@inheritDoc}
      */
     public final String getMonth() {
-        return date.monthOfYear().getAsText(Locale.ITALY);
+        return this.date.monthOfYear().getAsText(Locale.ITALY);
     }
 
     /**
      * {@inheritDoc}
      */
     public final int getMonthNumber() {
-        return date.getMonthOfYear();
+        return this.date.getMonthOfYear();
     }
 
     /**
      * {@inheritDoc}
      */
     public final int getYear() {
-        return date.getYear();
+        return this.date.getYear();
     }
 
     /**
@@ -100,14 +100,14 @@ public class DayImpl implements Day {
      * {@inheritDoc}
      */
     public final boolean isSunday() {
-        return "domenica".equalsIgnoreCase(getName());
+        return "domenica".equalsIgnoreCase(this.getName());
     }
 
     @Override
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
         return result;
     }
 
@@ -119,15 +119,15 @@ public class DayImpl implements Day {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (this.getClass() != obj.getClass()) {
             return false;
         }
         final DayImpl other = (DayImpl) obj;
-        if (date == null) {
+        if (this.date == null) {
             if (other.date != null) {
                 return false;
             }
-        } else if (!date.equals(other.date)) {
+        } else if (!this.date.equals(other.date)) {
             return false;
         }
         return true;

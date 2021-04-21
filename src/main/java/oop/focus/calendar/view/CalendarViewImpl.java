@@ -40,7 +40,7 @@ public class CalendarViewImpl implements View {
     public CalendarViewImpl(final CalendarController calendarController) {
         this.calendarController = calendarController;
         this.calendarPage = new HBox();
-        buildCalendarPage();
+        this.buildCalendarPage();
     }
 
     /**
@@ -51,22 +51,22 @@ public class CalendarViewImpl implements View {
         final VBox buttonColumn = new VBox();
         final VBox panelColumn = new VBox();
 
-        calendarPage.getChildren().add(buttonColumn);
-        calendarPage.getChildren().add(panelColumn);
+        this.calendarPage.getChildren().add(buttonColumn);
+        this.calendarPage.getChildren().add(panelColumn);
 
 
-        configureColumn(buttonColumn, WIDTH_BUTTON_PANEL);
-        configureColumn(panelColumn, WIDTH_PANEL);
+        this.configureColumn(buttonColumn, WIDTH_BUTTON_PANEL);
+        this.configureColumn(panelColumn, WIDTH_PANEL);
 
 
-        columnButton(buttonColumn, "Mese", addPanel(panelColumn, calendarController.getMonthController().getView().getRoot()));
-        columnButton(buttonColumn, "Settimana", addPanel(panelColumn, calendarController.getWeekController().getView().getRoot()));
-        columnButton(buttonColumn, "Persone", addPanel(panelColumn, calendarController.getPersonController().getView().getRoot()));
-        columnButton(buttonColumn, "Statistiche", addPanel(panelColumn, calendarController.getStatisticsController().getView().getRoot()));
-        buildButtonWindows(buttonColumn, "Impostazioni", calendarController.getSettingsController().getView(), SETTING_WIDTH, SETTING_HEIGHT);
-        buildButtonWindows(buttonColumn, "Aggiungi Evento", calendarController.getNewEventController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
-        buildButtonWindows(buttonColumn, "Info Eventi", calendarController.getEventInfoController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
-        panelColumn.getChildren().add(calendarController.getMonthController().getView().getRoot());
+        this.columnButton(buttonColumn, "Mese", this.addPanel(panelColumn, this.calendarController.getMonthController().getView().getRoot()));
+        this.columnButton(buttonColumn, "Settimana", this.addPanel(panelColumn, this.calendarController.getWeekController().getView().getRoot()));
+        this.columnButton(buttonColumn, "Persone", this.addPanel(panelColumn, this.calendarController.getPersonController().getView().getRoot()));
+        this.columnButton(buttonColumn, "Statistiche", this.addPanel(panelColumn, this.calendarController.getStatisticsController().getView().getRoot()));
+        this.buildButtonWindows(buttonColumn, "Impostazioni", this.calendarController.getSettingsController().getView(), SETTING_WIDTH, SETTING_HEIGHT);
+        this.buildButtonWindows(buttonColumn, "Aggiungi Evento", this.calendarController.getNewEventController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
+        this.buildButtonWindows(buttonColumn, "Info Eventi", this.calendarController.getEventInfoController().getView(), EVENT_WIDTH, EVENT_HEIGHT);
+        panelColumn.getChildren().add(this.calendarController.getMonthController().getView().getRoot());
     }
 
 
@@ -75,8 +75,8 @@ public class CalendarViewImpl implements View {
      * @param column : column box to configure
      */
     private void configureColumn(final VBox column, final double width) {
-        column.prefWidthProperty().bind(calendarPage.widthProperty().multiply(width));
-        column.prefHeightProperty().bind(calendarPage.heightProperty());
+        column.prefWidthProperty().bind(this.calendarPage.widthProperty().multiply(width));
+        column.prefHeightProperty().bind(this.calendarPage.heightProperty());
         column.setAlignment(Pos.CENTER);
         if (width == WIDTH_BUTTON_PANEL) {
         column.setSpacing(GAP);
