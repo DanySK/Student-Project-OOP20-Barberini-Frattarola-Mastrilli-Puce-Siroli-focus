@@ -1,29 +1,19 @@
-# README #
+# FOCUS #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Quasi tutti ormai si affidano ad agende elettroniche che permettono di organizzare al meglio la giornata. L’applicazione si propone di raccogliere le funzionalità più utilizzate dagli utenti in un’interfaccia semplice e intuitiva.
 
-### What is this repository for? ###
+### Istruzioni ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Installare una JRE funzionante.
+* Scaricare jar nella sezione download.
+* Doppio click per lanciare l'applicazione.
 
-### How do I get set up? ###
+### Autori ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Barberini Elisa
+* Frattarola Marco
+* Mastrilli Alice
+* Puce Edoardo
+* Alex Siroli
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact

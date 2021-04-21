@@ -19,13 +19,6 @@ public interface CalendarLogic {
     Day getDay(LocalDate day);
 
     /**
-     * Used for build a day from a date.
-     * @param day : {@link LocalDate} of the day that we want to generate
-     * @return Day : an generated {@link Day}
-     */
-    Day generateDay(LocalDate day);
-
-    /**
      * Used for get the week list.
      * @return a list of 7 {@link Day}
      */
@@ -42,14 +35,6 @@ public interface CalendarLogic {
      * @return a list of 365 {@link Day}
      */
     List<Day> getYear();
-
-    /**
-     * Used for generate one of the Calendar List.
-     * @param numberOfDays : is the number of day of the list
-     * @param startingDate : is the date of the day from it start to generate the calendar
-     * @return List : a generated list of number number of {@link Day}.
-     */
-    List<Day> generate(int numberOfDays, LocalDate startingDate);
 
     /**
      * Generate a list of 7 day.

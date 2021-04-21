@@ -50,13 +50,6 @@ public interface Day {
     int getYear();
 
     /**
-     * Can be used to see if is Sunday.
-     * @return true if is Sunday 
-     *
-     */
-    boolean isSunday();
-
-    /**
      * Can be used to get the list of the events of the day.
      * @return List : the list of event of the day
      */

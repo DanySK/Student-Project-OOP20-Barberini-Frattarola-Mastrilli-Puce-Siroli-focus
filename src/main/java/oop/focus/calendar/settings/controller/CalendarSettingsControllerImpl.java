@@ -72,7 +72,7 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
                     this.setSpacing(d);
                     return true;
                 } 
-            } catch (NumberFormatException nfe) {
+            } catch (final NumberFormatException nfe) {
                 this.settingsView.windowsError("inserire dei numeri");
                 return false;
             }

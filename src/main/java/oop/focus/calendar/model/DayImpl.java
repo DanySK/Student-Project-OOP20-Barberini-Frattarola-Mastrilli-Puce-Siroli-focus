@@ -96,13 +96,6 @@ public class DayImpl implements Day {
         return  this.dailyEvents;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public final boolean isSunday() {
-        return "domenica".equalsIgnoreCase(this.getName());
-    }
-
     @Override
     public final int hashCode() {
         final int prime = 31;
@@ -124,13 +117,10 @@ public class DayImpl implements Day {
         }
         final DayImpl other = (DayImpl) obj;
         if (this.date == null) {
-            if (other.date != null) {
-                return false;
-            }
-        } else if (!this.date.equals(other.date)) {
-            return false;
+            return other.date == null;
+        } else {
+            return this.date.equals(other.date);
         }
-        return true;
     }
 
 

@@ -121,8 +121,8 @@ public class EventViewImpl implements VBoxManager {
         }
 
 
-        double endHour;
-        double startHour;
+        final double endHour;
+        final double startHour;
 
         if (this.events.get(i).getEndDate().getDayOfMonth() == this.day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
             endHour = this.events.get(i).getEndHour().getHourOfDay();

@@ -71,9 +71,11 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
     /**
-     * {@inheritDoc}
+     * Used for build a day from a date.
+     * @param day : {@link LocalDate} of the day that we want to generate
+     * @return Day : an generated {@link Day}
      */
-    public final Day generateDay(final LocalDate day) {
+    private Day generateDay(final LocalDate day) {
         if (this.day == null) {
             this.day = new DayImpl(this.today, this.dataSource);
             return this.day;
@@ -113,9 +115,12 @@ public class CalendarLogicImpl implements CalendarLogic {
     }
 
     /**
-     * {@inheritDoc}
+     * Used for generate one of the Calendar List.
+     * @param numberOfDays : is the number of day of the list
+     * @param startingDate : is the date of the day from it start to generate the calendar
+     * @return List : a generated list of number number of {@link Day}.
      */
-    public final List<Day> generate(final int numberOfDays, final LocalDate startingDate) {
+    private List<Day> generate(final int numberOfDays, final LocalDate startingDate) {
         final List<Day> time = new ArrayList<>();
         for (int i = 0; i < numberOfDays; i++) {
             time.add(new DayImpl(startingDate.plusDays(i), this.dataSource));
