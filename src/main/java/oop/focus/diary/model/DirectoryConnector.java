@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class DirectoryConnector implements Connector<File> {
     private static final String SOURCE_PATH = ".focus";
-    private static final String FOLDER_NAME = "DiarysPages";
+    private static final String FOLDER_NAME = "DiaryPages";
     private static final String SEP = File.separator;
     private final Path dirPath = Paths.get(System.getProperty("user.home") + SEP + SOURCE_PATH + SEP + FOLDER_NAME);
 

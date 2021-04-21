@@ -16,6 +16,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.common.View;
+import oop.focus.diary.controller.CreatePageController;
 import oop.focus.diary.controller.DiaryPagesController;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.RemovePageController;
@@ -31,7 +32,7 @@ import static oop.focus.diary.view.OpenWindow.openWindow;
  * DiaryView represents the under-section of diary inside the section of diary. The representation of single pages
  * is managed by the appropriate class {@link SingleDiaryPage}.
  */
-public class DiaryView implements View, Initializable {
+public class DiaryView implements UpdatableView<String>, Initializable {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final double PAGES_HEIGHT = 0.2;
     private static final double DIARY_LABEL_HEIGHT = 0.1;
@@ -83,7 +84,7 @@ public class DiaryView implements View, Initializable {
         this.insertPages();
         this.controller.getObservableSet().addListener((SetChangeListener<DiaryImpl>) change -> {
             if (change.wasAdded()) {
-                this.updateView(change.getElementAdded().getName());
+                this.updateInput(change.getElementAdded().getName());
             } else if (change.wasRemoved()) {
                 this.pages.getPanes().clear();
                 this.insertPages();
@@ -93,8 +94,8 @@ public class DiaryView implements View, Initializable {
                 this.hBox)).getRoot();
         this.diaryLabel.setText("Diario");
         this.addButton.setText("Aggiungi");
-        this.addButton.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewPage(this.controller).
-                getRoot()));
+        this.addButton.setOnMouseClicked(event -> openWindow((Parent) new CreatePageController(this.controller)
+                .getView().getRoot()));
         this.removeButton.setText("Rimuovi");
         this.removeButton.setOnMouseClicked(event -> openWindow((Parent) new RemovePageController(this.controller).
                 getView().getRoot()));
@@ -114,19 +115,12 @@ public class DiaryView implements View, Initializable {
         this.pages.prefHeightProperty().bind(this.containerDiary.heightProperty().multiply(PAGES_HEIGHT));
     }
 
-    /**
-     * The method can be used to add in the appropriate container a single diary's page, identified by his title.
-     * @param title the title of page to insert
-     */
-    private void updateView(final String title) {
-        this.pages.getPanes().add(new SingleDiaryPageImpl(this.controller).createSinglePage(title));
-    }
 
     /**
      * The method can be used to add all pages' saved to the appropriate container.
      */
     private void insertPages() {
-        this.controller.getFileName().forEach(this::updateView);
+        this.controller.getFileName().forEach(this::updateInput);
     }
     /**
      * {@inheritDoc}
@@ -134,5 +128,13 @@ public class DiaryView implements View, Initializable {
     @Override
     public final Node getRoot() {
         return this.vBox;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void updateInput(String input) {
+        this.pages.getPanes().add(new SingleDiaryPageImpl(this.controller).createSinglePage(input));
     }
 }

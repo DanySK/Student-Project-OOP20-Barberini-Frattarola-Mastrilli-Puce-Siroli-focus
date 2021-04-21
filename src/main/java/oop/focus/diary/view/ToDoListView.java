@@ -19,9 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.common.View;
+import oop.focus.diary.controller.CreateNewAnnotationController;
 import oop.focus.diary.controller.FXMLPaths;
 import oop.focus.diary.controller.RemoveTDLController;
-import oop.focus.diary.controller.SingleAnnotationController;
 import oop.focus.diary.controller.ToDoListController;
 import oop.focus.diary.model.ToDoAction;
 
@@ -34,7 +34,6 @@ import static oop.focus.diary.view.OpenWindow.openWindow;
 
 /**
  * To Do List View represents toDoList's section, a container of ToDoActions.
- * The view of single ToDoAction is given by the appropriate class {@link SingleToDoActionView}.
  */
 public class ToDoListView implements View, Initializable {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
@@ -66,7 +65,6 @@ public class ToDoListView implements View, Initializable {
     private final ToDoListController controller;
     private  ListView<CheckBox> listView;
     private ObservableList<CheckBox> checkBoxes;
-
     /**
      * Instantiates a new to do list view and opens the relative FXML file.
      * @param controller    to do list controller
@@ -80,16 +78,27 @@ public class ToDoListView implements View, Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     /**
      * The method can be used to insert all {@link ToDoAction} in the appropriate {@link ListView}.
      */
     private void updateTDLView() {
-        this.controller.allAnnotations().stream().map(s -> (CheckBox) new SingleAnnotationController(s).getView().
-               getRoot()).forEach(this.checkBoxes::add);
+        this.controller.allAnnotations().stream().map(this::createSingleToDoAction).forEach(this.checkBoxes::add);
     }
 
+    /**
+     * Represents single To Do Action of the section of To Do List, using {@link CheckBox}.
+     * @param action    the to do action of which it's set the View.
+     * @return  a {@link CheckBox} representing the toDoAction in input
+     */
+    private CheckBox createSingleToDoAction(ToDoAction action) {
+        final CheckBox box;
+        box = new CheckBox(action.getAnnotation());
+        box.setSelected(action.isDone());
+        return box;
+    }
     /**
      * {@inheritDoc}
      */
@@ -99,8 +108,8 @@ public class ToDoListView implements View, Initializable {
                 this.hBox)).getRoot();
         this.toDoListLabel.setText("To Do List");
         this.addAnnotation.setText("Aggiungi");
-        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new WindowCreateNewAnnotation(this.controller)
-                .getRoot()));
+        this.addAnnotation.setOnMouseClicked(event -> openWindow((Parent) new CreateNewAnnotationController(
+                this.controller).getView().getRoot()));
         this.removeAnnotation.setText("Rimuovi");
         this.removeAnnotation.setOnMouseClicked(event -> openWindow((Parent) new RemoveTDLController(this.controller)
                 .getView().getRoot()));
@@ -110,7 +119,7 @@ public class ToDoListView implements View, Initializable {
         this.controller.allAnnotations().addListener((SetChangeListener<ToDoAction>) c -> {
             if (c.wasAdded()) {
                 final ToDoAction change = c.getElementAdded();
-                this.checkBoxes.add((CheckBox) new SingleAnnotationController(change).getView().getRoot());
+                this.checkBoxes.add(this.createSingleToDoAction(change));
             } else if (c.wasRemoved()) {
                 this.listView.getItems().clear();
                 this.updateTDLView();
