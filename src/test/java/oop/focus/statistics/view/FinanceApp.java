@@ -56,10 +56,10 @@ public class FinanceApp extends Application {
         primaryStage.show();
         /*this.createData(manager::removeAccount, manager);
         try {
-            db.getCategories().delete(c1);
-            db.getCategories().delete(c2);
-            db.getCategories().delete(c3);
-            db.getCategories().delete(c4);
+            db.getElements().delete(c1);
+            db.getElements().delete(c2);
+            db.getElements().delete(c3);
+            db.getElements().delete(c4);
             db.getColors().delete(this.color1);
             db.getColors().delete(this.color2);
             db.getColors().delete(this.color3);

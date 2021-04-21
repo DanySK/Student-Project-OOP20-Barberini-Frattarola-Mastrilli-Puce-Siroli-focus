@@ -3,7 +3,6 @@ package oop.focus.finance.model;
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
-import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.homepage.model.Person;
 import org.joda.time.LocalDateTime;
 
@@ -15,17 +14,18 @@ import java.util.Comparator;
 
 /**
  * Immutable implementation of a group manager.
+ * The manager deals with the management of both the people present in the group and the group transactions.
  */
 public class GroupManagerImpl implements GroupManager {
 
-    private final Dao<Person> group;
+    private final Manager<GroupTransaction> transactions;
+    private final Manager<Person> group;
     private final Dao<Person> persons;
-    private final Dao<GroupTransaction> transactions;
 
     public GroupManagerImpl(final DataSource db) {
-        this.group = db.getGroup();
+        this.transactions = new GroupTransactionManagerImpl(db);
+        this.group = new FinanceGroupManagerImpl(db);
         this.persons = db.getPersons();
-        this.transactions = db.getGroupTransactions();
     }
 
     /**
@@ -33,11 +33,7 @@ public class GroupManagerImpl implements GroupManager {
      */
     @Override
     public final void addPerson(final Person person) {
-        try {
-            this.group.save(person);
-        } catch (DaoAccessException e) {
-            e.printStackTrace();
-        }
+        this.group.add(person);
     }
 
     /**
@@ -46,11 +42,7 @@ public class GroupManagerImpl implements GroupManager {
     @Override
     public final void removePerson(final Person person) {
         if (this.getCredit(person) == 0) {
-            try {
-                this.group.delete(person);
-            } catch (DaoAccessException e) {
-                e.printStackTrace();
-            }
+            this.group.remove(person);
         } else {
             throw new IllegalStateException();
         }
@@ -58,44 +50,30 @@ public class GroupManagerImpl implements GroupManager {
 
     @Override
     public final int getCredit(final Person person) {
-        return this.transactions.getAll().stream()
+        return this.getTransactions().stream()
                 .filter(t -> t.getMadeBy().equals(person))
                 .map(GroupTransaction::getAmount)
-                .reduce(0, Integer::sum) - this.transactions.getAll().stream()
+                .reduce(0, Integer::sum) - this.getTransactions().stream()
                 .filter(t -> t.getForList().contains(person))
                 .map(t -> t.getAmount() / t.getForList().size())
                 .reduce(0, Integer::sum);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void addTransaction(final GroupTransaction groupTransaction) {
-        try {
-            this.transactions.save(groupTransaction);
-        } catch (DaoAccessException e) {
-            e.printStackTrace();
-        }
+        this.transactions.add(groupTransaction);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public final void removeTransaction(final GroupTransaction groupTransaction) {
-        try {
-            this.transactions.delete(groupTransaction);
-        } catch (DaoAccessException e) {
-            e.printStackTrace();
-        }
+        this.transactions.remove(groupTransaction);
     }
 
     @Override
     public final List<GroupTransaction> resolveList() {
         final var ret = new ArrayList<GroupTransaction>();
         final Map<Person, Integer> map = new HashMap<>();
-        this.group.getAll().forEach(p -> map.put(p, this.getCredit(p)));
+        this.getGroup().forEach(p -> map.put(p, this.getCredit(p)));
         while (!map.values().stream().allMatch(i -> i == 0)) {
             final Person creditor = this.getCreditor(map);
             final Person debtor = this.getDebtor(map);
@@ -108,23 +86,23 @@ public class GroupManagerImpl implements GroupManager {
         return ret;
     }
 
+    @Override
+    public final ObservableSet<Person> getGroup() {
+        return this.group.getElements();
+    }
+
+    @Override
+    public final ObservableSet<GroupTransaction> getTransactions() {
+        return this.transactions.getElements();
+    }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public final void reset() {
-        new ArrayList<>(this.group.getAll()).forEach(this::removePerson);
-        new ArrayList<>(this.transactions.getAll()).forEach(this::removeTransaction);
-    }
-
-    @Override
-    public final ObservableSet<Person> getGroup() {
-        return this.group.getAll();
-    }
-
-    @Override
-    public final ObservableSet<GroupTransaction> getTransactions() {
-        return this.transactions.getAll();
+        new ArrayList<>(this.getGroup()).forEach(this::removePerson);
+        new ArrayList<>(this.getTransactions()).forEach(this::removeTransaction);
     }
 
     @Override

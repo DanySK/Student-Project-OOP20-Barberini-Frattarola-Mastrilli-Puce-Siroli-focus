@@ -1,6 +1,5 @@
 package oop.focus.finance.model;
 
-import javafx.collections.ObservableSet;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -9,22 +8,8 @@ import java.util.List;
  * Interface that models a transaction manager,
  * working on all transactions and managing database operations.
  */
-public interface TransactionManager {
+public interface TransactionManager extends Manager<Transaction> {
 
-    /**
-     * Saves a transaction in the database.
-     * It is not possible to add a transaction at a future date.
-     *
-     * @param transaction that is saved
-     */
-    void add(Transaction transaction);
-
-    /**
-     * Removes a transaction from the database.
-     * 
-     * @param transaction being deleted
-     */
-    void remove(Transaction transaction);
 
     /**
      * Updates the data of a transaction in the database.
@@ -39,11 +24,6 @@ public interface TransactionManager {
      * @param subscription being stopped
      */
     void stopRepeat(Transaction subscription);
-
-    /**
-     * @return the list of all transactions
-     */
-    ObservableSet<Transaction> getTransactions();
 
     /**
      * @return positive transactions' list

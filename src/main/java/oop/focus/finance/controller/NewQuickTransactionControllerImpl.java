@@ -26,8 +26,8 @@ public class NewQuickTransactionControllerImpl implements NewQuickTransactionCon
     public NewQuickTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new NewQuickTransactionViewImpl(this);
-        this.categories = manager.getCategoryManager().getCategories();
-        this.accounts = manager.getAccountManager().getAccounts();
+        this.categories = manager.getCategoryManager().getElements();
+        this.accounts = manager.getAccountManager().getElements();
         this.addListeners();
     }
 
@@ -36,9 +36,9 @@ public class NewQuickTransactionControllerImpl implements NewQuickTransactionCon
         this.accounts.addListener((SetChangeListener<Account>) change -> this.view.populate());
     }
 
-        /**
-         * {@inheritDoc}
-         */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final View getView() {
         return this.view;
@@ -57,14 +57,14 @@ public class NewQuickTransactionControllerImpl implements NewQuickTransactionCon
     @Override
     public final ObservableList<Category> getCategories() {
         final ObservableList<Category> list = FXCollections.observableArrayList();
-        Linker.setToList(this.manager.getCategoryManager().getCategories(), list);
+        Linker.setToList(this.manager.getCategoryManager().getElements(), list);
         return list;
     }
 
     @Override
     public final ObservableList<Account> getAccounts() {
         final ObservableList<Account> list = FXCollections.observableArrayList();
-        Linker.setToList(this.manager.getAccountManager().getAccounts(), list);
+        Linker.setToList(this.manager.getAccountManager().getElements(), list);
         return list;
     }
 

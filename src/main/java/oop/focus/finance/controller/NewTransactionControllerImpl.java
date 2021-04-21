@@ -32,8 +32,8 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     public NewTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new NewTransactionViewImpl(this);
-        this.categories = manager.getCategoryManager().getCategories();
-        this.accounts = manager.getAccountManager().getAccounts();
+        this.categories = manager.getCategoryManager().getElements();
+        this.accounts = manager.getAccountManager().getElements();
         this.addListeners();
     }
 
@@ -57,7 +57,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     public final void newTransaction(final String description, final double amount, final Category category, final Account account,
                                      final java.time.LocalDate date, final int hours, final int minutes, final Repetition repetition) {
         this.manager.addTransaction(new TransactionImpl(description, category, new LocalDateTime(date.getYear(), date.getMonthValue(),
-                        date.getDayOfMonth(), hours, minutes, 0), account, (int) (amount * 100), repetition));
+                date.getDayOfMonth(), hours, minutes, 0), account, (int) (amount * 100), repetition));
         if (!repetition.equals(Repetition.ONCE)) {
             this.manager.generateRepeatedTransactions(LocalDate.now());
         }
@@ -66,7 +66,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     @Override
     public final ObservableList<Category> getCategories() {
         final ObservableList<Category> list = FXCollections.observableArrayList();
-        Linker.setToList(this.manager.getCategoryManager().getCategories(), list);
+        Linker.setToList(this.manager.getCategoryManager().getElements(), list);
         return list;
     }
 
@@ -81,7 +81,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
     @Override
     public final ObservableList<Account> getAccounts() {
         final ObservableList<Account> list = FXCollections.observableArrayList();
-        Linker.setToList(this.manager.getAccountManager().getAccounts(), list);
+        Linker.setToList(this.manager.getAccountManager().getElements(), list);
         return list;
     }
 

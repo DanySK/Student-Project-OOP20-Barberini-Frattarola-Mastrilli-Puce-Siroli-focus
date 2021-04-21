@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class FinanceManagerImpl implements FinanceManager {
 
     private final DataSource db;
-    private final AccountManager accounts;
-    private final CategoryManager categories;
+    private final Manager<Account> accounts;
+    private final Manager<Category> categories;
     private final TransactionManager transactions;
     private final QuickTransactionManager quickTransactions;
     private final GroupManager group;
@@ -41,10 +41,10 @@ public class FinanceManagerImpl implements FinanceManager {
      */
     @Override
     public final void removeAccount(final Account account) {
-        this.transactions.getTransactions().stream()
-                        .filter(t -> t.getAccount()
+        this.transactions.getElements().stream()
+                .filter(t -> t.getAccount()
                         .equals(account))
-                        .collect(Collectors.toList()).forEach(this.transactions::remove);
+                .collect(Collectors.toList()).forEach(this.transactions::remove);
         this.accounts.remove(account);
     }
 
@@ -61,7 +61,7 @@ public class FinanceManagerImpl implements FinanceManager {
      */
     @Override
     public final void removeCategory(final Category category) {
-        if (this.transactions.getTransactions().stream()
+        if (this.transactions.getElements().stream()
                 .map(Transaction::getCategory)
                 .noneMatch(c -> c.equals(category))) {
             this.categories.remove(category);
@@ -83,11 +83,11 @@ public class FinanceManagerImpl implements FinanceManager {
      */
     @Override
     public final int getAmount(final Account account) {
-        final var acc = this.accounts.getAccounts().stream()
+        final var acc = this.accounts.getElements().stream()
                 .filter(a -> a.equals(account))
                 .collect(Collectors.toList())
                 .get(0);
-        return acc.getInitialAmount() + this.transactions.getTransactions().stream()
+        return acc.getInitialAmount() + this.transactions.getElements().stream()
                 .filter(t -> t.getAccount().equals(acc))
                 .mapToInt(Transaction::getAmount)
                 .sum();
@@ -98,7 +98,7 @@ public class FinanceManagerImpl implements FinanceManager {
      */
     @Override
     public final void removeTransaction(final Transaction transaction) {
-        if (this.transactions.getTransactions().contains(transaction)) {
+        if (this.transactions.getElements().contains(transaction)) {
             this.transactions.remove(transaction);
         } else {
             throw new IllegalStateException();
@@ -130,12 +130,12 @@ public class FinanceManagerImpl implements FinanceManager {
     }
 
     @Override
-    public final AccountManager getAccountManager() {
+    public final Manager<Account> getAccountManager() {
         return this.accounts;
     }
 
     @Override
-    public final CategoryManager getCategoryManager() {
+    public final Manager<Category> getCategoryManager() {
         return this.categories;
     }
 

@@ -30,9 +30,9 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
     public FinanceHomePageControllerImpl(final FinanceManager manager) {
         this.manager = manager;
         this.view = new FinanceHomePageViewImpl(this);
-        this.accounts = manager.getAccountManager().getAccounts();
-        this.transactions = manager.getTransactionManager().getTransactions();
-        this.quickTransactions = manager.getQuickManager().getQuickTransactions();
+        this.accounts = manager.getAccountManager().getElements();
+        this.transactions = manager.getTransactionManager().getElements();
+        this.quickTransactions = manager.getQuickManager().getElements();
         this.addListeners();
     }
 
@@ -41,8 +41,8 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
         this.quickTransactions.addListener((SetChangeListener<QuickTransaction>) change ->
                 this.view.populateQuickTransactions());
         this.transactions.addListener((SetChangeListener<Transaction>) change -> {
-                this.view.populateRecentTransactions();
-                this.view.populateAccounts();
+            this.view.populateRecentTransactions();
+            this.view.populateAccounts();
         });
     }
 
@@ -74,7 +74,7 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     @Override
     public final double getTotalAmount() {
-        return (double) this.manager.getAccountManager().getAccounts().stream()
+        return (double) this.manager.getAccountManager().getElements().stream()
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)
                 .sum() / 100;
@@ -82,7 +82,7 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     @Override
     public final List<Transaction> getSortedTodayTransactions() {
-        return this.manager.getTransactionManager().getTransactions().stream()
+        return this.manager.getTransactionManager().getElements().stream()
                 .filter(t -> t.getDate().toLocalDate().equals(LocalDate.now()))
                 .sorted(Comparator.comparing(Transaction::getDate).reversed())
                 .collect(Collectors.toList());
@@ -90,14 +90,14 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     @Override
     public final List<QuickTransaction> getSortedQuickTransactions() {
-        return this.manager.getQuickManager().getQuickTransactions().stream()
+        return this.manager.getQuickManager().getElements().stream()
                 .sorted(Comparator.comparing(QuickTransaction::getDescription))
                 .collect(Collectors.toList());
     }
 
     @Override
     public final List<Account> getSortedAccounts() {
-        return this.manager.getAccountManager().getAccounts().stream()
+        return this.manager.getAccountManager().getElements().stream()
                 .sorted(Comparator.comparing(Account::getName))
                 .collect(Collectors.toList());
     }

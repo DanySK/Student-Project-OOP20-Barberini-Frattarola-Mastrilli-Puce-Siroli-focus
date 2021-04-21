@@ -11,35 +11,35 @@ public interface FinanceManager {
 
     /**
      * Create an account and add it to database.
-     * 
+     *
      * @param account that is added
      */
     void addAccount(Account account);
 
     /**
      * Delete the account and all its transactions from database.
-     * 
+     *
      * @param account that is removed
      */
     void removeAccount(Account account);
 
     /**
      * Create a category and add it to database.
-     * 
+     *
      * @param category that is added
      */
     void addCategory(Category category);
 
     /**
      * Only deletes the category if there are no transactions in that category.
-     * 
+     *
      * @param category that is removed
      */
     void removeCategory(Category category);
 
     /**
      * Create a transaction add it to database.
-     * 
+     *
      * @param transaction that is added
      */
     void addTransaction(Transaction transaction);
@@ -80,12 +80,12 @@ public interface FinanceManager {
     /**
      * @return account manager
      */
-    AccountManager getAccountManager();
+    Manager<Account> getAccountManager();
 
     /**
      * @return category manager
      */
-    CategoryManager getCategoryManager();
+    Manager<Category> getCategoryManager();
 
     /**
      * @return transaction manager

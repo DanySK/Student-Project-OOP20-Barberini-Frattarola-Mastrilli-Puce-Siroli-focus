@@ -34,8 +34,8 @@ public class FinanceTest {
     @org.junit.Test
     public void testAccounts() {
         // mi salvo quanti conti e quante transazioni sono già salvate nel database
-        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numAcc = this.financeManager.getAccountManager().getElements().size();
+        final int numTra = this.financeManager.getTransactionManager().getElements().size();
 
         // riferimenti ai conti
         final Account firstAccount = new AccountImpl("Conto1", COLOR, 150_000);
@@ -52,33 +52,33 @@ public class FinanceTest {
                 firstAccount, -250, Repetition.ONCE));
 
         // controlli conti
-        assertEquals(numAcc+2, this.financeManager.getAccountManager().getAccounts().size());
+        assertEquals(numAcc+2, this.financeManager.getAccountManager().getElements().size());
 
         // controlli transazioni
-        assertEquals(numTra+1, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+1, this.financeManager.getTransactionManager().getElements().size());
 
         // elimino un account
         this.financeManager.removeAccount(firstAccount);
 
         // controllo che sia stato eliminato da account
-        assertEquals(numAcc+1, this.financeManager.getAccountManager().getAccounts().size());
+        assertEquals(numAcc+1, this.financeManager.getAccountManager().getElements().size());
 
         // controllo che le transazioni relativi a quell'account siano state eliminate
-        assertEquals(numTra, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra, this.financeManager.getTransactionManager().getElements().size());
 
         // riporto tutto come da principio
         this.financeManager.removeAccount(secondAccount);
 
         // controllo che la rimozione sia andata a buon fine
-        assertEquals(numAcc, this.financeManager.getAccountManager().getAccounts().size());
+        assertEquals(numAcc, this.financeManager.getAccountManager().getElements().size());
     }
 
     @org.junit.Test()
     public void testCategories() {
         // mi salvo quante categorie, conti e transazioni ho già salvato
-        final int numCat = this.financeManager.getCategoryManager().getCategories().size();
-        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numCat = this.financeManager.getCategoryManager().getElements().size();
+        final int numAcc = this.financeManager.getAccountManager().getElements().size();
+        final int numTra = this.financeManager.getTransactionManager().getElements().size();
 
         // creo delle categorie
         this.financeManager.addCategory(new CategoryImpl("Categoria1", COLOR));
@@ -93,7 +93,7 @@ public class FinanceTest {
                 new AccountImpl("Conto1", "", 0), -250, Repetition.ONCE));
 
         // controlli categories
-        assertEquals(numCat+3, this.financeManager.getCategoryManager().getCategories().size());
+        assertEquals(numCat+3, this.financeManager.getCategoryManager().getElements().size());
 
         // provo a rimuovere una categoria di cui esistono transazioni
         try {
@@ -102,30 +102,30 @@ public class FinanceTest {
         } catch (IllegalStateException ignored) { }
 
         // controllo che non siano state rimosse categorie
-        assertEquals(numCat+3, this.financeManager.getCategoryManager().getCategories().size());
+        assertEquals(numCat+3, this.financeManager.getCategoryManager().getElements().size());
 
         // provo a rimuovere le categorie di cui non esistono transazioni
         this.financeManager.removeCategory(new CategoryImpl("Categoria2", ""));
         this.financeManager.removeCategory(new CategoryImpl("Categoria3", ""));
 
         // controllo che siano state rimosse due categorie
-        assertEquals(numCat+1, this.financeManager.getCategoryManager().getCategories().size());
+        assertEquals(numCat+1, this.financeManager.getCategoryManager().getElements().size());
 
         // riporto tutto come da principio
         this.financeManager.removeAccount(new AccountImpl("Conto1", "", 0));
         this.financeManager.removeCategory(new CategoryImpl("Categoria1", ""));
 
         // controllo che la rimozione sia andata a buon fine
-        assertEquals(numCat, this.financeManager.getCategoryManager().getCategories().size());
-        assertEquals(numAcc, this.financeManager.getAccountManager().getAccounts().size());
-        assertEquals(numTra, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numCat, this.financeManager.getCategoryManager().getElements().size());
+        assertEquals(numAcc, this.financeManager.getAccountManager().getElements().size());
+        assertEquals(numTra, this.financeManager.getTransactionManager().getElements().size());
     }
 
     @org.junit.Test
     public void testTransactions() {
         // mi salvo quanti conti e transazioni ho già salvato
-        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numAcc = this.financeManager.getAccountManager().getElements().size();
+        final int numTra = this.financeManager.getTransactionManager().getElements().size();
         final int numInc = this.financeManager.getTransactionManager().getIncomes().size();
         final int numOut = this.financeManager.getTransactionManager().getOutings().size();
         final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
@@ -146,7 +146,7 @@ public class FinanceTest {
                 1_000, Repetition.ONCE));
 
         // controlli transazioni
-        assertEquals(numTra+2, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+2, this.financeManager.getTransactionManager().getElements().size());
 
         // referenze al conto
         final Account account = new AccountImpl("Conto1", "", 0);
@@ -163,7 +163,7 @@ public class FinanceTest {
                 new CategoryImpl(CATEGORY, ""),
                 new LocalDateTime(2020, 12, 6, 0, 0, 0),
                 account, 7_500, Repetition.ONCE));
-        assertEquals(numTra+4, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+4, this.financeManager.getTransactionManager().getElements().size());
 
         // controllo importo
         assertEquals(6_000, this.financeManager.getAmount(account));
@@ -179,7 +179,7 @@ public class FinanceTest {
                 account, 100_000, Repetition.ONCE);
         this.financeManager.addTransaction(fifthTransaction);
         this.financeManager.addTransaction(sixthTransaction);
-        assertEquals(numTra+6, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+6, this.financeManager.getTransactionManager().getElements().size());
 
         // controllo importi
         assertEquals(100_000, this.financeManager.getAmount(account));
@@ -187,7 +187,7 @@ public class FinanceTest {
         // elimino le ultime due transazioni
         this.financeManager.removeTransaction(fifthTransaction);
         this.financeManager.removeTransaction(sixthTransaction);
-        assertEquals(numTra+4, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+4, this.financeManager.getTransactionManager().getElements().size());
 
         // controllo importi
         assertEquals(6_000, this.financeManager.getAmount(account));
@@ -201,15 +201,15 @@ public class FinanceTest {
         this.financeManager.removeAccount(new AccountImpl("Conto1", "", 0));
 
         // controllo che la rimozione sia andata a buon fine
-        assertEquals(numAcc, this.financeManager.getAccountManager().getAccounts().size());
-        assertEquals(numTra, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numAcc, this.financeManager.getAccountManager().getElements().size());
+        assertEquals(numTra, this.financeManager.getTransactionManager().getElements().size());
     }
 
     @org.junit.Test
     public void testSubscriptions() {
         // mi salvo quanti conti e transazioni ho già salvato
-        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
+        final int numAcc = this.financeManager.getAccountManager().getElements().size();
+        final int numTra = this.financeManager.getTransactionManager().getElements().size();
         final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
         final int monthlyExp = this.financeManager.getTransactionManager().monthlyExpense();
         final int yearlyExp = this.financeManager.getTransactionManager().yearlyExpense();
@@ -255,7 +255,7 @@ public class FinanceTest {
                 -2_400, Repetition.YEARLY));
 
         // controllo che siano state aggiunte con successo
-        assertEquals(numTra+7, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+7, this.financeManager.getTransactionManager().getElements().size());
         assertEquals(numSub+7, this.financeManager.getTransactionManager().getSubscriptions().size());
 
         // controllo spesa totale mensile e annuale
@@ -266,7 +266,7 @@ public class FinanceTest {
         this.financeManager.generateRepeatedTransactions(new LocalDate(2021, 3, 13));
 
         // controllo che siano state aggiunte tutte
-        assertEquals(numTra+93, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+93, this.financeManager.getTransactionManager().getElements().size());
 
         // controllo che l'importo del conto sia corretto
         assertEquals(29_001, this.financeManager.getAmount(new AccountImpl("Conto1", "", 0)));
@@ -275,17 +275,17 @@ public class FinanceTest {
         this.financeManager.removeAccount(new AccountImpl("Conto1", "", 0));
 
         // controllo che la rimozione sia andata a buon fine
-        assertEquals(numAcc, this.financeManager.getAccountManager().getAccounts().size());
-        assertEquals(numTra, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numAcc, this.financeManager.getAccountManager().getElements().size());
+        assertEquals(numTra, this.financeManager.getTransactionManager().getElements().size());
         assertEquals(numSub, this.financeManager.getTransactionManager().getSubscriptions().size());
     }
 
     @org.junit.Test()
     public void testQuickTransactions() {
         // mi salvo quanti conti e transazioni ho già salvato
-        final int numAcc = this.financeManager.getAccountManager().getAccounts().size();
-        final int numTra = this.financeManager.getTransactionManager().getTransactions().size();
-        final int numQui = this.financeManager.getQuickManager().getQuickTransactions().size();
+        final int numAcc = this.financeManager.getAccountManager().getElements().size();
+        final int numTra = this.financeManager.getTransactionManager().getElements().size();
+        final int numQui = this.financeManager.getQuickManager().getElements().size();
 
         // creo un conto
         this.financeManager.addAccount(new AccountImpl("Conto1", COLOR, 149_750));
@@ -302,7 +302,7 @@ public class FinanceTest {
                 new AccountImpl("Conto1", "", 0)));
 
         // controllo che siano il numero corretto
-        assertEquals(numQui+3, this.financeManager.getQuickManager().getQuickTransactions().size());
+        assertEquals(numQui+3, this.financeManager.getQuickManager().getElements().size());
 
         // mi salvo riferimento al conto
         final var account = new AccountImpl("Conto1", "", 0);
@@ -319,7 +319,7 @@ public class FinanceTest {
                 "TransazioneRapida3", new CategoryImpl(CATEGORY, ""), account));
 
         // controllo che le transazioni siano sei in più
-        assertEquals(numTra+3, this.financeManager.getTransactionManager().getTransactions().size());
+        assertEquals(numTra+3, this.financeManager.getTransactionManager().getElements().size());
 
         // controllo che il saldo sia corretto
         assertEquals(150_300, this.financeManager.getAmount(account));
@@ -337,9 +337,9 @@ public class FinanceTest {
                 new AccountImpl("Conto1", "", 0)));
 
         // controllo che la rimozione sia andata a buon fine
-        assertEquals(numAcc, this.financeManager.getAccountManager().getAccounts().size());
-        assertEquals(numTra, this.financeManager.getTransactionManager().getTransactions().size());
-        assertEquals(numQui, this.financeManager.getQuickManager().getQuickTransactions().size());
+        assertEquals(numAcc, this.financeManager.getAccountManager().getElements().size());
+        assertEquals(numTra, this.financeManager.getTransactionManager().getElements().size());
+        assertEquals(numQui, this.financeManager.getQuickManager().getElements().size());
     }
 
     @org.junit.Test()

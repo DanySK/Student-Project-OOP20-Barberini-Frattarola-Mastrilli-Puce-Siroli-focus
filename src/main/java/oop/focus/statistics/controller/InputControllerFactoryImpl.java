@@ -26,7 +26,7 @@ public class InputControllerFactoryImpl implements InputControllerFactory {
             @Override
             protected void createView() {
                 this.setView(new InputViewFactoryImpl()
-                        .financeInputView(manager.getAccountManager().getAccounts(), this));
+                        .financeInputView(manager.getAccountManager().getElements(), this));
             }
         };
     }

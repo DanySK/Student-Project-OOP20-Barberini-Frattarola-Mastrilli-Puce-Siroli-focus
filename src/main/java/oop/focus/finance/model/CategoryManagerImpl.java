@@ -8,7 +8,7 @@ import oop.focus.db.exceptions.DaoAccessException;
 /**
  * Immutable implementation of a category manager.
  */
-public class CategoryManagerImpl implements CategoryManager {
+public class CategoryManagerImpl implements Manager<Category> {
 
     private final Dao<Category> categories;
     private final Dao<String> colors;
@@ -19,7 +19,10 @@ public class CategoryManagerImpl implements CategoryManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Saves a category in the database.
+     * If the color of category doesn't exist, saves it in the database too.
+     *
+     * @param category that is saved
      */
     @Override
     public final void add(final Category category) {
@@ -32,7 +35,9 @@ public class CategoryManagerImpl implements CategoryManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Removes a category from the database.
+     *
+     * @param category being deleted
      */
     @Override
     public final void remove(final Category category) {
@@ -43,8 +48,11 @@ public class CategoryManagerImpl implements CategoryManager {
         }
     }
 
+    /**
+     * @return the list of all categories.
+     */
     @Override
-    public final ObservableSet<Category> getCategories() {
+    public final ObservableSet<Category> getElements() {
         return this.categories.getAll();
     }
 

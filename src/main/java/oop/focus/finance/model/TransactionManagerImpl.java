@@ -28,7 +28,10 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Saves a transaction in the database.
+     * It is not possible to add a transaction at a future date.
+     *
+     * @param transaction that is saved
      */
     @Override
     public final void add(final Transaction transaction) {
@@ -44,7 +47,9 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Removes a transaction from the database.
+     *
+     * @param transaction being deleted
      */
     @Override
     public final void remove(final Transaction transaction) {
@@ -73,8 +78,11 @@ public class TransactionManagerImpl implements TransactionManager {
         this.update(subscription);
     }
 
+    /**
+     * @return the list of all transactions
+     */
     @Override
-    public final ObservableSet<Transaction> getTransactions() {
+    public final ObservableSet<Transaction> getElements() {
         return this.transactions.getAll();
     }
 

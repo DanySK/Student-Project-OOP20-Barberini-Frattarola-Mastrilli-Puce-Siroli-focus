@@ -37,7 +37,7 @@ public class FinanceStatisticsController implements UpdatableController<TimePeri
         this.charts.add(factory.balances(manager));
         this.content = new ViewFactoryImpl().createVerticalAutoResizing(this.charts.stream()
                 .map(Controller::getView).collect(Collectors.toList()));
-        this.transactions = manager.getTransactionManager().getTransactions();
+        this.transactions = manager.getTransactionManager().getElements();
         this.setListener();
     }
     /**

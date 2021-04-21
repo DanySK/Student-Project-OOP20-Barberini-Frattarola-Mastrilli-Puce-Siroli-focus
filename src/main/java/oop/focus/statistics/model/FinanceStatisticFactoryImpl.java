@@ -29,14 +29,14 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
 
     @Override
     public final DataCreator<Account, Pair<Account, Integer>> accountBalances() {
-        return new DataCreatorImpl<>(this.dataSource.getAccountManager().getAccounts(),
+        return new DataCreatorImpl<>(this.dataSource.getAccountManager().getElements(),
                 t -> this.toPairSet(t.collect(Collectors.toMap(Function.identity(),
                         this.dataSource::getAmount))));
     }
 
     @Override
     public final DataCreator<Transaction, Pair<Category, Integer>> categoryBalances() {
-        return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getTransactions(),
+        return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getElements(),
                 c -> this.toPairSet(c.collect(Collectors.toMap(Transaction::getCategory,
                         Transaction::getAmount, Integer::sum))));
 
@@ -44,7 +44,7 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
 
     @Override
     public final DataCreator<Transaction, Pair<Category, Integer>> accountCategoryBalances(final Account account) {
-        return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager().getTransactions()
+        return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager().getElements()
                 .stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toSet()),
                 c -> this.toPairSet(c.collect(Collectors.toMap(Transaction::getCategory,
                         Transaction::getAmount, Integer::sum))));
@@ -52,7 +52,7 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
 
     @Override
     public final DataCreator<Transaction, Pair<LocalDate, Integer>> dailyExpenses() {
-        return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getTransactions(),
+        return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getElements(),
                 t -> this.toPairSet(t.collect(Collectors.toMap(
                         x -> x.getDate().toLocalDate(),
                         Transaction::getAmount, Integer::sum))));
@@ -61,7 +61,7 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
     @Override
     public final DataCreator<Transaction, Pair<LocalDate, Integer>> dailyAccountExpenses(final Account account) {
         return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager()
-                .getTransactions().stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toSet()),
+                .getElements().stream().filter(t -> t.getAccount().equals(account)).collect(Collectors.toSet()),
                 t -> this.toPairSet(t.collect(Collectors.toMap(
                         x -> x.getDate().toLocalDate(),
                         Transaction::getAmount, Integer::sum))));
@@ -73,7 +73,7 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                 () -> Stream.iterate(start, d -> d.plusDays(1))
                         .limit(1 + Math.abs(Days.daysBetween(start, end).getDays())).collect(Collectors.toSet()),
                 s -> this.toPairSet(s.collect(Collectors.toMap(Function.identity(),
-                        d -> this.dataSource.getTransactionManager().getTransactions().stream()
+                        d -> this.dataSource.getTransactionManager().getElements().stream()
                                 .filter(t -> t.getDate().toLocalDate().equals(d))
                                 .mapToInt(Transaction::getAmount).sum()))));
     }
@@ -86,7 +86,7 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                 () -> Stream.iterate(start, d -> d.plusDays(1))
                         .limit(1 + Math.abs(Days.daysBetween(start, end).getDays())).collect(Collectors.toSet()),
                 s -> this.toPairSet(s.collect(Collectors.toMap(Function.identity(),
-                        d -> this.dataSource.getTransactionManager().getTransactions().stream()
+                        d -> this.dataSource.getTransactionManager().getElements().stream()
                                 .filter(t -> t.getDate().toLocalDate().equals(d) && t.getAccount().equals(account))
                                 .mapToInt(Transaction::getAmount).sum()))));
     }

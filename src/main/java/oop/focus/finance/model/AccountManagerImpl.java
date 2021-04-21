@@ -8,7 +8,7 @@ import oop.focus.db.exceptions.DaoAccessException;
 /**
  * Immutable implementation of a account manager.
  */
-public class AccountManagerImpl implements AccountManager {
+public class AccountManagerImpl implements Manager<Account> {
 
     private final Dao<Account> accounts;
     private final Dao<String> colors;
@@ -19,7 +19,10 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Saves an account in the database.
+     * If the color of account doesn't exist, saves it in the database too.
+     *
+     * @param account that is saved
      */
     @Override
     public final void add(final Account account) {
@@ -32,7 +35,9 @@ public class AccountManagerImpl implements AccountManager {
     }
 
     /**
-     * {@inheritDoc}
+     * Removes an account from the database.
+     *
+     * @param account being deleted
      */
     @Override
     public final void remove(final Account account) {
@@ -43,8 +48,11 @@ public class AccountManagerImpl implements AccountManager {
         }
     }
 
+    /**
+     * @return the list of all accounts.
+     */
     @Override
-    public final ObservableSet<Account> getAccounts() {
+    public final ObservableSet<Account> getElements() {
         return this.accounts.getAll();
     }
 

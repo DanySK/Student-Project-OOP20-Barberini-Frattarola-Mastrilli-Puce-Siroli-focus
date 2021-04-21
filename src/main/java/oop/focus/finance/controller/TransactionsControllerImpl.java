@@ -35,7 +35,7 @@ public class TransactionsControllerImpl implements TransactionsController {
         this.accountPredicate = a -> true;
         this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
-        this.transactions = this.manager.getTransactionManager().getTransactions();
+        this.transactions = this.manager.getTransactionManager().getElements();
         this.acccounts = this.getAccounts();
         this.addListeners();
     }
@@ -105,7 +105,7 @@ public class TransactionsControllerImpl implements TransactionsController {
 
     @Override
     public final ObservableSet<Account> getAccounts() {
-        return this.manager.getAccountManager().getAccounts();
+        return this.manager.getAccountManager().getElements();
     }
 
     @Override
@@ -114,16 +114,16 @@ public class TransactionsControllerImpl implements TransactionsController {
     }
 
     private Set<Transaction> filteredTransactions(final Predicate<Account> predicate) {
-        return this.manager.getTransactionManager().getTransactions().stream()
-                .filter(t -> t.getAccount().equals(this.manager.getAccountManager().getAccounts().stream()
-                        .filter(predicate).count() == 1 ? this.manager.getAccountManager().getAccounts().stream()
+        return this.manager.getTransactionManager().getElements().stream()
+                .filter(t -> t.getAccount().equals(this.manager.getAccountManager().getElements().stream()
+                        .filter(predicate).count() == 1 ? this.manager.getAccountManager().getElements().stream()
                         .filter(predicate).collect(Collectors.toList()).get(0) : t.getAccount()))
                 .filter(this.transactionPredicate)
                 .collect(Collectors.toSet());
     }
 
     private int filteredAmount(final Predicate<Account> predicate) {
-        return this.manager.getAccountManager().getAccounts().stream()
+        return this.manager.getAccountManager().getElements().stream()
                 .filter(predicate)
                 .map(this.manager::getAmount)
                 .mapToInt(i -> i)

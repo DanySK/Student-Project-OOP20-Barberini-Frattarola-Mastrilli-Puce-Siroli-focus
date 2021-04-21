@@ -27,7 +27,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
         this.manager = manager;
         this.view = new SubscriptionsViewImpl(this);
         this.showSortedSubscriptions();
-        this.transactions = this.manager.getTransactionManager().getTransactions();
+        this.transactions = this.manager.getTransactionManager().getElements();
         this.addListeners();
     }
 
