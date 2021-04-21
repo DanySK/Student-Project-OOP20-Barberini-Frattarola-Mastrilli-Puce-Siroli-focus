@@ -18,6 +18,9 @@ public class CreatePageController implements Controller {
         this.content = new WindowCreateNewPage(controller);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View getView() {
         return this.content;

@@ -7,10 +7,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import oop.focus.common.View;
-import java.io.FileInputStream;
-import java.io.IOException;
+
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -21,6 +23,7 @@ import java.nio.file.Paths;
  */
 public class DailyMoodView implements View {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
+    private String SEP = File.separator;
     private static final double ICON_DIM = 0.04;
     private final BorderPane pane;
     private  ImageView imageView;
@@ -31,18 +34,22 @@ public class DailyMoodView implements View {
      */
     public DailyMoodView(final Integer value) {
         this.pane = new BorderPane();
-
         try {
-            final URI uri = ClassLoader.getSystemResource("icons//").toURI();
-            final String mainPath = Paths.get(uri).toString();
-            final Path path = Paths.get(mainPath, String.valueOf(value).concat(".png"));
-            this.imageView = new ImageView(new Image(new FileInputStream(path.toFile())));
-        } catch (IOException | URISyntaxException e) {
+            Path tempFile = copyToTempFile(getClass().getResource("/icons/" + String.valueOf(value) + ".png"),
+                    ".png");
+            this.imageView = new ImageView(new Image(new FileInputStream(tempFile.toFile())));
+        } catch (final IOException e) {
             e.printStackTrace();
         }
-
     }
-
+    public static Path copyToTempFile(URL url, String suffix) throws IOException {
+        Path tempFile = Files.createTempFile(null, suffix);
+        try (InputStream in = url.openStream();
+             OutputStream out = Files.newOutputStream(tempFile)) {
+            in.transferTo(out);
+        }
+        return tempFile;
+    }
     /**
      *  {@inheritDoc}
      */

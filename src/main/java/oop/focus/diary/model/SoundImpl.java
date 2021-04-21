@@ -1,13 +1,13 @@
 package oop.focus.diary.model;
 
-
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -17,7 +17,6 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * Implementation of {@link Sound}. The class manages alarm's sound.
  */
 public class SoundImpl implements Sound {
-    private Path alarmPath;
     private final Clip clip;
 
     /**
@@ -27,30 +26,26 @@ public class SoundImpl implements Sound {
      * @throws LineUnavailableException if a {@link javax.sound.sampled.Line} cannot be opened.
      */
     public SoundImpl() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        this.setAlarmPath();
         this.clip = AudioSystem.getClip();
-        this.clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(this.alarmPath.toFile()))));
+        final Path tempFile = copyToTempFile(this.getClass().getResource("/sounds/alarm.wav"),
+                ".wav");
+        this.clip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream(tempFile.toFile()))));
     }
 
-    /**
-     * Sets the path of directory of alarm sound.
-     */
-    private void setAlarmPath() {
-        try {
-            final URI uri = ClassLoader.getSystemResource("sounds//").toURI();
-            final String mainPath = Paths.get(uri).toString();
-            this.alarmPath = Paths.get(mainPath, "alarm.wav");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+    public static Path copyToTempFile(final URL url, final String suffix) throws IOException {
+        final Path tempFile = Files.createTempFile(null, suffix);
+        try (InputStream in = url.openStream();
+             OutputStream out = Files.newOutputStream(tempFile)) {
+            in.transferTo(out);
         }
-
+        return tempFile;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void playSound()  {
+    public void playSound()  {
         if (!this.clip.isRunning()) {
             this.clip.start();
         }
@@ -59,7 +54,7 @@ public class SoundImpl implements Sound {
      * {@inheritDoc}
      */
     @Override
-    public final void stopSound() {
+    public void stopSound() {
         if (this.isPlaying()) {
             this.clip.stop();
             this.clip.close();
