@@ -20,7 +20,7 @@ public class ContainerFactoryImpl implements ContainerFactory {
      * {@inheritDoc}
      */
     @Override
-    public final View mergeVertically(final List<Node> list) {
+    public View mergeVertically(final List<Node> list) {
         final VBox vBox = new VBox();
         list.forEach(a -> vBox.getChildren().addAll(a));
         vBox.paddingProperty().set(new Insets(INSETS));
@@ -32,7 +32,7 @@ public class ContainerFactoryImpl implements ContainerFactory {
      * {@inheritDoc}
      */
     @Override
-    public final View mergeHorizontally(final List<Node> list) {
+    public View mergeHorizontally(final List<Node> list) {
         final HBox hBox = new HBox();
         hBox.setAlignment(Pos.CENTER);
         list.forEach(s -> hBox.getChildren().addAll(s));

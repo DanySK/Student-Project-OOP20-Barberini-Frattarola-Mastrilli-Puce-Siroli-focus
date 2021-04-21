@@ -26,7 +26,7 @@ public class ButtonsDiaryController implements Controller {
      * {@inheritDoc}
      */
     @Override
-    public final View getView() {
+    public View getView() {
         return this.content;
     }
 }

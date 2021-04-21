@@ -43,7 +43,7 @@ public class WindowCreateNewAnnotation implements Initializable, View {
         loader.setController(this);
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -68,7 +68,7 @@ public class WindowCreateNewAnnotation implements Initializable, View {
      * {@inheritDoc}
      */
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.createButton.setText("Crea");
         this.titleLabel.setText("Aggiungi nota");
         this.createButton.setOnMouseClicked(event -> this.createNewAnnotation());
@@ -77,7 +77,7 @@ public class WindowCreateNewAnnotation implements Initializable, View {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.root;
     }
 }

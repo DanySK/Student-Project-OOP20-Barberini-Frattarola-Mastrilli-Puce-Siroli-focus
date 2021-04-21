@@ -15,7 +15,7 @@ import oop.focus.event.model.EventManagerImpl;
 
 public class TimerApp extends Application {
     @Override
-    public final void start(final Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         final Dimension2D dim = new Dimension2D(1400, 900);
         final DataSourceImpl dataSource = new DataSourceImpl();
         final EventManager manager = new EventManagerImpl(dataSource);

@@ -27,6 +27,10 @@ public class DiaryDao implements Dao<DiaryImpl> {
        this.directoryConnector.create();
        this.list = FXCollections.observableSet(new HashSet<>());
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ObservableSet<DiaryImpl> getAll() {
         if (this.map.isEmpty()) {
@@ -38,7 +42,7 @@ public class DiaryDao implements Dao<DiaryImpl> {
                             elem.getName());
                     this.map.put(diary, conn);
                     this.list.add(diary);
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     e.printStackTrace();
                 }
                 conn.close();
@@ -55,6 +59,9 @@ public class DiaryDao implements Dao<DiaryImpl> {
    private File getFile(final String name) {
         return Path.of(this.directoryConnector.getConnection() + SEP + name).toFile();
    }
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void save(final DiaryImpl x) {
         if (x.getName().length() <= MAX_LENGTH && !this.getAll().contains(x)) {
@@ -66,14 +73,16 @@ public class DiaryDao implements Dao<DiaryImpl> {
                 diaryConnector.open();
                 diaryConnector.getConnection().getBufferedWriter().write(x.getContent());
                 diaryConnector.close();
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         } else {
             throw new IllegalArgumentException();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void update(final DiaryImpl x) {
         final Optional<DiaryImpl> di = this.getAll().stream().filter(l -> l.getName().equals(x.getName())).findAny();
@@ -84,7 +93,9 @@ public class DiaryDao implements Dao<DiaryImpl> {
             throw new IllegalArgumentException();
         }
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void delete(final DiaryImpl x) {
         if (this.getAll().contains(x)) {
@@ -92,7 +103,7 @@ public class DiaryDao implements Dao<DiaryImpl> {
             Files.delete(this.map.get(x).getConnection().getFile());
             this.map.remove(x);
             this.list.remove(x);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     } else {

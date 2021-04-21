@@ -18,7 +18,7 @@ public class SectionsController implements UpdatableController<Controller> {
      * {@inheritDoc}
      */
     @Override
-    public final View getView() {
+    public View getView() {
         return this.view;
     }
 
@@ -26,7 +26,7 @@ public class SectionsController implements UpdatableController<Controller> {
      * {@inheritDoc}
      */
     @Override
-    public final void updateInput(final Controller input) {
+    public void updateInput(final Controller input) {
         this.view.update(input.getView());
     }
 }

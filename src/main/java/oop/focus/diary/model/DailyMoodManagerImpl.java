@@ -25,7 +25,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
      * {@inheritDoc}
      */
     @Override
-    public final void addDailyMood(final DailyMood mood) throws DaoAccessException {
+    public void addDailyMood(final DailyMood mood) throws DaoAccessException {
         if (!this.dm.getAll().contains(mood)) {
             this.dm.save(mood);
         }
@@ -35,7 +35,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
      * {@inheritDoc}
      */
     @Override
-    public final void modifyDailyMood(final DailyMood mood) throws DaoAccessException {
+    public void modifyDailyMood(final DailyMood mood) throws DaoAccessException {
         final Optional<DailyMood> moodToUpdate = this.dm.getAll().stream().filter(x -> x.getDate().equals(mood.getDate())).findAny();
         if (moodToUpdate.isPresent()) {
             this.dm.update(mood);
@@ -46,7 +46,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
      * {@inheritDoc}
      */
     @Override
-    public final void deleteDailyMood(final DailyMood mood) throws DaoAccessException {
+    public void deleteDailyMood(final DailyMood mood) throws DaoAccessException {
         if (this.dm.getAll().contains(mood)) {
             this.dm.delete(mood);
         }
@@ -56,7 +56,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
      * {@inheritDoc}
      */
     @Override
-    public final ObservableSet<DailyMood> getAllMoods() {
+    public ObservableSet<DailyMood> getAllMoods() {
         return this.dm.getAll();
     }
 
@@ -64,7 +64,7 @@ public class DailyMoodManagerImpl implements DailyMoodManager {
      * {@inheritDoc}
      */
     @Override
-    public final Optional<Integer> getMoodByDate(final LocalDate date) {
+    public Optional<Integer> getMoodByDate(final LocalDate date) {
         final Optional<DailyMood> mood = this.getAllMoods().stream().filter(x -> x.getDate().equals(date)).findAny();
         return mood.map(DailyMood::getMoodValue);
     }

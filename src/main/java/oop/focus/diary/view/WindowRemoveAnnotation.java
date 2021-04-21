@@ -51,7 +51,7 @@ public class WindowRemoveAnnotation<X> implements View, Initializable {
         loader.setController(this);
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -60,14 +60,14 @@ public class WindowRemoveAnnotation<X> implements View, Initializable {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.root;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.removeLabel.setText("Seleziona annotazioni da rimuovere");
         this.deleteButton.setText("Elimina");
         this.listView.setItems(this.list);

@@ -25,14 +25,14 @@ public class InsertTimeTimerControllerImpl implements InsertTimeTimerController 
      * {@inheritDoc}
      */
     @Override
-    public final void setNewValue(final LocalTime value) {
+    public void setNewValue(final LocalTime value) {
         this.controllerCounter.setStarterValue(value);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final View getView() {
+    public View getView() {
         return this.insertTimeTimerWindow;
     }
 

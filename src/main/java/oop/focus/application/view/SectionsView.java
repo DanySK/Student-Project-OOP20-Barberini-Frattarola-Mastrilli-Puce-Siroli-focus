@@ -34,7 +34,7 @@ public class SectionsView implements View {
      * the Controller in input.
      * @param controller    the controller whose view has to be shown.
      */
-    public final void update(final View controller) {
+    public void update(final View controller) {
         this.pane.getChildren().clear();
         this.pane.setCenter(controller.getRoot());
     }

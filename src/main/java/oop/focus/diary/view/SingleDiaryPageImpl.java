@@ -54,7 +54,7 @@ public class SingleDiaryPageImpl implements SingleDiaryPage {
      * {@inheritDoc}
      */
     @Override
-    public final TitledPane createSinglePage(final String s) {
+    public TitledPane createSinglePage(final String s) {
         this.title = new TitledPane();
         this.modify.setDisable(true);
         this.title.setText(s);

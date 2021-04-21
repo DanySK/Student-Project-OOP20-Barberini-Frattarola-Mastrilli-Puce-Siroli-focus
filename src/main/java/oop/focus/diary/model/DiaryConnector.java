@@ -23,11 +23,11 @@ public class DiaryConnector implements Connector<FileManager> {
      * {@inheritDoc}
      */
     @Override
-    public final void create() {
+    public void create() {
         if (!this.file.exists()) {
             try {
                 Files.createFile(this.file.toPath());
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
@@ -37,7 +37,7 @@ public class DiaryConnector implements Connector<FileManager> {
      * {@inheritDoc}
      */
     @Override
-    public final FileManager getConnection() {
+    public FileManager getConnection() {
         return this.fm;
     }
 
@@ -45,19 +45,19 @@ public class DiaryConnector implements Connector<FileManager> {
      * {@inheritDoc}
      */
     @Override
-    public final void open() {
+    public void open() {
 
         if (this.connected) {
             throw new IllegalStateException();
         }
         try {
             this.fm.openBufferedWriter(this.file);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         try {
             this.fm.openBufferedReader(this.file);
-        } catch (FileNotFoundException e) {
+        } catch (final FileNotFoundException e) {
             e.printStackTrace();
         }
         this.connected = true;
@@ -67,18 +67,18 @@ public class DiaryConnector implements Connector<FileManager> {
      * {@inheritDoc}
      */
     @Override
-    public final void close() {
+    public void close() {
         if (!this.connected) {
             throw new IllegalStateException();
         }
         try {
             this.fm.getBufferedWriter().close();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         try {
             this.fm.getBufferedReader().close();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         this.connected = false;

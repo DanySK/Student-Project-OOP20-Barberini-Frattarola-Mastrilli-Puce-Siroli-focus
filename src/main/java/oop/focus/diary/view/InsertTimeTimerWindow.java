@@ -58,7 +58,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
         loader.setController(this);
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -72,7 +72,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
         final SimpleDateFormat format = new SimpleDateFormat(string, Locale.ITALIAN);
         try {
             field.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00")));
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             e.printStackTrace();
         }
     }
@@ -81,7 +81,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
      * {@inheritDoc}
      */
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.separate0.setText(":");
         this.separate1.setText(":");
         this.save.setText("Salva");
@@ -101,7 +101,7 @@ public class InsertTimeTimerWindow implements Initializable, View {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.root;
     }
 }

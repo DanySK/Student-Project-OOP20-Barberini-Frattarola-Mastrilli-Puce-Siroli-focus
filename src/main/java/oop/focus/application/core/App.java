@@ -24,7 +24,7 @@ public class App extends Application {
      * {@inheritDoc}
      */
     @Override
-    public final void start(final Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         final Scene scene = new Scene((Parent) this.controller.getView().getRoot());
         scene.getStylesheets().add(Style.GENERAL_STYLE.getPath());
         scene.getStylesheets().add(Style.STATISTIC_STYLE.getPath());

@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -52,13 +50,16 @@ public class WindowCreateNewPage implements Initializable, View {
         loader.setController(this);
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    public final void createNewPage(final ActionEvent event) {
+    /**
+     * Inserts new diary Page, calling the specific method of {@link DiaryPagesController}.
+     *  Before doing this, check that there are no special characters.
+      */
+    private void createNewPage() {
         if (!this.titleDiaryPage.getText().isEmpty() && !this.content.getText().isEmpty()) {
             final Pattern p = Pattern.compile("[^A-Za-z0-9 ]");
             final Matcher m = p.matcher(this.titleDiaryPage.getText());
@@ -84,15 +85,16 @@ public class WindowCreateNewPage implements Initializable, View {
      * {@inheritDoc}
      */
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.insertTitleLabel.setText("Titolo");
         this.create.setText("Crea");
+        this.create.setOnMouseClicked(event -> this.createNewPage());
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.root;
     }
 }

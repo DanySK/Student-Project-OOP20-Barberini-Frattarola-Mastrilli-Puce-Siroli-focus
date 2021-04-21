@@ -30,21 +30,21 @@ public class FileManagerImpl implements FileManager {
      * {@inheritDoc}
      */
     @Override
-    public final void openBufferedReader(final File file) throws FileNotFoundException {
+    public void openBufferedReader(final File file) throws FileNotFoundException {
         this.bufferedReader = new BufferedReader(new FileReader(file));
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final BufferedReader getBufferedReader() {
+    public BufferedReader getBufferedReader() {
         return this.bufferedReader;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void openBufferedWriter(final File file) throws IOException {
+    public void openBufferedWriter(final File file) throws IOException {
         this.bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 
     }
@@ -52,14 +52,14 @@ public class FileManagerImpl implements FileManager {
      * {@inheritDoc}
      */
     @Override
-    public final BufferedWriter getBufferedWriter()  {
+    public BufferedWriter getBufferedWriter()  {
         return this.bufferedWriter;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Path getFile() {
+    public Path getFile() {
         return this.file.toPath();
     }
 }

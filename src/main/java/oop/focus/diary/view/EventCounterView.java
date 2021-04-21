@@ -21,7 +21,7 @@ import java.util.List;
  * shows the total time devoted to this activity. If the button of "add new event " is pressed, is opened the
  * appropriate window that allows to the user to set the time of timer.
  */
-public class EventCounterViewImpl implements UpdatableView<String>, DisableComponentsView {
+public class EventCounterView implements UpdatableView<String>, DisableComponentsView {
     private static final double COMBO_BOX_WIDTH = 0.4;
     private static final double COMBO_BOX_HEIGHT = 0.2;
     private static final double LABEL_WIDTH = 0.2;
@@ -35,7 +35,7 @@ public class EventCounterViewImpl implements UpdatableView<String>, DisableCompo
      * Initializes a new event counter.
      * @param controller    the event counter controller
      */
-    public EventCounterViewImpl(final EventCounterController controller) {
+    public EventCounterView(final EventCounterController controller) {
         this.controller = controller;
         this.chooseLabel = new Label("Scegli evento");
         this.addNewEvent = new Button("+");

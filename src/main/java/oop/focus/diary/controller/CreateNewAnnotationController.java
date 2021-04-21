@@ -17,6 +17,10 @@ public class CreateNewAnnotationController implements Controller {
     public CreateNewAnnotationController(final ToDoListController controller) {
         this.content = new WindowCreateNewAnnotation(controller);
     }
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public View getView() {
         return this.content;

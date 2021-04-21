@@ -62,7 +62,7 @@ public class StartStopCounterView implements DisableComponentsView, UpdatableVie
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         this.counterLabel.setAlignment(Pos.CENTER);
         final VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);

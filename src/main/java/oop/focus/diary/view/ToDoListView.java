@@ -75,7 +75,7 @@ public class ToDoListView implements View, Initializable {
         loader.setController(this);
         try {
             loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 
@@ -93,7 +93,7 @@ public class ToDoListView implements View, Initializable {
      * @param action    the to do action of which it's set the View.
      * @return  a {@link CheckBox} representing the toDoAction in input
      */
-    private CheckBox createSingleToDoAction(ToDoAction action) {
+    private CheckBox createSingleToDoAction(final ToDoAction action) {
         final CheckBox box;
         box = new CheckBox(action.getAnnotation());
         box.setSelected(action.isDone());
@@ -103,7 +103,7 @@ public class ToDoListView implements View, Initializable {
      * {@inheritDoc}
      */
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.vBox = (VBox) new ContainerFactoryImpl().mergeVertically(List.of(this.toDoListLabel, this.containerTDL,
                 this.hBox)).getRoot();
         this.toDoListLabel.setText("To Do List");
@@ -132,7 +132,7 @@ public class ToDoListView implements View, Initializable {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         this.vBox.prefWidthProperty().set(SCREEN_BOUNDS.getWidth() * V_BOX_WIDTH);
         this.vBox.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * V_BOX_HEIGHT);
         this.hBox.spacingProperty().bind(this.vBox.widthProperty().multiply(H_BOX_SPACING));

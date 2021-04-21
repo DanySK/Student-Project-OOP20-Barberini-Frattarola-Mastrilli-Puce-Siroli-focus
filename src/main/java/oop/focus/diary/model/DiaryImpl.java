@@ -21,35 +21,35 @@ public class DiaryImpl implements Diary {
      * {@inheritDoc}
      */
     @Override
-    public final String getContent() {
+    public String getContent() {
         return this.content;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setContent(final String content) {
+    public void setContent(final String content) {
         this.content = content;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final String getName() {
+    public String getName() {
         return this.name;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setName(final String name) {
+    public void setName(final String name) {
         this.name = name;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
@@ -59,7 +59,7 @@ public class DiaryImpl implements Diary {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

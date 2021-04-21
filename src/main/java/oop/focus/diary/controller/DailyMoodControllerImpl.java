@@ -33,7 +33,7 @@ public class DailyMoodControllerImpl implements DailyMoodController {
      * {@inheritDoc}
      */
     @Override
-    public final void addDailyMood(final int value) throws DaoAccessException {
+    public void addDailyMood(final int value) throws DaoAccessException {
         this.dailyMood = new DailyMoodImpl(value, LocalDate.now());
         this.manager.addDailyMood(this.dailyMood);
     }
@@ -41,21 +41,21 @@ public class DailyMoodControllerImpl implements DailyMoodController {
      * {@inheritDoc}
      */
     @Override
-    public final Optional<Integer> getValueChosen() {
+    public Optional<Integer> getValueChosen() {
         return this.manager.getMoodByDate(LocalDate.now());
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Optional<Integer> getValueByDate(final LocalDate date) {
+    public Optional<Integer> getValueByDate(final LocalDate date) {
         return this.manager.getMoodByDate(date);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void removeChoice() throws DaoAccessException {
+    public void removeChoice() throws DaoAccessException {
         if (this.getValueChosen().isPresent()) {
             this.manager.deleteDailyMood(this.dailyMood);
         }
@@ -64,7 +64,7 @@ public class DailyMoodControllerImpl implements DailyMoodController {
      * {@inheritDoc}
      */
     @Override
-    public final View getView() {
+    public View getView() {
         return new DailyMoodSection(this);
     }
 }

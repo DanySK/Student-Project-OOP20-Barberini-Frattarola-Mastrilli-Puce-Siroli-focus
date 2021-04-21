@@ -18,11 +18,11 @@ public class DirectoryConnector implements Connector<File> {
      * {@inheritDoc}
      */
     @Override
-    public final void create()  {
+    public void create()  {
         if (!this.dirPath.toFile().exists()) {
             try {
                 Files.createDirectories(this.dirPath);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
         }
@@ -32,7 +32,7 @@ public class DirectoryConnector implements Connector<File> {
      * {@inheritDoc}
      */
     @Override
-    public final File getConnection() {
+    public File getConnection() {
         return this.dirPath.toFile();
     }
 

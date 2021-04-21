@@ -9,9 +9,9 @@ import oop.focus.common.View;
 import java.util.Map;
 
 /**
- * The class views upper buttons of sections of app. When one of them is pressed, a specific View,
+ * This abstract class views buttons of sections of app and diary. When one of them is pressed, a specific View,
  * associated with the section,is shown. ButtonsView also sets the first window to be opened when
- * application is launched.
+ * application(or diary's section) is launched.
  */
 public abstract class AbstractButtonsView implements View {
     private Pane pane;
@@ -50,7 +50,7 @@ public abstract class AbstractButtonsView implements View {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.pane;
     }
 }

@@ -58,7 +58,7 @@ public class DailyMoodSection implements View {
                 try {
                     DailyMoodSection.this.controller.addDailyMood(DailyMoodSection.this.map.get(s));
                     DailyMoodSection.this.setBrightness();
-                } catch (DaoAccessException e) {
+                } catch (final DaoAccessException e) {
                     e.printStackTrace();
                 }
             }
@@ -67,7 +67,7 @@ public class DailyMoodSection implements View {
             try {
                 this.controller.removeChoice();
                 this.setBrightness();
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         });
@@ -120,7 +120,7 @@ public class DailyMoodSection implements View {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         this.gridPane.prefWidthProperty().bind(this.vBox.widthProperty());
         this.vBox.prefWidthProperty().set(SCREEN_BOUNDS.getWidth() * V_BOX_WIDTH);
         this.vBox.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * V_BOX_HEIGHT);

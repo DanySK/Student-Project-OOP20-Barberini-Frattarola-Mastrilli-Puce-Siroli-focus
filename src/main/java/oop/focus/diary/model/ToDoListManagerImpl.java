@@ -24,11 +24,11 @@ public class ToDoListManagerImpl implements ToDoListManager {
      * {@inheritDoc}
      */
     @Override
-    public final void addAnnotation(final ToDoAction tdl) {
+    public void addAnnotation(final ToDoAction tdl) {
         if (!this.dsi.getAll().contains(tdl)) {
             try {
                 this.dsi.save(tdl);
-            } catch (DaoAccessException e) {
+            } catch (final DaoAccessException e) {
                 e.printStackTrace();
             }
         }
@@ -37,10 +37,10 @@ public class ToDoListManagerImpl implements ToDoListManager {
      * {@inheritDoc}
      */
     @Override
-    public final void removeAnnotation(final ToDoAction tdl) {
+    public void removeAnnotation(final ToDoAction tdl) {
         try {
             this.dsi.delete(tdl);
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -48,10 +48,10 @@ public class ToDoListManagerImpl implements ToDoListManager {
      * {@inheritDoc}
      */
     @Override
-    public final void changeBoxStatus(final ToDoAction tdl) {
+    public void changeBoxStatus(final ToDoAction tdl) {
         try {
             this.dsi.update(new ToDoActionImpl(tdl.getAnnotation(), !tdl.isDone()));
-        } catch (DaoAccessException e) {
+        } catch (final DaoAccessException e) {
             e.printStackTrace();
         }
     }
@@ -59,7 +59,7 @@ public class ToDoListManagerImpl implements ToDoListManager {
      * {@inheritDoc}
      */
     @Override
-    public final ObservableSet<ToDoAction> getAnnotations() {
+    public ObservableSet<ToDoAction> getAnnotations() {
         return this.dsi.getAll();
     }
 }

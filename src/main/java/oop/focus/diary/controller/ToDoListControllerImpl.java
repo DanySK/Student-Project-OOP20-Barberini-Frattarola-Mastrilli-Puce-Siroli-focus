@@ -31,14 +31,14 @@ public class ToDoListControllerImpl implements ToDoListController {
      * {@inheritDoc}
      */
     @Override
-    public final ObservableSet<ToDoAction> allAnnotations() {
+    public ObservableSet<ToDoAction> allAnnotations() {
         return this.toDoActions;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void addNote(final String annotation) {
+    public void addNote(final String annotation) {
         if (this.toDoActions.stream().noneMatch(a -> a.getAnnotation().equals(annotation))) {
             final ToDoAction ac = new ToDoActionImpl(annotation, false);
             this.manager.addAnnotation(ac);
@@ -61,7 +61,7 @@ public class ToDoListControllerImpl implements ToDoListController {
      * {@inheritDoc}
      */
     @Override
-    public final void changeCheck(final String a) {
+    public void changeCheck(final String a) {
         if (this.allAnnotations().contains(this.findTDAbyString(a))) {
             this.manager.changeBoxStatus(this.findTDAbyString(a));
         }
@@ -70,7 +70,7 @@ public class ToDoListControllerImpl implements ToDoListController {
      * {@inheritDoc}
      */
     @Override
-    public final void remove(final String a) {
+    public void remove(final String a) {
         this.manager.removeAnnotation(this.findTDAbyString(a));
         this.toDoActions.remove(this.findTDAbyString(a));
     }
@@ -78,7 +78,7 @@ public class ToDoListControllerImpl implements ToDoListController {
      * {@inheritDoc}
      */
     @Override
-    public final View getView() {
+    public View getView() {
         return this.content;
     }
 }

@@ -15,7 +15,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import oop.focus.common.View;
 import oop.focus.diary.controller.CreatePageController;
 import oop.focus.diary.controller.DiaryPagesController;
 import oop.focus.diary.controller.FXMLPaths;
@@ -70,7 +69,7 @@ public class DiaryView implements UpdatableView<String>, Initializable {
         loader.setController(this);
         try {
             loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }
@@ -79,7 +78,7 @@ public class DiaryView implements UpdatableView<String>, Initializable {
      * {@inheritDoc}
      */
     @Override
-    public final void initialize(final URL location, final ResourceBundle resources) {
+    public void initialize(final URL location, final ResourceBundle resources) {
         this.pages = new Accordion();
         this.insertPages();
         this.controller.getObservableSet().addListener((SetChangeListener<DiaryImpl>) change -> {
@@ -126,7 +125,7 @@ public class DiaryView implements UpdatableView<String>, Initializable {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         return this.vBox;
     }
 
@@ -134,7 +133,7 @@ public class DiaryView implements UpdatableView<String>, Initializable {
      * {@inheritDoc}
      */
     @Override
-    public void updateInput(String input) {
+    public void updateInput(final String input) {
         this.pages.getPanes().add(new SingleDiaryPageImpl(this.controller).createSinglePage(input));
     }
 }

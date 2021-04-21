@@ -5,7 +5,8 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import oop.focus.common.View;
-import oop.focus.diary.model.DiaryDao;
+import oop.focus.db.Dao;
+import oop.focus.db.exceptions.DaoAccessException;
 import oop.focus.diary.model.DiaryImpl;
 import oop.focus.diary.view.DiaryView;
 
@@ -13,7 +14,7 @@ import oop.focus.diary.view.DiaryView;
  * Implementation of {@link DiaryPagesController}. The class manages diary's section.
  */
 public class DiaryPagesControllerImpl implements DiaryPagesController {
-    private final DiaryDao diaryDao;
+    private final Dao<DiaryImpl> diaryDao;
     private final View content;
     private final ObservableSet<DiaryImpl> set;
 
@@ -22,7 +23,7 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
      *
      * @param diaryDao  an implementation of {@link oop.focus.db.Dao}
      */
-    public DiaryPagesControllerImpl(final DiaryDao diaryDao) {
+    public DiaryPagesControllerImpl(final Dao<DiaryImpl> diaryDao) {
         this.diaryDao = diaryDao;
         this.set = FXCollections.observableSet();
         this.set.addAll(this.diaryDao.getAll());
@@ -33,21 +34,21 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
      * {@inheritDoc}
      */
     @Override
-    public final ObservableSet<DiaryImpl> getObservableSet() {
+    public ObservableSet<DiaryImpl> getObservableSet() {
          return this.set;
      }
     /**
      * {@inheritDoc}
      */
      @Override
-     public final Set<String> getFileName() {
+     public Set<String> getFileName() {
         return this.set.stream().map(DiaryImpl::getName).collect(Collectors.toSet());
      }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final String getContentByName(final String fileName) {
+    public String getContentByName(final String fileName) {
         if (this.diaryDao.getAll().stream().anyMatch(s -> s.getName().equals(fileName))) {
             return this.diaryDao.getAll().stream().filter(s -> s.getName().equals(fileName)).findAny().get().getContent();
         }
@@ -57,19 +58,27 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
      * {@inheritDoc}
      */
     @Override
-    public final void updatePage(final String name, final String content) {
+    public void updatePage(final String name, final String content) {
         if (this.getFileName().contains(name)) {
-            this.diaryDao.update(new DiaryImpl(content, name));
+            try {
+                this.diaryDao.update(new DiaryImpl(content, name));
+            } catch (final DaoAccessException e) {
+                e.printStackTrace();
+            }
         }
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void createPage(final String name, final String content) {
+    public void createPage(final String name, final String content) {
         final DiaryImpl diary = new DiaryImpl(content, name);
         if (!this.set.contains(diary)) {
-            this.diaryDao.save(diary);
+            try {
+                this.diaryDao.save(diary);
+            } catch (final DaoAccessException e) {
+                e.printStackTrace();
+            }
             this.set.add(diary);
         }
     }
@@ -77,7 +86,7 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
      * {@inheritDoc}
      */
     @Override
-    public final View getView() {
+    public View getView() {
         return this.content;
     }
 
@@ -85,10 +94,14 @@ public class DiaryPagesControllerImpl implements DiaryPagesController {
      *  {@inheritDoc}
      */
     @Override
-    public final void remove(final String input) {
+    public void remove(final String input) {
         if (this.getFileName().contains(input)) {
             final DiaryImpl diary = new DiaryImpl(this.getContentByName(input), input);
-            this.diaryDao.delete(diary);
+            try {
+                this.diaryDao.delete(diary);
+            } catch (final DaoAccessException e) {
+                e.printStackTrace();
+            }
             this.set.remove(diary);
         }
     }

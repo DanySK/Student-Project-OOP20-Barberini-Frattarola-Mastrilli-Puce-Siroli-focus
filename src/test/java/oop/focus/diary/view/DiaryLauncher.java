@@ -1,6 +1,6 @@
 package oop.focus.diary.view;
 
-public final class DiaryLauncher {
+public class DiaryLauncher {
     private DiaryLauncher() {}
     public static void main(final String... args) {
        DiaryLauncher.main(args);

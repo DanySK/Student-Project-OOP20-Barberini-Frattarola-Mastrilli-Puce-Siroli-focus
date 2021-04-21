@@ -12,14 +12,14 @@ import oop.focus.event.model.EventManager;
  */
 
 public class TotalTimeEventImpl implements TotalTimeEvent {
-    private final EventManager me;
+    private final EventManager eventManager;
 
     /**
      * Instantiates a new total time event.
-     * @param me    the event manager
+     * @param eventManager    the event manager
      */
-    public TotalTimeEventImpl(final EventManager me) {
-        this.me = me;
+    public TotalTimeEventImpl(final EventManager eventManager) {
+        this.eventManager = eventManager;
     }
 
     /**
@@ -27,7 +27,7 @@ public class TotalTimeEventImpl implements TotalTimeEvent {
      */
     @Override
     public final Optional<Period> computePeriod(final String labelName) {
-        return this.me.findByName(labelName).stream().map(s -> new Period(s.getStart().toDateTime(), s.getEnd().
+        return this.eventManager.findByName(labelName).stream().map(s -> new Period(s.getStart().toDateTime(), s.getEnd().
                 toDateTime())).reduce(Period::plus);
     }
 }

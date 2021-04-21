@@ -6,6 +6,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import oop.focus.application.controller.Sections;
 import oop.focus.application.controller.SectionsController;
 import oop.focus.application.view.AbstractButtonsView;
 import oop.focus.common.Controller;
@@ -25,7 +26,7 @@ public class ButtonsDiaryView extends AbstractButtonsView {
     private static final Double BUTTONS_HEIGHT = 0.1;
     private final VBox pane;
     private final Map<Button, Controller> map;
-    private final DiarySections controller;
+    private final Sections controller;
 
     /**
      * Instantiates a new buttons view.

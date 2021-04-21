@@ -50,7 +50,7 @@ public class NewEventNameWindowImpl implements Initializable, NewEventNameWindow
         loader.setController(this);
         try {
             this.root = loader.load();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
     }

@@ -40,14 +40,14 @@ public class DiarySections implements Sections {
      * {@inheritDoc}
      */
     @Override
-    public final Controller getStarterController() {
+    public Controller getStarterController() {
         return this.factory.getDiaryController();
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final List<Pair<Controller, String>> getList() {
+    public List<Pair<Controller, String>> getList() {
         return this.list;
     }
 }

@@ -36,21 +36,21 @@ public class ToDoActionImpl implements ToDoAction {
      * {@inheritDoc}
      */
     @Override
-    public final String getAnnotation() {
+    public String getAnnotation() {
         return this.annotation;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final boolean isDone() {
+    public boolean isDone() {
         return this.done;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.annotation == null) ? 0 : this.annotation.hashCode());
@@ -60,7 +60,7 @@ public class ToDoActionImpl implements ToDoAction {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

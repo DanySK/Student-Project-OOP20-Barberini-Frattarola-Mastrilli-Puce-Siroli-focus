@@ -24,28 +24,28 @@ public class DailyMoodImpl implements DailyMood {
      * {@inheritDoc}
      */
     @Override
-    public final int getMoodValue() {
+    public int getMoodValue() {
         return this.value;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setMoodValue(final int moodValue) {
+    public void setMoodValue(final int moodValue) {
         this.value = moodValue;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final LocalDate getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
@@ -55,7 +55,7 @@ public class DailyMoodImpl implements DailyMood {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }

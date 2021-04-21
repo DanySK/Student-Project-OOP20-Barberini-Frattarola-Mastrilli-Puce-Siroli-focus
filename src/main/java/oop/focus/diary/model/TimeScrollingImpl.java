@@ -37,35 +37,35 @@ public class TimeScrollingImpl implements TimeScrolling {
      * {@inheritDoc}
      */
     @Override
-    public final void addFinishListener(final Consumer<Integer> consumer) {
+    public void addFinishListener(final Consumer<Integer> consumer) {
         this.onFinishListener.add(consumer);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void addChangeListener(final Consumer<Integer> consumer) {
+    public void addChangeListener(final Consumer<Integer> consumer) {
         this.onChangeListener.add(consumer);
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final int getCounter() {
+    public int getCounter() {
         return this.starterCounter;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void setStarterValue(final int starterCounter) {
+    public void setStarterValue(final int starterCounter) {
         this.starterCounter = starterCounter;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public final void startCounter() {
+    public void startCounter() {
         final ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.execute(() -> {
             while (!this.isOver()) {
@@ -73,7 +73,7 @@ public class TimeScrollingImpl implements TimeScrolling {
                 this.starterCounter = this.fun.apply(this.starterCounter);
                  try { 
                      Thread.sleep(1000);
-                 } catch (InterruptedException e) {
+                 } catch (final InterruptedException e) {
                      e.printStackTrace();
                  }
             }
@@ -84,7 +84,7 @@ public class TimeScrollingImpl implements TimeScrolling {
      * {@inheritDoc}
      */
     @Override
-    public final void stopCounter() {
+    public void stopCounter() {
         this.stop = true;
     }
 

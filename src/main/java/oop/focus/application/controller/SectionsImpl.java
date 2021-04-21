@@ -31,7 +31,7 @@ public class SectionsImpl implements Sections {
      * Returns the Controller whose View is the first section to be shown when application starts.
      * @return  the Controller whose View is showed as first when application is launched.
      */
-    public final Controller getStarterController() {
+    public Controller getStarterController() {
         return this.factory.getHomePageController();
     }
 
@@ -39,7 +39,7 @@ public class SectionsImpl implements Sections {
      * {@inheritDoc}
      */
     @Override
-    public final List<Pair<Controller, String>> getList() {
+    public List<Pair<Controller, String>> getList() {
         return this.list;
     }
 }

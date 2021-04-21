@@ -4,6 +4,7 @@ import oop.focus.common.View;
 import oop.focus.diary.model.TotalTimeEvent;
 import oop.focus.diary.model.TotalTimeEventImpl;
 import oop.focus.diary.view.TotalTimeView;
+import oop.focus.diary.view.UpdatableView;
 import oop.focus.event.model.EventManager;
 import org.joda.time.LocalTime;
 
@@ -13,7 +14,7 @@ import org.joda.time.LocalTime;
  */
 public class TotalTimeControllerImpl implements TotalTimeController {
 
-    private final TotalTimeView totalTimeView;
+    private final UpdatableView<LocalTime> totalTimeView;
     private final EventManager eventManager;
 
     /**

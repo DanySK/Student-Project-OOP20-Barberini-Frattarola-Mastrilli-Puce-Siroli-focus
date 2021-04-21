@@ -67,7 +67,7 @@ public class TimerButtons implements DisableComponentsView {
      * {@inheritDoc}
      */
     @Override
-    public final Node getRoot() {
+    public Node getRoot() {
         final HBox hBox = new HBox();
         hBox.getChildren().addAll(this.list);
         hBox.setAlignment(Pos.CENTER);
