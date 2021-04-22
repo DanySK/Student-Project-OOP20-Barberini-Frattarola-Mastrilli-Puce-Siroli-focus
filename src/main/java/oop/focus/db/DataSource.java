@@ -1,6 +1,7 @@
 package oop.focus.db;
 
 import oop.focus.diary.model.DailyMood;
+import oop.focus.diary.model.DiaryImpl;
 import oop.focus.diary.model.ToDoAction;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
@@ -106,5 +107,12 @@ public interface DataSource {
      * @return the quick transactions dao
      */
     Dao<QuickTransaction> getQuickTransactions();
+
+    /**
+     * Gets a data access object for  {@link DiaryImpl} type elements.
+     *
+     * @return the diary dao
+     */
+    Dao<DiaryImpl> getDiaryDao();
 
 }

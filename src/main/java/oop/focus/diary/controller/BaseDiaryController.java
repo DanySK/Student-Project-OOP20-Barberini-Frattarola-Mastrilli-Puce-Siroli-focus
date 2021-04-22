@@ -4,7 +4,6 @@ import oop.focus.common.Controller;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.diary.model.DailyMoodManagerImpl;
-import oop.focus.diary.model.DiaryDao;
 import oop.focus.diary.model.ToDoListManagerImpl;
 import oop.focus.diary.view.BaseDiaryView;
 
@@ -22,7 +21,7 @@ public class BaseDiaryController implements Controller {
      */
     public BaseDiaryController(final DataSource dataSource) {
         this.baseDiary = new BaseDiaryView(new ToDoListControllerImpl(new ToDoListManagerImpl(dataSource)),
-                new DiaryPagesControllerImpl(new DiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(
+                new DiaryPagesControllerImpl(dataSource.getDiaryDao()), new DailyMoodControllerImpl(new DailyMoodManagerImpl(
                         dataSource)));
     }
     /**

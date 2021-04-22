@@ -1,10 +1,7 @@
 package oop.focus.db;
 
 import javafx.util.Pair;
-import oop.focus.diary.model.DailyMood;
-import oop.focus.diary.model.DailyMoodImpl;
-import oop.focus.diary.model.ToDoAction;
-import oop.focus.diary.model.ToDoActionImpl;
+import oop.focus.diary.model.*;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.Category;
@@ -55,6 +52,7 @@ public class DataSourceImpl implements DataSource {
     private final SingleDao<HotKey> hotKeys;
     private final SingleDao<Person> groups;
     private final SingleDao<QuickTransaction> quickTransactions;
+    private final Dao<DiaryImpl> diary;
 
     /**
      * Instantiates a new Data source.
@@ -75,6 +73,7 @@ public class DataSourceImpl implements DataSource {
         this.hotKeys = this.hotKeys();
         this.groups = this.groups();
         this.quickTransactions = this.quickTransactions();
+        this.diary = this.diary();
     }
 
     /**
@@ -163,6 +162,14 @@ public class DataSourceImpl implements DataSource {
     @Override
     public final Dao<QuickTransaction> getQuickTransactions() {
         return this.quickTransactions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Dao<DiaryImpl> getDiaryDao() {
+        return new DiaryDao();
     }
 
     /**
@@ -335,5 +342,8 @@ public class DataSourceImpl implements DataSource {
                 a -> new Pair<>(Integer.parseInt(a.remove(1)), Integer.parseInt(a.remove(1))),
                 List.of(new Pair<>("id_event", p -> String.valueOf(p.getKey())),
                         new Pair<>("id_person", p -> String.valueOf(p.getValue())))));
+    }
+    private Dao<DiaryImpl> diary() {
+        return new DiaryDao();
     }
 }

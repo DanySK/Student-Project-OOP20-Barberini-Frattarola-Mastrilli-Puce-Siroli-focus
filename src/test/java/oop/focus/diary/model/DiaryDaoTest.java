@@ -1,10 +1,14 @@
 package oop.focus.diary.model;
+import oop.focus.db.Dao;
+import oop.focus.db.DataSource;
+import oop.focus.db.DataSourceImpl;
+import oop.focus.db.exceptions.DaoAccessException;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class DiaryDaoTest {
-    private final DiaryDao dsd = new DiaryDao();
+    private final Dao<DiaryImpl> dsd = new DataSourceImpl().getDiaryDao();
     private final DiaryImpl diary1 = new DiaryImpl("testDiary1",
             "test1");
     private final DiaryImpl diary2 = new DiaryImpl("testDiary2",
@@ -13,7 +17,7 @@ public class DiaryDaoTest {
     private final DiaryImpl diary6 = new DiaryImpl("testDiary6", "test6");
 
     @Test
-    public void testBackupPages() {
+    public void testBackupPages() throws DaoAccessException {
         this.dsd.save(this.diary1);
         this.dsd.save(this.diary2);
         assertEquals("testDiary1", this.dsd.getAll().stream().
@@ -24,7 +28,7 @@ public class DiaryDaoTest {
         this.dsd.delete(this.diary2);
     }
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws DaoAccessException {
         this.dsd.save(this.diary5);
         assertEquals("testDiary5", this.dsd.getAll().stream().
                 filter(s -> s.getName().equals(this.diary5.getName())).findAny().get().getContent());
@@ -34,7 +38,7 @@ public class DiaryDaoTest {
         this.dsd.delete(this.diary5);
     }
     @Test (expected = IllegalArgumentException.class)
-    public void testUpdateNewNote() {
+    public void testUpdateNewNote() throws DaoAccessException {
         this.dsd.update(this.diary6);
     }
 
