@@ -26,7 +26,7 @@ public class CounterHotKeyView extends HBox implements HotKeyView {
         this.setAction();
         this.label.setText(this.controller.getClickTime(new HotKeyImpl(this.button.getText(), HotKeyType.COUNTER)));
         this.getChildren().addAll(this.button, this.label);
-        this.setStyle("-fx-background-color:" + HotKeyType.COUNTER.getColor() + ";");
+        this.button.setStyle("-fx-background-color:" + HotKeyType.COUNTER.getColor() + ";");
     }
 
     public final String getLabelValue() {
