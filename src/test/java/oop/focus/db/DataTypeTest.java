@@ -8,9 +8,6 @@ import oop.focus.diary.model.ToDoAction;
 import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.event.model.Event;
 import oop.focus.event.model.EventImpl;
-import oop.focus.fidelitycard.FidelityCard;
-import oop.focus.fidelitycard.FidelityCardImpl;
-import oop.focus.fidelitycard.FidelityCardType;
 import oop.focus.finance.model.*;
 import oop.focus.calendar.persons.model.PersonImpl;
 import oop.focus.calendarhomepage.model.*;
@@ -481,56 +478,6 @@ public class DataTypeTest {
         } catch (Exception e) {
             e.printStackTrace();
             fail();
-        }
-    }
-
-    @Test
-    public void testFidelityCards(){
-        Dao<FidelityCard> rep = this.df.getFidelityCards();
-        var all = rep.getAll();
-        int initialSize = all.size();
-        try {
-            assertEquals(new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ALIMENTARI),
-                    new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ABBIGLIAMENTO));
-            var vars = List.of(
-                    new FidelityCardImpl("Card1", "0012ada", FidelityCardType.ALIMENTARI),
-                    new FidelityCardImpl("Card2", "34232sdd", FidelityCardType.ABBIGLIAMENTO),
-                    new FidelityCardImpl("Card3", "232424", FidelityCardType.RISTORAZIONE));
-
-            for (var v : vars) {
-                rep.save(v);
-            }
-            assertEquals(initialSize + 3, rep.getAll().size());
-            for (var ac : vars) {
-                rep.delete(ac);
-            }
-            assertEquals(initialSize, rep.getAll().size());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail();
-        }
-        final var f = new FidelityCardImpl("Card1", "0012jada", FidelityCardType.ALIMENTARI);
-        try {
-            rep.save(f);
-            rep.update(new FidelityCardImpl("Card1", "0012jada", FidelityCardType.COSMESI));
-            assertEquals(FidelityCardType.COSMESI, all.stream().filter(a -> a.equals(f)).findFirst().orElseThrow().getType());
-        } catch (DaoAccessException e) {
-            fail();
-            e.printStackTrace();
-        }
-
-        try{
-            rep.update(new FidelityCardImpl("NotExistingCard", "0012jada", FidelityCardType.ALIMENTARI));
-            fail();
-        }catch (IllegalArgumentException e) {
-            // right
-        } catch (DaoAccessException ex) {
-            fail();
-        }
-        try {
-            rep.delete(f);
-        } catch (DaoAccessException e) {
-            e.printStackTrace();
         }
     }
 
