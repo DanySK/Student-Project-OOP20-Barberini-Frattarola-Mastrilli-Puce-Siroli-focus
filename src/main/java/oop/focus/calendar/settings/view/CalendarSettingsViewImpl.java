@@ -36,7 +36,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
 
     public CalendarSettingsViewImpl(final CalendarSettingsController controller) {
         this.settingsController = controller;
-        this.settingsBox = this.buildSettingsView();
+        this.settingsBox = buildSettingsView();
     }
 
 
@@ -85,7 +85,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         settings.add(spacingLabel, 0, 0);
         settings.add(spacing, 1, 0);
 
-        save.setOnAction(this.saveOnAction(spacing));
+        save.setOnAction(saveOnAction(spacing));
 
     }
  
@@ -105,7 +105,7 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
         format.getItems().add(normal.getName());
         format.getItems().add(extended.getName());
 
-        format.setOnAction((e) -> this.settingsController.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED));
+        format.setOnAction((e) -> settingsController.setFormat(format.getValue().equals(Format.NORMAL.getName()) ? Format.NORMAL : Format.EXTENDED));
 
 
         settings.add(formatLabel, 0, 1);
@@ -129,14 +129,14 @@ public class CalendarSettingsViewImpl implements CalendarSettingsView {
      */
     private EventHandler<ActionEvent> saveOnAction(final TextField spacing) {
         return event -> {
-             if (!this.settingsController.checkSpacing(spacing.getText())) {
-                 spacing.setText(String.valueOf(this.settingsController.getSpacing()));
+             if (!settingsController.checkSpacing(spacing.getText())) {
+                 spacing.setText(String.valueOf(settingsController.getSpacing()));
              }
-             if (this.settingsController.getFormat() == null) {
-                 this.settingsController.setFormat(Format.NORMAL);
+             if (settingsController.getFormat() == null) {
+                 settingsController.setFormat(Format.NORMAL);
              }
-            this.settingsController.updateView();
-            this.settingsWindows.close();
+             settingsController.updateView();
+             settingsWindows.close();
        };
     }
 

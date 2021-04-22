@@ -6,7 +6,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 import java.util.Optional;
 

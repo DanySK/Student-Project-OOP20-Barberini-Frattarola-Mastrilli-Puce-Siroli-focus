@@ -23,9 +23,9 @@ import javafx.scene.control.TableView;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.common.Linker;
 import oop.focus.calendar.persons.controller.FXMLPaths;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonImpl;
-import oop.focus.homepage.view.GenericAddView;
+import oop.focus.calendar.persons.model.Person;
+import oop.focus.calendar.persons.model.PersonImpl;
+import oop.focus.calendarhomepage.view.GenericAddView;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.io.IOException;
@@ -97,7 +97,7 @@ public class PersonsViewImpl implements PersonsView {
 
         final Optional<ButtonType> result = alert.showAndWait();
 
-        if (!result.isPresent() || result.get() != ButtonType.OK) {
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
             alert.close();
         } else {
             this.deleteItem();

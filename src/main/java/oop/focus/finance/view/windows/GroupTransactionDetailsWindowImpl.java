@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 import java.util.Optional;
 import java.util.stream.Collectors;

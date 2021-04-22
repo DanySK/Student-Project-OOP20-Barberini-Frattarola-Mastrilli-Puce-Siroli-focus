@@ -4,10 +4,10 @@ import static org.junit.Assert.assertEquals;
 
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.event.model.Event;
+import oop.focus.event.model.EventImpl;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
 

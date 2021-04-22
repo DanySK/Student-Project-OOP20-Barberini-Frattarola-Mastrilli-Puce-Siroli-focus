@@ -12,7 +12,7 @@ import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.finance.controller.AddPersonController;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 /**
  * Class that implements the view of adding a person to the group of group transactions.

@@ -18,7 +18,7 @@ import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.controller.EventMenuController;
 import oop.focus.event.controller.EventMenuControllerImpl;
-import oop.focus.homepage.controller.GeneralHomePageController;
+import oop.focus.calendarhomepage.controller.GeneralHomePageController;
 import oop.focus.statistics.controller.EventsStatistics;
 
 
@@ -50,14 +50,14 @@ public class CalendarControllerImpl implements CalendarController {
 
         this.statisticsController  = new EventsStatistics(dataSource);
 
-        this.weekController = new WeekControllerImpl(dataSource, ((GeneralHomePageController) homePageController).getHomePageController());
-        this.newEventController = new NewEventControllerImpl(dataSource, this.weekController, this.monthController);
+        weekController = new WeekControllerImpl(dataSource, ((GeneralHomePageController) homePageController).getHomePageController());
+        this.newEventController = new NewEventControllerImpl(dataSource, weekController, this.monthController);
 
-        this.settingsController = new CalendarSettingsControllerImpl(this.monthController, this.weekController);
+        settingsController = new CalendarSettingsControllerImpl(monthController, weekController);
 
         this.eventController = new EventMenuControllerImpl(dataSource,  this.weekController, this.monthController);
 
-        this.personController = new PersonsControllerImpl(dataSource);
+        personController = new PersonsControllerImpl(dataSource);
 
         this.calendarView = new CalendarViewImpl(this);
     }

@@ -11,7 +11,7 @@ import oop.focus.db.DataSourceImpl;
 public class PersonLauncher extends Application {
 
     @Override
-    public final void start(final Stage primaryStage) throws Exception {
+    public final void start(final Stage primaryStage) {
 
         final DataSource dsi = new DataSourceImpl();
         final PersonsController controller = new PersonsControllerImpl(dsi);

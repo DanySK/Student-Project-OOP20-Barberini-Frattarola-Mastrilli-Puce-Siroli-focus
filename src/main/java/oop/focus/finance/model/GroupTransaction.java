@@ -1,6 +1,6 @@
 package oop.focus.finance.model;
 
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 import org.joda.time.LocalDateTime;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import oop.focus.common.Linker;
 import oop.focus.common.View;
 import oop.focus.finance.model.Account;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 import oop.focus.statistics.controller.TimePeriodInput;
 import oop.focus.statistics.controller.TimePeriodInputBuilderImpl;
 import oop.focus.common.UpdatableController;

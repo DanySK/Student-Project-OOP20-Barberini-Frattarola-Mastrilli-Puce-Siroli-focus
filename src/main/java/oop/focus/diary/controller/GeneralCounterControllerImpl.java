@@ -2,7 +2,7 @@ package oop.focus.diary.controller;
 import oop.focus.common.View;
 
 import oop.focus.diary.view.ContainerFactoryImpl;
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventManager;
 import org.joda.time.LocalTime;
 
 import java.util.List;

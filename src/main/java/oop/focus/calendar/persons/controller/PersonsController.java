@@ -3,7 +3,7 @@ package oop.focus.calendar.persons.controller;
 import javafx.collections.ObservableSet;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 public interface PersonsController extends Controller {
 

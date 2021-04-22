@@ -4,7 +4,8 @@ package oop.focus.calendar;
 
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.joda.time.LocalDate;
 import org.junit.Before;
@@ -44,18 +45,21 @@ public class DayTest {
         assertEquals(day.getNumber(), 26);
         assertEquals(day.getMonth(), "marzo");
         assertEquals(day.getYear(), YEAR);
+        assertFalse(day.isSunday());
 
         //Test sulla creazione del giorno sabato 10 aprile 2021 
         assertEquals(day2.getNumber(), 10);
         assertEquals(day2.getMonth(), "aprile");
         assertEquals(day2.getName(), "sabato");
         assertEquals(day2.getYear(), YEAR);
+        assertFalse(day2.isSunday());
 
         //Test sulla creazione del giorno domenica 14 febbraio 2021 
         assertEquals(day3.getNumber(), 14);
         assertEquals(day3.getMonth(), "febbraio");
         assertEquals(day3.getName(), "domenica");
         assertEquals(day3.getYear(), YEAR);
+        assertTrue(day3.isSunday());
 
     }
     

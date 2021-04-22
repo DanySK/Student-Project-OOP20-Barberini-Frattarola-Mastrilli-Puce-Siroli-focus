@@ -1,6 +1,6 @@
 package oop.focus.calendar.persons.view;
 
-import oop.focus.homepage.view.GenericAddView;
+import oop.focus.calendarhomepage.view.GenericAddView;
 
 public interface AddNewPersonView extends GenericAddView {
 

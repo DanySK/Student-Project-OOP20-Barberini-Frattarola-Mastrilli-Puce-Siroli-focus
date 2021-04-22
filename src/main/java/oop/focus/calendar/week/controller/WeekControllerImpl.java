@@ -3,7 +3,7 @@ package oop.focus.calendar.week.controller;
 import oop.focus.calendar.week.view.WeekView;
 import oop.focus.calendar.week.view.WeekViewImpl;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.controller.HomePageController;
+import oop.focus.calendarhomepage.controller.HomePageController;
 
 
 public class WeekControllerImpl implements WeekController {

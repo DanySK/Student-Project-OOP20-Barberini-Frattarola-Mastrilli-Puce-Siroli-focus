@@ -10,8 +10,8 @@ import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.homepage.controller.GeneralHomePageController;
-import oop.focus.homepage.controller.GeneralHomePageControllerImpl;
+import oop.focus.calendarhomepage.controller.GeneralHomePageController;
+import oop.focus.calendarhomepage.controller.GeneralHomePageControllerImpl;
 
 
 public class CalendarPageViewTest extends Application {
@@ -21,10 +21,10 @@ public class CalendarPageViewTest extends Application {
 
     public final void start(final Stage primaryStage) {
 
-    	final DataSource dataSource = new DataSourceImpl();
-        final FinanceManager financeManager = new FinanceManagerImpl(dataSource);
-        final GeneralHomePageController controller = new GeneralHomePageControllerImpl(dataSource, financeManager);
-        final CalendarController pageController = new CalendarControllerImpl(dataSource, controller);
+    	final DataSource datasource = new DataSourceImpl();
+        final FinanceManager financeManager = new FinanceManagerImpl(datasource);
+        final GeneralHomePageController controller = new GeneralHomePageControllerImpl(datasource, financeManager);
+        final CalendarController pageController = new CalendarControllerImpl(datasource, controller);
         primaryStage.setScene(new Scene((Parent) pageController.getView().getRoot(), WIDTH, HEIGHT));
         primaryStage.show();
     }

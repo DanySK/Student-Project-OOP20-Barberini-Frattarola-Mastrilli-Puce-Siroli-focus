@@ -25,7 +25,7 @@ import oop.focus.finance.view.windows.GroupTransactionDetailsWindowImpl;
 import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
 import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
 import oop.focus.finance.view.windows.ResolveViewImpl;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
 

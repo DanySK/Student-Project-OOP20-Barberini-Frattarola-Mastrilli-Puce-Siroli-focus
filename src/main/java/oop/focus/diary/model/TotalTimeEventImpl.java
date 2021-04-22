@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.joda.time.Period;
 
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventManager;
 /**
  * Immutable implementation of {@link TotalTimeEvent}.
  */

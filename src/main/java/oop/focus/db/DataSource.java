@@ -8,9 +8,9 @@ import oop.focus.finance.model.Category;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.Transaction;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.Person;
+import oop.focus.event.model.Event;
+import oop.focus.calendarhomepage.model.HotKey;
+import oop.focus.calendar.persons.model.Person;
 
 /**
  * Defines the methods to create an Object to access different types of data

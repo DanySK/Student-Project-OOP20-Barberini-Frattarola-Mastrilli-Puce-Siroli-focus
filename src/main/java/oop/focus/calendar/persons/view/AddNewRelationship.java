@@ -16,8 +16,8 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
-import oop.focus.homepage.view.AlertFactoryImpl;
-import oop.focus.homepage.view.GenericAddView;
+import oop.focus.calendarhomepage.view.AlertFactoryImpl;
+import oop.focus.calendarhomepage.view.GenericAddView;
 
 public class AddNewRelationship implements GenericAddView {
 
@@ -61,13 +61,8 @@ public class AddNewRelationship implements GenericAddView {
 
         this.delete.setOnAction(event -> this.delete(event));
 
-        this.save.setOnAction(event -> {
-            try {
-                this.save(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        });
+        this.save.setOnAction(event -> this.save(event));
+
     }
 
     private void setProperty() {
@@ -95,7 +90,7 @@ public class AddNewRelationship implements GenericAddView {
         stage.close();
     }
 
-    public final void save(final ActionEvent event) throws IOException {
+    public final void save(final ActionEvent event) {
         if (!this.nameTextField.getText().isEmpty()) {
             this.controller.addRelationship(this.nameTextField.getText());
             this.goBack(event);

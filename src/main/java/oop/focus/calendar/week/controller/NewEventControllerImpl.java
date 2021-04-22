@@ -5,9 +5,9 @@ import oop.focus.calendar.week.view.NewEventWeekViewImpl;
 import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.event.model.Event;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,8 +55,7 @@ public class NewEventControllerImpl implements NewEventController {
 
     public final ObservableList<Repetition> getRep() {
         final ObservableList<Repetition> list = FXCollections.observableArrayList();
-        final List<Repetition> arrayList = new ArrayList<>();
-        arrayList.addAll(Arrays.asList(Repetition.values()));
+        final List<Repetition> arrayList = new ArrayList<>(Arrays.asList(Repetition.values()));
         list.addAll(arrayList);
         return list;
     }

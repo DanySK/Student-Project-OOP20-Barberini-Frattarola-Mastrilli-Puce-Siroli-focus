@@ -5,12 +5,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.Set;
 
 import org.junit.Test;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonImpl;
-import oop.focus.homepage.model.PersonsManager;
-import oop.focus.homepage.model.PersonsManagerImpl;
-import oop.focus.homepage.model.RelationshipsManager;
-import oop.focus.homepage.model.RelationshipsManagerImpl;
+import oop.focus.calendar.persons.model.Person;
+import oop.focus.calendar.persons.model.PersonImpl;
+import oop.focus.calendar.persons.model.PersonsManager;
+import oop.focus.calendar.persons.model.PersonsManagerImpl;
+import oop.focus.calendar.persons.model.RelationshipsManager;
+import oop.focus.calendar.persons.model.RelationshipsManagerImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 

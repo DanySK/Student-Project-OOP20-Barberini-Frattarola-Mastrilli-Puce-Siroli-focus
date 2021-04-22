@@ -16,8 +16,8 @@ import oop.focus.finance.model.TransactionImpl;
 import oop.focus.finance.model.CategoryImpl;
 import oop.focus.finance.model.QuickTransactionImpl;
 import oop.focus.finance.model.GroupTransactionImpl;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonImpl;
+import oop.focus.calendar.persons.model.Person;
+import oop.focus.calendar.persons.model.PersonImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 

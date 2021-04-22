@@ -3,7 +3,7 @@ package oop.focus.finance.controller;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 import oop.focus.common.Controller;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 import java.time.LocalDate;
 import java.util.Set;

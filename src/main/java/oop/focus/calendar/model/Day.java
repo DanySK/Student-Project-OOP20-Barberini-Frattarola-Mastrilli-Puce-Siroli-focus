@@ -1,7 +1,7 @@
 package oop.focus.calendar.model;
 
 import java.util.List;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 
 
 /**
@@ -48,6 +48,13 @@ public interface Day {
      * @return the number of the Year 
      */
     int getYear();
+
+    /**
+     * Can be used to see if is Sunday.
+     * @return true if is Sunday 
+     *
+     */
+    boolean isSunday();
 
     /**
      * Can be used to get the list of the events of the day.

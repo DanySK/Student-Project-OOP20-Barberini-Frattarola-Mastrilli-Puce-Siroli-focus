@@ -6,7 +6,7 @@ import javafx.util.Pair;
 import oop.focus.common.Action;
 import oop.focus.common.UpdatableController;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 import oop.focus.statistics.model.EventsStatisticFactory;
 import oop.focus.statistics.model.EventsStatisticFactoryImpl;
 

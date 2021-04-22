@@ -21,9 +21,9 @@ import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.RelationshipsControllerImpl;
 import oop.focus.common.Linker;
-import oop.focus.homepage.model.PersonImpl;
-import oop.focus.homepage.view.AlertFactoryImpl;
-import oop.focus.homepage.view.GenericAddView;
+import oop.focus.calendar.persons.model.PersonImpl;
+import oop.focus.calendarhomepage.view.AlertFactoryImpl;
+import oop.focus.calendarhomepage.view.GenericAddView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,13 +75,7 @@ public class AddNewPersonViewImpl implements GenericAddView {
     }
 
     private void setButtonOnAction() {
-        this.save.setOnAction(event -> {
-            try {
-                this.save(event);
-            } catch (final IOException e) {
-                e.printStackTrace();
-            }
-        });
+        this.save.setOnAction(event -> this.save(event));
 
         this.delete.setOnAction(event -> this.delete(event));
 
@@ -131,7 +125,7 @@ public class AddNewPersonViewImpl implements GenericAddView {
         stage.close();
     }
 
-    public final void save(final ActionEvent event) throws IOException {
+    public final void save(final ActionEvent event) {
         if (!this.nameTextField.getText().isEmpty() && !this.degreeComboBox.getSelectionModel().isEmpty()) {
             this.controller.addPerson(new PersonImpl(this.nameTextField.getText(), this.degreeComboBox.getSelectionModel().getSelectedItem()));
             this.goBack(event);

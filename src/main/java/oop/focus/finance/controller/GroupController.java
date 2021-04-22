@@ -3,7 +3,7 @@ package oop.focus.finance.controller;
 import oop.focus.common.Controller;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 import java.util.List;
 

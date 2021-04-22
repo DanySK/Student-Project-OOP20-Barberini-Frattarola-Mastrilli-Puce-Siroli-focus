@@ -2,7 +2,7 @@ package oop.focus.diary.model;
 
 import org.joda.time.LocalDateTime;
 
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventManager;
 import org.joda.time.LocalTime;
 
 /**

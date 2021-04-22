@@ -1,8 +1,8 @@
 package oop.focus.diary.model;
 
 import oop.focus.common.Repetition;
-import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventImpl;
+import oop.focus.event.model.EventManager;
 import org.joda.time.LocalDateTime;
 
 import javax.sound.sampled.LineUnavailableException;

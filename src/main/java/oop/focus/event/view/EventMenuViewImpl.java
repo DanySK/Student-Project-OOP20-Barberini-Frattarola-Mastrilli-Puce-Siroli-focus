@@ -28,8 +28,8 @@ import oop.focus.event.controller.EventInformationController;
 import oop.focus.event.controller.EventInformationControllerImpl;
 import oop.focus.event.controller.EventMenuController;
 import oop.focus.event.controller.FXMLPaths;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.view.HomePageBaseView;
+import oop.focus.event.model.Event;
+import oop.focus.calendarhomepage.view.HomePageBaseView;
 
 
 public class EventMenuViewImpl implements EventMenuView {
@@ -107,12 +107,12 @@ public class EventMenuViewImpl implements EventMenuView {
 
             final Optional<ButtonType> result = alert.showAndWait();
 
-            if (!result.isPresent() || result.get() != ButtonType.OK) {
+            if (result.isEmpty() || result.get() != ButtonType.OK) {
                 alert.close();
             } else {
                 this.controller.remove(this.tableEvent.getSelectionModel().getSelectedItem());
                 this.controller.getMonth().updateView();
-                ((HomePageBaseView)this.controller.getWeek().getHomePageController().getView()).setDay();
+                ((HomePageBaseView) this.controller.getWeek().getHomePageController().getView()).setDay();
                 ((WeekView) this.controller.getWeek().getView()).setWeekDays();
             }
         }

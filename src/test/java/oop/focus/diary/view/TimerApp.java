@@ -10,8 +10,8 @@ import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.GeneralCounterControllerImpl;
 import oop.focus.diary.controller.Style;
 
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
 
 public class TimerApp extends Application {
     @Override

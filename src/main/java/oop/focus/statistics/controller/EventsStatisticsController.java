@@ -6,7 +6,7 @@ import oop.focus.common.Controller;
 import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
 import java.util.ArrayList;

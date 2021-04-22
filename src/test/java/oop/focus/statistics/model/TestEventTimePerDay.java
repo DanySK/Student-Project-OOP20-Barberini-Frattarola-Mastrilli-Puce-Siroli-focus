@@ -5,7 +5,7 @@ import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.homepage.model.EventImpl;
+import oop.focus.event.model.EventImpl;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.junit.After;

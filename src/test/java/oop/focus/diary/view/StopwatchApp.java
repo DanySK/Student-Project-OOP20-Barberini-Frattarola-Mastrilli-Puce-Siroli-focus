@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.diary.controller.*;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
 
 public class StopwatchApp extends Application {
 

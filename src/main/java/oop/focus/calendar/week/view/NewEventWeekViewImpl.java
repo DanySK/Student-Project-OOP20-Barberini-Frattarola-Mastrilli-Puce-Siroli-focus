@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 
 import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import oop.focus.homepage.view.HomePageBaseView;
+import oop.focus.calendarhomepage.view.HomePageBaseView;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -38,11 +37,11 @@ import oop.focus.calendar.week.controller.FXMLPaths;
 import oop.focus.calendar.week.controller.NewEventController;
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.view.AlertFactoryImpl;
-import oop.focus.homepage.view.ComboBoxFiller;
+import oop.focus.event.model.Event;
+import oop.focus.event.model.EventImpl;
+import oop.focus.calendar.persons.model.Person;
+import oop.focus.calendarhomepage.view.AlertFactoryImpl;
+import oop.focus.calendarhomepage.view.ComboBoxFiller;
 
 public class NewEventWeekViewImpl implements NewEventWeekView {
 
@@ -155,7 +154,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         final PersonsController persons = new PersonsControllerImpl(new DataSourceImpl());
         final ObservableList<String> listOfString = FXCollections.observableArrayList();
 
-        final List<Person> temp = persons.getPersons().stream().collect(Collectors.toList());
+        final List<Person> temp = new ArrayList<>(persons.getPersons());
         this.list.addAll(temp);
         this.list.forEach(p -> listOfString.add(p.toString()));
 

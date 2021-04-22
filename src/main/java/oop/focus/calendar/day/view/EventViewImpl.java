@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import oop.focus.calendar.model.Day;
 import oop.focus.calendar.model.Format;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 
 
 
@@ -62,8 +62,8 @@ public class EventViewImpl implements VBoxManager {
      * Used for check if we are setting the right spacing according to the format.
      */
     private void checkSpacing() {
-        this.spacing = this.hours.getSpacing();
-        if (this.hours.getFormat() == Format.EXTENDED.getNumber()) {
+        this.spacing = hours.getSpacing();
+        if (hours.getFormat() == Format.EXTENDED.getNumber()) {
             this.spacing = this.spacing * 2;
         }
     }
@@ -75,11 +75,11 @@ public class EventViewImpl implements VBoxManager {
         final int hour;
         final double spaceForMinute = this.spacing / MINUTES_IN_HOURS;
         final double minutesTotalSpace = spaceForMinute * this.events.get(i).getStartHour().getMinuteOfHour();
-        if (this.events.get(i).getEndDate().getDayOfMonth() == this.day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
+        if (this.events.get(i).getEndDate().getDayOfMonth() == day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != day.getNumber()) {
             return 0;
         } else {
             hour = this.events.get(i).getStartHour().getHourOfDay();
-            return this.hours.getY(hour) + minutesTotalSpace;
+            return hours.getY(hour) + minutesTotalSpace;
         }
     }
 
@@ -88,7 +88,7 @@ public class EventViewImpl implements VBoxManager {
      */
     public final VBox getVBox() {
         if (this.myVBox == null) {
-            this.buildVBox();
+            buildVBox();
         }
         return this.myVBox;
     }
@@ -110,7 +110,7 @@ public class EventViewImpl implements VBoxManager {
         panel.getChildren().add(name);
 
         if (i != 0) {
-            panel.setTranslateY(this.getY(i) - this.insertEventsDuration);
+            panel.setTranslateY(this.getY(i) - insertEventsDuration);
         } else {
             if (this.getY(i) == 0 && this.hours.getFormat() == Format.EXTENDED.getNumber()) {
                 panel.setTranslateY(this.getY(i));
@@ -124,7 +124,7 @@ public class EventViewImpl implements VBoxManager {
         double endHour;
         double startHour;
 
-        if (this.events.get(i).getEndDate().getDayOfMonth() == this.day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
+        if (this.events.get(i).getEndDate().getDayOfMonth() == day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != day.getNumber()) {
             endHour = this.events.get(i).getEndHour().getHourOfDay();
             startHour = 0;
         } else {
@@ -152,7 +152,7 @@ public class EventViewImpl implements VBoxManager {
         }
         this.height += (this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS);
         panel.setPrefHeight(this.height);
-        this.insertEventsDuration += this.height;
+        insertEventsDuration += this.height;
         this.height = 0;
 
         vbox.getChildren().add(panel);
@@ -162,13 +162,13 @@ public class EventViewImpl implements VBoxManager {
      * {@inheritDoc}
      */
     public final void buildVBox() {
-        this.checkSpacing();
-        final VBox vBox = new VBox();
-        vBox.setBackground(new Background(new BackgroundFill(Color.valueOf("ffcccc"), CornerRadii.EMPTY, Insets.EMPTY)));
+        checkSpacing();
+        final VBox vbox = new VBox();
+        vbox.setBackground(new Background(new BackgroundFill(Color.valueOf("ffcccc"), CornerRadii.EMPTY, Insets.EMPTY)));
         for (int i = 0; i < this.events.size(); i++) {
-            this.buildPanel(vBox, i);
+            buildPanel(vbox, i);
         }
-        this.myVBox = vBox;
+        this.myVBox = vbox;
     }
 
 

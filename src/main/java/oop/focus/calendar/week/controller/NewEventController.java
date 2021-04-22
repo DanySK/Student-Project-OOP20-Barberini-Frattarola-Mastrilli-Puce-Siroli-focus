@@ -5,7 +5,7 @@ import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.common.Controller;
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 
 public interface NewEventController extends Controller {
 

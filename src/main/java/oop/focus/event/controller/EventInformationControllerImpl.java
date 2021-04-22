@@ -3,10 +3,10 @@ import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.view.EventInformationViewImpl;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
-import oop.focus.homepage.model.Person;
+import oop.focus.event.model.Event;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
+import oop.focus.calendar.persons.model.Person;
 
 import org.joda.time.LocalDate;
 

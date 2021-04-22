@@ -7,7 +7,7 @@ import oop.focus.db.DataSource;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.view.windows.AddPersonViewImpl;
 import oop.focus.finance.view.windows.GenericWindow;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 import java.util.stream.Collectors;
 

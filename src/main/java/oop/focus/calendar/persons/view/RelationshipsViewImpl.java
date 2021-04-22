@@ -108,7 +108,7 @@ public class RelationshipsViewImpl implements RelationshipsView {
 
         final Optional<ButtonType> result = alert.showAndWait();
 
-        if (!result.isPresent() || result.get() != ButtonType.OK) {
+        if (result.isEmpty() || result.get() != ButtonType.OK) {
             alert.close();
         } else {
             this.deleteItem();

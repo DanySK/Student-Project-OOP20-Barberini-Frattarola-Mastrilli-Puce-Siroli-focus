@@ -6,7 +6,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.bases.GroupViewImpl;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;

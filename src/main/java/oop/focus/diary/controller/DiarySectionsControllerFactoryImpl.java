@@ -4,8 +4,8 @@ import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.EventManager;
-import oop.focus.homepage.model.EventManagerImpl;
+import oop.focus.event.model.EventManager;
+import oop.focus.event.model.EventManagerImpl;
 /**
  * Implementation of {@link DiarySectionsControllerFactory}.
  */

@@ -23,17 +23,17 @@ public enum Format {
     private final String name;
 
     Format(final int i, final String string) {
-        this.number = i;
-        this.name = string;
+        number = i;
+        name = string;
     }
 
 
     public int getNumber() {
-        return this.number;
+        return number;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
 

@@ -2,7 +2,7 @@ package oop.focus.event.controller;
 
 import javafx.collections.ObservableList;
 import oop.focus.common.Controller;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 
 public interface EventInformationController extends Controller {
 

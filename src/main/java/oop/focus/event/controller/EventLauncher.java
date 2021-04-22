@@ -12,13 +12,13 @@ import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.calendar.week.controller.WeekControllerImpl;
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.controller.HomePageController;
-import oop.focus.homepage.controller.HomePageControllerImpl;
+import oop.focus.calendarhomepage.controller.HomePageController;
+import oop.focus.calendarhomepage.controller.HomePageControllerImpl;
 
 public class EventLauncher extends Application {
 
     @Override
-    public final void start(final Stage primaryStage) throws Exception {
+    public final void start(final Stage primaryStage) {
 
         final DataSource dsi = new DataSourceImpl();
         final HomePageController homePage = new HomePageControllerImpl(dsi);

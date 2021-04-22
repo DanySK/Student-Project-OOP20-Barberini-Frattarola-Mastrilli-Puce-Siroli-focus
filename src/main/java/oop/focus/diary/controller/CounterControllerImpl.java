@@ -5,7 +5,7 @@ import oop.focus.diary.model.CounterManagerImpl;
 import oop.focus.diary.view.ContainerFactoryImpl;
 import oop.focus.diary.view.StartStopCounterView;
 import oop.focus.diary.view.TimerButtons;
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventManager;
 import org.joda.time.LocalTime;
 import org.joda.time.Period;
 

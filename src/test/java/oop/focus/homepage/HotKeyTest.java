@@ -2,11 +2,11 @@ package oop.focus.homepage;
 
 import oop.focus.db.DataSource;
 import oop.focus.db.DataSourceImpl;
-import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.model.HotKeyImpl;
-import oop.focus.homepage.model.HotKeyManager;
-import oop.focus.homepage.model.HotKeyManagerImpl;
-import oop.focus.homepage.model.HotKeyType;
+import oop.focus.calendarhomepage.model.HotKey;
+import oop.focus.calendarhomepage.model.HotKeyImpl;
+import oop.focus.calendarhomepage.model.HotKeyManager;
+import oop.focus.calendarhomepage.model.HotKeyManagerImpl;
+import oop.focus.calendarhomepage.model.HotKeyType;
 import org.junit.Test;
 
 

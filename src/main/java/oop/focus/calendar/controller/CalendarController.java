@@ -22,7 +22,7 @@ public interface CalendarController extends Controller {
     CalendarSettingsController getSettingsController();
 
     /**
-     * Used for get the {@link CalendarMonthController}.
+     * Used for get the Month Controller.
      * @return CalendarMonthController
      */
     CalendarMonthController getMonthController();

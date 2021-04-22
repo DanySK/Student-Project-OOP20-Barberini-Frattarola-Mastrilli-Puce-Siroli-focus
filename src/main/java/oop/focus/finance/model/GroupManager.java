@@ -1,7 +1,7 @@
 package oop.focus.finance.model;
 
 import javafx.collections.ObservableSet;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 import java.util.List;
 

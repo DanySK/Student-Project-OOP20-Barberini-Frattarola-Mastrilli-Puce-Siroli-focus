@@ -8,7 +8,7 @@ import oop.focus.diary.controller.GeneralDiaryController;
 import oop.focus.finance.controller.ChangeViewControllerImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
-import oop.focus.homepage.controller.GeneralHomePageControllerImpl;
+import oop.focus.calendarhomepage.controller.GeneralHomePageControllerImpl;
 
 /**
  * Implementation of {@link SectionsControllerFactory}.

@@ -98,7 +98,7 @@ public class WeekViewImpl implements WeekView {
         if (this.startWeek.isEqual(LocalDate.now().minusDays(LocalDate.now().getDayOfWeek() - 1))) {
             this.thisWeek.setText("SETTIMANA CORRENTE");
         } else {
-            this.thisWeek.setText(this.startWeek.toString() + "  - " + this.startWeek.plusDays(Constants.FIND_FINAL).toString());
+            this.thisWeek.setText(this.startWeek.toString() + "  - " + this.startWeek.plusDays(Constants.FIND_FINAL));
         }
     }
 

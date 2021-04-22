@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.NewGroupTransactionController;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 import oop.focus.statistics.view.MultiSelectorView;
 import org.joda.time.LocalDateTime;
 

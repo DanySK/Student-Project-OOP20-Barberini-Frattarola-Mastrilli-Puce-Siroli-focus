@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import oop.focus.common.View;
 import oop.focus.diary.view.EventCounterViewImpl;
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventManager;
 
 /**
  * Implementation of {@link EventCounterController}. The class manages events, which are used by counters to set

@@ -5,11 +5,11 @@ import oop.focus.calendar.persons.view.PersonsView;
 import oop.focus.calendar.persons.view.PersonsViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonsManager;
-import oop.focus.homepage.model.PersonsManagerImpl;
-import oop.focus.homepage.model.RelationshipsManager;
-import oop.focus.homepage.model.RelationshipsManagerImpl;
+import oop.focus.calendar.persons.model.Person;
+import oop.focus.calendar.persons.model.PersonsManager;
+import oop.focus.calendar.persons.model.PersonsManagerImpl;
+import oop.focus.calendar.persons.model.RelationshipsManager;
+import oop.focus.calendar.persons.model.RelationshipsManagerImpl;
 
 public class PersonsControllerImpl implements PersonsController {
 

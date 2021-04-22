@@ -3,7 +3,7 @@ package oop.focus.finance.model;
 import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;

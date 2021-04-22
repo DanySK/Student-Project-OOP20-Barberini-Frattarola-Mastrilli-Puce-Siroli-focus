@@ -1,18 +1,17 @@
 package oop.focus.calendar.persons.controller;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableSet;
 import oop.focus.calendar.persons.view.RelationshipsView;
 import oop.focus.calendar.persons.view.RelationshipsViewImpl;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Person;
-import oop.focus.homepage.model.PersonsManager;
-import oop.focus.homepage.model.PersonsManagerImpl;
-import oop.focus.homepage.model.RelationshipsManager;
-import oop.focus.homepage.model.RelationshipsManagerImpl;
+import oop.focus.calendar.persons.model.Person;
+import oop.focus.calendar.persons.model.PersonsManager;
+import oop.focus.calendar.persons.model.PersonsManagerImpl;
+import oop.focus.calendar.persons.model.RelationshipsManager;
+import oop.focus.calendar.persons.model.RelationshipsManagerImpl;
 
 
 public class RelationshipsControllerImpl implements RelationshipsController {
@@ -51,7 +50,7 @@ public class RelationshipsControllerImpl implements RelationshipsController {
 
     @Override
     public final List<String> getPersons() {
-        final List<Person> person = this.persons.getPersons().stream().collect(Collectors.toList());
+        final List<Person> person = new ArrayList<>(this.persons.getPersons());
         final List<String> degree = new ArrayList<>();
         person.forEach(p -> {
             if (!degree.contains(p.getRelationships())) {

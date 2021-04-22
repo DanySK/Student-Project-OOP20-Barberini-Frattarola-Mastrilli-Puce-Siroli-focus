@@ -10,7 +10,7 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.finance.view.windows.GenericWindow;
 import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 import org.joda.time.LocalDateTime;
 
 import java.time.LocalDate;

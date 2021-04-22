@@ -4,7 +4,7 @@ import oop.focus.common.View;
 import oop.focus.diary.model.TotalTimeEvent;
 import oop.focus.diary.model.TotalTimeEventImpl;
 import oop.focus.diary.view.TotalTimeView;
-import oop.focus.homepage.model.EventManager;
+import oop.focus.event.model.EventManager;
 import org.joda.time.LocalTime;
 
 /**

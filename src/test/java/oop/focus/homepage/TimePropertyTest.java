@@ -8,10 +8,10 @@ import java.util.List;
 
 import org.joda.time.LocalDateTime;
 import org.junit.Test;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
-import oop.focus.homepage.model.TimeProperty;
-import oop.focus.homepage.model.TimePropertyImpl;
+import oop.focus.event.model.Event;
+import oop.focus.event.model.EventImpl;
+import oop.focus.event.model.TimeProperty;
+import oop.focus.event.model.TimePropertyImpl;
 import oop.focus.common.Repetition;
 
 public class TimePropertyTest {

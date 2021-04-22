@@ -1,7 +1,7 @@
 package oop.focus.statistics.model;
 
 import javafx.util.Pair;
-import oop.focus.homepage.model.Event;
+import oop.focus.event.model.Event;
 import org.joda.time.LocalDate;
 
 /**

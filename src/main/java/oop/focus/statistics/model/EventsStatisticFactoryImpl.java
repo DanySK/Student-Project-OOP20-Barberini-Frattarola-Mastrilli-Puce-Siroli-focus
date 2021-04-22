@@ -2,8 +2,8 @@ package oop.focus.statistics.model;
 
 import javafx.util.Pair;
 import oop.focus.db.DataSource;
-import oop.focus.homepage.model.Event;
-import oop.focus.homepage.model.EventImpl;
+import oop.focus.event.model.Event;
+import oop.focus.event.model.EventImpl;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;

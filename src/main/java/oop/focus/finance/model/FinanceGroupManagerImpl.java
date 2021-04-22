@@ -4,7 +4,7 @@ import javafx.collections.ObservableSet;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
-import oop.focus.homepage.model.Person;
+import oop.focus.calendar.persons.model.Person;
 
 /**
  * Class that implements group transaction group management.
