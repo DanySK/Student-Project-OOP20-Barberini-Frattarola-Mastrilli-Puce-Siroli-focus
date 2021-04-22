@@ -1,5 +1,6 @@
 package oop.focus.statistics.view;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Side;
@@ -19,10 +20,11 @@ import java.util.List;
  */
 public class PieChartView implements SingleValueChart {
     private static final double SPACING = 0.005;
-    private static final double XRATIO = 0.005;
+    private static final double XRATIO = 0.002;
     private static final double YRATIO = 0.005;
     private static final double TICK_RATIO = 0.01;
     private static final String PIE_COLOR_STYLE = "-fx-pie-color: #%s;";
+    private static final int MAX_CHAR = 18;
     private final Pane container;
     private final ObservableList<PieChart.Data> data;
     private final PieChart pieChart;
@@ -58,8 +60,9 @@ public class PieChartView implements SingleValueChart {
     public final void updateData(final List<Pair<String, Double>> items) {
         this.data.clear();
         final double sum = items.stream().map(Pair::getValue).mapToDouble(Double::doubleValue).sum();
-        items.forEach(i -> this.data.add(new PieChart.Data(i.getKey()
-                + this.percentage(i.getValue(), sum),
+        items.forEach(i -> this.data.add(new PieChart.Data(
+                i.getKey().substring(0, Math.min(i.getKey().length(), MAX_CHAR))
+                        + this.percentage(i.getValue(), sum),
                 i.getValue())));
     }
 
@@ -68,24 +71,28 @@ public class PieChartView implements SingleValueChart {
      */
     @Override
     public final void setColors(final List<String> colors) {
-        int ind = 0;
-        for (final String c : colors) {
-            final String style = String.format(PIE_COLOR_STYLE, c);
-            this.pieChart.getData().get(ind++).getNode().setStyle(style);
-        }
-        for (int i = 0; i < this.pieChart.getData().size(); i++) {
-            final PieChart.Data d = this.pieChart.getData().get(i);
-            String colorClass = "";
-            for (final String cls : d.getNode().getStyleClass()) {
-                if (cls.startsWith("default-color")) {
-                    colorClass = cls;
-                    break;
+        this.pieChart.requestLayout();
+        this.pieChart.applyCss();
+        Platform.runLater(() -> {
+            int ind = 0;
+            for (final String c : colors) {
+                final String style = String.format(PIE_COLOR_STYLE, c);
+                this.pieChart.getData().get(ind++).getNode().setStyle(style);
+            }
+            for (int i = 0; i < this.pieChart.getData().size(); i++) {
+                final PieChart.Data d = this.pieChart.getData().get(i);
+                String colorClass = "";
+                for (final String cls : d.getNode().getStyleClass()) {
+                    if (cls.startsWith("default-color")) {
+                        colorClass = cls;
+                        break;
+                    }
+                }
+                for (final var n : this.pieChart.lookupAll("." + colorClass)) {
+                    n.setStyle(String.format(PIE_COLOR_STYLE, colors.get(i)));
                 }
             }
-            for (final var n : this.pieChart.lookupAll("." + colorClass)) {
-                n.setStyle(String.format(PIE_COLOR_STYLE, colors.get(i)));
-            }
-        }
+        });
     }
 
     /**

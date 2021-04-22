@@ -9,6 +9,7 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.statistics.view.ViewFactoryImpl;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,9 @@ public class FinanceStatisticsController implements UpdatableController<TimePeri
                 .map(Controller::getView).collect(Collectors.toList()));
         this.transactions = manager.getTransactionManager().getElements();
         this.setListener();
+        this.actualInput = new TimePeriodInputBuilderImpl<Account>()
+                .from(LocalDate.now().minusMonths(1)).to(LocalDate.now()).save();
+        this.updateCharts(this.actualInput);
     }
     /**
      * {@inheritDoc}

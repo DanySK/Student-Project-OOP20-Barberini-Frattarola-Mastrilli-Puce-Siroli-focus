@@ -52,7 +52,6 @@ public abstract class AbstractPeriodInputView<X> implements View {
         this.root.getChildren().addAll(selector.getRoot(), s.getRoot(), e.getRoot(), this.save);
         this.root.getStyleClass().add(STYLE_CLASS);
         this.setProperties();
-        this.checkAndSave(null);
     }
 
     private void checkAndSave(final ActionEvent event) {
@@ -90,7 +89,8 @@ public abstract class AbstractPeriodInputView<X> implements View {
      * @return the pane
      */
     protected Pane createRoot() {
-        return ViewFactory.verticalWithPadding(SPACING_RATIO, X_RATIO, Y_RATIO);
+        return ViewFactory
+                .verticalWithPadding(SPACING_RATIO, X_RATIO, Y_RATIO);
     }
 
     /**

@@ -18,6 +18,7 @@ public class TransactionViewImpl extends GenericView<Transaction> implements Ini
 
     public TransactionViewImpl(final Transaction transaction) {
         super(transaction, FXMLPaths.MOVTILE);
+        this.getRoot().getStyleClass().add("generic_tile");
     }
 
     /**

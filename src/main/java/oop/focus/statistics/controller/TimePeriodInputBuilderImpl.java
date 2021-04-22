@@ -2,6 +2,7 @@ package oop.focus.statistics.controller;
 
 import org.joda.time.LocalDate;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -49,8 +50,11 @@ public class TimePeriodInputBuilderImpl<X> implements TimePeriodInputBuilder<X> 
      */
     @Override
     public final TimePeriodInput<X> save() {
-        if (this.startDate == null || this.endDate == null || this.values == null) {
+        if (this.startDate == null || this.endDate == null) {
             throw new IllegalStateException();
+        }
+        if (this.values == null) {
+            this.values = Collections.emptySet();
         }
         return new TimePeriodInputImpl<>(this.values, this.startDate, this.endDate);
     }

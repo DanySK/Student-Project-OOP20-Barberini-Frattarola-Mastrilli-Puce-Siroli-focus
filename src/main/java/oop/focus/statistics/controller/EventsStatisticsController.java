@@ -8,6 +8,7 @@ import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.event.model.Event;
 import oop.focus.statistics.view.ViewFactoryImpl;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,9 @@ public class EventsStatisticsController implements UpdatableController<TimePerio
                 .map(Controller::getView).collect(Collectors.toList()));
         this.events = dataSource.getEvents().getAll();
         this.setListener();
+        this.actualInput = new TimePeriodInputBuilderImpl<String>()
+                .from(LocalDate.now().minusMonths(1)).to(LocalDate.now()).save();
+        this.updateCharts(this.actualInput);
     }
 
     private void setListener() {

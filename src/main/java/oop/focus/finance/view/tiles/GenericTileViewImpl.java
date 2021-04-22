@@ -19,6 +19,7 @@ public class GenericTileViewImpl<X> extends GenericView<X> implements GenericTil
     public GenericTileViewImpl(final X x, final String color, final String first, final String second, final double amount) {
         super(x, FXMLPaths.GENERICTILE);
         this.setLabels(color, first, second, amount);
+        this.getRoot().getStyleClass().add("generic_tile");
     }
 
     public GenericTileViewImpl(final X x, final String first, final String second, final double amount) {

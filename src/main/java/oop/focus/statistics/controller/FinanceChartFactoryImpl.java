@@ -46,13 +46,13 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
 
             private <X> void updatePie(final Set<Pair<X, Integer>> data, final Comparator<Pair<X, Integer>> sort,
                                        final Function<X, String> stringMapper, final Function<X, String> colorMapper) {
-                final List<String> categoryColors = new ArrayList<>();
+                final List<String> colors = new ArrayList<>();
                 this.getChart().updateData(collectData(data.stream().sorted(sort)
                                 .filter(a -> a.getValue() >= 0)
-                                .peek(a -> categoryColors.add(colorMapper.apply(a.getKey())))
+                                .peek(a -> colors.add(colorMapper.apply(a.getKey())))
                                 .map(p -> new Pair<>(stringMapper.apply(p.getKey()), p.getValue())),
                         x -> (double) x / 100));
-                this.getChart().setColors(categoryColors);
+                this.getChart().setColors(colors);
             }
         };
     }
