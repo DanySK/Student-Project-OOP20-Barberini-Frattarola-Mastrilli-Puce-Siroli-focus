@@ -17,12 +17,11 @@ public class HotKeyControllerImpl implements HotKeyController {
     private final HotKeyMenuView view;
     private final EventManager eventManager;
     private final HotKeyManager hotKeyManager;
-    private final DataSource dsi;
 
     public HotKeyControllerImpl(final HomePageController controller) {
-        this.dsi = controller.getDsi();
-        this.eventManager = new EventManagerImpl(this.dsi);
-        this.hotKeyManager = new HotKeyManagerImpl(this.dsi);
+        DataSource dsi = controller.getDsi();
+        this.eventManager = new EventManagerImpl(dsi);
+        this.hotKeyManager = new HotKeyManagerImpl(dsi);
         this.view = new HotKeyMenuViewImpl(this, controller);
     }
 

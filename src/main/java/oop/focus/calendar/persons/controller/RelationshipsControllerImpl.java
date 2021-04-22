@@ -16,14 +16,12 @@ import oop.focus.calendar.persons.model.RelationshipsManagerImpl;
 
 public class RelationshipsControllerImpl implements RelationshipsController {
 
-    private final DataSource dsi;
     private final RelationshipsManager relationships;
     private final PersonsManager persons;
     private final RelationshipsView view;
 
     public RelationshipsControllerImpl(final DataSource dsi) {
-        this.dsi = dsi;
-        this.relationships = new RelationshipsManagerImpl(this.dsi);
+        this.relationships = new RelationshipsManagerImpl(dsi);
         this.persons = new PersonsManagerImpl(dsi);
         this.view = new RelationshipsViewImpl(this);
     }

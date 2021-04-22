@@ -5,18 +5,6 @@ import oop.focus.common.Repetition;
 public interface EventExtension {
 
     /**
-     * This method is used to get the start day of the event.
-     * @return String that represent the start day of the event.
-     */
-    String getStartDay();
-
-    /**
-     * This method is used to get the start time of the event.
-     * @return String that represent the start time of the event.
-     */
-    String getStartTime();
-
-    /**
      * This method is used to set the event name.
      * @param newValue is the new name of the event.
      */

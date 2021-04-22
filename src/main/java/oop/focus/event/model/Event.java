@@ -17,12 +17,6 @@ import oop.focus.common.Repetition;
 public interface Event extends EventExtension {
 
     /**
-     * This method is used to add a new person to an event.
-     * @param person is the person to add.
-     */
-    void addPerson(Person person);
-
-    /**
      * This method is used to know both the end date and the end time of an event.
      * @return LocalDateTime.
      */

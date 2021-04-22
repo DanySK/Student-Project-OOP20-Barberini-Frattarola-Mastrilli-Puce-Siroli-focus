@@ -20,15 +20,13 @@ import javafx.collections.ObservableList;
 
 public class NewEventControllerImpl implements NewEventController {
 
-    private final DataSource dsi;
     private final WeekController weekController;
     private final CalendarMonthController monthController;
     private final EventManager eventManager;
     private final NewEventWeekViewImpl view;
 
     public NewEventControllerImpl(final DataSource dsi, final WeekController weekController, final CalendarMonthController monthController) {
-        this.dsi = dsi;
-        this.eventManager = new EventManagerImpl(this.dsi);
+        this.eventManager = new EventManagerImpl(dsi);
         this.monthController = monthController;
         this.weekController = weekController;
 

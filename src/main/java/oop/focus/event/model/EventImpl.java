@@ -114,14 +114,6 @@ public class EventImpl implements Event {
         return this.repetition;
     }
 
-    public final String getStartTime() {
-        return this.startTime;
-    }
-
-    public final String getStartDay() {
-        return this.startDay;
-    }
-
     public final boolean isRepeated() {
         return this.isRepeated;
     }
