@@ -103,11 +103,11 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
     private void deleteItem() {
         this.controller.deleteHotKey(this.tableHotKeyList.getSelectionModel().getSelectedItem());
-        this.controllerHomePage.getView().fullVBoxHotKey();
+        ((HomePageBaseView) this.controllerHomePage.getView()).fullVBoxHotKey();
     }
 
     @FXML
-    public final void deletSelectedRowItem(final ActionEvent event) {
+    public final void deleteSelectedRowItem(final ActionEvent event) {
         final Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Conferma eliminazione");
         alert.setHeaderText("Sei sicuro di volere eliminare questo tasto rapido?");
@@ -153,7 +153,7 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
         this.addHotKeyButton.setOnAction(event -> {
             this.addNewHotKey(event);
         });
-        this.deleteElement.setOnAction(this::deletSelectedRowItem);
+        this.deleteElement.setOnAction(this::deleteSelectedRowItem);
         this.goBackButton.setOnAction(event -> {
             this.goBack(event);
         });

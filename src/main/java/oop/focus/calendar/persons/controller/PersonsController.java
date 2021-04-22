@@ -1,11 +1,11 @@
 package oop.focus.calendar.persons.controller;
 
 import javafx.collections.ObservableSet;
-import oop.focus.common.View;
+import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Person;
 
-public interface PersonsController {
+public interface PersonsController extends Controller {
 
     /**
      * This method is used to add a new person.
@@ -36,11 +36,5 @@ public interface PersonsController {
      * @return the list of the persons.
      */
     ObservableSet<Person>  getPersons();
-
-    /**
-     * This method is used to get the view.
-     * @return View.
-     */
-    View getView();
 
 }

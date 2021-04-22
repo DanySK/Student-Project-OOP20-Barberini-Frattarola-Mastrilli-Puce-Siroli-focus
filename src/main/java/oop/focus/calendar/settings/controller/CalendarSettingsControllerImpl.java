@@ -8,6 +8,8 @@ import oop.focus.calendar.settings.view.CalendarSettingsViewImpl;
 import oop.focus.calendar.week.controller.WeekController;
 import oop.focus.common.View;
 
+import oop.focus.calendar.week.view.WeekView;
+
 /**
  * Implementation of {@link CalendarSettingsController}.
  */
@@ -100,7 +102,7 @@ public class CalendarSettingsControllerImpl implements CalendarSettingsControlle
         this.monthController.setSpacing(this.spacing);
         this.monthController.updateView();
 
-        this.weekController.getView().setDayProperty(this.format, this.spacing);
+        ((WeekView) this.weekController.getView()).setDayProperty(this.format, this.spacing);
 
     }
 

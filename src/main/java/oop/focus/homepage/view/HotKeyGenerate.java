@@ -20,6 +20,8 @@ public class HotKeyGenerate {
             return this.factory.getEventButton(hotKey.getName(), this.controller);
         case COUNTER :
             return this.factory.getCounterButton(hotKey.getName(), this.controller);
+        case ACTIVITY :
+            return this.factory.getActivityButton(hotKey.getName(), this.controller);
         default:
             return this.factory.getActivityButton(hotKey.getName(), this.controller);
         }

@@ -3,23 +3,17 @@ package oop.focus.event.controller;
 import javafx.collections.ObservableSet;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.controller.WeekController;
+import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
-import oop.focus.event.view.EventMenuView;
 import oop.focus.homepage.model.Event;
 
-public interface EventMenuController {
+public interface EventMenuController extends Controller {
 
     /**
      * This method is used to get the save events.
      * @return ObservableList of event.
      */
     ObservableSet<Event> getEvents();
-
-    /**
-     * This method is used to get the view that represent the view of the event menu.
-     * @return a view that represent the view of the event menu.
-     */
-    EventMenuView getView();
 
     /**
      * This method is used to delete a specific element.

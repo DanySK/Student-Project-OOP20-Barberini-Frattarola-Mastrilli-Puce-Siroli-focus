@@ -1,23 +1,17 @@
 package oop.focus.homepage.controller;
 
 import javafx.collections.ObservableSet;
+import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.HotKey;
-import oop.focus.homepage.view.HotKeyMenuView;
 
-public interface HotKeyController {
+public interface HotKeyController extends Controller {
 
     /**
      * This method is used to get the data source.
      * @return the data source.
      */
     DataSource getDsi();
-
-    /**
-     * This method is used to get the hot key menu view.
-     * @return HotKeyMenuView that represent the view of the hot key menu.
-     */
-    HotKeyMenuView getView();
 
     /**
      * This method is used to get all the saved hot keys sorted by name.

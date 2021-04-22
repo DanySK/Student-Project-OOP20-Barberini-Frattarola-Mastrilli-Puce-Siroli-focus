@@ -2,12 +2,12 @@ package oop.focus.calendar.week.controller;
 
 import javafx.collections.ObservableList;
 import oop.focus.calendar.month.controller.CalendarMonthController;
+import oop.focus.common.Controller;
 import oop.focus.common.Repetition;
-import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.homepage.model.Event;
 
-public interface NewEventController {
+public interface NewEventController extends Controller {
 
     /**
      * This method is used to add an event.
@@ -32,12 +32,6 @@ public interface NewEventController {
      * @return WeekController.
      */
     WeekController getWeek();
-
-    /**
-     * This method is used to get the view.
-     * @return View.
-     */
-    View getView();
 
     /**
      * This method is used to get all the saved repetition.

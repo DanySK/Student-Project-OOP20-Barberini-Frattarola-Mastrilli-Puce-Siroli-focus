@@ -18,6 +18,7 @@ import oop.focus.common.Repetition;
 import oop.focus.common.View;
 import oop.focus.event.controller.EventInformationController;
 import oop.focus.event.controller.FXMLPaths;
+import oop.focus.calendar.week.view.WeekView;
 
 public class EventInformationViewImpl implements View, Initializable {
 
@@ -88,7 +89,7 @@ public class EventInformationViewImpl implements View, Initializable {
 
     private void stopRepeat() {
         this.controller.stopRepetition();
-        this.controller.getMenu().getWeek().getView().setWeekDays();
+        ((WeekView) this.controller.getMenu().getWeek().getView()).setWeekDays();
         this.controller.getMenu().getMonth().updateView();
         this.labelRepetition.setText(Repetition.ONCE.toString());
     }

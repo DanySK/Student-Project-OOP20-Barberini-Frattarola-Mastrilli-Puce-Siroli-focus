@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import oop.focus.homepage.view.HomePageBaseView;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -174,8 +175,8 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
                 && !String.valueOf(this.datePickerEnd.getValue()).isEmpty() && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent();
 
-            this.controller.getWeek().getView().setWeekDays();
-            this.controller.getWeek().getHomePageController().getView().setDay();
+            ((WeekView) this.controller.getWeek().getView()).setWeekDays();
+            ((HomePageBaseView)this.controller.getWeek().getHomePageController().getView()).setDay();
             this.controller.getMonth().updateView();
 
         } else {

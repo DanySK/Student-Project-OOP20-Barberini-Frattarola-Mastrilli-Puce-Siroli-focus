@@ -99,7 +99,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
         } else {
             try {
                 this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(this.categoryComboBox.getSelectionModel().getSelectedItem())));
-                this.homePageController.getView().fullVBoxHotKey();
+                ((HomePageBaseView) this.homePageController.getView()).fullVBoxHotKey();
                 this.goBack(event);
             } catch (final IllegalStateException e) {
                 new AlertFactoryImpl().createAlreadyPresentItem();

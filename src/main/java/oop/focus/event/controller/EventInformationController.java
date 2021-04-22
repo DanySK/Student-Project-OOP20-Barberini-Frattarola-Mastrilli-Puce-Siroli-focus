@@ -1,16 +1,10 @@
 package oop.focus.event.controller;
 
 import javafx.collections.ObservableList;
-import oop.focus.common.View;
+import oop.focus.common.Controller;
 import oop.focus.homepage.model.Event;
 
-public interface EventInformationController {
-
-    /**
-     * This method is used to get the View that represent the event information view.
-     * @return a view that represent  the event information view.
-     */
-    View getView();
+public interface EventInformationController extends Controller {
 
     /**
      * This method is used to get the Event.

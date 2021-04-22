@@ -1,14 +1,14 @@
 package oop.focus.homepage.controller;
 
 import javafx.collections.ObservableList;
+import oop.focus.common.Controller;
 import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.homepage.model.Event;
 import oop.focus.homepage.model.HotKey;
 import oop.focus.homepage.model.HotKeyImpl;
-import oop.focus.homepage.view.HomePageBaseView;
 
-public interface HomePageController {
+public interface HomePageController extends Controller {
 
     /**
      * This method is used to delete a selected hot key from the database.
@@ -47,12 +47,6 @@ public interface HomePageController {
      * @return the list of the hot keys.
      */
     ObservableList<HotKey> getHotKey();
-
-    /**
-     * This method is used to get the view.
-     * @return the homepagebase view.
-     */
-    HomePageBaseView getView();
 
     /**
      * This method is used to set the label of the new event view window.

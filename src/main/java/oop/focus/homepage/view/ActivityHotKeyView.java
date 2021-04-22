@@ -10,7 +10,7 @@ import oop.focus.homepage.controller.HomePageController;
 import oop.focus.homepage.model.EventImpl;
 
 /**
- * This class is used to model an activity hot key, wich is represented from a check box.
+ * This class is used to model an activity hot key, which is represented from a check box.
  */
 public class ActivityHotKeyView extends Pane implements HotKeyView {
 
@@ -20,10 +20,10 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
     public ActivityHotKeyView(final String name, final HomePageController controller) {
         this.controller = controller;
         this.checkBox = new CheckBox(name);
-        this.initSelection();
         this.checkBox.setStyle("-fx-background-color:" + HotKeyType.ACTIVITY.getColor() + ";");
 
         this.setAction();
+        this.initSelection();
         this.getChildren().add(this.checkBox);
     }
 
@@ -38,8 +38,8 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
     public final void setAction() {
         this.checkBox.setOnAction(event -> {
             if (!this.checkBox.isSelected()) {
-                this.checkBox.setSelected(true);
                 this.controller.saveEvent(new EventImpl(this.checkBox.getText(), LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE));
+                this.checkBox.setSelected(true);
             }
        });
     }

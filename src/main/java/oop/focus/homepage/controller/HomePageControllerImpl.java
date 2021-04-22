@@ -45,6 +45,7 @@ public class HomePageControllerImpl implements HomePageController {
     public final boolean getActivitySelected(final String hotKeyName) {
         List<Event> list = this.eventManager.getHotKeyEvents();
         list = list.stream().filter(e -> e.getName().equals(hotKeyName) && e.getStartDate().isEqual(LocalDate.now())).collect(Collectors.toList());
+        list.forEach(h -> h.getName());
         return list.isEmpty();
 
     }

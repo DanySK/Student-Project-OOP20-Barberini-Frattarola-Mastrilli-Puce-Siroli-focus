@@ -4,6 +4,7 @@ import oop.focus.homepage.model.HotKeyImpl;
 import oop.focus.homepage.model.HotKeyType;
 import org.joda.time.LocalDateTime;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -27,6 +28,8 @@ public class CounterHotKeyView extends Pane implements HotKeyView {
         this.button.setStyle("-fx-background-color:" + HotKeyType.COUNTER.getColor() + ";");
         this.setAction();
         this.label.setText(this.controller.getClickTime(new HotKeyImpl(this.button.getText(), HotKeyType.COUNTER)));
+        this.label.setAlignment(Pos.TOP_LEFT);
+        this.button.setAlignment(Pos.TOP_RIGHT);
         this.getChildren().addAll(this.button, this.label);
     }
 

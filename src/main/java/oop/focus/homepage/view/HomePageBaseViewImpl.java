@@ -78,14 +78,14 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         public final void initialize(final URL location, final ResourceBundle resources) {
             this.controller.refreshDailyEvents();
 
+            this.fullVBoxHotKey();
+
             this.modifyButton.setOnAction(event -> {
                 this.modifyClicked(event);
             });
 
             this.setCalendar();
             this.setDay();
-
-            this.fullVBoxHotKey();
        }
 
         public final Node getRoot() {
@@ -130,16 +130,18 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
 
         @Override
         public final void fullVBoxHotKey() {
-            final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
             this.vbox.getChildren().clear();
+            final HotKeyGenerate generate = new HotKeyGenerate(this.controller);
 
             this.vbox.setSpacing(Constants.SPACING_HOT_KEY);
             this.vbox.setPadding(new Insets(Constants.SPACING_HOT_KEY));
+
             final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
             hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
 
             this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
             this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
+
             this.scrollPane.setContent(this.vbox);
         }
 

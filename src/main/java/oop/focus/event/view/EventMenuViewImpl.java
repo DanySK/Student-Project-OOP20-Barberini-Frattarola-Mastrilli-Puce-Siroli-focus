@@ -22,12 +22,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import oop.focus.calendar.week.view.WeekView;
 import oop.focus.common.Linker;
 import oop.focus.event.controller.EventInformationController;
 import oop.focus.event.controller.EventInformationControllerImpl;
 import oop.focus.event.controller.EventMenuController;
 import oop.focus.event.controller.FXMLPaths;
 import oop.focus.homepage.model.Event;
+import oop.focus.homepage.view.HomePageBaseView;
 
 
 public class EventMenuViewImpl implements EventMenuView {
@@ -110,8 +112,8 @@ public class EventMenuViewImpl implements EventMenuView {
             } else {
                 this.controller.remove(this.tableEvent.getSelectionModel().getSelectedItem());
                 this.controller.getMonth().updateView();
-                this.controller.getWeek().getHomePageController().getView().setDay();
-                this.controller.getWeek().getView().setWeekDays();
+                ((HomePageBaseView)this.controller.getWeek().getHomePageController().getView()).setDay();
+                ((WeekView) this.controller.getWeek().getView()).setWeekDays();
             }
         }
     }

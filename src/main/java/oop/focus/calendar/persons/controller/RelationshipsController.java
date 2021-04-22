@@ -3,10 +3,10 @@ package oop.focus.calendar.persons.controller;
 import java.util.List;
 
 import javafx.collections.ObservableSet;
-import oop.focus.common.View;
+import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 
-public interface RelationshipsController {
+public interface RelationshipsController extends Controller {
 
     /**
      * This method is used to add a new relationship.
@@ -31,12 +31,6 @@ public interface RelationshipsController {
      * @return the data source.
      */
     DataSource getDsi();
-
-    /**
-     * This method is used to get the view.
-     * @return View.
-     */
-    View getView();
 
     /**
      * This method is used to get all the used degree of kinship from all the saved persons.

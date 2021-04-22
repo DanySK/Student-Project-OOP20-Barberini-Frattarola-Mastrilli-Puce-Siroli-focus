@@ -16,7 +16,7 @@ public interface HotKeyMenuView extends Initializable, View {
      * This method is used to delet the selected row.
      * @param event is the action event.
      */
-    void deletSelectedRowItem(ActionEvent event);
+    void deleteSelectedRowItem(ActionEvent event);
 
     /**
      * This method is use to go back.
