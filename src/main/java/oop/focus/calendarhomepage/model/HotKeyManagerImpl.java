@@ -35,12 +35,6 @@ public class HotKeyManagerImpl implements HotKeyManager {
         }
     }
 
-    public final void addAll(final Set<HotKey> hotKeys) {
-        for (final HotKey hotKey : hotKeys) {
-            this.add(hotKey);
-        }
-    }
-
     public final ObservableSet<HotKey> getAll() {
         return this.sd.getAll();
     }

@@ -60,8 +60,4 @@ public class PersonImpl implements Person {
     public final String toString() {
         return this.name + " " + this.relationships;
     }
-
-    public final String toStringForName() {
-        return " " + this.name;
-    }
 }

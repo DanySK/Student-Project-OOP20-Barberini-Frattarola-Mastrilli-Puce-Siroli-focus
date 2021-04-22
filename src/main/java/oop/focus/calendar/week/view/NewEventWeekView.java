@@ -12,12 +12,6 @@ public interface NewEventWeekView extends Initializable, View {
     void delete();
 
     /**
-     * This method is used to get the root of the view.
-     * @return Node that represent the root.
-     */
-    Node getRoot();
-
-    /**
      * This method is used to set the action of the button that is clicked when you want to save an event.
      */
     void save();

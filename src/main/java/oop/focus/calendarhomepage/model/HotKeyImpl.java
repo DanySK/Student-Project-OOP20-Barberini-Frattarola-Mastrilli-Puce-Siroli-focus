@@ -29,10 +29,6 @@ public class HotKeyImpl implements HotKey {
         this.typeRepresentation = this.hotKeyType.getType();
     }
 
-    public final Event createEvent(final LocalDateTime start, final LocalDateTime end) {
-        return new EventImpl(this.name, start, end, Repetition.ONCE);
-    }
-
     public final String getName() {
         return this.name;
     }
@@ -40,10 +36,6 @@ public class HotKeyImpl implements HotKey {
     public final HotKeyType getType() {
         return this.hotKeyType;
     }
-
-    public final String getTypeRepresentation() {
-        return this.typeRepresentation;
-    } 
 
     public final void setName(final String newName) {
         this.name = newName;

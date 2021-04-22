@@ -16,12 +16,6 @@ public interface HotKeyManager {
     void add(HotKey hotKey);
 
     /**
-     * This method is used to add a set of hot keys.
-     * @param hotKeys is the set of hot keys that must be added.
-     */
-    void addAll(Set<HotKey> hotKeys);
-
-    /**
      * This method is used to get the set of all the hot keys(of all categories).
      * @return a set of hot keys.
      */

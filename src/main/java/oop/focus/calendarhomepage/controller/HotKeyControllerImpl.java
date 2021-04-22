@@ -37,10 +37,6 @@ public class HotKeyControllerImpl implements HotKeyController {
         }
     }
 
-    public final DataSource getDsi() {
-        return this.dsi;
-    }
-
     public final ObservableSet<HotKey> getSortedHotKey() {
         return this.hotKeyManager.getAll();
     }

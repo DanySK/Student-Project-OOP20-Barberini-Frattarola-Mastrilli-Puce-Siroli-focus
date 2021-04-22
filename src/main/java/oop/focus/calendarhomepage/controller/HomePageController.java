@@ -31,12 +31,6 @@ public interface HomePageController extends Controller {
     DataSourceImpl getDsi();
 
     /**
-     * This method is used to get an ObservableList of event.
-     * @return the list of the event generated from hot key click.
-     */
-    ObservableList<Event> getEvents();
-
-    /**
      * This method is used to get an observable list of hot keys.
      * @return the list of the hot keys.
      */
@@ -58,12 +52,6 @@ public interface HomePageController extends Controller {
      * @param eventImpl is the event to save.
      */
     void saveEvent(Event eventImpl);
-
-    /**
-     * This method is used to save a specific hot key.
-     * @param hotKey is the hot key to save.
-     */
-    void saveHotKey(HotKey hotKey);
 
     /**
      * This method is use to save the name of the event.

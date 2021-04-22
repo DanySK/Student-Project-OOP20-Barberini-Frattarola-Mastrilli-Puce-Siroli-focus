@@ -54,12 +54,6 @@ public class HomePageControllerImpl implements HomePageController {
         return (DataSourceImpl) this.dsi;
     }
 
-    public final ObservableList<Event> getEvents() {
-        final ObservableList<Event> list = FXCollections.observableArrayList();
-        list.addAll(this.eventManager.getHotKeyEvents());
-        return list;
-    }
-
     public final ObservableList<HotKey> getHotKey() {
         final ObservableList<HotKey> list = FXCollections.observableArrayList();
         list.addAll(this.hotKeyManager.getAll());
@@ -81,10 +75,6 @@ public class HomePageControllerImpl implements HomePageController {
     public final void saveEvent(final Event eventImpl) {
         this.eventManager.addEvent(eventImpl);
         this.eventManager.generateRepeatedEvents(LocalDate.now());
-    }
-
-    public final void saveHotKey(final HotKey hotKey) {
-        this.hotKeyManager.add(hotKey);
     }
 
     public final void setText(final String text) {

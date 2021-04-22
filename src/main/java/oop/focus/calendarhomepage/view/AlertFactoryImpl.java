@@ -26,18 +26,6 @@ public class AlertFactoryImpl implements AlertFactory {
     }
 
     @Override
-    public final Alert createImpossibleSaveElement() {
-        this.alert = new Alert(AlertType.CONFIRMATION);
-        this.alert.setTitle(Constants.ERROR);
-        this.alert.setHeaderText("Impossibile salvare questo elemento!");
-        final Optional<ButtonType> result = this.alert.showAndWait();
-        if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            this.alert.close();
-        }
-        return this.alert;
-    }
-
-    @Override
     public final Alert createHourOrDateError() {
         this.alert = new Alert(AlertType.ERROR);
         this.alert.setTitle(Constants.WARNING);

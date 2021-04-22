@@ -6,13 +6,6 @@ import oop.focus.db.DataSource;
 import oop.focus.calendarhomepage.model.HotKey;
 
 public interface HotKeyController extends Controller {
-
-    /**
-     * This method is used to get the data source.
-     * @return the data source.
-     */
-    DataSource getDsi();
-
     /**
      * This method is used to get all the saved hot keys sorted by name.
      * @return an observable list of hot keys.
