@@ -137,7 +137,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
         this.choiceEndMinute.setItems(fullComboBoxes.getHourAndMinute(Constants.MINUTE_PER_DAY));
 
         this.repetitionChoice.setItems(this.controller.getRep());
-        this.repetitionChoice.setConverter(new StringConverter<Repetition>() {
+        this.repetitionChoice.setConverter(new StringConverter<>() {
             @Override
             public String toString(final Repetition repetition) {
                 return repetition == null ? "" : repetition.getName();
@@ -175,7 +175,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
             this.saveEvent();
 
             ((WeekView) this.controller.getWeek().getView()).setWeekDays();
-            ((HomePageBaseView)this.controller.getWeek().getHomePageController().getView()).setDay();
+            ((HomePageBaseView) this.controller.getWeek().getHomePageController().getView()).setDay();
             this.controller.getMonth().updateView();
 
         } else {
@@ -190,8 +190,8 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     }
 
     public final void saveEvent() {
-        final LocalTime startTime = new LocalTime(Integer.valueOf(this.choiceStartHour.getSelectionModel().getSelectedItem()), Integer.valueOf(this.choiceStartMinute.getSelectionModel().getSelectedItem()));
-        final LocalTime endTime = new LocalTime(Integer.valueOf(this.choiceEndHour.getSelectionModel().getSelectedItem()), Integer.valueOf(this.choiceEndMinute.getSelectionModel().getSelectedItem()));
+        final LocalTime startTime = new LocalTime(Integer.parseInt(this.choiceStartHour.getSelectionModel().getSelectedItem()), Integer.parseInt(this.choiceStartMinute.getSelectionModel().getSelectedItem()));
+        final LocalTime endTime = new LocalTime(Integer.parseInt(this.choiceEndHour.getSelectionModel().getSelectedItem()), Integer.parseInt(this.choiceEndMinute.getSelectionModel().getSelectedItem()));
 
         final java.time.LocalDate start = this.datePickerStart.getValue();
         final LocalDate startDate = new LocalDate(start.getYear(), start.getMonthValue(), start.getDayOfMonth());

@@ -109,15 +109,11 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
 
     public final void setButtonOnAction() {
-        this.goBackButton.setOnAction(event -> {
-            this.goBack(event);
-        });
+        this.goBackButton.setOnAction(this::goBack);
 
         this.deleteButton.setOnAction(this::delete);
 
-        this.saveHotKeyButton.setOnAction(event -> {
-            this.save(event);
-        });
+        this.saveHotKeyButton.setOnAction(this::save);
     }
 
     private static class Constants {

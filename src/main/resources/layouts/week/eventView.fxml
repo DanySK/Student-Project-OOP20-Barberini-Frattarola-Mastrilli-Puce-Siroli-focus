@@ -6,16 +6,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane fx:id="paneEventView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TableView fx:id="tableEvent" layoutX="48.0" layoutY="45.0" prefHeight="414.0" prefWidth="378.0" AnchorPane.bottomAnchor="110.60000000000002" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="259.6" AnchorPane.topAnchor="45.0">
-        <columns>
-          <TableColumn fx:id="eventName" prefWidth="120.79995346069336" text="Nome" />
-          <TableColumn fx:id="dayOfStart" prefWidth="118.39997863769531" text="Giorno di inizio" />
-            <TableColumn fx:id="startHour" prefWidth="141.60003662109375" text="Ora di inizio" />
-        </columns>
-      </TableView>
-      <Button fx:id="deleteElement" layoutX="103.0" layoutY="476.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="240.0" text="ELIMINA L'ELEMENTO SELEZIONATO" AnchorPane.bottomAnchor="67.60000000000002" AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="343.0" />
-      <Button fx:id="seeInformation" layoutX="509.0" layoutY="239.0" mnemonicParsing="false" text="INFORMAZIONI" AnchorPane.rightAnchor="76.2" />
-   </children>
+<AnchorPane fx:id="paneEventView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="570.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <TableView fx:id="tableEvent" layoutX="48.0" layoutY="45.0" prefHeight="414.0" prefWidth="378.0"
+               AnchorPane.bottomAnchor="110.60000000000002" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="259.6"
+               AnchorPane.topAnchor="45.0">
+      <columns>
+          <TableColumn fx:id="eventName" prefWidth="120.79995346069336" text="Nome"/>
+          <TableColumn fx:id="dayOfStart" prefWidth="118.39997863769531" text="Giorno di inizio"/>
+          <TableColumn fx:id="startHour" prefWidth="141.60003662109375" text="Ora di inizio"/>
+      </columns>
+    </TableView>
+    <Button fx:id="deleteElement" layoutX="103.0" layoutY="476.0" mnemonicParsing="false" prefHeight="26.0"
+            prefWidth="240.0" text="ELIMINA L'ELEMENTO SELEZIONATO" AnchorPane.bottomAnchor="67.60000000000002"
+            AnchorPane.leftAnchor="103.0" AnchorPane.rightAnchor="343.0"/>
+    <Button fx:id="seeInformation" layoutX="509.0" layoutY="239.0" mnemonicParsing="false" text="INFORMAZIONI"
+            AnchorPane.rightAnchor="76.2"/>
 </AnchorPane>

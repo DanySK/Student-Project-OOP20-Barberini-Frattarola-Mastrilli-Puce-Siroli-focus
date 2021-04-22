@@ -5,16 +5,19 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="paneHotKeyView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="498.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button fx:id="addHotKeyButton" layoutX="477.0" layoutY="79.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="NUOVO" AnchorPane.rightAnchor="51.0" />
-      <Button fx:id="deleteElement" layoutX="101.0" layoutY="417.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" text="ELIMINA ELEMENTO  SELEZIONATO" AnchorPane.bottomAnchor="55.4" />
-      <Button fx:id="goBackButton" layoutX="478.0" layoutY="22.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="70.0" text="INDIETRO" AnchorPane.rightAnchor="52.0" />
-      <TableView fx:id="tableHotKeyList" layoutX="23.0" layoutY="22.0" prefHeight="358.0" prefWidth="402.0">
-        <columns>
-          <TableColumn fx:id="nome" prefWidth="203.20001220703125" text="nome" />
-            <TableColumn fx:id="tipo" prefWidth="198.4000244140625" text="tipo" />
-        </columns>
-      </TableView>
-   </children>
+<AnchorPane fx:id="paneHotKeyView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="498.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <Button fx:id="addHotKeyButton" layoutX="477.0" layoutY="79.0" mnemonicParsing="false" prefHeight="25.0"
+            prefWidth="72.0" text="NUOVO" AnchorPane.rightAnchor="51.0"/>
+    <Button fx:id="deleteElement" layoutX="101.0" layoutY="417.0" mnemonicParsing="false" prefHeight="25.0"
+            prefWidth="218.0" text="ELIMINA ELEMENTO  SELEZIONATO" AnchorPane.bottomAnchor="55.4"/>
+    <Button fx:id="goBackButton" layoutX="478.0" layoutY="22.0" mnemonicParsing="false" prefHeight="26.0"
+            prefWidth="70.0" text="INDIETRO" AnchorPane.rightAnchor="52.0"/>
+    <TableView fx:id="tableHotKeyList" layoutX="23.0" layoutY="22.0" prefHeight="358.0" prefWidth="402.0">
+      <columns>
+          <TableColumn fx:id="nome" prefWidth="203.20001220703125" text="nome"/>
+          <TableColumn fx:id="tipo" prefWidth="198.4000244140625" text="tipo"/>
+      </columns>
+    </TableView>
 </AnchorPane>

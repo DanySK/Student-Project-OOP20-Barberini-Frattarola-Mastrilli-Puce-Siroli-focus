@@ -57,11 +57,11 @@ public class AddNewRelationship implements GenericAddView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
-        this.back.setOnAction(event -> this.goBack(event));
+        this.back.setOnAction(this::goBack);
 
-        this.delete.setOnAction(event -> this.delete(event));
+        this.delete.setOnAction(this::delete);
 
-        this.save.setOnAction(event -> this.save(event));
+        this.save.setOnAction(this::save);
 
     }
 

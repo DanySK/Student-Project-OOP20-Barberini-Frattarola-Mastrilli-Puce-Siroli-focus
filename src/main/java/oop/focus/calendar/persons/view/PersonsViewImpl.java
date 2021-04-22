@@ -116,24 +116,18 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     public final void populateTableView() {
-        this.name.setCellValueFactory(new PropertyValueFactory<Person, String>("name"));
+        this.name.setCellValueFactory(new PropertyValueFactory<>("name"));
         this.name.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.name.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
-            @Override
-            public void handle(final CellEditEvent<Person, String> event) {
-                final Person person = event.getRowValue();
-                person.setName(event.getNewValue());
-            }
+        this.name.setOnEditCommit(event -> {
+            final Person person = event.getRowValue();
+            person.setName(event.getNewValue());
         });
 
-        this.relationships.setCellValueFactory(new PropertyValueFactory<Person, String>("relationships"));
+        this.relationships.setCellValueFactory(new PropertyValueFactory<>("relationships"));
         this.relationships.setCellFactory(TextFieldTableCell.forTableColumn());
-        this.relationships.setOnEditCommit(new EventHandler<CellEditEvent<Person, String>>() {
-            @Override
-            public void handle(final CellEditEvent<Person, String> event) {
-                final Person person = event.getRowValue();
-                person.setRelationships(event.getNewValue());
-            }
+        this.relationships.setOnEditCommit(event -> {
+            final Person person = event.getRowValue();
+            person.setRelationships(event.getNewValue());
         });
 
         this.tableViewPersons.setEditable(false);
@@ -141,8 +135,8 @@ public class PersonsViewImpl implements PersonsView {
     }
 
     private void setButtonOnAction() {
-        this.add.setOnAction(event -> this.add(event));
-        this.delete.setOnAction(event -> this.delete(event));
+        this.add.setOnAction(this::add);
+        this.delete.setOnAction(this::delete);
     }
 
 

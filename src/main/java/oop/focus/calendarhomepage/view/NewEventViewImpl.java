@@ -187,9 +187,9 @@ public class NewEventViewImpl implements NewEventView {
     }
 
     public final void setButtonOnAction() {
-        this.back.setOnAction(event -> this.goBack(event));
+        this.back.setOnAction(this::goBack);
 
-        this.saveSelection.setOnAction(event -> this.save(event));
+        this.saveSelection.setOnAction(this::save);
 
         this.deleteSelection.setOnAction(this::delete);
     }

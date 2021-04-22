@@ -17,8 +17,8 @@ import oop.focus.db.DataSourceImpl;
 public class PersonAndDegreeTest {
 	
 	private final DataSource dsi = new DataSourceImpl();
-    private final PersonsManager persons = new PersonsManagerImpl(dsi);
-    private final RelationshipsManager relationship = new RelationshipsManagerImpl(dsi);
+    private final PersonsManager persons = new PersonsManagerImpl(this.dsi);
+    private final RelationshipsManager relationship = new RelationshipsManagerImpl(this.dsi);
 
     private final Person p1 = new PersonImpl("n1", "r1");
     private final Person p2 = new PersonImpl("n2", "r2");
@@ -29,23 +29,23 @@ public class PersonAndDegreeTest {
 	 */
 	@Test
 	public void saveAndRemoveRelationshipTest() {
-		this.relationship.add(p1.getRelationships());
-		this.relationship.add(p2.getRelationships());
-		this.relationship.add(p3.getRelationships());
+		this.relationship.add(this.p1.getRelationships());
+		this.relationship.add(this.p2.getRelationships());
+		this.relationship.add(this.p3.getRelationships());
 
-		assertTrue(this.relationship.getAll().containsAll(Set.of(p1.getRelationships(), p2.getRelationships(), p3.getRelationships())));
+		assertTrue(this.relationship.getAll().containsAll(Set.of(this.p1.getRelationships(), this.p2.getRelationships(), this.p3.getRelationships())));
 
-		this.persons.addPerson(p1);
-		this.persons.addPerson(p2);
-		this.persons.addPerson(p3);
+		this.persons.addPerson(this.p1);
+		this.persons.addPerson(this.p2);
+		this.persons.addPerson(this.p3);
 
-		this.persons.removePerson(p1);
-		this.persons.removePerson(p2);
-		this.persons.removePerson(p3);
+		this.persons.removePerson(this.p1);
+		this.persons.removePerson(this.p2);
+		this.persons.removePerson(this.p3);
 
-		this.relationship.remove(p1.getRelationships());
-		this.relationship.remove(p2.getRelationships());
-		this.relationship.remove(p3.getRelationships());
+		this.relationship.remove(this.p1.getRelationships());
+		this.relationship.remove(this.p2.getRelationships());
+		this.relationship.remove(this.p3.getRelationships());
 	}
 
 }

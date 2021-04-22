@@ -27,7 +27,7 @@ public class EventsApp extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         var db = new DataSourceImpl();
         try {
             db.getEvents().save(this.e1);

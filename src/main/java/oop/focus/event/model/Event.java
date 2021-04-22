@@ -14,7 +14,7 @@ import oop.focus.common.Repetition;
  * An event has a name a start hour , an end hour , a start day , an end day.
  * Also, an event can be repeated every day, every week, every month or every year , and can be carried out in the company of one or more people.
  */
-public interface Event {
+public interface Event extends EventExtension {
 
     /**
      * This method is used to add a new person to an event.
@@ -92,41 +92,5 @@ public interface Event {
      * This method stop the repetition.
      */
     void stopRepeat();
-
-    /**
-     * This method is used to set the event name.
-     * @param newValue is the new name of the event.
-     */
-    void setName(String newValue);
-
-    /**
-     * This method is used to set the event repetition field.
-     * @param repetition is the new repetition value.
-     */
-    void setRepetition(Repetition repetition);
-
-    /**
-     * This method is used to set the start day of the event.
-     * @param localDate is the new start date.
-     */
-    void setStartDay(String localDate);
-
-    /**
-     * This method is used to set the start time of the event.
-     * @param newValue is the new start time.
-     */
-    void setStartTime(String newValue);
-
-    /**
-     * This method is used to get the start time of the event.
-     * @return String that represent the start time of the event.
-     */
-    String getStartTime();
-
-    /**
-     * This method is used to get the start day of the event.
-     * @return String that represent the start day of the event.
-     */
-    String getStartDay();
 
 }

@@ -150,13 +150,9 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
     }
 
     public final void setButtonAction() {
-        this.addHotKeyButton.setOnAction(event -> {
-            this.addNewHotKey(event);
-        });
+        this.addHotKeyButton.setOnAction(this::addNewHotKey);
         this.deleteElement.setOnAction(this::deleteSelectedRowItem);
-        this.goBackButton.setOnAction(event -> {
-            this.goBack(event);
-        });
+        this.goBackButton.setOnAction(this::goBack);
 
     }
 

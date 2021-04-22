@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
 public class HotKeyTest {
 
 	private final DataSource dsi = new DataSourceImpl();
-	private final HotKeyManager hotKeyTrackers = new HotKeyManagerImpl(dsi);
+	private final HotKeyManager hotKeyTrackers = new HotKeyManagerImpl(this.dsi);
 
 	/**
 	 * This test is used to verify the correctness of adding and removing hot keys.

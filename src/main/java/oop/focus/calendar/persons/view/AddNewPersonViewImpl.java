@@ -75,11 +75,11 @@ public class AddNewPersonViewImpl implements GenericAddView {
     }
 
     private void setButtonOnAction() {
-        this.save.setOnAction(event -> this.save(event));
+        this.save.setOnAction(this::save);
 
-        this.delete.setOnAction(event -> this.delete(event));
+        this.delete.setOnAction(this::delete);
 
-        this.back.setOnAction(event -> this.goBack(event));
+        this.back.setOnAction(this::goBack);
         this.newDegree.setOnAction(event -> this.newDegree());
     }
 

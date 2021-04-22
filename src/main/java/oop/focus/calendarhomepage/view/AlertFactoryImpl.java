@@ -16,60 +16,60 @@ public class AlertFactoryImpl implements AlertFactory {
     @Override
     public final Alert createIncompleteFieldAlert() {
         this.alert = new Alert(AlertType.ERROR);
-        alert.setTitle(Constants.WARNING);
-        alert.setHeaderText("I campi non sono stati riempiti correttamente!");
-        final Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            alert.close();
+        this.alert.setTitle(Constants.WARNING);
+        this.alert.setHeaderText("I campi non sono stati riempiti correttamente!");
+        final Optional<ButtonType> result = this.alert.showAndWait();
+        if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+            this.alert.close();
         }
-        return alert;
+        return this.alert;
     }
 
     @Override
     public final Alert createImpossibleSaveElement() {
         this.alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle(Constants.ERROR);
-        alert.setHeaderText("Impossibile salvare questo elemento!");
-        final Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            alert.close();
+        this.alert.setTitle(Constants.ERROR);
+        this.alert.setHeaderText("Impossibile salvare questo elemento!");
+        final Optional<ButtonType> result = this.alert.showAndWait();
+        if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+            this.alert.close();
         }
-        return alert;
+        return this.alert;
     }
 
     @Override
     public final Alert createHourOrDateError() {
         this.alert = new Alert(AlertType.ERROR);
-        alert.setTitle(Constants.WARNING);
-        alert.setHeaderText("Sono stati inseriti orario o data non validi");
-        final Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            alert.close();
+        this.alert.setTitle(Constants.WARNING);
+        this.alert.setHeaderText("Sono stati inseriti orario o data non validi");
+        final Optional<ButtonType> result = this.alert.showAndWait();
+        if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+            this.alert.close();
         }
-        return alert;
+        return this.alert;
     }
 
     @Override
     public final Alert createAlreadyPresentItem() {
         this.alert = new Alert(AlertType.ERROR);
-        alert.setTitle(Constants.WARNING);
-        alert.setHeaderText("L'elemento inserito è già presente, inserirne un altro o tornare indietro!");
-        final Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            alert.close();
+        this.alert.setTitle(Constants.WARNING);
+        this.alert.setHeaderText("L'elemento inserito è già presente, inserirne un altro o tornare indietro!");
+        final Optional<ButtonType> result = this.alert.showAndWait();
+        if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+            this.alert.close();
         }
-        return alert;
+        return this.alert;
     }
 
     public final Alert createEventWarning() {
         this.alert = new Alert(AlertType.ERROR);
-        alert.setTitle(Constants.WARNING);
-        alert.setHeaderText("L'elemento inserito è già presente o è già presente un evento nell'orario e il giorno selezionato!");
-        final Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
-            alert.close();
+        this.alert.setTitle(Constants.WARNING);
+        this.alert.setHeaderText("L'elemento inserito è già presente o è già presente un evento nell'orario e il giorno selezionato!");
+        final Optional<ButtonType> result = this.alert.showAndWait();
+        if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
+            this.alert.close();
         }
-        return alert;
+        return this.alert;
     }
 
     private static class Constants {

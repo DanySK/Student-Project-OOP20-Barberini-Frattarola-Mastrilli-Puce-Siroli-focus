@@ -80,9 +80,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
 
             this.fullVBoxHotKey();
 
-            this.modifyButton.setOnAction(event -> {
-                this.modifyClicked(event);
-            });
+            this.modifyButton.setOnAction(this::modifyClicked);
 
             this.setCalendar();
             this.setDay();

@@ -8,34 +8,31 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="weekDaysPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="CENTER" prefHeight="32.0" prefWidth="780.0">
-         <children>
-            <Button fx:id="lastWeek" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="PRECEDENTE">
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </Button>
-            <Label fx:id="thisWeek" prefHeight="12.0" prefWidth="188.0" text="SETTIMANA CORRENTE">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Button fx:id="nextWeek" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="PROSSIMA">
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-         <VBox.margin>
-            <Insets top="30.0" />
-         </VBox.margin>
-      </HBox>
-      <ScrollPane fx:id="weekDaysScroller" prefHeight="528.0" prefWidth="780.0">
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-      </ScrollPane>
-   </children>
+<VBox fx:id="weekDaysPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="635.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <HBox alignment="CENTER" prefHeight="32.0" prefWidth="780.0">
+        <VBox.margin>
+            <Insets top="30.0"/>
+        </VBox.margin>
+        <Button fx:id="lastWeek" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="PRECEDENTE">
+            <HBox.margin>
+                <Insets right="20.0"/>
+            </HBox.margin>
+        </Button>
+        <Label fx:id="thisWeek" prefHeight="12.0" prefWidth="188.0" text="SETTIMANA CORRENTE">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <Button fx:id="nextWeek" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="PROSSIMA">
+            <HBox.margin>
+                <Insets left="20.0"/>
+            </HBox.margin>
+        </Button>
+    </HBox>
+    <ScrollPane fx:id="weekDaysScroller" prefHeight="528.0" prefWidth="780.0">
+        <VBox.margin>
+          <Insets top="20.0"/>
+        </VBox.margin>
+    </ScrollPane>
 </VBox>

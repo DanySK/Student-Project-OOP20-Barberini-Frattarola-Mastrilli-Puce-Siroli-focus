@@ -7,29 +7,39 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="paneNewEvent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Label fx:id="newEvent" layoutX="155.0" layoutY="30.0" prefHeight="35.0" prefWidth="196.0" text="NUOVO EVENTO" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="138.0">
-         <font>
-            <Font name="System Bold Italic" size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="newEventName" layoutX="210.0" layoutY="65.0" prefHeight="27.0" prefWidth="70.0" text="Label" AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="209.0">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font></Label>
-      <Label fx:id="startHour" layoutX="113.0" layoutY="132.0" text="Ora di inizio :" />
-      <Label fx:id="endHour" layoutX="113.0" layoutY="192.0" text="Ora di fine :" />
-      <Button fx:id="deleteSelection" layoutX="21.0" layoutY="446.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="CANCELLA" AnchorPane.bottomAnchor="27.399999999999977" AnchorPane.leftAnchor="21.0" />
-      <Button fx:id="saveSelection" layoutX="389.0" layoutY="446.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="SALVA" AnchorPane.bottomAnchor="27.4" AnchorPane.rightAnchor="21.599999999999994" />
-      <Button fx:id="back" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="INDIETRO" />
-      <ComboBox fx:id="startHourChoice" layoutX="239.0" layoutY="128.0" prefHeight="25.0" prefWidth="70.0" AnchorPane.leftAnchor="239.0" />
-      <ComboBox fx:id="endHourChoice" layoutX="239.0" layoutY="188.0" prefHeight="25.0" prefWidth="70.0" AnchorPane.leftAnchor="239.0" />
-      <ComboBox fx:id="startMinuteChoice" layoutX="365.0" layoutY="128.0" prefHeight="25.0" prefWidth="70.0" />
-      <ComboBox fx:id="endMinuteChoice" layoutX="365.0" layoutY="188.0" prefHeight="25.0" prefWidth="70.0" />
-      <Label fx:id="repetition" layoutX="113.0" layoutY="254.0" text="Ripetizioni :" />
-      <ComboBox fx:id="repetitionChoice" layoutX="239.0" layoutY="250.0" prefHeight="26.0" prefWidth="196.0" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="54.0" />
-      <Label fx:id="persons" layoutX="113.0" layoutY="314.0" text="Persone :" />
-      <ListView fx:id="listOfPersons" layoutX="239.0" layoutY="314.0" prefHeight="99.0" prefWidth="196.0" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="54.0" />
-   </children>
+<AnchorPane fx:id="paneNewEvent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="499.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/15.0.1"
+            xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="newEvent" layoutX="155.0" layoutY="30.0" prefHeight="35.0" prefWidth="196.0" text="NUOVO EVENTO"
+           AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="138.0">
+        <font>
+          <Font name="System Bold Italic" size="24.0"/>
+        </font>
+    </Label>
+    <Label fx:id="newEventName" layoutX="210.0" layoutY="65.0" prefHeight="27.0" prefWidth="70.0" text="Label"
+           AnchorPane.leftAnchor="210.0" AnchorPane.rightAnchor="209.0">
+        <font>
+          <Font name="System Bold" size="18.0"/>
+        </font>
+    </Label>
+    <Label fx:id="startHour" layoutX="113.0" layoutY="132.0" text="Ora di inizio :"/>
+    <Label fx:id="endHour" layoutX="113.0" layoutY="192.0" text="Ora di fine :"/>
+    <Button fx:id="deleteSelection" layoutX="21.0" layoutY="446.0" mnemonicParsing="false" prefHeight="25.0"
+            prefWidth="78.0" text="CANCELLA" AnchorPane.bottomAnchor="27.399999999999977" AnchorPane.leftAnchor="21.0"/>
+    <Button fx:id="saveSelection" layoutX="389.0" layoutY="446.0" mnemonicParsing="false" prefHeight="25.0"
+            prefWidth="78.0" text="SALVA" AnchorPane.bottomAnchor="27.4" AnchorPane.rightAnchor="21.599999999999994"/>
+    <Button fx:id="back" layoutX="14.0" layoutY="17.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0"
+            text="INDIETRO"/>
+    <ComboBox fx:id="startHourChoice" layoutX="239.0" layoutY="128.0" prefHeight="25.0" prefWidth="70.0"
+              AnchorPane.leftAnchor="239.0"/>
+    <ComboBox fx:id="endHourChoice" layoutX="239.0" layoutY="188.0" prefHeight="25.0" prefWidth="70.0"
+              AnchorPane.leftAnchor="239.0"/>
+    <ComboBox fx:id="startMinuteChoice" layoutX="365.0" layoutY="128.0" prefHeight="25.0" prefWidth="70.0"/>
+    <ComboBox fx:id="endMinuteChoice" layoutX="365.0" layoutY="188.0" prefHeight="25.0" prefWidth="70.0"/>
+    <Label fx:id="repetition" layoutX="113.0" layoutY="254.0" text="Ripetizioni :"/>
+    <ComboBox fx:id="repetitionChoice" layoutX="239.0" layoutY="250.0" prefHeight="26.0" prefWidth="196.0"
+              AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="54.0"/>
+    <Label fx:id="persons" layoutX="113.0" layoutY="314.0" text="Persone :"/>
+    <ListView fx:id="listOfPersons" layoutX="239.0" layoutY="314.0" prefHeight="99.0" prefWidth="196.0"
+              AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="54.0"/>
 </AnchorPane>

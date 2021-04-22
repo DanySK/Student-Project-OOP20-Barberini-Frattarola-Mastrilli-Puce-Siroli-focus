@@ -13,7 +13,7 @@ import oop.focus.finance.model.FinanceManagerImpl;
 public class FinanceHomePageLauncher extends Application {
 
     @Override
-    public final void start(final Stage primaryStage) throws Exception {
+    public final void start(final Stage primaryStage) {
         final FinanceManager manager = new FinanceManagerImpl(new DataSourceImpl());
         final FinanceHomePageController controller = new FinanceHomePageControllerImpl(manager);
         primaryStage.setScene(new Scene((Parent) controller.getView().getRoot()));

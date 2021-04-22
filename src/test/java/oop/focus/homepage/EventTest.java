@@ -24,7 +24,7 @@ import oop.focus.common.Repetition;
 public class EventTest {
 
 	private final DataSource dsi = new DataSourceImpl();
-    private final EventManager eventi = new EventManagerImpl(dsi);
+    private final EventManager eventi = new EventManagerImpl(this.dsi);
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
     private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 00), Repetition.ONCE);
@@ -36,68 +36,68 @@ public class EventTest {
     @Test
     public void addingAndRemovingEventTest() {
         try {
-            this.eventi.addEvent(first);
-            this.eventi.addEvent(third);
-            this.eventi.addEvent(fourth);
-            this.eventi.addEvent(fifth);
+            this.eventi.addEvent(this.first);
+            this.eventi.addEvent(this.third);
+            this.eventi.addEvent(this.fourth);
+            this.eventi.addEvent(this.fifth);
         } catch(IllegalStateException ignored) {}
 
-        this.eventi.addEvent(second);
+        this.eventi.addEvent(this.second);
 
-        assertTrue(this.eventi.getAll().contains(first));
-        assertTrue(this.eventi.getAll().contains(second));
-        assertTrue(this.eventi.getAll().contains(third));
+        assertTrue(this.eventi.getAll().contains(this.first));
+        assertTrue(this.eventi.getAll().contains(this.second));
+        assertTrue(this.eventi.getAll().contains(this.third));
 
-        this.eventi.removeEvent(first);
-        this.eventi.removeEvent(second);
-        this.eventi.removeEvent(third);
+        this.eventi.removeEvent(this.first);
+        this.eventi.removeEvent(this.second);
+        this.eventi.removeEvent(this.third);
     }
 
     @Test
     public void equalsEventsTest() {
 
     	final Event firstCopy = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.DAILY);
-    	assertEquals(first, firstCopy);
+    	assertEquals(this.first, firstCopy);
 
     	final Event secondCopy = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 00), Repetition.BIMONTHLY);
-    	assertEquals(second, secondCopy);
+    	assertEquals(this.second, secondCopy);
     }
 
     @Test
     public void findEventsTest() {
-        this.eventi.addEvent(sixth);
-        assertTrue(Filter.takeOnlyDailyEvent(new ArrayList<>(this.eventi.getAll())).contains(sixth));
-        this.eventi.removeEvent(sixth);
+        this.eventi.addEvent(this.sixth);
+        assertTrue(Filter.takeOnlyDailyEvent(new ArrayList<>(this.eventi.getAll())).contains(this.sixth));
+        this.eventi.removeEvent(this.sixth);
     }
 
     @Test
     public void findByDateTest() {
         try {
-            this.eventi.addEvent(first);
-            this.eventi.addEvent(third);
-            this.eventi.addEvent(sixth);
+            this.eventi.addEvent(this.first);
+            this.eventi.addEvent(this.third);
+            this.eventi.addEvent(this.sixth);
         }catch(IllegalStateException ignored){}
  
-        assertTrue(this.eventi.findByDate(new LocalDate(2021, 9, 26)).contains(first));
-        assertTrue(this.eventi.findByDate(new LocalDate(2021, 9, 26)).contains(third));
-        assertTrue(this.eventi.findByDate(new LocalDate(2021, 9, 26)).contains(sixth));
+        assertTrue(this.eventi.findByDate(new LocalDate(2021, 9, 26)).contains(this.first));
+        assertTrue(this.eventi.findByDate(new LocalDate(2021, 9, 26)).contains(this.third));
+        assertTrue(this.eventi.findByDate(new LocalDate(2021, 9, 26)).contains(this.sixth));
 
-        this.eventi.removeEvent(first);
-        this.eventi.removeEvent(third);
-        this.eventi.removeEvent(sixth);
+        this.eventi.removeEvent(this.first);
+        this.eventi.removeEvent(this.third);
+        this.eventi.removeEvent(this.sixth);
     }
 
     @Test
     public void verificationOfTimeAccuracyTest() {
 
-        assertEquals(first.getStartHour(), new LocalTime(9, 30));
-        assertEquals(first.getEndHour(), new LocalTime(10, 30));
+        assertEquals(this.first.getStartHour(), new LocalTime(9, 30));
+        assertEquals(this.first.getEndHour(), new LocalTime(10, 30));
 
-        assertEquals(second.getStartHour(), new LocalTime(8, 30));
-        assertEquals(second.getEndHour(), new LocalTime(9, 00));
+        assertEquals(this.second.getStartHour(), new LocalTime(8, 30));
+        assertEquals(this.second.getEndHour(), new LocalTime(9, 00));
 
-        assertEquals(third.getStartHour(), new LocalTime(11, 30));
-        assertEquals(third.getEndHour(), new LocalTime(18, 30));
+        assertEquals(this.third.getStartHour(), new LocalTime(11, 30));
+        assertEquals(this.third.getEndHour(), new LocalTime(18, 30));
     }
 
 }
