@@ -21,9 +21,9 @@ public class SectionsImpl implements Sections {
     public SectionsImpl() {
         this.factory = new SectionsControllerFactoryImpl();
         this.list = new ArrayList<>();
-        this.setControllers();
         this.dataSource = new DataSourceImpl();
         this.financeManager = new FinanceManagerImpl(this.dataSource);
+        this.setControllers();
     }
 
     /**

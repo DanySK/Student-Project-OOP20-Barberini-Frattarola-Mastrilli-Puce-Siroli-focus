@@ -8,9 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.application.controller.Sections;
-import oop.focus.application.controller.SectionsController;
 import oop.focus.application.view.AbstractButtonsView;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.db.DataSource;
 import oop.focus.diary.controller.DiarySections;
 import java.util.HashMap;
@@ -28,14 +28,15 @@ public class ButtonsDiaryView extends AbstractButtonsView {
     private final VBox pane;
     private final Map<Node, Controller> map;
     private final Sections controller;
-
+    private final UpdatableController<Controller> sectionsController;
     /**
      * Instantiates a new buttons view.
      * @param sectionsController    the controller of sections
      * @param dataSource    the {@link DataSource} from which to retrieve data
      */
-    public ButtonsDiaryView(final SectionsController sectionsController, final DataSource dataSource) {
+    public ButtonsDiaryView(final UpdatableController<Controller> sectionsController, final DataSource dataSource) {
         super(sectionsController);
+        this.sectionsController = sectionsController;
         this.map = new HashMap<>();
         this.pane = new VBox();
         this.controller = new DiarySections(dataSource);
@@ -58,6 +59,6 @@ public class ButtonsDiaryView extends AbstractButtonsView {
                 * INSETS)));
         this.pane.setAlignment(Pos.CENTER);
         super.setOnClick(this.pane, this.map);
-        this.pane.getChildren().add(this.controller.getStarterController().getView().getRoot());
+        this.sectionsController.updateInput(this.controller.getStarterController());
     }
 }
