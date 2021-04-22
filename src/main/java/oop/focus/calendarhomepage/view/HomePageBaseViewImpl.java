@@ -70,6 +70,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
             this.setRoot();
             this.scroller.setFitToWidth(true);
             this.scrollPane.setFitToWidth(true);
+            this.scrollPane.vbarPolicyProperty().set(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         }
 
         private void setRoot() {
@@ -138,9 +139,6 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
 
             final ObservableList<HotKey> hotKeyList = this.controller.getHotKey();
             hotKeyList.forEach(hotkey -> this.vbox.getChildren().add(generate.createButton(hotkey)));
-
-            this.vbox.prefHeightProperty().bind(this.scrollPane.heightProperty());
-            this.vbox.prefWidthProperty().bind(this.scrollPane.widthProperty());
 
             this.scrollPane.setContent(this.vbox);
         }

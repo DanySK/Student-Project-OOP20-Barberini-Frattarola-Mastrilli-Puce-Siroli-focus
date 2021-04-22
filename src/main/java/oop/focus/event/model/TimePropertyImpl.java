@@ -30,7 +30,7 @@ public class TimePropertyImpl implements TimeProperty {
            || list.get(list.size() - 1).getEndDate().isEqual(list.get(list.size() - 1).getStartDate()) && e.getStartHour().isAfter(list.get(list.size() - 1).getEndHour())) {
             return true;
         } else {
-            for (int i = 0; i <= list.size() - 2; i++) {
+            for (int i = 0; i <= list.size() - 1; i++) {
                 if (e.getStartHour().isAfter(list.get(i).getEndHour()) && e.getEndHour().isBefore(list.get(i + 1).getStartHour())) {
                     return true;
                 }

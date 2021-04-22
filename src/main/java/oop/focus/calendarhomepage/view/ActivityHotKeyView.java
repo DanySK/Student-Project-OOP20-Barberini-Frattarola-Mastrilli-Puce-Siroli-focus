@@ -32,10 +32,10 @@ public class ActivityHotKeyView extends Pane implements HotKeyView {
     }
 
     public final void setAction() {
-        this.checkBox.setOnAction(event -> {
-            if (!this.checkBox.isSelected()) {
+        this.checkBox.selectedProperty().addListener(event -> {
+            if (this.checkBox.isSelected()) {
                 this.controller.saveEvent(new EventImpl(this.checkBox.getText(), LocalDateTime.now(), LocalDateTime.now(), Repetition.ONCE));
-                this.checkBox.setSelected(true);
+                this.checkBox.setDisable(true);
             }
         });
     }
