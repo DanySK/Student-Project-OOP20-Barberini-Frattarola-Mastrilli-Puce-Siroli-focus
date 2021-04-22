@@ -42,7 +42,6 @@ public class EventViewImpl implements VBoxManager {
 
     //Constants
     private static final double MINUTES_IN_HOURS = 60;
-    private static final double HALF_HOUR = 30;
 
 
     /**
@@ -71,14 +70,16 @@ public class EventViewImpl implements VBoxManager {
      * {@inheritDoc}
      */
     public final double getY(final int i) {
-        final int hour;
         final double spaceForMinute = this.spacing / MINUTES_IN_HOURS;
         final double minutesTotalSpace = spaceForMinute * this.events.get(i).getStartHour().getMinuteOfHour();
-        if (this.events.get(i).getEndDate().getDayOfMonth() == this.day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
-            return 0;
+        if (this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
+            if (this.events.get(i).getEndHour().getHourOfDay() != 0) {
+                return this.events.get(0).getStartHour().getHourOfDay();
+            } else {
+                return 0;
+            }
         } else {
-            hour = this.events.get(i).getStartHour().getHourOfDay();
-            return this.hours.getY(hour) + minutesTotalSpace;
+            return this.hours.getY(this.events.get(i).getStartHour().getHourOfDay()) + minutesTotalSpace;
         }
     }
 
@@ -110,50 +111,45 @@ public class EventViewImpl implements VBoxManager {
         panel.getChildren().add(name);
 
         if (i != 0) {
-            panel.setTranslateY(this.getY(i) - this.insertEventsDuration - name.fontProperty().get().getSize());
+            panel.setTranslateY(this.getY(i) - this.insertEventsDuration);
         } else {
-            if (this.getY(i) == 0 && this.hours.getFormat() == Format.EXTENDED.getNumber()) {
-                panel.setTranslateY(this.getY(i));
-                this.height -= HALF_HOUR;
-            } else {
-                panel.setTranslateY(this.getY(i));
-            }
+            panel.setTranslateY(this.getY(i));
         }
 
 
-        double endHour;
-        double startHour;
+        final double endHour;
+        final double startHour;
 
-        if (this.events.get(i).getEndDate().getDayOfMonth() == this.day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
-            endHour = this.events.get(i).getEndHour().getHourOfDay();
+        if (this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
             startHour = 0;
+            endHour = this.events.get(i).getEndHour().getHourOfDay();
+        } else if (this.events.get(i).getEndDate().getDayOfMonth() != this.day.getNumber()) {
+            startHour = this.events.get(i).getStartHour().getHourOfDay();
+            endHour = Format.NORMAL.getNumber();
         } else {
             startHour = this.events.get(i).getStartHour().getHourOfDay();
-            if (this.events.get(i).getEndHour().getHourOfDay() == 0) {
-                if (!this.events.get(i).getEndDate().dayOfMonth().equals(this.events.get(i).getStartDate().dayOfMonth())) {
-                    endHour = Format.NORMAL.getNumber();
-                } else {
-                    endHour = 0;
-                }
-            } else {
-                if (!this.events.get(i).getEndDate().dayOfMonth().equals(this.events.get(i).getStartDate().dayOfMonth())) {
-                    endHour = Format.NORMAL.getNumber();
-                } else {
-                    endHour = this.events.get(i).getEndHour().getHourOfDay();
-                }
-            }
+            endHour = this.events.get(i).getEndHour().getHourOfDay();
         }
-
 
         final double durationEventInHours = endHour - startHour;
-        double durationEventInMinutes = (double) this.events.get(i).getEndHour().getMinuteOfHour() - (double) this.events.get(i).getStartHour().getMinuteOfHour();
-        if (this.getY(i) == 0) {
-            if (this.events.get(i).getEndHour().getHourOfDay() == 0) {
-            durationEventInMinutes = HALF_HOUR;
-            } else {
-            durationEventInMinutes = HALF_HOUR + (double) this.events.get(i).getEndHour().getMinuteOfHour();
-            }
+
+
+        final double endMinutes;
+        final double startMinutes;
+
+        if (this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
+            startMinutes = 0;
+            endMinutes = (double) this.events.get(i).getEndHour().getMinuteOfHour();
+        } else if (this.events.get(i).getEndDate().getDayOfMonth() != this.day.getNumber()) {
+            startMinutes = 0;
+            endMinutes = 0;
+        } else {
+            startMinutes = (double) this.events.get(i).getStartHour().getMinuteOfHour();
+            endMinutes = (double) this.events.get(i).getEndHour().getMinuteOfHour();
         }
+
+        final double durationEventInMinutes = endMinutes - startMinutes;
+
         this.height += (this.spacing / MINUTES_IN_HOURS) * (durationEventInMinutes + durationEventInHours * MINUTES_IN_HOURS);
         panel.setPrefHeight(this.height);
         this.insertEventsDuration += this.height;
