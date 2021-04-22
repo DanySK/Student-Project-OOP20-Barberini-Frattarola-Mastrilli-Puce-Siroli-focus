@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import oop.focus.event.model.Event;
@@ -19,11 +20,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.layout.Pane;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
@@ -54,6 +50,7 @@ public class NewEventViewImpl implements NewEventView {
 
     private ObservableList<Person> list;
     private Node root;
+    private AlertFactory alert;
     private final HomePageController controller;
 
     public NewEventViewImpl(final HomePageController controller) {
@@ -71,6 +68,7 @@ public class NewEventViewImpl implements NewEventView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.alert = new AlertFactoryImpl();
         this.list = FXCollections.observableArrayList();
         this.newEventName.setText(this.controller.getText());
 
@@ -152,7 +150,7 @@ public class NewEventViewImpl implements NewEventView {
                 && !this.repetitionChoice.getSelectionModel().isEmpty()) {
             this.saveEvent(event);
         } else {
-            new AlertFactoryImpl().createIncompleteFieldAlert();
+            this.alert.createIncompleteFieldAlert();
         }
     }
 
@@ -174,10 +172,10 @@ public class NewEventViewImpl implements NewEventView {
                 this.controller.saveEvent(eventToSave);
                 this.goBack(event);
             } catch (final IllegalStateException e) {
-                new AlertFactoryImpl().createEventWarning();
+                this.alert.createEventWarning();
             } 
         } else {
-            new AlertFactoryImpl().createHourOrDateError();
+            this.alert.createHourOrDateError();
         }
     }
 

@@ -40,10 +40,6 @@ public class NewEventControllerImpl implements NewEventController {
         this.eventManager.generateRepeatedEvents(LocalDate.now());
     }
 
-    public final DataSource getDsi() {
-        return this.dsi;
-    }
-
     public final View getView() {
         return this.view;
     }

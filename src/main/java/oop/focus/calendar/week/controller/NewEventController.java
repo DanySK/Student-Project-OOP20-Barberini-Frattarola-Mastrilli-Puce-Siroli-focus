@@ -16,12 +16,6 @@ public interface NewEventController extends Controller {
     void addNewEvent(Event event);
 
     /**
-     * This method is used to get the dsi.
-     * @return the data source.
-     */
-    DataSource getDsi();
-
-    /**
      * This method is used to get the month controller.
      * @return CalendarMonthController
      */

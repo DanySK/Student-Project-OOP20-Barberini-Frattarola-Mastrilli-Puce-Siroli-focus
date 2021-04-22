@@ -11,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import oop.focus.calendarhomepage.view.AlertFactory;
 import oop.focus.calendarhomepage.view.HomePageBaseView;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -73,6 +74,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
 
     private Node root;
     private ObservableList<Person> list;
+    private AlertFactory alert;
 
     public NewEventWeekViewImpl(final NewEventController controller) {
         this.controller = controller;
@@ -88,6 +90,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
     }
 
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.alert = new AlertFactoryImpl();
         this.list = FXCollections.observableArrayList();
         this.setProperty();
         this.fillComboBoxes();
@@ -212,10 +215,10 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
                     final Stage stage = (Stage) this.paneNewEvent.getScene().getWindow();
                     stage.close();
                 } catch (final IllegalStateException e) {
-                    new AlertFactoryImpl().createEventWarning();
+                    this.alert.createEventWarning();
                 } 
             } else {
-                new AlertFactoryImpl().createHourOrDateError();
+                this.alert.createHourOrDateError();
         }
     }
 

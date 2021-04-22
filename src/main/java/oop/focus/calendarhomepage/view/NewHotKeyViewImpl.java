@@ -39,6 +39,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
     private final HotKeyController controller;
     private final HomePageController homePageController;
+    private AlertFactory alert;
     private Node root;
 
     public NewHotKeyViewImpl(final HotKeyController controller, final HomePageController controllerHomePage) {
@@ -57,6 +58,7 @@ public class NewHotKeyViewImpl implements  GenericAddView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.alert = new AlertFactoryImpl();
         this.setButtonOnAction();
         final ComboBoxFiller comboBox = new ComboBoxFiller();
         this.categoryComboBox.setItems(comboBox.getHotKey());
@@ -95,14 +97,14 @@ public class NewHotKeyViewImpl implements  GenericAddView {
     public final void save(final ActionEvent event) {
         final String name = this.nameTextField.getText();
         if (this.categoryComboBox.getSelectionModel().isEmpty() || name.isEmpty()) {
-            new AlertFactoryImpl().createIncompleteFieldAlert();
+            this.alert.createIncompleteFieldAlert();
         } else {
             try {
                 this.controller.saveHotKey(new HotKeyImpl(name, HotKeyType.getTypeFrom(this.categoryComboBox.getSelectionModel().getSelectedItem())));
                 ((HomePageBaseView) this.homePageController.getView()).fullVBoxHotKey();
                 this.goBack(event);
             } catch (final IllegalStateException e) {
-                new AlertFactoryImpl().createAlreadyPresentItem();
+                this.alert.createAlreadyPresentItem();
             }
         }
     }

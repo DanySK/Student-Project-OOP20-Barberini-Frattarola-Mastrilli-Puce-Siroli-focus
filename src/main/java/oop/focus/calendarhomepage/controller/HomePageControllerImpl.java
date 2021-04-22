@@ -38,10 +38,6 @@ public class HomePageControllerImpl implements HomePageController {
         this.view = new HomePageBaseViewImpl(this);
     }
 
-    public final void deleteHotKey(final HotKeyImpl hotKeyImpl) {
-        this.hotKeyManager.remove(hotKeyImpl);
-    }
-
     public final boolean getActivitySelected(final String hotKeyName) {
         List<Event> list = this.eventManager.getHotKeyEvents();
         list = list.stream().filter(e -> e.getName().equals(hotKeyName) && e.getStartDate().isEqual(LocalDate.now())).collect(Collectors.toList());

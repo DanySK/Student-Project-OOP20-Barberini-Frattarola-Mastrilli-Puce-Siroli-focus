@@ -11,12 +11,6 @@ import oop.focus.calendarhomepage.model.HotKeyImpl;
 public interface HomePageController extends Controller {
 
     /**
-     * This method is used to delete a selected hot key from the database.
-     * @param hotKeyImpl is the hot key to delete.
-     */
-    void deleteHotKey(HotKeyImpl hotKeyImpl);
-
-    /**
      * This method is used to know if an activity hot key was selected.
      * @param hotKeyName is the name of the activity hot key.
      * @return true if the activity was never selected false otherwise.
