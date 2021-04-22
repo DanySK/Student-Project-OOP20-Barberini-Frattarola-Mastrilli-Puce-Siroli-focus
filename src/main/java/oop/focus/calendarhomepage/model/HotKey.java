@@ -1,9 +1,5 @@
 package oop.focus.calendarhomepage.model;
 
-import org.joda.time.LocalDateTime;
-
-import oop.focus.event.model.Event;
-
 /**
  * This interface model the HotKey class, a class used for represent the hot keys that are part of the homepage.
  */

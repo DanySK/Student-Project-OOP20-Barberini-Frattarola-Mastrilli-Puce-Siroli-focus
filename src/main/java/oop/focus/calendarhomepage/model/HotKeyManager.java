@@ -1,6 +1,5 @@
 package oop.focus.calendarhomepage.model;
 
-import java.util.Set;
 
 import javafx.collections.ObservableSet;
 

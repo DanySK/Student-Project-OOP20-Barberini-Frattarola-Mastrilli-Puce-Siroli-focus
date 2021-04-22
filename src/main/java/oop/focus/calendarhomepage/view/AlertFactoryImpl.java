@@ -62,6 +62,5 @@ public class AlertFactoryImpl implements AlertFactory {
 
     private static class Constants {
         private static final String WARNING = "Attenzione!";
-        private static final String ERROR = "Errore!";
     }
 }

@@ -1,6 +1,5 @@
 package oop.focus.calendar.week.view;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import oop.focus.calendar.model.Format;
 import oop.focus.common.View;

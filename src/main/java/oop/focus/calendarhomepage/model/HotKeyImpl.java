@@ -1,10 +1,5 @@
 package oop.focus.calendarhomepage.model;
 
-import org.joda.time.LocalDateTime;
-
-import oop.focus.common.Repetition;
-import oop.focus.event.model.Event;
-import oop.focus.event.model.EventImpl;
 
 import java.util.Objects;
 
@@ -16,7 +11,6 @@ public class HotKeyImpl implements HotKey {
 
     private String name;
     private HotKeyType hotKeyType;
-    private String typeRepresentation;
 
     /**
      * Class constructor.
@@ -26,7 +20,6 @@ public class HotKeyImpl implements HotKey {
     public HotKeyImpl(final String s, final HotKeyType e) {
         this.name = s;
         this.hotKeyType = e;
-        this.typeRepresentation = this.hotKeyType.getType();
     }
 
     public final String getName() {
@@ -60,7 +53,6 @@ public class HotKeyImpl implements HotKey {
 
     public final void setType(final String newValue) {
         this.hotKeyType = HotKeyType.getTypeFrom(newValue);
-        this.typeRepresentation = newValue;
     }
 
 }

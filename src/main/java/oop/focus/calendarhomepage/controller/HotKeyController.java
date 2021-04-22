@@ -2,7 +2,6 @@ package oop.focus.calendarhomepage.controller;
 
 import javafx.collections.ObservableSet;
 import oop.focus.common.Controller;
-import oop.focus.db.DataSource;
 import oop.focus.calendarhomepage.model.HotKey;
 
 public interface HotKeyController extends Controller {

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javafx.collections.ObservableSet;
 import oop.focus.common.Controller;
-import oop.focus.db.DataSource;
 
 public interface RelationshipsController extends Controller {
 

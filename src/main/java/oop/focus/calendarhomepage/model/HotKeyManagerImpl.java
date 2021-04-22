@@ -6,8 +6,6 @@ import oop.focus.db.exceptions.DaoAccessException;
 
 import javafx.collections.ObservableSet;
 
-import java.util.Set;
-
 /**
  * This is a class use to manage hot keys.
  * This class is use for track all the hot keys from all the categories.

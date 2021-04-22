@@ -6,7 +6,6 @@ import oop.focus.common.Repetition;
 import oop.focus.db.DataSourceImpl;
 import oop.focus.event.model.Event;
 import oop.focus.calendarhomepage.model.HotKey;
-import oop.focus.calendarhomepage.model.HotKeyImpl;
 
 public interface HomePageController extends Controller {
 

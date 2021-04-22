@@ -19,7 +19,7 @@ public class HotKeyControllerImpl implements HotKeyController {
     private final HotKeyManager hotKeyManager;
 
     public HotKeyControllerImpl(final HomePageController controller) {
-        DataSource dsi = controller.getDsi();
+        final DataSource dsi = controller.getDsi();
         this.eventManager = new EventManagerImpl(dsi);
         this.hotKeyManager = new HotKeyManagerImpl(dsi);
         this.view = new HotKeyMenuViewImpl(this, controller);

@@ -9,7 +9,6 @@ import oop.focus.event.model.Event;
 import oop.focus.event.model.EventManager;
 import oop.focus.event.model.EventManagerImpl;
 import oop.focus.calendarhomepage.model.HotKey;
-import oop.focus.calendarhomepage.model.HotKeyImpl;
 import oop.focus.calendarhomepage.model.HotKeyManager;
 import oop.focus.calendarhomepage.model.HotKeyManagerImpl;
 import oop.focus.calendarhomepage.view.HomePageBaseView;
