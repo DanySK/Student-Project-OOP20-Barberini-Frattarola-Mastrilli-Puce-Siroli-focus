@@ -66,9 +66,13 @@ public class HotKeyMenuViewImpl implements  HotKeyMenuView {
 
         this.set = this.controller.getSortedHotKey();
         this.list = FXCollections.observableArrayList();
-        Linker.setToList(this.set, this.list);
+        this.addListener();
         this.populateTableView();
         this.tableHotKeyList.setItems(this.list);
+    }
+
+    private void addListener() {
+        Linker.setToList(this.set, this.list);
     }
 
     private void setProperties() {

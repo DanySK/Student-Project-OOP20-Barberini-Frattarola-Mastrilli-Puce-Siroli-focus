@@ -90,8 +90,8 @@ public class WeekViewImpl implements WeekView {
     }
 
     public final void setButtonAction() {
-        this.nextWeek.setOnAction(event -> this.nextWeek(event));
-        this.lastWeek.setOnAction(event -> this.lastWeek(event));
+        this.nextWeek.setOnAction(this::nextWeek);
+        this.lastWeek.setOnAction(this::lastWeek);
     }
 
     private void setLabelText() {

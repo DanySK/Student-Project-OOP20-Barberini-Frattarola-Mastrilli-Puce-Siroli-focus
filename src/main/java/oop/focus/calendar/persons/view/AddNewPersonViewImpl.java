@@ -65,8 +65,12 @@ public class AddNewPersonViewImpl implements GenericAddView {
         this.setProperty();
         this.set = this.controller.getDegree();
         this.list = FXCollections.observableArrayList();
-        Linker.setToList(this.set, this.list);
+        this.addListener();
         this.degreeComboBox.setItems(this.list);
+    }
+
+    private void addListener() {
+        Linker.setToList(this.set, this.list);
     }
 
     @Override

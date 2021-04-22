@@ -27,11 +27,11 @@ public class EventTest {
     private final EventManager eventi = new EventManagerImpl(this.dsi);
 
     private final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
-    private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 00), Repetition.ONCE);
+    private final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 0), Repetition.ONCE);
     private final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 11, 30), new LocalDateTime(2021, 9, 26, 18, 30), Repetition.ONCE);
     private final Event fourth = new EventImpl("Ikea", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 25, 10, 30), Repetition.ONCE);
     private final Event fifth = new EventImpl("Spesa", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 6, 30), Repetition.ONCE);
-    private final Event sixth = new EventImpl("Estetista", new LocalDateTime(2021, 9, 26, 9, 00), new LocalDateTime(2021, 9, 27, 10, 00), Repetition.ONCE);
+    private final Event sixth = new EventImpl("Estetista", new LocalDateTime(2021, 9, 26, 9, 0), new LocalDateTime(2021, 9, 27, 10, 0), Repetition.ONCE);
     
     @Test
     public void addingAndRemovingEventTest() {
@@ -59,7 +59,7 @@ public class EventTest {
     	final Event firstCopy = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.DAILY);
     	assertEquals(this.first, firstCopy);
 
-    	final Event secondCopy = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 00), Repetition.BIMONTHLY);
+    	final Event secondCopy = new EventImpl("Palestra", new LocalDateTime(2021, 9, 25, 8, 30), new LocalDateTime(2021, 9, 25, 9, 0), Repetition.BIMONTHLY);
     	assertEquals(this.second, secondCopy);
     }
 
@@ -94,7 +94,7 @@ public class EventTest {
         assertEquals(this.first.getEndHour(), new LocalTime(10, 30));
 
         assertEquals(this.second.getStartHour(), new LocalTime(8, 30));
-        assertEquals(this.second.getEndHour(), new LocalTime(9, 00));
+        assertEquals(this.second.getEndHour(), new LocalTime(9, 0));
 
         assertEquals(this.third.getStartHour(), new LocalTime(11, 30));
         assertEquals(this.third.getEndHour(), new LocalTime(18, 30));

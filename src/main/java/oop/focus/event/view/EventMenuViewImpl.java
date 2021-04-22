@@ -65,9 +65,13 @@ public class EventMenuViewImpl implements EventMenuView {
         this.setProperties();
         this.set = this.controller.getEvents();
         this.list = FXCollections.observableArrayList();
-        Linker.setToList(this.set, this.list);
+        this.addListener();
         this.setTableView();
         this.tableEvent.setItems(this.list);
+    }
+
+    private void addListener() {
+        Linker.setToList(this.set, this.list);
     }
 
     private void setProperties() {

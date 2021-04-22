@@ -201,9 +201,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
 
         final ObservableList<Integer> indices = this.listOfPersons.getSelectionModel().getSelectedIndices();
         final List<Person> finalList = new ArrayList<>();
-        indices.forEach(i -> {
-            finalList.add(this.list.get(i));
-        });
+        indices.forEach(i -> finalList.add(this.list.get(i)));
 
         final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
 

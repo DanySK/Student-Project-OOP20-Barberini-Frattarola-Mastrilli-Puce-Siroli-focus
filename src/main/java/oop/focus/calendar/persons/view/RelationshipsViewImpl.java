@@ -60,11 +60,15 @@ public class RelationshipsViewImpl implements RelationshipsView {
         this.setProperty();
         this.set = this.controller.getDegree();
         this.list = FXCollections.observableArrayList();
-        Linker.setToList(this.set, this.list);
+        this.addListener();
         this.populateTableView();
         this.relationshipsTable.setItems(this.list);
     }
 
+    private void addListener() {
+        Linker.setToList(this.set, this.list);
+    }
+ 
     private void setProperty() {
         this.relationshipsTable.prefWidthProperty().bind(this.relationshipsPane.widthProperty().multiply(Constants.TABLE_WIDTH));
         this.relationshipsTable.prefHeightProperty().bind(this.relationshipsPane.heightProperty().multiply(Constants.TABLE_HEIGHT));

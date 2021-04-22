@@ -1,6 +1,4 @@
 package oop.focus.event.model;
-
-import javafx.collections.FXCollections;
 import oop.focus.db.Dao;
 import oop.focus.db.DataSource;
 import oop.focus.db.exceptions.DaoAccessException;
@@ -11,7 +9,6 @@ import org.joda.time.LocalTime;
 
 import javafx.collections.ObservableSet;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
