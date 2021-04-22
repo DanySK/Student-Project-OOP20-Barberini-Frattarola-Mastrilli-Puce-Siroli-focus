@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.diary.controller.CreatePageController;
@@ -79,6 +80,7 @@ public class DiaryView implements UpdatableView<String>, Initializable {
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        VBox.setVgrow(this.containerDiary, Priority.ALWAYS);
         this.pages = new Accordion();
         this.insertPages();
         this.controller.getObservableSet().addListener((SetChangeListener<DiaryImpl>) change -> {

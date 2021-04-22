@@ -35,8 +35,9 @@ public class BaseDiaryView implements View {
      */
     @Override
     public Node getRoot() {
-        return new ContainerFactoryImpl().mergeHorizontally(List.of(this.diaryController.getView().getRoot(),
-                new ContainerFactoryImpl().mergeVertically(List.of(this.toDoListController.getView().getRoot(),
+        final ContainerFactory containerFactory = new ContainerFactoryImpl();
+        return containerFactory.mergeHorizontally(List.of(this.diaryController.getView().getRoot(),
+                containerFactory.mergeVertically(List.of(this.toDoListController.getView().getRoot(),
                 this.manager.getView().getRoot())).getRoot())).getRoot();
     }
 }

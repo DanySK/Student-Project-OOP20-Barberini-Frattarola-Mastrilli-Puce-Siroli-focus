@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  * sets his value and sets alarm of end timer.
  */
 public class CounterManagerImpl implements CounterManager {
-    private final CounterFactoryImpl tf;
+    private final CounterFactory tf;
     private TimeScrolling counter;
     private LocalDateTime start;
     private Sound sound;

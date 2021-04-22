@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.common.View;
@@ -133,6 +134,7 @@ public class ToDoListView implements View, Initializable {
      */
     @Override
     public Node getRoot() {
+        VBox.setVgrow(this.containerTDL, Priority.ALWAYS);
         this.vBox.prefWidthProperty().set(SCREEN_BOUNDS.getWidth() * V_BOX_WIDTH);
         this.vBox.prefHeightProperty().set(SCREEN_BOUNDS.getHeight() * V_BOX_HEIGHT);
         this.hBox.spacingProperty().bind(this.vBox.widthProperty().multiply(H_BOX_SPACING));

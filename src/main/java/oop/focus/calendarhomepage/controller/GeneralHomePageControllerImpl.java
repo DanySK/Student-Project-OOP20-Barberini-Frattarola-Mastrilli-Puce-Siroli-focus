@@ -20,7 +20,8 @@ public class GeneralHomePageControllerImpl implements GeneralHomePageController 
     }
 
     public final View getView() {
-        return new ContainerFactoryImpl().mergeHorizontally(List.of(this.calendarHomePage.getView().getRoot(), this.financeHomePage.getView().getRoot()));
+        return new ContainerFactoryImpl().mergeHorizontally(List.of(this.calendarHomePage.getView().getRoot(),
+                this.financeHomePage.getView().getRoot()));
    }
 
     @Override
