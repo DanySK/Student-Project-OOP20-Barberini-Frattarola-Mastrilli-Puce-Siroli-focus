@@ -20,8 +20,6 @@ public class StopwatchApp extends Application {
         //final ControllersFactory f = new ControllersFactoryImpl(manager);
         final Scene scene = new Scene((Parent) new GeneralCounterControllerImpl(manager, false).getView().getRoot());
         primaryStage.setScene(scene);
-        final String css = LauncherDiary.class.getResource(Style.STOPWATCH_STYLE.getPath()).toExternalForm();
-        scene.getStylesheets().add(css);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());
         primaryStage.show();

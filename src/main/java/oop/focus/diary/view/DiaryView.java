@@ -80,7 +80,6 @@ public class DiaryView implements UpdatableView<String>, Initializable {
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
-        VBox.setVgrow(this.containerDiary, Priority.ALWAYS);
         this.pages = new Accordion();
         this.insertPages();
         this.controller.getObservableSet().addListener((SetChangeListener<DiaryImpl>) change -> {

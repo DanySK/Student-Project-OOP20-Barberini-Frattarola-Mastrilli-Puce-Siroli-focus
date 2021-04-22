@@ -16,8 +16,6 @@ public class LauncherDiary extends Application {
         final DataSourceImpl dataSource = new DataSourceImpl();
         final Scene scene = new Scene((Parent) new BaseDiaryController(dataSource).getView().getRoot());
         primaryStage.setScene(scene);
-        final String css = LauncherDiary.class.getResource(Style.DIARY_STYLE.getPath()).toExternalForm();
-        scene.getStylesheets().add(css);
         primaryStage.setScene(scene);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());

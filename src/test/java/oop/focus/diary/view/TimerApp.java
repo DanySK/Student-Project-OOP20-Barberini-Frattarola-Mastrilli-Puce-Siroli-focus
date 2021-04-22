@@ -19,7 +19,6 @@ public class TimerApp extends Application {
         final DataSourceImpl dataSource = new DataSourceImpl();
         final EventManager manager = new EventManagerImpl(dataSource);
         final Scene scene = new Scene((Parent) new GeneralCounterControllerImpl(manager, true).getView().getRoot());
-        //final Scene scene = new Scene((Parent) new TimerView(controller, f.createTimer()).getRoot());
         primaryStage.setScene(scene);
         primaryStage.setWidth(dim.getWidth());
         primaryStage.setHeight(dim.getHeight());
