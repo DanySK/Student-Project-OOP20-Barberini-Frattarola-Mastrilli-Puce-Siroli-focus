@@ -1,5 +1,10 @@
 package oop.focus.event.controller;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import oop.focus.calendar.month.controller.CalendarMonthController;
 import oop.focus.calendar.week.controller.WeekController;
@@ -9,6 +14,7 @@ import oop.focus.event.view.EventMenuViewImpl;
 import oop.focus.event.model.Event;
 import oop.focus.event.model.EventManager;
 import oop.focus.event.model.EventManagerImpl;
+import oop.focus.event.model.Filter;
 
 public class EventMenuControllerImpl implements EventMenuController {
 

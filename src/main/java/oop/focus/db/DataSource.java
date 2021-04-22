@@ -2,7 +2,6 @@ package oop.focus.db;
 
 import oop.focus.diary.model.DailyMood;
 import oop.focus.diary.model.ToDoAction;
-import oop.focus.fidelitycard.FidelityCard;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import oop.focus.finance.model.GroupTransaction;
@@ -93,13 +92,6 @@ public interface DataSource {
      * @return the to do list dao
      */
     Dao<ToDoAction> getToDoList();
-
-    /**
-     * Gets a data access object for {@link FidelityCard} type elements.
-     *
-     * @return the fidelity cards dao
-     */
-    Dao<FidelityCard> getFidelityCards();
 
     /**
      * Gets a data access object for a group of {@link Person} type elements.

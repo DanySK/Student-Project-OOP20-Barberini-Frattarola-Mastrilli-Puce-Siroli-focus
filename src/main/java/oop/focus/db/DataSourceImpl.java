@@ -5,9 +5,6 @@ import oop.focus.diary.model.DailyMood;
 import oop.focus.diary.model.DailyMoodImpl;
 import oop.focus.diary.model.ToDoAction;
 import oop.focus.diary.model.ToDoActionImpl;
-import oop.focus.fidelitycard.FidelityCard;
-import oop.focus.fidelitycard.FidelityCardImpl;
-import oop.focus.fidelitycard.FidelityCardType;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.Category;
@@ -72,7 +69,6 @@ public class DataSourceImpl implements DataSource {
         this.eventPersons = this.eventPersons();
         this.events = this.events();
         this.todoList = this.todoList();
-        this.fidelityCards = this.fidelityCards();
         this.accounts = this.accounts();
         this.transactions = this.transactions();
         this.groupTransactionPersons = this.groupTransactionPersons();
@@ -176,14 +172,6 @@ public class DataSourceImpl implements DataSource {
     @Override
     public final Dao<ToDoAction> getToDoList() {
         return this.todoList;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Dao<FidelityCard> getFidelityCards() {
-        return this.fidelityCards;
     }
 
     /**
@@ -313,15 +301,6 @@ public class DataSourceImpl implements DataSource {
                         Integer.parseInt(a.remove(1)) == 1),
                 List.of(new Pair<>("description", ToDoAction::getAnnotation),
                         new Pair<>("done", a -> a.isDone() ? "1" : "0"))));
-    }
-
-    private SingleDao<FidelityCard> fidelityCards() {
-        return new CachedDao<>(new ParserImpl<>("fidelity_Card",
-                a -> new FidelityCardImpl(a.remove(1), a.remove(1),
-                        FidelityCardType.values()[Integer.parseInt(a.remove(1))]),
-                List.of(new Pair<>("name", FidelityCard::getCardName),
-                        new Pair<>("code", FidelityCard::getCardId),
-                        new Pair<>("type", f -> String.valueOf(f.getType().ordinal())))));
     }
 
     private SingleDao<Person> groups() {
