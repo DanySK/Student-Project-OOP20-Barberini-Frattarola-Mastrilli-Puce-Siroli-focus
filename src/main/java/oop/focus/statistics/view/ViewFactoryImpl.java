@@ -63,7 +63,7 @@ public class ViewFactoryImpl implements ViewFactory {
     public final View createVerticalAutoResizingWithNodes(final List<Node> input) {
         return () -> {
             final var v = new VBox();
-            v.setAlignment(Pos.CENTER);
+            v.setAlignment(Pos.TOP_CENTER);
             input.forEach(i -> VBox.setVgrow(i, Priority.ALWAYS));
             input.forEach(e -> v.getChildren().add(e));
             VBox.setVgrow(v, Priority.ALWAYS);

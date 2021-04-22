@@ -8,6 +8,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import oop.focus.common.View;
+import org.joda.time.IllegalFieldValueException;
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
     private static final String ERROR_TITLE = "Errore";
     private static final String ERROR_HEADER = "Errore inserimento dati";
     private static final String ERROR_MESSAGE = "I dati inseriti non sono corretti";
+    private static final String STYLE_CLASS = "input-container";
     private final Pane root;
     private final DatePicker startDate;
     private final DatePicker endDate;
@@ -48,7 +50,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
         final var e = f.createVertical(List.of(new Label(END_TEXT), this.endDate));
         this.save = new Button(SAVE_TEXT);
         this.root.getChildren().addAll(selector.getRoot(), s.getRoot(), e.getRoot(), this.save);
-        this.root.getStyleClass().add("input-container");
+        this.root.getStyleClass().add(STYLE_CLASS);
         this.setProperties();
         this.checkAndSave(null);
     }
@@ -108,7 +110,11 @@ public abstract class AbstractPeriodInputView<X> implements View {
      * @return the start date, null if the date is not valid.
      */
     protected final LocalDate getStartDate() {
-        return this.convertData(this.startDate.getValue());
+        try {
+            return this.convertData(this.startDate.getValue());
+        } catch (final IllegalFieldValueException e) {
+            return null;
+        }
     }
 
     /**
@@ -117,7 +123,11 @@ public abstract class AbstractPeriodInputView<X> implements View {
      * @return the end date, null if the date is not valid.
      */
     protected final LocalDate getEndDate() {
-        return this.convertData(this.endDate.getValue());
+        try {
+            return this.convertData(this.endDate.getValue());
+        } catch (final IllegalFieldValueException e) {
+            return null;
+        }
     }
 
     private boolean inputNotValid() {
@@ -138,7 +148,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
         this.endDate.setValue(today);
     }
 
-    private LocalDate convertData(final java.time.LocalDate value) {
+    private LocalDate convertData(final java.time.LocalDate value) throws IllegalFieldValueException {
         return new LocalDate(value.getYear(), value.getMonthValue(), value.getDayOfMonth());
     }
 }

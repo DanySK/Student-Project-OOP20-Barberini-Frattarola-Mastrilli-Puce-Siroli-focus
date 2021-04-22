@@ -1,10 +1,11 @@
 package oop.focus.calendar.week.view;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import oop.focus.statistics.view.ViewFactoryImpl;
 
+import javafx.geometry.Pos;
+import javafx.scene.layout.Priority;
+import oop.focus.statistics.view.ViewFactory;
 import org.joda.time.LocalDate;
 
 import javafx.event.ActionEvent;
@@ -26,6 +27,9 @@ import oop.focus.calendar.week.controller.WeekController;
 
 public class WeekViewImpl implements WeekView {
 
+    private static final double SPACING = 0.002;
+    private static final double X_RATIO = 0.001;
+    private static final double Y_RATIO = 0.01;
     @FXML
     private VBox weekDaysPane;
 
@@ -58,7 +62,10 @@ public class WeekViewImpl implements WeekView {
     }
 
     private void setRoot() {
-        this.root = new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.copyOf(this.weekDaysPane.getChildren())).getRoot();
+        final var tmp = ViewFactory.verticalWithPadding(SPACING, X_RATIO, Y_RATIO);
+        tmp.getChildren().addAll(this.weekDaysPane.getChildren());
+        this.root = tmp;
+        VBox.setVgrow(this.weekDaysScroller, Priority.ALWAYS);
     }
 
     @Override
@@ -69,7 +76,8 @@ public class WeekViewImpl implements WeekView {
         this.startWeek = today.minusDays(today.getDayOfWeek() - 1);
         this.setWeekDays();
         this.setButtonAction();
-
+        this.weekDaysPane.setAlignment(Pos.TOP_CENTER);
+        this.weekDaysScroller.setFitToWidth(true);
     }
 
     @Override
