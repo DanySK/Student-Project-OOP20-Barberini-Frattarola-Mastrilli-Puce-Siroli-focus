@@ -2,18 +2,9 @@ package oop.focus.calendarhomepage.view;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import oop.focus.common.Repetition;
 import oop.focus.calendarhomepage.model.HotKeyType;
 
 public class ComboBoxFiller {
-
-    public final ObservableList<String> getRepetition() {
-        final ObservableList<String> list = FXCollections.observableArrayList();
-        for (final Repetition repetition : Repetition.values()) {
-            list.add(repetition.getName());
-        }
-        return list;
-    }
 
     public final ObservableList<String> getHourAndMinute(final int range) {
         final ObservableList<String> list = FXCollections.observableArrayList();

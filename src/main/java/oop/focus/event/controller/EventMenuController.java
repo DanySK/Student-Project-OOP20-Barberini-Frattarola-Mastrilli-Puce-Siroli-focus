@@ -7,6 +7,8 @@ import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.event.model.Event;
 
+import java.util.List;
+
 public interface EventMenuController extends Controller {
 
     /**
@@ -26,6 +28,12 @@ public interface EventMenuController extends Controller {
      * @return the data source.
      */
     DataSource getDsi();
+
+    /**
+     * This method is used to get the events generated from hot keys.
+     * @return List that contains events generated from hot keys.
+     */
+    List<Event> getHotKeyEvent();
 
     /**
      * This method is used to get the week controller.

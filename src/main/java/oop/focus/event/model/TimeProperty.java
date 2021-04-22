@@ -34,12 +34,6 @@ public interface TimeProperty {
     boolean getHourDuration(Event event);
 
     /**
-     * This method is used to get the distance between two minutes.
-     * @return an integer that represent the distance.
-     */
-    int getMinuteDistance();
-
-    /**
      * This method is used to verify if an event have a duration greatest than 30 minutes.
      * @param event is the event to check the duration of.
      * @return true if it has false otherwise.

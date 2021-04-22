@@ -1,5 +1,7 @@
 package oop.focus.calendar.persons.model;
 
+import java.util.Objects;
+
 /**
  * 
  * This is a class that model a person , wich has a name , a surname and a degreeOfKinship.
@@ -28,37 +30,21 @@ public class PersonImpl implements Person {
         return this.name;
     }
 
-    public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((this.relationships == null) ? 0 : this.relationships.hashCode());
-        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        return result;
-    }
-
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null) {
+        if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        final PersonImpl other = (PersonImpl) obj;
-        if (this.relationships == null) {
-            if (other.relationships != null) {
-                return false;
-            }
-        } else if (!this.relationships.equals(other.relationships)) {
-              return false;
-        }
-        if (this.name == null) {
-            return other.name == null;
-        } else {
-            return this.name.equals(other.name);
-        }
+        final PersonImpl person = (PersonImpl) o;
+        return this.name.equals(person.name) && this.relationships.equals(person.relationships);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.name, this.relationships);
     }
 
     @Override

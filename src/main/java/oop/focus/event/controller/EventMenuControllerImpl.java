@@ -10,6 +10,8 @@ import oop.focus.event.model.Event;
 import oop.focus.event.model.EventManager;
 import oop.focus.event.model.EventManagerImpl;
 
+import java.util.List;
+
 public class EventMenuControllerImpl implements EventMenuController {
 
     private final DataSource dsi;
@@ -26,9 +28,12 @@ public class EventMenuControllerImpl implements EventMenuController {
         this.view = new EventMenuViewImpl(this);
     }
 
-
     public final ObservableSet<Event> getEvents() {
         return this.eventManager.getAllSaveEvent();
+    }
+
+    public final List<Event> getHotKeyEvent() {
+        return this.eventManager.getHotKeyEvents();
     }
 
     @Override

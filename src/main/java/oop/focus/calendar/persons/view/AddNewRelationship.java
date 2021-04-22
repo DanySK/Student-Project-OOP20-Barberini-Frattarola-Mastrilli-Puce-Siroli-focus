@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.Node;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.FXMLPaths;
+import oop.focus.calendarhomepage.view.AlertFactory;
 import oop.focus.calendarhomepage.view.AlertFactoryImpl;
 import oop.focus.calendarhomepage.view.GenericAddView;
 
@@ -40,6 +42,7 @@ public class AddNewRelationship implements GenericAddView {
     private Button back;
 
     private final RelationshipsController controller;
+    private AlertFactory alert;
     private Node root;
  
     public AddNewRelationship(final RelationshipsController controller) {
@@ -57,6 +60,7 @@ public class AddNewRelationship implements GenericAddView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.alert = new AlertFactoryImpl();
         this.back.setOnAction(this::goBack);
 
         this.delete.setOnAction(this::delete);
@@ -95,7 +99,7 @@ public class AddNewRelationship implements GenericAddView {
             this.controller.addRelationship(this.nameTextField.getText());
             this.goBack(event);
         } else {
-            new AlertFactoryImpl().createIncompleteFieldAlert();
+            this.alert.createIncompleteFieldAlert();
         }
     }
     private static final class Constants {

@@ -40,10 +40,6 @@ public class RelationshipsControllerImpl implements RelationshipsController {
         return this.relationships.getAll();
     }
 
-    public final DataSource getDsi() {
-        return this.dsi;
-    }
-
     public final View getView() {
         return this.view;
     }

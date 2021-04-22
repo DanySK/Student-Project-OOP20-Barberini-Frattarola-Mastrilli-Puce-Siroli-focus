@@ -2,6 +2,7 @@ package oop.focus.event.view;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -68,6 +69,12 @@ public class EventMenuViewImpl implements EventMenuView {
         this.addListener();
         this.setTableView();
         this.tableEvent.setItems(this.list);
+        this.deleteHotKeyEvent();
+    }
+
+    private void deleteHotKeyEvent() {
+        final List<Event> hotKeys = this.controller.getHotKeyEvent();
+        hotKeys.forEach(h -> this.tableEvent.getItems().remove(h));
     }
 
     private void addListener() {

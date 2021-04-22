@@ -50,12 +50,6 @@ public class TimePropertyTest {
     	assertTrue(this.time.getHourDuration(fourth));
     }
 
-	@Test
-    public void minuteDistanceTest() {
-    	final int minuteDistance = 5;
-    	assertEquals(this.time.getMinuteDistance(), minuteDistance);
-    }
-
 	/**
 	 * This test is use to verify if an event has a duration higher or equal than 30 minutes.
 	 */

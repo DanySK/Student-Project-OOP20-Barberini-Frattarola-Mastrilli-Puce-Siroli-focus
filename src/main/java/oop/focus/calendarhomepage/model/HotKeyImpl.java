@@ -6,6 +6,8 @@ import oop.focus.common.Repetition;
 import oop.focus.event.model.Event;
 import oop.focus.event.model.EventImpl;
 
+import java.util.Objects;
+
 /**
  * This class implements the HotKey interface that model a hot key. 
  * An HotKey object is represented by a String ,that is the hotKey name, and a category that is represented by a member of the HotKeyType enumeration.
@@ -47,33 +49,21 @@ public class HotKeyImpl implements HotKey {
         this.name = newName;
     }
 
-    public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((this.hotKeyType == null) ? 0 : this.hotKeyType.hashCode());
-        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        return result;
-    }
-
-    public final boolean equals(final Object obj) {
-        if (this == obj) {
+    @Override
+    public final boolean equals(final Object o) {
+        if (this == o) {
             return true;
         }
-        if (obj == null) {
+        if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        if (this.getClass() != obj.getClass()) {
-            return false;
-        }
-        final HotKeyImpl other = (HotKeyImpl) obj;
-        if (this.hotKeyType != other.hotKeyType) {
-            return false;
-        }
-        if (this.name == null) {
-            return other.name == null;
-        } else {
-            return this.name.equals(other.name);
-        }
+        final HotKeyImpl hotKey = (HotKeyImpl) o;
+        return this.name.equals(hotKey.name) && this.hotKeyType == hotKey.hotKeyType;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(this.name, this.hotKeyType);
     }
 
     public final void setType(final String newValue) {

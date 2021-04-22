@@ -26,10 +26,6 @@ public final class Filter {
         return eventsList.stream().filter(e -> !time.getHourDuration(e) && !Filter.isAdequate(e)).collect(Collectors.toList());
     }
 
-    public static List<Event> takeOnlyHotKeyEvent(final List<Event> eventsList) {
-        return eventsList.stream().filter(Filter::isAdequate).collect(Collectors.toList());
-    }
-
     public static List<Event> getEventsWithDuration(final List<Event> listOfEvents) {
         final TimeProperty time = new TimePropertyImpl();
         return listOfEvents.stream().filter(time::getMinEventTime).collect(Collectors.toList());

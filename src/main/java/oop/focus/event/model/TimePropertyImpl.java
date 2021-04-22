@@ -44,10 +44,6 @@ public class TimePropertyImpl implements TimeProperty {
         return hourDuration.toStandardHours().getHours() < Costants.HOUR_OF_DAY;
     }
 
-    public final int getMinuteDistance() {
-        return Costants.MINUTE_DISTACE;
-    }
-
     public final boolean getMinEventTime(final Event event) {
         final Duration durationEvent = new Duration(event.getStartDate().toDateTime(event.getStartHour()), event.getEndDate().toDateTime(event.getEndHour()));
         return durationEvent.isEqual(this.minimumEventDuration) || durationEvent.isLongerThan(this.minimumEventDuration);
@@ -74,6 +70,5 @@ public class TimePropertyImpl implements TimeProperty {
     private static class Costants {
         public static final int HOUR_OF_DAY = 24;
         public static final int MININUM_DURATION = 30;
-        public static final int MINUTE_DISTACE = 5;
     }
 }

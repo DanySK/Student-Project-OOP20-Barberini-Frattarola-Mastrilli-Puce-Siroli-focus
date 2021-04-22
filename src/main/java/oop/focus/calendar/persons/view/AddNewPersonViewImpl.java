@@ -20,6 +20,7 @@ import oop.focus.calendar.persons.controller.FXMLPaths;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.RelationshipsController;
 import oop.focus.calendar.persons.controller.RelationshipsControllerImpl;
+import oop.focus.calendarhomepage.view.AlertFactory;
 import oop.focus.common.Linker;
 import oop.focus.calendar.persons.model.PersonImpl;
 import oop.focus.calendarhomepage.view.AlertFactoryImpl;
@@ -49,6 +50,7 @@ public class AddNewPersonViewImpl implements GenericAddView {
 
     private final PersonsController controller;
     private Node root;
+    private AlertFactory alert;
     private final ObservableList<String> list;
     private final ObservableSet<String> set;
 
@@ -75,6 +77,7 @@ public class AddNewPersonViewImpl implements GenericAddView {
 
     @Override
     public final void initialize(final URL location, final ResourceBundle resources) {
+        this.alert = new AlertFactoryImpl();
         this.setButtonOnAction();
     }
 
@@ -134,7 +137,7 @@ public class AddNewPersonViewImpl implements GenericAddView {
             this.controller.addPerson(new PersonImpl(this.nameTextField.getText(), this.degreeComboBox.getSelectionModel().getSelectedItem()));
             this.goBack(event);
         } else {
-            new AlertFactoryImpl().createIncompleteFieldAlert();
+            this.alert.createIncompleteFieldAlert();
         }
     }
 

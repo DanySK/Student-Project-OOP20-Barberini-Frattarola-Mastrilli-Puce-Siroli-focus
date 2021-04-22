@@ -16,9 +16,4 @@ public interface RelationshipsView extends Initializable, View {
      */
     void deleteRelationships();
 
-    /**
-     * This method is used to get the root of the view.
-     * @return Node that represent the root.
-     */
-    Node getRoot();
 }

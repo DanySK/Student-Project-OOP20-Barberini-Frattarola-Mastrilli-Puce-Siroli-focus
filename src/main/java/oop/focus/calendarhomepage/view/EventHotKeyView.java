@@ -24,10 +24,6 @@ public class EventHotKeyView extends Pane implements HotKeyView {
         this.getChildren().add(this.button);
     }
 
-    public final Button getButton() {
-        return this.button;
-    }
-
     public final void setAction() {
         this.button.setOnAction(event -> {
             this.controller.setText(this.button.getText());
