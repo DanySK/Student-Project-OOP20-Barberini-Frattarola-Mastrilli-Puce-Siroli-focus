@@ -1,5 +1,4 @@
 package oop.focus.homepage;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -40,14 +39,12 @@ public class TimePropertyTest {
     @Test
     public void durationHourTest() {
     	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 11, 30), Repetition.ONCE);
-    	final Event second = new EventImpl("Compleanno", new LocalDateTime(2021, 9, 27, 0, 0), new LocalDateTime(2021, 9, 28, 0, 0), Repetition.ONCE);
-    	final Event third = new EventImpl("Madrid", new LocalDateTime(2021, 9, 26, 12, 30), new LocalDateTime(2021, 9, 30, 9, 30), Repetition.ONCE);
-    	final Event fourth = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 9, 0), new LocalDateTime(2021, 9, 25, 16, 0), Repetition.ONCE);
+    	final Event second = new EventImpl("Madrid", new LocalDateTime(2021, 9, 26, 12, 30), new LocalDateTime(2021, 9, 26, 12, 44), Repetition.ONCE);
+    	final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 25, 9, 0), new LocalDateTime(2021, 9, 25, 9, 05), Repetition.ONCE);
 
     	assertTrue(this.time.getHourDuration(first));
-    	assertFalse(this.time.getHourDuration(second));
-    	assertFalse(this.time.getHourDuration(third));
-    	assertTrue(this.time.getHourDuration(fourth));
+    	assertTrue(this.time.getHourDuration(second));
+    	assertTrue(this.time.getHourDuration(third));
     }
 
 	/**
@@ -57,11 +54,11 @@ public class TimePropertyTest {
     public void respectMinimumDurationTest() {
     	final Event first = new EventImpl("Shopping", new LocalDateTime(2021, 9, 26, 9, 30), new LocalDateTime(2021, 9, 26, 10, 30), Repetition.ONCE);
         final Event second = new EventImpl("Palestra", new LocalDateTime(2021, 9, 26, 8, 30), new LocalDateTime(2021, 9, 26, 8, 45), Repetition.ONCE);
-        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 9, 45), new LocalDateTime(2021, 9, 26, 10, 0), Repetition.ONCE);
+        final Event third = new EventImpl("Università", new LocalDateTime(2021, 9, 26, 9, 45), new LocalDateTime(2021, 9, 26, 9, 50), Repetition.ONCE);
         final Event four = new EventImpl("Cinema", new LocalDateTime(2021, 9, 26, 19, 30), new LocalDateTime(2021, 9, 26, 22, 45), Repetition.ONCE);
 
     	assertTrue(this.time.getMinEventTime(first));
-    	assertFalse(this.time.getMinEventTime(second));
+    	assertTrue(this.time.getMinEventTime(second));
     	assertFalse(this.time.getMinEventTime(third));
     	assertTrue(this.time.getMinEventTime(four));
     }
