@@ -105,6 +105,8 @@ public class ToDoListView implements View, Initializable {
      */
     @Override
     public void initialize(final URL location, final ResourceBundle resources) {
+        this.containerTDL.setFitToWidth(true);
+        this.containerTDL.vbarPolicyProperty().set(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         this.vBox = (VBox) new ContainerFactoryImpl().mergeVertically(List.of(this.toDoListLabel, this.containerTDL,
                 this.hBox)).getRoot();
         this.toDoListLabel.setText("To Do List");

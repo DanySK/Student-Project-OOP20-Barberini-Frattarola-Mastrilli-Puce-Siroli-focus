@@ -1,6 +1,7 @@
 package oop.focus.diary.controller;
 import oop.focus.application.controller.SectionsController;
 import oop.focus.common.Controller;
+import oop.focus.common.UpdatableController;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.diary.view.ContainerFactoryImpl;
@@ -18,8 +19,8 @@ public class GeneralDiaryController implements Controller {
      * @param dataSource    dataSource the {@link DataSource} from which to retrieve data
      */
     public GeneralDiaryController(final DataSource dataSource) {
-        final SectionsController controller = new SectionsController();
-        final ButtonsDiaryController buttonController = new ButtonsDiaryController(controller, dataSource);
+        final UpdatableController<Controller> controller = new SectionsController();
+        final Controller buttonController = new ButtonsDiaryController(controller, dataSource);
         this.content = new ContainerFactoryImpl().mergeHorizontally(List.of(buttonController.getView().getRoot(),
                 controller.getView().getRoot()));
     }

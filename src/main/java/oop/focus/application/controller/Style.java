@@ -19,7 +19,11 @@ public enum Style {
     /**
      *
      */
-    DIARY_STYLE(Constants.STYLES + "diaryStyle.css");
+    DIARY_STYLE(Constants.STYLES + "diaryStyle.css"),
+    /**
+     *
+     */
+    FINANCE_STYLE(Constants.STYLES + "financeStyle.css");
     private final String path;
 
     Style(final String path) {

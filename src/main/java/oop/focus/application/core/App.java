@@ -10,6 +10,8 @@ import oop.focus.application.controller.Style;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 /**
  * This class represent the Main class of the JavaFX-based application and starts application.
@@ -26,10 +28,7 @@ public class App extends Application {
     @Override
     public void start(final Stage primaryStage) {
         final Scene scene = new Scene((Parent) this.controller.getView().getRoot());
-        scene.getStylesheets().add(Style.GENERAL_STYLE.getPath());
-        scene.getStylesheets().add(Style.STATISTIC_STYLE.getPath());
-        scene.getStylesheets().add(Style.CALENDAR_STYLE.getPath());
-        scene.getStylesheets().add(Style.DIARY_STYLE.getPath());
+        Arrays.stream(Style.values()).collect(Collectors.toList()).forEach(s -> scene.getStylesheets().add(s.getPath()));
         primaryStage.setHeight(this.height);
         primaryStage.setWidth(this.width);
         primaryStage.setScene(scene);
