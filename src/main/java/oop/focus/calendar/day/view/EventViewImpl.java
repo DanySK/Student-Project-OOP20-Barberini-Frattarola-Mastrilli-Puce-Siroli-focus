@@ -121,8 +121,8 @@ public class EventViewImpl implements VBoxManager {
         }
 
 
-        final double endHour;
-        final double startHour;
+        double endHour;
+        double startHour;
 
         if (this.events.get(i).getEndDate().getDayOfMonth() == this.day.getNumber() && this.events.get(i).getStartDate().getDayOfMonth() != this.day.getNumber()) {
             endHour = this.events.get(i).getEndHour().getHourOfDay();
@@ -130,7 +130,11 @@ public class EventViewImpl implements VBoxManager {
         } else {
             startHour = this.events.get(i).getStartHour().getHourOfDay();
             if (this.events.get(i).getEndHour().getHourOfDay() == 0) {
-                endHour = Format.NORMAL.getNumber();
+                if (!this.events.get(i).getEndDate().dayOfMonth().equals(this.events.get(i).getStartDate().dayOfMonth())) {
+                    endHour = Format.NORMAL.getNumber();
+                } else {
+                    endHour = 0;
+                }
             } else {
                 if (!this.events.get(i).getEndDate().dayOfMonth().equals(this.events.get(i).getStartDate().dayOfMonth())) {
                     endHour = Format.NORMAL.getNumber();

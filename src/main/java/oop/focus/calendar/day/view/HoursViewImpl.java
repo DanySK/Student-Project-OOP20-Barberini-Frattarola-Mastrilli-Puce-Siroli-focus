@@ -102,17 +102,31 @@ public class HoursViewImpl implements HoursView {
 
         if (this.hoursFormat == Format.NORMAL.getNumber()) {
             for (int i = 0; i <= this.hoursFormat; i++) {
-                    final Label label = new Label(i + ":00");
+                final Label label;
+                if (i == Format.NORMAL.getNumber()) {
+                    label = new Label("00:00");
+                } else {
+                    label = new Label(i + ":00");
+                }
                 this.buildLabel(label, vBox, i);
             }
         } else {
             for (int i = 0; i <= this.hoursFormat; i++) {
+                final Label label;
                 if (this.flag) {
-                    final Label label = new Label(i / 2 + ":00");
+                    if (i == Format.EXTENDED.getNumber()) {
+                        label = new Label("00:00");
+                    } else {
+                        label = new Label(i / 2 + ":00");
+                    }
                     this.buildLabel(label, vBox, i);
                     this.flag = false;
                 } else {
-                    final Label label = new Label(i / 2 + ":30");
+                    if (i == Format.EXTENDED.getNumber()) {
+                        label = new Label("00:30");
+                    } else {
+                        label = new Label(i / 2 + ":30");
+                    }
                     this.buildLabel(label, vBox, i);
                     this.flag = true;
                 }
