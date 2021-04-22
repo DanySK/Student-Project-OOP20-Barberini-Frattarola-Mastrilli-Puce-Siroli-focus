@@ -2,26 +2,15 @@ package oop.focus.finance.view.windows;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import oop.focus.finance.controller.FXMLPaths;
 
 /**
  * Class that implements the view of an element detail view window.
  * In addition to viewing the details, actions on the element are also generally allowed.
- *
- * @param <X> type of the controller that manages the item shown in detail
- * @param <Y> type of the item shown in detail
  */
-public abstract class GenericDetailsWindow<X, Y> extends GenericWindow<Y> implements FinanceDetailsWindow<X> {
+public abstract class GenericDetailsWindow extends GenericWindow implements FinanceDetailsWindow {
 
     @FXML
     private Button closeButton, deleteButton;
-
-    private final X controller;
-
-    public GenericDetailsWindow(final X controller, final Y element, final FXMLPaths path) {
-        super(element, path);
-        this.controller = controller;
-    }
 
     /**
      * {@inheritDoc}
@@ -36,22 +25,15 @@ public abstract class GenericDetailsWindow<X, Y> extends GenericWindow<Y> implem
     /**
      * Populates static labels of fxml file.
      */
-    @Override
-    public void populateStaticLabels() { }
+    protected void populateStaticLabels() { }
 
     /**
      * Populates buttons of fxml file.
      */
-    @Override
-    public void populateButtons() {
+    protected void populateButtons() {
         this.deleteButton.setText("Elimina");
         this.closeButton.setText("Chiudi");
         this.deleteButton.setOnAction(event -> this.save());
         this.closeButton.setOnAction(event -> this.close());
-    }
-
-    @Override
-    public final X getController() {
-        return this.controller;
     }
 }

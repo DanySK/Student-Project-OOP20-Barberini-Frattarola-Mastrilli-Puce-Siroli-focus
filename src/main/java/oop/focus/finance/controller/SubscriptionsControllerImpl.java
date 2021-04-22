@@ -77,9 +77,4 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     public final double getTransactionAmount(final Transaction t) {
         return (double) t.getAmount() / 100;
     }
-
-    @Override
-    public final FinanceManager getManager() {
-        return this.manager;
-    }
 }

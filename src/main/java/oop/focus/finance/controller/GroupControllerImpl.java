@@ -5,6 +5,7 @@ import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
+import oop.focus.finance.view.bases.GroupView;
 import oop.focus.finance.view.bases.GroupViewImpl;
 import oop.focus.calendar.persons.model.Person;
 import java.util.Comparator;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public class GroupControllerImpl implements GroupController {
 
-    private final GroupViewImpl view;
+    private final GroupView view;
     private final FinanceManager manager;
 
     private final ObservableSet<Person> group;

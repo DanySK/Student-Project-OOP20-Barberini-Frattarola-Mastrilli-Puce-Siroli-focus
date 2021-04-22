@@ -7,13 +7,15 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticFormats;
 
 import java.util.Optional;
 
 /**
  * Class that implements the detail view of a subscription.
  */
-public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<SubscriptionsController, Transaction> {
+public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow {
 
     @FXML
     private Label titleLabel, dateLabel, dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel,
@@ -21,8 +23,13 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
     @FXML
     private Button deleteButton, closeButton;
 
+    private final SubscriptionsController controller;
+    private final Transaction subscription;
+
     public SubscriptionDetailsWindowImpl(final SubscriptionsController controller, final Transaction subscription) {
-        super(controller, subscription, FXMLPaths.TRANSACTIONDETAILS);
+        this.controller = controller;
+        this.subscription = subscription;
+        this.loadFXML(FXMLPaths.TRANSACTIONDETAILS);
     }
 
     /**
@@ -39,12 +46,12 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
      */
     @Override
     public final void populateDynamicLabels() {
-        this.dataDescriptionLabel.setText(super.getX().getDescription());
-        this.dataCategoryLabel.setText(super.getX().getCategory().getName());
-        this.dataDateLabel.setText(super.getX().getDateToString());
-        this.dataAccountLabel.setText(super.getX().getAccount().getName());
-        this.dataAmountLabel.setText(this.format((double) super.getX().getAmount() / 100));
-        this.dataSubscriptionLabel.setText(super.getX().getRepetition().getName());
+        this.dataDescriptionLabel.setText(this.subscription.getDescription());
+        this.dataCategoryLabel.setText(this.subscription.getCategory().getName());
+        this.dataDateLabel.setText(StaticFormats.formatDate(this.subscription.getDate()));
+        this.dataAccountLabel.setText(this.subscription.getAccount().getName());
+        this.dataAmountLabel.setText(StaticFormats.formatAmount((double) this.subscription.getAmount() / 100));
+        this.dataSubscriptionLabel.setText(this.subscription.getRepetition().getName());
     }
 
     /**
@@ -64,9 +71,9 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow<Subscrip
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getController().stopSubscription(super.getX());
+            this.controller.stopSubscription(this.subscription);
         }
         this.close();
     }

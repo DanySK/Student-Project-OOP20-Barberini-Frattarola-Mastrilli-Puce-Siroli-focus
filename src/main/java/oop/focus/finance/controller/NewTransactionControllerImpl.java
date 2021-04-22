@@ -12,7 +12,6 @@ import oop.focus.finance.model.Category;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.TransactionImpl;
 import oop.focus.finance.view.windows.NewTransactionViewImpl;
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
 import java.util.Arrays;
@@ -58,9 +57,6 @@ public class NewTransactionControllerImpl implements NewTransactionController {
                                      final java.time.LocalDate date, final int hours, final int minutes, final Repetition repetition) {
         this.manager.addTransaction(new TransactionImpl(description, category, new LocalDateTime(date.getYear(), date.getMonthValue(),
                 date.getDayOfMonth(), hours, minutes, 0), account, (int) (amount * 100), repetition));
-        if (!repetition.equals(Repetition.ONCE)) {
-            this.manager.generateRepeatedTransactions(LocalDate.now());
-        }
     }
 
     @Override

@@ -13,11 +13,12 @@ import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.finance.controller.AddPersonController;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.calendar.persons.model.Person;
+import oop.focus.finance.view.StaticAllerts;
 
 /**
  * Class that implements the view of adding a person to the group of group transactions.
  */
-public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
+public class AddPersonViewImpl extends GenericWindow {
 
     @FXML
     private Pane newPersonPane;
@@ -28,8 +29,11 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
     @FXML
     private Button newPersonButton, cancelButton, saveButton;
 
+    private final AddPersonController controller;
+
     public AddPersonViewImpl(final AddPersonController controller) {
-        super(controller, FXMLPaths.ADDPERSON);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.ADDPERSON);
     }
 
     /**
@@ -38,7 +42,7 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
     @Override
     public final void populate() {
         this.newPersonButton.setText("Nuova persona");
-        this.personChoice.setItems(super.getX().getPersonsToAdd());
+        this.personChoice.setItems(this.controller.getPersonsToAdd());
         this.personChoice.setConverter(super.createStringConverter(Person::getName));
         this.newPersonButton.setOnAction(event -> this.showNewPerson());
         this.cancelButton.setOnAction(event -> this.close());
@@ -49,7 +53,7 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
      * Method that shows on the screen the window for creating a new person to add to the database.
      */
     private void showNewPerson() {
-        final PersonsController controller = new PersonsControllerImpl(super.getX().getDb());
+        final PersonsController controller = new PersonsControllerImpl(this.controller.getDb());
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) controller.getView().getRoot()));
         stage.show();
@@ -63,9 +67,9 @@ public class AddPersonViewImpl extends GenericWindow<AddPersonController> {
     @Override
     public final void save() {
         if (this.personChoice.getValue() == null) {
-            super.allert("Non hai selezionato nessuna persona.");
+            StaticAllerts.allert("Non hai selezionato nessuna persona.");
         } else {
-            super.getX().addPerson(this.personChoice.getValue());
+            this.controller.addPerson(this.personChoice.getValue());
             this.close();
         }
     }

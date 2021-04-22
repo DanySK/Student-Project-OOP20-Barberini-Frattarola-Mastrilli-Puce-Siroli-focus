@@ -26,16 +26,6 @@ public interface TransactionManager extends Manager<Transaction> {
     void stopRepeat(Transaction subscription);
 
     /**
-     * @return positive transactions' list
-     */
-    List<Transaction> getIncomes();
-
-    /**
-     * @return negative transactions' list
-     */
-    List<Transaction> getOutings();
-
-    /**
      * @return subscriptions' list
      */
     List<Transaction> getSubscriptions();

@@ -12,6 +12,7 @@ import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.finance.view.windows.SubscriptionDetailsWindowImpl;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of subscriptions.
  */
-public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> implements SubscriptionsView {
+public class SubscriptionsViewImpl extends GenericView implements SubscriptionsView {
 
     @FXML
     private BorderPane mainPane;
@@ -34,8 +35,11 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
     @FXML
     private Label monthlyLabel, annualLabel, monthlyTransactionLabel, annualTransactionLabel;
 
+    private final SubscriptionsController controller;
+
     public SubscriptionsViewImpl(final SubscriptionsController controller) {
-        super(controller, FXMLPaths.SUBS);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.SUBS);
     }
 
     /**
@@ -43,8 +47,8 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
      */
     @Override
     public final void populate() {
-        this.annualTransactionLabel.setText(this.format(super.getX().getYearlyExpense()));
-        this.monthlyTransactionLabel.setText(this.format(super.getX().getMonthlyExpense()));
+        this.annualTransactionLabel.setText(StaticFormats.formatAmount(this.controller.getYearlyExpense()));
+        this.monthlyTransactionLabel.setText(StaticFormats.formatAmount(this.controller.getMonthlyExpense()));
         this.setPref();
     }
 
@@ -67,7 +71,7 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
                 new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
-                        t.getRepetition().getName(), super.getX().getTransactionAmount(t))));
+                        t.getRepetition().getName(), this.controller.getTransactionAmount(t))));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(subscriptionsTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         subscriptionsTiles.forEach(t -> t.getRoot()
@@ -79,7 +83,7 @@ public class SubscriptionsViewImpl extends GenericView<SubscriptionsController> 
      * Method that shows the details of a transaction.
      */
     private void showDetails(final Transaction subscription) {
-        final View details = new SubscriptionDetailsWindowImpl(super.getX(), subscription);
+        final View details = new SubscriptionDetailsWindowImpl(this.controller, subscription);
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) details.getRoot()));
         stage.show();

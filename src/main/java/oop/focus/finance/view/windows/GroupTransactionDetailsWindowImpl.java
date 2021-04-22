@@ -7,15 +7,15 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.calendar.persons.model.Person;
+import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticFormats;
 
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Class that implements the detail view of a group transaction.
  */
-public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<GroupController, GroupTransaction> {
+public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow {
 
     @FXML
     private Label titleLabel, categoryLabel, accountLabel, subscriptionLabel, dataDescriptionLabel, dataCategoryLabel,
@@ -23,8 +23,13 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
     @FXML
     private Button deleteButton;
 
+    private final GroupController controller;
+    private final GroupTransaction transaction;
+
     public GroupTransactionDetailsWindowImpl(final GroupController controller, final GroupTransaction transaction) {
-        super(controller, transaction, FXMLPaths.TRANSACTIONDETAILS);
+        this.controller = controller;
+        this.transaction = transaction;
+        this.loadFXML(FXMLPaths.TRANSACTIONDETAILS);
     }
 
     /**
@@ -44,12 +49,12 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
      */
     @Override
     public final void populateDynamicLabels() {
-        this.dataDescriptionLabel.setText(super.getX().getDescription());
-        this.dataCategoryLabel.setText(super.getX().getMadeBy().getName());
-        this.dataDateLabel.setText(super.getX().getDateToString());
-        this.dataAccountLabel.setText(this.getFormattedForList());
-        this.dataAmountLabel.setText(this.format((double) super.getX().getAmount() / 100));
-        this.dataSubscriptionLabel.setText(this.format(this.getAmountPerPerson()));
+        this.dataDescriptionLabel.setText(this.transaction.getDescription());
+        this.dataCategoryLabel.setText(this.transaction.getMadeBy().getName());
+        this.dataDateLabel.setText(StaticFormats.formatDate(this.transaction.getDate()));
+        this.dataAccountLabel.setText(StaticFormats.formatPersonList(this.transaction.getForList()));
+        this.dataAmountLabel.setText(StaticFormats.formatAmount((double) this.transaction.getAmount() / 100));
+        this.dataSubscriptionLabel.setText(StaticFormats.formatAmount(this.getAmountPerPerson()));
     }
 
     /**
@@ -58,9 +63,9 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di voler elminare questa transazione di gruppo?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler elminare questa transazione di gruppo?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getController().deleteTransaction(super.getX());
+            this.controller.deleteTransaction(this.transaction);
         }
         this.close();
     }
@@ -69,13 +74,6 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow<Grou
      * @return the expense per person of a group transaction
      */
     private double getAmountPerPerson() {
-        return (double) super.getX().getAmount() / (super.getX().getForList().size() * 100);
-    }
-
-    /**
-     * @return a formatted string listing all the people who participated in the expense
-     */
-    private String getFormattedForList() {
-        return super.getX().getForList().stream().map(Person::getName).collect(Collectors.joining(", "));
+        return (double) this.transaction.getAmount() / (this.transaction.getForList().size() * 100);
     }
 }

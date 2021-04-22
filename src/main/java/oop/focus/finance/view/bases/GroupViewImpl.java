@@ -18,6 +18,8 @@ import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.controller.NewGroupTransactionControllerImpl;
 import oop.focus.finance.controller.ResolveControllerImpl;
 import oop.focus.finance.model.GroupTransaction;
+import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.finance.view.windows.AddPersonViewImpl;
@@ -37,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of group and group transactions.
  */
-public class GroupViewImpl extends GenericView<GroupController> implements GroupView {
+public class GroupViewImpl extends GenericView implements GroupView {
 
     @FXML
     private BorderPane mainPane;
@@ -46,10 +48,12 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     @FXML
     private Button peopleButton, groupTransactionsButton, newPersonButton, resolveButton, newGroupTransactionButton;
 
+    private final GroupController controller;
     private final ViewFactory viewFactory;
 
     public GroupViewImpl(final GroupController controller) {
-        super(controller, FXMLPaths.GROUP);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.GROUP);
         this.viewFactory = new ViewFactoryImpl();
     }
 
@@ -58,12 +62,12 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
      */
     @Override
     public final void populate() {
-        this.peopleButton.setOnAction(event -> super.getX().showPeople());
-        this.groupTransactionsButton.setOnAction(event -> super.getX().showTansactions());
+        this.peopleButton.setOnAction(event -> this.controller.showPeople());
+        this.groupTransactionsButton.setOnAction(event -> this.controller.showTansactions());
         this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(
-                new ResolveControllerImpl(super.getX().getManager()))));
+                new ResolveControllerImpl(this.controller.getManager()))));
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
-                new NewGroupTransactionViewImpl(new NewGroupTransactionControllerImpl(super.getX().getManager()))));
+                new NewGroupTransactionViewImpl(new NewGroupTransactionControllerImpl(this.controller.getManager()))));
         this.setPref();
     }
 
@@ -87,14 +91,14 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
     public final void showPeople() {
         this.newPersonButton.setText("Aggiungi persona al gruppo");
         this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(
-                new AddPersonControllerImpl(super.getX().getManager()))));
+                new AddPersonControllerImpl(this.controller.getManager()))));
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
-        super.getX().getSortedGroup().forEach(p -> personTiles.add(
-                new GenericTileViewImpl<>(p, p.getName(), super.getX().getCredit(p))));
+        this.controller.getSortedGroup().forEach(p -> personTiles.add(
+                new GenericTileViewImpl<>(p, p.getName(), this.controller.getCredit(p))));
         final View vbox = this.viewFactory.createVerticalAutoResizingWithNodes(personTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                        this.showWindow(new PersonDetailsWindowImpl(super.getX(), t.getElement()))));
+                        this.showWindow(new PersonDetailsWindowImpl(this.controller, t.getElement()))));
         this.groupMovementsScroll.setContent(vbox.getRoot());
     }
 
@@ -106,13 +110,13 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
         this.newPersonButton.setText("Reset");
         this.newPersonButton.setOnAction(event -> this.reset());
         final List<GenericTileView<GroupTransaction>> transactionTiles = new ArrayList<>();
-        super.getX().getSortedGroupTransactions().forEach(t -> transactionTiles.add(
+        this.controller.getSortedGroupTransactions().forEach(t -> transactionTiles.add(
                 new GenericTileViewImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
-                        + this.getForListNames(t.getForList()), (double) t.getAmount() / 100)));
+                        + StaticFormats.formatPersonList(t.getForList()), (double) t.getAmount() / 100)));
         final View vbox = this.viewFactory.createVerticalAutoResizingWithNodes(transactionTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         transactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                        this.showWindow(new GroupTransactionDetailsWindowImpl(super.getX(), t.getElement()))));
+                        this.showWindow(new GroupTransactionDetailsWindowImpl(this.controller, t.getElement()))));
         this.groupMovementsScroll.setContent(vbox.getRoot());
     }
 
@@ -131,21 +135,13 @@ public class GroupViewImpl extends GenericView<GroupController> implements Group
      * Method that after confirmation deletes all group transactions and group persons.
      */
     private void reset() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                super.getX().reset();
+                this.controller.reset();
             } catch (final IllegalStateException e) {
-                super.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
+                StaticAllerts.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }
-    }
-
-    /**
-     * @param list of persons
-     * @return a formatted string listing all the people in the list
-     */
-    private String getForListNames(final List<Person> list) {
-        return list.stream().map(Person::getName).collect(Collectors.joining(", "));
     }
 }

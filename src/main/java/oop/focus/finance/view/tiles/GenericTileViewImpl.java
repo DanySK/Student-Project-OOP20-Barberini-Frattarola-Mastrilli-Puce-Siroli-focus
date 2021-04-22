@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
+import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.bases.GenericView;
 
 /**
@@ -11,23 +12,26 @@ import oop.focus.finance.view.bases.GenericView;
  *
  * @param <X> type of the item that will be displayed
  */
-public class GenericTileViewImpl<X> extends GenericView<X> implements GenericTileView<X> {
+public class GenericTileViewImpl<X> extends GenericView implements GenericTileView<X> {
 
     @FXML
     private Label circlelabel, firstLabel, secondLabel, amountLabel, minusLabel;
 
-    public GenericTileViewImpl(final X x, final String color, final String first, final String second, final double amount) {
-        super(x, FXMLPaths.GENERICTILE);
-        this.setLabels(color, first, second, amount);
+    private final X element;
+
+    public GenericTileViewImpl(final X element, final String color, final String first, final String second, final double amount) {
+        this.element = element;
+        this.loadFXML(FXMLPaths.GENERICTILE);
         this.getRoot().getStyleClass().add("generic_tile");
+        this.setLabels(color, first, second, amount);
     }
 
-    public GenericTileViewImpl(final X x, final String first, final String second, final double amount) {
-        this(x, "", first, second, amount);
+    public GenericTileViewImpl(final X element, final String first, final String second, final double amount) {
+        this(element, "", first, second, amount);
     }
 
-    public GenericTileViewImpl(final X x, final String description, final double amount) {
-        this(x,  description, "", amount);
+    public GenericTileViewImpl(final X element, final String description, final double amount) {
+        this(element,  description, "", amount);
     }
 
     /**
@@ -48,7 +52,7 @@ public class GenericTileViewImpl<X> extends GenericView<X> implements GenericTil
         }
         this.firstLabel.setText(first);
         this.secondLabel.setText(second);
-        this.amountLabel.setText(this.format(Math.abs(amount)));
+        this.amountLabel.setText(StaticFormats.formatAmount(Math.abs(amount)));
         this.amountLabel.setTextFill(Color.valueOf(amount > 0 ? green : red));
         this.minusLabel.setVisible(amount < 0);
     }
@@ -61,6 +65,6 @@ public class GenericTileViewImpl<X> extends GenericView<X> implements GenericTil
 
     @Override
     public final X getElement() {
-        return super.getX();
+        return this.element;
     }
 }

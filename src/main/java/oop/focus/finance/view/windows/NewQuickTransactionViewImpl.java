@@ -18,11 +18,12 @@ import oop.focus.finance.controller.NewCategoryControllerImpl;
 import oop.focus.finance.controller.NewQuickTransactionController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
+import oop.focus.finance.view.StaticAllerts;
 
 /**
  * Class that implements the view of creating a new quick transaction.
  */
-public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransactionController> {
+public class NewQuickTransactionViewImpl extends GenericWindow {
 
     @FXML
     private Label titleLabel, repetitionLabel, dateLabel;
@@ -41,8 +42,11 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
     @FXML
     private Button cancelButton, saveButton, newCategoryButton;
 
+    private final NewQuickTransactionController controller;
+
     public NewQuickTransactionViewImpl(final NewQuickTransactionController controller) {
-        super(controller, FXMLPaths.NEWMOVEMENT);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.NEWMOVEMENT);
     }
 
     /**
@@ -57,9 +61,9 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
         this.repetitionChioce.setVisible(false);
         this.hoursTextField.setVisible(false);
         this.minutesTextField.setVisible(false);
-        this.categoryChoice.setItems(super.getX().getCategories());
+        this.categoryChoice.setItems(this.controller.getCategories());
         this.categoryChoice.setConverter(super.createStringConverter(Category::getName));
-        this.accountChoice.setItems(super.getX().getAccounts());
+        this.accountChoice.setItems(this.controller.getAccounts());
         this.accountChoice.setConverter(super.createStringConverter(Account::getName));
         this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
         this.typeChoice.setValue("Uscita");
@@ -72,7 +76,7 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
      * Method that shows on the screen the window for creating a new category to add to the database.
      */
     private void showNewCategory() {
-        final NewCategoryController controller = new NewCategoryControllerImpl(super.getX().getManager());
+        final NewCategoryController controller = new NewCategoryControllerImpl(this.controller.getManager());
         final Stage stage = new Stage();
         stage.setScene(new Scene((Parent) controller.getView().getRoot()));
         stage.show();
@@ -88,9 +92,9 @@ public class NewQuickTransactionViewImpl extends GenericWindow<NewQuickTransacti
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.typeChoice.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
                 || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0) {
-            super.allert("I campi non sono stati compilati correttamente.");
+            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
         } else {
-            super.getX().newQuickTransaction(this.descriptionTextField.getText(),
+            this.controller.newQuickTransaction(this.descriptionTextField.getText(),
                     Double.parseDouble(this.amountTextField.getText()) * ("uscita".equals(this.typeChoice.getValue()) ? -1 : 1),
                     this.categoryChoice.getValue(), this.accountChoice.getValue());
             this.close();

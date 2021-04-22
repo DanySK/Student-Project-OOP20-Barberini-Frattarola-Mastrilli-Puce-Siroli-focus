@@ -26,6 +26,7 @@ public class FinanceManagerImpl implements FinanceManager {
         this.transactions = new TransactionManagerImpl(this.db);
         this.quickTransactions = new QuickTransactionManagerImpl(this.db);
         this.group = new GroupManagerImpl(this.db);
+        this.generateRepeatedTransactions(LocalDate.now());
     }
 
     /**

@@ -22,7 +22,7 @@ import java.util.Set;
  */
 public class NewGroupTransactionControllerImpl implements NewGroupTransactionController {
 
-    private final GenericWindow<NewGroupTransactionController> view;
+    private final GenericWindow view;
     private final FinanceManager manager;
 
     private final ObservableSet<Person> group;

@@ -1,6 +1,5 @@
 package oop.focus.finance.view.bases;
 
-import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
 
 import java.util.List;
@@ -8,7 +7,7 @@ import java.util.List;
 /**
  * Interface that implements the subscriptions view.
  */
-public interface SubscriptionsView extends FinanceView<SubscriptionsController> {
+public interface SubscriptionsView extends FinanceView {
 
     /**
      * Show subscriptions in the subcriptionsScroll.

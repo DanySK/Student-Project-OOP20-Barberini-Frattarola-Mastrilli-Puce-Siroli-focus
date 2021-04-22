@@ -7,13 +7,14 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.calendar.persons.model.Person;
+import oop.focus.finance.view.StaticAllerts;
 
 import java.util.Optional;
 
 /**
  * Class that implements the detail view of a person.
  */
-public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupController, Person> {
+public class PersonDetailsWindowImpl extends GenericDetailsWindow {
 
     @FXML
     private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,
@@ -21,8 +22,13 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
     @FXML
     private Button deleteButton;
 
+    private final GroupController controller;
+    private final Person person;
+
     public PersonDetailsWindowImpl(final GroupController controller, final Person person) {
-        super(controller, person, FXMLPaths.TRANSACTIONDETAILS);
+        this.controller = controller;
+        this.person = person;
+        this.loadFXML(FXMLPaths.TRANSACTIONDETAILS);
     }
 
     /**
@@ -30,7 +36,7 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
      */
     @Override
     public final void populateStaticLabels() {
-        this.titleLabel.setText("DETTAGLI DI " + super.getX().getName());
+        this.titleLabel.setText("DETTAGLI DI " + this.person.getName());
         this.descriptionLabel.setText("Nome:");
         this.categoryLabel.setText("Parentela:");
         this.dateLabel.setVisible(false);
@@ -45,8 +51,8 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
      */
     @Override
     public final void populateDynamicLabels() {
-        this.dataDescriptionLabel.setText(super.getX().getName());
-        this.dataCategoryLabel.setText(super.getX().getRelationships());
+        this.dataDescriptionLabel.setText(this.person.getName());
+        this.dataCategoryLabel.setText(this.person.getRelationships());
     }
 
     /**
@@ -55,12 +61,12 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow<GroupControlle
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di voler elminare " + super.getX().getName() + "?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler elminare " + this.person.getName() + "?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                super.getController().deletePerson(super.getX());
-            } catch (IllegalStateException e) {
-                super.allert("Non e' possibile eliminare " + super.getX().getName() + " perche' ha ancora dei debiti.");
+                this.controller.deletePerson(this.person);
+            } catch (final IllegalStateException e) {
+                StaticAllerts.allert("Non e' possibile eliminare " + this.person.getName() + " perche' ha ancora dei debiti.");
             }
         }
         this.close();

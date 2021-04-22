@@ -26,10 +26,10 @@ public interface FinanceWindow extends View {
      * but a quick view.
      *
      * @param function that indicates what of the element we want to display
-     * @param <Y> type of the element we want to convert
+     * @param <X> type of the element we want to convert
      * @return a converter of elements to string
      */
-    <Y> StringConverter<Y> createStringConverter(Function<Y, String> function);
+    <X> StringConverter<X> createStringConverter(Function<X, String> function);
 
     /**
      * Method that checks if a string is not convertible to a number.

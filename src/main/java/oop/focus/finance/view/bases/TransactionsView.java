@@ -1,6 +1,5 @@
 package oop.focus.finance.view.bases;
 
-import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
 
@@ -10,7 +9,7 @@ import java.util.function.Predicate;
 /**
  * Interface that implements the transactions view.
  */
-public interface TransactionsView extends FinanceView<TransactionsController> {
+public interface TransactionsView extends FinanceView {
 
     /**
      * Shows transactions filtered by predicate.

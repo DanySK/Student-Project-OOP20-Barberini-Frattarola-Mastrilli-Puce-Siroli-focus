@@ -22,6 +22,8 @@ import oop.focus.finance.controller.NewTransactionControllerImpl;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.TransactionView;
 import oop.focus.finance.view.tiles.TransactionViewImpl;
 import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
@@ -37,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of transactions and accounts.
  */
-public class TransactionsViewImpl extends GenericView<TransactionsController> implements TransactionsView {
+public class TransactionsViewImpl extends GenericView implements TransactionsView {
 
     private static final double LEFT_RATIO = 0.072;
 
@@ -52,8 +54,11 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @FXML
     private Button newAccountButton, deleteButton, newTransactionButton;
 
+    private final TransactionsController controller;
+
     public TransactionsViewImpl(final TransactionsController controller) {
-        super(controller, FXMLPaths.ALL);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.ALL);
     }
 
     /**
@@ -62,11 +67,11 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
     @Override
     public final void populate() {
         this.newAccountButton.setOnAction(event -> this.showWindow(new NewAccountControllerImpl(
-                super.getX().getManager()).getView()));
+                this.controller.getManager()).getView()));
         this.newTransactionButton.setOnAction(event -> this.showWindow(new NewTransactionControllerImpl(
-                super.getX().getManager()).getView()));
+                this.controller.getManager()).getView()));
         this.deleteButton.setOnAction(event -> this.deleteAccounts());
-        final Node accountsButtons = new AccountButtonsImpl(super.getX()).getRoot();
+        final Node accountsButtons = new AccountButtonsImpl(this.controller).getRoot();
         this.accountsScroll.setContent(accountsButtons);
         this.setPref();
     }
@@ -93,16 +98,16 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
      */
     public final void updateTransactions(final List<Transaction> transactions, final Predicate<Account> predicate) {
         final ViewFactory viewFactory = new ViewFactoryImpl();
-        this.accountLabel.setText(super.getX().getAccountName());
-        this.amountLabel.setText(this.format(Math.abs(super.getX().getAmount(predicate))));
-        this.amountLabel.setTextFill(Color.valueOf(super.getX().getAmount(predicate) > 0 ? "008f39" : "cc0605"));
-        this.minusLabel.setVisible(super.getX().getAmount(predicate) < 0);
-        this.colorLabel.setTextFill(Color.valueOf(super.getX().getColor(predicate)));
-        this.deleteButton.setText("Elimina " + super.getX().getAccountName());
+        this.accountLabel.setText(this.controller.getAccountName());
+        this.amountLabel.setText(StaticFormats.formatAmount(Math.abs(this.controller.getAmount(predicate))));
+        this.amountLabel.setTextFill(Color.valueOf(this.controller.getAmount(predicate) > 0 ? "008f39" : "cc0605"));
+        this.minusLabel.setVisible(this.controller.getAmount(predicate) < 0);
+        this.colorLabel.setTextFill(Color.valueOf(this.controller.getColor(predicate)));
+        this.deleteButton.setText("Elimina " + this.controller.getAccountName());
         final List<TransactionView> transactionsTiles = new ArrayList<>();
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> this.showWindow(new TransactionDetailsWindowImpl(super.getX(), t.getTransaction()))));
+                event -> this.showWindow(new TransactionDetailsWindowImpl(this.controller, t.getTransaction()))));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionsTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.transactionsScroll.setContent(vbox.getRoot());
@@ -123,9 +128,9 @@ public class TransactionsViewImpl extends GenericView<TransactionsController> im
      * Method that after confirmation deletes the referring account(s).
      */
     private void deleteAccounts() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di voler eliminare " + super.getX().getAccountName() + "?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eliminare " + this.controller.getAccountName() + "?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getX().deleteAccounts();
+            this.controller.deleteAccounts();
         }
     }
 }

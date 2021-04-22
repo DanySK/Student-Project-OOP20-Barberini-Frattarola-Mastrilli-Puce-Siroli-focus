@@ -1,11 +1,9 @@
 package oop.focus.finance.model;
 
 import oop.focus.common.Repetition;
-import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -88,14 +86,6 @@ public class TransactionImpl implements Transaction {
     }
 
     @Override
-    public final String getDateToString() {
-        final DecimalFormat df = new DecimalFormat("#00");
-        return this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
-                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
-                + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
-    }
-
-    @Override
     public final boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -118,7 +108,7 @@ public class TransactionImpl implements Transaction {
     public final String toString() {
         return "Description: " + this.description
                 + ", category: " + this.category.getName()
-                + ", date: " + this.getDateToString()
+                + ", date: " + this.date
                 + ", account: " + this.account.getName()
                 + ", amount: " + this.amount
                 + ", repetition: " + this.repetition.getName();

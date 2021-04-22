@@ -16,7 +16,6 @@ public interface NewTransactionController extends Controller {
 
     /**
      * Creates a new transaction and saves it in the database.
-     * If possible, create the transactions to be generated automatically.
      *
      * @param description of the transaction to add
      * @param amount of the transaction to add

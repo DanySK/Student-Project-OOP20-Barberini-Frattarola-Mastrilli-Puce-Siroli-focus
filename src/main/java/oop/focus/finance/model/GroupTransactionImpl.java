@@ -1,10 +1,8 @@
 package oop.focus.finance.model;
 
 import oop.focus.calendar.persons.model.Person;
-import org.joda.time.DateTimeFieldType;
 import org.joda.time.LocalDateTime;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -55,14 +53,6 @@ public class GroupTransactionImpl implements GroupTransaction {
     }
 
     @Override
-    public final String getDateToString() {
-        final DecimalFormat df = new DecimalFormat("#00");
-        return this.date.get(DateTimeFieldType.year()) + "/" + this.date.get(DateTimeFieldType.monthOfYear()) + "/"
-                + this.date.get(DateTimeFieldType.dayOfMonth()) + "  " + df.format(this.date.get(DateTimeFieldType.hourOfDay()))
-                + ":" + df.format(this.date.get(DateTimeFieldType.minuteOfHour()));
-    }
-
-    @Override
     public final boolean equals(final Object o) {
         if (this == o) {
             return true;
@@ -87,6 +77,6 @@ public class GroupTransactionImpl implements GroupTransaction {
                 + ", made by: " + this.madeBy.getName()
                 + ", for: " + this.forList.stream().map(Person::getName).collect(Collectors.joining("- "))
                 + ", amount: " + this.amount
-                + ", date: " + this.getDateToString();
+                + ", date: " + this.date;
     }
 }

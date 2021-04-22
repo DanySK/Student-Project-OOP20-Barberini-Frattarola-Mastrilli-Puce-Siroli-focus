@@ -11,7 +11,7 @@ import oop.focus.finance.view.windows.NewAccountViewImpl;
  */
 public class NewAccountControllerImpl implements NewAccountController {
 
-    private final GenericWindow<NewAccountController> view;
+    private final GenericWindow view;
     private final FinanceManager manager;
 
     public NewAccountControllerImpl(final FinanceManager manager) {

@@ -4,24 +4,17 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.view.bases.GenericView;
 
 import java.util.function.Function;
 
 /**
  * Class that implements the view of a window.
- *
- * @param <X> type of the element passed as a field
  */
-public abstract class GenericWindow<X> extends GenericView<X> implements FinanceWindow {
+public abstract class GenericWindow extends GenericView implements FinanceWindow {
 
     @FXML
     private Pane mainPane;
-
-    public GenericWindow(final X x, final FXMLPaths path) {
-        super(x, path);
-    }
 
     /**
      * {@inheritDoc}
@@ -36,15 +29,15 @@ public abstract class GenericWindow<X> extends GenericView<X> implements Finance
      * {@inheritDoc}
      */
     @Override
-    public final <Y> StringConverter<Y> createStringConverter(final Function<Y, String> function) {
+    public final <X> StringConverter<X> createStringConverter(final Function<X, String> function) {
         return new StringConverter<>() {
             @Override
-            public String toString(final Y obj) {
+            public String toString(final X obj) {
                 return obj == null ? "" : function.apply(obj);
             }
 
             @Override
-            public Y fromString(final String s) {
+            public X fromString(final String s) {
                 throw new UnsupportedOperationException();
             }
         };

@@ -7,20 +7,27 @@ import oop.focus.common.Repetition;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Transaction;
+import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticFormats;
 
 import java.util.Optional;
 
 /**
  * Class that implements the detail view of a transaction.
  */
-public class TransactionDetailsWindowImpl extends GenericDetailsWindow<TransactionsController, Transaction> {
+public class TransactionDetailsWindowImpl extends GenericDetailsWindow {
 
     @FXML
     private Label dataDescriptionLabel, dataCategoryLabel, dataDateLabel,
             dataAccountLabel, dataAmountLabel, dataSubscriptionLabel;
 
+    private final TransactionsController controller;
+    private final Transaction transactions;
+
     public TransactionDetailsWindowImpl(final TransactionsController controller, final Transaction transaction) {
-        super(controller, transaction, FXMLPaths.TRANSACTIONDETAILS);
+        this.controller = controller;
+        this.transactions = transaction;
+        this.loadFXML(FXMLPaths.TRANSACTIONDETAILS);
     }
 
     /**
@@ -28,13 +35,13 @@ public class TransactionDetailsWindowImpl extends GenericDetailsWindow<Transacti
      */
     @Override
     public final void populateDynamicLabels() {
-        this.dataDescriptionLabel.setText(super.getX().getDescription());
-        this.dataCategoryLabel.setText(super.getX().getCategory().getName());
-        this.dataDateLabel.setText(super.getX().getDateToString());
-        this.dataAccountLabel.setText(super.getX().getAccount().getName());
-        this.dataAmountLabel.setText(this.format((double) super.getX().getAmount() / 100));
-        this.dataSubscriptionLabel.setText(super.getX().getRepetition().equals(Repetition.ONCE) ? "No"
-                : super.getX().getRepetition().getName());
+        this.dataDescriptionLabel.setText(this.transactions.getDescription());
+        this.dataCategoryLabel.setText(this.transactions.getCategory().getName());
+        this.dataDateLabel.setText(StaticFormats.formatDate(this.transactions.getDate()));
+        this.dataAccountLabel.setText(this.transactions.getAccount().getName());
+        this.dataAmountLabel.setText(StaticFormats.formatAmount((double) this.transactions.getAmount() / 100));
+        this.dataSubscriptionLabel.setText(this.transactions.getRepetition().equals(Repetition.ONCE) ? "No"
+                : this.transactions.getRepetition().getName());
     }
 
     /**
@@ -43,9 +50,9 @@ public class TransactionDetailsWindowImpl extends GenericDetailsWindow<Transacti
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di voler elminare la transazione?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler elminare la transazione?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getController().deleteTransaction(super.getX());
+            this.controller.deleteTransaction(this.transactions);
         }
         this.close();
     }

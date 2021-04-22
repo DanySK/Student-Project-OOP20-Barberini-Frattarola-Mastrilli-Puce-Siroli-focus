@@ -126,8 +126,6 @@ public class FinanceTest {
         // mi salvo quanti conti e transazioni ho già salvato
         final int numAcc = this.financeManager.getAccountManager().getElements().size();
         final int numTra = this.financeManager.getTransactionManager().getElements().size();
-        final int numInc = this.financeManager.getTransactionManager().getIncomes().size();
-        final int numOut = this.financeManager.getTransactionManager().getOutings().size();
         final int numSub = this.financeManager.getTransactionManager().getSubscriptions().size();
 
         // creo un conto
@@ -193,8 +191,6 @@ public class FinanceTest {
         assertEquals(6_000, this.financeManager.getAmount(account));
 
         // controllo il numero di transazioni positive, negative e abbonamenti
-        assertEquals(numInc+2, this.financeManager.getTransactionManager().getIncomes().size());
-        assertEquals(numOut+2, this.financeManager.getTransactionManager().getOutings().size());
         assertEquals(numSub, this.financeManager.getTransactionManager().getSubscriptions().size());
 
         // riporto tutto come da principio

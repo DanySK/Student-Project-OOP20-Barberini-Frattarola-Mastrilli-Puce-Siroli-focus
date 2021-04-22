@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.NewGroupTransactionController;
 import oop.focus.calendar.persons.model.Person;
+import oop.focus.finance.view.StaticAllerts;
 import oop.focus.statistics.view.MultiSelectorView;
 import org.joda.time.LocalDateTime;
 
@@ -19,7 +20,7 @@ import java.time.LocalDate;
 /**
  * Class that implements the view of creating a new group transaction.
  */
-public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransactionController> {
+public class NewGroupTransactionViewImpl extends GenericWindow {
 
     @FXML
     private Label titleLabel, descriptionLabel, madeByLabel, forLabel, amountLabel;
@@ -35,9 +36,11 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
     private DatePicker dataPicker;
 
     private MultiSelectorView<Person> multiSelector;
+    private final NewGroupTransactionController controller;
 
     public NewGroupTransactionViewImpl(final NewGroupTransactionController controller) {
-        super(controller, FXMLPaths.NEWGROUPMOV);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.NEWGROUPMOV);
     }
 
     /**
@@ -45,9 +48,9 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
      */
     @Override
     public final void populate() {
-        this.madeByChoice.setItems(super.getX().getGroupList());
+        this.madeByChoice.setItems(this.controller.getGroupList());
         this.madeByChoice.setConverter(super.createStringConverter(Person::getName));
-        this.multiSelector = new MultiSelectorView<>(super.getX().getGroup(), Person::getName);
+        this.multiSelector = new MultiSelectorView<>(this.controller.getGroup(), Person::getName);
         this.multiVBox.getChildren().add(this.multiSelector.getRoot());
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
@@ -66,11 +69,11 @@ public class NewGroupTransactionViewImpl extends GenericWindow<NewGroupTransacti
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null
                 || this.hoursTextField.getText().isEmpty() || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0
                 || this.minutesTextField.getText().isEmpty() || Double.parseDouble(this.amountTextField.getText()) < 0) {
-            super.allert("I campi non sono stati compilati correttamente.");
+            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
         } else if ((Double.parseDouble(this.amountTextField.getText()) * 100) % this.multiSelector.getSelected().size() > 0) {
-            super.allert("Non e' possibile dividere correttamente l'importo tra le persone selezionate.");
+            StaticAllerts.allert("Non e' possibile dividere correttamente l'importo tra le persone selezionate.");
         } else {
-            super.getX().newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
+            this.controller.newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
                     this.multiSelector.getSelected(), Double.parseDouble(this.amountTextField.getText()),
                     this.dataPicker.getValue(), Integer.parseInt(this.hoursTextField.getText()),
                     Integer.parseInt(this.minutesTextField.getText()));

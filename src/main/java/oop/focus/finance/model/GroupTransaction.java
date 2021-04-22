@@ -35,9 +35,4 @@ public interface GroupTransaction {
      * @return transaction's date
      */
     LocalDateTime getDate();
-
-    /**
-     * @return a readable version of group transaction date
-     */
-    String getDateToString();
 }

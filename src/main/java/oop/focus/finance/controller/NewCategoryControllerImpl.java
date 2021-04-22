@@ -11,7 +11,7 @@ import oop.focus.finance.view.windows.NewCategoryViewImpl;
  */
 public class NewCategoryControllerImpl implements NewCategoryController {
 
-    private final GenericWindow<NewCategoryController> view;
+    private final GenericWindow view;
     private final FinanceManager manager;
 
     public NewCategoryControllerImpl(final FinanceManager manager) {

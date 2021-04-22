@@ -1,7 +1,6 @@
 package oop.focus.finance.controller;
 
 import oop.focus.common.Controller;
-import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 
 /**
@@ -31,9 +30,4 @@ public interface SubscriptionsController extends Controller {
      * @return formatted transaction's amount
      */
     double getTransactionAmount(Transaction transaction);
-
-    /**
-     * @return manager of finance
-     */
-    FinanceManager getManager();
 }

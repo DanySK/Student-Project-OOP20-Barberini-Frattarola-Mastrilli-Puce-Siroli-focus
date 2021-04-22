@@ -9,6 +9,7 @@ import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.ResolveController;
 import oop.focus.finance.model.GroupTransaction;
+import oop.focus.finance.view.StaticAllerts;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.statistics.view.ViewFactory;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of all generated group transactions to quickly resolve all debts.
  */
-public class ResolveViewImpl extends GenericWindow<ResolveController> {
+public class ResolveViewImpl extends GenericWindow {
 
     @FXML
     private Label resolveLabel;
@@ -31,8 +32,11 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
     @FXML
     private Button cancelButton, saveButton;
 
+    private final ResolveController controller;
+
     public ResolveViewImpl(final ResolveController controller) {
-        super(controller, FXMLPaths.RESOLVE);
+        this.controller = controller;
+        this.loadFXML(FXMLPaths.RESOLVE);
     }
 
     /**
@@ -52,7 +56,7 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
     private void showResolvingTiles() {
         final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<GroupTransaction>> resolvingTiles = new ArrayList<>();
-        super.getX().getResolvingTransactions().forEach(t -> resolvingTiles.add(
+        this.controller.getResolvingTransactions().forEach(t -> resolvingTiles.add(
                 new GenericTileViewImpl<>(t, t.getMadeBy().getName() + " -> "
                         + t.getForList().get(0).getName(), (double) t.getAmount() / 100)));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(resolvingTiles.stream()
@@ -66,9 +70,9 @@ public class ResolveViewImpl extends GenericWindow<ResolveController> {
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = super.confirm("Sicuro di voler eseguire le transazioni risolutive?");
+        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eseguire le transazioni risolutive?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            super.getX().resolve();
+            this.controller.resolve();
         }
         this.close();
     }

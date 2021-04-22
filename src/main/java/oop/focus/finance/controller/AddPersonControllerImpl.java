@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
  */
 public class AddPersonControllerImpl implements AddPersonController {
 
-    private final GenericWindow<AddPersonController> view;
+    private final GenericWindow view;
     private final FinanceManager manager;
 
     public AddPersonControllerImpl(final FinanceManager manager) {

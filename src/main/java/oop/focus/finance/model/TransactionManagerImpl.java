@@ -87,16 +87,6 @@ public class TransactionManagerImpl implements TransactionManager {
     }
 
     @Override
-    public final List<Transaction> getIncomes() {
-        return this.filteredTransactions(t -> t.getAmount() > 0);
-    }
-
-    @Override
-    public final List<Transaction> getOutings() {
-        return this.filteredTransactions(t -> t.getAmount() < 0);
-    }
-
-    @Override
     public final List<Transaction> getSubscriptions() {
         return this.filteredTransactions(Transaction::isToBeRepeated);
     }
