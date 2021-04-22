@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderStroke;
 import javafx.scene.layout.BorderStrokeStyle;
 import javafx.scene.layout.BorderWidths;
 import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import oop.focus.calendar.model.Day;
@@ -99,8 +98,9 @@ public class EventViewImpl implements VBoxManager {
      * @param i index of the events
      */
     private void buildPanel(final VBox vbox, final int i) {
-        final Pane panel = new Pane();
+        final VBox panel = new VBox();
         final Label name = new Label(" " + this.events.get(i).getName());
+        name.setWrapText(true);
 
         panel.setBackground(new Background(
                 new BackgroundFill(Color.LIGHTGOLDENRODYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -110,7 +110,7 @@ public class EventViewImpl implements VBoxManager {
         panel.getChildren().add(name);
 
         if (i != 0) {
-            panel.setTranslateY(this.getY(i) - this.insertEventsDuration);
+            panel.setTranslateY(this.getY(i) - this.insertEventsDuration - name.fontProperty().get().getSize());
         } else {
             if (this.getY(i) == 0 && this.hours.getFormat() == Format.EXTENDED.getNumber()) {
                 panel.setTranslateY(this.getY(i));
