@@ -66,7 +66,7 @@ public class CounterControllerImpl implements CounterController {
      */
     @Override
     public final void stopSound() {
-        this.generalController.disableChooseEvent(true);
+        this.generalController.disableChooseEvent(false);
         if (this.isTimer) {
             this.disableTimerButtons(false);
         }
@@ -96,7 +96,7 @@ public class CounterControllerImpl implements CounterController {
      */
     @Override
     public final void stopTimer() {
-        this.generalController.disableChooseEvent(true);
+        this.generalController.disableChooseEvent(false);
         if (this.isTimer) {
             this.disableTimerButtons(false);
         }
