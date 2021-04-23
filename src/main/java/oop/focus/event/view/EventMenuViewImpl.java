@@ -74,7 +74,9 @@ public class EventMenuViewImpl implements EventMenuView {
 
     private void deleteHotKeyEvent() {
         final List<Event> hotKeys = this.controller.getHotKeyEvent();
-        hotKeys.forEach(h -> this.tableEvent.getItems().remove(h));
+        if (!hotKeys.isEmpty()) {
+            hotKeys.forEach(h -> this.tableEvent.getItems().remove(h));
+        }
     }
 
     private void addListener() {

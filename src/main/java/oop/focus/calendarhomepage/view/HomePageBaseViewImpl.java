@@ -68,6 +68,8 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
                 e.printStackTrace();
             }
             this.setRoot();
+            this.scroller.setFitToWidth(true);
+            this.scrollPane.setFitToWidth(true);
         }
 
         private void setRoot() {

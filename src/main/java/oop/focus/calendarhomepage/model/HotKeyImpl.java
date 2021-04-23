@@ -11,6 +11,7 @@ public class HotKeyImpl implements HotKey {
 
     private String name;
     private HotKeyType hotKeyType;
+    private String typeRepresentation;
 
     /**
      * Class constructor.
@@ -20,6 +21,7 @@ public class HotKeyImpl implements HotKey {
     public HotKeyImpl(final String s, final HotKeyType e) {
         this.name = s;
         this.hotKeyType = e;
+        this.typeRepresentation = this.hotKeyType.getType();
     }
 
     public final String getName() {
@@ -28,6 +30,10 @@ public class HotKeyImpl implements HotKey {
 
     public final HotKeyType getType() {
         return this.hotKeyType;
+    }
+
+    public final String getTypeRepresentation() {
+        return this.typeRepresentation;
     }
 
     public final void setName(final String newName) {
@@ -53,6 +59,7 @@ public class HotKeyImpl implements HotKey {
 
     public final void setType(final String newValue) {
         this.hotKeyType = HotKeyType.getTypeFrom(newValue);
+        this.typeRepresentation = newValue;
     }
 
 }

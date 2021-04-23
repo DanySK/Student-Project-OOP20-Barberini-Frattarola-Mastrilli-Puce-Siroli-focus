@@ -18,6 +18,12 @@ public interface HotKey {
     HotKeyType getType();
 
     /**
+     * This method is used to get the string representation of the hot key type.
+     * @return a string representing the type of the hot key.
+     */
+    String getTypeRepresentation();
+
+    /**
      * This method is used to modify the name.
      * @param newName is the new name of the hot key.
      */

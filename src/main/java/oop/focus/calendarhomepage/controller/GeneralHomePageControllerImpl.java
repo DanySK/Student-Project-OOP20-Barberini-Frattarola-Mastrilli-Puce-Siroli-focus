@@ -12,16 +12,16 @@ import java.util.List;
 public class GeneralHomePageControllerImpl implements GeneralHomePageController {
 
     private final HomePageController calendarHomePage;
-    private final FinanceHomePageController financheHomePage;
+    private final FinanceHomePageController financeHomePage;
 
     public GeneralHomePageControllerImpl(final DataSource dsi, final FinanceManager financeManager) {
         this.calendarHomePage = new HomePageControllerImpl(dsi);
-        this.financheHomePage = new FinanceHomePageControllerImpl(financeManager);
+        this.financeHomePage = new FinanceHomePageControllerImpl(financeManager);
     }
 
     public final View getView() {
-        return new ContainerFactoryImpl().mergeHorizontally(List.of(this.calendarHomePage.getView().getRoot(), this.financheHomePage.getView().getRoot()));
-    }
+        return new ContainerFactoryImpl().mergeHorizontally(List.of(this.calendarHomePage.getView().getRoot(), this.financeHomePage.getView().getRoot()));
+   }
 
     @Override
     public final HomePageController getHomePageController() {
