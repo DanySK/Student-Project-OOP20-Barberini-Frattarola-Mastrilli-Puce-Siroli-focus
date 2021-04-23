@@ -43,8 +43,8 @@ public class PieChartView implements SingleValueChart {
         this.pieChart.setLabelLineLength(ViewFactoryImpl.SCREEN_BOUNDS.getHeight() * TICK_RATIO);
         this.pieChart.setLegendVisible(true);
         this.pieChart.setLegendSide(Side.RIGHT);
+        this.setProperties();
     }
-
     /**
      * {@inheritDoc}
      */
@@ -105,6 +105,15 @@ public class PieChartView implements SingleValueChart {
 
     private String percentage(final Double value, final double sum) {
         return " " + this.format.format((value / sum) * 100) + "%";
+    }
+
+    private void setProperties() {
+        try {
+            this.title.getStyleClass().add("title");
+        } catch (final UnsupportedOperationException | NullPointerException
+                | ClassCastException | IllegalStateException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 
     private Pane createBox() {

@@ -1,7 +1,7 @@
 package oop.focus.statistics.model;
 
+import javafx.collections.ObservableSet;
 import javafx.util.Pair;
-import oop.focus.db.DataSource;
 import oop.focus.event.model.Event;
 import oop.focus.event.model.EventImpl;
 import org.joda.time.Days;
@@ -20,31 +20,40 @@ import java.util.stream.Stream;
  */
 public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
 
-    private static final int MAX_HOURS = 24 * 60;
-    private final DataSource dataSource;
+    private static final int MAX_MINUTES = 24 * 60;
+    private final ObservableSet<Event> events;
 
-    public EventsStatisticFactoryImpl(final DataSource dataSource) {
-        this.dataSource = dataSource;
+    public EventsStatisticFactoryImpl(final ObservableSet<Event> events) {
+        this.events = events;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Event, Pair<String, Integer>> eventsOccurrences() {
-        return new DataCreatorImpl<>(this.dataSource.getEvents().getAll(),
+        return new DataCreatorImpl<>(this.events,
                 (s) -> s.collect(Collectors.toMap(Event::getName, e -> 1,
                         Integer::sum)).entrySet().stream()
                         .map((a) -> new Pair<>(a.getKey(), a.getValue())).collect(Collectors.toSet()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Event, Pair<LocalDate, Integer>> eventTimePerDay(final String eventName) {
-        final var events = this.dataSource.getEvents().getAll();
+        final var events = this.events;
         return new GeneratedDataCreator<>(() -> events.stream().filter(e -> e.getName().equals(eventName)).collect(Collectors.toSet()),
                 s -> s.flatMap(this::getDividedEvents)
                         .collect(Collectors.toMap(Event::getStartDate, this::getDuration,
                                 Integer::sum)).entrySet().stream()
-                        .map((a) -> new Pair<>(a.getKey(), a.getValue() < MAX_HOURS ? a.getValue() : MAX_HOURS)).collect(Collectors.toSet()));
+                        .map((a) -> new Pair<>(a.getKey(), a.getValue() < MAX_MINUTES ? a.getValue() : MAX_MINUTES)).collect(Collectors.toSet()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<LocalDate, Pair<LocalDate, Integer>> eventTimePerDay(final String eventName,
                                                                                   final LocalDate start,
@@ -52,14 +61,13 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException();
         }
-        final var all = this.dataSource.getEvents().getAll();
         // avoid eclipse error by creating a variable : cannot infer type argument
         final Supplier<Set<LocalDate>> supplier = () -> Stream.iterate(start, d -> d.plusDays(1))
                 .limit(1 + Math.abs(Days.daysBetween(start, end).getDays()))
                 .collect(Collectors.toSet());
         final Function<Stream<LocalDate>, Set<Pair<LocalDate, Integer>>> function =
                 s -> s.collect(Collectors.toMap(Function.identity(),
-                        v -> all.stream()
+                        v -> this.events.stream()
                                 .filter(e -> e.getName().equals(eventName))
                                 .flatMap(this::getDividedEvents)
                                 .filter(e -> e.getStartDate().equals(v))
@@ -73,6 +81,13 @@ public class EventsStatisticFactoryImpl implements EventsStatisticFactory {
         return Math.abs(Minutes.minutesBetween(e.getEnd(), e.getStart()).getMinutes());
     }
 
+    /**
+     * a recursive method useful for dividing an event that
+     * occurs on different days into several under events each of which occurs within a day.
+     *
+     * @param event the event to be divided
+     * @return the list of sub-events
+     */
     private Stream<Event> getDividedEvents(final Event event) {
         final var start = event.getStartDate();
         final var end = event.getEndDate();

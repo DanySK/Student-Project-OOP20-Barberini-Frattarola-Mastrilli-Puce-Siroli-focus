@@ -7,3 +7,7 @@
     -fx-border-width: 0 1 0 1;
     -fx-border-color: #474545;
 }
+
+.title {
+    -fx-font-weight: bold;
+}

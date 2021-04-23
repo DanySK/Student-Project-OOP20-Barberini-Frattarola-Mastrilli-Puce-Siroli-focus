@@ -19,11 +19,6 @@ public class InputControllerFactoryImpl implements InputControllerFactory {
             final FinanceManager manager) {
         return new AbstractInputController<>(controller) {
             @Override
-            public void updateInput(final TimePeriodInput<Account> input) {
-                super.getController().updateInput(input);
-            }
-
-            @Override
             protected void createView() {
                 this.setView(new InputViewFactoryImpl()
                         .financeInputView(manager.getAccountManager().getElements(), this));
@@ -39,11 +34,6 @@ public class InputControllerFactoryImpl implements InputControllerFactory {
             final UpdatableController<TimePeriodInput<String>> controller,
             final DataSource dataSource) {
         return new AbstractInputController<>(controller) {
-            @Override
-            public void updateInput(final TimePeriodInput<String> input) {
-                super.getController().updateInput(input);
-            }
-
             @Override
             protected void createView() {
                 this.setView(new InputViewFactoryImpl()

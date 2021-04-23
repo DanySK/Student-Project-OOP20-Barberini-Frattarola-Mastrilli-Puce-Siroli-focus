@@ -45,7 +45,7 @@ public class TestEventTimePerDay {
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
         assertEquals(evt1.getStartDate(), evt2.getStartDate());
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
@@ -68,19 +68,19 @@ public class TestEventTimePerDay {
         }
     }
     @Test
-    public void testMultipleDays1(){
+    public void testMultipleDays1() {
         var events = this.dataSource.getEvents();
         String evtName = "evt1";
-        LocalDateTime s1 = new LocalDateTime(2018,1,1,7,0);
-        LocalDateTime f1 = new LocalDateTime(2018,1,1,7,30);
-        LocalDateTime s2 = new LocalDateTime(2018,1,2,18,0);
-        LocalDateTime f2 = new LocalDateTime(2018,1,2,22,0);
-        LocalDateTime s3 = new LocalDateTime(2018,2,3,10,0);
-        LocalDateTime f3 = new LocalDateTime(2018,2,3,15,0);
+        LocalDateTime s1 = new LocalDateTime(2018, 1, 1, 7, 0);
+        LocalDateTime f1 = new LocalDateTime(2018, 1, 1, 7, 30);
+        LocalDateTime s2 = new LocalDateTime(2018, 1, 2, 18, 0);
+        LocalDateTime f2 = new LocalDateTime(2018, 1, 2, 22, 0);
+        LocalDateTime s3 = new LocalDateTime(2018, 2, 3, 10, 0);
+        LocalDateTime f3 = new LocalDateTime(2018, 2, 3, 15, 0);
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
-        var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var evt3 = new EventImpl(evtName, s3, f3, Repetition.WEEKLY);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
@@ -105,19 +105,19 @@ public class TestEventTimePerDay {
         }
     }
     @Test
-    public void testMultipleDays2(){
+    public void testMultipleDays2() {
         var events = this.dataSource.getEvents();
         String evtName = "evt1";
-        LocalDateTime s1 = new LocalDateTime(2018,1,1,7,0);
-        LocalDateTime f1 = new LocalDateTime(2018,1,3,3,0);
-        LocalDateTime s2 = new LocalDateTime(2018,1,3,22,0);
-        LocalDateTime f2 = new LocalDateTime(2018,1,4,4,0);
-        LocalDateTime s3 = new LocalDateTime(2018,2,2,10,0);
-        LocalDateTime f3 = new LocalDateTime(2018,2,3,11,0);
+        LocalDateTime s1 = new LocalDateTime(2018, 1, 1, 7, 0);
+        LocalDateTime f1 = new LocalDateTime(2018, 1, 3, 3, 0);
+        LocalDateTime s2 = new LocalDateTime(2018, 1, 3, 22, 0);
+        LocalDateTime f2 = new LocalDateTime(2018, 1, 4, 4, 0);
+        LocalDateTime s3 = new LocalDateTime(2018, 2, 2, 10, 0);
+        LocalDateTime f3 = new LocalDateTime(2018, 2, 3, 11, 0);
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
-        var evt3 = new EventImpl("AnotherName",s3,f3,Repetition.WEEKLY);
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var evt3 = new EventImpl("AnotherName", s3, f3, Repetition.WEEKLY);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
@@ -142,19 +142,19 @@ public class TestEventTimePerDay {
         }
     }
     @Test
-    public void testMultipleDays3(){
+    public void testMultipleDays3() {
         var events = this.dataSource.getEvents();
         String evtName = "evt1";
-        LocalDateTime s1 = new LocalDateTime(2018,2,1,7,45);
-        LocalDateTime f1 = new LocalDateTime(2018,2,1,9,45);
-        LocalDateTime s2 = new LocalDateTime(2018,2,3,22,30);
-        LocalDateTime f2 = new LocalDateTime(2018,2,4,0,30);
-        LocalDateTime s3 = new LocalDateTime(2018,2,2,23,0);
-        LocalDateTime f3 = new LocalDateTime(2018,2,3,4,0);
+        LocalDateTime s1 = new LocalDateTime(2018, 2, 1, 7, 45);
+        LocalDateTime f1 = new LocalDateTime(2018, 2, 1, 9, 45);
+        LocalDateTime s2 = new LocalDateTime(2018, 2, 3, 22, 30);
+        LocalDateTime f2 = new LocalDateTime(2018, 2, 4, 0, 30);
+        LocalDateTime s3 = new LocalDateTime(2018, 2, 2, 23, 0);
+        LocalDateTime f3 = new LocalDateTime(2018, 2, 3, 4, 0);
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
-        var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var evt3 = new EventImpl(evtName, s3, f3, Repetition.WEEKLY);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         var dataset = factory.eventTimePerDay(evtName);
         try {
             events.save(evt1);
@@ -194,7 +194,7 @@ public class TestEventTimePerDay {
         var evt3 = new EventImpl(evtName, s3, f3, Repetition.WEEKLY);
         var start = new LocalDate(2018, 2, 1);
         var end = new LocalDate(2018, 2, 3);
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         var dataset = factory.eventTimePerDay(evtName,
                 start, end);
         try {
@@ -220,19 +220,19 @@ public class TestEventTimePerDay {
         }
     }
     @Test
-    public void testAutoUpdate(){
+    public void testAutoUpdate() {
         var events = this.dataSource.getEvents();
         String evtName = "evt1";
-        LocalDateTime s1 = new LocalDateTime(2018,2,1,7,45);
-        LocalDateTime f1 = new LocalDateTime(2018,2,1,9,45);
-        LocalDateTime s2 = new LocalDateTime(2018,2,3,22,30);
-        LocalDateTime f2 = new LocalDateTime(2018,2,4,0,30);
-        LocalDateTime s3 = new LocalDateTime(2018,2,2,23,0);
-        LocalDateTime f3 = new LocalDateTime(2018,2,3,4,0);
+        LocalDateTime s1 = new LocalDateTime(2018, 2, 1, 7, 45);
+        LocalDateTime f1 = new LocalDateTime(2018, 2, 1, 9, 45);
+        LocalDateTime s2 = new LocalDateTime(2018, 2, 3, 22, 30);
+        LocalDateTime f2 = new LocalDateTime(2018, 2, 4, 0, 30);
+        LocalDateTime s3 = new LocalDateTime(2018, 2, 2, 23, 0);
+        LocalDateTime f3 = new LocalDateTime(2018, 2, 3, 4, 0);
         var evt1 = new EventImpl(evtName, s1, f1, Repetition.DAILY);
         var evt2 = new EventImpl(evtName, s2, f2, Repetition.DAILY);
-        var evt3 = new EventImpl(evtName,s3,f3,Repetition.WEEKLY);
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var evt3 = new EventImpl(evtName, s3, f3, Repetition.WEEKLY);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         var dataset = factory.eventTimePerDay(evtName);
 
         try {
@@ -242,7 +242,7 @@ public class TestEventTimePerDay {
             fail();
             e.printStackTrace();
         }
-        var data = dataset.get();
+        final var data = dataset.get();
         assertEquals(3, data.size());
         assertEquals(List.of(2 * 60, 90, 30).stream().sorted().collect(Collectors.toList()),
                 data.stream().map(Pair::getValue).sorted().collect(Collectors.toList()));

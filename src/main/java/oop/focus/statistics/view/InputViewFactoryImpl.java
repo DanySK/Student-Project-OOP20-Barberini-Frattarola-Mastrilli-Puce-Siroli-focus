@@ -31,7 +31,7 @@ public class InputViewFactoryImpl implements InputViewFactory {
         final MultiSelector<Account> selector = new MultiSelectorView<>(accounts, Account::getName);
         return new AbstractPeriodInputView<>() {
             @Override
-            protected View createSelector() {
+            protected View addView() {
                 return new ViewFactoryImpl().createVerticalAutoResizingWithNodes(List.of(
                         new Label(ACCOUNT_LABEL),
                         selector.getRoot()));
@@ -63,7 +63,7 @@ public class InputViewFactoryImpl implements InputViewFactory {
             private MultiSelector<String> selector;
 
             @Override
-            protected View createSelector() {
+            protected View addView() {
                 this.addListener();
                 this.selector = new MultiSelectorView<>(this.eventNames, Function.identity());
                 return new ViewFactoryImpl()

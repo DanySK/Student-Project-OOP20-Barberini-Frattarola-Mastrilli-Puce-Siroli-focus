@@ -16,6 +16,9 @@ public class GeneratedDataCreator<X, Y> extends DataCreatorImpl<X, Y> {
         this.generator = generator;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Set<Y> get() {
         this.updateDataset();

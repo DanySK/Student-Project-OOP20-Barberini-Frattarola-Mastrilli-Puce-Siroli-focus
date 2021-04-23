@@ -8,7 +8,6 @@ import oop.focus.finance.model.Transaction;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
@@ -27,6 +26,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
         return map.entrySet().stream().map(e -> new Pair<>(e.getKey(), e.getValue())).collect(Collectors.toSet());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Account, Pair<Account, Integer>> accountBalances() {
         return new DataCreatorImpl<>(this.dataSource.getAccountManager().getElements(),
@@ -34,6 +36,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                         this.dataSource::getAmount))));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Transaction, Pair<Category, Integer>> categoryBalances() {
         return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getElements(),
@@ -42,6 +47,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Transaction, Pair<Category, Integer>> accountCategoryBalances(final Account account) {
         return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager().getElements()
@@ -50,6 +58,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                         Transaction::getAmount, Integer::sum))));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Transaction, Pair<LocalDate, Integer>> dailyExpenses() {
         return new DataCreatorImpl<>(this.dataSource.getTransactionManager().getElements(),
@@ -58,6 +69,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                         Transaction::getAmount, Integer::sum))));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<Transaction, Pair<LocalDate, Integer>> dailyAccountExpenses(final Account account) {
         return new GeneratedDataCreator<>(() -> this.dataSource.getTransactionManager()
@@ -67,6 +81,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                         Transaction::getAmount, Integer::sum))));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<LocalDate, Pair<LocalDate, Integer>> periodExpenses(final LocalDate start, final LocalDate end) {
         return new GeneratedDataCreator<>(
@@ -78,6 +95,9 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                                 .mapToInt(Transaction::getAmount).sum()))));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final DataCreator<LocalDate, Pair<LocalDate, Integer>> accountPeriodExpenses(final Account account,
                                                                                         final LocalDate start,
@@ -89,23 +109,6 @@ public class FinanceStatisticFactoryImpl implements FinanceStatisticFactory {
                         d -> this.dataSource.getTransactionManager().getElements().stream()
                                 .filter(t -> t.getDate().toLocalDate().equals(d) && t.getAccount().equals(account))
                                 .mapToInt(Transaction::getAmount).sum()))));
-    }
-
-    /**
-     * This method collects a Stream of pair (X, Integer) to a list of pairs (String, Double).
-     * The input function is used to transform each {@link Integer} value to a double value.
-     * Each X key of the pair is transformed to a String using the toString() method.
-     * This method is useful for transforming data so that it can be displayed in a chart.
-     *
-     * @param data the input stream of {@link Pair}
-     * @param fun  the function to map each Integer to a Double
-     * @param <X>  the {@link Pair} key type
-     * @return the list.
-     */
-    public static <X> List<Pair<String, Double>> collectData(final Stream<Pair<X, Integer>> data,
-                                                             final Function<Integer, Double> fun) {
-        return data.map(p -> new Pair<>(p.getKey().toString(), fun.apply(p.getValue())))
-                .collect(Collectors.toList());
     }
 
 }

@@ -1,7 +1,12 @@
 package oop.focus.db;
 
 import javafx.util.Pair;
-import oop.focus.diary.model.*;
+import oop.focus.diary.model.DailyMood;
+import oop.focus.diary.model.DailyMoodImpl;
+import oop.focus.diary.model.DiaryDao;
+import oop.focus.diary.model.DiaryImpl;
+import oop.focus.diary.model.ToDoAction;
+import oop.focus.diary.model.ToDoActionImpl;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.Category;
@@ -236,6 +241,11 @@ public class DataSourceImpl implements DataSource {
         final Function<Event, List<Integer>> function = (a) -> a.getPersons().stream()
                 .map(p -> this.persons.getId(p).orElse(NA))
                 .collect(Collectors.toList());
+        final List<Pair<String, Function<Event, String>>> fields = List.of(new Pair<>("name", Event::getName),
+                new Pair<>("startdate", e -> DF.print(e.getStart())),
+                new Pair<>("enddate", e -> DF.print(e.getEnd())),
+                new Pair<>("frequency", e -> String.valueOf(e.getRepetition().ordinal())),
+                new Pair<>("is_last", e -> e.isRepeated() ? "0" : "1"));
         final DataSourceParser<Event> parser = new ParserImpl<>("event", a -> {
             final var id = Integer.parseInt(a.remove(0));
             return new EventImpl(a.remove(0),
@@ -247,11 +257,7 @@ public class DataSourceImpl implements DataSource {
                             .filter(Objects::nonNull)
                             .collect(Collectors.toList()),
                     Integer.parseInt(a.remove(0)) == 0);
-        }, List.of(new Pair<>("name", Event::getName),
-                new Pair<>("startdate", e -> DF.print(e.getStart())),
-                new Pair<>("enddate", e -> DF.print(e.getEnd())),
-                new Pair<>("frequency", e -> String.valueOf(e.getRepetition().ordinal())),
-                new Pair<>("is_last", e -> e.isRepeated() ? "0" : "1")));
+        }, fields);
         return new RelationDao<>(parser, List.of(new Pair<>(this.eventPersons, function)));
     }
 

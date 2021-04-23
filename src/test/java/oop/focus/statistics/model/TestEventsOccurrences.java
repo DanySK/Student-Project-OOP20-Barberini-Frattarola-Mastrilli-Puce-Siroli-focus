@@ -21,7 +21,7 @@ public class TestEventsOccurrences {
     @Test
     public void testEventsOccurrences1() {
         var events = this.dataSource.getEvents();
-        var factory = new EventsStatisticFactoryImpl(this.dataSource);
+        var factory = new EventsStatisticFactoryImpl(this.dataSource.getEvents().getAll());
         String evt1Name = "evto1";
         String evt2Name = "evto2";
         String evt3Name = "evto3";

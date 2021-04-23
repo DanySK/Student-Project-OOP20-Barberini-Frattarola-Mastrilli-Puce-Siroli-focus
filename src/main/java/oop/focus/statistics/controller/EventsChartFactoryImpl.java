@@ -15,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static oop.focus.statistics.model.FinanceStatisticFactoryImpl.collectData;
+import static oop.focus.statistics.model.DataCreator.collectData;
 
 /**
  * Implementation of {@link EventsChartFactory}.
@@ -26,7 +26,7 @@ public class EventsChartFactoryImpl implements EventsChartFactory {
      */
     @Override
     public final UpdatableController<TimePeriodInput<String>> eventsOccurrences(final DataSource dataSource) {
-        final EventsStatisticFactory factory = new EventsStatisticFactoryImpl(dataSource);
+        final EventsStatisticFactory factory = new EventsStatisticFactoryImpl(dataSource.getEvents().getAll());
         final ObservableSet<Event> events = dataSource.getEvents().getAll();
         final var data = factory.eventsOccurrences();
         return new AbstractSingleValueChartController<>() {
@@ -53,7 +53,7 @@ public class EventsChartFactoryImpl implements EventsChartFactory {
      */
     @Override
     public final UpdatableController<TimePeriodInput<String>> eventsTimePerDays(final DataSource dataSource) {
-        final EventsStatisticFactory factory = new EventsStatisticFactoryImpl(dataSource);
+        final EventsStatisticFactory factory = new EventsStatisticFactoryImpl(dataSource.getEvents().getAll());
         return new AbstractMultiValueChartController<>() {
             private static final String TITLE = "Minuti giornalieri per evento";
 

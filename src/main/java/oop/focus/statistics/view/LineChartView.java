@@ -151,5 +151,11 @@ public class LineChartView implements MultiValueChart {
         this.xAxis.setAnimated(false);
         this.lineChart.setHorizontalGridLinesVisible(false);
         this.lineChart.setVerticalGridLinesVisible(false);
+        try {
+            this.title.getStyleClass().add("title");
+        } catch (final UnsupportedOperationException | NullPointerException
+                | ClassCastException | IllegalStateException | IllegalArgumentException e) {
+            e.printStackTrace();
+        }
     }
 }

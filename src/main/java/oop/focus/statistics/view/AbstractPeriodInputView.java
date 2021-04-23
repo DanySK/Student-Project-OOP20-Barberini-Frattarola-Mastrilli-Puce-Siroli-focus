@@ -42,7 +42,7 @@ public abstract class AbstractPeriodInputView<X> implements View {
      */
     public AbstractPeriodInputView() {
         this.root = this.createRoot();
-        final View selector = this.createSelector();
+        final View selector = this.addView();
         this.startDate = new DatePicker();
         this.endDate = new DatePicker();
         final var f = new ViewFactoryImpl();
@@ -63,12 +63,12 @@ public abstract class AbstractPeriodInputView<X> implements View {
     }
 
     /**
-     * Creates a view component that can allow the user to enter other data
-     * in addition to time period.
+     * Allows to add a view component in the default view. This method that can be used  to
+     * allow the user to enter other data in addition to time period.
      *
      * @return the view.
      */
-    protected abstract View createSelector();
+    protected abstract View addView();
 
     /**
      * The action to be performed when the user insert the data.

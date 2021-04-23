@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
-import static oop.focus.statistics.model.FinanceStatisticFactoryImpl.collectData;
+import static oop.focus.statistics.model.DataCreator.collectData;
+
 
 /**
  * Implementation of {@link FinanceChartFactory}.

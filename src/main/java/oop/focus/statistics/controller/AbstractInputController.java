@@ -18,7 +18,7 @@ public abstract class AbstractInputController<X> implements UpdatableController<
      * Instantiates a new Abstract input controller and creates the associated view,
      * using the createView() method.
      *
-     * @param controller the controller
+     * @param controller the controller to which the input will be updated
      */
     public AbstractInputController(final UpdatableController<X> controller) {
         this.controller = controller;
@@ -61,5 +61,7 @@ public abstract class AbstractInputController<X> implements UpdatableController<
      * {@inheritDoc}
      */
     @Override
-    public abstract void updateInput(X input);
+    public void updateInput(final X input) {
+        this.controller.updateInput(input);
+    }
 }
