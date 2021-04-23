@@ -14,7 +14,7 @@ import oop.focus.finance.view.StaticFormats;
 /**
  * Class that implements the view of creating a new account.
  */
-public class NewAccountViewImpl extends GenericWindow {
+public class NewAccountViewImplImpl extends FinanceWindowImpl {
 
     @FXML
     private Label titleLabel, nameLabel, amountLabel, colorLabel;
@@ -27,7 +27,7 @@ public class NewAccountViewImpl extends GenericWindow {
 
     private final NewAccountController controller;
 
-    public NewAccountViewImpl(final NewAccountController controller) {
+    public NewAccountViewImplImpl(final NewAccountController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWACCOUNT);
     }

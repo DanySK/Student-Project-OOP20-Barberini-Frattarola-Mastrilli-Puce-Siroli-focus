@@ -13,7 +13,7 @@ import oop.focus.finance.view.StaticFormats;
 /**
  * Class that implements the view of creating a new category.
  */
-public class NewCategoryViewImpl extends GenericWindow {
+public class NewCategoryViewImplImpl extends FinanceWindowImpl {
 
     @FXML
     private Label titleLabel, nameLabel, amountLabel, colorLabel, currencyLabel;
@@ -26,7 +26,7 @@ public class NewCategoryViewImpl extends GenericWindow {
 
     private final NewCategoryController controller;
 
-    public NewCategoryViewImpl(final NewCategoryController controller) {
+    public NewCategoryViewImplImpl(final NewCategoryController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWACCOUNT);
     }

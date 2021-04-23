@@ -24,7 +24,7 @@ public class AccountButtonsImpl implements View {
 
     public AccountButtonsImpl(final TransactionsController controller) {
         this.pane = ViewFactory.verticalWithPadding(PADDING_RATIO, PADDING_RATIO, PADDING_RATIO);
-        final List<FinanceMenuButton<TransactionsController>> accountButtons = new ArrayList<>();
+        final List<FinanceButton<TransactionsController>> accountButtons = new ArrayList<>();
         final ButtonFactory factory = new ButtonFactoryImpl();
         accountButtons.add(factory.getAllAccountTransactions());
         controller.getAccounts().stream()

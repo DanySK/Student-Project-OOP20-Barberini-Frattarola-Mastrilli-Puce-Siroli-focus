@@ -5,8 +5,8 @@ import javafx.collections.ObservableList;
 import oop.focus.common.View;
 import oop.focus.db.DataSource;
 import oop.focus.finance.model.FinanceManager;
-import oop.focus.finance.view.windows.AddPersonViewImpl;
-import oop.focus.finance.view.windows.GenericWindow;
+import oop.focus.finance.view.windows.AddPersonViewImplImpl;
+import oop.focus.finance.view.windows.FinanceWindowImpl;
 import oop.focus.calendar.persons.model.Person;
 
 import java.util.stream.Collectors;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
  */
 public class AddPersonControllerImpl implements AddPersonController {
 
-    private final GenericWindow view;
+    private final FinanceWindowImpl view;
     private final FinanceManager manager;
 
     public AddPersonControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new AddPersonViewImpl(this);
+        this.view = new AddPersonViewImplImpl(this);
     }
 
     /**

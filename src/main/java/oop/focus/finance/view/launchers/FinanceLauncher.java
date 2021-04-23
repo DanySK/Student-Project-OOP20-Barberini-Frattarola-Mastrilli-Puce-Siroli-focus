@@ -10,6 +10,9 @@ import oop.focus.finance.controller.ChangeViewControllerImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
 
+/**
+ * Class that shows video only the interface of the finance section without what concerns the home page.
+ */
 public class FinanceLauncher extends Application {
 
     @Override

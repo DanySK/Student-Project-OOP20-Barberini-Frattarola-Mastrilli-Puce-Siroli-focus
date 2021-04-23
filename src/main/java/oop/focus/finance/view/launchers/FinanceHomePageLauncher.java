@@ -10,6 +10,9 @@ import oop.focus.finance.controller.FinanceHomePageControllerImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.FinanceManagerImpl;
 
+/**
+ * Class showing video only the finance related home page screen.
+ */
 public class FinanceHomePageLauncher extends Application {
 
     @Override

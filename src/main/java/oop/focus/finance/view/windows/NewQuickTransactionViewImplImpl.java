@@ -23,7 +23,7 @@ import oop.focus.finance.view.StaticAlerts;
 /**
  * Class that implements the view of creating a new quick transaction.
  */
-public class NewQuickTransactionViewImpl extends GenericWindow {
+public class NewQuickTransactionViewImplImpl extends FinanceWindowImpl {
 
     @FXML
     private Label titleLabel, repetitionLabel, dateLabel;
@@ -44,7 +44,7 @@ public class NewQuickTransactionViewImpl extends GenericWindow {
 
     private final NewQuickTransactionController controller;
 
-    public NewQuickTransactionViewImpl(final NewQuickTransactionController controller) {
+    public NewQuickTransactionViewImplImpl(final NewQuickTransactionController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWMOVEMENT);
     }

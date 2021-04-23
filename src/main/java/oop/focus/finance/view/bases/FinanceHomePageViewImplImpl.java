@@ -23,7 +23,7 @@ import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
-import oop.focus.finance.view.tiles.GenericTileViewImpl;
+import oop.focus.finance.view.tiles.FinanceTileViewImplImpl;
 import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
  * Once the class is created, the home page is populated with all accounts,
  * with quick transactions and with the current day's transactions.
  */
-public class FinanceHomePageViewImpl extends GenericView implements FinanceHomePageView {
+public class FinanceHomePageViewImplImpl extends FinanceViewImpl implements FinanceHomePageView {
 
     private static final double RATIO = 0.01;
 
@@ -57,7 +57,7 @@ public class FinanceHomePageViewImpl extends GenericView implements FinanceHomeP
 
     private final FinanceHomePageController controller;
 
-    public FinanceHomePageViewImpl(final FinanceHomePageController controller) {
+    public FinanceHomePageViewImplImpl(final FinanceHomePageController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.HOMEPAGE);
     }
@@ -101,7 +101,7 @@ public class FinanceHomePageViewImpl extends GenericView implements FinanceHomeP
         final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Account>> fastAccountTiles = new ArrayList<>();
         this.controller.getSortedAccounts().forEach(a -> fastAccountTiles.add(
-                new GenericTileViewImpl<>(a, a.getColor(), a.getName(), "", this.controller.getAmount(a))));
+                new FinanceTileViewImplImpl<>(a, a.getColor(), a.getName(), "", this.controller.getAmount(a))));
         fastAccountTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> StaticAlerts.confirm("Per visualizzare le transazioni del conto, visita la sezione delle finanze.")));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(fastAccountTiles.stream()
@@ -117,7 +117,7 @@ public class FinanceHomePageViewImpl extends GenericView implements FinanceHomeP
         final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Transaction>> recentTransactionTiles = new ArrayList<>();
         this.controller.getSortedTodayTransactions().forEach(t -> recentTransactionTiles.add(
-                new GenericTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
+                new FinanceTileViewImplImpl<>(t, t.getCategory().getColor(), t.getDescription(),
                         t.getCategory().getName(), (double) t.getAmount() / 100)));
         recentTransactionTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> this.show(new TransactionDetailsWindowImpl(
@@ -133,9 +133,9 @@ public class FinanceHomePageViewImpl extends GenericView implements FinanceHomeP
     @Override
     public final void populateQuickTransactions() {
         final Pane pane = ViewFactory.verticalWithPadding(RATIO, RATIO, RATIO);
-        final List<FinanceMenuButton<FinanceHomePageController>> financeHotKeyButtons = new ArrayList<>();
+        final List<FinanceButton<FinanceHomePageController>> financeHotKeyButtons = new ArrayList<>();
         this.controller.getSortedQuickTransactions().forEach(qt -> financeHotKeyButtons.add(
-                new FinanceMenuButtonImpl<>(qt.getDescription(), c -> c.doQuickTransaction(qt))));
+                new FinanceButtonImpl<>(qt.getDescription(), c -> c.doQuickTransaction(qt))));
         financeHotKeyButtons.forEach(b -> {
             pane.getChildren().add(b.getButton());
             b.getButton().setPrefWidth(Screen.getPrimary().getBounds().getWidth());

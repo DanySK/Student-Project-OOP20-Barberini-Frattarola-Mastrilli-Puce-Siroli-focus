@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
  * Class that implements the view of an element detail view window.
  * In addition to viewing the details, actions on the element are also generally allowed.
  */
-public abstract class GenericDetailsWindow extends GenericWindow implements FinanceDetailsWindow {
+public abstract class FinanceDetailsWindowImpl extends FinanceWindowImpl implements FinanceDetailsWindow {
 
     @FXML
     private Button closeButton, deleteButton;

@@ -11,7 +11,7 @@ import oop.focus.finance.controller.FXMLPaths;
 /**
  * Class that implements the finance section skeleton view.
  */
-public class BaseViewImpl extends GenericView implements BaseView {
+public class BaseViewImplImpl extends FinanceViewImpl implements BaseView {
 
     private static final double LEFT_MENU_RATIO = 0.075;
 
@@ -22,7 +22,7 @@ public class BaseViewImpl extends GenericView implements BaseView {
 
     private final ChangeViewController controller;
 
-    public BaseViewImpl(final ChangeViewController controller) {
+    public BaseViewImplImpl(final ChangeViewController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.MAIN);
     }

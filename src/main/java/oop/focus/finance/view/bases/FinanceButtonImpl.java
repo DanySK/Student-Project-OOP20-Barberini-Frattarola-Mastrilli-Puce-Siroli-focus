@@ -9,12 +9,12 @@ import java.util.function.Consumer;
  *
  * @param <X> type of controller in which the method executed in the button action is present
  */
-public class FinanceMenuButtonImpl<X> implements FinanceMenuButton<X> {
+public class FinanceButtonImpl<X> implements FinanceButton<X> {
 
     private final Button button;
     private final Consumer<X> action;
 
-    public FinanceMenuButtonImpl(final String string, final Consumer<X> action) {
+    public FinanceButtonImpl(final String string, final Consumer<X> action) {
         this.button = new Button(string);
         this.action = action;
     }

@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * Class that implements the detail view of a subscription.
  */
-public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow {
+public class SubscriptionDetailsWindowImpl extends FinanceDetailsWindowImpl {
 
     @FXML
     private Label titleLabel, dateLabel, dataDescriptionLabel, dataCategoryLabel, dataDateLabel, dataAccountLabel,

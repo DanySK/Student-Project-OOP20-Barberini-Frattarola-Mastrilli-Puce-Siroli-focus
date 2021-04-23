@@ -5,32 +5,32 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.view.StaticFormats;
-import oop.focus.finance.view.bases.GenericView;
+import oop.focus.finance.view.bases.FinanceViewImpl;
 
 /**
  * Class that implements the view of an element, showing the main details.
  *
  * @param <X> type of the item that will be displayed
  */
-public class GenericTileViewImpl<X> extends GenericView implements GenericTileView<X> {
+public class FinanceTileViewImplImpl<X> extends FinanceViewImpl implements GenericTileView<X> {
 
     @FXML
     private Label circleLabel, firstLabel, secondLabel, amountLabel, minusLabel;
 
     private final X element;
 
-    public GenericTileViewImpl(final X element, final String color, final String first, final String second, final double amount) {
+    public FinanceTileViewImplImpl(final X element, final String color, final String first, final String second, final double amount) {
         this.element = element;
         this.loadFXML(FXMLPaths.GENERICTILE);
         this.getRoot().getStyleClass().add("generic_tile");
         this.setLabels(color, first, second, amount);
     }
 
-    public GenericTileViewImpl(final X element, final String first, final String second, final double amount) {
+    public FinanceTileViewImplImpl(final X element, final String first, final String second, final double amount) {
         this(element, "", first, second, amount);
     }
 
-    public GenericTileViewImpl(final X element, final String description, final double amount) {
+    public FinanceTileViewImplImpl(final X element, final String description, final double amount) {
         this(element,  description, "", amount);
     }
 

@@ -16,7 +16,7 @@ import java.util.Optional;
 /**
  * Class that implements the detail view of a transaction.
  */
-public class TransactionDetailsWindowImpl extends GenericDetailsWindow {
+public class TransactionDetailsWindowImpl extends FinanceDetailsWindowImpl {
 
     @FXML
     private Label dataDescriptionLabel, dataCategoryLabel, dataDateLabel,

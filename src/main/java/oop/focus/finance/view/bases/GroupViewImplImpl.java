@@ -21,12 +21,12 @@ import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
-import oop.focus.finance.view.tiles.GenericTileViewImpl;
-import oop.focus.finance.view.windows.AddPersonViewImpl;
+import oop.focus.finance.view.tiles.FinanceTileViewImplImpl;
+import oop.focus.finance.view.windows.AddPersonViewImplImpl;
 import oop.focus.finance.view.windows.GroupTransactionDetailsWindowImpl;
-import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
+import oop.focus.finance.view.windows.NewGroupTransactionViewImplImpl;
 import oop.focus.finance.view.windows.PersonDetailsWindowImpl;
-import oop.focus.finance.view.windows.ResolveViewImpl;
+import oop.focus.finance.view.windows.ResolveViewImplImpl;
 import oop.focus.calendar.persons.model.Person;
 import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of group and group transactions.
  */
-public class GroupViewImpl extends GenericView implements GroupView {
+public class GroupViewImplImpl extends FinanceViewImpl implements GroupView {
 
     @FXML
     private BorderPane mainPane;
@@ -51,7 +51,7 @@ public class GroupViewImpl extends GenericView implements GroupView {
     private final GroupController controller;
     private final ViewFactory viewFactory;
 
-    public GroupViewImpl(final GroupController controller) {
+    public GroupViewImplImpl(final GroupController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.GROUP);
         this.viewFactory = new ViewFactoryImpl();
@@ -64,10 +64,10 @@ public class GroupViewImpl extends GenericView implements GroupView {
     public final void populate() {
         this.peopleButton.setOnAction(event -> this.controller.showPeople());
         this.groupTransactionsButton.setOnAction(event -> this.controller.showTransactions());
-        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(
+        this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImplImpl(
                 new ResolveControllerImpl(this.controller.getManager()))));
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
-                new NewGroupTransactionViewImpl(new NewGroupTransactionControllerImpl(this.controller.getManager()))));
+                new NewGroupTransactionViewImplImpl(new NewGroupTransactionControllerImpl(this.controller.getManager()))));
         this.setPref();
     }
 
@@ -90,11 +90,11 @@ public class GroupViewImpl extends GenericView implements GroupView {
     @Override
     public final void showPeople() {
         this.newPersonButton.setText("Aggiungi persona al gruppo");
-        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImpl(
+        this.newPersonButton.setOnAction(event -> this.showWindow(new AddPersonViewImplImpl(
                 new AddPersonControllerImpl(this.controller.getManager()))));
         final List<GenericTileView<Person>> personTiles = new ArrayList<>();
         this.controller.getSortedGroup().forEach(p -> personTiles.add(
-                new GenericTileViewImpl<>(p, p.getName(), this.controller.getCredit(p))));
+                new FinanceTileViewImplImpl<>(p, p.getName(), this.controller.getCredit(p))));
         final View vbox = this.viewFactory.createVerticalAutoResizingWithNodes(personTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         personTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
@@ -111,7 +111,7 @@ public class GroupViewImpl extends GenericView implements GroupView {
         this.newPersonButton.setOnAction(event -> this.reset());
         final List<GenericTileView<GroupTransaction>> transactionTiles = new ArrayList<>();
         this.controller.getSortedGroupTransactions().forEach(t -> transactionTiles.add(
-                new GenericTileViewImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
+                new FinanceTileViewImplImpl<>(t, t.getDescription(), t.getMadeBy().getName() + " -> "
                         + StaticFormats.formatPersonList(t.getForList()), (double) t.getAmount() / 100)));
         final View vbox = this.viewFactory.createVerticalAutoResizingWithNodes(transactionTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));

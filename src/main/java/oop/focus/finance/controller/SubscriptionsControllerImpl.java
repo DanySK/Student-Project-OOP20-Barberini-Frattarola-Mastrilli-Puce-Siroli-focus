@@ -6,7 +6,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.SubscriptionsView;
-import oop.focus.finance.view.bases.SubscriptionsViewImpl;
+import oop.focus.finance.view.bases.SubscriptionsViewImplImpl;
 
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -25,7 +25,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
 
     public SubscriptionsControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new SubscriptionsViewImpl(this);
+        this.view = new SubscriptionsViewImplImpl(this);
         this.showSortedSubscriptions();
         this.transactions = this.manager.getTransactionManager().getElements();
         this.addListeners();

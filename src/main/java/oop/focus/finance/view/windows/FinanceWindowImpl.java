@@ -4,14 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import oop.focus.finance.view.bases.GenericView;
+import oop.focus.finance.view.bases.FinanceViewImpl;
 
 import java.util.function.Function;
 
 /**
  * Class that implements the view of a window.
  */
-public abstract class GenericWindow extends GenericView implements FinanceWindow {
+public abstract class FinanceWindowImpl extends FinanceViewImpl implements FinanceWindow {
 
     @FXML
     private Pane mainPane;

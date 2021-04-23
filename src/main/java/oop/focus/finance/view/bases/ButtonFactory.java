@@ -19,39 +19,38 @@ public interface ButtonFactory {
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of filtered transactions
      */
-    FinanceMenuButton<ChangeViewController> getTransactions(String name,
-                                                            Predicate<Transaction> predicate, FinanceManager manager);
+    FinanceButton<ChangeViewController> getTransactions(String name,
+                                                        Predicate<Transaction> predicate, FinanceManager manager);
 
     /**
      * @param name of the button
      * @param manager of finance
      * @return a FinanceMenuButton that has as its action the visualization of finance statistic
      */
-    FinanceMenuButton<ChangeViewController> getStatistics(String name, FinanceManager manager);
+    FinanceButton<ChangeViewController> getStatistics(String name, FinanceManager manager);
 
     /**
      * @param name of the button
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of SubscriptionsView
      */
-    FinanceMenuButton<ChangeViewController> getSubscriptions(String name, FinanceManager manager);
+    FinanceButton<ChangeViewController> getSubscriptions(String name, FinanceManager manager);
 
     /**
      * @param name of the button
      * @param manager finance manager
      * @return a FinanceMenuButton that has as its action the visualization of GroupView
      */
-    FinanceMenuButton<ChangeViewController> getGroupTransactions(String name, FinanceManager manager);
+    FinanceButton<ChangeViewController> getGroupTransactions(String name, FinanceManager manager);
 
     /**
      * @param account whose transactions we want to see
      * @return a FinanceMenuButton that has as its action the visualization of account's transactions
      */
-    FinanceMenuButton<TransactionsController> getAccountTransactions(Account account);
+    FinanceButton<TransactionsController> getAccountTransactions(Account account);
 
     /**
      * @return a FinanceMenuButton that has as its action the visualization of all transactions
      */
-    FinanceMenuButton<TransactionsController> getAllAccountTransactions();
-
+    FinanceButton<TransactionsController> getAllAccountTransactions();
 }

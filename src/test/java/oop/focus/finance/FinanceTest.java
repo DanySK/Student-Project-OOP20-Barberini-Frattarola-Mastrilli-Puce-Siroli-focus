@@ -23,6 +23,9 @@ import org.joda.time.LocalDateTime;
 
 import java.util.List;
 
+/**
+ * Class that tests everything related to the logic part of the finance section.
+ */
 public class FinanceTest {
 
     private static final String RELATIONSHIP = "amico";

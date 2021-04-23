@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 /**
  * Abstract generic class that implements a view that loads a specific fxml.
  */
-public abstract class GenericView implements Initializable, FinanceView {
+public abstract class FinanceViewImpl implements Initializable, FinanceView {
 
     private Node root;
 

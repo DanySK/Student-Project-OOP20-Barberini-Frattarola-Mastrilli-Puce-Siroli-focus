@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
@@ -16,7 +15,7 @@ import java.util.Optional;
 /**
  * Class that implements the detail view of a group transaction.
  */
-public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow {
+public class GroupTransactionDetailsWindowImpl extends FinanceDetailsWindowImpl {
 
     @FXML
     private Label titleLabel, categoryLabel, accountLabel, subscriptionLabel, dataDescriptionLabel, dataCategoryLabel,

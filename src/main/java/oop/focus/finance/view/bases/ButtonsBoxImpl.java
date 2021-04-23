@@ -22,7 +22,7 @@ public class ButtonsBoxImpl implements View {
 
     public ButtonsBoxImpl(final ChangeViewController controller) {
         this.pane = ViewFactory.verticalWithPadding(PADDING_RATIO, PADDING_RATIO, PADDING_RATIO);
-        final List<FinanceMenuButton<ChangeViewController>> menuButtons = new ArrayList<>();
+        final List<FinanceButton<ChangeViewController>> menuButtons = new ArrayList<>();
         final ButtonFactory factory = new ButtonFactoryImpl();
         menuButtons.add(factory.getTransactions("Tutte", t -> true, controller.getManager()));
         menuButtons.add(factory.getTransactions("Uscite", t -> t.getAmount() < 0, controller.getManager()));

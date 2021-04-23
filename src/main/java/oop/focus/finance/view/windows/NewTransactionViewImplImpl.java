@@ -27,7 +27,7 @@ import java.time.LocalDate;
 /**
  * Class that implements the view of creating a new transaction.
  */
-public class NewTransactionViewImpl extends GenericWindow {
+public class NewTransactionViewImplImpl extends FinanceWindowImpl {
 
     @FXML
     private Label titleLabel;
@@ -48,7 +48,7 @@ public class NewTransactionViewImpl extends GenericWindow {
 
     private final NewTransactionController controller;
 
-    public NewTransactionViewImpl(final NewTransactionController controller) {
+    public NewTransactionViewImplImpl(final NewTransactionController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWMOVEMENT);
     }

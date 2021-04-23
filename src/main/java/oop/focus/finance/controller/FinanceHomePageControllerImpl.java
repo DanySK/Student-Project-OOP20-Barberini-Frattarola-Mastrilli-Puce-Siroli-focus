@@ -8,7 +8,7 @@ import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.QuickTransaction;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.FinanceHomePageView;
-import oop.focus.finance.view.bases.FinanceHomePageViewImpl;
+import oop.focus.finance.view.bases.FinanceHomePageViewImplImpl;
 import org.joda.time.LocalDate;
 
 import java.util.Comparator;
@@ -29,7 +29,7 @@ public class FinanceHomePageControllerImpl implements FinanceHomePageController 
 
     public FinanceHomePageControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new FinanceHomePageViewImpl(this);
+        this.view = new FinanceHomePageViewImplImpl(this);
         this.accounts = manager.getAccountManager().getElements();
         this.transactions = manager.getTransactionManager().getElements();
         this.quickTransactions = manager.getQuickManager().getElements();

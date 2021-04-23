@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
  *
  * @param <X> type of controller in which the method executed in the button action is present
  */
-public interface FinanceMenuButton<X> {
+public interface FinanceButton<X> {
 
     /**
      * @return the Button of FinanceMenuButton

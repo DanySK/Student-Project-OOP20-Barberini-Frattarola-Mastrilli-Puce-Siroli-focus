@@ -8,8 +8,8 @@ import oop.focus.common.Linker;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransactionImpl;
-import oop.focus.finance.view.windows.GenericWindow;
-import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
+import oop.focus.finance.view.windows.FinanceWindowImpl;
+import oop.focus.finance.view.windows.NewGroupTransactionViewImplImpl;
 import oop.focus.calendar.persons.model.Person;
 import org.joda.time.LocalDateTime;
 
@@ -22,14 +22,14 @@ import java.util.Set;
  */
 public class NewGroupTransactionControllerImpl implements NewGroupTransactionController {
 
-    private final GenericWindow view;
+    private final FinanceWindowImpl view;
     private final FinanceManager manager;
 
     private final ObservableSet<Person> group;
 
     public NewGroupTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new NewGroupTransactionViewImpl(this);
+        this.view = new NewGroupTransactionViewImplImpl(this);
         this.group = this.manager.getGroupManager().getGroup();
         this.addListeners();
     }

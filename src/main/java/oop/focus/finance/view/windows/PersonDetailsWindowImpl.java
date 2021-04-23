@@ -14,7 +14,7 @@ import java.util.Optional;
 /**
  * Class that implements the detail view of a person.
  */
-public class PersonDetailsWindowImpl extends GenericDetailsWindow {
+public class PersonDetailsWindowImpl extends FinanceDetailsWindowImpl {
 
     @FXML
     private Label titleLabel, descriptionLabel, categoryLabel, dateLabel, accountLabel, amountLabel, subscriptionLabel,

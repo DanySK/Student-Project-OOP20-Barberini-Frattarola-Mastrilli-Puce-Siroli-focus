@@ -11,7 +11,7 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.TransactionImpl;
-import oop.focus.finance.view.windows.NewTransactionViewImpl;
+import oop.focus.finance.view.windows.NewTransactionViewImplImpl;
 import org.joda.time.LocalDateTime;
 
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  */
 public class NewTransactionControllerImpl implements NewTransactionController {
 
-    private final NewTransactionViewImpl view;
+    private final NewTransactionViewImplImpl view;
     private final FinanceManager manager;
 
     private final ObservableSet<Category> categories;
@@ -30,7 +30,7 @@ public class NewTransactionControllerImpl implements NewTransactionController {
 
     public NewTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new NewTransactionViewImpl(this);
+        this.view = new NewTransactionViewImplImpl(this);
         this.categories = manager.getCategoryManager().getElements();
         this.accounts = manager.getAccountManager().getElements();
         this.addListeners();

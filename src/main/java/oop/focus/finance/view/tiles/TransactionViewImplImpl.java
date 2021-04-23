@@ -8,19 +8,19 @@ import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.StaticFormats;
-import oop.focus.finance.view.bases.GenericView;
+import oop.focus.finance.view.bases.FinanceViewImpl;
 
 /**
  * Class that implements the view of a transaction, showing the main details.
  */
-public class TransactionViewImpl extends GenericView implements Initializable, TransactionView {
+public class TransactionViewImplImpl extends FinanceViewImpl implements Initializable, TransactionView {
 
     @FXML
     private Label descriptionLabel, categoryLabel, colorLabel, dateLabel, amountLabel, minusLabel;
 
     private final Transaction transaction;
 
-    public TransactionViewImpl(final Transaction transaction) {
+    public TransactionViewImplImpl(final Transaction transaction) {
         this.transaction = transaction;
         this.loadFXML(FXMLPaths.MOVTILE);
         this.getRoot().getStyleClass().add("generic_tile");

@@ -5,7 +5,7 @@ import javafx.collections.SetChangeListener;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.view.windows.ResolveViewImpl;
+import oop.focus.finance.view.windows.ResolveViewImplImpl;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class ResolveControllerImpl implements ResolveController {
 
-    private final ResolveViewImpl view;
+    private final ResolveViewImplImpl view;
     private final FinanceManager manager;
 
     private final ObservableSet<GroupTransaction> groupTransactions;
 
     public ResolveControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new ResolveViewImpl(this);
+        this.view = new ResolveViewImplImpl(this);
         this.groupTransactions = this.manager.getGroupManager().getTransactions();
         this.addListeners();
     }
