@@ -2,7 +2,7 @@ package oop.focus.calendar.controller;
 
 
 import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.month.view.CalendarMonthFactoryImpl;
+import oop.focus.calendar.month.controller.CalendarMonthFactoryImpl;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.settings.controller.CalendarSettingsController;

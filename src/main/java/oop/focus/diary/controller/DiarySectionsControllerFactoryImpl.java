@@ -1,6 +1,6 @@
 package oop.focus.diary.controller;
 
-import oop.focus.calendar.month.view.CalendarMonthFactoryImpl;
+import oop.focus.calendar.month.controller.CalendarMonthFactoryImpl;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.event.model.EventManager;

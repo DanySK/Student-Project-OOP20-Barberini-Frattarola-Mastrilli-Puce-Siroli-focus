@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.month.view.CalendarMonthFactoryImpl;
+import oop.focus.calendar.month.controller.CalendarMonthFactoryImpl;
 import oop.focus.calendar.month.view.CalendarMonthView;
 import oop.focus.calendar.month.view.CalendarMonthViewImpl;
 import oop.focus.calendarhomepage.controller.HotKeyController;
