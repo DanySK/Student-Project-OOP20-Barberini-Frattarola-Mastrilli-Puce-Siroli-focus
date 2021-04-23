@@ -8,6 +8,8 @@ import oop.focus.db.DataSource;
 import oop.focus.event.model.Event;
 import oop.focus.event.model.EventManager;
 import oop.focus.event.model.EventManagerImpl;
+import oop.focus.event.model.TimeProperty;
+import oop.focus.event.model.TimePropertyImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,11 +26,13 @@ public class NewEventControllerImpl implements NewEventController {
     private final CalendarMonthController monthController;
     private final EventManager eventManager;
     private final NewEventWeekViewImpl view;
+    private final TimeProperty time;
 
     public NewEventControllerImpl(final DataSource dsi, final WeekController weekController, final CalendarMonthController monthController) {
         this.eventManager = new EventManagerImpl(dsi);
         this.monthController = monthController;
         this.weekController = weekController;
+        this.time = new TimePropertyImpl();
 
         this.view = new NewEventWeekViewImpl(this);
     }
@@ -52,6 +56,11 @@ public class NewEventControllerImpl implements NewEventController {
         final List<Repetition> arrayList = new ArrayList<>(Arrays.asList(Repetition.values()));
         list.addAll(arrayList);
         return list;
+    }
+
+    @Override
+    public final boolean getDuration(final Event eventToSave) {
+        return this.time.getMinEventTime(eventToSave);
     }
 
     @Override

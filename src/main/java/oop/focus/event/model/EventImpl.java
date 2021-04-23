@@ -110,6 +110,14 @@ public class EventImpl implements Event {
         return this.startDate.toLocalTime();
     }
 
+    public final String getStartTime() {
+        return this.startTime;
+    }
+
+    public final String getStartDay() {
+        return this.startDay;
+    }
+
     public final Repetition getRepetition() {
         return this.repetition;
     }

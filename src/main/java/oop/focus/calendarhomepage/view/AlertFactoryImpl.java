@@ -29,7 +29,7 @@ public class AlertFactoryImpl implements AlertFactory {
     public final Alert createHourOrDateError() {
         this.alert = new Alert(AlertType.ERROR);
         this.alert.setTitle(Constants.WARNING);
-        this.alert.setHeaderText("Sono stati inseriti orario o data non validi");
+        this.alert.setHeaderText("Sono stati inseriti orario o data non validi o l'evento ha una durata inferiore ai 15 minuti");
         final Optional<ButtonType> result = this.alert.showAndWait();
         if (result.isEmpty() || result.get() == ButtonType.OK || result.get() == ButtonType.CANCEL) {
             this.alert.close();

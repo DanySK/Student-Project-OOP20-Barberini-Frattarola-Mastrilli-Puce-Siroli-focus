@@ -208,7 +208,7 @@ public class NewEventWeekViewImpl implements NewEventWeekView {
 
         final Event eventToSave = new EventImpl(this.textFieldName.getText(), startDate.toLocalDateTime(startTime), endDate.toLocalDateTime(endTime), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
 
-        if (this.validateEvent(eventToSave)) {
+        if (this.validateEvent(eventToSave) && this.controller.getDuration(eventToSave)) {
                 try {
                     this.controller.addNewEvent(eventToSave);
                     this.delete();

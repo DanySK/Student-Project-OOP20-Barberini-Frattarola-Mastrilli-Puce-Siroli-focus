@@ -31,6 +31,8 @@ import oop.focus.common.Repetition;
 import oop.focus.calendarhomepage.controller.FXMLPaths;
 import oop.focus.calendarhomepage.controller.HomePageController;
 import oop.focus.event.model.EventImpl;
+import oop.focus.event.model.TimeProperty;
+import oop.focus.event.model.TimePropertyImpl;
 
 public class NewEventViewImpl implements NewEventView {
 
@@ -171,7 +173,9 @@ public class NewEventViewImpl implements NewEventView {
 
         final Event eventToSave = new EventImpl(this.newEventName.getText(), date.toLocalDateTime(start), date.toLocalDateTime(end), this.repetitionChoice.getSelectionModel().getSelectedItem(), finalList);
 
-        if (this.validateEvent(eventToSave)) {
+        final TimeProperty time = new TimePropertyImpl();
+
+        if (this.validateEvent(eventToSave) && time.getMinEventTime(eventToSave)) {
             try {
                 this.controller.saveEvent(eventToSave);
                 this.goBack(event);

@@ -31,4 +31,6 @@ public interface NewEventController extends Controller {
      * @return  ObservableList that represent all the saved repetition.
      */
     ObservableList<Repetition> getRep();
+
+    boolean getDuration(Event eventToSave);
 }

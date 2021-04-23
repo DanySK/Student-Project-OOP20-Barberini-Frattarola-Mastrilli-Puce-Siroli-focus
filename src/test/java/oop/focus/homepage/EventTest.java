@@ -22,7 +22,6 @@ import oop.focus.common.Repetition;
 
 
 public class EventTest {
-
 	private final DataSource dsi = new DataSourceImpl();
     private final EventManager eventi = new EventManagerImpl(this.dsi);
 
