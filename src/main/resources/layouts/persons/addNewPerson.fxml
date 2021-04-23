@@ -7,30 +7,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="newPersonPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="474.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/15.0.1"
-            xmlns:fx="http://javafx.com/fxml/1">
-    <Label fx:id="name" layoutX="134.0" layoutY="135.0" text="Nome :" AnchorPane.leftAnchor="134.0"/>
-    <Label fx:id="degree" layoutX="69.0" layoutY="207.0" text="Grado di parentela :"/>
-    <TextField fx:id="nameTextField" layoutX="231.0" layoutY="131.0" prefHeight="26.0" prefWidth="132.0"
-               AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="63.0"/>
-    <ComboBox fx:id="degreeComboBox" layoutX="231.0" layoutY="203.0" prefHeight="26.0" prefWidth="132.0"
-              AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="63.0"/>
+<AnchorPane fx:id="newPersonPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="name" layoutX="134.0" layoutY="135.0" text="Nome :" AnchorPane.leftAnchor="134.0" />
+    <Label fx:id="degree" layoutX="69.0" layoutY="207.0" text="Grado di parentela :" />
+    <TextField fx:id="nameTextField" layoutX="231.0" layoutY="131.0" prefHeight="26.0" prefWidth="132.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="63.0" />
+    <ComboBox fx:id="degreeComboBox" layoutX="231.0" layoutY="203.0" prefHeight="26.0" prefWidth="132.0" AnchorPane.leftAnchor="231.0" AnchorPane.rightAnchor="63.0" />
     <Label fx:id="newPerson" layoutX="121.0" layoutY="47.0" text="NUOVA PERSONA" textOverrun="CENTER_ELLIPSIS">
         <font>
-          <Font name="System Bold" size="24.0"/>
+          <Font name="System Bold" size="24.0" />
         </font>
     </Label>
-    <Button fx:id="save" layoutX="326.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0"
-            text="SALVA" AnchorPane.bottomAnchor="32.6" AnchorPane.rightAnchor="26.399999999999977"/>
-    <Button fx:id="back" layoutX="26.0" layoutY="20.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0"
-            text="INDIETRO" AnchorPane.leftAnchor="26.0"/>
-    <Button fx:id="delete" layoutX="38.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0"
-            text="CANCELLA" AnchorPane.bottomAnchor="32.6" AnchorPane.leftAnchor="26.0"/>
-    <Label fx:id="newDegreeLabel" layoutX="103.0" layoutY="273.0" text="Clicca qui per creare una nuova parentela">
-        <font>
-          <Font name="System Bold Italic" size="12.0"/>
-        </font>
-    </Label>
-    <Button fx:id="newDegree" layoutX="144.0" layoutY="301.0" mnemonicParsing="false" text="AGGIUNGI PARENTELA"/>
+    <Button fx:id="save" layoutX="326.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="SALVA" AnchorPane.bottomAnchor="32.6" AnchorPane.rightAnchor="26.399999999999977" />
+    <Button fx:id="back" layoutX="26.0" layoutY="20.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0" text="INDIETRO" AnchorPane.leftAnchor="26.0" />
+    <Button fx:id="delete" layoutX="38.0" layoutY="341.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="74.0" text="CANCELLA" AnchorPane.bottomAnchor="32.6" AnchorPane.leftAnchor="26.0" />
+    <Button fx:id="newDegree" layoutX="144.0" layoutY="301.0" mnemonicParsing="false" text="AGGIUNGI PARENTELA" AnchorPane.leftAnchor="143.99999999999997" AnchorPane.rightAnchor="143.6" />
 </AnchorPane>

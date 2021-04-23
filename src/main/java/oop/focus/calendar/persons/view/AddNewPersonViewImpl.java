@@ -102,11 +102,9 @@ public class AddNewPersonViewImpl implements GenericAddView {
         this.newPerson.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.LABEL_WIDTH));
         this.newPerson.setAlignment(Pos.CENTER);
 
-        this.newDegreeLabel.setAlignment(Pos.CENTER);
         this.degree.setAlignment(Pos.CENTER);
         this.name.setAlignment(Pos.CENTER);
 
-        this.newDegree.prefWidthProperty().bind(this.newPersonPane.widthProperty().multiply(Constants.FIELD_WIDTH));
         this.newDegree.prefHeightProperty().bind(this.newPersonPane.heightProperty().multiply(Constants.FIELD_HEIGHT));
         this.newDegree.setAlignment(Pos.CENTER);
 
