@@ -5,55 +5,55 @@ public enum FXMLPaths {
     /**
      * Path to reach the base fxml file.
      */
-    MAIN(Costants.BASES + "financeBase.fxml"),
+    MAIN(Constants.BASES + "financeBase.fxml"),
     /**
      * Path to reach the transactions base fxml file.
      */
-    ALL(Costants.BASES + "allTransactionsBase.fxml"),
+    ALL(Constants.BASES + "allTransactionsBase.fxml"),
     /**
      * Path to reach the group base fxml file.
      */
-    GROUP(Costants.BASES + "groupTransactionBase.fxml"),
+    GROUP(Constants.BASES + "groupTransactionBase.fxml"),
     /**
      * Path to reach the subscriptions base fxml file.
      */
-    SUBS(Costants.BASES + "subscriptionsBase.fxml"),
+    SUBS(Constants.BASES + "subscriptionsBase.fxml"),
     /**
      * Path to reach the finance home page base fxml file.
      */
-    HOMEPAGE(Costants.BASES + "homePageBase.fxml"),
+    HOMEPAGE(Constants.BASES + "homePageBase.fxml"),
     /**
      * Path to reach the generic tile fxml file.
      */
-    GENERICTILE(Costants.TILES + "genericTile.fxml"),
+    GENERICTILE(Constants.TILES + "genericTile.fxml"),
     /**
      * Path to reach the transaction tile fxml file.
      */
-    MOVTILE(Costants.TILES + "movementTile.fxml"),
+    MOVTILE(Constants.TILES + "movementTile.fxml"),
     /**
      * Path to reach the new account window fxml file.
      */
-    NEWACCOUNT(Costants.WINDOWS + "newAccount.fxml"),
+    NEWACCOUNT(Constants.WINDOWS + "newAccount.fxml"),
     /**
      * Path to reach the new group transaction window fxml file.
      */
-    NEWGROUPMOV(Costants.WINDOWS + "newGroupTransaction.fxml"),
+    NEWGROUPMOV(Constants.WINDOWS + "newGroupTransaction.fxml"),
     /**
      * Path to reach the add person window fxml file.
      */
-    ADDPERSON(Costants.WINDOWS + "addPerson.fxml"),
+    ADDPERSON(Constants.WINDOWS + "addPerson.fxml"),
     /**
      * Path to reach the resolve credits window fxml file.
      */
-    RESOLVE(Costants.WINDOWS + "resolve.fxml"),
+    RESOLVE(Constants.WINDOWS + "resolve.fxml"),
     /**
      * Path to reach the transaction details window fxml file.
      */
-    TRANSACTIONDETAILS(Costants.WINDOWS + "transactionDetails.fxml"),
+    TRANSACTIONDETAILS(Constants.WINDOWS + "transactionDetails.fxml"),
     /**
      * Path to reach the new transaction window fxml file.
      */
-    NEWMOVEMENT(Costants.WINDOWS + "newMovement.fxml");
+    NEWMOVEMENT(Constants.WINDOWS + "newMovement.fxml");
 
     private final String path;
 
@@ -65,7 +65,7 @@ public enum FXMLPaths {
         return this.path;
     }
 
-    private static class Costants {
+    private static class Constants {
         public static final String FINANCE = "/layouts/finances/";
         public static final String BASES = FINANCE + "bases/";
         public static final String TILES = FINANCE + "tiles/";

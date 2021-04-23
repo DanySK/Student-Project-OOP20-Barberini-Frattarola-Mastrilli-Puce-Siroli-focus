@@ -34,7 +34,7 @@ public class GroupControllerImpl implements GroupController {
 
     private void addListeners() {
         this.group.addListener((SetChangeListener<Person>) change -> this.showPeople());
-        this.groupTransactions.addListener((SetChangeListener<GroupTransaction>) change -> this.showTansactions());
+        this.groupTransactions.addListener((SetChangeListener<GroupTransaction>) change -> this.showTransactions());
     }
 
     /**
@@ -59,7 +59,7 @@ public class GroupControllerImpl implements GroupController {
      * {@inheritDoc}
      */
     @Override
-    public final void showTansactions() {
+    public final void showTransactions() {
         this.view.showTransactions();
     }
 

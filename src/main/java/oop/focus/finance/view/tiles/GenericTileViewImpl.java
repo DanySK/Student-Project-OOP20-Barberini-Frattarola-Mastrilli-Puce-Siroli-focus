@@ -15,7 +15,7 @@ import oop.focus.finance.view.bases.GenericView;
 public class GenericTileViewImpl<X> extends GenericView implements GenericTileView<X> {
 
     @FXML
-    private Label circlelabel, firstLabel, secondLabel, amountLabel, minusLabel;
+    private Label circleLabel, firstLabel, secondLabel, amountLabel, minusLabel;
 
     private final X element;
 
@@ -44,16 +44,14 @@ public class GenericTileViewImpl<X> extends GenericView implements GenericTileVi
      * @param amount to show
      */
     private void setLabels(final String color, final String first, final String second, final double amount) {
-        final String green = "008f39";
-        final String red = "cc0605";
         if (!color.isEmpty()) {
-            this.circlelabel.setVisible(true);
-            this.circlelabel.setTextFill(Color.valueOf(color));
+            this.circleLabel.setVisible(true);
+            this.circleLabel.setTextFill(Color.valueOf(color));
         }
         this.firstLabel.setText(first);
         this.secondLabel.setText(second);
         this.amountLabel.setText(StaticFormats.formatAmount(Math.abs(amount)));
-        this.amountLabel.setTextFill(Color.valueOf(amount > 0 ? green : red));
+        this.amountLabel.setTextFill(amount > 0 ? Color.GREEN : Color.RED);
         this.minusLabel.setVisible(amount < 0);
     }
 

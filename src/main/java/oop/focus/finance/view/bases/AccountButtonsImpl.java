@@ -24,13 +24,13 @@ public class AccountButtonsImpl implements View {
 
     public AccountButtonsImpl(final TransactionsController controller) {
         this.pane = ViewFactory.verticalWithPadding(PADDING_RATIO, PADDING_RATIO, PADDING_RATIO);
-        final List<FinanceMenuButton<TransactionsController>> acccountButtons = new ArrayList<>();
+        final List<FinanceMenuButton<TransactionsController>> accountButtons = new ArrayList<>();
         final ButtonFactory factory = new ButtonFactoryImpl();
-        acccountButtons.add(factory.getAllAccountTransactions());
+        accountButtons.add(factory.getAllAccountTransactions());
         controller.getAccounts().stream()
                 .sorted(Comparator.comparing(Account::getName))
-                .forEach(a -> acccountButtons.add(factory.getAccountTransactions(a)));
-        acccountButtons.forEach(b -> {
+                .forEach(a -> accountButtons.add(factory.getAccountTransactions(a)));
+        accountButtons.forEach(b -> {
             b.getButton().setPrefWidth(Screen.getPrimary().getBounds().getWidth() * BUTTON_RATIO);
             this.pane.getChildren().add(b.getButton());
             b.getButton().setOnAction(event -> b.action(controller));

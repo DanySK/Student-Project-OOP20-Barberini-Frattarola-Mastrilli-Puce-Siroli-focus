@@ -10,7 +10,7 @@ import java.util.List;
 public interface SubscriptionsView extends FinanceView {
 
     /**
-     * Show subscriptions in the subcriptionsScroll.
+     * Show subscriptions in the subscriptionsScroll.
      *
      * @param subscriptions to be showed
      */

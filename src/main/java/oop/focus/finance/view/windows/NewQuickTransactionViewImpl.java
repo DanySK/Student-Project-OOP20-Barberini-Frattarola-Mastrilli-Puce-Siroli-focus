@@ -18,7 +18,7 @@ import oop.focus.finance.controller.NewCategoryControllerImpl;
 import oop.focus.finance.controller.NewQuickTransactionController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 
 /**
  * Class that implements the view of creating a new quick transaction.
@@ -92,7 +92,7 @@ public class NewQuickTransactionViewImpl extends GenericWindow {
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
                 || this.typeChoice.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
                 || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0) {
-            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
+            StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else {
             this.controller.newQuickTransaction(this.descriptionTextField.getText(),
                     Double.parseDouble(this.amountTextField.getText()) * ("uscita".equals(this.typeChoice.getValue()) ? -1 : 1),

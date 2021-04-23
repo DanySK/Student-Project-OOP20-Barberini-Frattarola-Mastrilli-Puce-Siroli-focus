@@ -27,7 +27,7 @@ public class TransactionsControllerImpl implements TransactionsController {
     private Predicate<Account> accountPredicate;
 
     private final ObservableSet<Transaction> transactions;
-    private final ObservableSet<Account> acccounts;
+    private final ObservableSet<Account> accounts;
 
     public TransactionsControllerImpl(final FinanceManager manager, final Predicate<Transaction> predicate) {
         this.manager = manager;
@@ -36,13 +36,13 @@ public class TransactionsControllerImpl implements TransactionsController {
         this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
         this.transactions = this.manager.getTransactionManager().getElements();
-        this.acccounts = this.getAccounts();
+        this.accounts = this.getAccounts();
         this.addListeners();
     }
 
     private void addListeners() {
         this.transactions.addListener((SetChangeListener<Transaction>) c -> this.showTransactions(this.accountPredicate));
-        this.acccounts.addListener((SetChangeListener<Account>) c -> this.view.populate());
+        this.accounts.addListener((SetChangeListener<Account>) c -> this.view.populate());
     }
 
     /**

@@ -25,7 +25,7 @@ public interface GroupController extends Controller {
     /**
      * Show group transactions in view.
      */
-    void showTansactions();
+    void showTransactions();
 
     /**
      * Show people of group in view.
@@ -49,7 +49,7 @@ public interface GroupController extends Controller {
     List<GroupTransaction> getSortedGroupTransactions();
 
     /**
-     * @return the list of all persons added to the froup saved in the database, sorted by name
+     * @return the list of all persons added to the group saved in the database, sorted by name
      */
     List<Person> getSortedGroup();
 

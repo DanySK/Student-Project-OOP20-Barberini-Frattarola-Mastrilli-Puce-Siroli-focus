@@ -4,7 +4,7 @@ import oop.focus.common.Controller;
 import oop.focus.finance.model.Transaction;
 
 /**
- * Implementation of a controller interface that deals with suscriptions.
+ * Implementation of a controller interface that deals with subscriptions.
  */
 public interface SubscriptionsController extends Controller {
 

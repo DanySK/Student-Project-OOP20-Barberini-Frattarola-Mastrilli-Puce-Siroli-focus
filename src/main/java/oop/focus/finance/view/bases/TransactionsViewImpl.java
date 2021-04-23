@@ -22,7 +22,7 @@ import oop.focus.finance.controller.NewTransactionControllerImpl;
 import oop.focus.finance.controller.TransactionsController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.TransactionView;
 import oop.focus.finance.view.tiles.TransactionViewImpl;
@@ -100,7 +100,7 @@ public class TransactionsViewImpl extends GenericView implements TransactionsVie
         final ViewFactory viewFactory = new ViewFactoryImpl();
         this.accountLabel.setText(this.controller.getAccountName());
         this.amountLabel.setText(StaticFormats.formatAmount(Math.abs(this.controller.getAmount(predicate))));
-        this.amountLabel.setTextFill(Color.valueOf(this.controller.getAmount(predicate) > 0 ? "008f39" : "cc0605"));
+        this.amountLabel.setTextFill(this.controller.getAmount(predicate) > 0 ? Color.GREEN : Color.RED);
         this.minusLabel.setVisible(this.controller.getAmount(predicate) < 0);
         this.colorLabel.setTextFill(Color.valueOf(this.controller.getColor(predicate)));
         this.deleteButton.setText("Elimina " + this.controller.getAccountName());
@@ -128,7 +128,7 @@ public class TransactionsViewImpl extends GenericView implements TransactionsVie
      * Method that after confirmation deletes the referring account(s).
      */
     private void deleteAccounts() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eliminare " + this.controller.getAccountName() + "?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di voler eliminare " + this.controller.getAccountName() + "?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.controller.deleteAccounts();
         }

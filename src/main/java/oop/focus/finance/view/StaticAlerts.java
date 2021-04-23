@@ -5,17 +5,17 @@ import javafx.scene.control.ButtonType;
 
 import java.util.Optional;
 
-public final class StaticAllerts {
+public final class StaticAlerts {
 
-    private StaticAllerts() {
+    private StaticAlerts() {
     }
 
     /**
      * Show a pop-up indicating an error.
      *
-     * @param message to diplay
+     * @param message to display
      */
-    public static void allert(final String message) {
+    public static void alert(final String message) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Errore");
         alert.setHeaderText(message);

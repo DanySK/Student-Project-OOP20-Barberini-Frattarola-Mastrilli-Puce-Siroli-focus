@@ -57,7 +57,7 @@ public class SubscriptionsControllerImpl implements SubscriptionsController {
     }
 
     /**
-     * Show subscriptions in view, sorted by tipe of repetition.
+     * Show subscriptions in view, sorted by type of repetition.
      */
     private void showSortedSubscriptions() {
         this.view.showSubscriptions(this.manager.getTransactionManager().getSubscriptions().stream()

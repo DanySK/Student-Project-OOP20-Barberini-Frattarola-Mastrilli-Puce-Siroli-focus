@@ -14,7 +14,7 @@ public interface TransactionManager extends Manager<Transaction> {
     /**
      * Updates the data of a transaction in the database.
      *
-     * @param transaction geing updated
+     * @param transaction being updated
      */
     void update(Transaction transaction);
 

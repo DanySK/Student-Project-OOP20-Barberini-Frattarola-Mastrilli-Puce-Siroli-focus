@@ -4,10 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 
 import java.util.Optional;
@@ -63,7 +64,7 @@ public class GroupTransactionDetailsWindowImpl extends GenericDetailsWindow {
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler elminare questa transazione di gruppo?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di voler elminare questa transazione di gruppo?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.controller.deleteTransaction(this.transaction);
         }

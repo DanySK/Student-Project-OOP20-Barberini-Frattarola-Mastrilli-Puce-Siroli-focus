@@ -20,7 +20,7 @@ import oop.focus.common.View;
 import oop.focus.finance.controller.*;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Transaction;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
@@ -103,7 +103,7 @@ public class FinanceHomePageViewImpl extends GenericView implements FinanceHomeP
         this.controller.getSortedAccounts().forEach(a -> fastAccountTiles.add(
                 new GenericTileViewImpl<>(a, a.getColor(), a.getName(), "", this.controller.getAmount(a))));
         fastAccountTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> StaticAllerts.confirm("Per visualizzare le transazioni del conto, visita la sezione delle finanze.")));
+                event -> StaticAlerts.confirm("Per visualizzare le transazioni del conto, visita la sezione delle finanze.")));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(fastAccountTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.accountsScroll.setContent(vbox.getRoot());
@@ -159,7 +159,7 @@ public class FinanceHomePageViewImpl extends GenericView implements FinanceHomeP
      * Method that after confirmation deletes all quick transactions.
      */
     private void resetQuickTransactions() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eliminare tutte le transazioni rapide?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di voler eliminare tutte le transazioni rapide?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.controller.resetQuickTransactions();
         }

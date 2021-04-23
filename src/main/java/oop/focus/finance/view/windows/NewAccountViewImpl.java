@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import oop.focus.finance.controller.FXMLPaths;
 
 import oop.focus.finance.controller.NewAccountController;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 
 /**
@@ -19,7 +19,7 @@ public class NewAccountViewImpl extends GenericWindow {
     @FXML
     private Label titleLabel, nameLabel, amountLabel, colorLabel;
     @FXML
-    private TextField nameTextfield, amountTextfield;
+    private TextField nameTextField, amountTextField;
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -47,12 +47,12 @@ public class NewAccountViewImpl extends GenericWindow {
      */
     @Override
     public final void save() {
-        if (this.nameTextfield.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextfield.getText())
-                || Double.parseDouble(this.amountTextfield.getText()) * 100 % 100 != 0) {
-            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
+        if (this.nameTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
+                || Double.parseDouble(this.amountTextField.getText()) * 100 % 100 != 0) {
+            StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else {
-            this.controller.newAccount(this.nameTextfield.getText(), StaticFormats.formatColor(this.colorPicker.getValue()),
-                        Double.parseDouble(this.amountTextfield.getText()));
+            this.controller.newAccount(this.nameTextField.getText(), StaticFormats.formatColor(this.colorPicker.getValue()),
+                        Double.parseDouble(this.amountTextField.getText()));
             this.close();
         }
     }

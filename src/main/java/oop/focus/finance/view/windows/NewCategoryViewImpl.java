@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.NewCategoryController;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 
 /**
@@ -18,7 +18,7 @@ public class NewCategoryViewImpl extends GenericWindow {
     @FXML
     private Label titleLabel, nameLabel, amountLabel, colorLabel, currencyLabel;
     @FXML
-    private TextField nameTextfield, amountTextfield;
+    private TextField nameTextField, amountTextField;
     @FXML
     private ColorPicker colorPicker;
     @FXML
@@ -38,7 +38,7 @@ public class NewCategoryViewImpl extends GenericWindow {
     public final void populate() {
         this.titleLabel.setText("NUOVA CATEGORIA");
         this.amountLabel.setVisible(false);
-        this.amountTextfield.setVisible(false);
+        this.amountTextField.setVisible(false);
         this.currencyLabel.setVisible(false);
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
@@ -50,10 +50,10 @@ public class NewCategoryViewImpl extends GenericWindow {
      */
     @Override
     public final void save() {
-        if (this.nameTextfield.getText().isEmpty()) {
-            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
+        if (this.nameTextField.getText().isEmpty()) {
+            StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else {
-            this.controller.newCategory(this.nameTextfield.getText(), StaticFormats.formatColor(this.colorPicker.getValue()));
+            this.controller.newCategory(this.nameTextField.getText(), StaticFormats.formatColor(this.colorPicker.getValue()));
             this.close();
         }
     }

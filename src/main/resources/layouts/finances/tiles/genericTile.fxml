@@ -9,7 +9,7 @@
 <BorderPane prefHeight="67.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <HBox BorderPane.alignment="CENTER">
-         <Label fx:id="circlelabel" alignment="CENTER" prefHeight="10000.0" text="●" visible="false">
+         <Label fx:id="circleLabel" alignment="CENTER" prefHeight="10000.0" text="●" visible="false">
             <font>
                <Font size="45.0" />
             </font>

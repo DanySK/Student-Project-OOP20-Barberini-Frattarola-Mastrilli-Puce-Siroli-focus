@@ -18,7 +18,7 @@ import oop.focus.finance.controller.GroupController;
 import oop.focus.finance.controller.NewGroupTransactionControllerImpl;
 import oop.focus.finance.controller.ResolveControllerImpl;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
@@ -63,7 +63,7 @@ public class GroupViewImpl extends GenericView implements GroupView {
     @Override
     public final void populate() {
         this.peopleButton.setOnAction(event -> this.controller.showPeople());
-        this.groupTransactionsButton.setOnAction(event -> this.controller.showTansactions());
+        this.groupTransactionsButton.setOnAction(event -> this.controller.showTransactions());
         this.resolveButton.setOnAction(event -> this.showWindow(new ResolveViewImpl(
                 new ResolveControllerImpl(this.controller.getManager()))));
         this.newGroupTransactionButton.setOnAction(event -> this.showWindow(
@@ -135,12 +135,12 @@ public class GroupViewImpl extends GenericView implements GroupView {
      * Method that after confirmation deletes all group transactions and group persons.
      */
     private void reset() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di voler eliminare il gruppo e le relative transazioni?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 this.controller.reset();
             } catch (final IllegalStateException e) {
-                StaticAllerts.allert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
+                StaticAlerts.alert("Impossibile resettare: alcune persone devono ancora saldare dei debiti.");
             }
         }
     }

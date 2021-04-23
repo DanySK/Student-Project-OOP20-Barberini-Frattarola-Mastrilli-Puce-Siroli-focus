@@ -9,7 +9,7 @@ import oop.focus.common.View;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.ResolveController;
 import oop.focus.finance.model.GroupTransaction;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.tiles.GenericTileView;
 import oop.focus.finance.view.tiles.GenericTileViewImpl;
 import oop.focus.statistics.view.ViewFactory;
@@ -70,7 +70,7 @@ public class ResolveViewImpl extends GenericWindow {
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler eseguire le transazioni risolutive?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di voler eseguire le transazioni risolutive?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.controller.resolve();
         }

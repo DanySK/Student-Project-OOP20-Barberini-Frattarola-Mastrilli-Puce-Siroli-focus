@@ -18,7 +18,7 @@ import oop.focus.finance.controller.NewCategoryControllerImpl;
 import oop.focus.finance.controller.NewTransactionController;
 import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import org.joda.time.LocalDateTime;
 
@@ -40,7 +40,7 @@ public class NewTransactionViewImpl extends GenericWindow {
     @FXML
     private ComboBox<Account> accountChoice;
     @FXML
-    private ComboBox<Repetition> repetitionChioce;
+    private ComboBox<Repetition> repetitionChoice;
     @FXML
     private ChoiceBox<String> typeChoice;
     @FXML
@@ -66,9 +66,9 @@ public class NewTransactionViewImpl extends GenericWindow {
         this.categoryChoice.setConverter(super.createStringConverter(Category::getName));
         this.accountChoice.setItems(this.controller.getAccounts());
         this.accountChoice.setConverter(super.createStringConverter(Account::getName));
-        this.repetitionChioce.setItems(this.controller.getRepetitions());
-        this.repetitionChioce.setConverter(super.createStringConverter(Repetition::getName));
-        this.repetitionChioce.setValue(Repetition.ONCE);
+        this.repetitionChoice.setItems(this.controller.getRepetitions());
+        this.repetitionChoice.setConverter(super.createStringConverter(Repetition::getName));
+        this.repetitionChoice.setValue(Repetition.ONCE);
         this.typeChoice.setItems(FXCollections.observableArrayList("Entrata", "Uscita"));
         this.typeChoice.setValue("Uscita");
         this.dataPicker.setValue(LocalDate.now());
@@ -94,19 +94,19 @@ public class NewTransactionViewImpl extends GenericWindow {
     public final void save() {
         if (this.descriptionTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
                 || this.categoryChoice.getValue() == null || this.accountChoice.getValue() == null
-                || this.repetitionChioce.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
+                || this.repetitionChoice.getValue() == null || Double.parseDouble(this.amountTextField.getText()) <= 0
                 || this.hoursTextField.getText().isEmpty() || this.minutesTextField.getText().isEmpty()
                 || this.typeChoice.getValue() == null || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0) {
-            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
+            StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else {
             try {
                 this.controller.newTransaction(this.descriptionTextField.getText(),
                         Double.parseDouble(this.amountTextField.getText()) * ("Uscita".equals(this.typeChoice.getValue()) ? -1 : 1),
                         this.categoryChoice.getValue(), this.accountChoice.getValue(), this.dataPicker.getValue(),
                         Integer.parseInt(this.hoursTextField.getText()), Integer.parseInt(this.minutesTextField.getText()),
-                        this.repetitionChioce.getValue());
+                        this.repetitionChoice.getValue());
             } catch (final UnsupportedOperationException e) {
-                StaticAllerts.allert("Non posso eseguire una transazione in una data futura.");
+                StaticAlerts.alert("Non posso eseguire una transazione in una data futura.");
             }
             this.close();
         }

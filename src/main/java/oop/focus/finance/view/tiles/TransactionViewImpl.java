@@ -36,7 +36,7 @@ public class TransactionViewImpl extends GenericView implements Initializable, T
         this.colorLabel.setTextFill(Color.valueOf(this.transaction.getCategory().getColor()));
         this.dateLabel.setText(StaticFormats.formatDate(this.transaction.getDate()));
         this.amountLabel.setText(StaticFormats.formatAmount((double) Math.abs(this.transaction.getAmount()) / 100));
-        this.amountLabel.setTextFill(Color.valueOf(this.transaction.getAmount() > 0 ? "008f39" : "cc0605"));
+        this.amountLabel.setTextFill(this.transaction.getAmount() > 0 ? Color.GREEN : Color.RED);
         this.minusLabel.setVisible(this.transaction.getAmount() < 0);
     }
 

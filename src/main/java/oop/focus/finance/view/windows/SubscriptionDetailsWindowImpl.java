@@ -4,10 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 
 import java.util.Optional;
@@ -51,6 +52,7 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow {
         this.dataDateLabel.setText(StaticFormats.formatDate(this.subscription.getDate()));
         this.dataAccountLabel.setText(this.subscription.getAccount().getName());
         this.dataAmountLabel.setText(StaticFormats.formatAmount((double) this.subscription.getAmount() / 100));
+        this.dataAmountLabel.setTextFill(this.subscription.getAmount() > 0 ? Color.GREEN : Color.RED);
         this.dataSubscriptionLabel.setText(this.subscription.getRepetition().getName());
     }
 
@@ -71,7 +73,7 @@ public class SubscriptionDetailsWindowImpl extends GenericDetailsWindow {
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di non voler piu' rinnovare l'abbonamento?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             this.controller.stopSubscription(this.subscription);
         }

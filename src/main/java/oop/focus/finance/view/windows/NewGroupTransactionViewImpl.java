@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.NewGroupTransactionController;
 import oop.focus.calendar.persons.model.Person;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 import oop.focus.statistics.view.MultiSelectorView;
 import org.joda.time.LocalDateTime;
 
@@ -69,9 +69,9 @@ public class NewGroupTransactionViewImpl extends GenericWindow {
                 || this.multiSelector.getSelected().size() == 0 || this.madeByChoice.getValue() == null
                 || this.hoursTextField.getText().isEmpty() || Double.parseDouble(this.amountTextField.getText()) * 100 % 1 != 0
                 || this.minutesTextField.getText().isEmpty() || Double.parseDouble(this.amountTextField.getText()) < 0) {
-            StaticAllerts.allert("I campi non sono stati compilati correttamente.");
+            StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else if ((Double.parseDouble(this.amountTextField.getText()) * 100) % this.multiSelector.getSelected().size() > 0) {
-            StaticAllerts.allert("Non e' possibile dividere correttamente l'importo tra le persone selezionate.");
+            StaticAlerts.alert("Non e' possibile dividere correttamente l'importo tra le persone selezionate.");
         } else {
             this.controller.newGroupTransaction(this.descriptionTextField.getText(), this.madeByChoice.getValue(),
                     this.multiSelector.getSelected(), Double.parseDouble(this.amountTextField.getText()),

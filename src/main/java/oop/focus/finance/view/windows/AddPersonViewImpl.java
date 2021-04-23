@@ -13,7 +13,7 @@ import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.finance.controller.AddPersonController;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.calendar.persons.model.Person;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 
 /**
  * Class that implements the view of adding a person to the group of group transactions.
@@ -67,7 +67,7 @@ public class AddPersonViewImpl extends GenericWindow {
     @Override
     public final void save() {
         if (this.personChoice.getValue() == null) {
-            StaticAllerts.allert("Non hai selezionato nessuna persona.");
+            StaticAlerts.alert("Non hai selezionato nessuna persona.");
         } else {
             this.controller.addPerson(this.personChoice.getValue());
             this.close();

@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import oop.focus.finance.controller.FXMLPaths;
 import oop.focus.finance.controller.GroupController;
 import oop.focus.calendar.persons.model.Person;
-import oop.focus.finance.view.StaticAllerts;
+import oop.focus.finance.view.StaticAlerts;
 
 import java.util.Optional;
 
@@ -61,12 +61,12 @@ public class PersonDetailsWindowImpl extends GenericDetailsWindow {
      */
     @Override
     public final void save() {
-        final Optional<ButtonType> result = StaticAllerts.confirm("Sicuro di voler elminare " + this.person.getName() + "?");
+        final Optional<ButtonType> result = StaticAlerts.confirm("Sicuro di voler elminare " + this.person.getName() + "?");
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
                 this.controller.deletePerson(this.person);
             } catch (final IllegalStateException e) {
-                StaticAllerts.allert("Non e' possibile eliminare " + this.person.getName() + " perche' ha ancora dei debiti.");
+                StaticAlerts.alert("Non e' possibile eliminare " + this.person.getName() + " perche' ha ancora dei debiti.");
             }
         }
         this.close();
