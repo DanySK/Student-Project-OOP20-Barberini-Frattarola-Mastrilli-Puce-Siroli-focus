@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import oop.focus.calendar.model.Format;
 import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
+import oop.focus.calendar.month.view.CalendarMonthFactoryImpl;
 import oop.focus.calendar.month.view.CalendarMonthView;
 import oop.focus.calendar.month.view.CalendarMonthViewImpl;
 import oop.focus.calendarhomepage.controller.HotKeyController;
@@ -101,7 +101,7 @@ public class HomePageBaseViewImpl implements HomePageBaseView {
         }
 
         private void setCalendar() {
-            final CalendarMonthController monthController = new CalendarMonthControllerImpl(CalendarType.HOMEPAGE, this.controller.getDsi());
+            final CalendarMonthController monthController = new CalendarMonthFactoryImpl().createHomePage(this.controller.getDsi());
             monthController.setFontSize(Constants.FONT_SIZE);
             final CalendarMonthView month = new CalendarMonthViewImpl(CalendarType.HOMEPAGE, monthController);
             month.getMonthView().prefWidthProperty().bind(this.calendarHBox.widthProperty());

@@ -1,7 +1,6 @@
 package oop.focus.diary.controller;
 
-import oop.focus.calendar.model.CalendarType;
-import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
+import oop.focus.calendar.month.view.CalendarMonthFactoryImpl;
 import oop.focus.common.Controller;
 import oop.focus.db.DataSource;
 import oop.focus.event.model.EventManager;
@@ -21,7 +20,7 @@ public class DiarySectionsControllerFactoryImpl implements DiarySectionsControll
      */
     @Override
     public Controller getMoodCalendarController(final DataSource dataSource) {
-        return new CalendarMonthControllerImpl(CalendarType.DIARY, dataSource);
+        return new CalendarMonthFactoryImpl().createDiary(dataSource);
     }
     /**
      * {@inheritDoc}

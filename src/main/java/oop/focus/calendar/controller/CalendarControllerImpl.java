@@ -1,9 +1,8 @@
 package oop.focus.calendar.controller;
 
 
-import oop.focus.calendar.model.CalendarType;
 import oop.focus.calendar.month.controller.CalendarMonthController;
-import oop.focus.calendar.month.controller.CalendarMonthControllerImpl;
+import oop.focus.calendar.month.view.CalendarMonthFactoryImpl;
 import oop.focus.calendar.persons.controller.PersonsController;
 import oop.focus.calendar.persons.controller.PersonsControllerImpl;
 import oop.focus.calendar.settings.controller.CalendarSettingsController;
@@ -46,7 +45,7 @@ public class CalendarControllerImpl implements CalendarController {
      */
     public CalendarControllerImpl(final DataSource dataSource, final Controller homePageController) {
 
-        this.monthController = new CalendarMonthControllerImpl(CalendarType.NORMAL, dataSource);
+        this.monthController = new CalendarMonthFactoryImpl().createNormal(dataSource);
 
         this.statisticsController  = new EventsStatistics(dataSource);
 
