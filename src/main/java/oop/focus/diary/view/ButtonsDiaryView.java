@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import oop.focus.application.controller.Sections;
-import oop.focus.application.view.AbstractButtonsView;
+import oop.focus.application.view.ButtonsView;
 import oop.focus.common.Controller;
 import oop.focus.common.UpdatableController;
 import oop.focus.db.DataSource;
@@ -16,10 +16,10 @@ import oop.focus.diary.controller.DiarySections;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * Extends {@link AbstractButtonsView} and creates and manages new buttons. Each of these buttons is relatives
+ * Extends {@link ButtonsView} and creates and manages new buttons. Each of these buttons is relatives
  * to a section of diary.
  */
-public class ButtonsDiaryView extends AbstractButtonsView {
+public class ButtonsDiaryView extends ButtonsView {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final Double INSETS = 0.02;
     private static final Double BUTTONS_WIDTH = 0.7;

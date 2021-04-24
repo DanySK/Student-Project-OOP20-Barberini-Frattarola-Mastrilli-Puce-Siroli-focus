@@ -16,10 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Extends {@link AbstractButtonsView} and creates and manages new buttons. Each of these buttons is relatives
+ * Extends {@link ButtonsView} and creates and manages new buttons. Each of these buttons is relatives
  * to a section of application.
  */
-public class ButtonsAppView extends AbstractButtonsView {
+public class ButtonsAppView extends ButtonsView {
     private static final Rectangle2D SCREEN_BOUNDS = Screen.getPrimary().getBounds();
     private static final Double INSETS = 0.01;
     private static final Double BOX_HEIGHT = 0.2;

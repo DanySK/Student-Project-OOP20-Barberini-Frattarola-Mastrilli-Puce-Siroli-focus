@@ -7,14 +7,14 @@ import oop.focus.common.View;
 import java.util.Map;
 
 /**
- * This abstract class views buttons of sections of app and diary. When one of them is pressed, a specific View,
+ * This class views buttons of sections of app and diary. When one of them is pressed, a specific View,
  * associated with the section,is shown. ButtonsView also sets the first window to be opened when
  * application(or diary's section) is launched.
  */
-public abstract class AbstractButtonsView implements View {
+public class ButtonsView implements View {
     private Pane pane;
     private final UpdatableController<Controller> sectionsController;
-    public AbstractButtonsView(final UpdatableController<Controller> sectionsController) {
+    public ButtonsView(final UpdatableController<Controller> sectionsController) {
         this.sectionsController = sectionsController;
     }
 
