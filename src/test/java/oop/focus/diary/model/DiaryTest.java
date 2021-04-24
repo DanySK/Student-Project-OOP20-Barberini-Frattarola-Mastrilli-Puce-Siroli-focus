@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class DiaryDaoTest {
+public class DiaryTest {
     private final Dao<DiaryImpl> dsd = new DataSourceImpl().getDiaryDao();
     private final DiaryImpl diary1 = new DiaryImpl("testDiary1",
             "test1");

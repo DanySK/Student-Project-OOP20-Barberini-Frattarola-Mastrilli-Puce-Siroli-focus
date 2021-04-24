@@ -11,7 +11,7 @@ import org.junit.Test;
 
 
 
-public class ToDoListManagerImplTest {
+public class ToDoListManagerTest {
     private final DataSourceImpl dsi = new DataSourceImpl();
     private final ToDoListManager toDoListManager = new ToDoListManagerImpl(this.dsi);
     @Test

@@ -5,7 +5,7 @@ import org.joda.time.LocalDate;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-public class DailyMoodManagerImplTest {
+public class DailyMoodManagerTest {
     private final DailyMoodManagerImpl dailyMoodManager = new DailyMoodManagerImpl(new DataSourceImpl());
     @Test
     public void testDailyMood() throws DaoAccessException {
