@@ -300,11 +300,12 @@ public class DataTypeTest {
         int initialSize = all.size();
 
         try {
-            assertEquals(new DailyMoodImpl(5, LocalDate.now().plusDays(5)),
-                    new DailyMoodImpl(3, LocalDate.now().plusDays(5)));
-            var vars = List.of(new DailyMoodImpl(5, LocalDate.now().plusDays(5)),
-                    new DailyMoodImpl(4, LocalDate.now().plusDays(4)),
-                    new DailyMoodImpl(3, LocalDate.now().plusDays(3)));
+            assertEquals(new DailyMoodImpl(5, LocalDate.now().plusYears(9)),
+                    new DailyMoodImpl(3, LocalDate.now().plusYears(9)));
+            var vars = List.of(
+                    new DailyMoodImpl(5, LocalDate.now().plusYears(9).plusDays(1)),
+                    new DailyMoodImpl(4, LocalDate.now().plusYears(9).plusYears(9).plusDays(2)),
+                    new DailyMoodImpl(3, LocalDate.now().plusYears(9).plusYears(9).plusDays(3)));
 
             for (var v : vars) {
                 dailyMoods.save(v);
@@ -320,9 +321,9 @@ public class DataTypeTest {
             fail();
         }
         try {
-            final var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
+            final var d = new DailyMoodImpl(5, LocalDate.now().plusYears(5).plusDays(1));
             dailyMoods.save(d);
-            dailyMoods.update(new DailyMoodImpl(2, LocalDate.now().plusDays(5)));
+            dailyMoods.update(new DailyMoodImpl(2, LocalDate.now().plusYears(5).plusDays(1)));
             all = dailyMoods.getAll();
             assertEquals(initialSize + 1, all.size());
             assertEquals(2, all.stream().filter(a -> a.equals(d)).findFirst().orElseThrow().getMoodValue());
@@ -334,10 +335,10 @@ public class DataTypeTest {
             fail();
             e.printStackTrace();
         }
-        var d = new DailyMoodImpl(5, LocalDate.now().plusDays(5));
+        var d = new DailyMoodImpl(5, LocalDate.now().plusYears(5).plusDays(1));
         try {
             dailyMoods.save(d);
-            dailyMoods.update(new DailyMoodImpl(5, LocalDate.now().plusDays(6)));
+            dailyMoods.update(new DailyMoodImpl(5, LocalDate.now().plusYears(6).plusDays(5)));
             fail();
         } catch (IllegalArgumentException e) {
             // right
