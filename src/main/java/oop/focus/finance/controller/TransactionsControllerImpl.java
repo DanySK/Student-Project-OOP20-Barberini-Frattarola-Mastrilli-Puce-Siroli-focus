@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
  */
 public class TransactionsControllerImpl implements TransactionsController {
 
+    private static final String ALL_ACCOUNT_COLORS = "000000";
     private final TransactionsView view;
     private final FinanceManager manager;
     private final Predicate<Transaction> transactionPredicate;
@@ -100,7 +101,7 @@ public class TransactionsControllerImpl implements TransactionsController {
     @Override
     public final String getColor(final Predicate<Account> predicate) {
         final List<Account> list = this.getAccounts().stream().filter(predicate).collect(Collectors.toList());
-        return list.size() == 1 ? list.get(0).getColor() : "ffffff";
+        return list.size() == 1 ? list.get(0).getColor() : ALL_ACCOUNT_COLORS;
     }
 
     @Override

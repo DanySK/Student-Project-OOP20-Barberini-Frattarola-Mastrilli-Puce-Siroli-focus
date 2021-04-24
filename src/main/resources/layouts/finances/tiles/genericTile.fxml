@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="67.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="67.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <HBox BorderPane.alignment="CENTER">
          <Label fx:id="circleLabel" alignment="CENTER" prefHeight="10000.0" text="●" visible="false">
             <font>
-               <Font size="45.0" />
+               <Font size="45.0"/>
             </font>
+            <HBox.margin>
+               <Insets left="15.0"/>
+            </HBox.margin>
          </Label>
          <Label fx:id="firstLabel" prefHeight="10000.0">
             <font>
-               <Font name="System Bold" size="12.0" />
+               <Font name="System Bold" size="12.0"/>
             </font>
+            <HBox.margin>
+               <Insets left="15.0"/>
+            </HBox.margin>
          </Label>
       </HBox>
    </left>

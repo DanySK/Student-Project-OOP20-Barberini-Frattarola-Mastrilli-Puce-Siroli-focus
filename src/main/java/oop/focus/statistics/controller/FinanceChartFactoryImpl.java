@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import static oop.focus.statistics.model.DataCreator.collectData;
 
@@ -36,20 +37,24 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
                     this.getChart().setTitle(CATEGORY_TITLE);
                     final var data = factory.categoryBalances().get();
                     final Comparator<Pair<Category, Integer>> sort = Comparator.comparing(a -> a.getKey().getName());
-                    this.updatePie(data, sort, Category::getName, Category::getColor);
+                    this.updatePie(data, sort, Category::getName, Category::getColor,
+                            a -> a.getValue() < 0, a -> -a);
                 } else {
                     this.getChart().setTitle(ACCOUNTS_TITLE);
                     final var data = factory.accountBalances().get();
                     final Comparator<Pair<Account, Integer>> sort = Comparator.comparing(a -> a.getKey().getName());
-                    this.updatePie(data, sort, Account::getName, Account::getColor);
+                    this.updatePie(data, sort, Account::getName, Account::getColor,
+                            a -> a.getValue() > 0, Function.identity());
                 }
             }
 
             private <X> void updatePie(final Set<Pair<X, Integer>> data, final Comparator<Pair<X, Integer>> sort,
-                                       final Function<X, String> stringMapper, final Function<X, String> colorMapper) {
+                                       final Function<X, String> stringMapper, final Function<X, String> colorMapper,
+                                       final Predicate<Pair<X, Integer>> condition, final Function<Integer, Integer> valueMapper) {
                 final List<String> colors = new ArrayList<>();
                 this.getChart().updateData(collectData(data.stream().sorted(sort)
-                                .filter(a -> a.getValue() >= 0)
+                                .filter(condition)
+                                .map(a -> new Pair<>(a.getKey(), valueMapper.apply(a.getValue())))
                                 .peek(a -> colors.add(colorMapper.apply(a.getKey())))
                                 .map(p -> new Pair<>(stringMapper.apply(p.getKey()), p.getValue())),
                         x -> (double) x / 100));
@@ -65,6 +70,7 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
     public final UpdatableController<TimePeriodInput<Account>> periodExpenses(final FinanceManager manager) {
         final var factory = new FinanceStatisticFactoryImpl(manager);
         return new AbstractMultiValueChartController<>() {
+            private static final String ALL_ACCOUNT_COLOR = "000000";
             private static final String ALL_ACCOUNT_NAME = "Tutti gli account";
             public static final String ALL_ACCOUNTS_TITLE = "Movimenti giornalieri tutti i conti";
             public static final String ACCOUNTS_TITLE = "Movimenti giornalieri conti selezionati";
@@ -92,6 +98,7 @@ public class FinanceChartFactoryImpl implements FinanceChartFactory {
                 this.getChart().updateData(List.of(collectData(data.get().stream()
                         .sorted(Comparator.comparing(Pair::getKey)), a -> (double) a / 100)));
                 this.getChart().setNames(List.of(ALL_ACCOUNT_NAME));
+                this.getChart().setColors(List.of(ALL_ACCOUNT_COLOR));
             }
 
             /**

@@ -81,10 +81,12 @@ public class TransactionsViewImpl extends FinanceViewImpl implements Transaction
      */
     private void setPref() {
         final Rectangle2D screen = Screen.getPrimary().getBounds();
-        this.colorLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+        /*this.colorLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.accountLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.currencyLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
         this.amountLabel.prefWidthProperty().bind(this.mainPane.prefWidthProperty());
+
+         */
         this.newAccountButton.setPrefWidth(screen.getWidth());
         this.deleteButton.setPrefWidth(screen.getWidth());
         this.newTransactionButton.setPrefWidth(screen.getWidth());
@@ -107,7 +109,8 @@ public class TransactionsViewImpl extends FinanceViewImpl implements Transaction
         final List<TransactionView> transactionsTiles = new ArrayList<>();
         transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
-                event -> this.showWindow(new TransactionDetailsWindowImpl(this.controller, t.getTransaction()))));
+                event -> this.showWindow(new TransactionDetailsWindowImpl(this.controller,
+                        t.getTransaction()))));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionsTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
         this.transactionsScroll.setContent(vbox.getRoot());
