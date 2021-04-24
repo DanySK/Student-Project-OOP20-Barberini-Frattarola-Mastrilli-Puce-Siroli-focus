@@ -4,7 +4,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.AccountImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.view.windows.FinanceWindowImpl;
-import oop.focus.finance.view.windows.NewAccountViewImplImpl;
+import oop.focus.finance.view.windows.NewAccountViewImpl;
 
 /**
  * Immutable implementation of a new account controller.
@@ -16,7 +16,7 @@ public class NewAccountControllerImpl implements NewAccountController {
 
     public NewAccountControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new NewAccountViewImplImpl(this);
+        this.view = new NewAccountViewImpl(this);
     }
 
     /**

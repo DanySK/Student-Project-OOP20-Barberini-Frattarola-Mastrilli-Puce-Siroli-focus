@@ -6,17 +6,18 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import oop.focus.finance.controller.FXMLPaths;
-import oop.focus.finance.controller.NewCategoryController;
+
+import oop.focus.finance.controller.NewAccountController;
 import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 
 /**
- * Class that implements the view of creating a new category.
+ * Class that implements the view of creating a new account.
  */
-public class NewCategoryViewImplImpl extends FinanceWindowImpl {
+public class NewAccountViewImpl extends FinanceWindowImpl {
 
     @FXML
-    private Label titleLabel, nameLabel, amountLabel, colorLabel, currencyLabel;
+    private Label titleLabel, nameLabel, amountLabel, colorLabel;
     @FXML
     private TextField nameTextField, amountTextField;
     @FXML
@@ -24,9 +25,9 @@ public class NewCategoryViewImplImpl extends FinanceWindowImpl {
     @FXML
     private Button cancelButton, saveButton;
 
-    private final NewCategoryController controller;
+    private final NewAccountController controller;
 
-    public NewCategoryViewImplImpl(final NewCategoryController controller) {
+    public NewAccountViewImpl(final NewAccountController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWACCOUNT);
     }
@@ -36,24 +37,22 @@ public class NewCategoryViewImplImpl extends FinanceWindowImpl {
      */
     @Override
     public final void populate() {
-        this.titleLabel.setText("NUOVA CATEGORIA");
-        this.amountLabel.setVisible(false);
-        this.amountTextField.setVisible(false);
-        this.currencyLabel.setVisible(false);
         this.cancelButton.setOnAction(event -> this.close());
         this.saveButton.setOnAction(event -> this.save());
     }
 
     /**
      * {@inheritDoc}
-     * If the required fields are filled in, create the category.
+     * If the required fields are filled in, create the account.
      */
     @Override
     public final void save() {
-        if (this.nameTextField.getText().isEmpty()) {
+        if (this.nameTextField.getText().isEmpty() || FinanceWindow.isNotNumeric(this.amountTextField.getText())
+                || Double.parseDouble(this.amountTextField.getText()) * 100 % 100 != 0) {
             StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else {
-            this.controller.newCategory(this.nameTextField.getText(), StaticFormats.formatColor(this.colorPicker.getValue()));
+            this.controller.newAccount(this.nameTextField.getText(), StaticFormats.formatColor(this.colorPicker.getValue()),
+                        Double.parseDouble(this.amountTextField.getText()));
             this.close();
         }
     }

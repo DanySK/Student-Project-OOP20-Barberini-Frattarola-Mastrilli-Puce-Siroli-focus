@@ -6,7 +6,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.bases.GroupView;
-import oop.focus.finance.view.bases.GroupViewImplImpl;
+import oop.focus.finance.view.bases.GroupViewImpl;
 import oop.focus.calendar.persons.model.Person;
 import java.util.Comparator;
 import java.util.List;
@@ -25,7 +25,7 @@ public class GroupControllerImpl implements GroupController {
 
     public GroupControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new GroupViewImplImpl(this);
+        this.view = new GroupViewImpl(this);
         this.group = this.manager.getGroupManager().getGroup();
         this.groupTransactions = this.manager.getGroupManager().getTransactions();
         this.showPeople();

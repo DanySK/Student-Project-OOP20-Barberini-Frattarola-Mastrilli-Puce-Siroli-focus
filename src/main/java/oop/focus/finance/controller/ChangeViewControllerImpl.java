@@ -3,7 +3,7 @@ package oop.focus.finance.controller;
 import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.view.bases.BaseView;
-import oop.focus.finance.view.bases.BaseViewImplImpl;
+import oop.focus.finance.view.bases.BaseViewImpl;
 
 /**
  * Immutable implementation of a change view controller.
@@ -15,7 +15,7 @@ public class ChangeViewControllerImpl implements ChangeViewController {
 
     public ChangeViewControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new BaseViewImplImpl(this);
+        this.view = new BaseViewImpl(this);
         this.changeView(new TransactionsControllerImpl(manager, t -> true).getView());
     }
 

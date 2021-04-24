@@ -13,14 +13,14 @@ import oop.focus.finance.view.bases.FinanceViewImpl;
 /**
  * Class that implements the view of a transaction, showing the main details.
  */
-public class TransactionViewImplImpl extends FinanceViewImpl implements Initializable, TransactionView {
+public class TransactionViewImpl extends FinanceViewImpl implements Initializable, TransactionView {
 
     @FXML
     private Label descriptionLabel, categoryLabel, colorLabel, dateLabel, amountLabel, minusLabel;
 
     private final Transaction transaction;
 
-    public TransactionViewImplImpl(final Transaction transaction) {
+    public TransactionViewImpl(final Transaction transaction) {
         this.transaction = transaction;
         this.loadFXML(FXMLPaths.MOVTILE);
         this.getRoot().getStyleClass().add("generic_tile");

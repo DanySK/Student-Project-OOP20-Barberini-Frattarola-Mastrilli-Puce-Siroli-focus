@@ -12,25 +12,25 @@ import oop.focus.finance.view.bases.FinanceViewImpl;
  *
  * @param <X> type of the item that will be displayed
  */
-public class FinanceTileViewImplImpl<X> extends FinanceViewImpl implements GenericTileView<X> {
+public class FinanceTileViewImpl<X> extends FinanceViewImpl implements GenericTileView<X> {
 
     @FXML
     private Label circleLabel, firstLabel, secondLabel, amountLabel, minusLabel;
 
     private final X element;
 
-    public FinanceTileViewImplImpl(final X element, final String color, final String first, final String second, final double amount) {
+    public FinanceTileViewImpl(final X element, final String color, final String first, final String second, final double amount) {
         this.element = element;
         this.loadFXML(FXMLPaths.GENERICTILE);
         this.getRoot().getStyleClass().add("generic_tile");
         this.setLabels(color, first, second, amount);
     }
 
-    public FinanceTileViewImplImpl(final X element, final String first, final String second, final double amount) {
+    public FinanceTileViewImpl(final X element, final String first, final String second, final double amount) {
         this(element, "", first, second, amount);
     }
 
-    public FinanceTileViewImplImpl(final X element, final String description, final double amount) {
+    public FinanceTileViewImpl(final X element, final String description, final double amount) {
         this(element,  description, "", amount);
     }
 

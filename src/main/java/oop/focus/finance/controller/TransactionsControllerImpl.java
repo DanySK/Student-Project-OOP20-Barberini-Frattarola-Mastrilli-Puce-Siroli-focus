@@ -7,7 +7,7 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.bases.TransactionsView;
-import oop.focus.finance.view.bases.TransactionsViewImplImpl;
+import oop.focus.finance.view.bases.TransactionsViewImpl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,7 +33,7 @@ public class TransactionsControllerImpl implements TransactionsController {
         this.manager = manager;
         this.transactionPredicate = predicate;
         this.accountPredicate = a -> true;
-        this.view = new TransactionsViewImplImpl(this);
+        this.view = new TransactionsViewImpl(this);
         this.showTransactions(a -> true);
         this.transactions = this.manager.getTransactionManager().getElements();
         this.accounts = this.getAccounts();

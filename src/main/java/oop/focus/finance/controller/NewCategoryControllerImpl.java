@@ -4,7 +4,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.CategoryImpl;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.view.windows.FinanceWindowImpl;
-import oop.focus.finance.view.windows.NewCategoryViewImplImpl;
+import oop.focus.finance.view.windows.NewCategoryViewImpl;
 
 /**
  * Immutable implementation of a new category controller.
@@ -16,7 +16,7 @@ public class NewCategoryControllerImpl implements NewCategoryController {
 
     public NewCategoryControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new NewCategoryViewImplImpl(this);
+        this.view = new NewCategoryViewImpl(this);
     }
 
     /**

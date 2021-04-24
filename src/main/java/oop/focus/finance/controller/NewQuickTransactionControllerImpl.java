@@ -10,14 +10,14 @@ import oop.focus.finance.model.Account;
 import oop.focus.finance.model.Category;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.QuickTransactionImpl;
-import oop.focus.finance.view.windows.NewQuickTransactionViewImplImpl;
+import oop.focus.finance.view.windows.NewQuickTransactionViewImpl;
 
 /**
  * Immutable implementation of a new quick transaction controller.
  */
 public class NewQuickTransactionControllerImpl implements NewQuickTransactionController {
 
-    private final NewQuickTransactionViewImplImpl view;
+    private final NewQuickTransactionViewImpl view;
     private final FinanceManager manager;
 
     private final ObservableSet<Category> categories;
@@ -25,7 +25,7 @@ public class NewQuickTransactionControllerImpl implements NewQuickTransactionCon
 
     public NewQuickTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new NewQuickTransactionViewImplImpl(this);
+        this.view = new NewQuickTransactionViewImpl(this);
         this.categories = manager.getCategoryManager().getElements();
         this.accounts = manager.getAccountManager().getElements();
         this.addListeners();

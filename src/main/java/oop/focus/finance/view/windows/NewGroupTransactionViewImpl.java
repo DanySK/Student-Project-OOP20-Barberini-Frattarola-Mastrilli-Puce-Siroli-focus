@@ -20,7 +20,7 @@ import java.time.LocalDate;
 /**
  * Class that implements the view of creating a new group transaction.
  */
-public class NewGroupTransactionViewImplImpl extends FinanceWindowImpl {
+public class NewGroupTransactionViewImpl extends FinanceWindowImpl {
 
     @FXML
     private Label titleLabel, descriptionLabel, madeByLabel, forLabel, amountLabel;
@@ -38,7 +38,7 @@ public class NewGroupTransactionViewImplImpl extends FinanceWindowImpl {
     private MultiSelectorView<Person> multiSelector;
     private final NewGroupTransactionController controller;
 
-    public NewGroupTransactionViewImplImpl(final NewGroupTransactionController controller) {
+    public NewGroupTransactionViewImpl(final NewGroupTransactionController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWGROUPMOV);
     }

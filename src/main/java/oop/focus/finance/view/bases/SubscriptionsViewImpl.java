@@ -14,7 +14,7 @@ import oop.focus.finance.controller.SubscriptionsController;
 import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.GenericTileView;
-import oop.focus.finance.view.tiles.FinanceTileViewImplImpl;
+import oop.focus.finance.view.tiles.FinanceTileViewImpl;
 import oop.focus.finance.view.windows.SubscriptionDetailsWindowImpl;
 import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of subscriptions.
  */
-public class SubscriptionsViewImplImpl extends FinanceViewImpl implements SubscriptionsView {
+public class SubscriptionsViewImpl extends FinanceViewImpl implements SubscriptionsView {
 
     @FXML
     private BorderPane mainPane;
@@ -37,7 +37,7 @@ public class SubscriptionsViewImplImpl extends FinanceViewImpl implements Subscr
 
     private final SubscriptionsController controller;
 
-    public SubscriptionsViewImplImpl(final SubscriptionsController controller) {
+    public SubscriptionsViewImpl(final SubscriptionsController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.SUBS);
     }
@@ -70,7 +70,7 @@ public class SubscriptionsViewImplImpl extends FinanceViewImpl implements Subscr
         final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<Transaction>> subscriptionsTiles = new ArrayList<>();
         subscriptions.forEach(t -> subscriptionsTiles.add(
-                new FinanceTileViewImplImpl<>(t, t.getCategory().getColor(), t.getDescription(),
+                new FinanceTileViewImpl<>(t, t.getCategory().getColor(), t.getDescription(),
                         t.getRepetition().getName(), this.controller.getTransactionAmount(t))));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(subscriptionsTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));

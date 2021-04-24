@@ -18,7 +18,7 @@ import oop.focus.finance.view.StaticAlerts;
 /**
  * Class that implements the view of adding a person to the group of group transactions.
  */
-public class AddPersonViewImplImpl extends FinanceWindowImpl {
+public class AddPersonViewImpl extends FinanceWindowImpl {
 
     @FXML
     private Pane newPersonPane;
@@ -31,7 +31,7 @@ public class AddPersonViewImplImpl extends FinanceWindowImpl {
 
     private final AddPersonController controller;
 
-    public AddPersonViewImplImpl(final AddPersonController controller) {
+    public AddPersonViewImpl(final AddPersonController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.ADDPERSON);
     }

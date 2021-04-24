@@ -25,7 +25,7 @@ import oop.focus.finance.model.Transaction;
 import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.StaticFormats;
 import oop.focus.finance.view.tiles.TransactionView;
-import oop.focus.finance.view.tiles.TransactionViewImplImpl;
+import oop.focus.finance.view.tiles.TransactionViewImpl;
 import oop.focus.finance.view.windows.TransactionDetailsWindowImpl;
 import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of transactions and accounts.
  */
-public class TransactionsViewImplImpl extends FinanceViewImpl implements TransactionsView {
+public class TransactionsViewImpl extends FinanceViewImpl implements TransactionsView {
 
     private static final double LEFT_RATIO = 0.072;
 
@@ -56,7 +56,7 @@ public class TransactionsViewImplImpl extends FinanceViewImpl implements Transac
 
     private final TransactionsController controller;
 
-    public TransactionsViewImplImpl(final TransactionsController controller) {
+    public TransactionsViewImpl(final TransactionsController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.ALL);
     }
@@ -105,7 +105,7 @@ public class TransactionsViewImplImpl extends FinanceViewImpl implements Transac
         this.colorLabel.setTextFill(Color.valueOf(this.controller.getColor(predicate)));
         this.deleteButton.setText("Elimina " + this.controller.getAccountName());
         final List<TransactionView> transactionsTiles = new ArrayList<>();
-        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImplImpl(t)));
+        transactions.forEach(t -> transactionsTiles.add(new TransactionViewImpl(t)));
         transactionsTiles.forEach(t -> t.getRoot().addEventHandler(MouseEvent.MOUSE_CLICKED,
                 event -> this.showWindow(new TransactionDetailsWindowImpl(this.controller, t.getTransaction()))));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(transactionsTiles.stream()

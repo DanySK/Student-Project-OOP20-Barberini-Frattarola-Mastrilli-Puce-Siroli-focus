@@ -23,10 +23,10 @@ import oop.focus.finance.view.StaticAlerts;
 /**
  * Class that implements the view of creating a new quick transaction.
  */
-public class NewQuickTransactionViewImplImpl extends FinanceWindowImpl {
+public class NewQuickTransactionViewImpl extends FinanceWindowImpl {
 
     @FXML
-    private Label titleLabel, repetitionLabel, dateLabel;
+    private Label titleLabel, repetitionLabel, dateLabel, divideLabel;
     @FXML
     private TextField descriptionTextField, amountTextField, hoursTextField, minutesTextField;
     @FXML
@@ -36,7 +36,7 @@ public class NewQuickTransactionViewImplImpl extends FinanceWindowImpl {
     @FXML
     private ComboBox<Account> accountChoice;
     @FXML
-    private ComboBox<Repetition> repetitionChioce;
+    private ComboBox<Repetition> repetitionChoice;
     @FXML
     private ChoiceBox<String> typeChoice;
     @FXML
@@ -44,7 +44,7 @@ public class NewQuickTransactionViewImplImpl extends FinanceWindowImpl {
 
     private final NewQuickTransactionController controller;
 
-    public NewQuickTransactionViewImplImpl(final NewQuickTransactionController controller) {
+    public NewQuickTransactionViewImpl(final NewQuickTransactionController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.NEWMOVEMENT);
     }
@@ -58,9 +58,10 @@ public class NewQuickTransactionViewImplImpl extends FinanceWindowImpl {
         this.dateLabel.setVisible(false);
         this.dataPicker.setVisible(false);
         this.repetitionLabel.setVisible(false);
-        this.repetitionChioce.setVisible(false);
+        this.repetitionChoice.setVisible(false);
         this.hoursTextField.setVisible(false);
         this.minutesTextField.setVisible(false);
+        this.divideLabel.setVisible(false);
         this.categoryChoice.setItems(this.controller.getCategories());
         this.categoryChoice.setConverter(super.createStringConverter(Category::getName));
         this.accountChoice.setItems(this.controller.getAccounts());
@@ -95,7 +96,7 @@ public class NewQuickTransactionViewImplImpl extends FinanceWindowImpl {
             StaticAlerts.alert("I campi non sono stati compilati correttamente.");
         } else {
             this.controller.newQuickTransaction(this.descriptionTextField.getText(),
-                    Double.parseDouble(this.amountTextField.getText()) * ("uscita".equals(this.typeChoice.getValue()) ? -1 : 1),
+                    Double.parseDouble(this.amountTextField.getText()) * ("Uscita".equals(this.typeChoice.getValue()) ? -1 : 1),
                     this.categoryChoice.getValue(), this.accountChoice.getValue());
             this.close();
         }

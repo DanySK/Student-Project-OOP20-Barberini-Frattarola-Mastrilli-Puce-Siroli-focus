@@ -9,7 +9,7 @@ import oop.focus.common.View;
 import oop.focus.finance.model.FinanceManager;
 import oop.focus.finance.model.GroupTransactionImpl;
 import oop.focus.finance.view.windows.FinanceWindowImpl;
-import oop.focus.finance.view.windows.NewGroupTransactionViewImplImpl;
+import oop.focus.finance.view.windows.NewGroupTransactionViewImpl;
 import oop.focus.calendar.persons.model.Person;
 import org.joda.time.LocalDateTime;
 
@@ -29,7 +29,7 @@ public class NewGroupTransactionControllerImpl implements NewGroupTransactionCon
 
     public NewGroupTransactionControllerImpl(final FinanceManager manager) {
         this.manager = manager;
-        this.view = new NewGroupTransactionViewImplImpl(this);
+        this.view = new NewGroupTransactionViewImpl(this);
         this.group = this.manager.getGroupManager().getGroup();
         this.addListeners();
     }

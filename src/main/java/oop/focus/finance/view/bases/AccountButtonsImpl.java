@@ -20,16 +20,18 @@ public class AccountButtonsImpl implements View {
     private static final double PADDING_RATIO = 0.01;
     private static final double BUTTON_RATIO = 0.05;
 
+    private final ButtonFactory factory;
+
     private final Pane pane;
 
     public AccountButtonsImpl(final TransactionsController controller) {
         this.pane = ViewFactory.verticalWithPadding(PADDING_RATIO, PADDING_RATIO, PADDING_RATIO);
         final List<FinanceButton<TransactionsController>> accountButtons = new ArrayList<>();
-        final ButtonFactory factory = new ButtonFactoryImpl();
-        accountButtons.add(factory.getAllAccountTransactions());
+        this.factory = new ButtonFactoryImpl();
+        accountButtons.add(this.factory.getAllAccountTransactions());
         controller.getAccounts().stream()
                 .sorted(Comparator.comparing(Account::getName))
-                .forEach(a -> accountButtons.add(factory.getAccountTransactions(a)));
+                .forEach(a -> accountButtons.add(this.factory.getAccountTransactions(a)));
         accountButtons.forEach(b -> {
             b.getButton().setPrefWidth(Screen.getPrimary().getBounds().getWidth() * BUTTON_RATIO);
             this.pane.getChildren().add(b.getButton());

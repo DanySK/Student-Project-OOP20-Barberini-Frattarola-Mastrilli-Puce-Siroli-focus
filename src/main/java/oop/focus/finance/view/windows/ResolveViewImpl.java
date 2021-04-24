@@ -11,7 +11,7 @@ import oop.focus.finance.controller.ResolveController;
 import oop.focus.finance.model.GroupTransaction;
 import oop.focus.finance.view.StaticAlerts;
 import oop.focus.finance.view.tiles.GenericTileView;
-import oop.focus.finance.view.tiles.FinanceTileViewImplImpl;
+import oop.focus.finance.view.tiles.FinanceTileViewImpl;
 import oop.focus.statistics.view.ViewFactory;
 import oop.focus.statistics.view.ViewFactoryImpl;
 
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * Class that implements the view of all generated group transactions to quickly resolve all debts.
  */
-public class ResolveViewImplImpl extends FinanceWindowImpl {
+public class ResolveViewImpl extends FinanceWindowImpl {
 
     @FXML
     private Label resolveLabel;
@@ -34,7 +34,7 @@ public class ResolveViewImplImpl extends FinanceWindowImpl {
 
     private final ResolveController controller;
 
-    public ResolveViewImplImpl(final ResolveController controller) {
+    public ResolveViewImpl(final ResolveController controller) {
         this.controller = controller;
         this.loadFXML(FXMLPaths.RESOLVE);
     }
@@ -57,7 +57,7 @@ public class ResolveViewImplImpl extends FinanceWindowImpl {
         final ViewFactory viewFactory = new ViewFactoryImpl();
         final List<GenericTileView<GroupTransaction>> resolvingTiles = new ArrayList<>();
         this.controller.getResolvingTransactions().forEach(t -> resolvingTiles.add(
-                new FinanceTileViewImplImpl<>(t, t.getMadeBy().getName() + " -> "
+                new FinanceTileViewImpl<>(t, t.getMadeBy().getName() + " -> "
                         + t.getForList().get(0).getName(), (double) t.getAmount() / 100)));
         final View vbox = viewFactory.createVerticalAutoResizingWithNodes(resolvingTiles.stream()
                 .map(View::getRoot).collect(Collectors.toList()));
