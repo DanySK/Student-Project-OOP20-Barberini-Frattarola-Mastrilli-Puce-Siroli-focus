@@ -1,3 +1,5 @@
+import de.aaschmid.gradle.plugins.cpd.Cpd
+
 plugins {
     // Apply the java plugin to add support for Java
     java
@@ -12,6 +14,12 @@ plugins {
      * The runnable jar will be found in build/libs/projectname-all.jar
      */
     id("com.github.johnrengelman.shadow") version "6.1.0"
+
+    checkstyle
+    pmd
+    id("de.aaschmid.cpd") version "3.2"
+    id("com.github.spotbugs") version "4.7.1"
+    `build-dashboard`
 }
 
 repositories {
@@ -57,6 +65,7 @@ tasks.withType<JavaCompile> {
 tasks.withType<Test> {
     // Enables JUnit 5 Jupiter module
     useJUnitPlatform()
+    ignoreFailures = true
 }
 
 application {
@@ -75,4 +84,49 @@ application {
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+
+spotbugs {
+    setEffort("max")
+    setReportLevel("low")
+    showProgress.set(true)
+    val excludeFile = File("${project.rootProject.projectDir}/config/spotbugs/excludes.xml")
+    if (excludeFile.exists()) {
+        excludeFilter.set(excludeFile)
+    }
+}
+
+tasks.withType<com.github.spotbugs.snom.SpotBugsTask> {
+    ignoreFailures = true
+    reports {
+        create("html") {
+            enabled = true
+        }
+    }
+}
+
+pmd {
+    ruleSets = listOf()
+    ruleSetConfig = resources.text.fromFile("${project.rootProject.projectDir}/config/pmd/pmd.xml")
+    isIgnoreFailures = true
+}
+
+cpd {
+    isIgnoreFailures = true
+}
+
+tasks.withType<Cpd> {
+    reports {
+        xml.setEnabled(false)
+        text.setEnabled(true)
+    }
+    language = "java"
+    minimumTokenCount = 50
+    ignoreFailures = true
+    source = sourceSets["main"].allJava
+}
+
+checkstyle {
+    isIgnoreFailures = true
 }
